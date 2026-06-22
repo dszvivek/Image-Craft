@@ -9,7 +9,13 @@ import {
   LayoutGrid, 
   Palette, 
   FileText,
-  Lock
+  Lock,
+  Files,
+  Fingerprint,
+  Copyright,
+  Crop,
+  Smile,
+  Feather
 } from 'lucide-react';
 import { AdPlacement } from '../components/AdPlacement';
 
@@ -62,6 +68,48 @@ export const Layout = () => {
       description: 'Quantize colors and copy HEX values.',
       colorClass: 'text-cyan-650 bg-cyan-50 border-cyan-100/50'
     },
+    { 
+      name: 'Batch Image Converter', 
+      path: '/batch-converter', 
+      icon: Files,
+      description: 'Convert multiple images & PDF packages locally.',
+      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50'
+    },
+    { 
+      name: 'EXIF Metadata Stripper', 
+      path: '/metadata-stripper', 
+      icon: Fingerprint,
+      description: 'Inspect and strip EXIF privacy headers.',
+      colorClass: 'text-red-650 bg-red-50 border-red-100/50'
+    },
+    { 
+      name: 'Watermark Overlay', 
+      path: '/watermark-overlay', 
+      icon: Copyright,
+      description: 'Apply logos and text watermarks client-side.',
+      colorClass: 'text-rose-650 bg-rose-50 border-rose-100/50'
+    },
+    { 
+      name: 'Aspect Ratio Resizer', 
+      path: '/aspect-resizer', 
+      icon: Crop,
+      description: 'Crop and scale to social preset dimensions.',
+      colorClass: 'text-amber-650 bg-amber-50 border-amber-100/50'
+    },
+    { 
+      name: 'Instant Meme Generator', 
+      path: '/meme-generator', 
+      icon: Smile,
+      description: 'Design custom top/bottom captioned memes.',
+      colorClass: 'text-green-650 bg-green-50 border-green-100/50'
+    },
+    { 
+      name: 'SVG Vectorizer', 
+      path: '/svg-vectorizer', 
+      icon: Feather,
+      description: 'Trace raster logos into scalable SVGs.',
+      colorClass: 'text-teal-650 bg-teal-50 border-teal-100/50'
+    },
   ];
 
   return (
@@ -110,7 +158,7 @@ export const Layout = () => {
               </button>
 
               {/* Dropdown Menu */}
-              <div className="absolute left-1/2 -translate-x-1/2 mt-3.5 w-[520px] bg-white border border-slate-200/60 p-4.5 rounded-2xl shadow-2xl opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-200 grid grid-cols-2 gap-2 z-50">
+              <div className="absolute left-1/2 -translate-x-1/2 mt-3.5 w-[640px] bg-white border border-slate-200/60 p-4.5 rounded-2xl shadow-2xl opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-200 grid grid-cols-2 gap-2 z-50">
                 {/* Visual Arrow */}
                 <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-t border-l border-slate-200/60 rotate-45" />
                 
@@ -283,7 +331,7 @@ export const Layout = () => {
           <div>
             <h4 className="font-semibold text-sm text-slate-800 mb-3.5">Image Tools</h4>
             <ul className="text-xs text-slate-500 flex flex-col gap-2">
-              {tools.slice(0, 3).map(t => (
+              {tools.slice(0, 6).map(t => (
                 <li key={t.path}><Link to={t.path} className="hover:text-indigo-600 transition">{t.name}</Link></li>
               ))}
             </ul>
@@ -292,7 +340,7 @@ export const Layout = () => {
           <div>
             <h4 className="font-semibold text-sm text-slate-800 mb-3.5">Social Utilities</h4>
             <ul className="text-xs text-slate-500 flex flex-col gap-2">
-              {tools.slice(3).map(t => (
+              {tools.slice(6).map(t => (
                 <li key={t.path}><Link to={t.path} className="hover:text-indigo-600 transition">{t.name}</Link></li>
               ))}
             </ul>

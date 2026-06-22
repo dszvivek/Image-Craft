@@ -11,6 +11,12 @@ const OcrExtractor = lazy(() => import('../pages/OcrExtractor').then(module => (
 const GridSplitter = lazy(() => import('../pages/GridSplitter').then(module => ({ default: module.GridSplitter })));
 const CollageMaker = lazy(() => import('../pages/CollageMaker').then(module => ({ default: module.CollageMaker })));
 const PaletteExtractor = lazy(() => import('../pages/PaletteExtractor').then(module => ({ default: module.PaletteExtractor })));
+const BatchConverter = lazy(() => import('../pages/BatchConverter').then(module => ({ default: module.BatchConverter })));
+const MetadataStripper = lazy(() => import('../pages/MetadataStripper').then(module => ({ default: module.MetadataStripper })));
+const WatermarkOverlay = lazy(() => import('../pages/WatermarkOverlay').then(module => ({ default: module.WatermarkOverlay })));
+const AspectResizer = lazy(() => import('../pages/AspectResizer').then(module => ({ default: module.AspectResizer })));
+const MemeGenerator = lazy(() => import('../pages/MemeGenerator').then(module => ({ default: module.MemeGenerator })));
+const SvgVectorizer = lazy(() => import('../pages/SvgVectorizer').then(module => ({ default: module.SvgVectorizer })));
 const About = lazy(() => import('../pages/About').then(module => ({ default: module.About })));
 const Privacy = lazy(() => import('../pages/Privacy').then(module => ({ default: module.Privacy })));
 const Contact = lazy(() => import('../pages/Contact').then(module => ({ default: module.Contact })));
@@ -82,6 +88,54 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <PaletteExtractor />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'batch-converter',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BatchConverter />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'metadata-stripper',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MetadataStripper />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'watermark-overlay',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <WatermarkOverlay />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'aspect-resizer',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AspectResizer />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'meme-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MemeGenerator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'svg-vectorizer',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SvgVectorizer />
           </Suspense>
         ),
       },
