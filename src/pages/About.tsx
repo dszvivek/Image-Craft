@@ -101,6 +101,71 @@ export const About: React.FC = () => {
           </ul>
         </section>
 
+        {/* Testimonials Section */}
+        <section className="space-y-6 pt-6 border-t border-slate-200/60">
+          <h2 className="text-xl font-black text-slate-900 text-center">User Testimonials</h2>
+          <p className="text-xs text-slate-500 text-center max-w-md mx-auto leading-relaxed">
+            See what professionals and creators are saying about ImageCraft AI's sandbox performance.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              {
+                quote: "Zero uploads means I can compress confidential brand visuals without worrying about compliance or NDA issues. ImageCraft is an essential daily utility.",
+                author: "Jane Doe",
+                role: "Lead Brand Designer",
+                avatarColor: "bg-indigo-100 text-indigo-700",
+                initials: "JD"
+              },
+              {
+                quote: "The background cutout runs completely in-browser! Once the cached model is loaded, it executes instantly. Incredible design.",
+                author: "Marcus Chen",
+                role: "UX Lead at FlowState",
+                avatarColor: "bg-purple-100 text-purple-700",
+                initials: "MC"
+              },
+              {
+                quote: "Splitting grid layouts for Instagram is seamless. No ads covering the download button, no payment walls, and original resolution is preserved.",
+                author: "Sarah Lund",
+                role: "Digital Creator",
+                avatarColor: "bg-pink-100 text-pink-700",
+                initials: "SL"
+              },
+              {
+                quote: "The OCR text extraction auto-detects English and Hindi flawlessly. Incredible to see such complex tools compile entirely client-side.",
+                author: "Alex Rivera",
+                role: "Frontend Engineer",
+                avatarColor: "bg-emerald-100 text-emerald-700",
+                initials: "AR"
+              },
+              {
+                quote: "I love the Color Palette Extractor. I drop an asset, copy the generated Tailwind configuration codes, and apply it directly. Highly recommend!",
+                author: "Elena Rostova",
+                role: "UI Developer",
+                avatarColor: "bg-cyan-100 text-cyan-700",
+                initials: "ER"
+              }
+            ].map((test, index) => (
+              <div 
+                key={index} 
+                className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/50 flex flex-col justify-between gap-5 hover:scale-[1.01] transition-transform shadow-xs"
+              >
+                <p className="text-xs md:text-sm text-slate-550 leading-relaxed font-medium italic">
+                  "{test.quote}"
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border border-slate-250/50 ${test.avatarColor}`}>
+                    {test.initials}
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black text-slate-800">{test.author}</h4>
+                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">{test.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
       </div>
     </div>
   );

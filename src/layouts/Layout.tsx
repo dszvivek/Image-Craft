@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { 
   Menu, 
   X, 
@@ -15,14 +15,53 @@ import { AdPlacement } from '../components/AdPlacement';
 
 export const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const showSidebar = !['/', '/about', '/privacy', '/contact'].includes(location.pathname);
 
   const tools = [
-    { name: 'Image Compressor', path: '/image-compressor', icon: ImageIcon },
-    { name: 'AI Background Remover', path: '/background-remover', icon: Cpu },
-    { name: 'OCR Text Extractor', path: '/ocr-text-extractor', icon: FileText },
-    { name: 'Instagram Grid Splitter', path: '/instagram-grid-splitter', icon: Maximize2 },
-    { name: 'Photo Collage Maker', path: '/collage-maker', icon: LayoutGrid },
-    { name: 'Color Palette Extractor', path: '/color-palette-extractor', icon: Palette },
+    { 
+      name: 'Image Compressor', 
+      path: '/image-compressor', 
+      icon: ImageIcon,
+      description: 'Optimize JPEGs, PNGs, and WebPs locally.',
+      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50'
+    },
+    { 
+      name: 'AI Background Remover', 
+      path: '/background-remover', 
+      icon: Cpu,
+      description: 'Isolate subjects completely inside browser.',
+      colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50'
+    },
+    { 
+      name: 'OCR Text Extractor', 
+      path: '/ocr-text-extractor', 
+      icon: FileText,
+      description: 'Extract multi-language texts from image scans.',
+      colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50'
+    },
+    { 
+      name: 'Instagram Grid Splitter', 
+      path: '/instagram-grid-splitter', 
+      icon: Maximize2,
+      description: 'Slice photos into creative tile grids.',
+      colorClass: 'text-orange-650 bg-orange-50 border-orange-100/50'
+    },
+    { 
+      name: 'Photo Collage Maker', 
+      path: '/collage-maker', 
+      icon: LayoutGrid,
+      description: 'Assemble images in dynamic canvases.',
+      colorClass: 'text-pink-650 bg-pink-50 border-pink-100/50'
+    },
+    { 
+      name: 'Color Palette Extractor', 
+      path: '/color-palette-extractor', 
+      icon: Palette,
+      description: 'Quantize colors and copy HEX values.',
+      colorClass: 'text-cyan-650 bg-cyan-50 border-cyan-100/50'
+    },
   ];
 
   return (
@@ -71,19 +110,25 @@ export const Layout = () => {
               </button>
 
               {/* Dropdown Menu */}
-              <div className="absolute left-1/2 -translate-x-1/2 mt-1.5 w-64 premium-bento p-2.5 rounded-2xl shadow-2xl opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-200 flex flex-col gap-1 z-50">
+              <div className="absolute left-1/2 -translate-x-1/2 mt-3.5 w-[520px] bg-white border border-slate-200/60 p-4.5 rounded-2xl shadow-2xl opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-200 grid grid-cols-2 gap-2 z-50">
+                {/* Visual Arrow */}
+                <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-t border-l border-slate-200/60 rotate-45" />
+                
                 {tools.map((tool) => {
                   const Icon = tool.icon;
                   return (
                     <Link
                       key={tool.path}
                       to={tool.path}
-                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 text-slate-650 hover:text-slate-900 transition-all text-xs font-semibold"
+                      className="flex items-start gap-3 p-3 rounded-xl hover:bg-slate-50/80 text-slate-700 hover:text-indigo-600 transition-all text-left"
                     >
-                      <div className="w-7 h-7 rounded-lg bg-slate-50 flex items-center justify-center border border-slate-200">
-                        <Icon className="w-4 h-4 text-indigo-550" />
+                      <div className={`w-9 h-9 rounded-xl flex items-center justify-center border shrink-0 ${tool.colorClass}`}>
+                        <Icon className="w-4.5 h-4.5" />
                       </div>
-                      {tool.name}
+                      <div className="space-y-0.5">
+                        <div className="text-xs font-bold leading-tight">{tool.name}</div>
+                        <div className="text-[10px] text-slate-450 leading-relaxed font-medium">{tool.description}</div>
+                      </div>
                     </Link>
                   );
                 })}
@@ -105,6 +150,14 @@ export const Layout = () => {
               }
             >
               Privacy
+            </NavLink>
+            <NavLink 
+              to="/faq" 
+              className={({ isActive }) => 
+                `text-[11px] font-bold uppercase tracking-wider hover:text-indigo-600 transition-colors ${isActive ? 'text-indigo-600' : 'text-slate-550'}`
+              }
+            >
+              FAQ
             </NavLink>
             <NavLink 
               to="/contact" 
@@ -191,7 +244,7 @@ export const Layout = () => {
       <AdPlacement type="header" className="px-4" />
 
       {/* Main Page Area */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row gap-8">
+      <main className={`flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col ${showSidebar ? 'md:flex-row' : ''} gap-8`}>
         
         {/* Main Content Pane */}
         <div className="flex-1 min-w-0">
@@ -199,11 +252,13 @@ export const Layout = () => {
         </div>
 
         {/* Sidebar Ad Placement (Desktop only) */}
-        <aside className="hidden lg:block w-[300px] shrink-0">
-          <div className="sticky top-24">
-            <AdPlacement type="sidebar" />
-          </div>
-        </aside>
+        {showSidebar && (
+          <aside className="hidden lg:block w-[300px] shrink-0">
+            <div className="sticky top-24">
+              <AdPlacement type="sidebar" />
+            </div>
+          </aside>
+        )}
       </main>
 
       {/* Footer Ad Placement (Mobile only) */}
@@ -245,8 +300,9 @@ export const Layout = () => {
 
           <div>
             <h4 className="font-semibold text-sm text-slate-800 mb-3.5">Privacy & Legal</h4>
-            <ul className="text-xs text-slate-500 flex flex-col gap-2">
+            <ul className="text-xs text-slate-550 flex flex-col gap-2">
               <li><Link to="/about" className="hover:text-indigo-600 transition">About Us</Link></li>
+              <li><Link to="/faq" className="hover:text-indigo-600 transition">FAQ Helpdesk</Link></li>
               <li><Link to="/privacy" className="hover:text-indigo-600 transition">Privacy Policy</Link></li>
               <li><Link to="/contact" className="hover:text-indigo-600 transition">Contact Support</Link></li>
               <li className="flex items-center gap-1 text-[11px] text-slate-400 mt-2">

@@ -4,6 +4,7 @@ import { FileText, Copy, Download, RefreshCw, Check, Globe, ShieldAlert } from '
 import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
 import { SEO } from '../components/SEO';
+import ocrExtractorGif from '../assets/ocr_extractor_feature.gif';
 
 interface LangOption {
   code: string;
@@ -410,11 +411,29 @@ export const OcrExtractor: React.FC = () => {
         </div>
 
         {!originalFile && (
-          <DropZone 
-            onFilesSelected={handleFilesSelected}
-            title="Drop image containing text"
-            subtitle="Supports scanned PDFs, screenshots, JPEG, PNG"
-          />
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch max-w-5xl mx-auto">
+            <div className="md:col-span-7 flex flex-col justify-center">
+              <DropZone 
+                onFilesSelected={handleFilesSelected}
+                title="Drop image containing text"
+                subtitle="Supports scanned PDFs, screenshots, JPEG, PNG"
+              />
+            </div>
+            <div className="md:col-span-5 flex">
+              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-indigo-300 transition-all duration-300">
+                <div className="space-y-4">
+                  <div className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 border border-indigo-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
+                  <h3 className="text-base font-extrabold text-slate-900">How OCR Text Extractor Works</h3>
+                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                    Run highly accurate optical character recognition locally. Isolate multi-language scripts, scanned books, and document images without third-party network uploads.
+                  </p>
+                </div>
+                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
+                  <img src={ocrExtractorGif} alt="OCR Extractor Demo" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            </div>
+          </div>
         )}
 
         {isProcessing && (

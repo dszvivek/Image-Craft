@@ -4,6 +4,7 @@ import { DropZone } from '../components/DropZone';
 import { extractDominantColors } from '../utils/colorExtractor';
 import type { ColorSwatch } from '../types';
 import { SEO } from '../components/SEO';
+import paletteExtractorGif from '../assets/palette_extractor_feature.gif';
 
 export const PaletteExtractor: React.FC = () => {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
@@ -159,11 +160,29 @@ export const PaletteExtractor: React.FC = () => {
         </div>
 
         {!originalFile ? (
-          <DropZone 
-            onFilesSelected={handleFilesSelected}
-            title="Drop image to extract palette"
-            subtitle="Supports JPEG, PNG, WebP, SVG"
-          />
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch max-w-5xl mx-auto">
+            <div className="md:col-span-7 flex flex-col justify-center">
+              <DropZone 
+                onFilesSelected={handleFilesSelected}
+                title="Drop image to extract palette"
+                subtitle="Supports JPEG, PNG, WebP, SVG"
+              />
+            </div>
+            <div className="md:col-span-5 flex">
+              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-indigo-300 transition-all duration-300">
+                <div className="space-y-4">
+                  <div className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 border border-indigo-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
+                  <h3 className="text-base font-extrabold text-slate-900">How Palette Extractor Works</h3>
+                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                    Analyze design colors and generate harmonized swatches locally. Copy hex/rgb codes, download custom JSON files, CSS variables, or visual swatch sheets instantly.
+                  </p>
+                </div>
+                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
+                  <img src={paletteExtractorGif} alt="Color Palette Extractor Demo" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            </div>
+          </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             

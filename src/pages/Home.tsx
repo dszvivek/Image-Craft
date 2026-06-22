@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ShieldCheck, 
@@ -10,88 +10,20 @@ import {
   Palette, 
   FileText, 
   Lock,
-  ChevronDown, 
-  ChevronUp,
   ArrowRight,
   Sparkles,
-  FileCheck,
-  Code
+  FileCheck
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
-interface FAQItem {
-  q: string;
-  a: string;
-}
+import compressorImg from '../assets/compressor_feature.gif';
+import bgRemoverImg from '../assets/bg_remover_feature.gif';
+import ocrExtractorImg from '../assets/ocr_extractor_feature.gif';
+import gridSplitterImg from '../assets/grid_splitter_feature.gif';
+import collageMakerImg from '../assets/collage_maker_feature.gif';
+import paletteExtractorImg from '../assets/palette_extractor_feature.gif';
 
 export const Home: React.FC = () => {
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
-  const [copiedColor, setCopiedColor] = useState<string | null>(null);
-
-
-  const testimonials = [
-    {
-      quote: "Zero uploads means I can compress confidential brand visuals without worrying about compliance or NDA issues. ImageCraft is an essential daily utility.",
-      author: "Jane Doe",
-      role: "Lead Brand Designer",
-      avatarColor: "bg-indigo-100 text-indigo-700",
-      initials: "JD"
-    },
-    {
-      quote: "The background cutout runs completely in-browser! Once the cached model is loaded, it executes instantly. Incredible design.",
-      author: "Marcus Chen",
-      role: "UX Lead at FlowState",
-      avatarColor: "bg-purple-100 text-purple-700",
-      initials: "MC"
-    },
-    {
-      quote: "Splitting grid layouts for Instagram is seamless. No ads covering the download button, no payment walls, and original resolution is preserved.",
-      author: "Sarah Lund",
-      role: "Digital Creator",
-      avatarColor: "bg-pink-100 text-pink-700",
-      initials: "SL"
-    },
-    {
-      quote: "The OCR text extraction auto-detects English and Hindi flawlessly. Incredible to see such complex tools compile entirely client-side.",
-      author: "Alex Rivera",
-      role: "Frontend Engineer",
-      avatarColor: "bg-emerald-100 text-emerald-700",
-      initials: "AR"
-    },
-    {
-      quote: "I love the Color Palette Extractor. I drop an asset, copy the generated Tailwind configuration codes, and apply it directly. Highly recommend!",
-      author: "Elena Rostova",
-      role: "UI Developer",
-      avatarColor: "bg-cyan-100 text-cyan-700",
-      initials: "ER"
-    }
-  ];
-
-  const faqs: FAQItem[] = [
-    {
-      q: 'How does client-side local processing work?',
-      a: 'Modern browsers are capable of running complex calculations via Web Workers and WebAssembly. We pack compiling scripts and AI weights directly into your browser. Once loaded, everything runs on your physical CPU or GPU, entirely bypassing the cloud.'
-    },
-    {
-      q: 'Are my private files saved or monitored?',
-      a: 'Absolutely not. ImageCraft AI has no databases, telemetry tracking, or backend servers for your files. All transformations, AI cutouts, and OCR script scanning occur locally in your browser memory (RAM).'
-    },
-    {
-      q: 'Why does background removal require an initial download?',
-      a: 'The AI tool runs a local neural network (RMBG-1.4) inside your browser. The first time you launch the tool, the weights (approx. 10MB) are downloaded from Hugging Face CDN. They are subsequently cached in your browser\'s IndexedDB, enabling immediate, offline loading next time.'
-    },
-    {
-      q: 'Is ImageCraft AI truly 100% free?',
-      a: 'Yes, completely. There are no registration forms, no usage credits, and no subscriptions. The application is supported by lightweight, non-disruptive ad placements without interrupting your local workflow.'
-    }
-  ];
-
-  const handleCopyColor = (hex: string) => {
-    navigator.clipboard.writeText(hex);
-    setCopiedColor(hex);
-    setTimeout(() => setCopiedColor(null), 2000);
-  };
-
   return (
     <div className="w-full relative">
       <SEO 
@@ -268,296 +200,231 @@ export const Home: React.FC = () => {
 
       </section>
 
-      {/* Bento Grid: Tools Directory */}
-      <section id="tools-grid" className="py-16 border-t border-slate-200/60 mt-12 max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Browser-Based Utilities</h2>
-          <p className="text-xs md:text-sm text-slate-450 font-bold uppercase tracking-wider">Select a standalone application module</p>
+      {/* Tools Directory Section: Large Alternating Showcases */}
+      <section id="tools-grid" className="py-16 border-t border-slate-200/60 mt-12 max-w-5xl mx-auto">
+        <div className="text-center mb-16">
+          <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 px-2.5 py-1 rounded-full border border-indigo-100 uppercase tracking-widest">
+            Module Catalog
+          </span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 mb-3">
+            Our Local Image Tools
+          </h2>
+          <p className="text-xs md:text-sm text-slate-500 max-w-md mx-auto">
+            Click on any module to run high-performance image transformations directly inside your browser cache.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="space-y-24">
           
-          {/* 1. Image Compressor (col-span-2) */}
-          <div className="group md:col-span-2 premium-bento rounded-3xl p-6 bg-white flex flex-col justify-between hover:scale-[1.01]">
-            <div className="flex flex-col md:flex-row gap-6 justify-between items-start h-full">
-              <div className="flex-1 space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 bg-indigo-50 rounded-xl flex items-center justify-center border border-indigo-100 text-indigo-600 group-hover:scale-105 transition-transform duration-200">
-                    <ImageIcon className="w-5.5 h-5.5" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 px-2 py-0.5 rounded border border-indigo-100">Core Optimization</span>
-                    <h3 className="text-lg font-bold text-slate-900 mt-1 group-hover:text-indigo-650 transition-colors">Image Compressor</h3>
-                  </div>
+          {/* 1. Image Compressor */}
+          <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
+            <div className="flex-1 space-y-5 text-left">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 bg-indigo-50 rounded-2xl flex items-center justify-center border border-indigo-100 text-indigo-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
+                  <ImageIcon className="w-5.5 h-5.5" />
                 </div>
-                <p className="text-xs md:text-sm text-slate-500 leading-relaxed max-w-md">
-                  Reduce heavy JPEG, PNG, and WebP assets by up to 90% without visible noise. Fully control dimensions, quality percentages, and target file formats.
-                </p>
-              </div>
-
-              {/* Card visual detail */}
-              <div className="w-full md:w-48 bg-slate-50 border border-slate-100 rounded-2xl p-3 flex flex-col gap-2 pointer-events-none select-none">
-                <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
-                  <div className="h-full w-4/5 bg-indigo-600 rounded-full animate-pulse" />
-                </div>
-                <div className="flex justify-between text-[9px] font-bold text-slate-450 font-mono">
-                  <span>90% quality</span>
-                  <span className="text-indigo-600">-84% Saved</span>
-                </div>
-                <div className="border-t border-slate-200/50 pt-2 flex items-center justify-between text-[10px] text-slate-500">
-                  <span>output.webp</span>
-                  <span className="bg-emerald-50 text-emerald-700 px-1 rounded font-bold">Safe</span>
+                <div>
+                  <span className="text-[10px] font-bold text-indigo-650 uppercase tracking-wider bg-indigo-50/40 border border-indigo-100/60 px-2 py-0.5 rounded font-bold">Core Optimization</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-indigo-650 transition-colors">Image Compressor</h3>
                 </div>
               </div>
-            </div>
-
-            <div className="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Features side-by-side split screen</span>
+              <p className="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+                Optimize your JPEGs, PNGs, and WebPs in seconds. Control quality levels and convert formats offline without losing pixel fidelity.
+              </p>
+              <ul className="space-y-2 text-xs font-semibold text-slate-655">
+                <li className="flex items-center gap-2">✓ Save up to 90% in bundle sizes</li>
+                <li className="flex items-center gap-2">✓ Direct side-by-side comparison slider</li>
+                <li className="flex items-center gap-2">✓ Bulk offline conversion engine</li>
+              </ul>
               <Link 
                 to="/image-compressor" 
-                className="w-full sm:w-auto px-5 py-2.5 bg-slate-50 hover:bg-indigo-600 text-slate-650 hover:text-white rounded-xl text-xs font-bold text-center transition-all duration-200 border border-slate-200 hover:border-indigo-500 shadow-xs flex items-center justify-center gap-1.5"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-650 hover:bg-indigo-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-indigo-500/10 active:scale-98"
               >
                 Launch Compressor
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-4 h-4" />
               </Link>
+            </div>
+
+            <div className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative pointer-events-none select-none shadow-sm group-hover:scale-[1.02] group-hover:border-indigo-400/80 group-hover:shadow-[0_12px_40px_rgba(99,102,241,0.15)] transition-all duration-300">
+              <img src={compressorImg} alt="Compressor Demo" className="w-full h-full object-cover" />
             </div>
           </div>
 
-          {/* 2. AI Background Remover (col-span-1) */}
-          <div className="group premium-bento rounded-3xl p-6 bg-white flex flex-col justify-between hover:scale-[1.01]">
-            <div className="space-y-4">
+          {/* 2. AI Background Remover */}
+          <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
+            <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-purple-50 rounded-xl flex items-center justify-center border border-purple-100 text-purple-600 group-hover:scale-105 transition-transform duration-200">
+                <div className="w-11 h-11 bg-purple-50 rounded-2xl flex items-center justify-center border border-purple-100 text-purple-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
                   <Cpu className="w-5.5 h-5.5" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold text-purple-650 bg-purple-50/50 px-2 py-0.5 rounded border border-purple-100">Local Model</span>
-                  <h3 className="text-lg font-bold text-slate-900 mt-1 group-hover:text-purple-650 transition-colors">AI Cutout</h3>
+                  <span className="text-[10px] font-bold text-purple-650 uppercase tracking-wider bg-purple-50/40 border border-purple-100/60 px-2 py-0.5 rounded font-bold">AI Segmenting</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-purple-650 transition-colors">AI Background Remover</h3>
                 </div>
               </div>
-              <p className="text-xs text-slate-550 leading-relaxed">
-                Remove backgrounds instantly. Powered by RMBG-1.4 neural network executing on-device in Web Worker threads.
+              <p className="text-xs md:text-sm text-slate-550 leading-relaxed font-medium">
+                Remove image backdrops automatically. Powered by neural networks compiling directly in your browser's IndexedDB models cache.
               </p>
-              
-              {/* Card visual detail */}
-              <div className="bg-slate-50 border border-slate-100 rounded-2xl p-3 aspect-[4/3] flex items-center justify-center relative overflow-hidden pointer-events-none">
-                <div className="absolute inset-0 bg-[linear-gradient(45deg,#e2e8f0_25%,transparent_25%),linear-gradient(-45deg,#e2e8f0_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#e2e8f0_75%),linear-gradient(-45deg,transparent_75%,#e2e8f0_75%)] bg-[size:8px_8px] bg-[position:0_0,0_4px,4px_-4px,-4px_0] bg-slate-50 opacity-40" />
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-purple-500 to-indigo-500 text-white flex items-center justify-center shadow-lg z-10 border-2 border-white animate-float">
-                  <Sparkles className="w-6 h-6" />
-                </div>
-              </div>
+              <ul className="space-y-2 text-xs font-semibold text-slate-655">
+                <li className="flex items-center gap-2">✓ Neural subject segmentation (RMBG-1.4)</li>
+                <li className="flex items-center gap-2">✓ No files transferred to cloud servers</li>
+                <li className="flex items-center gap-2">✓ Instant transparent alpha download</li>
+              </ul>
+              <Link 
+                to="/background-remover" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-purple-655 hover:bg-purple-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-purple-500/10 active:scale-98"
+              >
+                Launch AI Cutout
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
-            <Link 
-              to="/background-remover" 
-              className="w-full mt-6 py-2.5 bg-slate-50 hover:bg-purple-600 text-slate-650 hover:text-white rounded-xl text-xs font-bold text-center transition-all duration-200 border border-slate-200 hover:border-purple-500 shadow-xs flex items-center justify-center gap-1"
-            >
-              Launch AI Cutout
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+            <div className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative pointer-events-none select-none shadow-sm group-hover:scale-[1.02] group-hover:border-purple-400/80 group-hover:shadow-[0_12px_40px_rgba(167,139,250,0.15)] transition-all duration-300">
+              <img src={bgRemoverImg} alt="AI Background Remover Demo" className="w-full h-full object-cover" />
+            </div>
           </div>
 
-          {/* 3. OCR Text Extractor (col-span-1) */}
-          <div className="group premium-bento rounded-3xl p-6 bg-white flex flex-col justify-between hover:scale-[1.01]">
-            <div className="space-y-4">
+          {/* 3. OCR Text Extractor */}
+          <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
+            <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-emerald-50 rounded-xl flex items-center justify-center border border-emerald-100 text-emerald-600 group-hover:scale-105 transition-transform duration-200">
+                <div className="w-11 h-11 bg-emerald-50 rounded-2xl flex items-center justify-center border border-emerald-100 text-emerald-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
                   <FileText className="w-5.5 h-5.5" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold text-emerald-650 bg-emerald-50/50 px-2 py-0.5 rounded border border-emerald-100">Scan scripts</span>
-                  <h3 className="text-lg font-bold text-slate-900 mt-1 group-hover:text-emerald-650 transition-colors">OCR Extractor</h3>
+                  <span className="text-[10px] font-bold text-emerald-650 uppercase tracking-wider bg-emerald-50/40 border border-emerald-100/60 px-2 py-0.5 rounded font-bold">Document Scan</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-emerald-650 transition-colors">OCR Text Extractor</h3>
                 </div>
               </div>
-              <p className="text-xs text-slate-550 leading-relaxed">
-                Scan images to extract text. Supports multi-language models executing inside offline sandbox workers.
+              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
+                Scan screenshots, receipts, or documents and pull texts immediately. Supports multi-language packages compiled under local sandboxes.
               </p>
-              
-              {/* Card visual detail */}
-              <div className="bg-slate-50 border border-slate-100 rounded-2xl p-3 flex flex-col justify-center gap-1.5 h-24 font-mono text-[9px] text-slate-500 relative overflow-hidden pointer-events-none">
-                <div className="absolute top-0 inset-x-0 h-0.5 bg-emerald-500/80 animate-bounce" />
-                <span className="text-slate-800 font-bold bg-emerald-50 px-1 rounded border border-emerald-100/40">OCR Output detected:</span>
-                <span>$ npm run local-ocr ...</span>
-                <span className="text-indigo-650 font-bold">Auto Language: Hindi / English</span>
-              </div>
+              <ul className="space-y-2 text-xs font-semibold text-slate-655">
+                <li className="flex items-center gap-2">✓ Local scan engines using Tesseract.js</li>
+                <li className="flex items-center gap-2">✓ Bounding boxes scan progress visual</li>
+                <li className="flex items-center gap-2">✓ Multi-language libraries</li>
+              </ul>
+              <Link 
+                to="/ocr-text-extractor" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-650 hover:bg-emerald-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-emerald-500/10 active:scale-98"
+              >
+                Launch OCR Extractor
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
-            <Link 
-              to="/ocr-text-extractor" 
-              className="w-full mt-6 py-2.5 bg-slate-50 hover:bg-emerald-650 text-slate-650 hover:text-white rounded-xl text-xs font-bold text-center transition-all duration-200 border border-slate-200 hover:border-emerald-500 shadow-xs flex items-center justify-center gap-1"
-            >
-              Launch OCR Text
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+            <div className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative pointer-events-none select-none shadow-sm group-hover:scale-[1.02] group-hover:border-emerald-400/80 group-hover:shadow-[0_12px_40px_rgba(16,185,129,0.15)] transition-all duration-300">
+              <img src={ocrExtractorImg} alt="OCR Text Extractor Demo" className="w-full h-full object-cover" />
+            </div>
           </div>
 
-          {/* 4. Instagram Grid Splitter (col-span-1) */}
-          <div className="group premium-bento rounded-3xl p-6 bg-white flex flex-col justify-between hover:scale-[1.01]">
-            <div className="space-y-4">
+          {/* 4. Instagram Grid Splitter */}
+          <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
+            <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-orange-50 rounded-xl flex items-center justify-center border border-orange-100 text-orange-600 group-hover:scale-105 transition-transform duration-200">
+                <div className="w-11 h-11 bg-orange-50 rounded-2xl flex items-center justify-center border border-orange-100 text-orange-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
                   <Maximize2 className="w-5.5 h-5.5" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold text-orange-650 bg-orange-50/50 px-2 py-0.5 rounded border border-orange-100">Layouts</span>
-                  <h3 className="text-lg font-bold text-slate-900 mt-1 group-hover:text-orange-650 transition-colors">Grid Splitter</h3>
+                  <span className="text-[10px] font-bold text-orange-650 uppercase tracking-wider bg-orange-50/40 border border-orange-100/60 px-2 py-0.5 rounded font-bold">Social Feeds</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-orange-650 transition-colors">Grid Splitter</h3>
                 </div>
               </div>
-              <p className="text-xs text-slate-550 leading-relaxed">
-                Slice single images into structured feeds. Fully compatible with Instagram, Pinterest, and Twitter image ratios.
+              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
+                Slice single panoramic images into square grid assets. Ready for cohesive social banners, Instagram feeds, or Pinterest grids.
               </p>
-              
-              {/* Card visual detail */}
-              <div className="bg-slate-50 border border-slate-100 rounded-2xl p-2.5 h-24 flex items-center justify-center pointer-events-none">
-                <div className="grid grid-cols-3 gap-1 w-16 h-16">
-                  {[...Array(9)].map((_, i) => (
-                    <div key={i} className="border border-orange-200/50 bg-orange-50/40 rounded-xs flex items-center justify-center text-[7px] text-orange-500 font-bold">
-                      {i+1}
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <ul className="space-y-2 text-xs font-semibold text-slate-655">
+                <li className="flex items-center gap-2">✓ Grid metrics split presets (3x3, 3x1, 3x2)</li>
+                <li className="flex items-center gap-2">✓ Instant ZIP generation pipeline</li>
+                <li className="flex items-center gap-2">✓ Retain full source pixel resolution</li>
+              </ul>
+              <Link 
+                to="/instagram-grid-splitter" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-orange-500/10 active:scale-98"
+              >
+                Launch Grid Splitter
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
-            <Link 
-              to="/instagram-grid-splitter" 
-              className="w-full mt-6 py-2.5 bg-slate-50 hover:bg-orange-600 text-slate-650 hover:text-white rounded-xl text-xs font-bold text-center transition-all duration-200 border border-slate-200 hover:border-orange-500 shadow-xs flex items-center justify-center gap-1"
-            >
-              Launch Splitter
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+            <div className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative pointer-events-none select-none shadow-sm group-hover:scale-[1.02] group-hover:border-orange-400/80 group-hover:shadow-[0_12px_40px_rgba(249,115,22,0.15)] transition-all duration-300">
+              <img src={gridSplitterImg} alt="Instagram Grid Splitter Demo" className="w-full h-full object-cover" />
+            </div>
           </div>
 
-          {/* 5. Photo Collage Maker (col-span-1) */}
-          <div className="group premium-bento rounded-3xl p-6 bg-white flex flex-col justify-between hover:scale-[1.01]">
-            <div className="space-y-4">
+          {/* 5. Photo Collage Maker */}
+          <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
+            <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-pink-50 rounded-xl flex items-center justify-center border border-pink-100 text-pink-600 group-hover:scale-105 transition-transform duration-200">
+                <div className="w-11 h-11 bg-pink-50 rounded-2xl flex items-center justify-center border border-pink-100 text-pink-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
                   <LayoutGrid className="w-5.5 h-5.5" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold text-pink-650 bg-pink-50/50 px-2 py-0.5 rounded border border-pink-100">Canvas</span>
-                  <h3 className="text-lg font-bold text-slate-900 mt-1 group-hover:text-pink-650 transition-colors">Collage Maker</h3>
+                  <span className="text-[10px] font-bold text-pink-650 uppercase tracking-wider bg-pink-50/40 border border-pink-100/60 px-2 py-0.5 rounded font-bold">Canvas Assembly</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-pink-650 transition-colors">Collage Maker</h3>
                 </div>
               </div>
-              <p className="text-xs text-slate-550 leading-relaxed">
-                Combine your favorite moments. Rearrange files, edit gap paddings, and style borders live in a responsive canvas grid.
+              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
+                Combine your favorite shots in customizable templates. Drag files, adjust layout gaps, borders, and canvas colors live in-browser.
               </p>
-              
-              {/* Card visual detail */}
-              <div className="bg-slate-50 border border-slate-100 rounded-2xl p-2.5 h-24 flex items-center justify-center pointer-events-none">
-                <div className="w-20 h-14 border border-pink-200/50 bg-pink-50/40 rounded flex gap-1 p-1">
-                  <div className="flex-1 bg-white rounded border border-pink-100" />
-                  <div className="w-6 flex flex-col gap-1">
-                    <div className="flex-1 bg-white rounded border border-pink-100" />
-                    <div className="flex-1 bg-white rounded border border-pink-100" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <Link 
-              to="/collage-maker" 
-              className="w-full mt-6 py-2.5 bg-slate-50 hover:bg-pink-600 text-slate-650 hover:text-white rounded-xl text-xs font-bold text-center transition-all duration-200 border border-slate-200 hover:border-pink-500 shadow-xs flex items-center justify-center gap-1"
-            >
-              Launch Collage
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
-          {/* 6. Color Palette Extractor (col-span-2) */}
-          <div className="group md:col-span-2 premium-bento rounded-3xl p-6 bg-white flex flex-col justify-between hover:scale-[1.01]">
-            <div className="flex flex-col md:flex-row gap-6 justify-between items-start h-full">
-              <div className="flex-1 space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 bg-cyan-50 rounded-xl flex items-center justify-center border border-cyan-100 text-cyan-600 group-hover:scale-105 transition-transform duration-200">
-                    <Palette className="w-5.5 h-5.5" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold text-cyan-650 bg-cyan-50/50 px-2 py-0.5 rounded border border-cyan-100">Colors</span>
-                    <h3 className="text-lg font-bold text-slate-900 mt-1 group-hover:text-cyan-650 transition-colors">Palette Extractor</h3>
-                  </div>
-                </div>
-                <p className="text-xs md:text-sm text-slate-500 leading-relaxed max-w-md">
-                  Retrieve key dominant color values and accent HEX swatches. Get matching UI design colors code blocks for standard stylesheets, tailwind configurations, and code files.
-                </p>
-              </div>
-
-              {/* Card visual detail - Interactive color swatches! */}
-              <div className="w-full md:w-48 bg-slate-50 border border-slate-100 rounded-2xl p-3 flex flex-col gap-2.5 pointer-events-auto">
-                <div className="text-[9px] font-bold uppercase tracking-wider text-slate-400">Click to Copy swatch</div>
-                <div className="flex gap-1.5">
-                  {[
-                    { hex: '#6366F1', label: 'Indigo' },
-                    { hex: '#8B5CF6', label: 'Purple' },
-                    { hex: '#EC4899', label: 'Pink' },
-                    { hex: '#10B981', label: 'Emerald' }
-                  ].map((color) => (
-                    <button 
-                      key={color.hex}
-                      onClick={() => handleCopyColor(color.hex)}
-                      className="w-8 h-8 rounded-lg border border-slate-200/80 cursor-pointer transition-transform hover:scale-110 active:scale-95 shadow-xs relative group/swatch flex items-center justify-center"
-                      style={{ backgroundColor: color.hex }}
-                      title={`Copy ${color.hex}`}
-                    >
-                      {copiedColor === color.hex && (
-                        <div className="absolute inset-0 bg-black/40 rounded-lg flex items-center justify-center">
-                          <span className="text-[8px] font-bold text-white">✓</span>
-                        </div>
-                      )}
-                    </button>
-                  ))}
-                </div>
-                <div className="text-[9px] font-mono text-slate-500 bg-white border border-slate-150 p-1.5 rounded flex items-center justify-between">
-                  <span>{copiedColor ? `Copied: ${copiedColor}` : 'Hex codes list'}</span>
-                  <Code className="w-3 h-3 text-slate-400" />
-                </div>
-              </div>
-            </div>
-
-            <div className="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Leverages k-means clustering model</span>
+              <ul className="space-y-2 text-xs font-semibold text-slate-655">
+                <li className="flex items-center gap-2">✓ Responsive template grids</li>
+                <li className="flex items-center gap-2">✓ Editable margin gaps and border curves</li>
+                <li className="flex items-center gap-2">✓ Single-click high quality canvas download</li>
+              </ul>
               <Link 
-                to="/color-palette-extractor" 
-                className="w-full sm:w-auto px-5 py-2.5 bg-slate-50 hover:bg-cyan-600 text-slate-650 hover:text-white rounded-xl text-xs font-bold text-center transition-all duration-200 border border-slate-200 hover:border-cyan-500 shadow-xs flex items-center justify-center gap-1.5"
+                to="/collage-maker" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-pink-500/10 active:scale-98"
               >
-                Launch Extractor
-                <ArrowRight className="w-3.5 h-3.5" />
+                Launch Collage Maker
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
+
+            <div className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative pointer-events-none select-none shadow-sm group-hover:scale-[1.02] group-hover:border-pink-400/80 group-hover:shadow-[0_12px_40px_rgba(236,72,153,0.15)] transition-all duration-300">
+              <img src={collageMakerImg} alt="Photo Collage Maker Demo" className="w-full h-full object-cover" />
+            </div>
           </div>
 
-          {/* 7. More Tools Coming Soon (col-span-1) */}
-          <div className="premium-bento rounded-3xl p-6 bg-gradient-to-br from-indigo-600 to-purple-650 text-white flex flex-col justify-between hover:scale-[1.01] border-0">
-            <div className="space-y-4">
+          {/* 6. Color Palette Extractor */}
+          <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
+            <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center text-white backdrop-blur-xs">
-                  <Sparkles className="w-5.5 h-5.5" />
+                <div className="w-11 h-11 bg-cyan-50 rounded-2xl flex items-center justify-center border border-cyan-100 text-cyan-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
+                  <Palette className="w-5.5 h-5.5" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold text-indigo-200 uppercase tracking-wider">Submit feedback</span>
-                  <h3 className="text-lg font-bold mt-1">Request a Tool</h3>
+                  <span className="text-[10px] font-bold text-cyan-650 uppercase tracking-wider bg-cyan-50/40 border border-cyan-100/60 px-2 py-0.5 rounded font-bold">Colors Spec</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-cyan-650 transition-colors">Palette Extractor</h3>
                 </div>
               </div>
-              <p className="text-xs text-indigo-100 leading-relaxed">
-                Need another security-first utility running offline? Send us features requests, bug reports, or custom code suggestions.
+              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
+                Retrieve dominant colors and copy accent swatches inline. Generates custom code blocks compatible with Tailwind CSS configs and standard styles.
               </p>
+              <ul className="space-y-2 text-xs font-semibold text-slate-655">
+                <li className="flex items-center gap-2">✓ Advanced color quantization math</li>
+                <li className="flex items-center gap-2">✓ Single click HEX codes copy</li>
+                <li className="flex items-center gap-2">✓ Tailwind palette config blocks output</li>
+              </ul>
+              <Link 
+                to="/color-palette-extractor" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-650 hover:bg-cyan-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-cyan-500/10 active:scale-98"
+              >
+                Launch Palette Extractor
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
-            <Link 
-              to="/contact" 
-              className="w-full mt-6 py-2.5 bg-white text-indigo-950 hover:bg-indigo-50 active:scale-98 rounded-xl text-xs font-bold text-center transition-all shadow-md flex items-center justify-center gap-1"
-            >
-              Get in touch
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+            <div className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative pointer-events-none select-none shadow-sm group-hover:scale-[1.02] group-hover:border-cyan-400/80 group-hover:shadow-[0_12px_40px_rgba(6,182,212,0.15)] transition-all duration-300">
+              <img src={paletteExtractorImg} alt="Palette Extractor Demo" className="w-full h-full object-cover" />
+            </div>
           </div>
 
         </div>
       </section>
 
       {/* Security Banner section */}
-      <section className="my-16 max-w-5xl mx-auto premium-bento rounded-3xl p-8 bg-gradient-to-r from-indigo-50/50 via-white to-purple-50/50 border border-slate-200/50 relative overflow-hidden shadow-md flex flex-col md:flex-row items-center gap-8 justify-between">
+      <section className="my-24 max-w-5xl mx-auto premium-bento rounded-3xl p-8 bg-gradient-to-r from-indigo-50/50 via-white to-purple-50/50 border border-slate-200/50 relative overflow-hidden shadow-md flex flex-col md:flex-row items-center gap-8 justify-between">
         <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-indigo-500/5 rounded-full blur-2xl pointer-events-none" />
         
         <div className="space-y-3 max-w-xl text-left">
@@ -580,74 +447,6 @@ export const Home: React.FC = () => {
           </Link>
         </div>
       </section>
-
-      {/* Testimonials Section (Masonry Asymmetric Layout) */}
-      <section className="py-16 border-t border-slate-200/60 max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Designed for Professionals</h2>
-          <p className="text-xs md:text-sm text-slate-450 font-bold uppercase tracking-wider">Here is what the creator community says</p>
-        </div>
-
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
-          {testimonials.map((test, index) => (
-            <div 
-              key={index} 
-              className="break-inside-avoid premium-bento p-6 rounded-3xl bg-white border border-slate-200/50 flex flex-col justify-between gap-6 hover:scale-[1.01]"
-            >
-              <p className="text-xs md:text-sm text-slate-550 leading-relaxed font-medium italic">
-                "{test.quote}"
-              </p>
-              <div className="flex items-center gap-3">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border border-slate-200/50 ${test.avatarColor}`}>
-                  {test.initials}
-                </div>
-                <div>
-                  <h4 className="text-xs font-black text-slate-800">{test.author}</h4>
-                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">{test.role}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* FAQ Section (Borderless Clean Accordion) */}
-      <section className="py-16 border-t border-slate-200/60 max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">FAQ</h2>
-          <p className="text-xs md:text-sm text-slate-450 font-bold uppercase tracking-wider">Common answers about client-side architectures</p>
-        </div>
-
-        <div className="flex flex-col border-y border-slate-200/65">
-          {faqs.map((faq, index) => (
-            <div 
-              key={index} 
-              className="border-b last:border-0 border-slate-200/65 overflow-hidden"
-            >
-              <button
-                onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
-                className="w-full py-6 flex items-center justify-between text-left text-sm md:text-base font-bold text-slate-800 hover:text-indigo-650 cursor-pointer transition-colors duration-150"
-              >
-                <span>{faq.q}</span>
-                {openFaqIndex === index ? (
-                  <ChevronUp className="w-4 h-4 text-indigo-600" />
-                ) : (
-                  <ChevronDown className="w-4 h-4 text-slate-400" />
-                )}
-              </button>
-              
-              <div 
-                className={`transition-all duration-250 ease-in-out ${openFaqIndex === index ? 'max-h-48 opacity-100 pb-6' : 'max-h-0 opacity-0'}`}
-              >
-                <p className="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
-                  {faq.a}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
     </div>
   );
 };

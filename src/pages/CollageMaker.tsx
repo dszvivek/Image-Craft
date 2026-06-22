@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Plus, Trash2, Sliders, Crop, ShieldAlert } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
+import collageMakerGif from '../assets/collage_maker_feature.gif';
 
 interface CollageImage {
   id: string;
@@ -266,13 +267,29 @@ export const CollageMaker: React.FC = () => {
         </div>
 
         {images.length === 0 ? (
-          <div className="max-w-2xl mx-auto">
-            <DropZone 
-              onFilesSelected={handleFilesSelected}
-              multiple={true}
-              title="Select photos to combine"
-              subtitle="Upload 2 to 4 images. JPG, PNG, WebP supported."
-            />
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch max-w-5xl mx-auto">
+            <div className="md:col-span-7 flex flex-col justify-center">
+              <DropZone 
+                onFilesSelected={handleFilesSelected}
+                multiple={true}
+                title="Select photos to combine"
+                subtitle="Upload 2 to 4 images. JPG, PNG, WebP supported."
+              />
+            </div>
+            <div className="md:col-span-5 flex">
+              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-indigo-300 transition-all duration-300">
+                <div className="space-y-4">
+                  <div className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 border border-indigo-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
+                  <h3 className="text-base font-extrabold text-slate-900">How Collage Maker Works</h3>
+                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                    Upload up to 4 images and arrange them dynamically. Customize spacing, border thickness, border colors, and corner roundness client-side.
+                  </p>
+                </div>
+                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
+                  <img src={collageMakerGif} alt="Collage Maker Demo" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">

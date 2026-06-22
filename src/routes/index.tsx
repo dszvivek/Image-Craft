@@ -14,6 +14,7 @@ const PaletteExtractor = lazy(() => import('../pages/PaletteExtractor').then(mod
 const About = lazy(() => import('../pages/About').then(module => ({ default: module.About })));
 const Privacy = lazy(() => import('../pages/Privacy').then(module => ({ default: module.Privacy })));
 const Contact = lazy(() => import('../pages/Contact').then(module => ({ default: module.Contact })));
+const Faq = lazy(() => import('../pages/Faq').then(module => ({ default: module.Faq })));
 
 // Loading Spinner for lazy-loading suspense fallback
 const PageLoader: React.FC = () => (
@@ -105,6 +106,14 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <Contact />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'faq',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <Faq />
           </Suspense>
         ),
       },
