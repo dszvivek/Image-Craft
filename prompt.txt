@@ -1,0 +1,347 @@
+# Build ImageCraft AI
+
+You are a Staff-Level Software Architect, Senior Frontend Engineer, UX Designer, SEO Specialist, and Performance Engineer.
+
+Build a complete production-ready web application called "ImageCraft AI".
+
+The application must be a collection of privacy-first image tools that run entirely inside the user's browser.
+
+## Primary Goal
+
+Create an MVP that:
+
+* Requires no backend
+* Requires no database
+* Requires no cloud processing
+* Requires no paid APIs
+* Requires no OpenAI API
+* Requires no Gemini API
+* Requires no AWS services
+* Requires no Azure services
+
+The application must be deployable as a static website.
+
+All image processing and AI inference must run entirely in the user's browser.
+
+## Business Goal
+
+Generate organic traffic through SEO and monetize using Google AdSense.
+
+## Core Value Proposition
+
+"Your files never leave your device."
+
+Display this message prominently throughout the application.
+
+## Technology Stack
+
+Frontend:
+
+* React 19
+* TypeScript
+* Vite
+* React Router
+* Tailwind CSS
+
+Browser APIs:
+
+* Canvas API
+* Web Workers
+* OffscreenCanvas
+* IndexedDB
+* LocalStorage
+
+AI:
+
+* Transformers.js
+* ONNX Runtime Web
+* MediaPipe
+
+Deployment:
+
+* Cloudflare Pages
+
+## Architecture Requirements
+
+Create a scalable architecture.
+
+Folder structure:
+
+src/
+
+app/
+pages/
+components/
+layouts/
+hooks/
+workers/
+services/
+utils/
+types/
+assets/
+routes/
+
+Each tool must be isolated.
+
+Shared functionality must be reusable.
+
+Use strict TypeScript.
+
+No use of "any".
+
+## Design Requirements
+
+Create a modern SaaS-style design.
+
+Requirements:
+
+* Mobile-first
+* Responsive
+* Dark mode
+* Accessibility support
+* Fast loading
+* Minimalistic UI
+* Professional appearance
+
+## Landing Page
+
+Create a homepage that includes:
+
+Hero section
+
+Features section
+
+Tool categories
+
+Privacy section
+
+FAQ
+
+Testimonials placeholder
+
+SEO content
+
+Call-to-action buttons
+
+Footer
+
+## Navigation
+
+Create top navigation:
+
+Home
+
+Tools
+
+About
+
+Privacy
+
+Contact
+
+## MVP Tools
+
+### Tool 1 - Image Compressor
+
+Features:
+
+* Upload image
+* Drag and drop support
+* JPEG compression
+* PNG compression
+* WebP support
+* Quality slider
+* Before/after comparison
+* Download compressed image
+
+### Tool 2 - AI Background Remover
+
+Requirements:
+
+* Local AI model
+* No server
+* Browser inference only
+* Transparent PNG export
+* Progress indicator
+
+### Tool 3 - OCR Text Extractor
+
+Requirements:
+
+* Extract text from images
+* Copy to clipboard
+* Download text file
+* Multi-language support if possible
+
+### Tool 4 - Instagram Grid Splitter
+
+Requirements:
+
+* 3x3
+* 4x4
+* 5x5
+* Preview output
+* Download all images
+
+### Tool 5 - Photo Collage Maker
+
+Requirements:
+
+* Multiple uploads
+* Grid layouts
+* Spacing controls
+* Border controls
+* Download PNG
+
+### Tool 6 - Color Palette Extractor
+
+Requirements:
+
+* Extract dominant colors
+* HEX codes
+* RGB values
+* Copy buttons
+* Download palette
+
+## Common Features
+
+Every tool page must contain:
+
+Drag and drop upload
+
+Image preview
+
+Progress indicator
+
+Reset button
+
+Download button
+
+Error handling
+
+Mobile support
+
+Loading states
+
+Privacy notice
+
+## Performance Requirements
+
+Use Web Workers for heavy operations.
+
+Avoid blocking UI thread.
+
+Lazy load tool pages.
+
+Code splitting.
+
+Optimize bundle size.
+
+Use thumbnails instead of full-resolution images when possible.
+
+Handle large files gracefully.
+
+## SEO Requirements
+
+Create:
+
+Meta title
+
+Meta description
+
+Open Graph tags
+
+Twitter cards
+
+Structured data
+
+Sitemap
+
+Robots.txt
+
+Canonical URLs
+
+SEO-friendly routes.
+
+Example:
+
+/image-compressor
+
+/background-remover
+
+/ocr-text-extractor
+
+/instagram-grid-splitter
+
+## Analytics
+
+Integrate:
+
+Google Analytics
+
+Google Search Console setup instructions
+
+Cookie-free implementation where possible.
+
+## Monetization
+
+Prepare ad placements for:
+
+Google AdSense
+
+Requirements:
+
+* Header ad area
+* Sidebar ad area
+* In-content ad area
+* Mobile ad area
+
+Do not make ads intrusive.
+
+## Accessibility
+
+Keyboard navigation
+
+Screen reader support
+
+Proper ARIA labels
+
+Focus states
+
+Color contrast compliance
+
+## Security
+
+Never upload user files.
+
+Never send images to remote services.
+
+Process everything locally.
+
+Sanitize all user input.
+
+## Deliverables
+
+Generate:
+
+1. Complete architecture
+2. Folder structure
+3. Project setup
+4. All React pages
+5. All reusable components
+6. Routing
+7. Tailwind configuration
+8. Worker implementation
+9. Utility functions
+10. SEO implementation
+11. Deployment instructions
+12. Cloudflare Pages setup
+13. AdSense integration
+14. Build optimization
+15. Lighthouse optimization
+
+Generate production-quality code only.
+
+Avoid placeholders whenever possible.
+
+Ensure application can be built and deployed immediately.

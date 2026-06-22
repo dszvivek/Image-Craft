@@ -1,0 +1,113 @@
+import React, { Suspense, lazy } from 'react';
+import { createBrowserRouter } from 'react-router-dom';
+import { Layout } from '../layouts/Layout';
+import { RefreshCw } from 'lucide-react';
+
+// Lazy load page components for code splitting
+const Home = lazy(() => import('../pages/Home').then(module => ({ default: module.Home })));
+const Compressor = lazy(() => import('../pages/Compressor').then(module => ({ default: module.Compressor })));
+const BackgroundRemover = lazy(() => import('../pages/BackgroundRemover').then(module => ({ default: module.BackgroundRemover })));
+const OcrExtractor = lazy(() => import('../pages/OcrExtractor').then(module => ({ default: module.OcrExtractor })));
+const GridSplitter = lazy(() => import('../pages/GridSplitter').then(module => ({ default: module.GridSplitter })));
+const CollageMaker = lazy(() => import('../pages/CollageMaker').then(module => ({ default: module.CollageMaker })));
+const PaletteExtractor = lazy(() => import('../pages/PaletteExtractor').then(module => ({ default: module.PaletteExtractor })));
+const About = lazy(() => import('../pages/About').then(module => ({ default: module.About })));
+const Privacy = lazy(() => import('../pages/Privacy').then(module => ({ default: module.Privacy })));
+const Contact = lazy(() => import('../pages/Contact').then(module => ({ default: module.Contact })));
+
+// Loading Spinner for lazy-loading suspense fallback
+const PageLoader: React.FC = () => (
+  <div className="w-full min-h-[50vh] flex flex-col items-center justify-center gap-3">
+    <RefreshCw className="w-8 h-8 text-indigo-500 animate-spin" />
+    <span className="text-xs font-semibold text-slate-400">Loading modules...</span>
+  </div>
+);
+
+export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <Home />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'image-compressor',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <Compressor />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'background-remover',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BackgroundRemover />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'ocr-text-extractor',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <OcrExtractor />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'instagram-grid-splitter',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <GridSplitter />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'collage-maker',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CollageMaker />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'color-palette-extractor',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PaletteExtractor />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'about',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <About />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'privacy',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <Privacy />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'contact',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <Contact />
+          </Suspense>
+        ),
+      },
+    ],
+  },
+]);
