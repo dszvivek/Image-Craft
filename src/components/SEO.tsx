@@ -7,12 +7,13 @@ interface SEOProps {
 }
 
 export const SEO: React.FC<SEOProps> = ({ title, description, canonicalUrl }) => {
-  const fullTitle = `${title} | ImageGiri - Privacy-First Image Tools`;
+  const fullTitle = `ImageGiri - Privacy-First Local Image Tools Suite`;
   const defaultCanonical = canonicalUrl || window.location.href;
 
   return (
     <>
       <title>{fullTitle}</title>
+      <meta name="page-title" content={title} />
       <meta name="description" content={description} />
       <link rel="canonical" href={defaultCanonical} />
       
