@@ -355,8 +355,10 @@ export const MosaicGenerator: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Offline High Resolution Photo Mosaic Generator" 
-        description="Transform photos into professional image mosaics client-side. Upload multiple target and tile pictures and match colors locally." 
+        title="Free Photo Mosaic Generator" 
+        description="Transform any photo into a stunning mosaic made of smaller tile images, entirely in your browser. Upload custom tile photos, adjust grid resolution, color tinting, and overlay transparency. No uploads, 100% private, high-resolution output." 
+        keywords="photo mosaic generator, mosaic maker, photo mosaic, image mosaic maker, create photo mosaic online, tile mosaic, picture mosaic, mosaic art maker, photomosaic creator, free mosaic generator, image from images"
+        canonicalUrl="https://imagegiri.com/photo-mosaic-generator"
       />
 
       <div className="max-w-5xl mx-auto">

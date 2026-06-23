@@ -263,8 +263,10 @@ export const CollageMaker: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Photo Collage Maker" 
-        description="Make stunning photo collages locally in your browser. Custom borders, spacings, ratios, and layouts." 
+        title="Free Online Photo Collage Maker" 
+        description="Create beautiful photo collages directly in your browser. Arrange up to 4 images in custom grid layouts. Adjust spacing, borders, border radius, and canvas color. Download high-quality collages instantly. No uploads, 100% private." 
+        keywords="photo collage maker, collage maker online, free collage maker, image collage, picture collage, photo grid maker, photo layout maker, online collage creator, make collage online free, picture collage maker, no watermark collage maker"
+        canonicalUrl="https://imagegiri.com/collage-maker"
       />
 
       <div className="max-w-6xl mx-auto">

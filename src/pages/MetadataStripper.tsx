@@ -161,8 +161,10 @@ export const MetadataStripper: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="EXIF Metadata Privacy Stripper" 
-        description="Inspect camera details, shot time, and GPS coordinates hidden inside your photos. Strip EXIF metadata to protect your privacy offline." 
+        title="Free EXIF Metadata Viewer & Remover" 
+        description="View and remove hidden EXIF metadata from photos in your browser. Inspect GPS location, camera model, aperture, ISO, and capture timestamp. Strip all metadata to protect your privacy before sharing images. No uploads required." 
+        keywords="EXIF metadata remover, EXIF viewer, remove metadata from image, strip EXIF data, photo metadata remover, GPS location remover from photo, image metadata cleaner, EXIF data viewer, remove photo location data, image privacy tool, EXIF stripper"
+        canonicalUrl="https://imagegiri.com/metadata-stripper"
       />
 
       <div className="max-w-5xl mx-auto">

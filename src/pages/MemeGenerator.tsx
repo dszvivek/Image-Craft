@@ -227,8 +227,10 @@ export const MemeGenerator: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Offline Instant Meme & Social Card Generator" 
-        description="Create captioned memes and visual quote cards in-browser. Drag-and-drop movable text blocks with custom fonts and outlining offline." 
+        title="Free Online Meme Generator" 
+        description="Create custom memes and captioned social cards directly in your browser. Drag-and-drop movable text layers, Impact font, custom colors, and black text outlines. Add unlimited captions. Download memes instantly. No uploads, no watermarks." 
+        keywords="meme generator, meme maker, create meme online, free meme maker, meme creator, funny meme maker, caption generator, social card maker, meme text editor, Impact font meme, custom meme creator, meme without watermark"
+        canonicalUrl="https://imagegiri.com/meme-generator"
       />
 
       <div className="max-w-5xl mx-auto">

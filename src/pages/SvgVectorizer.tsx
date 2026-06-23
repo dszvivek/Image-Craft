@@ -565,8 +565,10 @@ export const SvgVectorizer: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Offline Image to SVG Vectorizer & Contour Tracer" 
-        description="Convert raster photos (JPG, PNG) into scalable, clean SVGs offline. Adjust color palettes, path smoothing, and threshold settings locally." 
+        title="Free Image to SVG Vectorizer" 
+        description="Convert raster images (JPG, PNG) into clean, scalable SVG vector graphics directly in your browser. Adjust color palette, path smoothing, and speckle threshold. Download ready-to-use SVG files. No uploads, 100% private." 
+        keywords="SVG vectorizer, image to SVG, convert PNG to SVG, convert JPG to SVG, vectorize image, raster to vector, vector converter, image tracer, SVG converter online, free SVG converter, image to vector art, auto tracer"
+        canonicalUrl="https://imagegiri.com/svg-vectorizer"
       />
 
       <div className="max-w-5xl mx-auto">

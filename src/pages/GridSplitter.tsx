@@ -200,8 +200,10 @@ export const GridSplitter: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Instagram Grid Splitter" 
-        description="Split your photos into 3x3, 4x4, or 5x5 grids for Instagram. Instant local cropping, zipped package download." 
+        title="Free Instagram Grid Splitter" 
+        description="Split any photo into 3x3, 4x4, or 5x5 grids for Instagram feed posts. Download all tiles as a ZIP file instantly. Works 100% in your browser — no uploads, no watermarks, full resolution preserved." 
+        keywords="Instagram grid splitter, split image for Instagram, Instagram grid maker, photo grid splitter, Instagram puzzle feed, grid layout maker, image splitter, Instagram post splitter, 3x3 grid, free Instagram tools, no watermark grid splitter"
+        canonicalUrl="https://imagegiri.com/instagram-grid-splitter"
       />
 
       <div className="max-w-4xl mx-auto">

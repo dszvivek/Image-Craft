@@ -196,8 +196,10 @@ export const BackgroundRemover: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Local AI Background Remover" 
-        description="Remove background from images in seconds. 100% offline, privacy-first AI background cutout tool running inside your browser." 
+        title="Free AI Background Remover" 
+        description="Remove image backgrounds automatically using on-device AI. 100% offline — no files are uploaded to any server. Powered by the RMBG-1.4 neural network running entirely in your browser. Download transparent PNG cutouts instantly." 
+        keywords="background remover, remove background from image, AI background removal, background eraser, transparent background, remove image background online, background remover free, cut out background, PNG transparent, photo background remover, no upload background remover, offline background remover, browser AI background"
+        canonicalUrl="https://imagegiri.com/background-remover"
       />
 
       <div className="max-w-4xl mx-auto">

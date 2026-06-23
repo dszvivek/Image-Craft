@@ -7,7 +7,9 @@ export const Privacy: React.FC = () => {
     <div className="w-full max-w-4xl mx-auto py-6">
       <SEO 
         title="Privacy Policy - No Data Collection" 
-        description="Read our cookie-free privacy policy. Your images and files are processed strictly in your browser RAM and never stored." 
+        description="Read ImageGiri's privacy policy. Your images and files are processed strictly in your browser RAM and never uploaded to any server. No cookies, no tracking, no analytics." 
+        keywords="privacy policy, no data collection, GDPR compliant, CCPA compliant, no cookie tracking, private image editor, image privacy"
+        canonicalUrl="https://imagegiri.com/privacy"
       />
 
       <div className="text-center mb-12">

@@ -18,7 +18,9 @@ export const Contact: React.FC = () => {
     <div className="w-full max-w-4xl mx-auto py-6">
       <SEO 
         title="Contact Us - Support Team" 
-        description="Reach out to the ImageGiri support team. Ask questions about browser processing, report bugs, or request features." 
+        description="Reach out to the ImageGiri support team. Ask questions about browser image processing, report bugs, or suggest new image tool features. We respond quickly to all inquiries." 
+        keywords="ImageGiri contact, image tool support, report bug, feature request, contact support"
+        canonicalUrl="https://imagegiri.com/contact"
       />
 
       <div className="text-center mb-12">

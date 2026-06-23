@@ -6,8 +6,10 @@ export const About: React.FC = () => {
   return (
     <div className="w-full max-w-4xl mx-auto py-6">
       <SEO 
-        title="About Us - Privacy First" 
-        description="Learn how ImageGiri processes all images directly in your browser. Our technology stack, offline processing promise, and security structure." 
+        title="About ImageGiri - Privacy-First Image Tools" 
+        description="Learn how ImageGiri processes all images directly in your browser with zero uploads. Discover our offline-first technology stack, Web Worker processing, and privacy-by-design security structure." 
+        keywords="about ImageGiri, privacy image tools, offline image processing, browser image editor, client-side image tools, no upload image editor"
+        canonicalUrl="https://imagegiri.com/about"
       />
 
       <div className="text-center mb-12">

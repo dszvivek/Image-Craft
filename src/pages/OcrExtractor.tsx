@@ -374,8 +374,10 @@ export const OcrExtractor: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Offline OCR Text Extractor" 
-        description="Extract text from images locally. Free scan-to-text OCR tool supporting English, Spanish, Chinese, French, and German." 
+        title="Free OCR Text Extractor - Image to Text" 
+        description="Extract text from images, screenshots, PDFs, and documents directly in your browser. Free OCR tool supporting English, Spanish, French, German, Chinese, Hindi, Arabic, and 50+ languages. No uploads. Powered by Tesseract.js." 
+        keywords="OCR, image to text, extract text from image, scan text, optical character recognition, text extractor, screenshot to text, photo to text, document scanner, free OCR tool, online OCR, multi-language OCR, Tesseract OCR, offline OCR, browser OCR, PDF text extractor"
+        canonicalUrl="https://imagegiri.com/ocr-text-extractor"
       />
 
       <div className="max-w-4xl mx-auto">

@@ -152,8 +152,10 @@ export const Compressor: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Offline Image Compressor" 
-        description="Compress JPEG, PNG, and WebP images locally. High quality size reduction without uploading files." 
+        title="Free Online Image Compressor" 
+        description="Compress JPEG, PNG, and WebP images locally in your browser. Reduce image file sizes by up to 90% without losing quality. No uploads, 100% private. Side-by-side before/after comparison, quality slider, and format conversion." 
+        keywords="image compressor, compress image online, reduce image size, JPEG compressor, PNG compressor, WebP compressor, image optimizer, reduce photo size, free image compression, offline image compressor, browser image compressor, lossless compression, lossy compression, file size reducer"
+        canonicalUrl="https://imagegiri.com/image-compressor"
       />
 
       <div className="max-w-4xl mx-auto">

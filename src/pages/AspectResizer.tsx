@@ -614,8 +614,10 @@ export const AspectResizer: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Offline Preset Aspect Ratio & Social Banner Resizer" 
-        description="Fit and resize photos to Twitter headers, YouTube thumbnails, or Instagram stories locally. Custom aspect fill or blur padding fit modes." 
+        title="Free Aspect Ratio Resizer & Smart Crop Tool" 
+        description="Resize and crop images to exact social media dimensions in your browser. Presets for YouTube thumbnails, Instagram stories, Twitter headers, LinkedIn banners, and more. Smart crop overlay, blur-padding fit mode. No uploads, 100% private." 
+        keywords="aspect ratio resizer, image resizer, crop image online, resize photo online, YouTube thumbnail size, Instagram story size, Twitter header size, social media image resizer, smart crop, photo crop tool, image resize tool free, resize image without losing quality"
+        canonicalUrl="https://imagegiri.com/aspect-resizer"
       />
 
       <div className="max-w-5xl mx-auto">

@@ -275,8 +275,10 @@ export const BatchConverter: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Batch Image Format Converter & PDF Package" 
-        description="Convert multiple images to WebP, PNG, or JPEG. Compile photos into a single PDF document locally and 100% offline." 
+        title="Free Batch Image Converter & PDF Maker" 
+        description="Convert multiple images to WebP, PNG, or JPEG format in bulk. Compile photos into a multi-page PDF document. All processing happens locally in your browser — no server uploads required. Download as ZIP or PDF instantly." 
+        keywords="batch image converter, bulk image converter, convert images to WebP, convert images to PNG, convert JPG to WebP, images to PDF, batch convert photos, bulk photo converter, image format converter, free batch converter, PDF from images, ZIP image download"
+        canonicalUrl="https://imagegiri.com/batch-converter"
       />
 
       <div className="max-w-5xl mx-auto">

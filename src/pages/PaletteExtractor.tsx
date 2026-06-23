@@ -147,8 +147,10 @@ export const PaletteExtractor: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Color Palette Extractor" 
-        description="Extract dominant colors from any photo locally. Instant Hex and RGB values, with PNG, CSS, and JSON color swatch downloads." 
+        title="Free Color Palette Extractor" 
+        description="Extract dominant colors from any image directly in your browser. Get Hex codes, RGB values, and color coverage percentages instantly. Download palettes as PNG swatches, CSS variables, or JSON. No uploads, 100% private." 
+        keywords="color palette extractor, extract colors from image, color picker from image, image color palette, dominant color extractor, color scheme extractor, HEX color extractor, RGB color picker, color swatch generator, palette generator, CSS color variables"
+        canonicalUrl="https://imagegiri.com/color-palette-extractor"
       />
 
       <div className="max-w-4xl mx-auto">

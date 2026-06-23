@@ -224,8 +224,10 @@ export const WatermarkOverlay: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Offline Bulk Watermark & Branding Overlay" 
-        description="Overlay logo PNGs or custom text stamps onto images. High speed local watermark application with opacity, scale, and angle controls." 
+        title="Free Watermark Overlay Tool" 
+        description="Add watermarks to images directly in your browser. Overlay custom text or logo PNG watermarks with adjustable opacity, size, rotation, and position. Supports repeat tile patterns. No uploads, 100% private. Download watermarked images instantly." 
+        keywords="watermark image, add watermark to photo, watermark tool online, text watermark, logo watermark, image watermark maker, free watermark tool, watermark photo online, batch watermark, copyright watermark, watermark overlay, watermark without upload"
+        canonicalUrl="https://imagegiri.com/watermark-overlay"
       />
 
       <div className="max-w-5xl mx-auto">

@@ -41,7 +41,9 @@ export const Faq: React.FC = () => {
     <div className="w-full relative py-12">
       <SEO 
         title="Frequently Asked Questions" 
-        description="Find answers about client-side processing, file privacy, browser support, and local machine learning models in ImageGiri." 
+        description="Find answers about ImageGiri's browser-based image processing, file privacy, offline capabilities, browser support, and local machine learning models. All image tools run 100% in your browser without server uploads." 
+        keywords="ImageGiri FAQ, image tool questions, how does browser image processing work, offline image tools, browser privacy questions, no upload image processing"
+        canonicalUrl="https://imagegiri.com/faq"
       />
 
       <div className="max-w-4xl mx-auto">

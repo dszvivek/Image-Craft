@@ -39,8 +39,10 @@ export const Home: React.FC = () => {
   return (
     <div className="w-full relative">
       <SEO 
-        title="Privacy-First Image Tools" 
-        description="Compress images, remove backgrounds with local AI, extract text (OCR), split grids, and extract color palettes 100% locally in your browser. Absolute privacy, zero cloud uploads." 
+        title="Free Privacy-First Image Tools" 
+        description="Free browser-based image tools suite: compress images, remove backgrounds with AI, scan text (OCR), split Instagram grids, make collages, extract color palettes, convert batch images, strip EXIF metadata, add watermarks, resize for social media, generate memes, vectorize to SVG, and create photo mosaics. 100% offline, zero uploads." 
+        keywords="free image tools, image compressor, AI background remover, OCR text extractor, Instagram grid splitter, photo collage maker, color palette extractor, batch image converter, EXIF metadata stripper, watermark tool, aspect ratio resizer, meme generator, SVG vectorizer, photo mosaic generator, online image editor, browser image tools, privacy image editor, no upload image tool, free photo editor online"
+        canonicalUrl="https://imagegiri.com/"
       />
 
       {/* Decorative Blur Backdrops */}
