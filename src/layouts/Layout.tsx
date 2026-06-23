@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { 
   Menu, 
@@ -25,6 +25,11 @@ import { AdPlacement } from '../components/AdPlacement';
 export const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+
+  // Scroll to top on navigation / route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const showSidebar = !['/', '/about', '/privacy', '/contact', '/faq'].includes(location.pathname);
 
@@ -342,7 +347,9 @@ export const Layout = () => {
             </nav>
           )}
 
-          <Outlet />
+          <div key={location.pathname} className="animate-fade-in">
+            <Outlet />
+          </div>
         </div>
 
         {/* Sidebar Ad Placement — only at xl+ so tool content has room */}

@@ -17,7 +17,8 @@ import {
   Crop,
   Smile,
   Feather,
-  Grid
+  Grid,
+  Check
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
@@ -167,9 +168,9 @@ export const Home: React.FC = () => {
                 Optimize your JPEGs, PNGs, and WebPs in seconds. Control quality levels and convert formats offline without losing pixel fidelity.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">âœ“ Save up to 90% in bundle sizes</li>
-                <li className="flex items-center gap-2">âœ“ Direct side-by-side comparison slider</li>
-                <li className="flex items-center gap-2">âœ“ Bulk offline conversion engine</li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Save up to 90% in bundle sizes</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Direct side-by-side comparison slider</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Bulk offline conversion engine</span></li>
               </ul>
               <Link 
                 to="/image-compressor" 
@@ -206,9 +207,9 @@ export const Home: React.FC = () => {
                 Remove image backdrops automatically. Powered by neural networks compiling directly in your browser's IndexedDB models cache.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">âœ“ Neural subject segmentation (RMBG-1.4)</li>
-                <li className="flex items-center gap-2">âœ“ No files transferred to cloud servers</li>
-                <li className="flex items-center gap-2">âœ“ Instant transparent alpha download</li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Neural subject segmentation (RMBG-1.4)</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>No files transferred to cloud servers</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Instant transparent alpha download</span></li>
               </ul>
               <Link 
                 to="/background-remover" 
@@ -245,9 +246,9 @@ export const Home: React.FC = () => {
                 Scan screenshots, receipts, or documents and pull texts immediately. Supports multi-language packages compiled under local sandboxes.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">âœ“ Local scan engines using Tesseract.js</li>
-                <li className="flex items-center gap-2">âœ“ Bounding boxes scan progress visual</li>
-                <li className="flex items-center gap-2">âœ“ Multi-language libraries</li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Local scan engines using Tesseract.js</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Bounding boxes scan progress visual</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Multi-language libraries</span></li>
               </ul>
               <Link 
                 to="/ocr-text-extractor" 
@@ -284,9 +285,9 @@ export const Home: React.FC = () => {
                 Slice single panoramic images into square grid assets. Ready for cohesive social banners, Instagram feeds, or Pinterest grids.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">âœ“ Grid metrics split presets (3x3, 3x1, 3x2)</li>
-                <li className="flex items-center gap-2">âœ“ Instant ZIP generation pipeline</li>
-                <li className="flex items-center gap-2">âœ“ Retain full source pixel resolution</li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Grid metrics split presets (3x3, 3x1, 3x2)</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Instant ZIP generation pipeline</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Retain full source pixel resolution</span></li>
               </ul>
               <Link 
                 to="/instagram-grid-splitter" 
@@ -323,9 +324,9 @@ export const Home: React.FC = () => {
                 Combine your favorite shots in customizable templates. Drag files, adjust layout gaps, borders, and canvas colors live in-browser.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">âœ“ Responsive template grids</li>
-                <li className="flex items-center gap-2">âœ“ Editable margin gaps and border curves</li>
-                <li className="flex items-center gap-2">âœ“ Single-click high quality canvas download</li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Responsive template grids</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Editable margin gaps and border curves</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Single-click high quality canvas download</span></li>
               </ul>
               <Link 
                 to="/collage-maker" 
@@ -362,9 +363,9 @@ export const Home: React.FC = () => {
                 Retrieve dominant colors and copy accent swatches inline. Generates custom code blocks compatible with Tailwind CSS configs and standard styles.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">âœ“ Advanced color quantization math</li>
-                <li className="flex items-center gap-2">âœ“ Single click HEX codes copy</li>
-                <li className="flex items-center gap-2">âœ“ Tailwind palette config blocks output</li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Advanced color quantization math</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Single click HEX codes copy</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Tailwind palette config blocks output</span></li>
               </ul>
               <Link 
                 to="/color-palette-extractor" 
@@ -401,9 +402,9 @@ export const Home: React.FC = () => {
                 Convert multiple JPEGs, PNGs, or WebPs in one go. Package your images into a single multi-page PDF booklet or a ZIP archive locally.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">âœ“ Multi-file bulk processing</li>
-                <li className="flex items-center gap-2">âœ“ Custom PDF package scaling</li>
-                <li className="flex items-center gap-2">âœ“ Instant JSZip downloader</li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Multi-file bulk processing</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Custom PDF package scaling</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Instant JSZip downloader</span></li>
               </ul>
               <Link 
                 to="/batch-converter" 
@@ -440,9 +441,9 @@ export const Home: React.FC = () => {
                 Audit and scrub hidden EXIF data headers from your photos. Remove GPS coordinates, camera models, and capture times to secure your privacy.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">âœ“ Local EXIF inspection panel</li>
-                <li className="flex items-center gap-2">âœ“ Interactive coordinates locator</li>
-                <li className="flex items-center gap-2">âœ“ Zero-trace canvas cleaning</li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Local EXIF inspection panel</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Interactive coordinates locator</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Zero-trace canvas cleaning</span></li>
               </ul>
               <Link 
                 to="/metadata-stripper" 
@@ -479,9 +480,9 @@ export const Home: React.FC = () => {
                 Overlay custom PNG branding logos or outline text watermarks onto your photos. Adjust opacity, scale, rotation, and tile-repeats client-side.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">âœ“ Support image & text overlays</li>
-                <li className="flex items-center gap-2">âœ“ Responsive coordinates placement</li>
-                <li className="flex items-center gap-2">âœ“ Dynamic repeat tiling patterns</li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Support image & text overlays</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Responsive coordinates placement</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Dynamic repeat tiling patterns</span></li>
               </ul>
               <Link 
                 to="/watermark-overlay" 
@@ -518,9 +519,9 @@ export const Home: React.FC = () => {
                 Refit your images to standard social templates or crop them manually. Use our new interactive Smart Crop overlay with handles and aspect lock grid.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">✓ Manual interactive Smart Crop overlays</li>
-                <li className="flex items-center gap-2">✓ High-end blur padding fit</li>
-                <li className="flex items-center gap-2">✓ Instant canvas resizing control</li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Manual interactive Smart Crop overlays</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>High-end blur padding fit</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Instant canvas resizing control</span></li>
               </ul>
               <Link 
                 to="/aspect-resizer" 
@@ -557,9 +558,9 @@ export const Home: React.FC = () => {
                 Create custom memes and captioned social cards. Drag-and-drop movable text layers freely on the photo canvas with classic Impact font styling.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">âœ“ Drag-and-drop text layouts</li>
-                <li className="flex items-center gap-2">âœ“ Heavy black outlines & fills</li>
-                <li className="flex items-center gap-2">âœ“ Add unlimited caption blocks</li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Drag-and-drop text layouts</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Heavy black outlines & fills</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Add unlimited caption blocks</span></li>
               </ul>
               <Link 
                 to="/meme-generator" 
@@ -596,9 +597,9 @@ export const Home: React.FC = () => {
                 Trace raster JPEGs and PNGs into fully scalable vector SVGs. Adjust color palette counts, path smoothing, and speckle noise filters offline.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">âœ“ K-Means++ color quantization</li>
-                <li className="flex items-center gap-2">âœ“ Moore-Neighbor boundary tracer</li>
-                <li className="flex items-center gap-2">âœ“ Douglas-Peucker path simplification</li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>K-Means++ color quantization</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Moore-Neighbor boundary tracer</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Douglas-Peucker path simplification</span></li>
               </ul>
               <Link 
                 to="/svg-vectorizer" 
@@ -635,9 +636,9 @@ export const Home: React.FC = () => {
                 Reconstruct target images from thousands of small photo tiles client-side. Live overlay density controls, color tinting scales, and zero server-side storage footprint.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">✓ Advanced color-distance Euclidean search</li>
-                <li className="flex items-center gap-2">✓ Adjustable target transparency & tint sliders</li>
-                <li className="flex items-center gap-2">✓ Dynamic 16-color placeholder tiles fallback</li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Advanced color-distance Euclidean search</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Adjustable target transparency & tint sliders</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Dynamic 16-color placeholder tiles fallback</span></li>
               </ul>
               <Link 
                 to="/photo-mosaic-generator" 
