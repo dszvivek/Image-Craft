@@ -6,6 +6,8 @@ import { ProgressBar } from '../components/ProgressBar';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import ocrExtractorGif from '../assets/ocr_extractor_feature.gif';
+import ocrExtractorStaticImg from '../assets/ocr_extractor_feature_static.webp';
+import { DemoPreview } from '../components/DemoPreview';
 
 interface LangOption {
   code: string;
@@ -455,9 +457,11 @@ export const OcrExtractor: React.FC = () => {
                     Run highly accurate optical character recognition locally. Isolate multi-language scripts, scanned books, and document images without third-party network uploads.
                   </p>
                 </div>
-                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
-                  <img src={ocrExtractorGif} alt="OCR Extractor Demo" className="w-full h-full object-cover" />
-                </div>
+                <DemoPreview
+                  gifSrc={ ocrExtractorGif }
+                  staticSrc={ ocrExtractorStaticImg }
+                  alt="OCR Extractor Demo"
+                />
               </div>
             </div>
           </div>

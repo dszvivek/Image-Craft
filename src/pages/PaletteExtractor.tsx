@@ -6,6 +6,8 @@ import type { ColorSwatch } from '../types';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import paletteExtractorGif from '../assets/palette_extractor_feature.gif';
+import paletteExtractorStaticImg from '../assets/palette_extractor_feature_static.webp';
+import { DemoPreview } from '../components/DemoPreview';
 
 export const PaletteExtractor: React.FC = () => {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
@@ -204,9 +206,11 @@ export const PaletteExtractor: React.FC = () => {
                     Analyze design colors and generate harmonized swatches locally. Copy hex/rgb codes, download custom JSON files, CSS variables, or visual swatch sheets instantly.
                   </p>
                 </div>
-                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
-                  <img src={paletteExtractorGif} alt="Color Palette Extractor Demo" className="w-full h-full object-cover" />
-                </div>
+                <DemoPreview
+                  gifSrc={ paletteExtractorGif }
+                  staticSrc={ paletteExtractorStaticImg }
+                  alt="Color Palette Extractor Demo"
+                />
               </div>
             </div>
           </div>

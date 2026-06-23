@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Settings, Info, Sparkles } from 'lucide-react';
 import aspectResizerGif from '../assets/aspect_resizer_feature.gif';
+import aspectResizerStaticImg from '../assets/aspect_resizer_feature_static.webp';
+import { DemoPreview } from '../components/DemoPreview';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -670,9 +672,11 @@ export const AspectResizer: React.FC = () => {
                     Select a social preset (YouTube, Instagram, Twitter) and choose between aspect fill or blur-padding fit. The canvas resizes your image client-side in milliseconds.
                   </p>
                 </div>
-                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
-                  <img src={aspectResizerGif} alt="Aspect Resizer Demo" className="w-full h-full object-cover" />
-                </div>
+                <DemoPreview
+                  gifSrc={ aspectResizerGif }
+                  staticSrc={ aspectResizerStaticImg }
+                  alt="Aspect Resizer Demo"
+                />
               </div>
             </div>
           </div>

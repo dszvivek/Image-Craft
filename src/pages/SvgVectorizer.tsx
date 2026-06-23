@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Sliders, Sparkles, Layers, Eye, Settings, Info, Copy, Check } from 'lucide-react';
 import svgVectorizerGif from '../assets/svg_vectorizer_feature.gif';
+import svgVectorizerStaticImg from '../assets/svg_vectorizer_feature_static.webp';
+import { DemoPreview } from '../components/DemoPreview';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -621,9 +623,11 @@ export const SvgVectorizer: React.FC = () => {
                     Upload a raster image, set color count and smoothing tolerance, then trace paths using K-Means clustering and Moore-Neighbor contour algorithms — all offline.
                   </p>
                 </div>
-                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
-                  <img src={svgVectorizerGif} alt="SVG Vectorizer Demo" className="w-full h-full object-cover" />
-                </div>
+                <DemoPreview
+                  gifSrc={ svgVectorizerGif }
+                  staticSrc={ svgVectorizerStaticImg }
+                  alt="SVG Vectorizer Demo"
+                />
               </div>
             </div>
           </div>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Trash2, Settings, Type, Image as ImageIcon } from 'lucide-react';
 import watermarkOverlayGif from '../assets/watermark_overlay_feature.gif';
+import watermarkOverlayStaticImg from '../assets/watermark_overlay_feature_static.webp';
+import { DemoPreview } from '../components/DemoPreview';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -280,9 +282,11 @@ export const WatermarkOverlay: React.FC = () => {
                     Stamp custom text or transparent PNG logos onto your photos. Adjust opacity, scale, rotation and tiling — all rendered locally on canvas without any uploads.
                   </p>
                 </div>
-                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
-                  <img src={watermarkOverlayGif} alt="Watermark Overlay Demo" className="w-full h-full object-cover" />
-                </div>
+                <DemoPreview
+                  gifSrc={ watermarkOverlayGif }
+                  staticSrc={ watermarkOverlayStaticImg }
+                  alt="Watermark Overlay Demo"
+                />
               </div>
             </div>
           </div>

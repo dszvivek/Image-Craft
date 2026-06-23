@@ -6,6 +6,8 @@ import { ProgressBar } from '../components/ProgressBar';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import gridSplitterGif from '../assets/grid_splitter_feature.gif';
+import gridSplitterStaticImg from '../assets/grid_splitter_feature_static.webp';
+import { DemoPreview } from '../components/DemoPreview';
 
 export const GridSplitter: React.FC = () => {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
@@ -257,9 +259,11 @@ export const GridSplitter: React.FC = () => {
                     Segment large square images into 3x3, 4x4, or 5x5 Instagram feeds. Preview the grid layout, then download all files bundled inside a zip archive instantly.
                   </p>
                 </div>
-                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
-                  <img src={gridSplitterGif} alt="Grid Splitter Demo" className="w-full h-full object-cover" />
-                </div>
+                <DemoPreview
+                  gifSrc={ gridSplitterGif }
+                  staticSrc={ gridSplitterStaticImg }
+                  alt="Grid Splitter Demo"
+                />
               </div>
             </div>
           </div>

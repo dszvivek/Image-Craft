@@ -13,8 +13,16 @@ export default defineConfig({
             if (id.includes('jspdf')) return 'vendor-jspdf';
             if (id.includes('jszip')) return 'vendor-jszip';
             if (id.includes('tesseract.js')) return 'vendor-tesseract';
-            if (id.includes('@huggingface/transformers') || id.includes('onnxruntime')) return 'vendor-transformers';
-            return 'vendor-core';
+            if (id.includes('@huggingface/transformers') || id.includes('onnxruntime') || id.includes('emnapi')) {
+              return 'vendor-transformers';
+            }
+            if (
+              id.includes('react') ||
+              id.includes('scheduler') ||
+              id.includes('lucide-react')
+            ) {
+              return 'vendor-core';
+            }
           }
         }
       }

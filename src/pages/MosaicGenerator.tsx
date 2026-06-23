@@ -4,6 +4,8 @@ import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import mosaicImg from '../assets/mosaic_feature.gif';
+import mosaicStaticImg from '../assets/mosaic_feature_static.webp';
+import { DemoPreview } from '../components/DemoPreview';
 
 interface TileImage {
   id: string;
@@ -413,9 +415,11 @@ export const MosaicGenerator: React.FC = () => {
                 </div>
 
                 {/* Visual Showcase Preview GIF */}
-                <div className="my-4 rounded-2xl overflow-hidden border border-slate-200/60 aspect-[4/3] relative select-none shadow-sm bg-slate-50">
-                  <img src={mosaicImg} alt="Photo Mosaic Preview" className="w-full h-full object-cover" />
-                </div>
+                <DemoPreview
+                  gifSrc={mosaicImg}
+                  staticSrc={mosaicStaticImg}
+                  alt="Photo Mosaic Preview"
+                />
 
                 <div className="bg-slate-50 border border-slate-100/70 rounded-2xl p-4 space-y-3 shadow-inner">
                   <div className="flex items-start gap-2.5 text-[10px] text-slate-500 font-medium">

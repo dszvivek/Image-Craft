@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Type, Plus, Trash2, Info } from 'lucide-react';
 import memeGeneratorGif from '../assets/meme_generator_feature.gif';
+import memeGeneratorStaticImg from '../assets/meme_generator_feature_static.webp';
+import { DemoPreview } from '../components/DemoPreview';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -283,9 +285,11 @@ export const MemeGenerator: React.FC = () => {
                     Load any image, add draggable text layers with Impact-style fonts and black outlines, position them freely by dragging on the canvas, then download your meme.
                   </p>
                 </div>
-                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
-                  <img src={memeGeneratorGif} alt="Meme Generator Demo" className="w-full h-full object-cover" />
-                </div>
+                <DemoPreview
+                  gifSrc={ memeGeneratorGif }
+                  staticSrc={ memeGeneratorStaticImg }
+                  alt="Meme Generator Demo"
+                />
               </div>
             </div>
           </div>

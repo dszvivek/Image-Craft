@@ -4,6 +4,8 @@ import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import collageMakerGif from '../assets/collage_maker_feature.gif';
+import collageMakerStaticImg from '../assets/collage_maker_feature_static.webp';
+import { DemoPreview } from '../components/DemoPreview';
 
 interface CollageImage {
   id: string;
@@ -321,9 +323,11 @@ export const CollageMaker: React.FC = () => {
                     Upload up to 4 images and arrange them dynamically. Customize spacing, border thickness, border colors, and corner roundness client-side.
                   </p>
                 </div>
-                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
-                  <img src={collageMakerGif} alt="Collage Maker Demo" className="w-full h-full object-cover" />
-                </div>
+                <DemoPreview
+                  gifSrc={ collageMakerGif }
+                  staticSrc={ collageMakerStaticImg }
+                  alt="Collage Maker Demo"
+                />
               </div>
             </div>
           </div>

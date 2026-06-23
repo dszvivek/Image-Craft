@@ -4,6 +4,8 @@ import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import compressorGif from '../assets/compressor_feature.gif';
+import compressorStaticImg from '../assets/compressor_feature_static.webp';
+import { DemoPreview } from '../components/DemoPreview';
 
 export const Compressor: React.FC = () => {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
@@ -209,9 +211,11 @@ export const Compressor: React.FC = () => {
                     Run local, sandboxed file compression inside your browser cache. Adjust quality dynamically and compare originals side-by-side without cloud transmission.
                   </p>
                 </div>
-                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
-                  <img src={compressorGif} alt="Compressor Demo" className="w-full h-full object-cover" />
-                </div>
+                <DemoPreview
+                  gifSrc={ compressorGif }
+                  staticSrc={ compressorStaticImg }
+                  alt="Compressor Demo"
+                />
               </div>
             </div>
           </div>

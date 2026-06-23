@@ -4,6 +4,8 @@ import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import metadataStripperGif from '../assets/metadata_stripper_feature.gif';
+import metadataStripperStaticImg from '../assets/metadata_stripper_feature_static.webp';
+import { DemoPreview } from '../components/DemoPreview';
 import EXIF from 'exif-js';
 
 interface ExifTag {
@@ -219,9 +221,11 @@ export const MetadataStripper: React.FC = () => {
                     Drop a JPEG to instantly expose hidden EXIF data — GPS coordinates, camera model, aperture and timestamps — then scrub them all with one click.
                   </p>
                 </div>
-                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
-                  <img src={metadataStripperGif} alt="Metadata Stripper Demo" className="w-full h-full object-cover" />
-                </div>
+                <DemoPreview
+                  gifSrc={ metadataStripperGif }
+                  staticSrc={ metadataStripperStaticImg }
+                  alt="Metadata Stripper Demo"
+                />
               </div>
             </div>
           </div>

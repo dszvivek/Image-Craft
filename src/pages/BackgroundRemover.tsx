@@ -5,6 +5,8 @@ import { ProgressBar } from '../components/ProgressBar';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import bgRemoverGif from '../assets/bg_remover_feature.gif';
+import bgRemoverStaticImg from '../assets/bg_remover_feature_static.webp';
+import { DemoPreview } from '../components/DemoPreview';
 
 interface WorkerProgress {
   status: 'progress' | 'processing' | 'complete' | 'error';
@@ -257,9 +259,11 @@ export const BackgroundRemover: React.FC = () => {
                     Our local AI segments your images in seconds directly on your device. Easily extract people, animals, and objects without sending files to any server.
                   </p>
                 </div>
-                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
-                  <img src={bgRemoverGif} alt="Background Remover Demo" className="w-full h-full object-cover" />
-                </div>
+                <DemoPreview
+                  gifSrc={ bgRemoverGif }
+                  staticSrc={ bgRemoverStaticImg }
+                  alt="Background Remover Demo"
+                />
               </div>
             </div>
           </div>

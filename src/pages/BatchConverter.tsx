@@ -5,6 +5,8 @@ import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import { ProgressBar } from '../components/ProgressBar';
 import batchConverterGif from '../assets/batch_converter_feature.gif';
+import batchConverterStaticImg from '../assets/batch_converter_feature_static.webp';
+import { DemoPreview } from '../components/DemoPreview';
 import JSZip from 'jszip';
 import { jsPDF } from 'jspdf';
 
@@ -332,9 +334,11 @@ export const BatchConverter: React.FC = () => {
                     Drop multiple images, choose output format and quality, then package everything into a ZIP archive or multi-page PDF — all processed locally in your browser.
                   </p>
                 </div>
-                <div className="my-5 rounded-2xl overflow-hidden aspect-[4/3] border border-slate-150 shadow-xs relative pointer-events-none select-none">
-                  <img src={batchConverterGif} alt="Batch Converter Demo" className="w-full h-full object-cover" />
-                </div>
+                <DemoPreview
+                  gifSrc={ batchConverterGif }
+                  staticSrc={ batchConverterStaticImg }
+                  alt="Batch Converter Demo"
+                />
               </div>
             </div>
           </div>
