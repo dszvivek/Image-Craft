@@ -3,6 +3,7 @@ import { Download, RefreshCw, Settings, Info, Sparkles } from 'lucide-react';
 import aspectResizerGif from '../assets/aspect_resizer_feature.gif';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
 import { detectSmartCrop, warpPerspective } from '../utils/smartCrop';
 import type { SmartCropResult } from '../utils/smartCrop';
 
@@ -611,13 +612,34 @@ export const AspectResizer: React.FC = () => {
     };
   }, []);
 
+  const aspectSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'Smart Crop & Aspect Resizer - ImageGiri',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Resize and crop images to exact social media dimensions in your browser. Presets for YouTube, Instagram, Facebook, and Twitter. Smart crop and perspective warping.',
+    'featureList': [
+      'Content-aware Smart Crop engine',
+      'Homography projection document warping scanner',
+      'Blur padding and color fill fitting modes',
+      'Presets for major social media aspect sizes'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
-        title="Free Aspect Ratio Resizer & Smart Crop Tool" 
-        description="Resize and crop images to exact social media dimensions in your browser. Presets for YouTube thumbnails, Instagram stories, Twitter headers, LinkedIn banners, and more. Smart crop overlay, blur-padding fit mode. No uploads, 100% private." 
-        keywords="aspect ratio resizer, image resizer, crop image online, resize photo online, YouTube thumbnail size, Instagram story size, Twitter header size, social media image resizer, smart crop, photo crop tool, image resize tool free, resize image without losing quality"
+        title="Free Smart Crop & Aspect Resizer - Canva Resizer Alternative" 
+        description="Resize images to social preset aspect ratios. Features local Face/Saliency Smart Crop and perspective document scanning. A free alternative to Canva Resizer and ImageResizer.com." 
+        keywords="aspect ratio resizer, image resizer, crop image online, resize photo online, YouTube thumbnail size, Instagram story size, Twitter header size, social media image resizer, smart crop, photo crop tool, image resize tool free, resize image without losing quality, Canva resizer alternative, ImageResizer.com alternative, resize photo offline"
         canonicalUrl="https://imagegiri.com/aspect-resizer"
+        schema={aspectSchema}
       />
 
       <div className="max-w-5xl mx-auto">
@@ -1017,6 +1039,54 @@ export const AspectResizer: React.FC = () => {
 
           </div>
         )}
+
+        <ToolGuide
+          toolName="Smart Crop & Aspect Resizer"
+          introText="Optimize image boundaries for social media. Resize files to matching preset dimensions or scan and flatten tilted documents using local homography rendering."
+          competitorComparison={{
+            alternatives: ['ImageResizer.com', 'Canva Resizer', 'PicResize'],
+            benefit: 'Standard resizers upload photos to their backend or restrict custom ratios to premium plans. ImageGiri resizes all images in your browser RAM, featuring on-device face and document boundary detection completely free.'
+          }}
+          steps={[
+            {
+              title: 'Upload Photo',
+              description: 'Select or drag your image into the drop area.'
+            },
+            {
+              title: 'Configure Presets',
+              description: 'Choose presets (YouTube Thumbnail, Instagram Stories) or customize height/width parameters. Select cover fit or blur pad styles.'
+            },
+            {
+              title: 'Smart Crop / Flatten',
+              description: 'Toggle Smart Crop to align boundaries on focal subjects. If scanning a document, click "Flatten Perspective & Crop" to correct tilts.'
+            },
+            {
+              title: 'Download Crop',
+              description: 'Review the preview alignment and click "Download Resized Image" to save the high-res crop.'
+            }
+          ]}
+          features={[
+            'Dozens of built-in templates for YouTube, Instagram, Facebook, and LinkedIn.',
+            'On-device computer vision to center crops on faces and salient objects.',
+            'Homography perspective projection to digitize, straighten, and scan paper documents.',
+            'Seamless canvas padding: choose between solid fills or blurred background bars.',
+            'Runs entirely offline; keeps files secure inside browser memory.'
+          ]}
+          faq={[
+            {
+              q: 'What is the blur padding contain mode?',
+              a: 'When fitting wide landscape images into narrow vertical spaces, containment fits the photo, applying matching blurred background bars to fill empty margins.'
+            },
+            {
+              q: 'How does Document Perspective Flattening work?',
+              a: 'It scans document boundaries, maps corner nodes, and computes perspective warping matrices to rectify tilted documents as if scanned from directly above.'
+            },
+            {
+              q: 'Are my document uploads recorded?',
+              a: 'No. All scanner calculations and image resizing execute locally in Javascript. No remote servers are contacted.'
+            }
+          ]}
+        />
 
       </div>
     </div>

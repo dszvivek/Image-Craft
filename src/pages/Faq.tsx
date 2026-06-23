@@ -37,6 +37,19 @@ export const Faq: React.FC = () => {
     }
   ];
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': faqs.map(faq => ({
+      '@type': 'Question',
+      'name': faq.q,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.a
+      }
+    }))
+  };
+
   return (
     <div className="w-full relative py-12">
       <SEO 
@@ -44,6 +57,7 @@ export const Faq: React.FC = () => {
         description="Find answers about ImageGiri's browser-based image processing, file privacy, offline capabilities, browser support, and local machine learning models. All image tools run 100% in your browser without server uploads." 
         keywords="ImageGiri FAQ, image tool questions, how does browser image processing work, offline image tools, browser privacy questions, no upload image processing"
         canonicalUrl="https://imagegiri.com/faq"
+        schema={faqSchema}
       />
 
       <div className="max-w-4xl mx-auto">

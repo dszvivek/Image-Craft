@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Settings, Info, Play, Trash2 } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
 import mosaicImg from '../assets/mosaic_feature.gif';
 
 interface TileImage {
@@ -352,13 +353,34 @@ export const MosaicGenerator: React.FC = () => {
     setIsProcessing(false);
   };
 
+  const mosaicSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'Photo Mosaic Generator - ImageGiri',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Transform any photo into a stunning mosaic made of smaller tile images, entirely in your browser. Upload custom tile photos, adjust grid resolution, color tinting, and overlay transparency.',
+    'featureList': [
+      'Automatic color-matching grid placement',
+      'Support for custom tile folder uploads',
+      'Color blending and original overlay settings',
+      'High-resolution offline rendering'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
-        title="Free Photo Mosaic Generator" 
-        description="Transform any photo into a stunning mosaic made of smaller tile images, entirely in your browser. Upload custom tile photos, adjust grid resolution, color tinting, and overlay transparency. No uploads, 100% private, high-resolution output." 
-        keywords="photo mosaic generator, mosaic maker, photo mosaic, image mosaic maker, create photo mosaic online, tile mosaic, picture mosaic, mosaic art maker, photomosaic creator, free mosaic generator, image from images"
+        title="Free Photo Mosaic Generator - Easymoza Alternative" 
+        description="Reconstruct target images from thousands of small photo tiles locally. A free alternative to Easymoza and online mosaic generators." 
+        keywords="photo mosaic generator, mosaic maker, photo mosaic, image mosaic maker, create photo mosaic online, tile mosaic, picture mosaic, mosaic art maker, photomosaic creator, free mosaic generator, image from images, Easymoza alternative, Picture Mosaics alternative, generate mosaic offline"
         canonicalUrl="https://imagegiri.com/photo-mosaic-generator"
+        schema={mosaicSchema}
       />
 
       <div className="max-w-5xl mx-auto">
@@ -764,6 +786,50 @@ export const MosaicGenerator: React.FC = () => {
             </div>
           </div>
         )}
+        <ToolGuide
+          toolName="Photo Mosaic Generator"
+          introText="Construct intricate mosaics matching a single master image using thousands of small photography tiles. Upload custom collections or use our solid color fallback pool."
+          competitorComparison={{
+            alternatives: ['Easymoza', 'Picture Mosaics', 'Mosaically'],
+            benefit: 'Traditional mosaic creators require you to upload hundreds of personal photographs to their servers, and limit high-res downloads behind expensive paywalls. ImageGiri runs image segment averaging locally in JS memory. Save high-resolution mosaics without any cloud uploads.'
+          }}
+          steps={[
+            {
+              title: 'Upload Main Image',
+              description: 'Select the high-contrast target image you want to reconstruct.'
+            },
+            {
+              title: 'Select Tiles Source',
+              description: 'Toggle "Use Solid Colors" for a fast fallback pool, or deselect it and upload a directory of your own custom photographs.'
+            },
+            {
+              title: 'Render & Download',
+              description: 'Adjust grid column sizes, color tint strength, and source opacity layers. Click "Generate Mosaic" and download the completed canvas.'
+            }
+          ]}
+          features={[
+            'On-device color-matching sorting algorithms that run in-browser.',
+            'Custom tile loader support: upload folder paths of user photos in bulk.',
+            'Solid-color cell fill fallback option for quick mockups and placeholders.',
+            'Adjustable blend controls: customize original image overlay and tint levels.',
+            'Generates high-resolution layouts without bandwidth consumption.'
+          ]}
+          faq={[
+            {
+              q: 'How many tile images should I upload?',
+              a: 'For best results with custom tiles, upload a directory containing 50 to 500 different photos so the matching algorithm has a wide color palette to select from.'
+            },
+            {
+              q: 'Does it support folder uploads?',
+              a: 'Yes, you can click to select and upload multiple images from a folder at once. They are processed entirely in local browser memory.'
+            },
+            {
+              q: 'Why does generation take a few seconds?',
+              a: 'The algorithm must read the average color coordinates of the target image segments and compare them against the color profiles of each uploaded tile to select the best match.'
+            }
+          ]}
+        />
+
       </div>
       <canvas ref={canvasRef} className="hidden" />
     </div>

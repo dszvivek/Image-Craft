@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Plus, Trash2, Sliders, Crop } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
 import collageMakerGif from '../assets/collage_maker_feature.gif';
 
 interface CollageImage {
@@ -260,13 +261,34 @@ export const CollageMaker: React.FC = () => {
     };
   }, []);
 
+  const collageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'Photo Collage Maker - ImageGiri',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Create beautiful photo collages directly in your browser. Arrange up to 4 images in custom grid layouts. Adjust spacing, borders, border radius, and canvas color.',
+    'featureList': [
+      'Custom template grid structures',
+      'Adjustable border spacing, color and radius',
+      'Real-time HTML Canvas collage compiling',
+      'No registration or subscriptions'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
-        title="Free Online Photo Collage Maker" 
-        description="Create beautiful photo collages directly in your browser. Arrange up to 4 images in custom grid layouts. Adjust spacing, borders, border radius, and canvas color. Download high-quality collages instantly. No uploads, 100% private." 
-        keywords="photo collage maker, collage maker online, free collage maker, image collage, picture collage, photo grid maker, photo layout maker, online collage creator, make collage online free, picture collage maker, no watermark collage maker"
+        title="Free Online Photo Collage Maker - Canva Grid Alternative" 
+        description="Assemble images into custom collage grids locally in your browser. A free alternative to Canva collages, BeFunky, and PicMonkey with zero uploads." 
+        keywords="photo collage maker, collage maker online, free collage maker, image collage, picture collage, photo grid maker, photo layout maker, online collage creator, make collage online free, picture collage maker, no watermark collage maker, Canva collage alternative, BeFunky alternative, PicMonkey collage creator, photo collage offline"
         canonicalUrl="https://imagegiri.com/collage-maker"
+        schema={collageSchema}
       />
 
       <div className="max-w-6xl mx-auto">
@@ -525,6 +547,54 @@ export const CollageMaker: React.FC = () => {
 
           </div>
         )}
+
+        <ToolGuide
+          toolName="Photo Collage Maker"
+          introText="Create custom photo grids and collages on-device. Control styling parameters including spacing, border colors, and border radius in real time."
+          competitorComparison={{
+            alternatives: ['Canva Collage Maker', 'BeFunky', 'PicMonkey'],
+            benefit: 'Unlike paid online cloud tools that force subscription sign-ups, watermark collage exports, or upload personal photos to the cloud, ImageGiri arranges your collages locally in RAM. Your original photos are processed offline and exported in high quality with zero fees.'
+          }}
+          steps={[
+            {
+              title: 'Select Layout Grid',
+              description: 'Pick your preferred collage template configuration (e.g. 2-image vertical, 3-image grid, 4-image quad) and aspect ratio.'
+            },
+            {
+              title: 'Upload Photos',
+              description: 'Click each slot layout to upload an image from your device. You can swap or adjust individual images.'
+            },
+            {
+              title: 'Customize Borders',
+              description: 'Use the range sliders to adjust borders spacing and border corner radius. Change the canvas border background color.'
+            },
+            {
+              title: 'Export Collage',
+              description: 'Preview the final grid alignment, then click "Download Collage" to save it as a high-resolution PNG file.'
+            }
+          ]}
+          features={[
+            'Multiple collage grid templates accommodating 2, 3, or 4 images.',
+            'Precision border size sliders, border color swatches, and rounded corner radius.',
+            'Dynamic crop controls: lets you adjust crop centering inside individual slots.',
+            'High-definition rendering using browser-native 2D canvas context.',
+            'Runs completely client-side in sandboxed browser memory.'
+          ]}
+          faq={[
+            {
+              q: 'Can I swap photos after uploading?',
+              a: 'Yes, just click on any photo slot or the delete/add buttons to replace the photo for that specific grid segment.'
+            },
+            {
+              q: 'Are my images downscaled during collage creation?',
+              a: 'No. The canvas compiles the collage based on your uploaded images’ dimensions, retaining sharp, high-quality results.'
+            },
+            {
+              q: 'Can I save and resume editing later?',
+              a: 'Currently, collages are processed in temporary browser memory (RAM) and reset if you refresh the page. Download your results to save them.'
+            }
+          ]}
+        />
 
       </div>
     </div>

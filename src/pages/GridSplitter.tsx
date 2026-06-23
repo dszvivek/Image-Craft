@@ -4,6 +4,7 @@ import { Download, RefreshCw, Grid, CheckCircle } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
 import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
 import gridSplitterGif from '../assets/grid_splitter_feature.gif';
 
 export const GridSplitter: React.FC = () => {
@@ -197,13 +198,34 @@ export const GridSplitter: React.FC = () => {
     };
   }, []);
 
+  const gridSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'Instagram Grid Splitter - ImageGiri',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Split any photo into 3x3, 4x4, or 5x5 grids for Instagram feed posts. Download all tiles as a ZIP file instantly. Works 100% in your browser.',
+    'featureList': [
+      'Split into 3x3, 4x4, or 5x5 equal grid tiles',
+      'Instant client-side ZIP compilation via JSZip',
+      'High-resolution source file mapping',
+      'No watermark placement on output images'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
-        title="Free Instagram Grid Splitter" 
-        description="Split any photo into 3x3, 4x4, or 5x5 grids for Instagram feed posts. Download all tiles as a ZIP file instantly. Works 100% in your browser — no uploads, no watermarks, full resolution preserved." 
-        keywords="Instagram grid splitter, split image for Instagram, Instagram grid maker, photo grid splitter, Instagram puzzle feed, grid layout maker, image splitter, Instagram post splitter, 3x3 grid, free Instagram tools, no watermark grid splitter"
+        title="Free Instagram Grid Splitter - 9Cut Grid Maker Alternative" 
+        description="Split photos into 3x3, 4x4, or 5x5 grid tiles for Instagram feed posts. An offline, free alternative to 9Cut, Grids for Instagram, and paid image splitters." 
+        keywords="Instagram grid splitter, split image for Instagram, Instagram grid maker, photo grid splitter, Instagram puzzle feed, grid layout maker, image splitter, Instagram post splitter, 3x3 grid, free Instagram tools, no watermark grid splitter, 9Cut alternative, Grids for Instagram alternative, Preview app alternative, split image offline"
         canonicalUrl="https://imagegiri.com/instagram-grid-splitter"
+        schema={gridSchema}
       />
 
       <div className="max-w-4xl mx-auto">
@@ -379,6 +401,50 @@ export const GridSplitter: React.FC = () => {
 
           </div>
         )}
+
+        <ToolGuide
+          toolName="Instagram Grid Splitter"
+          introText="Slice your images into perfect square tiles to create visual grids and puzzle feeds on Instagram. Instantly download the cropped slices packed in a ZIP folder."
+          competitorComparison={{
+            alternatives: ['9Cut', 'Grids for Instagram', 'Preview App Grid Maker'],
+            benefit: 'Most grid splitter apps force ads, require account registrations, or place ugly watermarks on your slices unless you pay. ImageGiri splits your photos locally in high resolution, completely free, offline, and with absolutely no watermarks.'
+          }}
+          steps={[
+            {
+              title: 'Upload Photo',
+              description: 'Select your photo (PNG, JPEG, WebP) by dropping it onto the card upload canvas.'
+            },
+            {
+              title: 'Select Grid Config',
+              description: 'Choose your preferred layout grid: 3x3 (9 tiles), 4x4 (16 tiles), or 5x5 (25 tiles) layout structures.'
+            },
+            {
+              title: 'Download ZIP',
+              description: 'Review the visual tile grid cuts, then click "Download All Tiles (ZIP)" to instantly package and save the cropped images.'
+            }
+          ]}
+          features={[
+            'Generate 3x3, 4x4, or 5x5 grids suitable for Instagram carousel puzzle feeds.',
+            'Compiles output tiles on-the-fly into a clean ZIP folder via client-side JSZip script.',
+            'Preserves full original photo resolution without forced downscaling or compression.',
+            'Dotted alignment guidelines overlay for an intuitive visual check before slicing.',
+            'Operates completely on-device for total privacy and zero server loading.'
+          ]}
+          faq={[
+            {
+              q: 'What image formats can I upload?',
+              a: 'You can upload JPEG, PNG, or WebP. The output tiles will be formatted as clean, web-optimized PNG files for maximum fidelity.'
+            },
+            {
+              q: 'Are my images watermarked?',
+              a: 'No. We do not insert any branding, logo, or watermark on your images. The output is 100% clean.'
+            },
+            {
+              q: 'Does this run on mobile browsers?',
+              a: 'Yes, it is fully optimized for mobile devices so you can split photos and upload directly from your phone.'
+            }
+          ]}
+        />
 
       </div>
     </div>

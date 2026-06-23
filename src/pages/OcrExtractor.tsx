@@ -4,6 +4,7 @@ import { FileText, Copy, Download, RefreshCw, Check, Globe, ShieldAlert } from '
 import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
 import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
 import ocrExtractorGif from '../assets/ocr_extractor_feature.gif';
 
 interface LangOption {
@@ -371,13 +372,34 @@ export const OcrExtractor: React.FC = () => {
     };
   }, []);
 
+  const ocrSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'OCR Text Extractor - ImageGiri',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Extract text from images, screenshots, PDFs, and documents directly in your browser. Free OCR tool supporting English, Spanish, French, German, Chinese, Hindi, Arabic, and 50+ languages.',
+    'featureList': [
+      'Multi-language optical character recognition',
+      'Local OCR engine running via Tesseract.js',
+      'One-click text copy to clipboard',
+      'On-device image-to-text conversion'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
-        title="Free OCR Text Extractor - Image to Text" 
-        description="Extract text from images, screenshots, PDFs, and documents directly in your browser. Free OCR tool supporting English, Spanish, French, German, Chinese, Hindi, Arabic, and 50+ languages. No uploads. Powered by Tesseract.js." 
-        keywords="OCR, image to text, extract text from image, scan text, optical character recognition, text extractor, screenshot to text, photo to text, document scanner, free OCR tool, online OCR, multi-language OCR, Tesseract OCR, offline OCR, browser OCR, PDF text extractor"
+        title="Free OCR Text Extractor - Online OCR Alternative" 
+        description="Extract text from images, screenshots, and scanned documents locally in your browser. A private alternative to OnlineOCR, Adobe Acrobat, and cloud text scanners." 
+        keywords="OCR, image to text, extract text from image, scan text, optical character recognition, text extractor, screenshot to text, photo to text, document scanner, free OCR tool, online OCR, multi-language OCR, Tesseract OCR, offline OCR, browser OCR, PDF text extractor, OnlineOCR alternative, FreeOCR alternative, Adobe Acrobat OCR alternative, scan text offline"
         canonicalUrl="https://imagegiri.com/ocr-text-extractor"
+        schema={ocrSchema}
       />
 
       <div className="max-w-4xl mx-auto">
@@ -543,6 +565,50 @@ export const OcrExtractor: React.FC = () => {
 
           </div>
         )}
+
+        <ToolGuide
+          toolName="OCR Text Extractor"
+          introText="Convert printed or handwritten image documents into editable text using client-side Optical Character Recognition. All scanning performs securely in your browser cache."
+          competitorComparison={{
+            alternatives: ['OnlineOCR', 'FreeOCR', 'Adobe Acrobat OCR'],
+            benefit: 'Standard online OCR services upload your sensitive scanned documents, receipts, or personal screenshots directly to cloud databases. ImageGiri utilizes Tesseract.js client-side scripts. Everything executes on your CPU locally, meaning your data never leaves your computer.'
+          }}
+          steps={[
+            {
+              title: 'Select Language',
+              description: 'Choose your document language. Our scanner supports over 50 languages including English, Spanish, French, German, Chinese, and Hindi.'
+            },
+            {
+              title: 'Upload Image',
+              description: 'Select or drag and drop a screenshot, photo, or scanned document (PNG, JPEG, WebP).'
+            },
+            {
+              title: 'Copy & Save',
+              description: 'Monitor the local OCR process. Once finished, inspect the extracted text, modify it on canvas, and click copy to clipboard.'
+            }
+          ]}
+          features={[
+            'Optical Character Recognition powered by client-side Tesseract.js WebAssembly.',
+            'Broad script support: reads Latin, Arabic, Devanagari, Cyrillic, and Asian fonts.',
+            'Automatic text boundary highlights and progress feedback indicator.',
+            'Instantly copy extracted text or export as a clean plain text file (.txt).',
+            'Fully private execution ensures business files remain entirely confidential.'
+          ]}
+          faq={[
+            {
+              q: 'Can it read handwriting?',
+              a: 'Accuracy varies for handwriting. It works exceptionally well on printed documents, high-contrast screenshots, and digitized book pages.'
+            },
+            {
+              q: 'Why does OCR processing take some time?',
+              a: 'The OCR scripts run local neural network layers to analyze character matrices. Speed depends on image complexity and your computer’s CPU processing speed.'
+            },
+            {
+              q: 'Are scanned documents uploaded to the cloud?',
+              a: 'No. The image file is processed via canvas pixel parsing in your browser memory. We have no servers to receive, inspect, or log your documents.'
+            }
+          ]}
+        />
 
       </div>
     </div>

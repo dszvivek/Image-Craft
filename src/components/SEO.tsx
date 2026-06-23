@@ -5,11 +5,14 @@ interface SEOProps {
   description: string;
   keywords?: string;
   canonicalUrl?: string;
+  schema?: Record<string, any> | Record<string, any>[];
 }
 
-export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonicalUrl }) => {
+export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonicalUrl, schema }) => {
   const fullTitle = `${title} | ImageGiri`;
   const defaultCanonical = canonicalUrl || window.location.href;
+
+  const schemaString = schema ? JSON.stringify(schema) : '';
 
   useEffect(() => {
     // 1. Update Document Title
@@ -89,7 +92,30 @@ export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonica
       },
     });
 
-  }, [title, description, keywords, defaultCanonical, fullTitle]);
+    // 8. Inject additional JSON-LD schemas
+    const extraLdJsonId = 'page-extra-jsonld';
+    let extraLdScript = document.getElementById(extraLdJsonId);
+    if (schemaString) {
+      if (!extraLdScript) {
+        extraLdScript = document.createElement('script');
+        extraLdScript.setAttribute('type', 'application/ld+json');
+        extraLdScript.id = extraLdJsonId;
+        document.head.appendChild(extraLdScript);
+      }
+      extraLdScript.textContent = schemaString;
+    } else if (extraLdScript) {
+      extraLdScript.remove();
+    }
+
+    // Cleanup extra schema on unmount to prevent leaks
+    return () => {
+      const extraScript = document.getElementById(extraLdJsonId);
+      if (extraScript) {
+        extraScript.remove();
+      }
+    };
+
+  }, [title, description, keywords, defaultCanonical, fullTitle, schemaString]);
 
   return null;
 };

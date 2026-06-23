@@ -3,6 +3,7 @@ import { Cpu, Download, RefreshCw, AlertTriangle, AlertCircle, Check, Scissors }
 import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
 import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
 import bgRemoverGif from '../assets/bg_remover_feature.gif';
 
 interface WorkerProgress {
@@ -196,13 +197,34 @@ export const BackgroundRemover: React.FC = () => {
     };
   }, []);
 
+  const bgSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'AI Background Remover - ImageGiri',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Remove image backgrounds automatically using on-device AI. 100% offline — no files are uploaded to any server. Powered by the RMBG-1.4 neural network running entirely in your browser.',
+    'featureList': [
+      'Automatic edge segmentation',
+      'Local neural network inference (RMBG-1.4)',
+      'High-quality transparent PNG download',
+      'On-device execution in Web Worker'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
-        title="Free AI Background Remover" 
-        description="Remove image backgrounds automatically using on-device AI. 100% offline — no files are uploaded to any server. Powered by the RMBG-1.4 neural network running entirely in your browser. Download transparent PNG cutouts instantly." 
-        keywords="background remover, remove background from image, AI background removal, background eraser, transparent background, remove image background online, background remover free, cut out background, PNG transparent, photo background remover, no upload background remover, offline background remover, browser AI background"
+        title="Free AI Background Remover - remove.bg Alternative" 
+        description="Remove image backgrounds automatically using on-device AI. A 100% offline alternative to remove.bg, Canva, and Adobe Express. Zero uploads." 
+        keywords="background remover, remove background from image, AI background removal, background eraser, transparent background, remove image background online, background remover free, cut out background, PNG transparent, photo background remover, no upload background remover, offline background remover, browser AI background, remove.bg alternative, Canva background remover alternative, Adobe Express background remover replacement, free erase background"
         canonicalUrl="https://imagegiri.com/background-remover"
+        schema={bgSchema}
       />
 
       <div className="max-w-4xl mx-auto">
@@ -348,6 +370,50 @@ export const BackgroundRemover: React.FC = () => {
 
           </div>
         )}
+
+        <ToolGuide
+          toolName="AI Background Remover"
+          introText="Extract subjects from your images instantly with our offline AI background eraser. Our advanced deep-learning model executes inside your browser, guaranteeing files never leave your device."
+          competitorComparison={{
+            alternatives: ['remove.bg', 'Canva Background Remover', 'Adobe Express'],
+            benefit: 'Traditional background removers upload your images to cloud servers, often charging subscription fees or watermarking low-res files. ImageGiri runs the RMBG-1.4 neural network completely locally on your hardware. It is 100% free, preserves high-resolution quality, and never uploads a single pixel.'
+          }}
+          steps={[
+            {
+              title: 'Upload Image',
+              description: 'Select a portrait, product photo, or object image by dragging and dropping it into the active zone.'
+            },
+            {
+              title: 'Automatic Processing',
+              description: 'The browser worker automatically downloads the AI weights (on first run) and executes the neural network to segment your subject.'
+            },
+            {
+              title: 'Download PNG',
+              description: 'Once segmenting is complete, check the transparent grid preview and click "Download Image" to save as a high-quality transparent PNG.'
+            }
+          ]}
+          features={[
+            'On-device AI inference powered by the state-of-the-art RMBG-1.4 model.',
+            'Generates crisp, clean transparent background cutouts in seconds.',
+            'Runs in a separate Web Worker thread to keep your browser responsive.',
+            'Caches model weights locally in browser database (IndexedDB) for future offline use.',
+            'Supports major input formats: JPEG, PNG, and WebP.'
+          ]}
+          faq={[
+            {
+              q: 'Why does the first run take longer?',
+              a: 'The tool downloads the 13MB neural network model from Hugging Face CDN directly into your browser memory. Once downloaded, it gets cached locally so future processes launch instantly.'
+            },
+            {
+              q: 'Is there an image resolution limit?',
+              a: 'No hard limit, but larger images (e.g. over 4K) require more browser RAM and processing power, which depends on your device CPU/GPU.'
+            },
+            {
+              q: 'Are my photos secure with ImageGiri AI?',
+              a: 'Yes. Unlike typical online AI utilities, ImageGiri runs entirely in client-side WebAssembly and JavaScript sandbox. Your data remains on your physical drive.'
+            }
+          ]}
+        />
 
       </div>
     </div>

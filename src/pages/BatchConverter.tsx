@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Files, FileText, CheckCircle, Trash2, ShieldCheck, AlertTriangle } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
 import { ProgressBar } from '../components/ProgressBar';
 import batchConverterGif from '../assets/batch_converter_feature.gif';
 import JSZip from 'jszip';
@@ -272,13 +273,34 @@ export const BatchConverter: React.FC = () => {
 
   const hasCompleted = files.some((f) => f.status === 'completed');
 
+  const batchSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'Batch Image Converter - ImageGiri',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Convert multiple images to WebP, PNG, or JPEG format in bulk. Compile photos into a multi-page PDF document. All processing happens locally in your browser.',
+    'featureList': [
+      'Bulk conversion of multiple files',
+      'Export formatted files as single ZIP package',
+      'Compile photos into multi-page PDF files',
+      'Support JPEG, PNG, and WebP formats'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
-        title="Free Batch Image Converter & PDF Maker" 
-        description="Convert multiple images to WebP, PNG, or JPEG format in bulk. Compile photos into a multi-page PDF document. All processing happens locally in your browser — no server uploads required. Download as ZIP or PDF instantly." 
-        keywords="batch image converter, bulk image converter, convert images to WebP, convert images to PNG, convert JPG to WebP, images to PDF, batch convert photos, bulk photo converter, image format converter, free batch converter, PDF from images, ZIP image download"
+        title="Free Batch Image Converter - CloudConvert Alternative" 
+        description="Convert multiple images to WebP, PNG, or JPEG format in bulk, or compile them into a PDF document. A free, offline alternative to CloudConvert and EZGIF." 
+        keywords="batch image converter, bulk image converter, convert images to WebP, convert images to PNG, convert JPG to WebP, images to PDF, batch convert photos, bulk photo converter, image format converter, free batch converter, PDF from images, ZIP image download, CloudConvert alternative, EZGIF alternative, bulk convert images offline"
         canonicalUrl="https://imagegiri.com/batch-converter"
+        schema={batchSchema}
       />
 
       <div className="max-w-5xl mx-auto">
@@ -551,6 +573,50 @@ export const BatchConverter: React.FC = () => {
 
           </div>
         )}
+        <ToolGuide
+          toolName="Batch Image Converter"
+          introText="Convert multiple files between WebP, PNG, and JPEG formats in parallel, or package them into a clean PDF booklet, all without cloud latency."
+          competitorComparison={{
+            alternatives: ['CloudConvert', 'Zamzar', 'EZGIF Batch Converter'],
+            benefit: 'Most cloud file converters impose file size limits, daily usage quotas, or upload queues. ImageGiri converts files natively inside your browser memory threads. Enjoy zero file limits, instant download packaging, and total privacy for your document archives.'
+          }}
+          steps={[
+            {
+              title: 'Upload Batch Files',
+              description: 'Select or drop multiple images at once (JPEG, PNG, WebP) to load them into the batch processing list.'
+            },
+            {
+              title: 'Select Output Target',
+              description: 'Choose to convert images into PNG, JPEG, or WebP. Alternatively, select the "Export to PDF" tab to assemble files.'
+            },
+            {
+              title: 'Process & Download',
+              description: 'Click "Start Batch Conversion" or "Compile PDF". Download all results as a single ZIP bundle or a multi-page PDF document.'
+            }
+          ]}
+          features={[
+            'Fast concurrent image conversion queue using client-side canvas routines.',
+            'Compiles images into multi-page PDF files with page numbering adjustments.',
+            'Encapsulates converted images into a compressed ZIP file using JSZip.',
+            'Clear file queue summary listing size modifications and processing states.',
+            'Supports mixed-format queues: process JPEG, PNG, and WebP simultaneously.'
+          ]}
+          faq={[
+            {
+              q: 'Is there a limit on how many images I can upload?',
+              a: 'There is no hard limit on the number of images. However, processing dozens of high-res photos is limited by your browser’s available system RAM.'
+            },
+            {
+              q: 'Can I choose different formats for different images?',
+              a: 'The batch setting applies the chosen format (PNG, JPEG, WebP, or PDF) to all files in the current active queue for consistency.'
+            },
+            {
+              q: 'Do you store any files?',
+              a: 'No. All conversions happen dynamically in your browser. Once you clear the queue or close the page, the in-memory images are completely deleted.'
+            }
+          ]}
+        />
+
       </div>
     </div>
   );

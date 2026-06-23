@@ -3,6 +3,7 @@ import { Download, RefreshCw, Type, Plus, Trash2, Info } from 'lucide-react';
 import memeGeneratorGif from '../assets/meme_generator_feature.gif';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
 
 interface MemeText {
   id: string;
@@ -224,13 +225,34 @@ export const MemeGenerator: React.FC = () => {
     };
   }, []);
 
+  const memeSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'Meme Generator - ImageGiri',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Create custom memes and captioned social cards directly in your browser. Drag-and-drop movable text layers, Impact font, custom colors, and black text outlines.',
+    'featureList': [
+      'Interactive drag-and-drop text positioning',
+      'Impact font rendering with custom outlines',
+      'Add unlimited custom text caption blocks',
+      'Local canvas compilation for instant downloads'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
-        title="Free Online Meme Generator" 
-        description="Create custom memes and captioned social cards directly in your browser. Drag-and-drop movable text layers, Impact font, custom colors, and black text outlines. Add unlimited captions. Download memes instantly. No uploads, no watermarks." 
-        keywords="meme generator, meme maker, create meme online, free meme maker, meme creator, funny meme maker, caption generator, social card maker, meme text editor, Impact font meme, custom meme creator, meme without watermark"
+        title="Free Online Meme Generator - Imgflip Alternative" 
+        description="Create custom memes with draggable text layers offline in your browser. A free alternative to Imgflip and Meme Generator Pro with no watermarks." 
+        keywords="meme generator, meme maker, create meme online, free meme maker, meme creator, funny meme maker, caption generator, social card maker, meme text editor, Impact font meme, custom meme creator, meme without watermark, Imgflip alternative, Meme Generator Pro alternative, make memes offline"
         canonicalUrl="https://imagegiri.com/meme-generator"
+        schema={memeSchema}
       />
 
       <div className="max-w-5xl mx-auto">
@@ -455,6 +477,50 @@ export const MemeGenerator: React.FC = () => {
 
           </div>
         )}
+
+        <ToolGuide
+          toolName="Meme Generator"
+          introText="Caption popular meme formats or custom templates on-device. Position text boxes via simple drag-and-drop coordinates and export clean memes without watermark overlays."
+          competitorComparison={{
+            alternatives: ['Imgflip', 'Meme Generator Pro', 'Kapwing'],
+            benefit: 'Most cloud meme generators force watermarks on free exports or charge subscriptions to unlock basic text formatting. ImageGiri generates high-res memes on your browser Canvas. No watermark is ever stamped, and your content remains completely local and private.'
+          }}
+          steps={[
+            {
+              title: 'Upload Meme Template',
+              description: 'Select a clean template image (PNG, JPEG, WebP) by dragging it into the active upload zone.'
+            },
+            {
+              title: 'Add Caption Blocks',
+              description: 'Type caption texts, adjust font sizes, color fills, and outline weights. Click "+ Add Caption" to create more movable tags.'
+            },
+            {
+              title: 'Position & Save',
+              description: 'Drag text blocks around the preview canvas to align them perfectly. Once complete, click "Download Meme".'
+            }
+          ]}
+          features={[
+            'Interactive drag-and-drop positioning to align text boxes anywhere on the template.',
+            'Classic Impact typography rendering with robust black outline borders for legibility.',
+            'Customizable color fills, outline widths, and dynamic font sizes.',
+            'Add unlimited text layers to create complex dialogues and layout cards.',
+            'Offline-first execution ensures memes compile instantly without network lag.'
+          ]}
+          faq={[
+            {
+              q: 'Can I change the font style?',
+              a: 'The tool uses the iconic sans-serif Impact font to maintain classic meme styling, but you can fully configure size, fill color, and stroke outline width.'
+            },
+            {
+              q: 'How do I position the text?',
+              a: 'Simply hover over the text in the preview box, click and drag it to your target coordinates, and let go.'
+            },
+            {
+              q: 'Does it support animated GIFs?',
+              a: 'Currently, the local Canvas context handles static raster image templates (PNG, JPEG, WebP).'
+            }
+          ]}
+        />
 
       </div>
     </div>

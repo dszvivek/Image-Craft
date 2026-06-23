@@ -3,6 +3,7 @@ import { Download, RefreshCw, Trash2, Settings, Type, Image as ImageIcon } from 
 import watermarkOverlayGif from '../assets/watermark_overlay_feature.gif';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
 
 export const WatermarkOverlay: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -221,13 +222,34 @@ export const WatermarkOverlay: React.FC = () => {
     };
   }, []);
 
+  const watermarkSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'Watermark Overlay - ImageGiri',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Add watermarks to images directly in your browser. Overlay custom text or logo PNG watermarks with adjustable opacity, size, rotation, and position.',
+    'featureList': [
+      'Text overlay and image logo overlays',
+      'Custom opacity, size, and rotation controls',
+      'Tile repeat grid watermark mapping',
+      'Precise corner and center alignment presets'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
-        title="Free Watermark Overlay Tool" 
-        description="Add watermarks to images directly in your browser. Overlay custom text or logo PNG watermarks with adjustable opacity, size, rotation, and position. Supports repeat tile patterns. No uploads, 100% private. Download watermarked images instantly." 
-        keywords="watermark image, add watermark to photo, watermark tool online, text watermark, logo watermark, image watermark maker, free watermark tool, watermark photo online, batch watermark, copyright watermark, watermark overlay, watermark without upload"
+        title="Free Watermark Overlay Tool - Watermarkly Alternative" 
+        description="Overlay custom text or brand logos onto images locally in your browser. A free, offline alternative to Watermarkly and Visual Watermark." 
+        keywords="watermark image, add watermark to photo, watermark tool online, text watermark, logo watermark, image watermark maker, free watermark tool, watermark photo online, copyright watermark, watermark overlay, watermark without upload, Watermarkly alternative, Visual Watermark alternative, watermark photo offline"
         canonicalUrl="https://imagegiri.com/watermark-overlay"
+        schema={watermarkSchema}
       />
 
       <div className="max-w-5xl mx-auto">
@@ -505,6 +527,50 @@ export const WatermarkOverlay: React.FC = () => {
 
           </div>
         )}
+
+        <ToolGuide
+          toolName="Watermark Overlay"
+          introText="Protect your photography and brand your design portfolios offline. Stamp logo PNGs or copyright text, adjusting scales and tiling details dynamically."
+          competitorComparison={{
+            alternatives: ['Watermarkly', 'Visual Watermark', 'Watermark.ws'],
+            benefit: 'Most cloud watermark tools limit photo exports, add their own forced logo watermarks, or charge fees for batch sizes. ImageGiri runs watermark overlays inside your browser Canvas runtime memory. Your pictures are signed locally without any external data uploads.'
+          }}
+          steps={[
+            {
+              title: 'Upload Base Photo',
+              description: 'Select your photo (PNG, JPEG, WebP) by dragging and dropping it into the main file zone.'
+            },
+            {
+              title: 'Configure Watermark',
+              description: 'Choose "Text" and enter copyright terms, or select "Logo" and upload a transparent PNG logo file.'
+            },
+            {
+              title: 'Adjust Settings & Save',
+              description: 'Configure position presets, margin sliders, scaling, rotation, opacity, or enable full page tile grids. Once satisfied, click "Download Watermarked Image".'
+            }
+          ]}
+          features={[
+            'Dual watermark formats: customizable typography text or transparent brand logo PNGs.',
+            'Watermark repeat grid (Tiling pattern) to cover the entire layout space.',
+            'Comprehensive slider parameters for size, spacing, rotation angles, and transparency levels.',
+            'Precise alignment anchors (Top-Left, Top-Right, Center, Bottom-Left, Bottom-Right).',
+            'Saves branding overlays locally in RAM without cloud databases.'
+          ]}
+          faq={[
+            {
+              q: 'Does it support transparent logo files?',
+              a: 'Yes! Transparent PNG files are highly recommended for logo overlays to blend seamlessly.'
+            },
+            {
+              q: 'Does ImageGiri add its own watermark?',
+              a: 'Never. The final saved image only contains the watermark overlays you explicitly configured.'
+            },
+            {
+              q: 'Can I add multiple watermarks?',
+              a: 'Currently, you can add either a custom text block or a single logo file with scaling/rotation controls.'
+            }
+          ]}
+        />
 
       </div>
     </div>

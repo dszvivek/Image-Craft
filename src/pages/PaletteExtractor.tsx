@@ -4,6 +4,7 @@ import { DropZone } from '../components/DropZone';
 import { extractDominantColors } from '../utils/colorExtractor';
 import type { ColorSwatch } from '../types';
 import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
 import paletteExtractorGif from '../assets/palette_extractor_feature.gif';
 
 export const PaletteExtractor: React.FC = () => {
@@ -144,13 +145,34 @@ export const PaletteExtractor: React.FC = () => {
     };
   }, []);
 
+  const paletteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'Color Palette Extractor - ImageGiri',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Extract dominant color schemes and hex color codes from design mockups, images, and photos. Online color palette generator that runs 100% offline in your browser.',
+    'featureList': [
+      'Extract 6 dominant color swatches',
+      'K-Means color quantization analysis',
+      'Copy HEX/RGB/HSL values',
+      'Export to CSS root variables and JSON'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
-        title="Free Color Palette Extractor" 
-        description="Extract dominant colors from any image directly in your browser. Get Hex codes, RGB values, and color coverage percentages instantly. Download palettes as PNG swatches, CSS variables, or JSON. No uploads, 100% private." 
-        keywords="color palette extractor, extract colors from image, color picker from image, image color palette, dominant color extractor, color scheme extractor, HEX color extractor, RGB color picker, color swatch generator, palette generator, CSS color variables"
+        title="Free Color Palette Extractor - Coolors Alternative" 
+        description="Extract dominant color schemes and HEX/RGB codes from images locally in your browser. A free, offline alternative to Coolors and Adobe Color." 
+        keywords="color palette extractor, extract colors from image, color scheme generator, HEX code finder, image color picker, RGB values, color swatches, design asset colors, online palette maker, free color extraction, offline palette generator, Coolors alternative, Adobe Color alternative, extract colors offline"
         canonicalUrl="https://imagegiri.com/color-palette-extractor"
+        schema={paletteSchema}
       />
 
       <div className="max-w-4xl mx-auto">
@@ -348,6 +370,50 @@ export const PaletteExtractor: React.FC = () => {
 
           </div>
         )}
+
+        <ToolGuide
+          toolName="Color Palette Extractor"
+          introText="Extract perfect color schemes from design mockups, branding assets, or landscape photography using mathematical K-Means quantization computed on-device."
+          competitorComparison={{
+            alternatives: ['Coolors', 'Adobe Color Palette', 'Colormind'],
+            benefit: 'Most cloud-based palette generators limit export formats behind premium memberships or process uploads on remote databases. ImageGiri extracts color swatches inside your browser window. Copy HEX, RGB, or HSL codes instantly, and export structured color tokens with zero logins.'
+          }}
+          steps={[
+            {
+              title: 'Upload Image',
+              description: 'Select a photo, design asset, screenshot, or brand file to read colors.'
+            },
+            {
+              title: 'Extract Palette',
+              description: 'The canvas sweeps pixel clusters using K-Means grouping to identify the top dominant colors along with their percentage weights.'
+            },
+            {
+              title: 'Export Swatches',
+              description: 'Click any individual color to copy its HEX/RGB format, or click the code/image buttons to download CSS Root Variables, JSON array, or a visual PNG swatch card.'
+            }
+          ]}
+          features={[
+            'Precision color clustering engine with weight coverage percentage.',
+            'Copy HEX and RGB color formats to clipboard with a single click.',
+            'Download formatted code packages (JSON and CSS root declarations).',
+            'Download visual swatch cards (PNG) for direct Photoshop/Figma imports.',
+            'Runs completely client-side to ensure intellectual design assets are safe.'
+          ]}
+          faq={[
+            {
+              q: 'How does it find the dominant colors?',
+              a: 'It scans the pixel array of the uploaded image and applies color quantization (K-Means) to group adjacent color hues, picking the centroids of the most common clusters.'
+            },
+            {
+              q: 'Can I extract colors from SVGs?',
+              a: 'Yes, any raster representation rendered on a canvas can be parsed to extract dominant color profiles.'
+            },
+            {
+              q: 'Is my design asset secure?',
+              a: 'Absolutely. All pixel scanning runs inside the browser’s canvas sandbox. No external APIs or servers are involved.'
+            }
+          ]}
+        />
 
       </div>
     </div>

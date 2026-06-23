@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Download, RefreshCw, Fingerprint, Trash2, Eye, ShieldCheck, MapPin, Info } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
 import metadataStripperGif from '../assets/metadata_stripper_feature.gif';
 import EXIF from 'exif-js';
 
@@ -158,13 +159,34 @@ export const MetadataStripper: React.FC = () => {
   const categorizedTags = (cat: 'file' | 'camera' | 'exposure' | 'gps') => 
     metadata.filter((t) => t.category === cat);
 
+  const metadataSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'EXIF Metadata Stripper - ImageGiri',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'View and remove hidden EXIF metadata from photos in your browser. Inspect GPS location, camera model, exposure details, and capture timestamp. Strip all metadata to protect your privacy.',
+    'featureList': [
+      'Interactive EXIF tag table viewer',
+      'Integrated map visualizer for GPS coordinates',
+      'Local metadata removal routines',
+      'Zero trace, client-side execution'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
-        title="Free EXIF Metadata Viewer & Remover" 
-        description="View and remove hidden EXIF metadata from photos in your browser. Inspect GPS location, camera model, aperture, ISO, and capture timestamp. Strip all metadata to protect your privacy before sharing images. No uploads required." 
-        keywords="EXIF metadata remover, EXIF viewer, remove metadata from image, strip EXIF data, photo metadata remover, GPS location remover from photo, image metadata cleaner, EXIF data viewer, remove photo location data, image privacy tool, EXIF stripper"
+        title="Free EXIF Metadata Viewer & Remover - EXIF Purge Alternative" 
+        description="View and remove hidden EXIF metadata from photos in your browser. A private, offline alternative to EXIF Purge and Metadata2Go." 
+        keywords="EXIF metadata remover, EXIF viewer, remove metadata from image, strip EXIF data, photo metadata remover, GPS location remover from photo, image metadata cleaner, EXIF data viewer, remove photo location data, image privacy tool, EXIF stripper, EXIF Purge alternative, Metadata2Go alternative, strip photo metadata offline"
         canonicalUrl="https://imagegiri.com/metadata-stripper"
+        schema={metadataSchema}
       />
 
       <div className="max-w-5xl mx-auto">
@@ -372,6 +394,50 @@ export const MetadataStripper: React.FC = () => {
 
           </div>
         )}
+
+        <ToolGuide
+          toolName="EXIF Metadata Stripper"
+          introText="Inspect and purge invisible binary headers attached to your photographs. View exact GPS coordinates, aperture, shutter speed, and camera models before cleaning."
+          competitorComparison={{
+            alternatives: ['EXIF Purge', 'Metadata2Go', 'Scrubly'],
+            benefit: 'Using online metadata cleaners exposes your private photos, GPS locations, and home coordinates to third-party web servers. ImageGiri reads and redraws files locally, scrubbing the metadata tags from the binary stream without uploading anything.'
+          }}
+          steps={[
+            {
+              title: 'Upload Photo',
+              description: 'Drop or select a JPEG/PNG photo from your mobile device or desktop browser.'
+            },
+            {
+              title: 'Inspect Metadata',
+              description: 'Analyze tags across File Info, Camera Hardware, and GPS Geolocation. View the coordinates plotted directly on our map overlay.'
+            },
+            {
+              title: 'Strip & Download',
+              description: 'Click "Strip Metadata" to rebuild the canvas pixel buffers without metadata headers, and save the scrubbed image.'
+            }
+          ]}
+          features={[
+            'Detailed parsing of camera tags (make, model, lens model, aperture, focal length).',
+            'Interactive GPS coordinates mapping integration with direct navigation links.',
+            'Instant 1-click removal of all EXIF, TIFF, and IPTC privacy headers.',
+            'Preserves photo dimensions and layout structure upon rendering.',
+            'Keeps your personal location completely safe by keeping data local.'
+          ]}
+          faq={[
+            {
+              q: 'What is EXIF data?',
+              a: 'Exchangeable Image File Format (EXIF) data represents a set of camera tags embedded inside files by smartphones and cameras, detailing capture date, camera configuration, and GPS locations.'
+            },
+            {
+              q: 'Why should I remove EXIF data?',
+              a: 'Sharing photos online with GPS coordinates enables anyone to discover where the photo was taken, posing privacy risks for your home or personal travels.'
+            },
+            {
+              q: 'Does it compress my photo size?',
+              a: 'No. The image pixels are drawn to canvas at full resolution, retaining maximum visual quality during the EXIF removal process.'
+            }
+          ]}
+        />
 
       </div>
     </div>

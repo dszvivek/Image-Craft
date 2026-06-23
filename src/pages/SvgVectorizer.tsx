@@ -3,6 +3,7 @@ import { Download, RefreshCw, Sliders, Sparkles, Layers, Eye, Settings, Info, Co
 import svgVectorizerGif from '../assets/svg_vectorizer_feature.gif';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
 
 interface VectorizerSettings {
   mode: 'color' | 'monochrome';
@@ -562,13 +563,34 @@ export const SvgVectorizer: React.FC = () => {
     };
   }, []);
 
+  const vectorSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'SVG Vectorizer - ImageGiri',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Convert raster images (JPG, PNG) into clean, scalable SVG vector graphics directly in your browser. Adjust color palette, path smoothing, and speckle threshold.',
+    'featureList': [
+      'Monochrome and color vector tracing',
+      'Douglas-Peucker path simplification controls',
+      'Speckle noise removal settings',
+      'Raw XML SVG viewer code box'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
-        title="Free Image to SVG Vectorizer" 
-        description="Convert raster images (JPG, PNG) into clean, scalable SVG vector graphics directly in your browser. Adjust color palette, path smoothing, and speckle threshold. Download ready-to-use SVG files. No uploads, 100% private." 
-        keywords="SVG vectorizer, image to SVG, convert PNG to SVG, convert JPG to SVG, vectorize image, raster to vector, vector converter, image tracer, SVG converter online, free SVG converter, image to vector art, auto tracer"
+        title="Free Image to SVG Vectorizer - Vectorizer.ai Alternative" 
+        description="Convert raster JPG/PNG images into scalable vector graphics (SVG) offline in your browser. A free alternative to Vectorizer.ai and Vector Magic." 
+        keywords="SVG vectorizer, image to SVG, convert PNG to SVG, convert JPG to SVG, vectorize image, raster to vector, vector converter, image tracer, SVG converter online, free SVG converter, image to vector art, auto tracer, Vectorizer.ai alternative, Vector Magic alternative, vectorize photo offline"
         canonicalUrl="https://imagegiri.com/svg-vectorizer"
+        schema={vectorSchema}
       />
 
       <div className="max-w-5xl mx-auto">
@@ -910,6 +932,50 @@ export const SvgVectorizer: React.FC = () => {
 
           </div>
         )}
+
+        <ToolGuide
+          toolName="SVG Vectorizer"
+          introText="Trace raster graphics into vector paths locally. Adjust path simplifications and color parameters to export scalable vectors perfect for logos and UI designs."
+          competitorComparison={{
+            alternatives: ['Vectorizer.ai', 'Vector Magic', 'Adobe Illustrator Image Trace'],
+            benefit: 'Online vector tools have recently started charging fees or placing pixel limitations on SVG exports. ImageGiri vectorizes your logo PNGs and JPEGs completely locally. Experience limitless traces and download clean SVGs with zero subscriptions.'
+          }}
+          steps={[
+            {
+              title: 'Upload Image',
+              description: 'Select a clean logo, icon, or drawing (PNG or JPEG) to vectorize.'
+            },
+            {
+              title: 'Choose settings',
+              description: 'Select Color or B&W mode. Adjust color count, path smoothing tolerance (Epsilon), and noise thresholds.'
+            },
+            {
+              title: 'Vectorize & Copy Code',
+              description: 'Wait for the tracing engine to execute. Inspect the vector outline, copy the raw XML code, or download the SVG.'
+            }
+          ]}
+          features={[
+            'Advanced Moore-Neighbor contour tracing and Douglas-Peucker path simplification.',
+            'Color palette quantization (clustering pixels into 2-32 specific hues).',
+            'Full control over edge smoothing and small noise filters (speckle thresholds).',
+            'Integrated XML viewer to copy raw vector code directly for web projects.',
+            'Operates completely on-device for total asset protection.'
+          ]}
+          faq={[
+            {
+              q: 'What types of images vectorize best?',
+              a: 'Logos, icons, line art, and high-contrast silhouettes yield the cleanest vectors. Complex photographs generate extremely heavy SVGs with millions of tiny paths.'
+            },
+            {
+              q: 'Does it support color exports?',
+              a: 'Yes, our engine supports full color vectorizing with custom palette counts (from 2 up to 32 colors).'
+            },
+            {
+              q: 'Can I scale the output indefinitely?',
+              a: 'Yes. SVG is a vector format. You can scale the exported files to any dimension in Photoshop, Illustrator, or Figma without pixelation.'
+            }
+          ]}
+        />
 
       </div>
     </div>

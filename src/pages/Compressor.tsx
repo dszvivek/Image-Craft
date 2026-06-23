@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Sparkles, AlertTriangle, CheckCircle, ArrowRight } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
 import compressorGif from '../assets/compressor_feature.gif';
 
 export const Compressor: React.FC = () => {
@@ -149,13 +150,34 @@ export const Compressor: React.FC = () => {
     ? Math.max(0, Math.round(((originalFile.size - compressedSize) / originalFile.size) * 100))
     : 0;
 
+  const compressorSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'Image Compressor - ImageGiri',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Compress JPEG, PNG, and WebP images locally in your browser. Reduce image file sizes by up to 90% without losing quality. No uploads, 100% private.',
+    'featureList': [
+      'Lossy and lossless file size reduction',
+      'Interactive visual comparison slider',
+      'Local offline processing in browser',
+      'Custom quality level adjustment'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
-        title="Free Online Image Compressor" 
-        description="Compress JPEG, PNG, and WebP images locally in your browser. Reduce image file sizes by up to 90% without losing quality. No uploads, 100% private. Side-by-side before/after comparison, quality slider, and format conversion." 
-        keywords="image compressor, compress image online, reduce image size, JPEG compressor, PNG compressor, WebP compressor, image optimizer, reduce photo size, free image compression, offline image compressor, browser image compressor, lossless compression, lossy compression, file size reducer"
+        title="Free Online Image Compressor - TinyPNG Alternative" 
+        description="Compress JPEG, PNG, and WebP images locally in your browser. Reduce image file sizes by up to 90% without losing quality. A 100% private alternative to TinyPNG and Optimizilla." 
+        keywords="image compressor, compress image online, reduce image size, JPEG compressor, PNG compressor, WebP compressor, image optimizer, reduce photo size, free image compression, offline image compressor, browser image compressor, lossless compression, lossy compression, file size reducer, TinyPNG alternative, Optimizilla alternative, Compressjpeg replacement, free offline tinypng, compress image without upload"
         canonicalUrl="https://imagegiri.com/image-compressor"
+        schema={compressorSchema}
       />
 
       <div className="max-w-4xl mx-auto">
@@ -407,6 +429,50 @@ export const Compressor: React.FC = () => {
 
           </div>
         )}
+
+        <ToolGuide
+          toolName="Image Compressor"
+          introText="Optimize your images in seconds with our privacy-first local compressor. Adjust compression strength and compare results side-by-side without sending data to any servers."
+          competitorComparison={{
+            alternatives: ['TinyPNG', 'Optimizilla', 'Compressjpeg'],
+            benefit: 'Unlike online services that upload your files to external cloud servers, ImageGiri compresses all images directly inside your browser cache. Zero kilobytes are uploaded, and files are processed instantly with zero cost and no subscription barriers.'
+          }}
+          steps={[
+            {
+              title: 'Upload Image',
+              description: 'Drag and drop or browse to select a JPEG, PNG, or WebP file from your computer or mobile device.'
+            },
+            {
+              title: 'Adjust Settings',
+              description: 'Move the quality slider (5% to 100%) to configure the compression strength. Choose to convert the file to PNG, JPEG, or WebP format.'
+            },
+            {
+              title: 'Compare & Download',
+              description: 'Use the interactive preview slider to verify visual quality. Once satisfied, click "Download Compressed Image" to save.'
+            }
+          ]}
+          features={[
+            'Advanced local lossy & lossless image compression algorithms.',
+            'Side-by-side interactive comparison slider (Before / After).',
+            'Full support for popular image formats: JPEG, PNG, and WebP.',
+            'Instant client-side file size reduction, ideal for optimizing web assets.',
+            'Completely offline capable once loaded; works without internet access.'
+          ]}
+          faq={[
+            {
+              q: 'How much can I reduce my file size?',
+              a: 'Usually between 50% to 90% depending on the format and detail of the image. Standard photos can be heavily optimized without noticeable quality loss.'
+            },
+            {
+              q: 'Does it support batch image compression?',
+              a: 'Yes, if you need to convert or compress multiple images at once, check out our Batch Image Converter tool.'
+            },
+            {
+              q: 'Are my private photos sent to any servers?',
+              a: 'Never. The compression is computed entirely in your browser memory via JavaScript and local canvas contexts. No data leaves your machine.'
+            }
+          ]}
+        />
 
       </div>
     </div>
