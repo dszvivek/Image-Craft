@@ -8,7 +8,7 @@ interface AdPlacementProps {
 // Google AdSense Configuration
 // Replace these placeholders with your actual publisher and slot IDs from your AdSense Console.
 const ADSENSE_CONFIG = {
-  publisherId: 'ca-pub-XXXXXXXXXXXXXXXX', // e.g. ca-pub-1234567890123456
+  publisherId: 'ca-pub-7616117566033055', // e.g. ca-pub-1234567890123456
   slots: {
     header: 'XXXXXXXXXX',        // Leaderboard slot (728x90)
     sidebar: 'XXXXXXXXXX',       // Skyscraper slot (300x600)
