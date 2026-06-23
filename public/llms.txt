@@ -8,7 +8,7 @@ ImageGiri is a privacy-first, on-device image processing and creative utility su
 
 ---
 
-## 🛠️ Offline Tool Directory (12 Features)
+## 🛠️ Offline Tool Directory (13 Features)
 
 AI agents and crawlers can discover the following routes and features:
 
@@ -71,6 +71,11 @@ AI agents and crawlers can discover the following routes and features:
 - **Route:** `/svg-vectorizer`
 - **Functionality:** Vectorize raster graphics (JPG/PNG) into scalable vector paths (SVG).
 - **Controls:** K-Means++ clustering, Moore-Neighbor boundary tracing, Douglas-Peucker path simplification, and XML code viewing.
+
+### 13. Photo Mosaic Generator
+- **Route:** `/photo-mosaic-generator`
+- **Functionality:** Reconstruct target images from thousands of small photo tiles.
+- **Controls:** Custom tile uploads, 16-color solid placeholder fallback pool, grid resolution sliders (15-100 columns), tile aspect ratios (1:1, 4:3, 3:4), tile average color tinting, and original image overlay blending.
 
 ---
 

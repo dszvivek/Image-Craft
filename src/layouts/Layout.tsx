@@ -15,7 +15,8 @@ import {
   Copyright,
   Crop,
   Smile,
-  Feather
+  Feather,
+  Grid
 } from 'lucide-react';
 import { AdPlacement } from '../components/AdPlacement';
 
@@ -90,7 +91,7 @@ export const Layout = () => {
       colorClass: 'text-rose-650 bg-rose-50 border-rose-100/50'
     },
     { 
-      name: 'Aspect Ratio Resizer', 
+      name: 'Smart Crop & Aspect Resizer', 
       path: '/aspect-resizer', 
       icon: Crop,
       description: 'Crop and scale to social preset dimensions.',
@@ -109,6 +110,13 @@ export const Layout = () => {
       icon: Feather,
       description: 'Trace raster logos into scalable SVGs.',
       colorClass: 'text-teal-650 bg-teal-50 border-teal-100/50'
+    },
+    { 
+      name: 'Photo Mosaic Generator', 
+      path: '/photo-mosaic-generator', 
+      icon: Grid,
+      description: 'Compose target images from tile collections.',
+      colorClass: 'text-fuchsia-650 bg-fuchsia-50 border-fuchsia-100/50'
     },
   ];
 

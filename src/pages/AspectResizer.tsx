@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, RefreshCw, Settings, Info } from 'lucide-react';
+import { Download, RefreshCw, Settings, Info, Sparkles } from 'lucide-react';
 import aspectResizerGif from '../assets/aspect_resizer_feature.gif';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
+import { detectSmartCrop, warpPerspective } from '../utils/smartCrop';
+import type { SmartCropResult } from '../utils/smartCrop';
 
 interface Preset {
   id: string;
@@ -38,16 +40,25 @@ export const AspectResizer: React.FC = () => {
     action: 'move' | 'resize-tl' | 'resize-tr' | 'resize-bl' | 'resize-br';
   } | null>(null);
 
+  const [smartCropInfo, setSmartCropInfo] = useState<SmartCropResult | null>(null);
+  const [isDetecting, setIsDetecting] = useState<boolean>(false);
+  const [customWidth, setCustomWidth] = useState<number>(1200);
+  const [customHeight, setCustomHeight] = useState<number>(800);
+
   const imageRef = useRef<HTMLImageElement>(null);
   const cropContainerRef = useRef<HTMLDivElement>(null);
 
   const presets: Preset[] = [
+    { id: 'free', name: 'Free Crop (Unconstrained)', width: 0, height: 0, ratioText: 'Free' },
+    { id: '16-9', name: 'Widescreen (16:9)', width: 1920, height: 1080, ratioText: '16:9' },
+    { id: '1-1', name: 'Square (1:1)', width: 1080, height: 1080, ratioText: '1:1' },
+    { id: '9-16', name: 'Portrait/Story (9:16)', width: 1080, height: 1920, ratioText: '9:16' },
+    { id: '4-5', name: 'Social Feed (4:5)', width: 1080, height: 1350, ratioText: '4:5' },
     { id: 'youtube-thumb', name: 'YouTube Thumbnail', width: 1280, height: 720, ratioText: '16:9' },
-    { id: 'insta-square', name: 'Instagram Square', width: 1080, height: 1080, ratioText: '1:1' },
-    { id: 'insta-story', name: 'Instagram Story/Reel', width: 1080, height: 1920, ratioText: '9:16' },
     { id: 'twitter-header', name: 'Twitter Header', width: 1500, height: 500, ratioText: '3:1' },
     { id: 'facebook-cover', name: 'Facebook Cover', width: 820, height: 312, ratioText: '820x312' },
     { id: 'linkedin-banner', name: 'LinkedIn Banner', width: 1584, height: 396, ratioText: '4:1' },
+    { id: 'custom', name: 'Custom Ratio', width: 1200, height: 800, ratioText: 'Custom' },
   ];
 
   const handleFilesSelected = (files: File[]) => {
@@ -58,35 +69,116 @@ export const AspectResizer: React.FC = () => {
     }
   };
 
-  const activePreset = presets.find((p) => p.id === presetId) || presets[0];
-
-  const initCropBox = (imgW: number, imgH: number, targetW: number, targetH: number) => {
-    const imgRatio = imgW / imgH;
-    const targetRatio = targetW / targetH;
-    
-    let w = 1.0;
-    let h = 1.0;
-    let x = 0.0;
-    let y = 0.0;
-    
-    if (imgRatio > targetRatio) {
-      w = (targetRatio * imgH) / imgW;
-      h = 1.0;
-      x = (1.0 - w) / 2;
-    } else {
-      w = 1.0;
-      h = (imgW / targetRatio) / imgH;
-      y = (1.0 - h) / 2;
+  const activePreset = React.useMemo(() => {
+    if (presetId === 'custom') {
+      return {
+        id: 'custom',
+        name: 'Custom Ratio',
+        width: customWidth,
+        height: customHeight,
+        ratioText: `${customWidth}:${customHeight}`,
+      };
     }
-    
-    setCrop({ x, y, w, h });
-  };
+    return presets.find((p) => p.id === presetId) || presets[0];
+  }, [presetId, customWidth, customHeight]);
 
   useEffect(() => {
-    if (naturalSize) {
-      initCropBox(naturalSize.width, naturalSize.height, activePreset.width, activePreset.height);
+    if (!imageUrl) {
+      setSmartCropInfo(null);
+      return;
     }
-  }, [presetId, naturalSize?.width, naturalSize?.height]);
+
+    setIsDetecting(true);
+    const img = new Image();
+    img.src = imageUrl;
+    img.onload = () => {
+      try {
+        const targetAspect = activePreset.width && activePreset.height
+          ? activePreset.width / activePreset.height
+          : img.naturalWidth / img.naturalHeight;
+        const result = detectSmartCrop(img, targetAspect);
+        setSmartCropInfo(result);
+        
+        // Initialize or update crop coordinates
+        setCrop({
+          x: result.x,
+          y: result.y,
+          w: result.w,
+          h: result.h,
+        });
+
+        // Set natural size
+        setNaturalSize({ width: img.naturalWidth, height: img.naturalHeight });
+      } catch (err) {
+        console.error('Failed to run smart crop', err);
+        // Fallback to center crop
+        const imgW = img.naturalWidth;
+        const imgH = img.naturalHeight;
+        const targetAspect = activePreset.width && activePreset.height
+          ? activePreset.width / activePreset.height
+          : imgW / imgH;
+        const imgRatio = imgW / imgH;
+        let w = 1.0, h = 1.0, x = 0.0, y = 0.0;
+        if (imgRatio > targetAspect) {
+          w = (targetAspect * imgH) / imgW;
+          x = (1.0 - w) / 2;
+        } else {
+          h = (imgW / targetAspect) / imgH;
+          y = (1.0 - h) / 2;
+        }
+        setCrop({ x, y, w, h });
+        setNaturalSize({ width: imgW, height: imgH });
+      } finally {
+        setIsDetecting(false);
+      }
+    };
+  }, [imageUrl, activePreset.width, activePreset.height, presetId]);
+
+  const handleWarpDocument = () => {
+    if (!smartCropInfo || !smartCropInfo.corners || !file || !imageUrl) return;
+
+    const corners = smartCropInfo.corners;
+    const tl = corners[0];
+    const tr = corners[1];
+    const br = corners[2];
+    const bl = corners[3];
+
+    // Compute dimensions of the flattened document
+    const widthA = Math.sqrt(Math.pow(br.x - bl.x, 2) + Math.pow(br.y - bl.y, 2));
+    const widthB = Math.sqrt(Math.pow(tr.x - tl.x, 2) + Math.pow(tr.y - tl.y, 2));
+    const destW = Math.round(Math.max(widthA, widthB));
+
+    const heightA = Math.sqrt(Math.pow(tr.x - br.x, 2) + Math.pow(tr.y - br.y, 2));
+    const heightB = Math.sqrt(Math.pow(tl.x - bl.x, 2) + Math.pow(tl.y - bl.y, 2));
+    const destH = Math.round(Math.max(heightA, heightB));
+
+    const img = new Image();
+    img.src = imageUrl;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      warpPerspective(img, corners, destW, destH, canvas);
+
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const warpedFile = new File(
+            [blob],
+            `${file.name.substring(0, file.name.lastIndexOf('.'))}_scanned.png`,
+            { type: 'image/png' }
+          );
+          
+          const newUrl = URL.createObjectURL(warpedFile);
+          
+          // Revoke old object URL
+          URL.revokeObjectURL(imageUrl);
+          
+          setFile(warpedFile);
+          setImageUrl(newUrl);
+          setFitStyle('contain');
+          setSmartCropInfo(null);
+        }
+      }, 'image/png');
+    };
+  };
 
   const updateDisplayRect = (imgElement: HTMLImageElement) => {
     setImgDisplayRect({
@@ -120,7 +212,17 @@ export const AspectResizer: React.FC = () => {
     }
   }, [fitStyle, imageUrl]);
 
+  useEffect(() => {
+    if (presetId === 'free') {
+      setFitStyle('crop');
+    }
+  }, [presetId]);
+
   const handleStart = (clientX: number, clientY: number, action: 'move' | 'resize-tl' | 'resize-tr' | 'resize-bl' | 'resize-br') => {
+    const img = imageRef.current;
+    if (img) {
+      updateDisplayRect(img);
+    }
     setDragState({
       startX: clientX,
       startY: clientY,
@@ -146,36 +248,98 @@ export const AspectResizer: React.FC = () => {
     updateDisplayRect(img);
   };
 
-  // Smooth dragging via window level listeners
-  useEffect(() => {
-    if (!dragState || !naturalSize || !imgDisplayRect.width || !imgDisplayRect.height) return;
+  const calculateNewCrop = (
+    startX: number,
+    startY: number,
+    startCrop: { x: number; y: number; w: number; h: number },
+    action: string,
+    clientX: number,
+    clientY: number
+  ) => {
+    if (!naturalSize || !imgDisplayRect.width || !imgDisplayRect.height) return crop;
 
-    const handleWindowMouseMove = (e: MouseEvent) => {
-      const dx = e.clientX - dragState.startX;
-      const dy = e.clientY - dragState.startY;
+    const dx = clientX - startX;
+    const dy = clientY - startY;
+    
+    const rDx = dx / imgDisplayRect.width;
+    const rDy = dy / imgDisplayRect.height;
+    
+    const isFree = presetId === 'free';
+    const imgRatio = naturalSize.width / naturalSize.height;
+    const targetRatio = isFree ? imgRatio : (activePreset.width && activePreset.height ? activePreset.width / activePreset.height : imgRatio);
+    const k = targetRatio / imgRatio;
+    
+    let newCrop = { ...crop };
+    
+    if (action === 'move') {
+      let newX = startCrop.x + rDx;
+      let newY = startCrop.y + rDy;
       
-      const rDx = dx / imgDisplayRect.width;
-      const rDy = dy / imgDisplayRect.height;
+      if (newX < 0) newX = 0;
+      if (newY < 0) newY = 0;
+      if (newX + startCrop.w > 1) newX = 1 - startCrop.w;
+      if (newY + startCrop.h > 1) newY = 1 - startCrop.h;
       
-      const { startCrop, action } = dragState;
-      
-      const imgRatio = naturalSize.width / naturalSize.height;
-      const targetRatio = activePreset.width / activePreset.height;
-      const k = targetRatio / imgRatio;
-      
-      let newCrop = { ...crop };
-      
-      if (action === 'move') {
-        let newX = startCrop.x + rDx;
-        let newY = startCrop.y + rDy;
-        
-        if (newX < 0) newX = 0;
-        if (newY < 0) newY = 0;
-        if (newX + startCrop.w > 1) newX = 1 - startCrop.w;
-        if (newY + startCrop.h > 1) newY = 1 - startCrop.h;
-        
-        newCrop = { ...startCrop, x: newX, y: newY };
+      newCrop = { ...startCrop, x: newX, y: newY };
+    } else {
+      if (isFree) {
+        // FREE RESIZING
+        if (action === 'resize-br') {
+          let newW = startCrop.w + rDx;
+          let newH = startCrop.h + rDy;
+          if (newW < 0.05) newW = 0.05;
+          if (newH < 0.05) newH = 0.05;
+          if (startCrop.x + newW > 1) newW = 1 - startCrop.x;
+          if (startCrop.y + newH > 1) newH = 1 - startCrop.y;
+          newCrop = { ...startCrop, w: newW, h: newH };
+        }
+        else if (action === 'resize-bl') {
+          let newX = startCrop.x + rDx;
+          if (newX < 0) newX = 0;
+          let newW = startCrop.w + (startCrop.x - newX);
+          if (newW < 0.05) {
+            newW = 0.05;
+            newX = startCrop.x + startCrop.w - 0.05;
+          }
+          let newH = startCrop.h + rDy;
+          if (newH < 0.05) newH = 0.05;
+          if (startCrop.y + newH > 1) newH = 1 - startCrop.y;
+          newCrop = { ...startCrop, x: newX, w: newW, h: newH };
+        }
+        else if (action === 'resize-tr') {
+          let newW = startCrop.w + rDx;
+          if (newW < 0.05) newW = 0.05;
+          if (startCrop.x + newW > 1) newW = 1 - startCrop.x;
+          
+          let newY = startCrop.y + rDy;
+          if (newY < 0) newY = 0;
+          let newH = startCrop.h + (startCrop.y - newY);
+          if (newH < 0.05) {
+            newH = 0.05;
+            newY = startCrop.y + startCrop.h - 0.05;
+          }
+          newCrop = { ...startCrop, y: newY, w: newW, h: newH };
+        }
+        else if (action === 'resize-tl') {
+          let newX = startCrop.x + rDx;
+          if (newX < 0) newX = 0;
+          let newW = startCrop.w + (startCrop.x - newX);
+          if (newW < 0.05) {
+            newW = 0.05;
+            newX = startCrop.x + startCrop.w - 0.05;
+          }
+          
+          let newY = startCrop.y + rDy;
+          if (newY < 0) newY = 0;
+          let newH = startCrop.h + (startCrop.y - newY);
+          if (newH < 0.05) {
+            newH = 0.05;
+            newY = startCrop.y + startCrop.h - 0.05;
+          }
+          newCrop = { x: newX, y: newY, w: newW, h: newH };
+        }
       } else {
+        // CONSTRAINED RESIZING
         if (action === 'resize-br') {
           let newW = startCrop.w + rDx;
           if (newW < 0.1) newW = 0.1;
@@ -250,110 +414,24 @@ export const AspectResizer: React.FC = () => {
           newCrop = { x: newX, y: newY, w: newW, h: newH };
         }
       }
+    }
+    return newCrop;
+  };
+
+  // Smooth dragging via window level listeners
+  useEffect(() => {
+    if (!dragState || !naturalSize || !imgDisplayRect.width || !imgDisplayRect.height) return;
+
+    const handleWindowMouseMove = (e: MouseEvent) => {
+      const { startX, startY, startCrop, action } = dragState;
+      const newCrop = calculateNewCrop(startX, startY, startCrop, action, e.clientX, e.clientY);
       setCrop(newCrop);
     };
 
     const handleWindowTouchMove = (e: TouchEvent) => {
       if (e.touches.length > 0) {
-        const dx = e.touches[0].clientX - dragState.startX;
-        const dy = e.touches[0].clientY - dragState.startY;
-        
-        const rDx = dx / imgDisplayRect.width;
-        const rDy = dy / imgDisplayRect.height;
-        
-        const { startCrop, action } = dragState;
-        
-        const imgRatio = naturalSize.width / naturalSize.height;
-        const targetRatio = activePreset.width / activePreset.height;
-        const k = targetRatio / imgRatio;
-        
-        let newCrop = { ...crop };
-        
-        if (action === 'move') {
-          let newX = startCrop.x + rDx;
-          let newY = startCrop.y + rDy;
-          
-          if (newX < 0) newX = 0;
-          if (newY < 0) newY = 0;
-          if (newX + startCrop.w > 1) newX = 1 - startCrop.w;
-          if (newY + startCrop.h > 1) newY = 1 - startCrop.h;
-          
-          newCrop = { ...startCrop, x: newX, y: newY };
-        } else {
-          if (action === 'resize-br') {
-            let newW = startCrop.w + rDx;
-            if (newW < 0.1) newW = 0.1;
-            if (startCrop.x + newW > 1) newW = 1 - startCrop.x;
-            
-            let newH = newW / k;
-            if (startCrop.y + newH > 1) {
-              newH = 1 - startCrop.y;
-              newW = newH * k;
-            }
-            newCrop = { ...startCrop, w: newW, h: newH };
-          }
-          else if (action === 'resize-bl') {
-            let newX = startCrop.x + rDx;
-            if (newX < 0) newX = 0;
-            let newW = startCrop.w + (startCrop.x - newX);
-            if (newW < 0.1) {
-              newW = 0.1;
-              newX = startCrop.x + startCrop.w - 0.1;
-            }
-            
-            let newH = newW / k;
-            if (startCrop.y + newH > 1) {
-              newH = 1 - startCrop.y;
-              newW = newH * k;
-              newX = startCrop.x + startCrop.w - newW;
-            }
-            newCrop = { ...startCrop, x: newX, w: newW, h: newH };
-          }
-          else if (action === 'resize-tr') {
-            let newW = startCrop.w + rDx;
-            if (newW < 0.1) newW = 0.1;
-            if (startCrop.x + newW > 1) newW = 1 - startCrop.x;
-            
-            let newH = newW / k;
-            let newY = startCrop.y + startCrop.h - newH;
-            if (newY < 0) {
-              newY = 0;
-              newH = startCrop.y + startCrop.h;
-              newW = newH * k;
-              if (startCrop.x + newW > 1) {
-                newW = 1 - startCrop.x;
-                newH = newW / k;
-                newY = startCrop.y + startCrop.h - newH;
-              }
-            }
-            newCrop = { ...startCrop, y: newY, w: newW, h: newH };
-          }
-          else if (action === 'resize-tl') {
-            let newX = startCrop.x + rDx;
-            if (newX < 0) newX = 0;
-            let newW = startCrop.w + (startCrop.x - newX);
-            if (newW < 0.1) {
-              newW = 0.1;
-              newX = startCrop.x + startCrop.w - 0.1;
-            }
-            
-            let newH = newW / k;
-            let newY = startCrop.y + startCrop.h - newH;
-            if (newY < 0) {
-              newY = 0;
-              newH = startCrop.y + startCrop.h;
-              newW = newH * k;
-              newX = startCrop.x + startCrop.w - newW;
-              if (newX < 0) {
-                newX = 0;
-                newW = startCrop.x + startCrop.w;
-                newH = newW / k;
-                newY = startCrop.y + startCrop.h - newH;
-              }
-            }
-            newCrop = { x: newX, y: newY, w: newW, h: newH };
-          }
-        }
+        const { startX, startY, startCrop, action } = dragState;
+        const newCrop = calculateNewCrop(startX, startY, startCrop, action, e.touches[0].clientX, e.touches[0].clientY);
         setCrop(newCrop);
       }
     };
@@ -373,7 +451,7 @@ export const AspectResizer: React.FC = () => {
       window.removeEventListener('touchmove', handleWindowTouchMove);
       window.removeEventListener('touchend', handleWindowMouseUp);
     };
-  }, [dragState, naturalSize, imgDisplayRect, crop, activePreset]);
+  }, [dragState, naturalSize, imgDisplayRect, crop, activePreset, presetId]);
 
   // Canvas drawing & scaling mathematical logic
   useEffect(() => {
@@ -386,8 +464,17 @@ export const AspectResizer: React.FC = () => {
       
       img.onload = () => {
         const canvas = canvasRef.current || document.createElement('canvas');
-        const targetW = activePreset.width;
-        const targetH = activePreset.height;
+        const imgW = img.naturalWidth;
+        const imgH = img.naturalHeight;
+
+        // Update natural size for crop tracking
+        if (!naturalSize || naturalSize.width !== imgW || naturalSize.height !== imgH) {
+          setNaturalSize({ width: imgW, height: imgH });
+        }
+
+        const isFree = presetId === 'free';
+        const targetW = isFree ? Math.max(10, Math.round(crop.w * imgW)) : activePreset.width;
+        const targetH = isFree ? Math.max(10, Math.round(crop.h * imgH)) : activePreset.height;
         canvas.width = targetW;
         canvas.height = targetH;
         
@@ -396,14 +483,7 @@ export const AspectResizer: React.FC = () => {
           setIsAssembling(false);
           return;
         }
-
-        const imgW = img.naturalWidth;
-        const imgH = img.naturalHeight;
         
-        // Update natural size for crop tracking
-        if (!naturalSize || naturalSize.width !== imgW || naturalSize.height !== imgH) {
-          setNaturalSize({ width: imgW, height: imgH });
-        }
         
         const targetRatio = targetW / targetH;
         const imgRatio = imgW / imgH;
@@ -475,7 +555,7 @@ export const AspectResizer: React.FC = () => {
 
         canvas.toBlob((blob) => {
           if (blob) {
-            if (previewUrl) URL.revokeObjectURL(previewUrl);
+            if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
             setPreviewUrl(URL.createObjectURL(blob));
           }
           setIsAssembling(false);
@@ -539,7 +619,7 @@ export const AspectResizer: React.FC = () => {
           <span className="text-xs font-bold text-amber-650 uppercase tracking-widest px-2.5 py-1 bg-amber-50 border border-amber-100 rounded-full shadow-sm">
             Scale Utility
           </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">Aspect Ratio Resizer</h1>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">Smart Crop & Aspect Resizer</h1>
           <p className="text-sm text-slate-500">Refit photos to target crop grids and social templates with beautiful local canvas blur-fit overrides.</p>
         </div>
 
@@ -596,6 +676,38 @@ export const AspectResizer: React.FC = () => {
                   </select>
                 </div>
 
+                {/* Custom Ratio Input Fields */}
+                {presetId === 'custom' && (
+                  <div className="grid grid-cols-2 gap-3 bg-slate-50 border border-slate-200/60 p-3 rounded-2xl animate-fade-in shadow-xs">
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-bold text-slate-450 uppercase tracking-wider block">
+                        Custom Width (px)
+                      </label>
+                      <input
+                        type="number"
+                        min="10"
+                        max="8000"
+                        value={customWidth}
+                        onChange={(e) => setCustomWidth(Math.max(10, parseInt(e.target.value) || 0))}
+                        className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-mono font-bold text-slate-700 focus:outline-none focus:border-indigo-500"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-bold text-slate-455 uppercase tracking-wider block">
+                        Custom Height (px)
+                      </label>
+                      <input
+                        type="number"
+                        min="10"
+                        max="8000"
+                        value={customHeight}
+                        onChange={(e) => setCustomHeight(Math.max(10, parseInt(e.target.value) || 0))}
+                        className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-mono font-bold text-slate-700 focus:outline-none focus:border-indigo-500"
+                      />
+                    </div>
+                  </div>
+                )}
+
                 {/* Fit Mode */}
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
@@ -604,7 +716,8 @@ export const AspectResizer: React.FC = () => {
                   <div className="grid grid-cols-3 gap-1.5">
                     <button
                       onClick={() => setFitStyle('contain')}
-                      className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
+                      disabled={presetId === 'free'}
+                      className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
                         fitStyle === 'contain'
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
                           : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900'
@@ -614,7 +727,8 @@ export const AspectResizer: React.FC = () => {
                     </button>
                     <button
                       onClick={() => setFitStyle('cover')}
-                      className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
+                      disabled={presetId === 'free'}
+                      className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
                         fitStyle === 'cover'
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
                           : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900'
@@ -634,6 +748,45 @@ export const AspectResizer: React.FC = () => {
                     </button>
                   </div>
                 </div>
+
+                {/* Smart Crop Auto-Detection Status */}
+                {smartCropInfo && (
+                  <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-3.5 space-y-2.5 animate-fade-in shadow-xs">
+                    <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                      <Sparkles className="w-4 h-4 text-amber-500 animate-pulse" />
+                      <span>Smart Crop Assistant</span>
+                    </div>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-slate-500 font-medium">Detection Focus:</span>
+                      {isDetecting ? (
+                        <span className="text-[10px] font-bold text-slate-400 animate-pulse uppercase tracking-wider">
+                          Analyzing...
+                        </span>
+                      ) : (
+                        <span className="font-bold text-indigo-650 bg-indigo-50/80 border border-indigo-100/60 px-2 py-0.5 rounded shadow-xs uppercase tracking-wider text-[10px]">
+                          {smartCropInfo.type === 'document' && '📄 Document Bounding'}
+                          {smartCropInfo.type === 'face' && '👤 Human Face(s)'}
+                          {smartCropInfo.type === 'saliency' && '✨ Visually Salient Subject'}
+                          {smartCropInfo.type === 'center' && '🎯 Center Layout Fallback'}
+                        </span>
+                      )}
+                    </div>
+
+                    {smartCropInfo.type === 'document' && smartCropInfo.corners && (
+                      <div className="pt-1.5 border-t border-slate-100 flex flex-col gap-2">
+                        <p className="text-[10px] text-slate-500 leading-normal font-medium">
+                          A document was detected in the photo. You can flatten the perspective to crop it directly.
+                        </p>
+                        <button
+                          onClick={handleWarpDocument}
+                          className="w-full py-2 bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold uppercase tracking-wider rounded-lg shadow-sm active:scale-98 transition cursor-pointer flex items-center justify-center gap-1.5"
+                        >
+                          <span>📄</span> Flatten Perspective & Crop
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {/* Live Crop Preview (only for crop style) */}
                 {fitStyle === 'crop' && previewUrl && (
@@ -733,21 +886,48 @@ export const AspectResizer: React.FC = () => {
                         src={imageUrl}
                         alt="Crop Workarea"
                         onLoad={handleImageLoad}
-                        className="max-w-full max-h-[550px] object-contain rounded-2xl shadow-md select-none pointer-events-none"
+                        className="max-w-full max-h-[550px] w-auto h-auto block mx-auto rounded-2xl shadow-md select-none pointer-events-none"
                       />
                       
                       {naturalSize && (
                         <div
                           ref={cropContainerRef}
-                          style={{
-                            position: 'absolute',
-                            left: `${imgDisplayRect.left}px`,
-                            top: `${imgDisplayRect.top}px`,
-                            width: `${imgDisplayRect.width}px`,
-                            height: `${imgDisplayRect.height}px`,
-                          }}
-                          className="overflow-hidden rounded-2xl touch-none select-none"
+                          className="absolute inset-0 overflow-hidden rounded-2xl touch-none select-none"
                         >
+                          {/* Document Corners Polygon Overlay */}
+                          {smartCropInfo?.type === 'document' && smartCropInfo.corners && imgDisplayRect.width > 0 && (
+                            <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
+                              <polygon
+                                points={smartCropInfo.corners
+                                  .map((p) => {
+                                    const displayX = (p.x / naturalSize.width) * imgDisplayRect.width;
+                                    const displayY = (p.y / naturalSize.height) * imgDisplayRect.height;
+                                    return `${displayX},${displayY}`;
+                                  })
+                                  .join(' ')}
+                                fill="rgba(59, 130, 246, 0.12)"
+                                stroke="#3b82f6"
+                                strokeWidth="2"
+                                strokeDasharray="4 4"
+                              />
+                              {smartCropInfo.corners.map((p, idx) => {
+                                const displayX = (p.x / naturalSize.width) * imgDisplayRect.width;
+                                const displayY = (p.y / naturalSize.height) * imgDisplayRect.height;
+                                return (
+                                  <circle
+                                    key={idx}
+                                    cx={displayX}
+                                    cy={displayY}
+                                    r="5.5"
+                                    fill="#2563eb"
+                                    stroke="white"
+                                    strokeWidth="2"
+                                  />
+                                );
+                              })}
+                            </svg>
+                          )}
+
                           <div
                             style={{
                               position: 'absolute',

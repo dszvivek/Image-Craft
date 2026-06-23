@@ -11,14 +11,13 @@ import {
   FileText, 
   Lock,
   ArrowRight,
-  Sparkles,
-  FileCheck,
   Files,
   Fingerprint,
   Copyright,
   Crop,
   Smile,
-  Feather
+  Feather,
+  Grid
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
@@ -34,6 +33,7 @@ import watermarkOverlayImg from '../assets/watermark_overlay_feature.gif';
 import aspectResizerImg from '../assets/aspect_resizer_feature.gif';
 import memeGeneratorImg from '../assets/meme_generator_feature.gif';
 import svgVectorizerImg from '../assets/svg_vectorizer_feature.gif';
+import mosaicImg from '../assets/mosaic_feature.gif';
 
 export const Home: React.FC = () => {
   return (
@@ -85,85 +85,6 @@ export const Home: React.FC = () => {
           >
             How it works
           </Link>
-        </div>
-
-        {/* Interactive Mock Graphic */}
-        <div className="relative mt-16 w-full max-w-3xl premium-bento rounded-3xl p-1.5 shadow-2xl animate-float pointer-events-none select-none border border-slate-200/60 bg-white/40">
-          <div className="rounded-[18px] bg-slate-50 border border-slate-100 overflow-hidden relative aspect-[16/9] flex items-center justify-center p-6">
-            <div className="absolute inset-0 bg-dot-grid opacity-30" />
-            
-            {/* Mock Layout Grid */}
-            <div className="w-full h-full flex gap-4 relative z-10">
-              
-              {/* Left Side: Original Image Card */}
-              <div className="flex-1 bg-white rounded-xl border border-slate-200/60 p-3 shadow-xs flex flex-col justify-between">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-                  </div>
-                  <span className="text-[10px] font-mono text-slate-400">source.png</span>
-                </div>
-                
-                {/* SVG Mock Image */}
-                <div className="flex-1 my-3 bg-indigo-50/50 rounded-lg flex flex-col items-center justify-center relative overflow-hidden border border-indigo-100/40">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-indigo-400 to-purple-400 opacity-80 flex items-center justify-center shadow-lg animate-pulse-slow">
-                    <Sparkles className="w-8 h-8 text-white" />
-                  </div>
-                  <div className="absolute bottom-2 inset-x-2 h-4 bg-white/70 backdrop-blur-xs rounded border border-white/40 flex items-center justify-center">
-                    <span className="text-[8px] font-bold text-indigo-600">4.2 MB Original Asset</span>
-                  </div>
-                </div>
-
-                <div className="h-6 flex items-center justify-between text-[9px] text-slate-450 px-0.5">
-                  <span>Width: 3840px</span>
-                  <span>PNG Raw</span>
-                </div>
-              </div>
-
-              {/* Center Slider Split */}
-              <div className="w-[1px] h-full bg-indigo-200/50 relative flex items-center justify-center">
-                <div className="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center shadow-md border border-white">
-                  <ArrowRight className="w-3.5 h-3.5 text-white animate-pulse" />
-                </div>
-              </div>
-
-              {/* Right Side: Processed Output */}
-              <div className="flex-1 bg-white rounded-xl border border-slate-200/60 p-3 shadow-xs flex flex-col justify-between relative overflow-hidden">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                  <span className="text-[10px] font-bold text-emerald-650 flex items-center gap-1">
-                    <Sparkles className="w-3 h-3" /> AI Engine Active
-                  </span>
-                  <span className="text-[10px] font-mono text-indigo-650 bg-indigo-50 px-1.5 py-0.5 rounded font-bold">100% Secure</span>
-                </div>
-
-                {/* Subject Isolated Mock Grid */}
-                <div className="flex-1 my-3 bg-[linear-gradient(45deg,#e2e8f0_25%,transparent_25%),linear-gradient(-45deg,#e2e8f0_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#e2e8f0_75%),linear-gradient(-45deg,transparent_75%,#e2e8f0_75%)] bg-[size:10px_10px] bg-[position:0_0,0_5px,5px_-5px,-5px_0] bg-slate-50 rounded-lg flex items-center justify-center relative overflow-hidden border border-slate-200/40">
-                  
-                  {/* Floating cut out element */}
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-indigo-400 to-purple-400 flex items-center justify-center shadow-lg border-2 border-white animate-float">
-                    <Sparkles className="w-8 h-8 text-white" />
-                  </div>
-                  
-                  <div className="absolute bottom-2 inset-x-2 h-4 bg-emerald-500/90 text-white rounded flex items-center justify-center gap-1 shadow-sm">
-                    <FileCheck className="w-3 h-3" />
-                    <span className="text-[8px] font-bold uppercase tracking-wider">Compressed WebP: 242 KB</span>
-                  </div>
-                </div>
-
-                <div className="h-6 flex items-center justify-between text-[9px] text-slate-450 px-0.5">
-                  <span className="text-emerald-600 font-bold">-94.2% Saved</span>
-                  <span>0.0s latency</span>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Glowing Accent Lights */}
-            <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-indigo-500/10 rounded-full blur-xl pointer-events-none" />
-            <div className="absolute -top-8 -right-8 w-24 h-24 bg-purple-500/10 rounded-full blur-xl pointer-events-none" />
-          </div>
         </div>
 
       </section>
@@ -579,7 +500,7 @@ export const Home: React.FC = () => {
             </Link>
           </div>
 
-          {/* 10. Aspect Ratio Resizer */}
+          {/* 10. Aspect Resizer & Smart Crop */}
           <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
             <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
@@ -588,16 +509,16 @@ export const Home: React.FC = () => {
                 </div>
                 <div>
                   <span className="text-[10px] font-bold text-amber-650 uppercase tracking-wider bg-amber-50/40 border border-amber-100/60 px-2 py-0.5 rounded font-bold">Social Dimensions</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-amber-650 transition-colors">Aspect Ratio Resizer</h3>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-amber-650 transition-colors">Aspect Resizer & Smart Crop</h3>
                 </div>
               </div>
               <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
-                Refit your images to standard social dimensions like YouTube thumbnails, vertical stories, or headers. Use blur padding options to contain fit.
+                Refit your images to standard social templates or crop them manually. Use our new interactive Smart Crop overlay with handles and aspect lock grid.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-center gap-2">âœ“ Direct social aspect presets</li>
-                <li className="flex items-center gap-2">âœ“ High-end blur padding fit</li>
-                <li className="flex items-center gap-2">âœ“ Instant canvas resizing control</li>
+                <li className="flex items-center gap-2">✓ Manual interactive Smart Crop overlays</li>
+                <li className="flex items-center gap-2">✓ High-end blur padding fit</li>
+                <li className="flex items-center gap-2">✓ Instant canvas resizing control</li>
               </ul>
               <Link 
                 to="/aspect-resizer" 
@@ -690,6 +611,45 @@ export const Home: React.FC = () => {
               <img src={svgVectorizerImg} alt="SVG Vectorizer Demo" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-teal-950/0 group-hover:bg-teal-950/40 transition-all duration-300 flex items-center justify-center">
                 <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-teal-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
+                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </Link>
+          </div>
+
+          {/* 13. Photo Mosaic Generator */}
+          <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
+            <div className="flex-1 space-y-5 text-left">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 bg-fuchsia-50 rounded-2xl flex items-center justify-center border border-fuchsia-100 text-fuchsia-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
+                  <Grid className="w-5.5 h-5.5" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-fuchsia-650 uppercase tracking-wider bg-fuchsia-50/40 border border-fuchsia-100/60 px-2 py-0.5 rounded font-bold">Artistic Compositions</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-fuchsia-650 transition-colors">Photo Mosaic Generator</h3>
+                </div>
+              </div>
+              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
+                Reconstruct target images from thousands of small photo tiles client-side. Live overlay density controls, color tinting scales, and zero server-side storage footprint.
+              </p>
+              <ul className="space-y-2 text-xs font-semibold text-slate-655">
+                <li className="flex items-center gap-2">✓ Advanced color-distance Euclidean search</li>
+                <li className="flex items-center gap-2">✓ Adjustable target transparency & tint sliders</li>
+                <li className="flex items-center gap-2">✓ Dynamic 16-color placeholder tiles fallback</li>
+              </ul>
+              <Link 
+                to="/photo-mosaic-generator" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-fuchsia-600 hover:bg-fuchsia-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-fuchsia-500/10 active:scale-98"
+              >
+                Launch Mosaic Engine
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <Link to="/photo-mosaic-generator" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-fuchsia-400/80 group-hover:shadow-[0_12px_40px_rgba(217,70,239,0.15)] transition-all duration-300 block cursor-pointer">
+              <img src={mosaicImg} alt="Photo Mosaic Generator Demo" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-fuchsia-950/0 group-hover:bg-fuchsia-950/40 transition-all duration-300 flex items-center justify-center">
+                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-fuchsia-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
                   Open Tool <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
