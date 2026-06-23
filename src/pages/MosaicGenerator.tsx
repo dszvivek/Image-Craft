@@ -41,12 +41,18 @@ export const MosaicGenerator: React.FC = () => {
   const targetImageRef = useRef<HTMLImageElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Clean up object URLs on unmount
+  const targetUrlRef = useRef(targetUrl);
+  targetUrlRef.current = targetUrl;
+  const previewUrlRef = useRef(previewUrl);
+  previewUrlRef.current = previewUrl;
+  const tilesRef = useRef(tiles);
+  tilesRef.current = tiles;
+
   useEffect(() => {
     return () => {
-      if (targetUrl) URL.revokeObjectURL(targetUrl);
-      tiles.forEach((t) => URL.revokeObjectURL(t.url));
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
+      if (targetUrlRef.current) URL.revokeObjectURL(targetUrlRef.current);
+      if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
+      tilesRef.current.forEach((t) => URL.revokeObjectURL(t.url));
     };
   }, []);
 

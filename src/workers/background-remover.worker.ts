@@ -50,16 +50,16 @@ self.addEventListener('message', async (event: MessageEvent) => {
     // We extract the mask channel (alpha channel of the output image) from result[0].mask
     const mask = Array.isArray(result) && result[0] ? result[0].mask : result;
 
-    // Convert mask to serializable representation to send back
-    self.postMessage({
+    // Transfer the TypedArray buffer directly to main thread without copying memory
+    const maskData = mask.data;
+    (self as any).postMessage({
       status: 'complete',
       mask: {
         width: mask.width,
         height: mask.height,
-        // Send Uint8ClampedArray data
-        data: Array.from(mask.data)
+        data: maskData
       }
-    });
+    }, [maskData.buffer]);
   } catch (error: any) {
     self.postMessage({
       status: 'error',

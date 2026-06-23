@@ -48,6 +48,8 @@ export const AspectResizer: React.FC = () => {
   const imageRef = useRef<HTMLImageElement>(null);
   const cropContainerRef = useRef<HTMLDivElement>(null);
 
+
+
   const presets: Preset[] = [
     { id: 'free', name: 'Free Crop (Unconstrained)', width: 0, height: 0, ratioText: 'Free' },
     { id: '16-9', name: 'Widescreen (16:9)', width: 1920, height: 1080, ratioText: '16:9' },
@@ -63,9 +65,12 @@ export const AspectResizer: React.FC = () => {
 
   const handleFilesSelected = (files: File[]) => {
     if (files.length > 0) {
+      if (imageUrl) URL.revokeObjectURL(imageUrl);
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
       const f = files[0];
       setFile(f);
       setImageUrl(URL.createObjectURL(f));
+      setPreviewUrl('');
     }
   };
 

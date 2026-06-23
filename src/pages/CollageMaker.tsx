@@ -44,12 +44,19 @@ export const CollageMaker: React.FC = () => {
   ];
 
   const handleFilesSelected = (files: File[]) => {
-    const newImages = files.map((file) => ({
-      id: Math.random().toString(36).substring(7),
-      file,
-      url: URL.createObjectURL(file),
-    }));
-    setImages((prev) => [...prev, ...newImages].slice(0, 4)); // Cap at 4 for MVP
+    setImages((prev) => {
+      const currentCount = prev.length;
+      const allowedCount = Math.max(0, 4 - currentCount);
+      const filesToAdd = files.slice(0, allowedCount);
+      
+      const newImages = filesToAdd.map((file) => ({
+        id: Math.random().toString(36).substring(7),
+        file,
+        url: URL.createObjectURL(file),
+      }));
+      
+      return [...prev, ...newImages];
+    });
   };
 
   const removeImage = (id: string) => {

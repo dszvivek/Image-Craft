@@ -12,7 +12,7 @@ interface WorkerProgress {
   mask?: {
     width: number;
     height: number;
-    data: number[];
+    data: Uint8Array;
   };
   error?: string;
 }
@@ -30,10 +30,13 @@ export const BackgroundRemover: React.FC = () => {
 
   const handleFilesSelected = (files: File[]) => {
     if (files.length > 0) {
+      if (originalUrl) URL.revokeObjectURL(originalUrl);
+      if (processedUrl) URL.revokeObjectURL(processedUrl);
       const file = files[0];
       setOriginalFile(file);
       const url = URL.createObjectURL(file);
       setOriginalUrl(url);
+      setProcessedUrl('');
       processImage(file);
     }
   };
@@ -92,7 +95,7 @@ export const BackgroundRemover: React.FC = () => {
     reader.readAsDataURL(file);
   };
 
-  const applyMask = (file: File, mask: { width: number; height: number; data: number[] }) => {
+  const applyMask = (file: File, mask: { width: number; height: number; data: Uint8Array }) => {
     const img = new Image();
     img.src = URL.createObjectURL(file);
     img.onload = () => {

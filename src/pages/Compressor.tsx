@@ -25,10 +25,13 @@ export const Compressor: React.FC = () => {
 
   const handleFilesSelected = (files: File[]) => {
     if (files.length > 0) {
+      if (originalUrl) URL.revokeObjectURL(originalUrl);
+      if (compressedUrl) URL.revokeObjectURL(compressedUrl);
       const file = files[0];
       setOriginalFile(file);
       const url = URL.createObjectURL(file);
       setOriginalUrl(url);
+      setCompressedUrl('');
     }
   };
 
