@@ -18,7 +18,7 @@ export const Contact: React.FC = () => {
     <div className="w-full max-w-4xl mx-auto py-6">
       <SEO 
         title="Contact Us - Support Team" 
-        description="Reach out to the ImageCraft AI support team. Ask questions about browser processing, report bugs, or request features." 
+        description="Reach out to the ImageGiri support team. Ask questions about browser processing, report bugs, or request features." 
       />
 
       <div className="text-center mb-12">
@@ -28,7 +28,7 @@ export const Contact: React.FC = () => {
         </span>
         <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4">Contact Support</h1>
         <p className="text-sm md:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
-          Have questions or feedback? Drop us a message and our open-source team will respond shortly.
+          Have questions or feedback? Drop us a message and our team will respond shortly.
         </p>
       </div>
 
@@ -43,13 +43,13 @@ export const Contact: React.FC = () => {
               General Inquiries
             </h3>
             <p className="text-xs text-slate-550 leading-relaxed font-medium">
-              Email us directly for sponsorship, integration partnerships, or open-source contribution proposals.
+              Email us directly for sponsorship, integration partnerships, or support requests.
             </p>
             <a 
-              href="mailto:support@imagecraftai.com" 
+              href="mailto:support@imagegiri.com" 
               className="text-xs font-mono font-semibold text-indigo-650 hover:underline block"
             >
-              support@imagecraftai.com
+              support@imagegiri.com
             </a>
           </div>
 
@@ -59,7 +59,7 @@ export const Contact: React.FC = () => {
               Developer Verification
             </h3>
             <p className="text-xs text-slate-550 leading-relaxed font-medium">
-              Our site runs fully in user browser cache. To audit the processing pipeline, feel free to inspect the source code on our GitHub project page.
+              Our site runs fully in user browser cache. To audit the processing pipeline, feel free to inspect the source code on our <a href="https://github.com/dszvivek/Image-Craft" target="_blank" rel="noopener noreferrer" className="text-indigo-650 hover:underline font-semibold">GitHub repository</a>.
             </p>
           </div>
 

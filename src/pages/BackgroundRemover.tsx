@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Cpu, Download, RefreshCw, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Cpu, Download, RefreshCw, AlertTriangle } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
 import { SEO } from '../components/SEO';
@@ -177,11 +177,16 @@ export const BackgroundRemover: React.FC = () => {
     setProgress(0);
   };
 
+  const originalUrlRef = useRef(originalUrl);
+  originalUrlRef.current = originalUrl;
+  const processedUrlRef = useRef(processedUrl);
+  processedUrlRef.current = processedUrl;
+
   useEffect(() => {
     return () => {
       if (workerRef.current) workerRef.current.terminate();
-      if (originalUrl) URL.revokeObjectURL(originalUrl);
-      if (processedUrl) URL.revokeObjectURL(processedUrl);
+      if (originalUrlRef.current) URL.revokeObjectURL(originalUrlRef.current);
+      if (processedUrlRef.current) URL.revokeObjectURL(processedUrlRef.current);
     };
   }, []);
 
@@ -299,12 +304,7 @@ export const BackgroundRemover: React.FC = () => {
               </div>
 
               {/* Action buttons */}
-              <div className="premium-bento p-5 rounded-3xl bg-white flex flex-col gap-3 shadow-xs">
-                <div className="flex items-center gap-2 text-xs font-semibold text-slate-650 bg-slate-55 p-2.5 rounded-xl border border-slate-200/60 shadow-xs">
-                  <ShieldCheck className="w-4.5 h-4.5 text-emerald-600" />
-                  Your file processed 100% locally.
-                </div>
-
+              <div className="premium-bento p-5 rounded-3xl bg-white shadow-xs">
                 <div className="flex gap-3">
                   <button
                     onClick={handleDownload}

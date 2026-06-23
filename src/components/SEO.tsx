@@ -7,7 +7,7 @@ interface SEOProps {
 }
 
 export const SEO: React.FC<SEOProps> = ({ title, description, canonicalUrl }) => {
-  const fullTitle = `${title} | ImageCraft AI - Privacy-First Image Tools`;
+  const fullTitle = `${title} | ImageGiri - Privacy-First Image Tools`;
   const defaultCanonical = canonicalUrl || window.location.href;
 
   return (
@@ -21,7 +21,7 @@ export const SEO: React.FC<SEOProps> = ({ title, description, canonicalUrl }) =>
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={defaultCanonical} />
-      <meta property="og:site_name" content="ImageCraft AI" />
+      <meta property="og:site_name" content="ImageGiri" />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />

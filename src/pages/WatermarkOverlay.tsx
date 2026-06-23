@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, RefreshCw, Trash2, ShieldCheck, Settings, Type, Image as ImageIcon } from 'lucide-react';
+import { Download, RefreshCw, Trash2, Settings, Type, Image as ImageIcon } from 'lucide-react';
 import watermarkOverlayGif from '../assets/watermark_overlay_feature.gif';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
@@ -10,7 +10,7 @@ export const WatermarkOverlay: React.FC = () => {
   
   // Watermark Settings
   const [watermarkType, setWatermarkType] = useState<'text' | 'logo'>('text');
-  const [watermarkText, setWatermarkText] = useState<string>('ImageCraft AI');
+  const [watermarkText, setWatermarkText] = useState<string>('ImageGiri');
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoUrl, setLogoUrl] = useState<string>('');
   
@@ -197,7 +197,7 @@ export const WatermarkOverlay: React.FC = () => {
     setLogoFile(null);
     setLogoUrl('');
     setWatermarkType('text');
-    setWatermarkText('ImageCraft AI');
+    setWatermarkText('ImageGiri');
     setOpacity(50);
     setScale(20);
     setRotation(0);
@@ -206,11 +206,18 @@ export const WatermarkOverlay: React.FC = () => {
     setTextColor('#ffffff');
   };
 
+  const imageUrlRef = useRef(imageUrl);
+  imageUrlRef.current = imageUrl;
+  const previewUrlRef = useRef(previewUrl);
+  previewUrlRef.current = previewUrl;
+  const logoUrlRef = useRef(logoUrl);
+  logoUrlRef.current = logoUrl;
+
   useEffect(() => {
     return () => {
-      if (imageUrl) URL.revokeObjectURL(imageUrl);
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
-      if (logoUrl) URL.revokeObjectURL(logoUrl);
+      if (imageUrlRef.current) URL.revokeObjectURL(imageUrlRef.current);
+      if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
+      if (logoUrlRef.current) URL.revokeObjectURL(logoUrlRef.current);
     };
   }, []);
 
@@ -490,13 +497,6 @@ export const WatermarkOverlay: React.FC = () => {
                     />
                   )
                 )}
-              </div>
-
-              <div className="flex items-center justify-center gap-2 text-[10px] text-slate-505 bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 shadow-xs font-medium">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span>
-                  Logo composition runs locally in browser. Files are never uploaded to any remote web server.
-                </span>
               </div>
 
             </div>

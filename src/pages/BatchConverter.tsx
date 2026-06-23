@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Files, FileText, CheckCircle, Trash2, ShieldCheck, AlertTriangle } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
@@ -251,9 +251,12 @@ export const BatchConverter: React.FC = () => {
     setPackageType(null);
   };
 
+  const filesRef = useRef<BatchFile[]>(files);
+  filesRef.current = files;
+
   useEffect(() => {
     return () => {
-      files.forEach((f) => {
+      filesRef.current.forEach((f: BatchFile) => {
         if (f.convertedUrl) URL.revokeObjectURL(f.convertedUrl);
       });
     };

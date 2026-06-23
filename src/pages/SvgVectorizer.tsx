@@ -550,10 +550,15 @@ export const SvgVectorizer: React.FC = () => {
     });
   };
 
+  const imageUrlRef = useRef(imageUrl);
+  imageUrlRef.current = imageUrl;
+  const vectorUrlRef = useRef(vectorUrl);
+  vectorUrlRef.current = vectorUrl;
+
   useEffect(() => {
     return () => {
-      if (imageUrl) URL.revokeObjectURL(imageUrl);
-      if (vectorUrl) URL.revokeObjectURL(vectorUrl);
+      if (imageUrlRef.current) URL.revokeObjectURL(imageUrlRef.current);
+      if (vectorUrlRef.current) URL.revokeObjectURL(vectorUrlRef.current);
     };
   }, []);
 

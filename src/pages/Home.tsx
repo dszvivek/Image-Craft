@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ShieldCheck, 
@@ -710,7 +710,7 @@ export const Home: React.FC = () => {
           </div>
           <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">Your private files never leave your device</h3>
           <p className="text-xs text-slate-500 leading-relaxed font-medium">
-            ImageCraft AI operates under a strict offline isolation sandbox. We do not collect cookies, compile usage analytics profiles, or transfer your pixel configurations.
+            ImageGiri operates under a strict offline isolation sandbox. We do not collect cookies, compile usage analytics profiles, or transfer your pixel configurations.
           </p>
         </div>
 

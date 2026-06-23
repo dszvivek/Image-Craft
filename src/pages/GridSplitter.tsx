@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import JSZip from 'jszip';
-import { Download, RefreshCw, Grid, Lock, CheckCircle } from 'lucide-react';
+import { Download, RefreshCw, Grid, CheckCircle } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
 import { SEO } from '../components/SEO';
@@ -185,12 +185,17 @@ export const GridSplitter: React.FC = () => {
     setIsZipping(false);
   };
 
+  const tilesRef = useRef<string[]>(tiles);
+  tilesRef.current = tiles;
+  const originalUrlRef = useRef<string>(originalUrl);
+  originalUrlRef.current = originalUrl;
+
   useEffect(() => {
     return () => {
-      tiles.forEach((t) => URL.revokeObjectURL(t));
-      if (originalUrl) URL.revokeObjectURL(originalUrl);
+      tilesRef.current.forEach((t: string) => URL.revokeObjectURL(t));
+      if (originalUrlRef.current) URL.revokeObjectURL(originalUrlRef.current);
     };
-  }, [tiles, originalUrl]);
+  }, []);
 
   return (
     <div className="w-full">
@@ -303,11 +308,6 @@ export const GridSplitter: React.FC = () => {
                     <RefreshCw className="w-4 h-4" />
                     Upload Different Image
                   </button>
-                </div>
-
-                <div className="flex items-center gap-2 text-[10px] text-slate-505 bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 shadow-xs font-medium">
-                  <Lock className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
-                  Slicing happens completely in RAM.
                 </div>
 
               </div>

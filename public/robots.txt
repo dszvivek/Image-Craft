@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://imagecraftai.com/sitemap.xml
+Sitemap: https://imagegiri.com/sitemap.xml

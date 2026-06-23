@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, RefreshCw, Plus, Trash2, Sliders, Crop, ShieldAlert } from 'lucide-react';
+import { Download, RefreshCw, Plus, Trash2, Sliders, Crop } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import collageMakerGif from '../assets/collage_maker_feature.gif';
@@ -241,10 +241,15 @@ export const CollageMaker: React.FC = () => {
     setBorderRadius(0);
   };
 
+  const imagesRef = useRef(images);
+  imagesRef.current = images;
+  const canvasUrlRef = useRef(canvasUrl);
+  canvasUrlRef.current = canvasUrl;
+
   useEffect(() => {
     return () => {
-      images.forEach((img) => URL.revokeObjectURL(img.url));
-      if (canvasUrl) URL.revokeObjectURL(canvasUrl);
+      imagesRef.current.forEach((img) => URL.revokeObjectURL(img.url));
+      if (canvasUrlRef.current) URL.revokeObjectURL(canvasUrlRef.current);
     };
   }, []);
 
@@ -505,13 +510,6 @@ export const CollageMaker: React.FC = () => {
                     />
                   )
                 )}
-              </div>
-
-              <div className="flex items-center justify-center gap-2 text-[10px] text-slate-505 bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 shadow-xs font-medium">
-                <ShieldAlert className="w-4 h-4 text-pink-600 shrink-0" />
-                <span>
-                  Collage compiler runs locally inside your browser sandbox. Images are never uploaded to any remote web server.
-                </span>
               </div>
 
             </div>

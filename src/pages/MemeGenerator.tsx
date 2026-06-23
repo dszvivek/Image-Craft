@@ -212,10 +212,15 @@ export const MemeGenerator: React.FC = () => {
     setAllCaps(true);
   };
 
+  const imageUrlRef = useRef(imageUrl);
+  imageUrlRef.current = imageUrl;
+  const previewUrlRef = useRef(previewUrl);
+  previewUrlRef.current = previewUrl;
+
   useEffect(() => {
     return () => {
-      if (imageUrl) URL.revokeObjectURL(imageUrl);
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
+      if (imageUrlRef.current) URL.revokeObjectURL(imageUrlRef.current);
+      if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
     };
   }, []);
 

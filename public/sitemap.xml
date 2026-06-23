@@ -1,63 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://imagecraftai.com/</loc>
-    <lastmod>2026-06-22</lastmod>
+    <loc>https://imagegiri.com/</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://imagecraftai.com/image-compressor</loc>
-    <lastmod>2026-06-22</lastmod>
+    <loc>https://imagegiri.com/image-compressor</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://imagecraftai.com/background-remover</loc>
-    <lastmod>2026-06-22</lastmod>
+    <loc>https://imagegiri.com/background-remover</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://imagecraftai.com/ocr-text-extractor</loc>
-    <lastmod>2026-06-22</lastmod>
+    <loc>https://imagegiri.com/ocr-text-extractor</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://imagecraftai.com/instagram-grid-splitter</loc>
-    <lastmod>2026-06-22</lastmod>
+    <loc>https://imagegiri.com/instagram-grid-splitter</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://imagecraftai.com/collage-maker</loc>
-    <lastmod>2026-06-22</lastmod>
+    <loc>https://imagegiri.com/collage-maker</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://imagecraftai.com/color-palette-extractor</loc>
-    <lastmod>2026-06-22</lastmod>
+    <loc>https://imagegiri.com/color-palette-extractor</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://imagecraftai.com/about</loc>
-    <lastmod>2026-06-22</lastmod>
+    <loc>https://imagegiri.com/batch-converter</loc>
+    <lastmod>2026-06-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://imagegiri.com/metadata-stripper</loc>
+    <lastmod>2026-06-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://imagegiri.com/watermark-overlay</loc>
+    <lastmod>2026-06-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://imagegiri.com/aspect-resizer</loc>
+    <lastmod>2026-06-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://imagegiri.com/meme-generator</loc>
+    <lastmod>2026-06-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://imagegiri.com/svg-vectorizer</loc>
+    <lastmod>2026-06-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://imagegiri.com/about</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://imagecraftai.com/privacy</loc>
-    <lastmod>2026-06-22</lastmod>
+    <loc>https://imagegiri.com/privacy</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://imagecraftai.com/contact</loc>
-    <lastmod>2026-06-22</lastmod>
+    <loc>https://imagegiri.com/faq</loc>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imagegiri.com/contact</loc>
+    <lastmod>2026-06-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

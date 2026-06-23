@@ -1,0 +1,80 @@
+# ImageGiri
+
+ImageGiri is a privacy-first, on-device image processing and creative utility suite. The application operates 100% client-side inside the user's browser, meaning no files are uploaded to any external server. 
+
+- **Official URL:** https://imagegiri.com
+- **Core Architecture:** Single Page Application (SPA) built using React, Vite, TypeScript, and Tailwind CSS v4.
+- **Privacy Model:** Sandbox execution. Multi-threading is achieved via Web Workers, and heavy parsing executes in compiled WebAssembly (WASM). All image data stays in the browser's temporary memory (RAM).
+
+---
+
+## 🛠️ Offline Tool Directory (12 Features)
+
+AI agents and crawlers can discover the following routes and features:
+
+### 1. Image Compressor
+- **Route:** `/image-compressor`
+- **Functionality:** Lossy and lossless file size reduction for JPEG, PNG, and WebP.
+- **Controls:** Quality compression sliders (5-100%), output format selectors, and before/after slider comparison tool.
+
+### 2. AI Background Remover
+- **Route:** `/background-remover`
+- **Functionality:** Automated foreground segmentation and background removal using the RMBG-1.4 model.
+- **Technical Specs:** Downloads a 13MB ONNX model locally on first run and executes AI inference on-device via Transformers.js in a Web Worker.
+
+### 3. OCR Text Extractor
+- **Route:** `/ocr-text-extractor`
+- **Functionality:** Scan text from screenshots, forms, and documents.
+- **Controls:** Supports multi-language scripts (English, Hindi, Chinese, Spanish, Cyrillic, etc.) with automatic script detection via Tesseract.js.
+
+### 4. Instagram Grid Splitter
+- **Route:** `/instagram-grid-splitter`
+- **Functionality:** Crop images into square layout tiles for Instagram feeds.
+- **Controls:** Grid configs (3x3, 4x4, 5x5) with instant ZIP file package downloads via JSZip.
+
+### 5. Photo Collage Maker
+- **Route:** `/collage-maker`
+- **Functionality:** Arrange up to 4 images in custom layout structures.
+- **Controls:** Column/row templates, custom aspect ratios, border color/radius, and item spacings.
+
+### 6. Color Palette Extractor
+- **Route:** `/color-palette-extractor`
+- **Functionality:** Extract color schemes and coverage percentages from design assets.
+- **Controls:** K-Means color quantization. Downloads custom JSON palettes, CSS root variables, or visual PNG swatches.
+
+### 7. Batch Image Converter
+- **Route:** `/batch-converter`
+- **Functionality:** Bulk image conversion and PDF package assembly.
+- **Controls:** Loop queue processing for WebP/PNG/JPG output, ZIP compilation, and multi-page PDF generation via jsPDF.
+
+### 8. EXIF Metadata Stripper
+- **Route:** `/metadata-stripper`
+- **Functionality:** Read and purge hidden file markers (GPS location, camera make, capture timestamp).
+- **Controls:** GPS Google Map links, tag categories, and canvas redraw strip downloads.
+
+### 9. Watermark Overlay
+- **Route:** `/watermark-overlay`
+- **Functionality:** Stamp copyright text or branding logos onto images.
+- **Controls:** Custom text inputs, PNG logo files, opacities, scales, rotation angles, corner margins, and repeat tile grids.
+
+### 10. Aspect Ratio Resizer
+- **Route:** `/aspect-resizer`
+- **Functionality:** Resize images to social media standards.
+- **Controls:** Social dimension presets (YouTube thumbnail, Instagram stories, Twitter banners) with cover fit or canvas blur-padding.
+
+### 11. Meme Generator
+- **Route:** `/meme-generator`
+- **Functionality:** Caption memes and quote cards.
+- **Controls:** Add multiple draggable text captions, control colors, font sizes, Impact font faces, and black outlines.
+
+### 12. SVG Vectorizer
+- **Route:** `/svg-vectorizer`
+- **Functionality:** Vectorize raster graphics (JPG/PNG) into scalable vector paths (SVG).
+- **Controls:** K-Means++ clustering, Moore-Neighbor boundary tracing, Douglas-Peucker path simplification, and XML code viewing.
+
+---
+
+## 🔒 Privacy & Security Info
+- **File Storage:** Zero files are sent to servers. Upload and output operations run completely offline in RAM.
+- **AI Crawling Preference:** Fully friendly to search crawlers. No authentication walls.
+- **Browser Compatibility:** Standard evergreen browsers with WebAssembly, Web Workers, and Canvas API enabled.

@@ -17,14 +17,14 @@ export const Faq: React.FC = () => {
     },
     {
       q: 'Are my private files saved or monitored?',
-      a: 'Absolutely not. ImageCraft AI has no databases, telemetry tracking, or backend servers for your files. All transformations, AI cutouts, and OCR script scanning occur locally in your browser memory (RAM).'
+      a: 'Absolutely not. ImageGiri has no databases, telemetry tracking, or backend servers for your files. All transformations, AI cutouts, and OCR script scanning occur locally in your browser memory (RAM).'
     },
     {
       q: 'Why does background removal require an initial download?',
       a: 'The AI tool runs a local neural network (RMBG-1.4) inside your browser. The first time you launch the tool, the weights (approx. 10MB) are downloaded from Hugging Face CDN. They are subsequently cached in your browser\'s IndexedDB, enabling immediate, offline loading next time.'
     },
     {
-      q: 'Is ImageCraft AI truly 100% free?',
+      q: 'Is ImageGiri truly 100% free?',
       a: 'Yes, completely. There are no registration forms, no usage credits, and no subscriptions. The application is supported by lightweight, non-disruptive ad placements without interrupting your local workflow.'
     },
     {
@@ -41,7 +41,7 @@ export const Faq: React.FC = () => {
     <div className="w-full relative py-12">
       <SEO 
         title="Frequently Asked Questions" 
-        description="Find answers about client-side processing, file privacy, browser support, and local machine learning models in ImageCraft AI." 
+        description="Find answers about client-side processing, file privacy, browser support, and local machine learning models in ImageGiri." 
       />
 
       <div className="max-w-4xl mx-auto">

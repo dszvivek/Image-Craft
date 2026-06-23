@@ -86,7 +86,7 @@ export const Privacy: React.FC = () => {
           <div>
             <h4 className="text-xs font-bold text-slate-800">Got questions?</h4>
             <p className="text-[11px] text-slate-450 mt-0.5 font-medium">
-              If you have any questions or would like to review our local execution code, please visit our Github project page or contact our support team.
+              If you have any questions or would like to review our local execution code, please visit our <a href="https://github.com/dszvivek/Image-Craft" target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline font-semibold">GitHub repository</a> or contact our support team.
             </p>
           </div>
         </div>

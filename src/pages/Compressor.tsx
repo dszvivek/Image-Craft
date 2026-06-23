@@ -85,11 +85,16 @@ export const Compressor: React.FC = () => {
     return () => clearTimeout(timer);
   }, [originalUrl, quality, format]);
 
+  const originalUrlRef = useRef(originalUrl);
+  originalUrlRef.current = originalUrl;
+  const compressedUrlRef = useRef(compressedUrl);
+  compressedUrlRef.current = compressedUrl;
+
   // Clean up Object URLs to prevent memory leaks
   useEffect(() => {
     return () => {
-      if (originalUrl) URL.revokeObjectURL(originalUrl);
-      if (compressedUrl) URL.revokeObjectURL(compressedUrl);
+      if (originalUrlRef.current) URL.revokeObjectURL(originalUrlRef.current);
+      if (compressedUrlRef.current) URL.revokeObjectURL(compressedUrlRef.current);
     };
   }, []);
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Palette, Copy, RefreshCw, Check, FileCode, ImageIcon, ShieldCheck } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { extractDominantColors } from '../utils/colorExtractor';
@@ -135,9 +135,12 @@ export const PaletteExtractor: React.FC = () => {
     setPalette([]);
   };
 
+  const originalUrlRef = useRef<string>(originalUrl);
+  originalUrlRef.current = originalUrl;
+
   useEffect(() => {
     return () => {
-      if (originalUrl) URL.revokeObjectURL(originalUrl);
+      if (originalUrlRef.current) URL.revokeObjectURL(originalUrlRef.current);
     };
   }, []);
 

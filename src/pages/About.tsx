@@ -7,7 +7,7 @@ export const About: React.FC = () => {
     <div className="w-full max-w-4xl mx-auto py-6">
       <SEO 
         title="About Us - Privacy First" 
-        description="Learn how ImageCraft AI processes all images directly in your browser. Our technology stack, offline processing promise, and security structure." 
+        description="Learn how ImageGiri processes all images directly in your browser. Our technology stack, offline processing promise, and security structure." 
       />
 
       <div className="text-center mb-12">
@@ -15,7 +15,7 @@ export const About: React.FC = () => {
           <Info className="w-4 h-4 text-indigo-550" />
           Our Mission
         </span>
-        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4">About ImageCraft AI</h1>
+        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4">About ImageGiri</h1>
         <p className="text-sm md:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
           A collection of fully local, sandboxed image processing and AI tools that respect your privacy.
         </p>
@@ -33,7 +33,7 @@ export const About: React.FC = () => {
             In the modern web, almost every image utility uploads your files to remote cloud servers. This exposes your receipts, screenshots, documents, and portraits to potential server data leaks, cloud processing logging, and unauthorized AI training.
           </p>
           <p className="text-xs md:text-sm text-slate-550 leading-relaxed font-medium">
-            ImageCraft AI was created to challenge this paradigm. By moving 100% of the image compression, AI modeling, OCR scanning, and collage mapping engines directly into your browser's runtime memory, <span className="text-indigo-650 font-bold">your files never leave your device.</span> You receive desktop-class speeds with absolute privacy.
+            ImageGiri was created to challenge this paradigm. By moving 100% of the image compression, AI modeling, OCR scanning, and collage mapping engines directly into your browser's runtime memory, <span className="text-indigo-650 font-bold">your files never leave your device.</span> You receive desktop-class speeds with absolute privacy.
           </p>
         </section>
 
@@ -104,13 +104,13 @@ export const About: React.FC = () => {
         {/* Testimonials Section */}
         <section className="space-y-6 pt-6 border-t border-slate-200/60">
           <h2 className="text-xl font-black text-slate-900 text-center">User Testimonials</h2>
-          <p className="text-xs text-slate-500 text-center max-w-md mx-auto leading-relaxed">
-            See what professionals and creators are saying about ImageCraft AI's sandbox performance.
+          <p className="text-xs text-slate-550 text-center max-w-md mx-auto leading-relaxed">
+            See what professionals and creators are saying about ImageGiri's sandbox performance.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
-                quote: "Zero uploads means I can compress confidential brand visuals without worrying about compliance or NDA issues. ImageCraft is an essential daily utility.",
+                quote: "Zero uploads means I can compress confidential brand visuals without worrying about compliance or NDA issues. ImageGiri is an essential daily utility.",
                 author: "Jane Doe",
                 role: "Lead Brand Designer",
                 avatarColor: "bg-indigo-100 text-indigo-700",

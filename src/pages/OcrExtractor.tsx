@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Tesseract from 'tesseract.js';
 import { FileText, Copy, Download, RefreshCw, Check, Globe, ShieldAlert } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
@@ -362,9 +362,12 @@ export const OcrExtractor: React.FC = () => {
     setIsProcessing(false);
   };
 
+  const originalUrlRef = useRef<string>(originalUrl);
+  originalUrlRef.current = originalUrl;
+
   useEffect(() => {
     return () => {
-      if (originalUrl) URL.revokeObjectURL(originalUrl);
+      if (originalUrlRef.current) URL.revokeObjectURL(originalUrlRef.current);
     };
   }, []);
 

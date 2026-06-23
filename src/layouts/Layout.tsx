@@ -115,14 +115,6 @@ export const Layout = () => {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 font-sans selection:bg-indigo-100 selection:text-indigo-900">
       
-      {/* Privacy Notice Bar */}
-      <div className="w-full bg-gradient-to-r from-indigo-50/50 via-white to-indigo-50/50 border-b border-indigo-100 py-2.5 px-4 text-center text-xs md:text-sm font-semibold tracking-wide flex items-center justify-center gap-2">
-        <Lock className="w-4 h-4 text-indigo-500 animate-pulse shrink-0" />
-        <span className="text-slate-700">
-          Privacy First: <span className="text-indigo-600 font-bold">Your files never leave your device.</span> Everything is processed locally.
-        </span>
-      </div>
-
       {/* Main Navigation */}
       <div className="sticky top-0 z-40 w-full px-4 sm:px-6 lg:px-8 pt-4 pointer-events-none">
         <header className="max-w-7xl mx-auto h-16 glass rounded-2xl border border-slate-200/60 shadow-md shadow-slate-200/5 px-4 sm:px-6 lg:px-8 flex items-center justify-between pointer-events-auto">
@@ -130,10 +122,14 @@ export const Layout = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-200">
-              <Cpu className="w-5 h-5 text-white" />
+              <svg className="w-5.5 h-5.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 20l7-10 7 10" />
+                <path d="M9 20l4-6 4 6" />
+                <circle cx="12" cy="16" r="2" fill="currentColor" />
+              </svg>
             </div>
             <span className="text-lg font-black tracking-tight text-slate-900 group-hover:text-indigo-650 transition-colors">
-              ImageCraft<span className="text-indigo-600">AI</span>
+              Image<span className="text-indigo-600">Giri</span>
             </span>
           </Link>
 
@@ -219,9 +215,20 @@ export const Layout = () => {
 
           {/* Desktop Right CTA */}
           <div className="hidden md:flex items-center gap-4">
+            <a
+              href="https://github.com/dszvivek/Image-Craft"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 text-slate-500 hover:text-indigo-650 hover:scale-105 transition-all duration-200 cursor-pointer flex items-center justify-center"
+              title="View on GitHub"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+              </svg>
+            </a>
             <Link
               to="/background-remover"
-              className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-650 hover:from-indigo-500 hover:to-purple-550 text-[11px] font-bold text-white rounded-xl shadow-md shadow-indigo-500/10 hover:shadow-indigo-500/20 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer uppercase tracking-wider"
+              className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-650 hover:from-indigo-550 hover:to-purple-550 text-[11px] font-bold text-white rounded-xl shadow-md shadow-indigo-500/10 hover:shadow-indigo-500/20 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer uppercase tracking-wider"
             >
               <Cpu className="w-3.5 h-3.5" />
               Try AI Cutout
@@ -259,9 +266,21 @@ export const Layout = () => {
             <Link to="/privacy" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-700 hover:text-indigo-600 py-2 border-b border-slate-100">
               Privacy
             </Link>
-            <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-700 hover:text-indigo-600 py-2">
+            <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-700 hover:text-indigo-600 py-2 border-b border-slate-100">
               Contact
             </Link>
+            <a 
+              href="https://github.com/dszvivek/Image-Craft" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-slate-700 hover:text-indigo-600 py-2 flex items-center justify-center gap-1.5"
+            >
+              <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+              </svg>
+              GitHub
+            </a>
           </nav>
 
           <div className="border-t border-slate-100 pt-6">
@@ -319,9 +338,13 @@ export const Layout = () => {
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center">
-                <Cpu className="w-4 h-4 text-white" />
+                <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 20l7-10 7 10" />
+                  <path d="M9 20l4-6 4 6" />
+                  <circle cx="12" cy="16" r="2" fill="currentColor" />
+                </svg>
               </div>
-              <span className="font-bold text-lg text-slate-900">ImageCraft AI</span>
+              <span className="font-bold text-lg text-slate-900">ImageGiri</span>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
               Privacy-first local image processing tools. Your files never leave your device. No cloud storage, no data harvesting.
@@ -363,8 +386,19 @@ export const Layout = () => {
         </div>
 
         <div className="max-w-7xl mx-auto border-t border-slate-100 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-450">
-          <p>© {new Date().getFullYear()} ImageCraft AI. All rights reserved.</p>
-          <div className="flex gap-4">
+          <p>© {new Date().getFullYear()} ImageGiri. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <a 
+              href="https://github.com/dszvivek/Image-Craft" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-1 hover:text-indigo-600 transition font-medium"
+            >
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+              </svg>
+              GitHub
+            </a>
             <span className="hover:text-slate-600 transition cursor-pointer">Sitemap</span>
             <span className="hover:text-slate-600 transition cursor-pointer">Terms of Service</span>
           </div>

@@ -5,4 +5,20 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('jspdf')) return 'vendor-jspdf';
+            if (id.includes('jszip')) return 'vendor-jszip';
+            if (id.includes('tesseract.js')) return 'vendor-tesseract';
+            if (id.includes('@huggingface/transformers') || id.includes('onnxruntime')) return 'vendor-transformers';
+            return 'vendor-core';
+          }
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1200
+  }
 })
