@@ -151,47 +151,7 @@ export const Home: React.FC = () => {
         </div>
 
         <div className="space-y-24">
-          
-          {/* 1. Image Compressor */}
-          <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
-            <div className="flex-1 space-y-5 text-left">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-indigo-50 rounded-2xl flex items-center justify-center border border-indigo-100 text-indigo-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
-                  <ImageIcon className="w-5.5 h-5.5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold text-indigo-650 uppercase tracking-wider bg-indigo-50/40 border border-indigo-100/60 px-2 py-0.5 rounded font-bold">Core Optimization</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-indigo-650 transition-colors">Image Compressor</h3>
-                </div>
-              </div>
-              <p className="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
-                Optimize your JPEGs, PNGs, and WebPs in seconds. Control quality levels and convert formats offline without losing pixel fidelity.
-              </p>
-              <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Save up to 90% in bundle sizes</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Direct side-by-side comparison slider</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Bulk offline conversion engine</span></li>
-              </ul>
-              <Link 
-                to="/image-compressor" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-indigo-500/10 active:scale-98"
-              >
-                Launch Compressor
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <Link to="/image-compressor" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-indigo-400/80 group-hover:shadow-[0_12px_40px_rgba(99,102,241,0.15)] transition-all duration-300 block cursor-pointer">
-              <img src={compressorImg} alt="Compressor Demo" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-indigo-950/0 group-hover:bg-indigo-950/40 transition-all duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
-                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
-            </Link>
-          </div>
-
-          {/* 2. AI Background Remover */}
+          {/* 1. AI Background Remover */}
           <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
             <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
@@ -230,7 +190,126 @@ export const Home: React.FC = () => {
             </Link>
           </div>
 
-          {/* 3. OCR Text Extractor */}
+          {/* 2. Photo Mosaic Generator */}
+          <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
+            <div className="flex-1 space-y-5 text-left">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 bg-fuchsia-50 rounded-2xl flex items-center justify-center border border-fuchsia-100 text-fuchsia-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
+                  <Grid className="w-5.5 h-5.5" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-fuchsia-650 uppercase tracking-wider bg-fuchsia-50/40 border border-fuchsia-100/60 px-2 py-0.5 rounded font-bold">Artistic Compositions</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-fuchsia-650 transition-colors">Photo Mosaic Generator</h3>
+                </div>
+              </div>
+              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
+                Reconstruct target images from thousands of small photo tiles client-side. Live overlay density controls, color tinting scales, and zero server-side storage footprint.
+              </p>
+              <ul className="space-y-2 text-xs font-semibold text-slate-655">
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Advanced color-distance Euclidean search</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Adjustable target transparency & tint sliders</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Dynamic 16-color placeholder tiles fallback</span></li>
+              </ul>
+              <Link 
+                to="/photo-mosaic-generator" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-fuchsia-600 hover:bg-fuchsia-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-fuchsia-500/10 active:scale-98"
+              >
+                Launch Mosaic Engine
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <Link to="/photo-mosaic-generator" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-fuchsia-400/80 group-hover:shadow-[0_12px_40px_rgba(217,70,239,0.15)] transition-all duration-300 block cursor-pointer">
+              <img src={mosaicImg} alt="Photo Mosaic Generator Demo" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-fuchsia-950/0 group-hover:bg-fuchsia-950/40 transition-all duration-300 flex items-center justify-center">
+                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-fuchsia-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
+                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </Link>
+          </div>
+
+        </div>
+
+          {/* 3. Aspect Resizer & Smart Crop */}
+          <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
+            <div className="flex-1 space-y-5 text-left">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 bg-amber-50 rounded-2xl flex items-center justify-center border border-amber-100 text-amber-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
+                  <Crop className="w-5.5 h-5.5" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-amber-650 uppercase tracking-wider bg-amber-50/40 border border-amber-100/60 px-2 py-0.5 rounded font-bold">Social Dimensions</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-amber-650 transition-colors">Aspect Resizer & Smart Crop</h3>
+                </div>
+              </div>
+              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
+                Refit your images to standard social templates or crop them manually. Use our new interactive Smart Crop overlay with handles and aspect lock grid.
+              </p>
+              <ul className="space-y-2 text-xs font-semibold text-slate-655">
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Manual interactive Smart Crop overlays</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>High-end blur padding fit</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Instant canvas resizing control</span></li>
+              </ul>
+              <Link 
+                to="/aspect-resizer" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-amber-500/10 active:scale-98"
+              >
+                Launch Aspect Resizer
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <Link to="/aspect-resizer" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-amber-400/80 group-hover:shadow-[0_12px_40px_rgba(217,119,6,0.15)] transition-all duration-300 block cursor-pointer">
+              <img src={aspectResizerImg} alt="Aspect Ratio Resizer Demo" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-amber-950/0 group-hover:bg-amber-950/40 transition-all duration-300 flex items-center justify-center">
+                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-amber-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
+                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </Link>
+          </div>
+
+          {/* 4. SVG Vectorizer */}
+          <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
+            <div className="flex-1 space-y-5 text-left">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 bg-teal-50 rounded-2xl flex items-center justify-center border border-teal-100 text-teal-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
+                  <Feather className="w-5.5 h-5.5" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-teal-650 uppercase tracking-wider bg-teal-50/40 border border-teal-100/60 px-2 py-0.5 rounded font-bold">Vector Conversion</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-teal-650 transition-colors">SVG Vectorizer</h3>
+                </div>
+              </div>
+              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
+                Trace raster JPEGs and PNGs into fully scalable vector SVGs. Adjust color palette counts, path smoothing, and speckle noise filters offline.
+              </p>
+              <ul className="space-y-2 text-xs font-semibold text-slate-655">
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>K-Means++ color quantization</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Moore-Neighbor boundary tracer</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Douglas-Peucker path simplification</span></li>
+              </ul>
+              <Link 
+                to="/svg-vectorizer" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-teal-500/10 active:scale-98"
+              >
+                Launch SVG Vectorizer
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <Link to="/svg-vectorizer" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-teal-400/80 group-hover:shadow-[0_12px_40px_rgba(13,148,136,0.15)] transition-all duration-300 block cursor-pointer">
+              <img src={svgVectorizerImg} alt="SVG Vectorizer Demo" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-teal-950/0 group-hover:bg-teal-950/40 transition-all duration-300 flex items-center justify-center">
+                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-teal-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
+                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </Link>
+          </div>
+
+          {/* 5. OCR Text Extractor */}
           <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
             <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
@@ -269,117 +348,39 @@ export const Home: React.FC = () => {
             </Link>
           </div>
 
-          {/* 4. Instagram Grid Splitter */}
-          <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
-            <div className="flex-1 space-y-5 text-left">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-orange-50 rounded-2xl flex items-center justify-center border border-orange-100 text-orange-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
-                  <Maximize2 className="w-5.5 h-5.5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold text-orange-650 uppercase tracking-wider bg-orange-50/40 border border-orange-100/60 px-2 py-0.5 rounded font-bold">Social Feeds</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-orange-650 transition-colors">Grid Splitter</h3>
-                </div>
-              </div>
-              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
-                Slice single panoramic images into square grid assets. Ready for cohesive social banners, Instagram feeds, or Pinterest grids.
-              </p>
-              <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Grid metrics split presets (3x3, 3x1, 3x2)</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Instant ZIP generation pipeline</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Retain full source pixel resolution</span></li>
-              </ul>
-              <Link 
-                to="/instagram-grid-splitter" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-orange-500/10 active:scale-98"
-              >
-                Launch Grid Splitter
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <Link to="/instagram-grid-splitter" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-orange-400/80 group-hover:shadow-[0_12px_40px_rgba(249,115,22,0.15)] transition-all duration-300 block cursor-pointer">
-              <img src={gridSplitterImg} alt="Instagram Grid Splitter Demo" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-orange-950/0 group-hover:bg-orange-950/40 transition-all duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-orange-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
-                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
-            </Link>
-          </div>
-
-          {/* 5. Photo Collage Maker */}
+          {/* 6. Image Compressor */}
           <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
             <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-pink-50 rounded-2xl flex items-center justify-center border border-pink-100 text-pink-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
-                  <LayoutGrid className="w-5.5 h-5.5" />
+                <div className="w-11 h-11 bg-indigo-50 rounded-2xl flex items-center justify-center border border-indigo-100 text-indigo-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
+                  <ImageIcon className="w-5.5 h-5.5" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold text-pink-650 uppercase tracking-wider bg-pink-50/40 border border-pink-100/60 px-2 py-0.5 rounded font-bold">Canvas Assembly</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-pink-650 transition-colors">Collage Maker</h3>
+                  <span className="text-[10px] font-bold text-indigo-650 uppercase tracking-wider bg-indigo-50/40 border border-indigo-100/60 px-2 py-0.5 rounded font-bold">Core Optimization</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-indigo-650 transition-colors">Image Compressor</h3>
                 </div>
               </div>
-              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
-                Combine your favorite shots in customizable templates. Drag files, adjust layout gaps, borders, and canvas colors live in-browser.
+              <p className="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+                Optimize your JPEGs, PNGs, and WebPs in seconds. Control quality levels and convert formats offline without losing pixel fidelity.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Responsive template grids</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Editable margin gaps and border curves</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Single-click high quality canvas download</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Save up to 90% in bundle sizes</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Direct side-by-side comparison slider</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Bulk offline conversion engine</span></li>
               </ul>
               <Link 
-                to="/collage-maker" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-pink-500/10 active:scale-98"
+                to="/image-compressor" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-indigo-500/10 active:scale-98"
               >
-                Launch Collage Maker
+                Launch Compressor
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            <Link to="/collage-maker" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-pink-400/80 group-hover:shadow-[0_12px_40px_rgba(236,72,153,0.15)] transition-all duration-300 block cursor-pointer">
-              <img src={collageMakerImg} alt="Photo Collage Maker Demo" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-pink-950/0 group-hover:bg-pink-950/40 transition-all duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-pink-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
-                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
-            </Link>
-          </div>
-
-          {/* 6. Color Palette Extractor */}
-          <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
-            <div className="flex-1 space-y-5 text-left">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-cyan-50 rounded-2xl flex items-center justify-center border border-cyan-100 text-cyan-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
-                  <Palette className="w-5.5 h-5.5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold text-cyan-650 uppercase tracking-wider bg-cyan-50/40 border border-cyan-100/60 px-2 py-0.5 rounded font-bold">Colors Spec</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-cyan-650 transition-colors">Palette Extractor</h3>
-                </div>
-              </div>
-              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
-                Retrieve dominant colors and copy accent swatches inline. Generates custom code blocks compatible with Tailwind CSS configs and standard styles.
-              </p>
-              <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Advanced color quantization math</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Single click HEX codes copy</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Tailwind palette config blocks output</span></li>
-              </ul>
-              <Link 
-                to="/color-palette-extractor" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-cyan-500/10 active:scale-98"
-              >
-                Launch Palette Extractor
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <Link to="/color-palette-extractor" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-cyan-400/80 group-hover:shadow-[0_12px_40px_rgba(6,182,212,0.15)] transition-all duration-300 block cursor-pointer">
-              <img src={paletteExtractorImg} alt="Palette Extractor Demo" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-cyan-950/0 group-hover:bg-cyan-950/40 transition-all duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-cyan-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
+            <Link to="/image-compressor" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-indigo-400/80 group-hover:shadow-[0_12px_40px_rgba(99,102,241,0.15)] transition-all duration-300 block cursor-pointer">
+              <img src={compressorImg} alt="Compressor Demo" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-indigo-950/0 group-hover:bg-indigo-950/40 transition-all duration-300 flex items-center justify-center">
+                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
                   Open Tool <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
@@ -425,46 +426,85 @@ export const Home: React.FC = () => {
             </Link>
           </div>
 
-          {/* 8. EXIF Metadata Stripper */}
-          <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
+          {/* 8. Photo Collage Maker */}
+          <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
             <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-red-50 rounded-2xl flex items-center justify-center border border-red-100 text-red-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
-                  <Fingerprint className="w-5.5 h-5.5" />
+                <div className="w-11 h-11 bg-pink-50 rounded-2xl flex items-center justify-center border border-pink-100 text-pink-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
+                  <LayoutGrid className="w-5.5 h-5.5" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold text-red-650 uppercase tracking-wider bg-red-50/40 border border-red-100/60 px-2 py-0.5 rounded font-bold">Privacy Shield</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-red-650 transition-colors">EXIF Metadata Stripper</h3>
+                  <span className="text-[10px] font-bold text-pink-650 uppercase tracking-wider bg-pink-50/40 border border-pink-100/60 px-2 py-0.5 rounded font-bold">Canvas Assembly</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-pink-650 transition-colors">Collage Maker</h3>
                 </div>
               </div>
               <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
-                Audit and scrub hidden EXIF data headers from your photos. Remove GPS coordinates, camera models, and capture times to secure your privacy.
+                Combine your favorite shots in customizable templates. Drag files, adjust layout gaps, borders, and canvas colors live in-browser.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Local EXIF inspection panel</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Interactive coordinates locator</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Zero-trace canvas cleaning</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Responsive template grids</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Editable margin gaps and border curves</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Single-click high quality canvas download</span></li>
               </ul>
               <Link 
-                to="/metadata-stripper" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-red-500/10 active:scale-98"
+                to="/collage-maker" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-pink-500/10 active:scale-98"
               >
-                Launch Metadata Stripper
+                Launch Collage Maker
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            <Link to="/metadata-stripper" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-red-400/80 group-hover:shadow-[0_12px_40px_rgba(239,68,68,0.15)] transition-all duration-300 block cursor-pointer">
-              <img src={metadataStripperImg} alt="EXIF Metadata Stripper Demo" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-red-950/0 group-hover:bg-red-950/40 transition-all duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-red-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
+            <Link to="/collage-maker" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-pink-400/80 group-hover:shadow-[0_12px_40px_rgba(236,72,153,0.15)] transition-all duration-300 block cursor-pointer">
+              <img src={collageMakerImg} alt="Photo Collage Maker Demo" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-pink-950/0 group-hover:bg-pink-950/40 transition-all duration-300 flex items-center justify-center">
+                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-pink-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
                   Open Tool <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
             </Link>
           </div>
 
-          {/* 9. Watermark Overlay */}
+          {/* 9. Color Palette Extractor */}
+          <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
+            <div className="flex-1 space-y-5 text-left">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 bg-cyan-50 rounded-2xl flex items-center justify-center border border-cyan-100 text-cyan-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
+                  <Palette className="w-5.5 h-5.5" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-cyan-650 uppercase tracking-wider bg-cyan-50/40 border border-cyan-100/60 px-2 py-0.5 rounded font-bold">Colors Spec</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-cyan-650 transition-colors">Palette Extractor</h3>
+                </div>
+              </div>
+              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
+                Retrieve dominant colors and copy accent swatches inline. Generates custom code blocks compatible with Tailwind CSS configs and standard styles.
+              </p>
+              <ul className="space-y-2 text-xs font-semibold text-slate-655">
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Advanced color quantization math</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Single click HEX codes copy</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Tailwind palette config blocks output</span></li>
+              </ul>
+              <Link 
+                to="/color-palette-extractor" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-cyan-500/10 active:scale-98"
+              >
+                Launch Palette Extractor
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <Link to="/color-palette-extractor" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-cyan-400/80 group-hover:shadow-[0_12px_40px_rgba(6,182,212,0.15)] transition-all duration-300 block cursor-pointer">
+              <img src={paletteExtractorImg} alt="Palette Extractor Demo" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-cyan-950/0 group-hover:bg-cyan-950/40 transition-all duration-300 flex items-center justify-center">
+                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-cyan-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
+                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </Link>
+          </div>
+
+          {/* 10. Watermark Overlay */}
           <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
             <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
@@ -503,46 +543,85 @@ export const Home: React.FC = () => {
             </Link>
           </div>
 
-          {/* 10. Aspect Resizer & Smart Crop */}
+          {/* 11. EXIF Metadata Stripper */}
           <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
             <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-amber-50 rounded-2xl flex items-center justify-center border border-amber-100 text-amber-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
-                  <Crop className="w-5.5 h-5.5" />
+                <div className="w-11 h-11 bg-red-50 rounded-2xl flex items-center justify-center border border-red-100 text-red-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
+                  <Fingerprint className="w-5.5 h-5.5" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold text-amber-650 uppercase tracking-wider bg-amber-50/40 border border-amber-100/60 px-2 py-0.5 rounded font-bold">Social Dimensions</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-amber-650 transition-colors">Aspect Resizer & Smart Crop</h3>
+                  <span className="text-[10px] font-bold text-red-650 uppercase tracking-wider bg-red-50/40 border border-red-100/60 px-2 py-0.5 rounded font-bold">Privacy Shield</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-red-650 transition-colors">EXIF Metadata Stripper</h3>
                 </div>
               </div>
               <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
-                Refit your images to standard social templates or crop them manually. Use our new interactive Smart Crop overlay with handles and aspect lock grid.
+                Audit and scrub hidden EXIF data headers from your photos. Remove GPS coordinates, camera models, and capture times to secure your privacy.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Manual interactive Smart Crop overlays</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>High-end blur padding fit</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Instant canvas resizing control</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Local EXIF inspection panel</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Interactive coordinates locator</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Zero-trace canvas cleaning</span></li>
               </ul>
               <Link 
-                to="/aspect-resizer" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-amber-500/10 active:scale-98"
+                to="/metadata-stripper" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-red-500/10 active:scale-98"
               >
-                Launch Aspect Resizer
+                Launch Metadata Stripper
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            <Link to="/aspect-resizer" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-amber-400/80 group-hover:shadow-[0_12px_40px_rgba(217,119,6,0.15)] transition-all duration-300 block cursor-pointer">
-              <img src={aspectResizerImg} alt="Aspect Ratio Resizer Demo" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-amber-950/0 group-hover:bg-amber-950/40 transition-all duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-amber-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
+            <Link to="/metadata-stripper" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-red-400/80 group-hover:shadow-[0_12px_40px_rgba(239,68,68,0.15)] transition-all duration-300 block cursor-pointer">
+              <img src={metadataStripperImg} alt="EXIF Metadata Stripper Demo" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-red-950/0 group-hover:bg-red-950/40 transition-all duration-300 flex items-center justify-center">
+                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-red-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
                   Open Tool <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
             </Link>
           </div>
 
-          {/* 11. Instant Meme Generator */}
+          {/* 12. Instagram Grid Splitter */}
+          <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
+            <div className="flex-1 space-y-5 text-left">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 bg-orange-50 rounded-2xl flex items-center justify-center border border-orange-100 text-orange-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
+                  <Maximize2 className="w-5.5 h-5.5" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-orange-650 uppercase tracking-wider bg-orange-50/40 border border-orange-100/60 px-2 py-0.5 rounded font-bold">Social Feeds</span>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-orange-650 transition-colors">Grid Splitter</h3>
+                </div>
+              </div>
+              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
+                Slice single panoramic images into square grid assets. Ready for cohesive social banners, Instagram feeds, or Pinterest grids.
+              </p>
+              <ul className="space-y-2 text-xs font-semibold text-slate-655">
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Grid metrics split presets (3x3, 3x1, 3x2)</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Instant ZIP generation pipeline</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Retain full source pixel resolution</span></li>
+              </ul>
+              <Link 
+                to="/instagram-grid-splitter" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-orange-500/10 active:scale-98"
+              >
+                Launch Grid Splitter
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <Link to="/instagram-grid-splitter" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-orange-400/80 group-hover:shadow-[0_12px_40px_rgba(249,115,22,0.15)] transition-all duration-300 block cursor-pointer">
+              <img src={gridSplitterImg} alt="Instagram Grid Splitter Demo" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-orange-950/0 group-hover:bg-orange-950/40 transition-all duration-300 flex items-center justify-center">
+                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-orange-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
+                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </Link>
+          </div>
+
+          {/* 13. Instant Meme Generator */}
           <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
             <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
@@ -580,86 +659,7 @@ export const Home: React.FC = () => {
               </div>
             </Link>
           </div>
-
-          {/* 12. SVG Vectorizer */}
-          <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
-            <div className="flex-1 space-y-5 text-left">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-teal-50 rounded-2xl flex items-center justify-center border border-teal-100 text-teal-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
-                  <Feather className="w-5.5 h-5.5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold text-teal-650 uppercase tracking-wider bg-teal-50/40 border border-teal-100/60 px-2 py-0.5 rounded font-bold">Vector Conversion</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-teal-650 transition-colors">SVG Vectorizer</h3>
-                </div>
-              </div>
-              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
-                Trace raster JPEGs and PNGs into fully scalable vector SVGs. Adjust color palette counts, path smoothing, and speckle noise filters offline.
-              </p>
-              <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>K-Means++ color quantization</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Moore-Neighbor boundary tracer</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Douglas-Peucker path simplification</span></li>
-              </ul>
-              <Link 
-                to="/svg-vectorizer" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-teal-500/10 active:scale-98"
-              >
-                Launch SVG Vectorizer
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <Link to="/svg-vectorizer" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-teal-400/80 group-hover:shadow-[0_12px_40px_rgba(13,148,136,0.15)] transition-all duration-300 block cursor-pointer">
-              <img src={svgVectorizerImg} alt="SVG Vectorizer Demo" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-teal-950/0 group-hover:bg-teal-950/40 transition-all duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-teal-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
-                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
-            </Link>
-          </div>
-
-          {/* 13. Photo Mosaic Generator */}
-          <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
-            <div className="flex-1 space-y-5 text-left">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-fuchsia-50 rounded-2xl flex items-center justify-center border border-fuchsia-100 text-fuchsia-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
-                  <Grid className="w-5.5 h-5.5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold text-fuchsia-650 uppercase tracking-wider bg-fuchsia-50/40 border border-fuchsia-100/60 px-2 py-0.5 rounded font-bold">Artistic Compositions</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-fuchsia-650 transition-colors">Photo Mosaic Generator</h3>
-                </div>
-              </div>
-              <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
-                Reconstruct target images from thousands of small photo tiles client-side. Live overlay density controls, color tinting scales, and zero server-side storage footprint.
-              </p>
-              <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Advanced color-distance Euclidean search</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Adjustable target transparency & tint sliders</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Dynamic 16-color placeholder tiles fallback</span></li>
-              </ul>
-              <Link 
-                to="/photo-mosaic-generator" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-fuchsia-600 hover:bg-fuchsia-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-fuchsia-500/10 active:scale-98"
-              >
-                Launch Mosaic Engine
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <Link to="/photo-mosaic-generator" className="flex-1 w-full max-w-[460px] bg-slate-50 border border-slate-200/50 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-fuchsia-400/80 group-hover:shadow-[0_12px_40px_rgba(217,70,239,0.15)] transition-all duration-300 block cursor-pointer">
-              <img src={mosaicImg} alt="Photo Mosaic Generator Demo" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-fuchsia-950/0 group-hover:bg-fuchsia-950/40 transition-all duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-fuchsia-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
-                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
-            </Link>
-          </div>
-
-        </div>
+        
       </section>
 
       {/* Security Banner section */}

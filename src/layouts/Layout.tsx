@@ -35,18 +35,32 @@ export const Layout = () => {
 
   const tools = [
     { 
-      name: 'Image Compressor', 
-      path: '/image-compressor', 
-      icon: ImageIcon,
-      description: 'Optimize JPEGs, PNGs, and WebPs locally.',
-      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50'
-    },
-    { 
       name: 'AI Background Remover', 
       path: '/background-remover', 
       icon: Cpu,
       description: 'Isolate subjects completely inside browser.',
       colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50'
+    },
+    { 
+      name: 'Photo Mosaic Generator', 
+      path: '/photo-mosaic-generator', 
+      icon: Grid,
+      description: 'Compose target images from tile collections.',
+      colorClass: 'text-fuchsia-600 bg-fuchsia-50 border-fuchsia-100/50'
+    },
+    { 
+      name: 'Smart Crop & Aspect Resizer', 
+      path: '/aspect-resizer', 
+      icon: Crop,
+      description: 'Crop and scale to social preset dimensions.',
+      colorClass: 'text-amber-600 bg-amber-50 border-amber-100/50'
+    },
+    { 
+      name: 'SVG Vectorizer', 
+      path: '/svg-vectorizer', 
+      icon: Feather,
+      description: 'Trace raster logos into scalable SVGs.',
+      colorClass: 'text-teal-600 bg-teal-50 border-teal-100/50'
     },
     { 
       name: 'OCR Text Extractor', 
@@ -56,11 +70,18 @@ export const Layout = () => {
       colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50'
     },
     { 
-      name: 'Instagram Grid Splitter', 
-      path: '/instagram-grid-splitter', 
-      icon: Maximize2,
-      description: 'Slice photos into creative tile grids.',
-      colorClass: 'text-orange-600 bg-orange-50 border-orange-100/50'
+      name: 'Image Compressor', 
+      path: '/image-compressor', 
+      icon: ImageIcon,
+      description: 'Optimize JPEGs, PNGs, and WebPs locally.',
+      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50'
+    },
+    { 
+      name: 'Batch Image Converter', 
+      path: '/batch-converter', 
+      icon: Files,
+      description: 'Convert multiple images & PDF packages locally.',
+      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50'
     },
     { 
       name: 'Photo Collage Maker', 
@@ -77,11 +98,11 @@ export const Layout = () => {
       colorClass: 'text-cyan-600 bg-cyan-50 border-cyan-100/50'
     },
     { 
-      name: 'Batch Image Converter', 
-      path: '/batch-converter', 
-      icon: Files,
-      description: 'Convert multiple images & PDF packages locally.',
-      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50'
+      name: 'Watermark Overlay', 
+      path: '/watermark-overlay', 
+      icon: Copyright,
+      description: 'Apply logos and text watermarks client-side.',
+      colorClass: 'text-rose-600 bg-rose-50 border-rose-100/50'
     },
     { 
       name: 'EXIF Metadata Stripper', 
@@ -91,18 +112,11 @@ export const Layout = () => {
       colorClass: 'text-red-600 bg-red-50 border-red-100/50'
     },
     { 
-      name: 'Watermark Overlay', 
-      path: '/watermark-overlay', 
-      icon: Copyright,
-      description: 'Apply logos and text watermarks client-side.',
-      colorClass: 'text-rose-600 bg-rose-50 border-rose-100/50'
-    },
-    { 
-      name: 'Smart Crop & Aspect Resizer', 
-      path: '/aspect-resizer', 
-      icon: Crop,
-      description: 'Crop and scale to social preset dimensions.',
-      colorClass: 'text-amber-600 bg-amber-50 border-amber-100/50'
+      name: 'Instagram Grid Splitter', 
+      path: '/instagram-grid-splitter', 
+      icon: Maximize2,
+      description: 'Slice photos into creative tile grids.',
+      colorClass: 'text-orange-600 bg-orange-50 border-orange-100/50'
     },
     { 
       name: 'Instant Meme Generator', 
@@ -110,20 +124,6 @@ export const Layout = () => {
       icon: Smile,
       description: 'Design custom top/bottom captioned memes.',
       colorClass: 'text-green-600 bg-green-50 border-green-100/50'
-    },
-    { 
-      name: 'SVG Vectorizer', 
-      path: '/svg-vectorizer', 
-      icon: Feather,
-      description: 'Trace raster logos into scalable SVGs.',
-      colorClass: 'text-teal-600 bg-teal-50 border-teal-100/50'
-    },
-    { 
-      name: 'Photo Mosaic Generator', 
-      path: '/photo-mosaic-generator', 
-      icon: Grid,
-      description: 'Compose target images from tile collections.',
-      colorClass: 'text-fuchsia-600 bg-fuchsia-50 border-fuchsia-100/50'
     },
   ];
 
