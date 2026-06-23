@@ -1,6 +1,6 @@
-# ImageCraft AI - Deployment & Hosting Guide
+# ImageGiri - Deployment & Hosting Guide
 
-ImageCraft AI is designed as a zero-backend, client-side React application that runs entirely in the browser. It can be built statically and deployed to any static site hosting provider, with **Cloudflare Pages** being the recommended platform.
+ImageGiri is designed as a zero-backend, client-side React application that runs entirely in the browser. It can be built statically and deployed to any static site hosting provider, with **Cloudflare Pages** being the recommended platform.
 
 ## Production Build Compilation
 
@@ -39,7 +39,7 @@ This compiles TypeScript definitions and runs Vite's roll-up packager, outputtin
 
 ## Routing & Fallback Config
 
-Since ImageCraft AI uses React Router's `createBrowserRouter` (HTML5 History API), static servers must serve `index.html` for any sub-routes (e.g. `/background-remover` or `/ocr-text-extractor`) to prevent `404 Not Found` errors on page refresh.
+Since ImageGiri uses React Router's `createBrowserRouter` (HTML5 History API), static servers must serve `index.html` for any sub-routes (e.g. `/background-remover` or `/ocr-text-extractor`) to prevent `404 Not Found` errors on page refresh.
 
 ### For Cloudflare Pages
 Create a `public/_redirects` file (Vite will copy this to `dist/_redirects` during build) with the following rule:
@@ -65,8 +65,30 @@ Add your GA tracking tag inside `index.html` in the `<head>` section:
 ```
 
 ### 2. Google AdSense
-Add your AdSense publisher script tag in the `<head>` of `index.html`:
-```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-```
-Once approved, replace the mockup publisher tags inside `src/components/AdPlacement.tsx` with your live ad slot ids.
+
+To enable live ads on your production site, follow these steps:
+
+1. **AdSense Application:**
+   Add `imagegiri.com` in your Google AdSense console and submit for site approval.
+2. **Authorize via `ads.txt`:**
+   Open the file [ads.txt](file:///c:/Projects/Image%20Craft/public/ads.txt) in the `/public` folder and replace `pub-XXXXXXXXXXXXXXXX` with your actual Google AdSense Publisher ID.
+3. **Include script in HTML:**
+   Uncomment or insert your AdSense script tag in the `<head>` of [index.html](file:///c:/Projects/Image%20Craft/index.html):
+   ```html
+   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID" crossorigin="anonymous"></script>
+   ```
+4. **Configure Ad Slots:**
+   Open [AdPlacement.tsx](file:///c:/Projects/Image%20Craft/src/components/AdPlacement.tsx) and update the `ADSENSE_CONFIG` values at the top of the file:
+   ```typescript
+   const ADSENSE_CONFIG = {
+     publisherId: 'ca-pub-YOUR_PUBLISHER_ID',
+     slots: {
+       header: 'YOUR_HEADER_SLOT_ID',
+       sidebar: 'YOUR_SIDEBAR_SLOT_ID',
+       'in-content': 'YOUR_IN_CONTENT_SLOT_ID',
+       mobile: 'YOUR_MOBILE_SLOT_ID',
+     }
+   };
+   ```
+5. **Deployment:**
+   The `AdPlacement` component dynamically checks if the app is in local development mode (`import.meta.env.DEV`). It will render clean dashboard simulators locally, and automatically load live Google AdSense slots once built and hosted on your production domain.

@@ -5,10 +5,22 @@ interface AdPlacementProps {
   className?: string;
 }
 
-export const AdPlacement: React.FC<AdPlacementProps> = ({ type, className = '' }) => {
-  const [showSimulator, setShowSimulator] = useState(true);
+// Google AdSense Configuration
+// Replace these placeholders with your actual publisher and slot IDs from your AdSense Console.
+const ADSENSE_CONFIG = {
+  publisherId: 'ca-pub-XXXXXXXXXXXXXXXX', // e.g. ca-pub-1234567890123456
+  slots: {
+    header: 'XXXXXXXXXX',        // Leaderboard slot (728x90)
+    sidebar: 'XXXXXXXXXX',       // Skyscraper slot (300x600)
+    'in-content': 'XXXXXXXXXX',  // In-content slot (336x280)
+    mobile: 'XXXXXXXXXX',        // Mobile banner slot (320x50)
+  }
+};
 
-  // In production, we'd load the real AdSense tag. Here we render a premium-looking placeholder.
+export const AdPlacement: React.FC<AdPlacementProps> = ({ type, className = '' }) => {
+  // Automatically show mock simulator in local dev, show real ads in production
+  const [showSimulator, setShowSimulator] = useState(import.meta.env.DEV);
+
   const adDimensions = {
     header: { label: 'Leaderboard Ad (728x90)', dimensions: 'w-full max-w-[728px] h-[90px]' },
     sidebar: { label: 'Skyscraper Ad (300x600)', dimensions: 'w-[300px] h-[600px]' },
@@ -18,15 +30,17 @@ export const AdPlacement: React.FC<AdPlacementProps> = ({ type, className = '' }
 
   const ad = adDimensions[type];
 
-  // Try to load AdSense script in production
+  // Initialize adsbygoogle push for production tags
   useEffect(() => {
-    try {
-      // @ts-ignore
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      // AdSense script not loaded yet or blocked
+    if (!showSimulator) {
+      try {
+        // @ts-ignore
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        // AdSense script block / pending load
+      }
     }
-  }, []);
+  }, [showSimulator]);
 
   return (
     <div className={`my-6 flex flex-col items-center justify-center ${className}`}>
@@ -40,8 +54,8 @@ export const AdPlacement: React.FC<AdPlacementProps> = ({ type, className = '' }
             </span>
             <button
               onClick={() => setShowSimulator(false)}
-              className="text-[10px] text-slate-500 hover:text-slate-300 font-bold px-1 rounded hover:bg-slate-800 transition"
-              title="Hide Ad Placement Mockup"
+              className="text-[10px] text-slate-500 hover:text-slate-300 font-bold px-1 rounded hover:bg-slate-800 transition cursor-pointer"
+              title="Show Real Ad Slot"
             >
               ×
             </button>
@@ -50,25 +64,25 @@ export const AdPlacement: React.FC<AdPlacementProps> = ({ type, className = '' }
             {ad.label}
           </span>
           <span className="text-[10px] text-slate-500 mt-1">
-            Google AdSense Integration Point
+            Google AdSense Integration Point (Active in Production)
           </span>
         </div>
       ) : (
-        <div className="text-[10px] text-slate-600 hover:text-slate-400 cursor-pointer" onClick={() => setShowSimulator(true)}>
-          [Show Ad Placement]
+        <div className="w-full flex flex-col items-center">
+          {import.meta.env.DEV && (
+            <span className="text-[9px] text-slate-500 mb-1 cursor-pointer hover:text-slate-300" onClick={() => setShowSimulator(true)}>
+              [Return to Simulator]
+            </span>
+          )}
+          <ins
+            className="adsbygoogle"
+            style={{ display: 'block' }}
+            data-ad-client={ADSENSE_CONFIG.publisherId}
+            data-ad-slot={ADSENSE_CONFIG.slots[type]}
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          />
         </div>
-      )}
-      
-      {/* Real Google AdSense Tag (Hidden in Simulator Mode) */}
-      {!showSimulator && (
-        <ins
-          className="adsbygoogle"
-          style={{ display: 'block' }}
-          data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" // Replace with real Publisher ID
-          data-ad-slot="XXXXXXXXXX"        // Replace with real Slot ID
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        />
       )}
     </div>
   );
