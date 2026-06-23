@@ -18,12 +18,28 @@ export const AspectResizer: React.FC = () => {
   
   // Settings
   const [presetId, setPresetId] = useState<string>('youtube-thumb');
-  const [fitStyle, setFitStyle] = useState<'cover' | 'contain'>('contain');
+  const [fitStyle, setFitStyle] = useState<'cover' | 'contain' | 'crop'>('contain');
   const [blurRadius, setBlurRadius] = useState<number>(20); // 0-40px
   
   const [isAssembling, setIsAssembling] = useState<boolean>(false);
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Smart Crop settings
+  const [naturalSize, setNaturalSize] = useState<{ width: number; height: number } | null>(null);
+  const [crop, setCrop] = useState<{ x: number; y: number; w: number; h: number }>({ x: 0, y: 0, w: 1, h: 1 });
+  const [imgDisplayRect, setImgDisplayRect] = useState<{ width: number; height: number; left: number; top: number }>({
+    width: 0, height: 0, left: 0, top: 0
+  });
+  const [dragState, setDragState] = useState<{
+    startX: number;
+    startY: number;
+    startCrop: { x: number; y: number; w: number; h: number };
+    action: 'move' | 'resize-tl' | 'resize-tr' | 'resize-bl' | 'resize-br';
+  } | null>(null);
+
+  const imageRef = useRef<HTMLImageElement>(null);
+  const cropContainerRef = useRef<HTMLDivElement>(null);
 
   const presets: Preset[] = [
     { id: 'youtube-thumb', name: 'YouTube Thumbnail', width: 1280, height: 720, ratioText: '16:9' },
@@ -43,6 +59,321 @@ export const AspectResizer: React.FC = () => {
   };
 
   const activePreset = presets.find((p) => p.id === presetId) || presets[0];
+
+  const initCropBox = (imgW: number, imgH: number, targetW: number, targetH: number) => {
+    const imgRatio = imgW / imgH;
+    const targetRatio = targetW / targetH;
+    
+    let w = 1.0;
+    let h = 1.0;
+    let x = 0.0;
+    let y = 0.0;
+    
+    if (imgRatio > targetRatio) {
+      w = (targetRatio * imgH) / imgW;
+      h = 1.0;
+      x = (1.0 - w) / 2;
+    } else {
+      w = 1.0;
+      h = (imgW / targetRatio) / imgH;
+      y = (1.0 - h) / 2;
+    }
+    
+    setCrop({ x, y, w, h });
+  };
+
+  useEffect(() => {
+    if (naturalSize) {
+      initCropBox(naturalSize.width, naturalSize.height, activePreset.width, activePreset.height);
+    }
+  }, [presetId, naturalSize?.width, naturalSize?.height]);
+
+  const updateDisplayRect = (imgElement: HTMLImageElement) => {
+    setImgDisplayRect({
+      width: imgElement.clientWidth,
+      height: imgElement.clientHeight,
+      left: imgElement.offsetLeft,
+      top: imgElement.offsetTop,
+    });
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      const img = imageRef.current;
+      if (img) {
+        updateDisplayRect(img);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (fitStyle === 'crop') {
+      const timer = setTimeout(() => {
+        const img = imageRef.current;
+        if (img) {
+          updateDisplayRect(img);
+        }
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [fitStyle, imageUrl]);
+
+  const handleStart = (clientX: number, clientY: number, action: 'move' | 'resize-tl' | 'resize-tr' | 'resize-bl' | 'resize-br') => {
+    setDragState({
+      startX: clientX,
+      startY: clientY,
+      startCrop: { ...crop },
+      action,
+    });
+  };
+
+  const handleMouseDown = (e: React.MouseEvent, action: 'move' | 'resize-tl' | 'resize-tr' | 'resize-bl' | 'resize-br') => {
+    e.preventDefault();
+    handleStart(e.clientX, e.clientY, action);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent, action: 'move' | 'resize-tl' | 'resize-tr' | 'resize-bl' | 'resize-br') => {
+    if (e.touches.length > 0) {
+      handleStart(e.touches[0].clientX, e.touches[0].clientY, action);
+    }
+  };
+
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = e.currentTarget;
+    setNaturalSize({ width: img.naturalWidth, height: img.naturalHeight });
+    updateDisplayRect(img);
+  };
+
+  // Smooth dragging via window level listeners
+  useEffect(() => {
+    if (!dragState || !naturalSize || !imgDisplayRect.width || !imgDisplayRect.height) return;
+
+    const handleWindowMouseMove = (e: MouseEvent) => {
+      const dx = e.clientX - dragState.startX;
+      const dy = e.clientY - dragState.startY;
+      
+      const rDx = dx / imgDisplayRect.width;
+      const rDy = dy / imgDisplayRect.height;
+      
+      const { startCrop, action } = dragState;
+      
+      const imgRatio = naturalSize.width / naturalSize.height;
+      const targetRatio = activePreset.width / activePreset.height;
+      const k = targetRatio / imgRatio;
+      
+      let newCrop = { ...crop };
+      
+      if (action === 'move') {
+        let newX = startCrop.x + rDx;
+        let newY = startCrop.y + rDy;
+        
+        if (newX < 0) newX = 0;
+        if (newY < 0) newY = 0;
+        if (newX + startCrop.w > 1) newX = 1 - startCrop.w;
+        if (newY + startCrop.h > 1) newY = 1 - startCrop.h;
+        
+        newCrop = { ...startCrop, x: newX, y: newY };
+      } else {
+        if (action === 'resize-br') {
+          let newW = startCrop.w + rDx;
+          if (newW < 0.1) newW = 0.1;
+          if (startCrop.x + newW > 1) newW = 1 - startCrop.x;
+          
+          let newH = newW / k;
+          if (startCrop.y + newH > 1) {
+            newH = 1 - startCrop.y;
+            newW = newH * k;
+          }
+          newCrop = { ...startCrop, w: newW, h: newH };
+        }
+        else if (action === 'resize-bl') {
+          let newX = startCrop.x + rDx;
+          if (newX < 0) newX = 0;
+          let newW = startCrop.w + (startCrop.x - newX);
+          if (newW < 0.1) {
+            newW = 0.1;
+            newX = startCrop.x + startCrop.w - 0.1;
+          }
+          
+          let newH = newW / k;
+          if (startCrop.y + newH > 1) {
+            newH = 1 - startCrop.y;
+            newW = newH * k;
+            newX = startCrop.x + startCrop.w - newW;
+          }
+          newCrop = { ...startCrop, x: newX, w: newW, h: newH };
+        }
+        else if (action === 'resize-tr') {
+          let newW = startCrop.w + rDx;
+          if (newW < 0.1) newW = 0.1;
+          if (startCrop.x + newW > 1) newW = 1 - startCrop.x;
+          
+          let newH = newW / k;
+          let newY = startCrop.y + startCrop.h - newH;
+          if (newY < 0) {
+            newY = 0;
+            newH = startCrop.y + startCrop.h;
+            newW = newH * k;
+            if (startCrop.x + newW > 1) {
+              newW = 1 - startCrop.x;
+              newH = newW / k;
+              newY = startCrop.y + startCrop.h - newH;
+            }
+          }
+          newCrop = { ...startCrop, y: newY, w: newW, h: newH };
+        }
+        else if (action === 'resize-tl') {
+          let newX = startCrop.x + rDx;
+          if (newX < 0) newX = 0;
+          let newW = startCrop.w + (startCrop.x - newX);
+          if (newW < 0.1) {
+            newW = 0.1;
+            newX = startCrop.x + startCrop.w - 0.1;
+          }
+          
+          let newH = newW / k;
+          let newY = startCrop.y + startCrop.h - newH;
+          if (newY < 0) {
+            newY = 0;
+            newH = startCrop.y + startCrop.h;
+            newW = newH * k;
+            newX = startCrop.x + startCrop.w - newW;
+            if (newX < 0) {
+              newX = 0;
+              newW = startCrop.x + startCrop.w;
+              newH = newW / k;
+              newY = startCrop.y + startCrop.h - newH;
+            }
+          }
+          newCrop = { x: newX, y: newY, w: newW, h: newH };
+        }
+      }
+      setCrop(newCrop);
+    };
+
+    const handleWindowTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const dx = e.touches[0].clientX - dragState.startX;
+        const dy = e.touches[0].clientY - dragState.startY;
+        
+        const rDx = dx / imgDisplayRect.width;
+        const rDy = dy / imgDisplayRect.height;
+        
+        const { startCrop, action } = dragState;
+        
+        const imgRatio = naturalSize.width / naturalSize.height;
+        const targetRatio = activePreset.width / activePreset.height;
+        const k = targetRatio / imgRatio;
+        
+        let newCrop = { ...crop };
+        
+        if (action === 'move') {
+          let newX = startCrop.x + rDx;
+          let newY = startCrop.y + rDy;
+          
+          if (newX < 0) newX = 0;
+          if (newY < 0) newY = 0;
+          if (newX + startCrop.w > 1) newX = 1 - startCrop.w;
+          if (newY + startCrop.h > 1) newY = 1 - startCrop.h;
+          
+          newCrop = { ...startCrop, x: newX, y: newY };
+        } else {
+          if (action === 'resize-br') {
+            let newW = startCrop.w + rDx;
+            if (newW < 0.1) newW = 0.1;
+            if (startCrop.x + newW > 1) newW = 1 - startCrop.x;
+            
+            let newH = newW / k;
+            if (startCrop.y + newH > 1) {
+              newH = 1 - startCrop.y;
+              newW = newH * k;
+            }
+            newCrop = { ...startCrop, w: newW, h: newH };
+          }
+          else if (action === 'resize-bl') {
+            let newX = startCrop.x + rDx;
+            if (newX < 0) newX = 0;
+            let newW = startCrop.w + (startCrop.x - newX);
+            if (newW < 0.1) {
+              newW = 0.1;
+              newX = startCrop.x + startCrop.w - 0.1;
+            }
+            
+            let newH = newW / k;
+            if (startCrop.y + newH > 1) {
+              newH = 1 - startCrop.y;
+              newW = newH * k;
+              newX = startCrop.x + startCrop.w - newW;
+            }
+            newCrop = { ...startCrop, x: newX, w: newW, h: newH };
+          }
+          else if (action === 'resize-tr') {
+            let newW = startCrop.w + rDx;
+            if (newW < 0.1) newW = 0.1;
+            if (startCrop.x + newW > 1) newW = 1 - startCrop.x;
+            
+            let newH = newW / k;
+            let newY = startCrop.y + startCrop.h - newH;
+            if (newY < 0) {
+              newY = 0;
+              newH = startCrop.y + startCrop.h;
+              newW = newH * k;
+              if (startCrop.x + newW > 1) {
+                newW = 1 - startCrop.x;
+                newH = newW / k;
+                newY = startCrop.y + startCrop.h - newH;
+              }
+            }
+            newCrop = { ...startCrop, y: newY, w: newW, h: newH };
+          }
+          else if (action === 'resize-tl') {
+            let newX = startCrop.x + rDx;
+            if (newX < 0) newX = 0;
+            let newW = startCrop.w + (startCrop.x - newX);
+            if (newW < 0.1) {
+              newW = 0.1;
+              newX = startCrop.x + startCrop.w - 0.1;
+            }
+            
+            let newH = newW / k;
+            let newY = startCrop.y + startCrop.h - newH;
+            if (newY < 0) {
+              newY = 0;
+              newH = startCrop.y + startCrop.h;
+              newW = newH * k;
+              newX = startCrop.x + startCrop.w - newW;
+              if (newX < 0) {
+                newX = 0;
+                newW = startCrop.x + startCrop.w;
+                newH = newW / k;
+                newY = startCrop.y + startCrop.h - newH;
+              }
+            }
+            newCrop = { x: newX, y: newY, w: newW, h: newH };
+          }
+        }
+        setCrop(newCrop);
+      }
+    };
+
+    const handleWindowMouseUp = () => {
+      setDragState(null);
+    };
+
+    window.addEventListener('mousemove', handleWindowMouseMove);
+    window.addEventListener('mouseup', handleWindowMouseUp);
+    window.addEventListener('touchmove', handleWindowTouchMove);
+    window.addEventListener('touchend', handleWindowMouseUp);
+
+    return () => {
+      window.removeEventListener('mousemove', handleWindowMouseMove);
+      window.removeEventListener('mouseup', handleWindowMouseUp);
+      window.removeEventListener('touchmove', handleWindowTouchMove);
+      window.removeEventListener('touchend', handleWindowMouseUp);
+    };
+  }, [dragState, naturalSize, imgDisplayRect, crop, activePreset]);
 
   // Canvas drawing & scaling mathematical logic
   useEffect(() => {
@@ -69,6 +400,11 @@ export const AspectResizer: React.FC = () => {
         const imgW = img.naturalWidth;
         const imgH = img.naturalHeight;
         
+        // Update natural size for crop tracking
+        if (!naturalSize || naturalSize.width !== imgW || naturalSize.height !== imgH) {
+          setNaturalSize({ width: imgW, height: imgH });
+        }
+        
         const targetRatio = targetW / targetH;
         const imgRatio = imgW / imgH;
 
@@ -80,22 +416,26 @@ export const AspectResizer: React.FC = () => {
           let sh = imgH;
 
           if (imgRatio > targetRatio) {
-            // image is wider: crop horizontal edges
             sw = imgH * targetRatio;
             sx = (imgW - sw) / 2;
           } else {
-            // image is taller: crop vertical edges
             sh = imgW / targetRatio;
             sy = (imgH - sh) / 2;
           }
 
           ctx.drawImage(img, sx, sy, sw, sh, 0, 0, targetW, targetH);
+        } else if (fitStyle === 'crop') {
+          // INTERACTIVE SMART CROP: Cut out the defined crop bounding box
+          const sx = crop.x * imgW;
+          const sy = crop.y * imgH;
+          const sw = crop.w * imgW;
+          const sh = crop.h * imgH;
+          
+          ctx.drawImage(img, sx, sy, sw, sh, 0, 0, targetW, targetH);
         } else {
           // CONTAIN / ASPECT FIT: Scale down to fit, add blurred padding background
           
-          // Draw blurred background stretch-fill
           ctx.save();
-          // Draw image stretched to cover background
           let bgSx = 0;
           let bgSy = 0;
           let bgSw = imgW;
@@ -111,34 +451,28 @@ export const AspectResizer: React.FC = () => {
 
           ctx.drawImage(img, bgSx, bgSy, bgSw, bgSh, 0, 0, targetW, targetH);
           
-          // Apply blur overlay
           if (blurRadius > 0) {
             ctx.filter = `blur(${blurRadius}px)`;
             ctx.drawImage(canvas, 0, 0);
           }
           ctx.restore();
 
-          // Calculate correct contain scaling coordinates
           let dw = targetW;
           let dh = targetH;
           let dx = 0;
           let dy = 0;
 
           if (imgRatio > targetRatio) {
-            // image is wider: fit width, vertical margins
             dh = targetW / imgRatio;
             dy = (targetH - dh) / 2;
           } else {
-            // image is taller: fit height, horizontal margins
             dw = targetH * imgRatio;
             dx = (targetW - dw) / 2;
           }
 
-          // Draw sharp image on top
           ctx.drawImage(img, dx, dy, dw, dh);
         }
 
-        // Export preview blob
         canvas.toBlob((blob) => {
           if (blob) {
             if (previewUrl) URL.revokeObjectURL(previewUrl);
@@ -149,9 +483,9 @@ export const AspectResizer: React.FC = () => {
       };
     };
 
-    const timer = setTimeout(resizeImage, 250); // debounce canvas render
+    const timer = setTimeout(resizeImage, 100); // 100ms debounce for smoother crops
     return () => clearTimeout(timer);
-  }, [imageUrl, presetId, fitStyle, blurRadius]);
+  }, [imageUrl, presetId, fitStyle, blurRadius, crop.x, crop.y, crop.w, crop.h]);
 
   const handleDownload = () => {
     if (!previewUrl || !file) return;
@@ -175,6 +509,9 @@ export const AspectResizer: React.FC = () => {
     setPresetId('youtube-thumb');
     setFitStyle('contain');
     setBlurRadius(20);
+    setNaturalSize(null);
+    setCrop({ x: 0, y: 0, w: 1, h: 1 });
+    setDragState(null);
   };
 
   const imageUrlRef = useRef(imageUrl);
@@ -261,32 +598,54 @@ export const AspectResizer: React.FC = () => {
 
                 {/* Fit Mode */}
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-450 uppercase tracking-widest block">
+                  <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
                     Fit Layout Mode
                   </label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-3 gap-1.5">
                     <button
                       onClick={() => setFitStyle('contain')}
-                      className={`py-2.5 px-3 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                      className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
                         fitStyle === 'contain'
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
                           : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900'
                       }`}
                     >
-                      Blur Padding Fit
+                      Blur Fit
                     </button>
                     <button
                       onClick={() => setFitStyle('cover')}
-                      className={`py-2.5 px-3 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                      className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
                         fitStyle === 'cover'
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
                           : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900'
                       }`}
                     >
-                      Aspect Fill Crop
+                      Auto Crop
+                    </button>
+                    <button
+                      onClick={() => setFitStyle('crop')}
+                      className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
+                        fitStyle === 'crop'
+                          ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
+                          : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900'
+                      }`}
+                    >
+                      Smart Crop
                     </button>
                   </div>
                 </div>
+
+                {/* Live Crop Preview (only for crop style) */}
+                {fitStyle === 'crop' && previewUrl && (
+                  <div className="space-y-2 bg-slate-50 border border-slate-200/60 rounded-2xl p-3 shadow-xs">
+                    <label className="text-[9px] font-bold text-slate-455 uppercase tracking-widest block">
+                      Live Cropped Result Preview
+                    </label>
+                    <div className="w-full aspect-[16/9] rounded-xl overflow-hidden border border-slate-200/80 bg-slate-100 flex items-center justify-center relative">
+                      <img src={previewUrl} alt="Live Crop Preview" className="w-full h-full object-contain" />
+                    </div>
+                  </div>
+                )}
 
                 {/* Blur Radius Slider (only for contain) */}
                 {fitStyle === 'contain' && (
@@ -350,10 +709,10 @@ export const AspectResizer: React.FC = () => {
               
               <div className="flex justify-between items-center bg-white border border-slate-200/50 rounded-2xl px-4 py-3 shadow-xs">
                 <span className="text-xs font-bold text-slate-800">
-                  Resized Canvas Frame Output
+                  {fitStyle === 'crop' ? 'Smart Crop Selection Area' : 'Resized Canvas Frame Output'}
                 </span>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  WASM rescalings compiled in-memory
+                  {fitStyle === 'crop' ? 'Drag handles to adjust crop zone' : 'WASM rescalings compiled in-memory'}
                 </span>
               </div>
 
@@ -361,10 +720,84 @@ export const AspectResizer: React.FC = () => {
               <div className="w-full border border-slate-200 rounded-3xl bg-slate-50 flex items-center justify-center min-h-[400px] shadow-inner p-4 relative overflow-hidden">
                 <div className="absolute inset-0 bg-dot-grid opacity-30" />
 
-                {isAssembling ? (
+                {isAssembling && fitStyle !== 'crop' ? (
                   <div className="flex flex-col items-center gap-2.5 relative z-10">
                     <RefreshCw className="w-8 h-8 text-indigo-650 animate-spin" />
                     <span className="text-xs font-bold text-slate-600 animate-pulse">Rescaling images...</span>
+                  </div>
+                ) : fitStyle === 'crop' ? (
+                  <div className="w-full h-full flex flex-col items-center justify-center relative min-h-[400px]">
+                    <div className="relative inline-block max-w-full">
+                      <img
+                        ref={imageRef}
+                        src={imageUrl}
+                        alt="Crop Workarea"
+                        onLoad={handleImageLoad}
+                        className="max-w-full max-h-[550px] object-contain rounded-2xl shadow-md select-none pointer-events-none"
+                      />
+                      
+                      {naturalSize && (
+                        <div
+                          ref={cropContainerRef}
+                          style={{
+                            position: 'absolute',
+                            left: `${imgDisplayRect.left}px`,
+                            top: `${imgDisplayRect.top}px`,
+                            width: `${imgDisplayRect.width}px`,
+                            height: `${imgDisplayRect.height}px`,
+                          }}
+                          className="overflow-hidden rounded-2xl touch-none select-none"
+                        >
+                          <div
+                            style={{
+                              position: 'absolute',
+                              left: `${crop.x * 100}%`,
+                              top: `${crop.y * 100}%`,
+                              width: `${crop.w * 100}%`,
+                              height: `${crop.h * 100}%`,
+                            }}
+                            className="border-2 border-amber-500 shadow-[0_0_0_9999px_rgba(15,23,42,0.65)] cursor-move flex flex-col justify-between"
+                            onMouseDown={(e) => handleMouseDown(e, 'move')}
+                            onTouchStart={(e) => handleTouchStart(e, 'move')}
+                          >
+                            {/* 3x3 Grid Lines */}
+                            <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 pointer-events-none">
+                              <div className="border-r border-dashed border-white/40 border-b border-white/40" />
+                              <div className="border-r border-dashed border-white/40 border-b border-white/40" />
+                              <div className="border-b border-dashed border-white/40" />
+                              <div className="border-r border-dashed border-white/40 border-b border-white/40" />
+                              <div className="border-r border-dashed border-white/40 border-b border-white/40" />
+                              <div className="border-b border-dashed border-white/40" />
+                              <div className="border-r border-dashed border-white/40" />
+                              <div className="border-r border-dashed border-white/40" />
+                              <div />
+                            </div>
+
+                            {/* Handles */}
+                            <div
+                              className="absolute -top-1.5 -left-1.5 w-3.5 h-3.5 bg-amber-500 rounded-full border border-white cursor-nwse-resize z-20"
+                              onMouseDown={(e) => { e.stopPropagation(); handleMouseDown(e, 'resize-tl'); }}
+                              onTouchStart={(e) => { e.stopPropagation(); handleTouchStart(e, 'resize-tl'); }}
+                            />
+                            <div
+                              className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-amber-500 rounded-full border border-white cursor-nesw-resize z-20"
+                              onMouseDown={(e) => { e.stopPropagation(); handleMouseDown(e, 'resize-tr'); }}
+                              onTouchStart={(e) => { e.stopPropagation(); handleTouchStart(e, 'resize-tr'); }}
+                            />
+                            <div
+                              className="absolute -bottom-1.5 -left-1.5 w-3.5 h-3.5 bg-amber-500 rounded-full border border-white cursor-nesw-resize z-20"
+                              onMouseDown={(e) => { e.stopPropagation(); handleMouseDown(e, 'resize-bl'); }}
+                              onTouchStart={(e) => { e.stopPropagation(); handleTouchStart(e, 'resize-bl'); }}
+                            />
+                            <div
+                              className="absolute -bottom-1.5 -right-1.5 w-3.5 h-3.5 bg-amber-500 rounded-full border border-white cursor-nwse-resize z-20"
+                              onMouseDown={(e) => { e.stopPropagation(); handleMouseDown(e, 'resize-br'); }}
+                              onTouchStart={(e) => { e.stopPropagation(); handleTouchStart(e, 'resize-br'); }}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 ) : (
                   previewUrl && (
