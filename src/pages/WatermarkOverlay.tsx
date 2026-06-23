@@ -391,7 +391,7 @@ export const WatermarkOverlay: React.FC = () => {
                       max="100"
                       value={opacity}
                       onChange={(e) => setOpacity(Number(e.target.value))}
-                      className="w-full h-1 bg-slate-200 rounded accent-indigo-600 cursor-pointer"
+                      className="range-styled w-full"
                     />
                   </div>
 
@@ -407,7 +407,7 @@ export const WatermarkOverlay: React.FC = () => {
                       max="80"
                       value={scale}
                       onChange={(e) => setScale(Number(e.target.value))}
-                      className="w-full h-1 bg-slate-200 rounded accent-indigo-600 cursor-pointer"
+                      className="range-styled w-full"
                     />
                   </div>
 
@@ -423,7 +423,7 @@ export const WatermarkOverlay: React.FC = () => {
                       max="180"
                       value={rotation}
                       onChange={(e) => setRotation(Number(e.target.value))}
-                      className="w-full h-1 bg-slate-200 rounded accent-indigo-600 cursor-pointer"
+                      className="range-styled w-full"
                     />
                   </div>
 
@@ -440,7 +440,7 @@ export const WatermarkOverlay: React.FC = () => {
                         max="80"
                         value={margin}
                         onChange={(e) => setMargin(Number(e.target.value))}
-                        className="w-full h-1 bg-slate-200 rounded accent-indigo-600 cursor-pointer"
+                        className="range-styled w-full"
                       />
                     </div>
                   )}

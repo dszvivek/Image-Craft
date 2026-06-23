@@ -414,7 +414,7 @@ export const CollageMaker: React.FC = () => {
                       max="50"
                       value={spacing}
                       onChange={(e) => setSpacing(Number(e.target.value))}
-                      className="w-full h-1 bg-slate-200 rounded accent-indigo-600 cursor-pointer"
+                      className="range-styled w-full"
                     />
                   </div>
 
@@ -430,7 +430,7 @@ export const CollageMaker: React.FC = () => {
                       max="30"
                       value={borderWidth}
                       onChange={(e) => setBorderWidth(Number(e.target.value))}
-                      className="w-full h-1 bg-slate-200 rounded accent-indigo-600 cursor-pointer"
+                      className="range-styled w-full"
                     />
                   </div>
 
@@ -446,7 +446,7 @@ export const CollageMaker: React.FC = () => {
                       max="60"
                       value={borderRadius}
                       onChange={(e) => setBorderRadius(Number(e.target.value))}
-                      className="w-full h-1 bg-slate-200 rounded accent-indigo-600 cursor-pointer"
+                      className="range-styled w-full"
                     />
                   </div>
 

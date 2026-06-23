@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, RefreshCw, Sparkles, AlertTriangle, ArrowRight, CheckCircle } from 'lucide-react';
+import { Download, RefreshCw, Sparkles, AlertTriangle, CheckCircle, ArrowRight } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import compressorGif from '../assets/compressor_feature.gif';
@@ -163,7 +163,7 @@ export const Compressor: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <span className="text-xs font-bold text-indigo-650 uppercase tracking-widest px-2.5 py-1 bg-indigo-50 border border-indigo-100 rounded-full shadow-sm">
-            Local Tool
+            Compression Tool
           </span>
           <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">Image Compressor</h1>
           <p className="text-sm text-slate-500">Reduce file size using modern browser compression algorithms. No files leave your device.</p>
@@ -196,8 +196,8 @@ export const Compressor: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* Left controls column */}
-            <div className="lg:col-span-4 flex flex-col gap-6">
+            {/* Left controls column — sticky on desktop */}
+            <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
               <div className="premium-bento p-6 rounded-3xl bg-white space-y-6">
                 
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
@@ -244,7 +244,8 @@ export const Compressor: React.FC = () => {
                       max="100"
                       value={quality}
                       onChange={(e) => setQuality(Number(e.target.value))}
-                      className="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+                      className="range-styled w-full"
+                      style={{ '--slider-pct': `${((quality - 5) / 95) * 100}%` } as React.CSSProperties}
                     />
                     <div className="flex justify-between text-[9px] font-bold uppercase tracking-wider text-slate-400">
                       <span>Size Saver</span>

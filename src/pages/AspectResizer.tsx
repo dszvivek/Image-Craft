@@ -657,8 +657,8 @@ export const AspectResizer: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
             
-            {/* Left Options card */}
-            <div className="lg:col-span-4 flex flex-col gap-6">
+            {/* Left Options card — sticky on desktop */}
+            <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
               <div className="premium-bento p-6 rounded-3xl bg-white space-y-6 shadow-xs">
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
                   <Settings className="w-4.5 h-4.5 text-indigo-500" />
@@ -670,17 +670,25 @@ export const AspectResizer: React.FC = () => {
                   <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
                     Target Social Preset
                   </label>
-                  <select
-                    value={presetId}
-                    onChange={(e) => setPresetId(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 transition cursor-pointer"
-                  >
-                    {presets.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.name} ({p.ratioText})
-                      </option>
-                    ))}
-                  </select>
+                  {/* Styled select wrapper with custom chevron */}
+                  <div className="relative">
+                    <select
+                      value={presetId}
+                      onChange={(e) => setPresetId(e.target.value)}
+                      className="w-full appearance-none bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 transition cursor-pointer pr-8"
+                    >
+                      {presets.map((p) => (
+                        <option key={p.id} value={p.id}>
+                          {p.name} ({p.ratioText})
+                        </option>
+                      ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                      <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Custom Ratio Input Fields */}
@@ -824,7 +832,8 @@ export const AspectResizer: React.FC = () => {
                       max="40"
                       value={blurRadius}
                       onChange={(e) => setBlurRadius(Number(e.target.value))}
-                      className="w-full h-1 bg-slate-200 rounded accent-indigo-600 cursor-pointer"
+                      className="range-styled w-full"
+                      style={{ '--slider-pct': `${(blurRadius / 40) * 100}%` } as React.CSSProperties}
                     />
                   </div>
                 )}

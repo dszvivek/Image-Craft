@@ -214,7 +214,7 @@ export const PaletteExtractor: React.FC = () => {
                   max="10"
                   value={paletteCount}
                   onChange={(e) => setPaletteCount(Number(e.target.value))}
-                  className="w-full h-1 bg-slate-200 rounded accent-indigo-600 cursor-pointer"
+                  className="range-styled w-full cursor-pointer"
                 />
               </div>
             </div>

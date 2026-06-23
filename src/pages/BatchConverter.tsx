@@ -368,7 +368,7 @@ export const BatchConverter: React.FC = () => {
                       value={quality}
                       disabled={isProcessing || isPackaging}
                       onChange={(e) => setQuality(Number(e.target.value))}
-                      className="w-full h-1 bg-slate-200 rounded accent-indigo-600 cursor-pointer disabled:opacity-50"
+                      className="range-styled w-full"
                     />
                   </div>
                 )}

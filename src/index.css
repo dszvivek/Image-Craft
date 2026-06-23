@@ -58,7 +58,30 @@
   }
 }
 
-/* Glassmorphism optimized for alabaster light mode */
+/* ─── Accessibility: Keyboard Focus Ring ─────────────────────────────────── */
+button:focus-visible,
+a:focus-visible,
+select:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* ─── Typography Label Utilities ─────────────────────────────────────────── */
+.label-xs {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.label-sm {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* ─── Glassmorphism optimized for alabaster light mode ───────────────────── */
 .glass {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(24px);
@@ -76,7 +99,7 @@
     0 2px 8px -2px rgba(28, 28, 26, 0.02);
 }
 
-/* Luxury double-border bento box layout card with butter-smooth physics */
+/* Luxury double-border bento box — shadow-only hover (no grid-shifting transform) */
 .premium-bento {
   background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(24px);
@@ -90,12 +113,11 @@
 }
 
 .premium-bento:hover {
-  border-color: rgba(37, 99, 235, 0.35); /* Focus on Cobalt Blue highlight */
+  border-color: rgba(37, 99, 235, 0.35);
   background: rgba(255, 255, 255, 0.92);
-  transform: translateY(-3px) scale(1.005);
   box-shadow: 
-    0 24px 50px -16px rgba(37, 99, 235, 0.08), 
-    0 4px 16px -4px rgba(37, 99, 235, 0.03),
+    0 28px 56px -16px rgba(37, 99, 235, 0.10), 
+    0 8px 20px -4px rgba(37, 99, 235, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
@@ -112,88 +134,109 @@
   @apply focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 focus:outline-none transition-all duration-300 text-slate-800 rounded-2xl px-4 py-3;
 }
 
-/* Custom Scrollbar styled for warm minimal aesthetic */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #f1f0ec;
-}
-::-webkit-scrollbar-thumb {
-  background: #d8d7d2;
+/* ─── Custom Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #f1f0ec; }
+::-webkit-scrollbar-thumb { background: #d8d7d2; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #bfbeb8; }
+
+/* ─── Range Slider: Filled Track ─────────────────────────────────────────── */
+/*
+  Add class="range-styled" and style={{ '--slider-pct': `${pct}%` } as React.CSSProperties}
+  where pct = ((val - min) / (max - min)) * 100
+*/
+input[type="range"].range-styled {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
   border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    #2563eb var(--slider-pct, 50%),
+    #e2e8f0 var(--slider-pct, 50%)
+  );
+  cursor: pointer;
+  outline: none;
+  transition: background 0.08s;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #bfbeb8;
+input[type="range"].range-styled::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  border: 2.5px solid #2563eb;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+input[type="range"].range-styled::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 16px rgba(37, 99, 235, 0.4);
+}
+input[type="range"].range-styled::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  border: 2.5px solid #2563eb;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+  cursor: pointer;
 }
 
-/* Butter-Smooth Float Animations */
+/* ─── Animations ─────────────────────────────────────────────────────────── */
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
   100% { transform: translateY(0px); }
 }
+.animate-float { animation: float 7s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+.animate-float-slow { animation: float 10s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
 
-.animate-float {
-  animation: float 7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
+.animate-pulse-slow { animation: pulse-slow 4s ease-in-out infinite; }
 
-.animate-float-slow {
-  animation: float 10s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+@keyframes drop-bounce {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.18) rotate(-6deg); }
+  100% { transform: scale(1) rotate(0deg); }
 }
+.animate-drop-bounce { animation: drop-bounce 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fade-in 0.3s ease-out; }
+
+@keyframes check-pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  70% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-check-pop { animation: check-pop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
 /* Luxury mesh light glows */
-.glow-indigo {
-  box-shadow: 0 0 80px -10px rgba(37, 99, 235, 0.12);
-}
-.glow-purple {
-  box-shadow: 0 0 80px -10px rgba(124, 58, 237, 0.12);
-}
+.glow-indigo { box-shadow: 0 0 80px -10px rgba(37, 99, 235, 0.12); }
+.glow-purple { box-shadow: 0 0 80px -10px rgba(124, 58, 237, 0.12); }
 
-/* Custom comparison slider styles */
-.compare-container {
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-}
-.compare-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-}
+/* ─── Custom comparison slider styles ────────────────────────────────────── */
+.compare-container { position: relative; overflow: hidden; user-select: none; }
+.compare-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; }
 .compare-slider {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: white;
-  cursor: ew-resize;
-  transform: translateX(-50%);
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.18);
-  z-index: 10;
+  position: absolute; top: 0; bottom: 0; width: 2px;
+  background: white; cursor: ew-resize; transform: translateX(-50%);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.18); z-index: 10;
 }
 .compare-handle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 38px;
-  height: 38px;
-  background: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 16px rgba(28, 28, 26, 0.12);
-  color: #1c1c1e;
-  border: 2.5px solid #2563eb;
-  transition: border-color 0.2s;
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 38px; height: 38px; background: white; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 16px rgba(28, 28, 26, 0.12); color: #1c1c1e;
+  border: 2.5px solid #2563eb; transition: border-color 0.2s;
 }
-.compare-handle:hover {
-  border-color: #1d4ed8;
-}
+.compare-handle:hover { border-color: #1d4ed8; }

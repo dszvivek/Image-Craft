@@ -1,7 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from '../layouts/Layout';
-import { RefreshCw } from 'lucide-react';
 
 // Lazy load page components for code splitting
 const Home = lazy(() => import('../pages/Home').then(module => ({ default: module.Home })));
@@ -23,11 +22,24 @@ const Privacy = lazy(() => import('../pages/Privacy').then(module => ({ default:
 const Contact = lazy(() => import('../pages/Contact').then(module => ({ default: module.Contact })));
 const Faq = lazy(() => import('../pages/Faq').then(module => ({ default: module.Faq })));
 
-// Loading Spinner for lazy-loading suspense fallback
+// Skeleton Loader — mirrors tool page structure to maintain visual layout during lazy loading
 const PageLoader: React.FC = () => (
-  <div className="w-full min-h-[50vh] flex flex-col items-center justify-center gap-3">
-    <RefreshCw className="w-8 h-8 text-indigo-500 animate-spin" />
-    <span className="text-xs font-semibold text-slate-400">Loading modules...</span>
+  <div className="w-full animate-pulse">
+    {/* Header skeleton */}
+    <div className="text-center mb-8 space-y-3">
+      <div className="h-5 w-20 bg-slate-200 rounded-full mx-auto" />
+      <div className="h-9 w-72 bg-slate-200 rounded-xl mx-auto" />
+      <div className="h-4 w-56 bg-slate-200 rounded-lg mx-auto" />
+    </div>
+    {/* Content skeleton */}
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+      <div className="md:col-span-7 space-y-3">
+        <div className="h-52 bg-slate-100 rounded-2xl border-2 border-dashed border-slate-200" />
+      </div>
+      <div className="md:col-span-5 space-y-3">
+        <div className="h-52 bg-slate-100 rounded-2xl" />
+      </div>
+    </div>
   </div>
 );
 

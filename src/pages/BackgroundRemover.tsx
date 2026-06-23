@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Cpu, Download, RefreshCw, AlertTriangle } from 'lucide-react';
+import { Cpu, Download, RefreshCw, AlertTriangle, AlertCircle, Check, Scissors } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
 import { SEO } from '../components/SEO';
@@ -25,6 +25,7 @@ export const BackgroundRemover: React.FC = () => {
   const [progress, setProgress] = useState<number>(0);
   const [statusMessage, setStatusMessage] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string>('');
+  const [downloaded, setDownloaded] = useState(false);
 
   const workerRef = useRef<Worker | null>(null);
 
@@ -154,6 +155,8 @@ export const BackgroundRemover: React.FC = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    setDownloaded(true);
+    setTimeout(() => setDownloaded(false), 2000);
   };
 
   const handleReset = () => {
@@ -220,12 +223,13 @@ export const BackgroundRemover: React.FC = () => {
                 onFilesSelected={handleFilesSelected}
                 title="Drop image to remove background"
                 subtitle="Supports JPG, PNG, WebP up to 15MB"
+                icon={Scissors}
               />
             </div>
             <div className="md:col-span-5 flex">
-              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-indigo-300 transition-all duration-300">
+              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-purple-300 transition-all duration-300">
                 <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 border border-indigo-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
+                  <div className="text-[10px] font-bold text-purple-655 bg-purple-50/50 border border-purple-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
                   <h3 className="text-base font-extrabold text-slate-900">How AI Background Remover Works</h3>
                   <p className="text-xs text-slate-500 leading-relaxed font-medium">
                     Our local AI segments your images in seconds directly on your device. Easily extract people, animals, and objects without sending files to any server.
@@ -262,16 +266,19 @@ export const BackgroundRemover: React.FC = () => {
         )}
 
         {loadingState === 'error' && (
-          <div className="premium-bento p-8 rounded-3xl bg-white border-red-150 text-center flex flex-col items-center gap-4">
-            <div className="w-12 h-12 bg-red-50 border border-red-200 text-red-650 rounded-2xl flex items-center justify-center font-bold">
-              !
+          <div className="premium-bento p-8 rounded-3xl bg-white border border-red-100 text-center flex flex-col items-center gap-4 animate-fade-in">
+            <div className="w-14 h-14 bg-red-50 border border-red-200 text-red-500 rounded-2xl flex items-center justify-center">
+              <AlertCircle className="w-7 h-7" />
             </div>
-            <h3 className="text-lg font-bold text-slate-850">An Error Occurred</h3>
-            <p className="text-xs md:text-sm text-slate-550 max-w-md">{errorMsg}</p>
+            <div>
+              <h3 className="text-lg font-bold text-slate-800 mb-1">Something went wrong</h3>
+              <p className="text-xs md:text-sm text-slate-500 max-w-md">{errorMsg}</p>
+            </div>
             <button
               onClick={handleReset}
-              className="px-6 py-2.5 bg-white hover:bg-slate-50 border border-slate-200/60 text-xs font-bold text-slate-655 rounded-xl transition cursor-pointer shadow-xs"
+              className="px-6 py-2.5 bg-white hover:bg-red-50 border border-red-200/80 text-xs font-bold text-red-600 rounded-xl transition cursor-pointer shadow-xs flex items-center gap-2"
             >
+              <RefreshCw className="w-3.5 h-3.5" />
               Try Again
             </button>
           </div>
@@ -313,10 +320,17 @@ export const BackgroundRemover: React.FC = () => {
                 <div className="flex gap-3">
                   <button
                     onClick={handleDownload}
-                    className="flex-1 py-3 bg-gradient-to-r from-indigo-600 to-purple-650 hover:from-indigo-550 hover:to-purple-550 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    className={`flex-1 py-3 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                      downloaded
+                        ? 'bg-emerald-500 shadow-emerald-500/20'
+                        : 'bg-gradient-to-r from-indigo-600 to-purple-650 hover:from-indigo-550 hover:to-purple-550 shadow-indigo-500/20'
+                    }`}
                   >
-                    <Download className="w-4 h-4" />
-                    Download PNG
+                    {downloaded ? (
+                      <><Check className="w-4 h-4 animate-check-pop" /> Saved!</>
+                    ) : (
+                      <><Download className="w-4 h-4" /> Download PNG</>
+                    )}
                   </button>
 
                   <button

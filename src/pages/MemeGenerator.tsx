@@ -356,7 +356,7 @@ export const MemeGenerator: React.FC = () => {
                             max="80"
                             value={tb.size}
                             onChange={(e) => updateTextBlock(tb.id, 'size', Number(e.target.value))}
-                            className="w-full h-1 bg-slate-200 rounded accent-indigo-650 cursor-pointer"
+                            className="range-styled w-full"
                           />
                         </div>
                         {/* Color Picker */}

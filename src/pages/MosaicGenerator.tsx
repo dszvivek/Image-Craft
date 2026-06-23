@@ -408,8 +408,8 @@ export const MosaicGenerator: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
-            {/* Left Controls Card */}
-            <div className="lg:col-span-4 flex flex-col gap-6">
+            {/* Left Controls Card — sticky on desktop */}
+            <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
               <div className="premium-bento p-6 rounded-3xl bg-white space-y-6 shadow-xs">
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
                   <Settings className="w-4.5 h-4.5 text-indigo-500" />
@@ -432,7 +432,8 @@ export const MosaicGenerator: React.FC = () => {
                     max="100"
                     value={gridCols}
                     onChange={(e) => setGridCols(Number(e.target.value))}
-                    className="w-full h-1 bg-slate-200 rounded accent-indigo-600 cursor-pointer"
+                    className="range-styled w-full"
+                    style={{ '--slider-pct': `${((gridCols - 15) / 85) * 100}%` } as React.CSSProperties}
                   />
                   <span className="text-[9px] text-slate-400 font-medium block">
                     Higher values produce detailed mosaics but require more source tile matches.
@@ -494,7 +495,8 @@ export const MosaicGenerator: React.FC = () => {
                     max="100"
                     value={tileTint}
                     onChange={(e) => setTileTint(Number(e.target.value))}
-                    className="w-full h-1 bg-slate-200 rounded accent-indigo-600 cursor-pointer"
+                    className="range-styled w-full"
+                    style={{ '--slider-pct': `${tileTint}%` } as React.CSSProperties}
                   />
                   <span className="text-[9px] text-slate-400 font-medium block">
                     Tint tiles toward the cell's target color to blend the composite smoothly.
@@ -517,7 +519,8 @@ export const MosaicGenerator: React.FC = () => {
                     max="100"
                     value={overlayOpacity}
                     onChange={(e) => setOverlayOpacity(Number(e.target.value))}
-                    className="w-full h-1 bg-slate-200 rounded accent-indigo-600 cursor-pointer"
+                    className="range-styled w-full"
+                    style={{ '--slider-pct': `${overlayOpacity}%` } as React.CSSProperties}
                   />
                   <span className="text-[9px] text-slate-400 font-medium block">
                     Superimpose the original image transparently on top to preserve facial details/text.

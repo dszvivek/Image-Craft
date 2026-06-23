@@ -18,21 +18,20 @@ const ADSENSE_CONFIG = {
 };
 
 export const AdPlacement: React.FC<AdPlacementProps> = ({ type, className = '' }) => {
-  // Automatically show mock simulator in local dev, show real ads in production
-  const [showSimulator, setShowSimulator] = useState(import.meta.env.DEV);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const adDimensions = {
-    header: { label: 'Leaderboard Ad (728x90)', dimensions: 'w-full max-w-[728px] h-[90px]' },
-    sidebar: { label: 'Skyscraper Ad (300x600)', dimensions: 'w-[300px] h-[600px]' },
-    'in-content': { label: 'In-Content Banner (336x280)', dimensions: 'w-full max-w-[336px] h-[280px] mx-auto' },
-    mobile: { label: 'Mobile Banner (320x50)', dimensions: 'w-[320px] h-[50px] mx-auto' },
+    header: { label: 'Leaderboard (728×90)', dimensions: 'w-full max-w-[728px] h-[90px]' },
+    sidebar: { label: 'Skyscraper (300×600)', dimensions: 'w-[260px] h-[600px]' },
+    'in-content': { label: 'In-Content (336×280)', dimensions: 'w-full max-w-[336px] h-[280px] mx-auto' },
+    mobile: { label: 'Mobile Banner (320×50)', dimensions: 'w-[320px] h-[50px] mx-auto' },
   };
 
   const ad = adDimensions[type];
 
   // Initialize adsbygoogle push for production tags
   useEffect(() => {
-    if (!showSimulator) {
+    if (!import.meta.env.DEV) {
       try {
         // @ts-ignore
         (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -40,50 +39,79 @@ export const AdPlacement: React.FC<AdPlacementProps> = ({ type, className = '' }
         // AdSense script block / pending load
       }
     }
-  }, [showSimulator]);
+  }, []);
 
+  // In development — show a non-intrusive collapsed pill
+  if (import.meta.env.DEV) {
+    if (type === 'header') {
+      // Minimal subtle strip instead of a dark bar — collapsed by default
+      return (
+        <div className={`flex justify-center ${className}`}>
+          {isExpanded ? (
+            <div className="my-2 w-full max-w-[728px] h-[90px] border border-dashed border-slate-200 bg-slate-50/60 rounded-xl flex items-center justify-center gap-3 relative">
+              <span className="text-[10px] text-slate-400 font-medium">{ad.label} · AdSense Slot</span>
+              <button
+                onClick={() => setIsExpanded(false)}
+                className="text-[10px] text-slate-400 hover:text-slate-600 underline cursor-pointer"
+              >
+                Collapse
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsExpanded(true)}
+              className="my-1 px-3 py-0.5 text-[9px] uppercase tracking-widest font-bold text-slate-350 hover:text-slate-500 border border-dashed border-slate-200 rounded-full transition-colors cursor-pointer"
+            >
+              Ad Slot
+            </button>
+          )}
+        </div>
+      );
+    }
+
+    if (type === 'sidebar') {
+      return (
+        <div className={`flex flex-col items-center ${className}`}>
+          {isExpanded ? (
+            <div className={`${ad.dimensions} border border-dashed border-slate-200 bg-slate-50/60 rounded-xl flex flex-col items-center justify-center gap-2`}>
+              <span className="text-[10px] text-slate-400 font-medium text-center px-4">{ad.label}</span>
+              <button onClick={() => setIsExpanded(false)} className="text-[9px] text-slate-400 hover:text-slate-600 underline cursor-pointer">Collapse</button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsExpanded(true)}
+              className="w-full px-3 py-2 text-[9px] uppercase tracking-widest font-bold text-slate-350 hover:text-slate-500 border border-dashed border-slate-200 rounded-xl transition-colors cursor-pointer text-center"
+            >
+              Ad Slot · {ad.label}
+            </button>
+          )}
+        </div>
+      );
+    }
+
+    // Mobile / in-content — very minimal
+    return (
+      <div className={`flex justify-center ${className}`}>
+        <div className="px-3 py-0.5 text-[9px] text-slate-350 border border-dashed border-slate-200 rounded-full">
+          {ad.label}
+        </div>
+      </div>
+    );
+  }
+
+  // Production — real AdSense tags
   return (
     <div className={`my-6 flex flex-col items-center justify-center ${className}`}>
-      {showSimulator ? (
-        <div
-          className={`${ad.dimensions} border-2 border-dashed border-slate-700 bg-slate-900/60 rounded-lg flex flex-col items-center justify-center p-4 text-center relative overflow-hidden transition-all hover:border-indigo-500/50 group`}
-        >
-          <div className="absolute top-2 right-2 flex items-center gap-1.5">
-            <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 bg-slate-800 text-slate-400 rounded">
-              Ad Simulator
-            </span>
-            <button
-              onClick={() => setShowSimulator(false)}
-              className="text-[10px] text-slate-500 hover:text-slate-300 font-bold px-1 rounded hover:bg-slate-800 transition cursor-pointer"
-              title="Show Real Ad Slot"
-            >
-              ×
-            </button>
-          </div>
-          <span className="text-xs font-semibold text-slate-400 group-hover:text-indigo-400 transition-colors">
-            {ad.label}
-          </span>
-          <span className="text-[10px] text-slate-500 mt-1">
-            Google AdSense Integration Point (Active in Production)
-          </span>
-        </div>
-      ) : (
-        <div className="w-full flex flex-col items-center">
-          {import.meta.env.DEV && (
-            <span className="text-[9px] text-slate-500 mb-1 cursor-pointer hover:text-slate-300" onClick={() => setShowSimulator(true)}>
-              [Return to Simulator]
-            </span>
-          )}
-          <ins
-            className="adsbygoogle"
-            style={{ display: 'block' }}
-            data-ad-client={ADSENSE_CONFIG.publisherId}
-            data-ad-slot={ADSENSE_CONFIG.slots[type]}
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          />
-        </div>
-      )}
+      <div className="w-full flex flex-col items-center">
+        <ins
+          className="adsbygoogle"
+          style={{ display: 'block' }}
+          data-ad-client={ADSENSE_CONFIG.publisherId}
+          data-ad-slot={ADSENSE_CONFIG.slots[type]}
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
+      </div>
     </div>
   );
 };

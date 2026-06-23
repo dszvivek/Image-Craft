@@ -660,7 +660,7 @@ export const SvgVectorizer: React.FC = () => {
                       max="16"
                       value={settings.colors}
                       onChange={(e) => updateSetting('colors', Number(e.target.value))}
-                      className="w-full h-1 bg-slate-200 rounded accent-indigo-650 cursor-pointer"
+                      className="range-styled w-full"
                     />
                     
                     {/* Remove Background Option */}
@@ -688,7 +688,7 @@ export const SvgVectorizer: React.FC = () => {
                       max="240"
                       value={settings.threshold}
                       onChange={(e) => updateSetting('threshold', Number(e.target.value))}
-                      className="w-full h-1 bg-slate-200 rounded accent-indigo-650 cursor-pointer"
+                      className="range-styled w-full"
                     />
                   </div>
                 )}
@@ -708,7 +708,7 @@ export const SvgVectorizer: React.FC = () => {
                     step="0.1"
                     value={settings.epsilon}
                     onChange={(e) => updateSetting('epsilon', Number(e.target.value))}
-                    className="w-full h-1 bg-slate-200 rounded accent-indigo-650 cursor-pointer"
+                    className="range-styled w-full"
                   />
                 </div>
 
@@ -726,7 +726,7 @@ export const SvgVectorizer: React.FC = () => {
                     max="50"
                     value={settings.minArea}
                     onChange={(e) => updateSetting('minArea', Number(e.target.value))}
-                    className="w-full h-1 bg-slate-200 rounded accent-indigo-650 cursor-pointer"
+                    className="range-styled w-full"
                   />
                 </div>
               </div>
