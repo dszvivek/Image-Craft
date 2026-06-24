@@ -335,7 +335,7 @@ export const BackgroundRemover: React.FC = () => {
                   backgroundImage: 'radial-gradient(#cbd5e1 20%, transparent 20%), radial-gradient(#cbd5e1 20%, transparent 20%)',
                   backgroundPosition: '0 0, 8px 8px',
                   backgroundSize: '16px 16px',
-                  backgroundColor: '#f8fafc'
+                  backgroundColor: '#F4F1EA'
                 }}
               >
                 <img src={processedUrl} alt="No background" className="max-w-full max-h-full object-contain rounded-lg drop-shadow-xl animate-float" />

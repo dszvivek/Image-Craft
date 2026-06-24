@@ -102,7 +102,7 @@ export const PaletteExtractor: React.FC = () => {
       ctx.fillRect(x, 0, swatchWidth, swatchHeight * 0.7);
 
       // Draw bottom text label backdrop
-      ctx.fillStyle = '#f8fafc'; // slate-50 background
+      ctx.fillStyle = '#F4F1EA'; // slate-50 background
       ctx.fillRect(x, swatchHeight * 0.7, swatchWidth, swatchHeight * 0.3);
 
       // Draw Hex Text

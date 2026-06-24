@@ -17,7 +17,7 @@ export const DemoPreview: React.FC<DemoPreviewProps> = ({ gifSrc, staticSrc, alt
       <img 
         src={isHovered ? gifSrc : staticSrc} 
         alt={alt} 
-        className="w-full h-full object-cover" 
+        className="w-full h-full object-cover filter sepia-[0.3] contrast-[0.96] saturate-[1.1] transition-all duration-300" 
         loading="lazy" 
       />
     </div>

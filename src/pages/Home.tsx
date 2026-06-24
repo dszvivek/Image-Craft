@@ -414,7 +414,7 @@ export const Home: React.FC = () => {
             </div>
 
             <Link to="/background-remover" className="flex-1 w-full max-w-[460px] bg-slate-50/20 border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-purple-400/80 group-hover:shadow-[0_12px_40px_rgba(167,139,250,0.15)] transition-all duration-300 block cursor-pointer backdrop-blur-xs">
-              <img src={bgRemoverImg} alt="AI Background Remover Demo" className="w-full h-full object-cover" />
+              <img src={bgRemoverImg} alt="AI Background Remover Demo" className="w-full h-full object-cover filter sepia-[0.3] contrast-[0.96] saturate-[1.1] transition-all duration-300" />
               <div className="absolute inset-0 bg-purple-950/0 group-hover:bg-purple-950/40 transition-all duration-300 flex items-center justify-center">
                 <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-purple-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
                   Open Tool <ArrowRight className="w-3.5 h-3.5" />
@@ -453,7 +453,7 @@ export const Home: React.FC = () => {
             </div>
 
             <Link to="/photo-mosaic-generator" className="flex-1 w-full max-w-[460px] bg-slate-50/20 border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-fuchsia-400/80 group-hover:shadow-[0_12px_40px_rgba(217,70,239,0.15)] transition-all duration-300 block cursor-pointer backdrop-blur-xs">
-              <img src={mosaicImg} alt="Photo Mosaic Generator Demo" className="w-full h-full object-cover" />
+              <img src={mosaicImg} alt="Photo Mosaic Generator Demo" className="w-full h-full object-cover filter sepia-[0.3] contrast-[0.96] saturate-[1.1] transition-all duration-300" />
               <div className="absolute inset-0 bg-fuchsia-950/0 group-hover:bg-fuchsia-950/40 transition-all duration-300 flex items-center justify-center">
                 <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-fuchsia-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
                   Open Tool <ArrowRight className="w-3.5 h-3.5" />
@@ -492,7 +492,7 @@ export const Home: React.FC = () => {
             </div>
 
             <Link to="/svg-vectorizer" className="flex-1 w-full max-w-[460px] bg-slate-50/20 border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-teal-400/80 group-hover:shadow-[0_12px_40px_rgba(13,148,136,0.15)] transition-all duration-300 block cursor-pointer backdrop-blur-xs">
-              <img src={svgVectorizerImg} alt="SVG Vectorizer Demo" className="w-full h-full object-cover" />
+              <img src={svgVectorizerImg} alt="SVG Vectorizer Demo" className="w-full h-full object-cover filter sepia-[0.3] contrast-[0.96] saturate-[1.1] transition-all duration-300" />
               <div className="absolute inset-0 bg-teal-950/0 group-hover:bg-teal-950/40 transition-all duration-300 flex items-center justify-center">
                 <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-teal-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
                   Open Tool <ArrowRight className="w-3.5 h-3.5" />
