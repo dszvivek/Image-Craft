@@ -24,7 +24,14 @@ import { AdPlacement } from '../components/AdPlacement';
 
 export const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileToolsExpanded, setIsMobileToolsExpanded] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      setIsMobileToolsExpanded(false);
+    }
+  }, [isMobileMenuOpen]);
 
   // Scroll to top on navigation / route change
   useEffect(() => {
@@ -260,7 +267,7 @@ export const Layout = () => {
 
       {/* Mobile Drawer Menu */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-x-4 top-20 z-50 md:hidden premium-bento rounded-2xl p-5 flex flex-col shadow-2xl shadow-slate-300/20 border border-slate-200/80 animate-fade-in">
+        <div className="fixed inset-x-4 top-20 z-50 md:hidden premium-bento rounded-2xl p-5 flex flex-col shadow-2xl shadow-slate-300/20 border border-slate-200/80 animate-fade-in max-h-[calc(100vh-6rem)] overflow-y-auto scrollbar-thin">
           <button
             onClick={() => setIsMobileMenuOpen(false)}
             className="absolute top-4 right-4 p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition cursor-pointer"
@@ -270,9 +277,62 @@ export const Layout = () => {
           </button>
 
           {/* Main Nav Links */}
-          <nav className="flex flex-col gap-1 mb-4">
+          <nav className="flex flex-col gap-1 mb-2">
             {[
               { to: '/', label: 'Home' },
+            ].map(({ to, label }) => (
+              <Link
+                key={to}
+                to={to}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-sm font-bold text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 px-3 py-2.5 rounded-xl transition-all"
+              >
+                {label}
+              </Link>
+            ))}
+
+            {/* Mobile Tools Accordion Trigger */}
+            <button
+              onClick={() => setIsMobileToolsExpanded(!isMobileToolsExpanded)}
+              className="flex items-center justify-between text-sm font-bold text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 px-3 py-2.5 rounded-xl transition-all cursor-pointer text-left"
+            >
+              <span>Tools</span>
+              <svg 
+                className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${isMobileToolsExpanded ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {/* Mobile Tools Collapsible Grid */}
+            {isMobileToolsExpanded && (
+              <div className="border-t border-slate-100/80 pt-3.5 pb-2.5 px-1 animate-fade-in">
+                <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold block mb-3">
+                  All 13 Tools
+                </span>
+                <div className="grid grid-cols-2 gap-2">
+                  {tools.map((tool) => {
+                    const Icon = tool.icon;
+                    return (
+                      <Link
+                        key={tool.path}
+                        to={tool.path}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`flex items-center gap-2.5 p-2.5 rounded-xl border transition-all hover:shadow-sm ${tool.colorClass} bg-opacity-40`}
+                      >
+                        <Icon className="w-4 h-4 shrink-0" />
+                        <span className="text-[10px] font-bold text-slate-700 leading-tight">{tool.name}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {[
               { to: '/about', label: 'About' },
               { to: '/faq', label: 'FAQ' },
               { to: '/privacy', label: 'Privacy' },
@@ -300,29 +360,6 @@ export const Layout = () => {
               GitHub
             </a>
           </nav>
-
-          {/* Tools Grid */}
-          <div className="border-t border-slate-100 pt-4">
-            <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold block mb-3 px-1">
-              All 13 Tools
-            </span>
-            <div className="grid grid-cols-2 gap-2">
-              {tools.map((tool) => {
-                const Icon = tool.icon;
-                return (
-                  <Link
-                    key={tool.path}
-                    to={tool.path}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center gap-2.5 p-2.5 rounded-xl border transition-all hover:shadow-sm ${tool.colorClass} bg-opacity-40`}
-                  >
-                    <Icon className="w-4 h-4 shrink-0" />
-                    <span className="text-[10px] font-bold text-slate-700 leading-tight">{tool.name}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
         </div>
       )}
 
