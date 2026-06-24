@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface AdPlacementProps {
   type: 'header' | 'sidebar' | 'in-content' | 'mobile';
@@ -29,16 +29,48 @@ export const AdPlacement: React.FC<AdPlacementProps> = ({ type, className = '' }
 
   const ad = adDimensions[type];
 
-  // Initialize adsbygoogle push for production tags
+  const containerRef = useRef<HTMLDivElement>(null);
+  const initializedRef = useRef(false);
+
+  // Initialize adsbygoogle push for production tags when container is visible & has width > 0
   useEffect(() => {
-    if (!import.meta.env.DEV) {
-      try {
-        // @ts-ignore
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (e) {
-        // AdSense script block / pending load
+    if (import.meta.env.DEV) return;
+    if (initializedRef.current) return;
+
+    const initializeAd = () => {
+      if (initializedRef.current) return true;
+      if (containerRef.current && containerRef.current.offsetWidth > 0) {
+        try {
+          // @ts-ignore
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+          initializedRef.current = true;
+          return true;
+        } catch (e) {
+          // AdSense script block / pending load
+        }
       }
+      return false;
+    };
+
+    // Try immediately
+    if (initializeAd()) return;
+
+    // Observe size changes to initialize when container becomes visible (e.g. responsiveness / expansion)
+    let observer: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined' && containerRef.current) {
+      observer = new ResizeObserver(() => {
+        if (initializeAd() && observer) {
+          observer.disconnect();
+        }
+      });
+      observer.observe(containerRef.current);
     }
+
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+    };
   }, []);
 
   // In development — show a non-intrusive collapsed pill
@@ -101,7 +133,7 @@ export const AdPlacement: React.FC<AdPlacementProps> = ({ type, className = '' }
 
   // Production — real AdSense tags
   return (
-    <div className={`my-6 flex flex-col items-center justify-center ${className}`}>
+    <div ref={containerRef} className={`my-6 flex flex-col items-center justify-center ${className}`}>
       <div className="w-full flex flex-col items-center">
         <ins
           className="adsbygoogle"
