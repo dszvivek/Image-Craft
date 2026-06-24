@@ -42,7 +42,7 @@ export const Home: React.FC = () => {
       <SEO 
         title="Free Privacy-First Image Tools" 
         description="Free browser-based image tools suite: compress images, remove backgrounds with AI, scan text (OCR), split Instagram grids, make collages, extract color palettes, convert batch images, strip EXIF metadata, add watermarks, resize for social media, generate memes, vectorize to SVG, and create photo mosaics. 100% offline, zero uploads." 
-        keywords="free image tools, image compressor, AI background remover, OCR text extractor, Instagram grid splitter, photo collage maker, color palette extractor, batch image converter, EXIF metadata stripper, watermark tool, aspect ratio resizer, meme generator, SVG vectorizer, photo mosaic generator, online image editor, browser image tools, privacy image editor, no upload image tool, free photo editor online"
+        keywords="free image tools, image compressor, AI background remover, OCR text extractor, Instagram grid splitter, photo collage maker, color palette extractor, batch image to pdf converter, EXIF metadata stripper, watermark tool, aspect ratio resizer, meme generator, SVG vectorizer, photo mosaic generator, online image editor, browser image tools, privacy image editor, no upload image tool, free photo editor online"
         canonicalUrl="https://imagegiri.com/"
       />
 
@@ -387,7 +387,7 @@ export const Home: React.FC = () => {
             </Link>
           </div>
 
-          {/* 7. Batch Image Converter */}
+          {/* 7. Batch Image to PDF & Format Converter */}
           <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
             <div className="flex-1 space-y-5 text-left">
               <div className="flex items-center gap-3">
@@ -396,22 +396,22 @@ export const Home: React.FC = () => {
                 </div>
                 <div>
                   <span className="text-[10px] font-bold text-indigo-650 uppercase tracking-wider bg-indigo-50/40 border border-indigo-100/60 px-2 py-0.5 rounded font-bold">Bulk Operation</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-indigo-650 transition-colors">Batch Image Converter</h3>
+                  <h3 className="text-xl font-extrabold text-slate-900 mt-1 group-hover:text-indigo-650 transition-colors">Batch Image to PDF & Format Converter</h3>
                 </div>
               </div>
               <p className="text-xs md:text-sm text-slate-555 leading-relaxed font-medium">
-                Convert multiple JPEGs, PNGs, or WebPs in one go. Package your images into a single multi-page PDF booklet or a ZIP archive locally.
+                Convert multiple images to WebP, PNG, or JPEG, or merge them into a single custom-ordered PDF booklet or separate PDFs locally.
               </p>
               <ul className="space-y-2 text-xs font-semibold text-slate-655">
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Multi-file bulk processing</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Custom PDF package scaling</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Instant JSZip downloader</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Compile multiple photos to a single PDF</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Custom page reordering control</span></li>
+                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Bulk WebP, PNG, and JPEG formatting</span></li>
               </ul>
               <Link 
                 to="/batch-converter" 
                 className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-indigo-500/10 active:scale-98"
               >
-                Launch Batch Converter
+                Launch PDF & Format Converter
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

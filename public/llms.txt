@@ -42,10 +42,10 @@ AI agents and crawlers can discover the following routes and features:
 - **Functionality:** Extract color schemes and coverage percentages from design assets.
 - **Controls:** K-Means color quantization. Downloads custom JSON palettes, CSS root variables, or visual PNG swatches.
 
-### 7. Batch Image Converter
+### 7. Batch Image to PDF & Format Converter
 - **Route:** `/batch-converter`
-- **Functionality:** Bulk image conversion and PDF package assembly.
-- **Controls:** Loop queue processing for WebP/PNG/JPG output, ZIP compilation, and multi-page PDF generation via jsPDF.
+- **Functionality:** Bulk image conversion and PDF compilation.
+- **Controls:** PDF merge mode (single combined file with page reordering or separate PDFs), output selectors (WebP, PNG, JPEG, PDF), and JSZip download packages.
 
 ### 8. EXIF Metadata Stripper
 - **Route:** `/metadata-stripper`

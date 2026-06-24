@@ -77,10 +77,10 @@ export const Layout = () => {
       colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50'
     },
     { 
-      name: 'Batch Image Converter', 
+      name: 'Batch Image to PDF & Format Converter', 
       path: '/batch-converter', 
       icon: Files,
-      description: 'Convert multiple images & PDF packages locally.',
+      description: 'Convert and merge images into PDF, WebP, PNG, or JPEG in bulk.',
       colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50'
     },
     { 

@@ -14,7 +14,7 @@ ImageGiri is a modern, responsive, and 100% client-side web application offering
 - **Instagram Grid Splitter:** Slice your images into creative grid tiles (3x3, 3x2, etc.) for social profiles.
 - **Photo Collage Maker:** Arrange multiple photos in pre-built layout canvas grids with custom spacing, background colors, and border radius.
 - **Color Palette Extractor:** Extract dominant colors and HEX palettes using k-means quantization.
-- **Batch Image Converter:** Bulk convert files (JPEG, PNG, WebP, AVIF) and package files directly to Zip archives or PDF slides.
+- **Batch Image to PDF & Format Converter:** Bulk convert images (JPEG, PNG, WebP) or merge them into custom-ordered PDF documents entirely offline.
 - **EXIF Metadata Stripper:** Read, inspect, and wipe personal camera details and GPS location headers from image metadata.
 - **Watermark Overlay:** Apply custom text patterns or logos to multiple images client-side with opacity controls.
 - **Aspect Ratio Resizer:** Crop and scale photos to social preset dimensions (Instagram, YouTube, Twitter/X).

@@ -469,7 +469,7 @@ export const Compressor: React.FC = () => {
             },
             {
               q: 'Does it support batch image compression?',
-              a: 'Yes, if you need to convert or compress multiple images at once, check out our Batch Image Converter tool.'
+              a: 'Yes, if you need to convert, merge, or compile multiple images into a single PDF or other formats at once, check out our Batch Image to PDF & Format Converter tool.'
             },
             {
               q: 'Are my private photos sent to any servers?',

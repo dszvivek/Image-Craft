@@ -29,11 +29,14 @@ export const BatchConverter: React.FC = () => {
   const [statusMessage, setStatusMessage] = useState<string>('');
   const [isPackaging, setIsPackaging] = useState<boolean>(false);
   const [packageType, setPackageType] = useState<'zip' | 'pdf' | null>(null);
+  const [pdfMergeMode, setPdfMergeMode] = useState<boolean>(true);
+  const [mergedPdfUrl, setMergedPdfUrl] = useState<string | null>(null);
 
   const formatLabels: Record<string, string> = {
     'image/jpeg': 'JPEG',
     'image/png': 'PNG',
     'image/webp': 'WebP',
+    'application/pdf': 'PDF',
   };
 
   const handleFilesSelected = (selectedFiles: File[]) => {
@@ -65,6 +68,34 @@ export const BatchConverter: React.FC = () => {
       reader.onload = (e) => {
         const img = new Image();
         img.onload = () => {
+          if (format === 'application/pdf') {
+            try {
+              const w = img.naturalWidth;
+              const h = img.naturalHeight;
+              const orientation = w > h ? 'l' : 'p';
+              const pdf = new jsPDF({
+                orientation,
+                unit: 'px',
+                format: [w, h]
+              });
+              pdf.addImage(img, 'JPEG', 0, 0, w, h);
+              const blob = pdf.output('blob');
+              const url = URL.createObjectURL(blob);
+              const origName = batchFile.file.name.substring(0, batchFile.file.name.lastIndexOf('.'));
+              const newName = `${origName}.pdf`;
+              resolve({
+                ...batchFile,
+                status: 'completed',
+                convertedSize: blob.size,
+                convertedUrl: url,
+                convertedName: newName,
+              });
+            } catch (err) {
+              resolve({ ...batchFile, status: 'error' });
+            }
+            return;
+          }
+
           const canvas = document.createElement('canvas');
           canvas.width = img.naturalWidth;
           canvas.height = img.naturalHeight;
@@ -118,9 +149,99 @@ export const BatchConverter: React.FC = () => {
     files.forEach((f) => {
       if (f.convertedUrl) URL.revokeObjectURL(f.convertedUrl);
     });
+    if (mergedPdfUrl) {
+      URL.revokeObjectURL(mergedPdfUrl);
+      setMergedPdfUrl(null);
+    }
 
     const updatedFiles = [...files];
     const total = files.length;
+
+    if (format === 'application/pdf' && pdfMergeMode) {
+      // Merge into a single PDF
+      setStatusMessage('Loading images for PDF...');
+      const loadImg = (file: File): Promise<HTMLImageElement> => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = e.target?.result as string;
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      };
+
+      try {
+        let pdf: jsPDF | null = null;
+        for (let i = 0; i < total; i++) {
+          const batchFile = updatedFiles[i];
+          updatedFiles[i] = { ...batchFile, status: 'processing' };
+          setFiles([...updatedFiles]);
+          setStatusMessage(`Adding page ${i + 1} of ${total}: ${batchFile.file.name}`);
+
+          const img = await loadImg(batchFile.file);
+          const w = img.naturalWidth;
+          const h = img.naturalHeight;
+          const orientation = w > h ? 'l' : 'p';
+
+          if (i === 0) {
+            pdf = new jsPDF({
+              orientation,
+              unit: 'px',
+              format: [w, h]
+            });
+          } else if (pdf) {
+            pdf.addPage([w, h], orientation);
+          }
+
+          if (pdf) {
+            pdf.addImage(img, 'JPEG', 0, 0, w, h);
+          }
+
+          updatedFiles[i] = {
+            ...batchFile,
+            status: 'completed',
+            convertedSize: batchFile.file.size,
+            convertedUrl: null,
+            convertedName: null,
+          };
+          setFiles([...updatedFiles]);
+          setProgress(Math.round(5 + ((i + 1) / total) * 80));
+        }
+
+        if (pdf) {
+          setStatusMessage('Generating combined PDF document...');
+          setProgress(90);
+          const pdfBlob = pdf.output('blob');
+          const pdfUrl = URL.createObjectURL(pdfBlob);
+
+          setMergedPdfUrl(pdfUrl);
+
+          // Download immediately
+          const link = document.createElement('a');
+          link.href = pdfUrl;
+          link.download = `combined_document_${Date.now()}.pdf`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          setStatusMessage('Combined PDF generated and downloaded successfully.');
+          setProgress(100);
+        }
+      } catch (e) {
+        console.error(e);
+        setStatusMessage('Error compiling combined PDF.');
+        updatedFiles.forEach(f => {
+          if (f.status === 'processing') f.status = 'error';
+        });
+        setFiles([...updatedFiles]);
+      }
+      setIsProcessing(false);
+      return;
+    }
 
     for (let i = 0; i < total; i++) {
       const batchFile = updatedFiles[i];
@@ -247,6 +368,10 @@ export const BatchConverter: React.FC = () => {
     files.forEach((f) => {
       if (f.convertedUrl) URL.revokeObjectURL(f.convertedUrl);
     });
+    if (mergedPdfUrl) {
+      URL.revokeObjectURL(mergedPdfUrl);
+      setMergedPdfUrl(null);
+    }
     setFiles([]);
     setProgress(0);
     setIsProcessing(false);
@@ -254,14 +379,33 @@ export const BatchConverter: React.FC = () => {
     setPackageType(null);
   };
 
+  const moveFile = (index: number, direction: 1 | -1) => {
+    const targetIndex = index + direction;
+    if (targetIndex < 0 || targetIndex >= files.length) return;
+
+    setFiles((prev) => {
+      const list = [...prev];
+      const temp = list[index];
+      list[index] = list[targetIndex];
+      list[targetIndex] = temp;
+      return list;
+    });
+  };
+
   const filesRef = useRef<BatchFile[]>(files);
   filesRef.current = files;
+
+  const mergedPdfUrlRef = useRef<string | null>(mergedPdfUrl);
+  mergedPdfUrlRef.current = mergedPdfUrl;
 
   useEffect(() => {
     return () => {
       filesRef.current.forEach((f: BatchFile) => {
         if (f.convertedUrl) URL.revokeObjectURL(f.convertedUrl);
       });
+      if (mergedPdfUrlRef.current) {
+        URL.revokeObjectURL(mergedPdfUrlRef.current);
+      }
     };
   }, []);
 
@@ -286,21 +430,21 @@ export const BatchConverter: React.FC = () => {
       'price': '0',
       'priceCurrency': 'USD'
     },
-    'description': 'Convert multiple images to WebP, PNG, or JPEG format in bulk. Compile photos into a multi-page PDF document. All processing happens locally in your browser.',
+    'description': 'Convert multiple images to WebP, PNG, JPEG, or PDF format in bulk. Compile multiple photos into a single PDF document. All processing happens locally in your browser.',
     'featureList': [
       'Bulk conversion of multiple files',
       'Export formatted files as single ZIP package',
-      'Compile photos into multi-page PDF files',
-      'Support JPEG, PNG, and WebP formats'
+      'Compile multiple photos into a single PDF document with page reordering',
+      'Support JPEG, PNG, WebP, and PDF formats'
     ]
   };
 
   return (
     <div className="w-full">
       <SEO 
-        title="Free Batch Image Converter - CloudConvert Alternative" 
-        description="Convert multiple images to WebP, PNG, or JPEG format in bulk, or compile them into a PDF document. A free, offline alternative to CloudConvert and EZGIF." 
-        keywords="batch image converter, bulk image converter, convert images to WebP, convert images to PNG, convert JPG to WebP, images to PDF, batch convert photos, bulk photo converter, image format converter, free batch converter, PDF from images, ZIP image download, CloudConvert alternative, EZGIF alternative, bulk convert images offline"
+        title="Free Batch Image to PDF & Format Converter | ImageGiri" 
+        description="Convert JPG, PNG, and WebP images to PDF or other formats in bulk locally. Merge multiple images into a single PDF document with page reordering, completely offline." 
+        keywords="batch image converter, images to pdf, convert jpg to pdf, convert png to pdf, merge images to pdf, combine photos to pdf, bulk image to pdf, free offline image to pdf converter, multiple images to one pdf, webp to pdf, convert images in bulk, batch photo converter, reorder pdf pages, image format converter, CloudConvert alternative, EZGIF alternative"
         canonicalUrl="https://imagegiri.com/batch-converter"
         schema={batchSchema}
       />
@@ -358,13 +502,13 @@ export const BatchConverter: React.FC = () => {
                   <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
                     Output Format
                   </label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {['image/webp', 'image/jpeg', 'image/png'].map((f) => (
+                  <div className="grid grid-cols-4 gap-1.5">
+                    {['image/webp', 'image/jpeg', 'image/png', 'application/pdf'].map((f) => (
                       <button
                         key={f}
                         onClick={() => setFormat(f)}
                         disabled={isProcessing || isPackaging}
-                        className={`py-2.5 px-2 rounded-xl text-[10px] font-bold border transition-all cursor-pointer disabled:opacity-50 ${
+                        className={`py-2 px-1 rounded-xl text-[10px] font-bold border transition-all cursor-pointer disabled:opacity-50 text-center ${
                           format === f
                             ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
                             : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900'
@@ -377,7 +521,7 @@ export const BatchConverter: React.FC = () => {
                 </div>
 
                 {/* Quality Slider (JPEG/WebP only) */}
-                {format !== 'image/png' && (
+                {format !== 'image/png' && format !== 'application/pdf' && (
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
                       <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest">
@@ -399,6 +543,44 @@ export const BatchConverter: React.FC = () => {
                   </div>
                 )}
 
+                {/* PDF Export Options */}
+                {format === 'application/pdf' && (
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
+                      PDF Export Option
+                    </label>
+                    <div className="flex flex-col gap-2">
+                      <label className="flex items-center gap-2 text-xs text-slate-655 font-semibold cursor-pointer">
+                        <input
+                          type="radio"
+                          name="pdfMergeMode"
+                          checked={pdfMergeMode}
+                          onChange={() => setPdfMergeMode(true)}
+                          disabled={isProcessing || isPackaging}
+                          className="w-4 h-4 text-indigo-600 border-slate-300 focus:ring-indigo-550"
+                        />
+                        <span>Merge into single PDF ({files.length} {files.length === 1 ? 'page' : 'pages'})</span>
+                      </label>
+                      <label className="flex items-center gap-2 text-xs text-slate-655 font-semibold cursor-pointer">
+                        <input
+                          type="radio"
+                          name="pdfMergeMode"
+                          checked={!pdfMergeMode}
+                          onChange={() => setPdfMergeMode(false)}
+                          disabled={isProcessing || isPackaging}
+                          className="w-4 h-4 text-indigo-600 border-slate-300 focus:ring-indigo-550"
+                        />
+                        <span>Separate PDF for each image</span>
+                      </label>
+                    </div>
+                    {pdfMergeMode && files.length > 1 && (
+                      <p className="text-[10px] text-indigo-600 font-medium italic">
+                        Tip: You can reorder pages by clicking the arrow buttons next to the images in the queue.
+                      </p>
+                    )}
+                  </div>
+                )}
+
                 {/* Info Card */}
                 <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-4.5 space-y-3.5 shadow-xs">
                   <div className="flex justify-between items-center text-xs font-semibold">
@@ -407,7 +589,13 @@ export const BatchConverter: React.FC = () => {
                   </div>
                   <div className="flex justify-between items-center text-xs font-semibold">
                     <span className="text-slate-455">Batch Action:</span>
-                    <span className="text-indigo-655 font-bold">Convert to {formatLabels[format]}</span>
+                    <span className="text-indigo-655 font-bold">
+                      {format === 'application/pdf'
+                        ? pdfMergeMode
+                          ? 'Combine to Single PDF'
+                          : 'Convert to separate PDFs'
+                        : `Convert to ${formatLabels[format]}`}
+                    </span>
                   </div>
                 </div>
 
@@ -419,7 +607,11 @@ export const BatchConverter: React.FC = () => {
                     className="w-full py-3 bg-indigo-600 hover:bg-indigo-550 disabled:opacity-50 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-md active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <RefreshCw className={`w-4 h-4 ${isProcessing ? 'animate-spin' : ''}`} />
-                    Convert Batch
+                    {format === 'application/pdf'
+                      ? pdfMergeMode
+                        ? 'Compile Combined PDF'
+                        : 'Convert Batch to PDFs'
+                      : 'Convert Batch'}
                   </button>
 
                   {hasCompleted && (
@@ -428,25 +620,44 @@ export const BatchConverter: React.FC = () => {
                         <label className="text-[10px] font-bold text-slate-450 uppercase tracking-widest block mb-2 text-center">
                           Batch Downloads
                         </label>
-                        <div className="grid grid-cols-2 gap-2">
+                        {format === 'application/pdf' && pdfMergeMode ? (
                           <button
-                            onClick={handleDownloadZip}
-                            disabled={isProcessing || isPackaging}
-                            className="py-2.5 px-2 bg-gradient-to-r from-indigo-600 to-purple-650 hover:from-indigo-550 hover:to-purple-550 text-[10px] font-bold uppercase tracking-wider text-white rounded-xl shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5"
+                            onClick={() => {
+                              if (mergedPdfUrl) {
+                                const link = document.createElement('a');
+                                link.href = mergedPdfUrl;
+                                link.download = `combined_document_${Date.now()}.pdf`;
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                              }
+                            }}
+                            className="w-full py-2.5 px-2 bg-gradient-to-r from-indigo-600 to-purple-650 hover:from-indigo-550 hover:to-purple-550 text-[10px] font-bold uppercase tracking-wider text-white rounded-xl shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5"
                           >
                             <Download className="w-3.5 h-3.5" />
-                            ZIP package
+                            Download Combined PDF
                           </button>
+                        ) : (
+                          <div className="grid grid-cols-2 gap-2">
+                            <button
+                              onClick={handleDownloadZip}
+                              disabled={isProcessing || isPackaging}
+                              className="py-2.5 px-2 bg-gradient-to-r from-indigo-600 to-purple-650 hover:from-indigo-550 hover:to-purple-550 text-[10px] font-bold uppercase tracking-wider text-white rounded-xl shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5"
+                            >
+                              <Download className="w-3.5 h-3.5" />
+                              ZIP package
+                            </button>
 
-                          <button
-                            onClick={handleDownloadPDF}
-                            disabled={isProcessing || isPackaging}
-                            className="py-2.5 px-2 bg-white hover:bg-slate-50 border border-slate-200/60 hover:border-slate-350 text-[10px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5"
-                          >
-                            <FileText className="w-3.5 h-3.5 text-indigo-500" />
-                            PDF Document
-                          </button>
-                        </div>
+                            <button
+                              onClick={handleDownloadPDF}
+                              disabled={isProcessing || isPackaging}
+                              className="py-2.5 px-2 bg-white hover:bg-slate-50 border border-slate-200/60 hover:border-slate-350 text-[10px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5"
+                            >
+                              <FileText className="w-3.5 h-3.5 text-indigo-500" />
+                              PDF Document
+                            </button>
+                          </div>
+                        )}
                       </div>
                     </>
                   )}
@@ -502,7 +713,7 @@ export const BatchConverter: React.FC = () => {
 
               {/* File List cards */}
               <div className="flex flex-col gap-3 max-h-[500px] overflow-y-auto pr-1">
-                {files.map((f) => (
+                {files.map((f, index) => (
                   <div 
                     key={f.id}
                     className="premium-bento p-3.5 rounded-2xl bg-white border border-slate-200/40 flex items-center justify-between gap-4 hover:border-slate-300 transition-all shadow-xs"
@@ -528,6 +739,32 @@ export const BatchConverter: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-3">
+                      {/* Reordering Buttons */}
+                      {!isProcessing && !isPackaging && files.length > 1 && (
+                        <div className="flex items-center gap-0.5 shrink-0 bg-slate-50/80 border border-slate-200/60 rounded-lg p-0.5 shadow-xs">
+                          <button
+                            onClick={() => moveFile(index, -1)}
+                            disabled={index === 0}
+                            className="p-1 hover:bg-slate-200/80 rounded text-slate-500 hover:text-slate-800 disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer transition-colors"
+                            title="Move Page Up"
+                          >
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                            </svg>
+                          </button>
+                          <button
+                            onClick={() => moveFile(index, 1)}
+                            disabled={index === files.length - 1}
+                            className="p-1 hover:bg-slate-200/80 rounded text-slate-500 hover:text-slate-800 disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer transition-colors"
+                            title="Move Page Down"
+                          >
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                          </button>
+                        </div>
+                      )}
+
                       {f.status === 'pending' && (
                         <span className="text-[10px] font-bold text-slate-400 bg-slate-50 border border-slate-200/80 px-2 py-0.5 rounded">
                           Pending
@@ -556,7 +793,7 @@ export const BatchConverter: React.FC = () => {
                         </div>
                       )}
                       {f.status === 'error' && (
-                        <span className="text-[10px] font-bold text-red-650 bg-red-50 border border-red-100 px-2 py-0.5 rounded flex items-center gap-1">
+                        <span className="text-[10px] font-bold text-red-655 bg-red-50 border border-red-100 px-2 py-0.5 rounded flex items-center gap-1">
                           <AlertTriangle className="w-3 h-3 text-red-600" /> Error
                         </span>
                       )}
@@ -578,45 +815,45 @@ export const BatchConverter: React.FC = () => {
           </div>
         )}
         <ToolGuide
-          toolName="Batch Image Converter"
-          introText="Convert multiple files between WebP, PNG, and JPEG formats in parallel, or package them into a clean PDF booklet, all without cloud latency."
+          toolName="Batch Image to PDF & Format Converter"
+          introText="Convert multiple images to PDF, WebP, PNG, or JPEG formats in bulk. Drag-and-drop your files and compile them into a single, beautifully ordered PDF booklet or convert each into individual PDFs entirely offline."
           competitorComparison={{
-            alternatives: ['CloudConvert', 'Zamzar', 'EZGIF Batch Converter'],
-            benefit: 'Most cloud file converters impose file size limits, daily usage quotas, or upload queues. ImageGiri converts files natively inside your browser memory threads. Enjoy zero file limits, instant download packaging, and total privacy for your document archives.'
+            alternatives: ['CloudConvert', 'Zamzar', 'ILovePDF', 'Adobe JPG to PDF Converter'],
+            benefit: 'Unlike traditional online PDF compilers and converters that upload your private photos to external servers, ImageGiri executes all conversions directly inside your browser memory. This guarantees 100% data privacy, zero file size limits, and instant local compilation.'
           }}
           steps={[
             {
-              title: 'Upload Batch Files',
-              description: 'Select or drop multiple images at once (JPEG, PNG, WebP) to load them into the batch processing list.'
+              title: 'Upload Your Images',
+              description: 'Select or drop single or multiple files (JPG, PNG, WebP) to load them into the secure local batch list.'
             },
             {
-              title: 'Select Output Target',
-              description: 'Choose to convert images into PNG, JPEG, or WebP. Alternatively, select the "Export to PDF" tab to assemble files.'
+              title: 'Choose PDF or Format Options',
+              description: 'Select PDF, WebP, JPEG, or PNG. For PDF exports, choose between merging all images into a single combined document or converting each file into a separate PDF.'
             },
             {
-              title: 'Process & Download',
-              description: 'Click "Start Batch Conversion" or "Compile PDF". Download all results as a single ZIP bundle or a multi-page PDF document.'
+              title: 'Reorder Pages & Process',
+              description: 'If compiling a single PDF, use the Up/Down arrow buttons next to the images in the queue to arrange your page order. Click "Compile Combined PDF" to download it immediately.'
             }
           ]}
           features={[
-            'Fast concurrent image conversion queue using client-side canvas routines.',
-            'Compiles images into multi-page PDF files with page numbering adjustments.',
-            'Encapsulates converted images into a compressed ZIP file using JSZip.',
-            'Clear file queue summary listing size modifications and processing states.',
-            'Supports mixed-format queues: process JPEG, PNG, and WebP simultaneously.'
+            'Generate a single combined PDF from multiple photos with custom page order control.',
+            'Convert images in bulk to individual PDFs or popular web image formats (WebP, PNG, JPEG).',
+            'Full support for mixed-format source lists (convert JPEGs and PNGs in the same batch).',
+            'Reorder images in the processing queue to establish the perfect sequence of PDF pages.',
+            'Superfast client-side compilation leveraging high-performance browser rendering APIs.'
           ]}
           faq={[
             {
-              q: 'Is there a limit on how many images I can upload?',
-              a: 'There is no hard limit on the number of images. However, processing dozens of high-res photos is limited by your browser’s available system RAM.'
+              q: 'How does merging multiple images into a single PDF work?',
+              a: 'When you select PDF as the output format and check "Merge into single PDF", the tool reads the dimensions of each image and creates a custom-fit multi-page PDF document. You can adjust the order of pages using the sorting buttons in the queue before compiling.'
             },
             {
-              q: 'Can I choose different formats for different images?',
-              a: 'The batch setting applies the chosen format (PNG, JPEG, WebP, or PDF) to all files in the current active queue for consistency.'
+              q: 'Is there a limit on how many images I can convert to PDF at once?',
+              a: 'There is no preset software limitation on the file count or size. The compiler operates entirely in your system RAM, meaning you can process as many images as your computer’s browser can handle.'
             },
             {
-              q: 'Do you store any files?',
-              a: 'No. All conversions happen dynamically in your browser. Once you clear the queue or close the page, the in-memory images are completely deleted.'
+              q: 'Are my images secure when converting to PDF?',
+              a: 'Yes, absolutely. ImageGiri compiles and converts all files locally using JavaScript (jsPDF and HTML5 Canvas). No files are uploaded, stored, or processed on any backend server, keeping your private documents completely secure.'
             }
           ]}
         />
