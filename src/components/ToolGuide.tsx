@@ -52,7 +52,7 @@ export const ToolGuide: React.FC<ToolGuideProps> = ({
       {/* Alternative Competitor Banner */}
       <div className="premium-bento p-5 rounded-2xl bg-gradient-to-r from-indigo-50/30 to-purple-50/30 border border-indigo-100/50 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         <div className="space-y-1">
-          <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-purple-650 bg-purple-50 px-2 py-0.5 rounded border border-purple-100">
+          <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-purple-650 bg-purple-50 px-2 py-0.5 rounded border border-purple-100">
             <Shuffle className="w-3 h-3" /> Alternatives Comparison
           </span>
           <h3 className="font-extrabold text-sm text-slate-900">
@@ -99,7 +99,7 @@ export const ToolGuide: React.FC<ToolGuideProps> = ({
           <ul className="space-y-3.5">
             {features.map((feature, idx) => (
               <li key={idx} className="flex items-start gap-2.5">
-                <CheckCircle className="w-4 h-4 text-emerald-550 shrink-0 mt-0.5" />
+                <CheckCircle className="w-4 h-4 shrink-0 mt-0.5" style={{color:'#16a34a'}} />
                 <span className="text-[11px] md:text-xs font-medium text-slate-650 leading-relaxed">
                   {feature}
                 </span>
@@ -132,7 +132,7 @@ export const ToolGuide: React.FC<ToolGuideProps> = ({
                 </button>
                 <div
                   className={`transition-all duration-200 ease-in-out overflow-hidden ${
-                    openFaqIndex === index ? 'max-h-48 opacity-100 pt-2 pb-1' : 'max-h-0 opacity-0'
+                    openFaqIndex === index ? 'max-h-96 opacity-100 pt-2 pb-1' : 'max-h-0 opacity-0'
                   }`}
                 >
                   <p className="text-[11px] text-slate-500 leading-relaxed font-medium">

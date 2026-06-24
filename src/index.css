@@ -211,13 +211,18 @@ select:focus-visible {
 .glass-input {
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(90, 82, 67, 0.08);
-  @apply focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 focus:outline-none transition-all duration-300 text-slate-800 rounded-2xl px-4 py-3;
+  @apply focus:outline-none transition-all duration-300 text-slate-800 rounded-2xl px-4 py-3;
+  --tw-ring-color: rgba(140, 109, 62, 0.12);
+}
+.glass-input:focus {
+  border-color: #8c6d3e;
+  box-shadow: 0 0 0 3px rgba(140, 109, 62, 0.12);
 }
 
 /* ─── Custom Scrollbar ───────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: #f4f1ea; }
-::-webkit-scrollbar-thumb { background: #c8c0ad; border-radius: 9999px; }
+::-webkit-scrollbar-track { background: #f0ece3; }
+::-webkit-scrollbar-thumb { background: #c8c0ad; border-radius: 9999px; border: 2px solid #f0ece3; }
 ::-webkit-scrollbar-thumb:hover { background: #afa48f; }
 
 /* ─── Range Slider: Filled Track ─────────────────────────────────────────── */

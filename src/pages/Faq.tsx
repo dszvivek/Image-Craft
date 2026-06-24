@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronDown, ChevronUp, HelpCircle, Lock } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
@@ -121,18 +122,18 @@ export const Faq: React.FC = () => {
             </p>
           </div>
           <div className="flex gap-3 shrink-0 w-full md:w-auto">
-            <a 
-              href="/privacy" 
-              className="w-full md:w-auto px-5 py-2.5 bg-white border border-slate-200 text-slate-700 hover:text-slate-900 rounded-xl text-xs font-bold text-center transition-all shadow-xs"
+            <Link 
+              to="/privacy" 
+              className="w-full md:w-auto px-5 py-2.5 bg-white border border-slate-200 text-slate-700 hover:text-slate-900 rounded-xl text-xs font-bold text-center transition-all shadow-xs hover:border-slate-300"
             >
               Privacy Policy
-            </a>
-            <a 
-              href="/contact" 
-              className="w-full md:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold text-center transition-all shadow-md shadow-indigo-500/10"
+            </Link>
+            <Link 
+              to="/contact" 
+              className="w-full md:w-auto px-5 py-2.5 bg-[#8c6d3e] hover:bg-[#75592f] text-white rounded-xl text-xs font-bold text-center transition-all shadow-md shadow-[#8c6d3e]/15"
             >
               Contact Support
-            </a>
+            </Link>
           </div>
         </div>
 

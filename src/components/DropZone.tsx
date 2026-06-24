@@ -142,6 +142,11 @@ export const DropZone: React.FC<DropZoneProps> = ({
           {subtitle}
         </span>
 
+        {/* Paste hint */}
+        <span className="text-[10px] text-slate-400 font-medium">
+          or paste from clipboard (Ctrl+V)
+        </span>
+
         {/* Drag overlay hint */}
         {isDragActive && (
           <div className="absolute inset-0 rounded-2xl border-2 border-indigo-500 pointer-events-none animate-pulse opacity-30" />
@@ -149,7 +154,7 @@ export const DropZone: React.FC<DropZoneProps> = ({
       </div>
 
       {error && (
-        <div className="mt-3 p-3 bg-red-50 border border-red-100 rounded-xl text-xs md:text-sm text-red-600 text-center animate-fade-in flex items-center justify-center gap-2">
+        <div className="mt-3 p-3 rounded-xl text-xs md:text-sm text-center animate-fade-in flex items-center justify-center gap-2" style={{background:'#fff0f0', border:'1px solid #fca5a5', color:'#dc2626'}}>
           <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>

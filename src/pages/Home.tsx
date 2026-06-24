@@ -213,7 +213,7 @@ export const Home: React.FC = () => {
             Explore Free Tools
           </a>
           <Link 
-            to="/privacy" 
+            to="/about" 
             className="px-8 py-3.5 bg-white/80 hover:bg-indigo-50/15 border border-slate-200/50 text-[11px] font-bold uppercase tracking-wider text-slate-700 hover:text-slate-900 rounded-xl transition-all shadow-xs backdrop-blur-md"
           >
             How it works
@@ -226,39 +226,39 @@ export const Home: React.FC = () => {
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 py-6 max-w-6xl mx-auto px-4">
         
         {/* Prop 1 */}
-        <div className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/50 flex flex-col justify-between gap-4">
-          <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 border border-indigo-100">
+        <div className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/50 flex flex-col justify-between gap-4 group cursor-default">
+          <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 border border-indigo-100 group-hover:scale-110 transition-transform duration-200">
             <Lock className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-bold text-sm text-slate-800 tracking-tight mb-1">Local Sandbox Processing</h3>
-            <p className="text-xs text-slate-500 leading-relaxed font-medium">
+            <h3 className="font-bold text-sm text-slate-800 tracking-tight mb-1 group-hover:text-indigo-650 transition-colors">Local Sandbox Processing</h3>
+            <p className="text-[13px] text-slate-500 leading-relaxed font-medium">
               Files reside strictly within browser memory space. Web Workers execute all processing scripts locally without cloud transmission.
             </p>
           </div>
         </div>
 
         {/* Prop 2 */}
-        <div className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/50 flex flex-col justify-between gap-4">
-          <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 border border-purple-100">
+        <div className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/50 flex flex-col justify-between gap-4 group cursor-default">
+          <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 border border-purple-100 group-hover:scale-110 transition-transform duration-200">
             <Cpu className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-bold text-sm text-slate-800 tracking-tight mb-1">Transformers.js AI Cutout</h3>
-            <p className="text-xs text-slate-500 leading-relaxed font-medium">
+            <h3 className="font-bold text-sm text-slate-800 tracking-tight mb-1 group-hover:text-purple-650 transition-colors">Transformers.js AI Cutout</h3>
+            <p className="text-[13px] text-slate-500 leading-relaxed font-medium">
               Run neural network subject segmentation using WebAssembly. Leverage your CPU/GPU hardware capabilities locally.
             </p>
           </div>
         </div>
 
         {/* Prop 3 */}
-        <div className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/50 flex flex-col justify-between gap-4">
-          <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-650 border border-emerald-100">
+        <div className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/50 flex flex-col justify-between gap-4 group cursor-default">
+          <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-650 border border-emerald-100 group-hover:scale-110 transition-transform duration-200">
             <Zap className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-bold text-sm text-slate-800 tracking-tight mb-1">Zero Latency Operations</h3>
-            <p className="text-xs text-slate-500 leading-relaxed font-medium">
+            <h3 className="font-bold text-sm text-slate-800 tracking-tight mb-1 group-hover:text-emerald-650 transition-colors">Zero Latency Operations</h3>
+            <p className="text-[13px] text-slate-500 leading-relaxed font-medium">
               Eliminate massive file upload bottlenecks. Batch split, extract colors, or extract text locally with instant downloads.
             </p>
           </div>
@@ -288,7 +288,7 @@ export const Home: React.FC = () => {
               placeholder="Search tools (e.g. compress, pdf, crop, palette)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-10 py-3.5 bg-white border border-slate-200/80 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all shadow-xs text-sm text-slate-800 font-medium placeholder-slate-400"
+              className="w-full pl-12 pr-10 py-3.5 bg-white border border-slate-200/80 rounded-2xl focus:border-[#8c6d3e] focus:ring-4 focus:ring-[#8c6d3e]/10 focus:outline-none transition-all shadow-xs text-sm text-slate-800 font-medium placeholder-slate-400"
             />
             <svg className="w-5 h-5 text-slate-400 absolute left-4.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637z" />
@@ -302,6 +302,12 @@ export const Home: React.FC = () => {
               </button>
             )}
           </div>
+          {/* Results count */}
+          {searchQuery && (
+            <p className="text-[11px] font-semibold text-slate-500 mt-2 text-right pr-1">
+              {filteredTools.length} tool{filteredTools.length !== 1 ? 's' : ''} found
+            </p>
+          )}
         </div>
 
         {/* Category Filters */}
@@ -354,7 +360,7 @@ export const Home: React.FC = () => {
                   </div>
 
                   <div className="mt-4 flex items-center gap-1 text-[11px] font-bold text-indigo-600 group-hover:translate-x-1 transition-all">
-                    <span>Launch Utility</span>
+                    <span>Open Tool</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </div>
                 </Link>
@@ -362,8 +368,14 @@ export const Home: React.FC = () => {
             })}
           </div>
         ) : (
-          <div className="text-center py-12 px-4">
-            <span className="text-sm font-semibold text-slate-450">No tools found matching your criteria. Try searching another term!</span>
+          <div className="text-center py-16 px-4">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-slate-100 flex items-center justify-center">
+              <svg className="w-7 h-7 text-slate-400" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637z" />
+              </svg>
+            </div>
+            <span className="text-sm font-semibold text-slate-600">No tools found matching your criteria.</span>
+            <p className="text-xs text-slate-400 mt-1">Try a different keyword like <em>compress</em>, <em>pdf</em>, or <em>crop</em>.</p>
           </div>
         )}
 
@@ -373,10 +385,10 @@ export const Home: React.FC = () => {
       <section className="py-16 border-t border-slate-200/60 mt-12 max-w-5xl mx-auto scroll-mt-24">
         <div className="text-center mb-16 px-4">
           <span className="text-[10px] font-bold text-purple-650 bg-purple-50 px-3 py-1 rounded-full border border-purple-100 uppercase tracking-widest">
-            Featured Modules
+            Highlights
           </span>
           <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 mb-3">
-            Core Engine Demos
+            See It In Action
           </h2>
           <p className="text-xs md:text-sm text-slate-550 max-w-md mx-auto">
             Take a closer look at our three flagship local engines running completely client-side in browser threads.
@@ -504,8 +516,8 @@ export const Home: React.FC = () => {
       </section>
 
       {/* Security Banner section */}
-      <section className="my-24 max-w-5xl mx-auto premium-bento rounded-3xl p-8 bg-gradient-to-r from-indigo-50/50 via-white to-purple-50/50 border border-slate-200/50 relative overflow-hidden shadow-md flex flex-col md:flex-row items-center gap-8 justify-between">
-        <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-indigo-500/5 rounded-full blur-2xl pointer-events-none" />
+      <section className="my-24 max-w-5xl mx-auto premium-bento rounded-3xl p-8 bg-gradient-to-r from-[#faf1ea]/60 via-white to-[#fdf6ee]/60 border border-slate-200/50 relative overflow-hidden shadow-md flex flex-col md:flex-row items-center gap-8 justify-between">
+        <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-[#a38350]/5 rounded-full blur-2xl pointer-events-none" />
         
         <div className="space-y-3 max-w-xl text-left">
           <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-indigo-650 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100/60 shadow-xs">
@@ -521,9 +533,10 @@ export const Home: React.FC = () => {
         <div className="shrink-0 w-full md:w-auto">
           <Link 
             to="/privacy" 
-            className="w-full md:w-auto inline-flex justify-center items-center px-6 py-3 bg-white/80 hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-700 hover:text-slate-900 rounded-xl transition border border-slate-200/50 shadow-xs backdrop-blur-md"
+            className="w-full md:w-auto inline-flex justify-center items-center gap-2 px-6 py-3 bg-white/80 hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-700 hover:text-slate-900 rounded-xl transition border border-slate-200/50 shadow-xs backdrop-blur-md"
           >
-            Read Privacy Terms
+            View Privacy Policy
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
       </section>
