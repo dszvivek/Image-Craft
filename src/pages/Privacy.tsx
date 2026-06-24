@@ -23,7 +23,7 @@ export const Privacy: React.FC = () => {
         </p>
       </div>
 
-      <div className="premium-bento p-8 rounded-3xl bg-white space-y-8 text-xs md:text-sm text-slate-550 leading-relaxed shadow-xs">
+      <div className="glass-card p-8 rounded-3xl space-y-8 text-xs md:text-sm text-slate-555 leading-relaxed">
         
         <section className="space-y-3">
           <h2 className="text-lg font-black text-slate-900 flex items-center gap-2">
@@ -83,7 +83,7 @@ export const Privacy: React.FC = () => {
           </ol>
         </section>
 
-        <div className="p-4 bg-slate-50 border border-slate-200/60 rounded-2xl flex items-start gap-3 mt-4 shadow-xs">
+        <div className="p-4 bg-white/80 border border-slate-200/50 rounded-2xl flex items-start gap-3 mt-4 shadow-xs">
           <ShieldAlert className="w-5.5 h-5.5 text-amber-600 shrink-0 mt-0.5 animate-bounce" />
           <div>
             <h4 className="text-xs font-bold text-slate-800">Got questions?</h4>

@@ -104,7 +104,7 @@ export const DropZone: React.FC<DropZoneProps> = ({
         className={`glass-card relative border-2 border-dashed rounded-2xl p-8 md:p-12 text-center cursor-pointer flex flex-col items-center justify-center gap-4 transition-all duration-300 select-none ${
           isDragActive
             ? 'border-indigo-500 bg-indigo-50/60 glow-indigo scale-[1.01]'
-            : 'border-slate-200 hover:border-indigo-400/60 hover:bg-slate-50/80'
+            : 'border-slate-200 hover:border-indigo-400/60 hover:bg-indigo-50/15 hover:shadow-sm'
         }`}
       >
         <input
@@ -122,7 +122,7 @@ export const DropZone: React.FC<DropZoneProps> = ({
             ? 'text-indigo-500 border-indigo-300/60 bg-indigo-50 scale-110 animate-drop-bounce'
             : justDropped
             ? 'text-indigo-500 border-indigo-300/60 bg-indigo-50 animate-drop-bounce'
-            : 'text-slate-400 border-slate-200 bg-slate-50/80'
+            : 'text-slate-400 border-slate-200 bg-white/70 shadow-xs'
         }`}>
           <IconComponent className={`w-8 h-8 md:w-10 md:h-10 transition-all ${isDragActive ? 'animate-pulse' : ''}`} />
         </div>
@@ -138,7 +138,7 @@ export const DropZone: React.FC<DropZoneProps> = ({
         </div>
 
         {/* Subtitle Pill */}
-        <span className="text-[11px] md:text-xs text-slate-500 bg-slate-100/80 px-3 py-1 rounded-full border border-slate-200/80">
+        <span className="text-[11px] md:text-xs text-slate-500 bg-white/80 px-3 py-1 rounded-full border border-slate-200/50">
           {subtitle}
         </span>
 

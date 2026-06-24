@@ -138,7 +138,7 @@ export const Layout = () => {
   const currentTool = tools.find(t => t.path === location.pathname);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 font-sans selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="min-h-screen flex flex-col bg-transparent text-slate-800 font-sans selection:bg-indigo-100 selection:text-indigo-900">
       
       {/* Main Navigation */}
       <div className="sticky top-0 z-40 w-full px-4 sm:px-6 lg:px-8 pt-2 sm:pt-4 pointer-events-none">
@@ -403,7 +403,7 @@ export const Layout = () => {
       <AdPlacement type="mobile" className="lg:hidden" />
 
       {/* Footer */}
-      <footer className="w-full bg-white border-t border-slate-100 mt-auto py-12 px-4">
+      <footer className="w-full bg-slate-50/50 border-t border-slate-100/80 mt-auto py-12 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           
           <div className="flex flex-col gap-3">

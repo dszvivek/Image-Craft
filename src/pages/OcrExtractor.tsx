@@ -416,20 +416,20 @@ export const OcrExtractor: React.FC = () => {
         </div>
 
         {/* Setup configuration language selector (Always visible to guide user) */}
-        <div className="premium-bento p-4 rounded-3xl mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white border border-slate-200/55 shadow-xs">
+        <div className="glass-card p-4 rounded-3xl mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="p-2.5 bg-emerald-50 border border-emerald-100 rounded-xl text-emerald-600 shadow-xs">
+            <div className="p-2.5 bg-emerald-50/60 border border-emerald-100 rounded-xl text-emerald-600 shadow-xs">
               <Globe className="w-5 h-5 animate-pulse" />
             </div>
             <div>
-              <span className="text-[10px] text-slate-450 font-bold uppercase tracking-wider block">Recognition Language</span>
+              <span className="text-[10px] text-slate-455 font-bold uppercase tracking-wider block">Recognition Language</span>
               <p className="text-xs text-slate-800 font-bold">Select the script matching your image</p>
             </div>
           </div>
           <select
             value={language}
             onChange={handleLangChange}
-            className="w-full sm:w-60 bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-slate-700 focus:outline-none focus:border-emerald-500 transition-all cursor-pointer"
+            className="w-full sm:w-60 bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-slate-700 focus:outline-none focus:border-emerald-500 transition-all cursor-pointer shadow-xs"
           >
             {languages.map((l) => (
               <option key={l.code} value={l.code}>
@@ -449,9 +449,9 @@ export const OcrExtractor: React.FC = () => {
               />
             </div>
             <div className="md:col-span-5 flex">
-              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-indigo-300 transition-all duration-300">
+              <div className="premium-bento rounded-3xl p-6 flex flex-col justify-between w-full shadow-sm hover:border-indigo-350 transition-all duration-300">
                 <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 border border-indigo-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
+                  <div className="text-[10px] font-bold text-indigo-650 bg-indigo-50/30 border border-indigo-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
                   <h3 className="text-base font-extrabold text-slate-900">How OCR Text Extractor Works</h3>
                   <p className="text-xs text-slate-500 leading-relaxed font-medium">
                     Run highly accurate optical character recognition locally. Isolate multi-language scripts, scanned books, and document images without third-party network uploads.
@@ -468,7 +468,7 @@ export const OcrExtractor: React.FC = () => {
         )}
 
         {isProcessing && (
-          <div className="premium-bento p-10 rounded-3xl bg-white flex flex-col items-center justify-center gap-6">
+          <div className="glass-card p-10 rounded-3xl flex flex-col items-center justify-center gap-6">
             <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-150/80 flex items-center justify-center animate-pulse text-emerald-650 shadow-xs">
               <FileText className="w-7 h-7" />
             </div>
@@ -479,7 +479,7 @@ export const OcrExtractor: React.FC = () => {
               subLabel={statusMessage}
             />
 
-            <div className="p-3.5 bg-slate-50 border border-slate-200/60 rounded-2xl max-w-sm flex items-start gap-2.5 text-[11px] text-slate-500 font-medium">
+            <div className="p-3.5 bg-white/80 border border-slate-200/50 rounded-2xl max-w-sm flex items-start gap-2.5 text-[11px] text-slate-500 font-medium shadow-xs">
               <ShieldAlert className="w-4 h-4 text-emerald-650 shrink-0 mt-0.5" />
               <span>
                 Initial run loads language parameters (1-5MB) into memory. Subsequent runs extract text instantaneously and locally.
@@ -496,7 +496,7 @@ export const OcrExtractor: React.FC = () => {
               <span className="text-[10px] font-bold text-slate-450 uppercase tracking-widest block">
                 Source Document
               </span>
-              <div className="w-full h-[360px] bg-slate-50 border border-slate-200/60 rounded-2xl overflow-hidden flex items-center justify-center p-2">
+              <div className="w-full h-[360px] bg-slate-50/30 border border-slate-200/80 rounded-2xl overflow-hidden flex items-center justify-center p-2">
                 <img src={originalUrl} alt="Source" className="max-w-full max-h-full object-contain rounded-lg shadow-sm" />
               </div>
             </div>
@@ -518,10 +518,10 @@ export const OcrExtractor: React.FC = () => {
                 </div>
               )}
 
-              <div className="premium-bento rounded-3xl bg-white overflow-hidden flex flex-col h-[360px] shadow-xs">
+              <div className="glass-card rounded-3xl overflow-hidden flex flex-col h-[360px]">
                 
                 {/* Result Control Bar */}
-                <div className="bg-slate-55 border-b border-slate-200/60 px-4 py-3 flex justify-between items-center">
+                <div className="bg-slate-50/40 border-b border-slate-200/50 px-4 py-3 flex justify-between items-center">
                   <span className="text-[10px] text-slate-455 font-bold uppercase tracking-wider">
                     Copy or Edit Raw Output
                   </span>
@@ -529,7 +529,7 @@ export const OcrExtractor: React.FC = () => {
                   <div className="flex gap-2">
                     <button
                       onClick={handleCopy}
-                      className="px-3 py-1.5 bg-white hover:bg-slate-50 border border-slate-200/60 hover:border-slate-350 text-[10px] font-bold text-slate-655 hover:text-slate-900 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95"
+                      className="px-3 py-1.5 bg-white hover:bg-slate-50/50 border border-slate-200/60 hover:border-slate-350 text-[10px] font-bold text-slate-655 hover:text-slate-900 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95"
                     >
                       {copied ? <Check className="w-3.5 h-3.5 text-emerald-600 font-extrabold" /> : <Copy className="w-3.5 h-3.5 text-slate-500" />}
                       {copied ? 'Copied!' : 'Copy'}
@@ -537,7 +537,7 @@ export const OcrExtractor: React.FC = () => {
 
                     <button
                       onClick={handleDownloadText}
-                      className="px-3 py-1.5 bg-white hover:bg-slate-50 border border-slate-200/60 hover:border-slate-350 text-[10px] font-bold text-slate-655 hover:text-slate-900 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95"
+                      className="px-3 py-1.5 bg-white hover:bg-slate-50/50 border border-slate-200/60 hover:border-slate-350 text-[10px] font-bold text-slate-655 hover:text-slate-900 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95"
                     >
                       <Download className="w-3.5 h-3.5 text-slate-500" />
                       Download TXT
@@ -558,7 +558,7 @@ export const OcrExtractor: React.FC = () => {
               <div className="flex justify-end">
                 <button
                   onClick={handleReset}
-                  className="py-2.5 px-5 bg-white hover:bg-slate-50 border border-slate-200/60 hover:border-slate-350 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl transition flex items-center gap-2 cursor-pointer shadow-xs"
+                  className="py-2.5 px-5 bg-white hover:bg-slate-50/50 border border-slate-200/60 hover:border-slate-350 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl transition flex items-center gap-2 cursor-pointer shadow-xs"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
                   Reset OCR Scanner

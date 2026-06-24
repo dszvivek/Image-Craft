@@ -282,7 +282,7 @@ export const BackgroundRemover: React.FC = () => {
               onCancel={handleCancel}
             />
 
-            <div className="p-3.5 bg-slate-50 border border-slate-200/60 rounded-2xl max-w-sm flex items-start gap-2.5 text-[11px] text-slate-500 mt-2 font-medium">
+            <div className="p-3.5 bg-slate-50/30 border border-slate-200/60 rounded-2xl max-w-sm flex items-start gap-2.5 text-[11px] text-slate-500 mt-2 font-medium">
               <AlertTriangle className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
               <span>
                 First-time execution downloads a 13MB AI weights file into your local browser storage. Subsequent uses are instantaneous and work fully offline.
@@ -318,7 +318,7 @@ export const BackgroundRemover: React.FC = () => {
               <span className="text-[10px] font-bold text-slate-450 uppercase tracking-widest block">
                 Original Image
               </span>
-              <div className="w-full h-[320px] bg-slate-50 border border-slate-200/60 rounded-2xl overflow-hidden flex items-center justify-center p-2">
+              <div className="w-full h-[320px] bg-slate-50/30 border border-slate-200/60 rounded-2xl overflow-hidden flex items-center justify-center p-2">
                 <img src={originalUrl} alt="Original" className="max-w-full max-h-full object-contain rounded-lg shadow-sm" />
               </div>
             </div>
@@ -361,7 +361,7 @@ export const BackgroundRemover: React.FC = () => {
 
                   <button
                     onClick={handleReset}
-                    className="py-3 px-4 bg-white hover:bg-slate-50 border border-slate-200/60 hover:border-slate-350 text-[11px] font-bold uppercase tracking-wider text-slate-650 hover:text-slate-900 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="py-3 px-4 bg-white/80 hover:bg-slate-50/50 border border-slate-200/60 hover:border-slate-350 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                     title="Process another image"
                   >
                     <RefreshCw className="w-4 h-4" />

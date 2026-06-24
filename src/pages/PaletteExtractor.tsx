@@ -198,9 +198,9 @@ export const PaletteExtractor: React.FC = () => {
               />
             </div>
             <div className="md:col-span-5 flex">
-              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-indigo-300 transition-all duration-300">
+              <div className="premium-bento rounded-3xl p-6 flex flex-col justify-between w-full shadow-sm hover:border-indigo-350 transition-all duration-300">
                 <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 border border-indigo-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
+                  <div className="text-[10px] font-bold text-indigo-650 bg-indigo-50/30 border border-indigo-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
                   <h3 className="text-base font-extrabold text-slate-900">How Palette Extractor Works</h3>
                   <p className="text-xs text-slate-500 leading-relaxed font-medium">
                     Analyze design colors and generate harmonized swatches locally. Copy hex/rgb codes, download custom JSON files, CSS variables, or visual swatch sheets instantly.
@@ -222,15 +222,15 @@ export const PaletteExtractor: React.FC = () => {
               <span className="text-xs font-bold text-slate-550 uppercase tracking-wider block">
                 Source Design File
               </span>
-              <div className="w-full h-[320px] bg-slate-100/50 border border-slate-200 rounded-2xl overflow-hidden flex items-center justify-center p-2">
+              <div className="w-full h-[320px] bg-slate-50/30 border border-slate-200/80 rounded-2xl overflow-hidden flex items-center justify-center p-2">
                 <img src={originalUrl} alt="Source" className="max-w-full max-h-full object-contain rounded-lg shadow-md" />
               </div>
 
               {/* Palette Size Slider */}
-              <div className="premium-bento p-4.5 rounded-3xl bg-white border border-slate-200/50 space-y-3 shadow-xs">
+              <div className="glass-card p-4.5 rounded-3xl space-y-3">
                 <div className="flex justify-between items-center text-xs font-semibold">
                   <span className="text-slate-455 font-bold">Swatches to Extract</span>
-                  <span className="font-bold text-indigo-650 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded shadow-xs">
+                  <span className="font-bold text-indigo-650 bg-indigo-50/50 border border-indigo-100 px-2 py-0.5 rounded shadow-xs">
                     {paletteCount} Colors
                   </span>
                 </div>
@@ -248,7 +248,7 @@ export const PaletteExtractor: React.FC = () => {
             {/* Right Color Swatches Result */}
             <div className="lg:col-span-7 space-y-5">
               
-              <div className="flex justify-between items-center bg-white border border-slate-200/50 rounded-2xl px-4 py-3 shadow-xs">
+              <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-3 shadow-xs">
                 <span className="text-xs font-bold text-slate-800">
                   Extracted Swatches
                 </span>
@@ -258,7 +258,7 @@ export const PaletteExtractor: React.FC = () => {
               </div>
 
               {isProcessing ? (
-                <div className="w-full h-[250px] border border-slate-200 rounded-2xl bg-slate-50 flex items-center justify-center">
+                <div className="w-full h-[250px] border border-slate-200/70 rounded-2xl bg-slate-50/30 flex items-center justify-center">
                   <div className="flex flex-col items-center gap-2.5">
                     <RefreshCw className="w-8 h-8 text-indigo-650 animate-spin" />
                     <span className="text-xs font-bold text-slate-600">Analyzing pixels...</span>
@@ -269,7 +269,7 @@ export const PaletteExtractor: React.FC = () => {
                   {palette.map((color, index) => (
                     <div 
                       key={index} 
-                      className="premium-bento p-3.5 rounded-3xl bg-white flex items-center justify-between gap-4 hover:border-indigo-500/20 transition-all shadow-xs"
+                      className="glass-card p-3.5 rounded-3xl flex items-center justify-between gap-4 hover:border-indigo-500/30 transition-all"
                     >
                       {/* Swatch block */}
                       <div className="flex items-center gap-4">
@@ -284,7 +284,7 @@ export const PaletteExtractor: React.FC = () => {
                             </span>
                             <button
                               onClick={() => handleCopyText(color.hex, index, 'hex')}
-                              className="p-1 hover:bg-slate-50 rounded-lg text-slate-500 hover:text-indigo-600 transition cursor-pointer"
+                              className="p-1 hover:bg-indigo-50/20 rounded-lg text-slate-500 hover:text-indigo-600 transition cursor-pointer"
                               title="Copy HEX"
                             >
                               {copiedIndex === index && copiedType === 'hex' ? (
@@ -301,7 +301,7 @@ export const PaletteExtractor: React.FC = () => {
                             </span>
                             <button
                               onClick={() => handleCopyText(color.rgb, index, 'rgb')}
-                              className="p-1 hover:bg-slate-55 rounded-lg text-slate-500 hover:text-indigo-600 transition cursor-pointer"
+                              className="p-1 hover:bg-indigo-50/20 rounded-lg text-slate-500 hover:text-indigo-600 transition cursor-pointer"
                               title="Copy RGB"
                             >
                               {copiedIndex === index && copiedType === 'rgb' ? (
@@ -316,7 +316,7 @@ export const PaletteExtractor: React.FC = () => {
 
                       {/* Percentage match */}
                       {color.percentage !== undefined && (
-                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600">
+                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-lg bg-slate-50/40 border border-slate-200 text-slate-600">
                           {color.percentage}% coverage
                         </span>
                       )}
@@ -327,7 +327,7 @@ export const PaletteExtractor: React.FC = () => {
 
               {/* Downloads & Reset controls */}
               {palette.length > 0 && (
-                <div className="premium-bento p-5 rounded-3xl bg-white space-y-4 shadow-xs">
+                <div className="glass-card p-5 rounded-3xl space-y-4">
                   <span className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
                     Export Palette
                   </span>
@@ -335,7 +335,7 @@ export const PaletteExtractor: React.FC = () => {
                   <div className="grid grid-cols-3 gap-2.5">
                     <button
                       onClick={downloadPNGSwatch}
-                      className="py-2.5 px-3 bg-white hover:bg-slate-50 border border-slate-200/60 hover:border-slate-350 text-[10px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                      className="py-2.5 px-3 bg-white/95 hover:bg-slate-50/50 border border-slate-200/50 hover:border-slate-350 text-[10px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
                     >
                       <ImageIcon className="w-3.5 h-3.5 text-slate-500" />
                       PNG Swatch
@@ -343,7 +343,7 @@ export const PaletteExtractor: React.FC = () => {
 
                     <button
                       onClick={downloadCSS}
-                      className="py-2.5 px-3 bg-white hover:bg-slate-50 border border-slate-200/60 hover:border-slate-350 text-[10px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                      className="py-2.5 px-3 bg-white/95 hover:bg-slate-50/50 border border-slate-200/50 hover:border-slate-350 text-[10px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
                     >
                       <FileCode className="w-3.5 h-3.5 text-slate-500" />
                       CSS Root
@@ -351,7 +351,7 @@ export const PaletteExtractor: React.FC = () => {
 
                     <button
                       onClick={downloadJSON}
-                      className="py-2.5 px-3 bg-white hover:bg-slate-50 border border-slate-200/60 hover:border-slate-350 text-[10px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                      className="py-2.5 px-3 bg-white/95 hover:bg-slate-50/50 border border-slate-200/50 hover:border-slate-350 text-[10px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
                     >
                       <Palette className="w-3.5 h-3.5 text-slate-500" />
                       JSON file
@@ -361,7 +361,7 @@ export const PaletteExtractor: React.FC = () => {
                   <div className="border-t border-slate-200/60 pt-3.5 flex justify-end">
                     <button
                       onClick={handleReset}
-                      className="py-2.5 px-5 bg-white hover:bg-slate-50 border border-slate-200/60 hover:border-slate-350 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl transition flex items-center gap-2 cursor-pointer shadow-xs"
+                      className="py-2.5 px-5 bg-white/95 hover:bg-slate-50/50 border border-slate-200/50 hover:border-slate-350 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl transition flex items-center gap-2 cursor-pointer shadow-xs"
                     >
                       <RefreshCw className="w-3.5 h-3.5" />
                       Reset Extractor

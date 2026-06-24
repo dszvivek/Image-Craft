@@ -70,7 +70,7 @@ export const ToolGuide: React.FC<ToolGuideProps> = ({
       {/* Steps & Features Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Step-by-Step */}
-        <div className="premium-bento p-6 rounded-2xl bg-white border border-slate-200/50 space-y-4 shadow-xs">
+        <div className="glass-card p-6 rounded-2xl space-y-4">
           <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 flex items-center gap-2">
             <span className="w-1.5 h-3.5 bg-indigo-600 rounded-full" />
             Quick Instructions
@@ -78,7 +78,7 @@ export const ToolGuide: React.FC<ToolGuideProps> = ({
           <ol className="relative border-l border-indigo-100/60 ml-3.5 pl-6 space-y-5">
             {steps.map((step, idx) => (
               <li key={idx} className="relative">
-                <span className="absolute -left-10 top-0.5 flex items-center justify-center w-6.5 h-6.5 bg-indigo-50 border border-indigo-150 text-indigo-650 rounded-full text-[10px] font-bold font-mono">
+                <span className="absolute -left-10 top-0.5 flex items-center justify-center w-6.5 h-6.5 bg-indigo-50/80 border border-indigo-100 text-indigo-600 rounded-full text-[10px] font-bold font-mono">
                   {idx + 1}
                 </span>
                 <h4 className="text-xs font-bold text-slate-850">{step.title}</h4>
@@ -91,7 +91,7 @@ export const ToolGuide: React.FC<ToolGuideProps> = ({
         </div>
 
         {/* Core Capabilities */}
-        <div className="premium-bento p-6 rounded-2xl bg-white border border-slate-200/50 space-y-4 shadow-xs">
+        <div className="glass-card p-6 rounded-2xl space-y-4">
           <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 flex items-center gap-2">
             <span className="w-1.5 h-3.5 bg-indigo-600 rounded-full" />
             Core Features & Advantages
@@ -111,7 +111,7 @@ export const ToolGuide: React.FC<ToolGuideProps> = ({
 
       {/* Accordion FAQs */}
       {faq.length > 0 && (
-        <div className="premium-bento p-6 rounded-2xl bg-white border border-slate-200/50 space-y-4 shadow-xs">
+        <div className="glass-card p-6 rounded-2xl space-y-4">
           <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 flex items-center gap-2 mb-2">
             <HelpCircle className="w-4 h-4 text-indigo-600" />
             Frequently Asked Questions

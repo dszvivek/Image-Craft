@@ -615,9 +615,9 @@ export const SvgVectorizer: React.FC = () => {
               />
             </div>
             <div className="md:col-span-5 flex">
-              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-teal-300 transition-all duration-300">
+              <div className="premium-bento rounded-3xl p-6 flex flex-col justify-between w-full shadow-sm hover:border-teal-350 transition-all duration-300">
                 <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-teal-650 bg-teal-50/50 border border-teal-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
+                  <div className="text-[10px] font-bold text-teal-650 bg-teal-50/30 border border-teal-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
                   <h3 className="text-base font-extrabold text-slate-900">How SVG Vectorizer Works</h3>
                   <p className="text-xs text-slate-500 leading-relaxed font-medium">
                     Upload a raster image, set color count and smoothing tolerance, then trace paths using K-Means clustering and Moore-Neighbor contour algorithms — all offline.
@@ -637,8 +637,7 @@ export const SvgVectorizer: React.FC = () => {
             {/* Left Controls column */}
             <div className="lg:col-span-4 flex flex-col gap-6">
               
-              {/* Core Vector Settings */}
-              <div className="premium-bento p-5 rounded-3xl bg-white space-y-5 shadow-xs">
+              {/* Core Vector Settings */}              <div className="glass-card p-5 rounded-3xl space-y-5">
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2 text-sm">
                   <Sliders className="w-4.5 h-4.5 text-indigo-500" />
                   Tracing Configuration
@@ -653,7 +652,7 @@ export const SvgVectorizer: React.FC = () => {
                       className={`py-2 px-3 rounded-xl text-xs font-bold border transition cursor-pointer ${
                         settings.mode === 'color'
                           ? 'bg-indigo-650 border-indigo-500 text-white shadow-sm'
-                          : 'bg-slate-50 border-slate-200 text-slate-655 hover:bg-slate-100'
+                          : 'bg-white/80 border-slate-200 text-slate-655 hover:bg-slate-50/50'
                       }`}
                     >
                       Color Palette
@@ -663,7 +662,7 @@ export const SvgVectorizer: React.FC = () => {
                       className={`py-2 px-3 rounded-xl text-xs font-bold border transition cursor-pointer ${
                         settings.mode === 'monochrome'
                           ? 'bg-indigo-650 border-indigo-500 text-white shadow-sm'
-                          : 'bg-slate-50 border-slate-200 text-slate-655 hover:bg-slate-100'
+                          : 'bg-white/80 border-slate-200 text-slate-655 hover:bg-slate-50/50'
                       }`}
                     >
                       B&W Outline
@@ -758,7 +757,7 @@ export const SvgVectorizer: React.FC = () => {
               </div>
 
               {/* Advanced Settings Panel */}
-              <div className="premium-bento p-5 rounded-3xl bg-white space-y-4 shadow-xs">
+              <div className="glass-card p-5 rounded-3xl space-y-4">
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2 text-sm">
                   <Settings className="w-4.5 h-4.5 text-indigo-500" />
                   Advanced Tracing Specs
@@ -771,7 +770,7 @@ export const SvgVectorizer: React.FC = () => {
                     <select
                       value={settings.resolution}
                       onChange={(e) => updateSetting('resolution', Number(e.target.value))}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer"
+                      className="w-full bg-white/90 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer shadow-xs"
                     >
                       <option value="150">Low Detail (150px)</option>
                       <option value="300">Medium Detail (300px)</option>
@@ -785,7 +784,7 @@ export const SvgVectorizer: React.FC = () => {
                     <select
                       value={settings.scale}
                       onChange={(e) => updateSetting('scale', Number(e.target.value))}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer"
+                      className="w-full bg-white/90 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer shadow-xs"
                     >
                       <option value="1">Original (1x)</option>
                       <option value="2">Retina (2x)</option>
@@ -797,11 +796,11 @@ export const SvgVectorizer: React.FC = () => {
               </div>
 
               {/* CTAs */}
-              <div className="premium-bento p-5 rounded-3xl bg-white space-y-3 shadow-xs">
+              <div className="glass-card p-5 rounded-3xl space-y-3">
                 <button
                   onClick={handleDownload}
                   disabled={isProcessing || !vectorUrl}
-                  className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-655 hover:from-indigo-550 hover:to-purple-550 disabled:opacity-50 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-655 hover:from-indigo-555 hover:to-purple-555 disabled:opacity-50 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
                   Download Scalable SVG
@@ -809,7 +808,7 @@ export const SvgVectorizer: React.FC = () => {
 
                 <button
                   onClick={handleReset}
-                  className="w-full py-3 bg-white hover:bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                  className="w-full py-3 bg-white hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                 >
                   <RefreshCw className="w-4 h-4" />
                   Reset Image
@@ -822,7 +821,7 @@ export const SvgVectorizer: React.FC = () => {
             <div className="lg:col-span-8 space-y-4">
               
               {/* Workspace Navigation Header Tabs */}
-              <div className="flex justify-between items-center bg-white border border-slate-200/50 rounded-2xl px-4 py-2 shadow-xs">
+              <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-2">
                 <div className="flex gap-1.5">
                   <button
                     onClick={() => setActiveTab('preview')}
@@ -861,7 +860,7 @@ export const SvgVectorizer: React.FC = () => {
               </div>
 
               {/* Viewport container */}
-              <div className="w-full border border-slate-200 rounded-3xl bg-slate-100/50 flex items-center justify-center min-h-[420px] shadow-inner p-4 relative overflow-hidden">
+              <div className="w-full border border-slate-200/80 rounded-3xl bg-slate-50/30 flex items-center justify-center min-h-[420px] shadow-inner p-4 relative overflow-hidden">
                 <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none" />
 
                 {isProcessing ? (

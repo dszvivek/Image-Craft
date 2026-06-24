@@ -719,7 +719,7 @@ export const AspectResizer: React.FC = () => {
 
                 {/* Custom Ratio Input Fields */}
                 {presetId === 'custom' && (
-                  <div className="grid grid-cols-2 gap-3 bg-slate-50 border border-slate-200/60 p-3 rounded-2xl animate-fade-in shadow-xs">
+                  <div className="grid grid-cols-2 gap-3 bg-slate-50/40 border border-slate-200/60 p-3 rounded-2xl animate-fade-in shadow-xs">
                     <div className="space-y-1">
                       <label className="text-[9px] font-bold text-slate-450 uppercase tracking-wider block">
                         Custom Width (px)
@@ -761,7 +761,7 @@ export const AspectResizer: React.FC = () => {
                       className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
                         fitStyle === 'contain'
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
-                          : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900'
+                          : 'bg-white/80 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                       }`}
                     >
                       Blur Fit
@@ -772,7 +772,7 @@ export const AspectResizer: React.FC = () => {
                       className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
                         fitStyle === 'cover'
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
-                          : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900'
+                          : 'bg-white/80 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                       }`}
                     >
                       Auto Crop
@@ -782,7 +782,7 @@ export const AspectResizer: React.FC = () => {
                       className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
                         fitStyle === 'crop'
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
-                          : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900'
+                          : 'bg-white/80 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                       }`}
                     >
                       Smart Crop
@@ -792,7 +792,7 @@ export const AspectResizer: React.FC = () => {
 
                 {/* Smart Crop Auto-Detection Status */}
                 {smartCropInfo && (
-                  <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-3.5 space-y-2.5 animate-fade-in shadow-xs">
+                  <div className="bg-slate-50/40 border border-slate-200/60 rounded-2xl p-3.5 space-y-2.5 animate-fade-in shadow-xs">
                     <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
                       <Sparkles className="w-4 h-4 text-amber-500 animate-pulse" />
                       <span>Smart Crop Assistant</span>
@@ -831,7 +831,7 @@ export const AspectResizer: React.FC = () => {
 
                 {/* Live Crop Preview (only for crop style) */}
                 {fitStyle === 'crop' && previewUrl && (
-                  <div className="space-y-2 bg-slate-50 border border-slate-200/60 rounded-2xl p-3 shadow-xs">
+                  <div className="space-y-2 bg-slate-50/40 border border-slate-200/60 rounded-2xl p-3 shadow-xs">
                     <label className="text-[9px] font-bold text-slate-455 uppercase tracking-widest block">
                       Live Cropped Result Preview
                     </label>
@@ -865,7 +865,7 @@ export const AspectResizer: React.FC = () => {
                 )}
 
                 {/* Presets Details Info Card */}
-                <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-4.5 space-y-3.5 shadow-xs">
+                <div className="bg-slate-50/40 border border-slate-200/60 rounded-2xl p-4.5 space-y-3.5 shadow-xs">
                   <div className="flex justify-between items-center text-xs font-semibold">
                     <span className="text-slate-455">Target Size:</span>
                     <span className="font-mono text-slate-800 font-bold">{activePreset.width} × {activePreset.height} px</span>
@@ -889,7 +889,7 @@ export const AspectResizer: React.FC = () => {
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-3 bg-white hover:bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="w-full py-3 bg-white/80 hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                   >
                     <RefreshCw className="w-4 h-4" />
                     Reset Editor
@@ -912,7 +912,7 @@ export const AspectResizer: React.FC = () => {
               </div>
 
               {/* Viewport */}
-              <div className="w-full border border-slate-200 rounded-3xl bg-slate-50 flex items-center justify-center min-h-[400px] shadow-inner p-4 relative overflow-hidden">
+              <div className="w-full border border-slate-200 rounded-3xl bg-slate-50/30 flex items-center justify-center min-h-[400px] shadow-inner p-4 relative overflow-hidden">
                 <div className="absolute inset-0 bg-dot-grid opacity-30" />
 
                 {isAssembling && fitStyle !== 'crop' ? (

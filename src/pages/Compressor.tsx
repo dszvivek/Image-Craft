@@ -224,7 +224,7 @@ export const Compressor: React.FC = () => {
             
             {/* Left controls column — sticky on desktop */}
             <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
-              <div className="premium-bento p-6 rounded-3xl bg-white space-y-6">
+              <div className="glass-card p-6 rounded-3xl space-y-6">
                 
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
                   <Sparkles className="w-4.5 h-4.5 text-indigo-500" />
@@ -244,7 +244,7 @@ export const Compressor: React.FC = () => {
                         className={`py-2.5 px-3 rounded-xl text-[11px] font-bold border transition-all cursor-pointer active:scale-95 ${
                           format === f
                             ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
-                            : 'bg-slate-50 border-slate-200/70 text-slate-650 hover:text-slate-900 hover:bg-slate-100/50'
+                            : 'bg-white/80 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                         }`}
                       >
                         {formatLabels[f]}
@@ -288,7 +288,7 @@ export const Compressor: React.FC = () => {
                 )}
 
                 {/* Stats */}
-                <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-4.5 space-y-3.5 shadow-xs">
+                <div className="bg-white/70 border border-slate-200/50 rounded-2xl p-4.5 space-y-3.5 shadow-sm">
                   <div className="flex justify-between items-center text-xs font-semibold">
                     <span className="text-slate-450">Original Size:</span>
                     <span className="font-mono text-slate-700">{formatSize(originalFile.size)}</span>
@@ -339,7 +339,7 @@ export const Compressor: React.FC = () => {
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-3 bg-white hover:bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-650 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="w-full py-3 bg-white hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-650 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                   >
                     <RefreshCw className="w-4 h-4" />
                     Upload New Image
@@ -353,7 +353,7 @@ export const Compressor: React.FC = () => {
             <div className="lg:col-span-8 space-y-4">
               
               {/* Header inside preview */}
-              <div className="flex justify-between items-center bg-white border border-slate-200/50 rounded-2xl px-4 py-3 shadow-xs">
+              <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-3 shadow-xs">
                 <span className="text-xs font-bold text-slate-800">
                   Interactive Preview Slider (Before / After)
                 </span>
@@ -367,7 +367,7 @@ export const Compressor: React.FC = () => {
                 ref={containerRef}
                 onMouseMove={handleSliderMove}
                 onTouchMove={handleSliderMove}
-                className="compare-container w-full h-[400px] md:h-[500px] border border-slate-200 rounded-2xl bg-slate-50 flex items-center justify-center relative cursor-ew-resize select-none overflow-hidden"
+                className="compare-container w-full h-[400px] md:h-[500px] border border-slate-200 rounded-2xl bg-slate-50/30 flex items-center justify-center relative cursor-ew-resize select-none overflow-hidden"
               >
                 {/* Loader status */}
                 {isProcessing && (

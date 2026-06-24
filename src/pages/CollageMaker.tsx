@@ -359,7 +359,7 @@ export const CollageMaker: React.FC = () => {
 
                 <div className="grid grid-cols-4 gap-2.5">
                   {images.map((img) => (
-                    <div key={img.id} className="relative aspect-square bg-slate-50 border border-slate-200/60 rounded-xl overflow-hidden group shadow-xs">
+                    <div key={img.id} className="relative aspect-square bg-white/80 border border-slate-200/60 rounded-xl overflow-hidden group shadow-xs">
                       <img src={img.url} alt="Thumbnail" className="w-full h-full object-cover" />
                       <button
                         onClick={() => removeImage(img.id)}
@@ -394,7 +394,7 @@ export const CollageMaker: React.FC = () => {
                         className={`py-2.5 px-3 rounded-xl text-[11px] font-bold border transition-all text-center cursor-pointer active:scale-95 ${
                           layoutId === lay.id
                             ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
-                            : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-100/50'
+                            : 'bg-white/80 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                         }`}
                       >
                         {lay.name}
@@ -416,7 +416,7 @@ export const CollageMaker: React.FC = () => {
                         className={`py-2 px-2.5 rounded-xl text-[11px] font-bold border transition-all text-center cursor-pointer active:scale-95 ${
                           aspectRatio === ratio.value
                             ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
-                            : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-100/50'
+                            : 'bg-white/80 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                         }`}
                       >
                         {ratio.label.split(' ')[0]}
@@ -507,7 +507,7 @@ export const CollageMaker: React.FC = () => {
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-3 bg-white hover:bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 hover:border-slate-350 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="w-full py-3 bg-white/80 hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 hover:border-slate-350 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                   >
                     <RefreshCw className="w-4 h-4" />
                     Reset Collage
@@ -529,7 +529,7 @@ export const CollageMaker: React.FC = () => {
                 </span>
               </div>
 
-              <div className="w-full border border-slate-200/60 rounded-3xl bg-slate-50 flex items-center justify-center min-h-[400px] shadow-inner p-4 relative overflow-hidden">
+              <div className="w-full border border-slate-200/60 rounded-3xl bg-slate-50/30 flex items-center justify-center min-h-[400px] shadow-inner p-4 relative overflow-hidden">
                 <div className="absolute inset-0 bg-dot-grid opacity-30" />
                 {isAssembling ? (
                   <div className="flex flex-col items-center gap-2.5 relative z-10">

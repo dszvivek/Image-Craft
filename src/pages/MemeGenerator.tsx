@@ -277,9 +277,9 @@ export const MemeGenerator: React.FC = () => {
               />
             </div>
             <div className="md:col-span-5 flex">
-              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-green-300 transition-all duration-300">
+              <div className="premium-bento rounded-3xl p-6 flex flex-col justify-between w-full shadow-sm hover:border-green-350 transition-all duration-300">
                 <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-green-650 bg-green-50/50 border border-green-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
+                  <div className="text-[10px] font-bold text-green-650 bg-green-50/30 border border-green-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
                   <h3 className="text-base font-extrabold text-slate-900">How Meme Generator Works</h3>
                   <p className="text-xs text-slate-500 leading-relaxed font-medium">
                     Load any image, add draggable text layers with Impact-style fonts and black outlines, position them freely by dragging on the canvas, then download your meme.
@@ -300,7 +300,7 @@ export const MemeGenerator: React.FC = () => {
             <div className="lg:col-span-4 flex flex-col gap-6">
               
               {/* Global Typography Settings */}
-              <div className="premium-bento p-5 rounded-3xl bg-white space-y-4 shadow-xs">
+              <div className="glass-card p-5 rounded-3xl space-y-4">
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2 text-sm">
                   <Type className="w-4.5 h-4.5 text-indigo-505" />
                   Meme Typography
@@ -309,11 +309,11 @@ export const MemeGenerator: React.FC = () => {
                 <div className="grid grid-cols-2 gap-3">
                   {/* Font Family */}
                   <div className="space-y-1">
-                    <label className="text-[9px] font-bold text-slate-450 uppercase tracking-wider block">Font Family</label>
+                    <label className="text-[9px] font-bold text-slate-455 uppercase tracking-wider block">Font Family</label>
                     <select
                       value={fontFamily}
                       onChange={(e) => setFontFamily(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer"
+                      className="w-full bg-white/95 border border-slate-200/80 rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer shadow-xs"
                     >
                       <option value="Impact">Impact</option>
                       <option value="Arial">Arial</option>
@@ -330,7 +330,7 @@ export const MemeGenerator: React.FC = () => {
                       className={`w-full py-1.5 px-2 rounded-lg text-xs font-bold border transition cursor-pointer ${
                         allCaps 
                           ? 'bg-indigo-650 border-indigo-500 text-white shadow-sm'
-                          : 'bg-slate-55 border-slate-200 text-slate-655 hover:bg-slate-100'
+                          : 'bg-white/80 border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                       }`}
                     >
                       {allCaps ? 'ALL CAPS' : 'Normal Case'}
@@ -340,12 +340,12 @@ export const MemeGenerator: React.FC = () => {
               </div>
 
               {/* Text Blocks list */}
-              <div className="premium-bento p-5 rounded-3xl bg-white space-y-4 shadow-xs max-h-[350px] overflow-y-auto">
+              <div className="glass-card p-5 rounded-3xl space-y-4 max-h-[350px] overflow-y-auto">
                 <div className="flex justify-between items-center border-b border-slate-100 pb-2">
                   <h3 className="font-bold text-slate-800 text-sm">Captions List</h3>
                   <button 
                     onClick={addTextBlock}
-                    className="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 border border-indigo-150 text-[10px] font-bold text-indigo-650 rounded-lg transition-all flex items-center gap-1 cursor-pointer"
+                    className="px-2.5 py-1 bg-indigo-50/70 hover:bg-indigo-100 border border-indigo-150 text-[10px] font-bold text-indigo-650 rounded-lg transition-all flex items-center gap-1 cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" /> Add
                   </button>
@@ -353,7 +353,7 @@ export const MemeGenerator: React.FC = () => {
 
                 <div className="space-y-3.5">
                   {textBlocks.map((tb, idx) => (
-                    <div key={tb.id} className="p-3 bg-slate-50 border border-slate-200 rounded-2xl space-y-3 relative">
+                    <div key={tb.id} className="p-3 bg-white/80 border border-slate-200/50 rounded-2xl space-y-3 relative">
                       <div className="flex justify-between items-center">
                         <span className="text-[9px] font-bold text-slate-450 uppercase tracking-wider">#Caption {idx + 1}</span>
                         <button
@@ -400,7 +400,7 @@ export const MemeGenerator: React.FC = () => {
               </div>
 
               {/* CTAs */}
-              <div className="premium-bento p-5 rounded-3xl bg-white space-y-3 shadow-xs">
+              <div className="glass-card p-5 rounded-3xl space-y-3">
                 <button
                   onClick={handleDownload}
                   disabled={isAssembling || !previewUrl}
@@ -412,7 +412,7 @@ export const MemeGenerator: React.FC = () => {
 
                 <button
                   onClick={handleReset}
-                  className="w-full py-3 bg-white hover:bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                  className="w-full py-3 bg-white hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                 >
                   <RefreshCw className="w-4 h-4" />
                   Reset Template
@@ -424,7 +424,7 @@ export const MemeGenerator: React.FC = () => {
             {/* Right Interactive Drag Viewport column */}
             <div className="lg:col-span-8 space-y-4">
               
-              <div className="flex justify-between items-center bg-white border border-slate-200/50 rounded-2xl px-4 py-3 shadow-xs">
+              <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-3 shadow-xs">
                 <span className="text-xs font-bold text-slate-800">
                   Interactive Drag-and-Drop Workspace
                 </span>
@@ -443,7 +443,7 @@ export const MemeGenerator: React.FC = () => {
                 onTouchStart={handleDragStart}
                 onTouchMove={handleDragMove}
                 onTouchEnd={handleDragEnd}
-                className="w-full border border-slate-200 rounded-3xl bg-slate-100/50 flex items-center justify-center min-h-[400px] shadow-inner p-4 relative overflow-hidden select-none cursor-move"
+                className="w-full border border-slate-200/80 rounded-3xl bg-slate-50/30 flex items-center justify-center min-h-[400px] shadow-inner p-4 relative overflow-hidden select-none cursor-move"
               >
                 <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none" />
 

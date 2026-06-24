@@ -213,9 +213,9 @@ export const MetadataStripper: React.FC = () => {
               />
             </div>
             <div className="md:col-span-5 flex">
-              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-red-300 transition-all duration-300">
+              <div className="premium-bento rounded-3xl p-6 flex flex-col justify-between w-full shadow-sm hover:border-red-350 transition-all duration-300">
                 <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-red-650 bg-red-50/50 border border-red-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
+                  <div className="text-[10px] font-bold text-red-650 bg-red-50/30 border border-red-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
                   <h3 className="text-base font-extrabold text-slate-900">How Metadata Stripper Works</h3>
                   <p className="text-xs text-slate-500 leading-relaxed font-medium">
                     Drop a JPEG to instantly expose hidden EXIF data — GPS coordinates, camera model, aperture and timestamps — then scrub them all with one click.
@@ -240,13 +240,13 @@ export const MetadataStripper: React.FC = () => {
                 <span className="text-[10px] font-bold text-slate-450 uppercase tracking-widest block">
                   Source Image Preview
                 </span>
-                <div className="w-full h-[280px] bg-slate-100/50 border border-slate-200 rounded-2xl overflow-hidden flex items-center justify-center p-2 relative shadow-inner">
+                <div className="w-full h-[280px] bg-slate-50/30 border border-slate-200/80 rounded-2xl overflow-hidden flex items-center justify-center p-2 relative shadow-inner">
                   <img src={imageUrl} alt="Source" className="max-w-full max-h-full object-contain rounded-lg shadow-md" />
                 </div>
               </div>
 
               {/* Stripping panel */}
-              <div className="premium-bento p-5 rounded-3xl bg-white space-y-5 shadow-xs">
+              <div className="glass-card p-5 rounded-3xl space-y-5">
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2 text-sm">
                   <Trash2 className="w-4.5 h-4.5 text-red-500" />
                   Scrub & Export Options
@@ -264,7 +264,7 @@ export const MetadataStripper: React.FC = () => {
                         className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                           downloadFormat === f
                             ? 'bg-red-600 border-red-550 text-white shadow-md shadow-red-500/10'
-                            : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900'
+                            : 'bg-white/85 border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                         }`}
                       >
                         {f === 'image/jpeg' ? 'JPEG (Lossy Clean)' : 'PNG (Lossless Clean)'}
@@ -284,14 +284,14 @@ export const MetadataStripper: React.FC = () => {
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-3 bg-white hover:bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="w-full py-3 bg-white hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                   >
                     <RefreshCw className="w-4 h-4" />
                     Upload Different Photo
                   </button>
                 </div>
 
-                <div className="flex items-center gap-2 text-[10px] text-slate-505 bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 shadow-xs font-medium">
+                <div className="flex items-center gap-2 text-[10px] text-slate-505 bg-white/80 p-2.5 rounded-xl border border-slate-200/50 shadow-xs font-medium">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                   Local Canvas redrawing strips EXIF headers instantly.
                 </div>
@@ -303,7 +303,7 @@ export const MetadataStripper: React.FC = () => {
             <div className="lg:col-span-7 space-y-5 w-full">
               
               {/* Header */}
-              <div className="flex justify-between items-center bg-white border border-slate-200/50 rounded-2xl px-4 py-3 shadow-xs">
+              <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-3 shadow-xs">
                 <span className="text-xs font-bold text-slate-800 flex items-center gap-2">
                   <Fingerprint className="w-4.5 h-4.5 text-red-500" />
                   EXIF Metadata Inspector
@@ -311,19 +311,19 @@ export const MetadataStripper: React.FC = () => {
                 {isProcessing ? (
                   <span className="text-[10px] font-semibold text-slate-400 animate-pulse">Reading headers...</span>
                 ) : (
-                  <span className="text-[10px] text-red-655 font-bold uppercase tracking-wider bg-red-50 border border-red-100/60 px-2 py-0.5 rounded shadow-xs">
+                  <span className="text-[10px] text-red-655 font-bold uppercase tracking-wider bg-red-50/50 border border-red-100/60 px-2 py-0.5 rounded shadow-xs">
                     {metadata.length > 3 ? 'EXIF Tagged' : 'Metadata Free'}
                   </span>
                 )}
               </div>
 
               {isProcessing ? (
-                <div className="w-full h-[300px] bg-white border border-slate-200/55 rounded-3xl flex flex-col items-center justify-center gap-3">
+                <div className="w-full h-[300px] glass-card rounded-3xl flex flex-col items-center justify-center gap-3">
                   <RefreshCw className="w-8 h-8 text-red-500 animate-spin" />
-                  <span className="text-xs font-semibold text-slate-450">Reading binary headers...</span>
+                  <span className="text-xs font-semibold text-slate-455">Reading binary headers...</span>
                 </div>
               ) : metadata.length <= 3 ? (
-                <div className="premium-bento p-8 rounded-3xl bg-white text-center flex flex-col items-center gap-3.5 shadow-sm">
+                <div className="glass-card p-8 rounded-3xl text-center flex flex-col items-center gap-3.5">
                   <div className="w-12 h-12 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm">
                     <ShieldCheck className="w-6 h-6 animate-pulse" />
                   </div>
@@ -365,7 +365,7 @@ export const MetadataStripper: React.FC = () => {
                     const catInfo = categories[cat];
 
                     return (
-                      <div key={cat} className="premium-bento p-5 rounded-2xl bg-white space-y-3.5 shadow-sm">
+                      <div key={cat} className="glass-card p-5 rounded-2xl space-y-3.5">
                         <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border inline-block ${catInfo.color}`}>
                           {catInfo.label}
                         </span>

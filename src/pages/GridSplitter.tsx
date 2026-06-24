@@ -272,7 +272,7 @@ export const GridSplitter: React.FC = () => {
             
             {/* Left Controls */}
             <div className="lg:col-span-4 flex flex-col gap-6">
-              <div className="premium-bento p-6 rounded-3xl bg-white space-y-6">
+              <div className="glass-card p-6 rounded-3xl space-y-6">
                 
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
                   <Grid className="w-4.5 h-4.5 text-indigo-500" />
@@ -292,7 +292,7 @@ export const GridSplitter: React.FC = () => {
                         className={`py-2.5 px-3 rounded-xl text-[11px] font-bold border transition-all cursor-pointer active:scale-95 ${
                           gridSize === size
                             ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
-                            : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-100/50'
+                            : 'bg-white/80 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                         }`}
                       >
                         {size} × {size}
@@ -305,7 +305,7 @@ export const GridSplitter: React.FC = () => {
                 </div>
 
                 {/* Stats / Details */}
-                <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-4.5 space-y-3 shadow-xs">
+                <div className="bg-white/70 border border-slate-200/50 rounded-2xl p-4.5 space-y-3 shadow-sm">
                   <div className="flex justify-between items-center text-xs font-semibold">
                     <span className="text-slate-455">Original File:</span>
                     <span className="font-mono text-slate-700 text-right truncate max-w-[120px]" title={originalFile.name}>
@@ -331,7 +331,7 @@ export const GridSplitter: React.FC = () => {
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-3 bg-white hover:bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="w-full py-3 bg-white hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                   >
                     <RefreshCw className="w-4 h-4" />
                     Upload Different Image
@@ -345,7 +345,7 @@ export const GridSplitter: React.FC = () => {
             <div className="lg:col-span-8 space-y-4">
               
               {isZipping && (
-                <div className="premium-bento p-6 rounded-3xl bg-white border border-indigo-100/60 shadow-xs">
+                <div className="glass-card p-6 rounded-3xl border border-indigo-100/60 shadow-xs">
                   <ProgressBar 
                     progress={zippingProgress}
                     label="Generating ZIP Archive"
@@ -354,7 +354,7 @@ export const GridSplitter: React.FC = () => {
                 </div>
               )}
 
-              <div className="flex justify-between items-center bg-white border border-slate-200/50 rounded-2xl px-4 py-3 shadow-xs">
+              <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-3 shadow-xs">
                 <span className="text-xs font-bold text-slate-800">
                   Cropped Grid Layout Preview
                 </span>
@@ -365,7 +365,7 @@ export const GridSplitter: React.FC = () => {
 
               {/* Grid Preview Container */}
               {isProcessing ? (
-                <div className="w-full h-[400px] border border-slate-200 rounded-2xl bg-slate-50 flex items-center justify-center">
+                <div className="w-full h-[400px] border border-slate-200/80 rounded-2xl bg-slate-50/30 flex items-center justify-center">
                   <div className="flex flex-col items-center gap-2.5">
                     <RefreshCw className="w-8 h-8 text-indigo-600 animate-spin" />
                     <span className="text-xs font-bold text-slate-650">Slicing images...</span>
@@ -373,7 +373,7 @@ export const GridSplitter: React.FC = () => {
                 </div>
               ) : (
                 <div 
-                  className="w-full max-w-[500px] mx-auto aspect-square border border-slate-200 rounded-2xl bg-slate-100/40 p-4 grid gap-1.5"
+                  className="w-full max-w-[500px] mx-auto aspect-square border border-slate-200/80 rounded-2xl bg-slate-50/30 p-4 grid gap-1.5"
                   style={{
                     gridTemplateColumns: `repeat(${gridSize}, minmax(0, 1fr))`,
                   }}

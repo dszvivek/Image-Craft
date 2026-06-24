@@ -511,7 +511,7 @@ export const BatchConverter: React.FC = () => {
                         className={`py-2 px-1 rounded-xl text-[10px] font-bold border transition-all cursor-pointer disabled:opacity-50 text-center ${
                           format === f
                             ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
-                            : 'bg-slate-50 border-slate-200/70 text-slate-655 hover:text-slate-900'
+                            : 'bg-white/80 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                         }`}
                       >
                         {formatLabels[f]}
@@ -582,7 +582,7 @@ export const BatchConverter: React.FC = () => {
                 )}
 
                 {/* Info Card */}
-                <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-4.5 space-y-3.5 shadow-xs">
+                <div className="bg-slate-50/40 border border-slate-200/60 rounded-2xl p-4.5 space-y-3.5 shadow-xs">
                   <div className="flex justify-between items-center text-xs font-semibold">
                     <span className="text-slate-455">Total Images:</span>
                     <span className="font-bold text-slate-805">{files.length} Files</span>
@@ -651,7 +651,7 @@ export const BatchConverter: React.FC = () => {
                             <button
                               onClick={handleDownloadPDF}
                               disabled={isProcessing || isPackaging}
-                              className="py-2.5 px-2 bg-white hover:bg-slate-50 border border-slate-200/60 hover:border-slate-350 text-[10px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5"
+                              className="py-2.5 px-2 bg-white/80 hover:bg-slate-50/50 border border-slate-200/60 hover:border-slate-350 text-[10px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5"
                             >
                               <FileText className="w-3.5 h-3.5 text-indigo-500" />
                               PDF Document
@@ -665,13 +665,13 @@ export const BatchConverter: React.FC = () => {
                   <button
                     onClick={handleReset}
                     disabled={isProcessing || isPackaging}
-                    className="w-full py-3 bg-white hover:bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs disabled:opacity-50"
+                    className="w-full py-3 bg-white/80 hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs disabled:opacity-50"
                   >
                     Clear All
                   </button>
                 </div>
 
-                <div className="flex items-center gap-2 text-[10px] text-slate-505 bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 shadow-xs font-medium">
+                <div className="flex items-center gap-2 text-[10px] text-slate-505 bg-slate-50/30 p-2.5 rounded-xl border border-slate-200/60 shadow-xs font-medium">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                   Your photos convert 100% locally in browser.
                 </div>
@@ -719,7 +719,7 @@ export const BatchConverter: React.FC = () => {
                     className="premium-bento p-3.5 rounded-2xl bg-white border border-slate-200/40 flex items-center justify-between gap-4 hover:border-slate-300 transition-all shadow-xs"
                   >
                     <div className="flex items-center gap-3.5 min-w-0">
-                      <div className="w-10 h-10 bg-slate-50 border border-slate-150 rounded-xl flex items-center justify-center shrink-0 text-slate-400">
+                      <div className="w-10 h-10 bg-white/80 border border-slate-150 rounded-xl flex items-center justify-center shrink-0 text-slate-400">
                         <Files className="w-5 h-5 text-slate-400" />
                       </div>
                       <div className="min-w-0">
@@ -741,7 +741,7 @@ export const BatchConverter: React.FC = () => {
                     <div className="flex items-center gap-3">
                       {/* Reordering Buttons */}
                       {!isProcessing && !isPackaging && files.length > 1 && (
-                        <div className="flex items-center gap-0.5 shrink-0 bg-slate-50/80 border border-slate-200/60 rounded-lg p-0.5 shadow-xs">
+                        <div className="flex items-center gap-0.5 shrink-0 bg-slate-50/40 border border-slate-200/60 rounded-lg p-0.5 shadow-xs">
                           <button
                             onClick={() => moveFile(index, -1)}
                             disabled={index === 0}
@@ -766,7 +766,7 @@ export const BatchConverter: React.FC = () => {
                       )}
 
                       {f.status === 'pending' && (
-                        <span className="text-[10px] font-bold text-slate-400 bg-slate-50 border border-slate-200/80 px-2 py-0.5 rounded">
+                        <span className="text-[10px] font-bold text-slate-400 bg-white/80 border border-slate-200/80 px-2 py-0.5 rounded">
                           Pending
                         </span>
                       )}
@@ -784,7 +784,7 @@ export const BatchConverter: React.FC = () => {
                             <a
                               href={f.convertedUrl}
                               download={f.convertedName!}
-                              className="p-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-slate-550 hover:text-slate-900 transition-colors shadow-xs"
+                              className="p-1.5 bg-white/80 hover:bg-slate-50/50 border border-slate-200 rounded-lg text-slate-550 hover:text-slate-900 transition-colors shadow-xs"
                               title="Download single file"
                             >
                               <Download className="w-3.5 h-3.5" />

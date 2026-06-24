@@ -405,9 +405,9 @@ export const MosaicGenerator: React.FC = () => {
               />
             </div>
             <div className="md:col-span-5 flex">
-              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-indigo-300 transition-all duration-300">
+              <div className="premium-bento rounded-3xl p-6 flex flex-col justify-between w-full shadow-sm hover:border-indigo-350 transition-all duration-300">
                 <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 border border-indigo-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Local Processing</div>
+                  <div className="text-[10px] font-bold text-indigo-650 bg-indigo-50/30 border border-indigo-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Local Processing</div>
                   <h3 className="text-base font-extrabold text-slate-900">How Photo Mosaics Work</h3>
                   <p className="text-xs text-slate-500 leading-relaxed font-medium">
                     Upload a main template image and a batch of source tile photos. The system slices the template into a micro-grid, maps each grid cell to the closest matching tile by color distance, and creates a high-fidelity mosaic image locally.
@@ -421,7 +421,7 @@ export const MosaicGenerator: React.FC = () => {
                   alt="Photo Mosaic Preview"
                 />
 
-                <div className="bg-slate-50 border border-slate-100/70 rounded-2xl p-4 space-y-3 shadow-inner">
+                <div className="bg-white/70 border border-slate-100/70 rounded-2xl p-4 space-y-3 shadow-sm">
                   <div className="flex items-start gap-2.5 text-[10px] text-slate-500 font-medium">
                     <Info className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" />
                     <span>
@@ -436,7 +436,7 @@ export const MosaicGenerator: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
             {/* Left Controls Card — sticky on desktop */}
             <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
-              <div className="premium-bento p-6 rounded-3xl bg-white space-y-6 shadow-xs">
+              <div className="glass-card p-6 rounded-3xl space-y-6">
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
                   <Settings className="w-4.5 h-4.5 text-indigo-500" />
                   Generator Settings
@@ -448,7 +448,7 @@ export const MosaicGenerator: React.FC = () => {
                     <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
                       Grid Density (Cols)
                     </label>
-                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded">
+                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 border border-indigo-100/60 px-2 py-0.5 rounded">
                       {gridCols} columns
                     </span>
                   </div>
@@ -477,7 +477,7 @@ export const MosaicGenerator: React.FC = () => {
                       className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
                         cellRatio === 1
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md'
-                          : 'bg-slate-50 border-slate-200 text-slate-655 hover:text-slate-900'
+                          : 'bg-white/80 border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                       }`}
                     >
                       Square 1:1
@@ -487,7 +487,7 @@ export const MosaicGenerator: React.FC = () => {
                       className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
                         cellRatio === 1.33
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md'
-                          : 'bg-slate-50 border-slate-200 text-slate-655 hover:text-slate-900'
+                          : 'bg-white/80 border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                       }`}
                     >
                       Landscape 4:3
@@ -497,7 +497,7 @@ export const MosaicGenerator: React.FC = () => {
                       className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
                         cellRatio === 0.75
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md'
-                          : 'bg-slate-50 border-slate-200 text-slate-655 hover:text-slate-900'
+                          : 'bg-white/80 border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                       }`}
                     >
                       Portrait 3:4
@@ -535,7 +535,7 @@ export const MosaicGenerator: React.FC = () => {
                     <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
                       Original Image Overlay
                     </label>
-                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded">
+                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 border border-indigo-100/60 px-2 py-0.5 rounded">
                       {overlayOpacity}%
                     </span>
                   </div>
@@ -554,7 +554,7 @@ export const MosaicGenerator: React.FC = () => {
                 </div>
 
                 {/* Tile Settings */}
-                <div className="space-y-3 bg-slate-50 border border-slate-200/60 rounded-2xl p-4 shadow-inner">
+                <div className="space-y-3 bg-white/70 border border-slate-200/50 rounded-2xl p-4 shadow-sm">
                   <div className="flex justify-between items-center">
                     <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
                       Fallback Solid Colors
@@ -582,7 +582,7 @@ export const MosaicGenerator: React.FC = () => {
                   <select
                     value={tileRenderSize}
                     onChange={(e) => setTileRenderSize(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 transition cursor-pointer"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 transition cursor-pointer shadow-xs"
                   >
                     <option value={30}>Web Standard (~1500px wide, fast)</option>
                     <option value={60}>High Definition HD (~3000px wide, sharp)</option>
@@ -619,7 +619,7 @@ export const MosaicGenerator: React.FC = () => {
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-3 bg-white hover:bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="w-full py-3 bg-white hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                   >
                     <RefreshCw className="w-4 h-4" />
                     Reset Generator
@@ -628,7 +628,7 @@ export const MosaicGenerator: React.FC = () => {
               </div>
 
               {/* Best Results Tips Card */}
-              <div className="premium-bento p-5 rounded-3xl bg-slate-50 border border-slate-200/60 space-y-3.5 shadow-sm">
+              <div className="glass-card p-5 rounded-3xl space-y-3.5">
                 <h4 className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
                   <Info className="w-4 h-4 text-indigo-650" />
                   Tips for Best Mosaic Results
@@ -657,7 +657,7 @@ export const MosaicGenerator: React.FC = () => {
             {/* Right Canvas and Tiles Area */}
             <div className="lg:col-span-8 space-y-6">
               {/* Target Image preview */}
-              <div className="premium-bento p-5 rounded-3xl bg-white border border-slate-200/50 shadow-xs flex flex-col gap-4">
+              <div className="glass-card p-5 rounded-3xl shadow-xs flex flex-col gap-4">
                 <div className="flex justify-between items-center border-b border-slate-100 pb-3">
                   <div>
                     <h4 className="text-xs font-bold text-slate-800">Target Template Image</h4>
@@ -665,12 +665,12 @@ export const MosaicGenerator: React.FC = () => {
                       {targetFile.name} ({targetSize ? `${targetSize.width}x${targetSize.height} px` : 'Loading...'})
                     </span>
                   </div>
-                  <span className="text-[10px] font-bold text-slate-455 bg-slate-50 border border-slate-150 px-2 py-0.5 rounded">
+                  <span className="text-[10px] font-bold text-slate-455 bg-white/80 border border-slate-150 px-2 py-0.5 rounded">
                     Main Photo
                   </span>
                 </div>
 
-                <div className="w-full flex items-center justify-center bg-slate-50 border border-dashed border-slate-200 rounded-2xl p-4 max-h-[300px] overflow-hidden">
+                <div className="w-full flex items-center justify-center bg-slate-50/30 border border-dashed border-slate-200 rounded-2xl p-4 max-h-[300px] overflow-hidden">
                   <img
                     ref={targetImageRef}
                     src={targetUrl}
@@ -682,7 +682,7 @@ export const MosaicGenerator: React.FC = () => {
               </div>
 
               {/* Custom Tile Pool Upload */}
-              <div className="premium-bento p-5 rounded-3xl bg-white border border-slate-200/50 shadow-xs flex flex-col gap-4">
+              <div className="glass-card p-5 rounded-3xl flex flex-col gap-4">
                 <div className="flex justify-between items-center border-b border-slate-100 pb-3">
                   <div>
                     <h4 className="text-xs font-bold text-slate-800">Source Tile Images Pool</h4>
@@ -714,7 +714,7 @@ export const MosaicGenerator: React.FC = () => {
                     <span className="text-[9px] font-bold text-slate-455 uppercase tracking-widest block">
                       Tile Collection (Previews)
                     </span>
-                    <div className="grid grid-cols-6 sm:grid-cols-10 gap-2 max-h-[148px] overflow-y-auto p-2 bg-slate-50 border border-slate-200/60 rounded-2xl shadow-inner scrollbar-thin">
+                    <div className="grid grid-cols-6 sm:grid-cols-10 gap-2 max-h-[148px] overflow-y-auto p-2 bg-slate-50/30 border border-slate-200/50 rounded-2xl shadow-inner scrollbar-thin">
                       {tiles.map((t, idx) => (
                         <div key={t.id} className="aspect-square rounded-lg border border-slate-200 relative group overflow-hidden bg-white shadow-xs">
                           <img src={t.url} alt={t.name} className="w-full h-full object-cover" />
@@ -733,7 +733,7 @@ export const MosaicGenerator: React.FC = () => {
 
               {/* Progress and Live Mosaic Result Preview */}
               {isProcessing && (
-                <div className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/50 shadow-xs flex flex-col items-center gap-4 text-center">
+                <div className="glass-card p-6 rounded-3xl flex flex-col items-center gap-4 text-center">
                   <RefreshCw className="w-8 h-8 text-indigo-500 animate-spin" />
                   <div className="space-y-1.5 w-full max-w-xs">
                     {tileLoadingProgress > 0 ? (
@@ -764,7 +764,7 @@ export const MosaicGenerator: React.FC = () => {
               )}
 
               {previewUrl && !isProcessing && (
-                <div className="premium-bento p-5 rounded-3xl bg-white border border-slate-200/50 shadow-xs flex flex-col gap-4">
+                <div className="glass-card p-5 rounded-3xl flex flex-col gap-4">
                   <div className="flex justify-between items-center border-b border-slate-100 pb-3">
                     <div>
                       <h4 className="text-xs font-bold text-slate-800">Mosaic Canvas Frame Output</h4>
@@ -777,7 +777,7 @@ export const MosaicGenerator: React.FC = () => {
                     </span>
                   </div>
 
-                  <div className="w-full flex items-center justify-center bg-slate-50 border border-slate-200 rounded-2xl p-4 overflow-hidden relative">
+                  <div className="w-full flex items-center justify-center bg-slate-50/30 border border-slate-200 rounded-2xl p-4 overflow-hidden relative">
                     <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none" />
                     <img
                       src={previewUrl}
