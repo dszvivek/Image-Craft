@@ -1,27 +1,53 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
+import type { ComponentType } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from '../layouts/Layout';
 
-// Lazy load page components for code splitting
-const Home = lazy(() => import('../pages/Home').then(module => ({ default: module.Home })));
-const Compressor = lazy(() => import('../pages/Compressor').then(module => ({ default: module.Compressor })));
-const BackgroundRemover = lazy(() => import('../pages/BackgroundRemover').then(module => ({ default: module.BackgroundRemover })));
-const OcrExtractor = lazy(() => import('../pages/OcrExtractor').then(module => ({ default: module.OcrExtractor })));
-const GridSplitter = lazy(() => import('../pages/GridSplitter').then(module => ({ default: module.GridSplitter })));
-const CollageMaker = lazy(() => import('../pages/CollageMaker').then(module => ({ default: module.CollageMaker })));
-const PaletteExtractor = lazy(() => import('../pages/PaletteExtractor').then(module => ({ default: module.PaletteExtractor })));
-const BatchConverter = lazy(() => import('../pages/BatchConverter').then(module => ({ default: module.BatchConverter })));
-const MetadataStripper = lazy(() => import('../pages/MetadataStripper').then(module => ({ default: module.MetadataStripper })));
-const WatermarkOverlay = lazy(() => import('../pages/WatermarkOverlay').then(module => ({ default: module.WatermarkOverlay })));
-const AspectResizer = lazy(() => import('../pages/AspectResizer').then(module => ({ default: module.AspectResizer })));
-const MemeGenerator = lazy(() => import('../pages/MemeGenerator').then(module => ({ default: module.MemeGenerator })));
-const SvgVectorizer = lazy(() => import('../pages/SvgVectorizer').then(module => ({ default: module.SvgVectorizer })));
-const MosaicGenerator = lazy(() => import('../pages/MosaicGenerator').then(module => ({ default: module.MosaicGenerator })));
-const StatementAnalyzer = lazy(() => import('../pages/StatementAnalyzer').then(module => ({ default: module.StatementAnalyzer })));
-const About = lazy(() => import('../pages/About').then(module => ({ default: module.About })));
-const Privacy = lazy(() => import('../pages/Privacy').then(module => ({ default: module.Privacy })));
-const Contact = lazy(() => import('../pages/Contact').then(module => ({ default: module.Contact })));
-const Faq = lazy(() => import('../pages/Faq').then(module => ({ default: module.Faq })));
+// Clear chunk reload flag on successful script load
+if (typeof window !== 'undefined') {
+  sessionStorage.removeItem('chunk-reload');
+}
+
+// Wrapper for React.lazy to automatically reload the page on ChunkLoadError (triggered by new builds)
+function safeLazy<T extends ComponentType<any>>(
+  importFn: () => Promise<{ default: T }>
+) {
+  return React.lazy(async () => {
+    try {
+      return await importFn();
+    } catch (error) {
+      console.error("Chunk loading failed, reloading page...", error);
+      const hasReloaded = sessionStorage.getItem('chunk-reload');
+      if (!hasReloaded) {
+        sessionStorage.setItem('chunk-reload', 'true');
+        window.location.reload();
+        return new Promise(() => {}); // block rendering
+      }
+      throw error;
+    }
+  });
+}
+
+// Lazy load page components with auto-reload recovery for code splitting
+const Home = safeLazy(() => import('../pages/Home').then(module => ({ default: module.Home })));
+const Compressor = safeLazy(() => import('../pages/Compressor').then(module => ({ default: module.Compressor })));
+const BackgroundRemover = safeLazy(() => import('../pages/BackgroundRemover').then(module => ({ default: module.BackgroundRemover })));
+const OcrExtractor = safeLazy(() => import('../pages/OcrExtractor').then(module => ({ default: module.OcrExtractor })));
+const GridSplitter = safeLazy(() => import('../pages/GridSplitter').then(module => ({ default: module.GridSplitter })));
+const CollageMaker = safeLazy(() => import('../pages/CollageMaker').then(module => ({ default: module.CollageMaker })));
+const PaletteExtractor = safeLazy(() => import('../pages/PaletteExtractor').then(module => ({ default: module.PaletteExtractor })));
+const BatchConverter = safeLazy(() => import('../pages/BatchConverter').then(module => ({ default: module.BatchConverter })));
+const MetadataStripper = safeLazy(() => import('../pages/MetadataStripper').then(module => ({ default: module.MetadataStripper })));
+const WatermarkOverlay = safeLazy(() => import('../pages/WatermarkOverlay').then(module => ({ default: module.WatermarkOverlay })));
+const AspectResizer = safeLazy(() => import('../pages/AspectResizer').then(module => ({ default: module.AspectResizer })));
+const MemeGenerator = safeLazy(() => import('../pages/MemeGenerator').then(module => ({ default: module.MemeGenerator })));
+const SvgVectorizer = safeLazy(() => import('../pages/SvgVectorizer').then(module => ({ default: module.SvgVectorizer })));
+const MosaicGenerator = safeLazy(() => import('../pages/MosaicGenerator').then(module => ({ default: module.MosaicGenerator })));
+const StatementAnalyzer = safeLazy(() => import('../pages/StatementAnalyzer').then(module => ({ default: module.StatementAnalyzer })));
+const About = safeLazy(() => import('../pages/About').then(module => ({ default: module.About })));
+const Privacy = safeLazy(() => import('../pages/Privacy').then(module => ({ default: module.Privacy })));
+const Contact = safeLazy(() => import('../pages/Contact').then(module => ({ default: module.Contact })));
+const Faq = safeLazy(() => import('../pages/Faq').then(module => ({ default: module.Faq })));
 
 // Skeleton Loader — mirrors tool page structure to maintain visual layout during lazy loading
 const PageLoader: React.FC = () => (
