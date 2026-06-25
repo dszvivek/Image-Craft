@@ -23,7 +23,6 @@ import {
   CreditCard
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
-import { DemoAnimation } from '../components/DemoAnimations';
 
 const toolDirectory = [
   {
@@ -460,133 +459,26 @@ const heroTabsConfig = {
 };
 
 const renderInteractiveCanvas = (tab: string) => {
-  switch (tab) {
-    case 'bg-remover':
-      return (
-        <div className="relative w-full h-full bg-[#0c0c0e] flex items-center justify-center">
-          <div 
-            className="absolute inset-0 opacity-20"
-            style={{
-              backgroundImage: 'conic-gradient(#27272a 0.25turn, transparent 0.25turn 0.5turn, #27272a 0.5turn 0.75turn, transparent 0.75turn)',
-              backgroundSize: '16px 16px'
-            }}
-          />
-          <div className="w-36 h-48 rounded-2xl bg-indigo-500/10 border-2 border-indigo-400/50 flex items-center justify-center text-indigo-400 animate-pulse-slow">
-            <Cpu className="w-8 h-8 opacity-60" />
-          </div>
-          <div className="absolute inset-y-0 left-0 bg-zinc-950 border-r border-indigo-500/85 overflow-hidden animate-mockup-reveal">
-            <div className="w-[450px] h-[340px] flex items-center justify-center bg-zinc-900 relative">
-              <img 
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" 
-                alt="Mock Original" 
-                className="w-full h-full object-cover opacity-80" 
-              />
-              <div className="absolute top-2 left-2 px-2 py-0.5 rounded bg-black/60 text-[8px] font-bold text-zinc-300">Original</div>
-            </div>
-          </div>
-          <div className="absolute inset-y-0 w-0.5 bg-indigo-400 shadow-[0_0_12px_#818cf8] pointer-events-none animate-mockup-scan" />
-        </div>
-      );
-    case 'crop':
-      return (
-        <div className="relative w-full h-full bg-[#0c0c0e] flex items-center justify-center">
-          <div className="absolute inset-0 bg-indigo-500/5 backdrop-blur-md opacity-25" />
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 flex items-center justify-center overflow-hidden transition-all duration-500 animate-mockup-crop relative p-2 shadow-2xl">
-            <img 
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" 
-              alt="Crop Canvas" 
-              className="w-full h-full object-cover opacity-80 rounded-lg" 
-            />
-            <div className="absolute top-1 left-1 w-3 h-3 border-t-2 border-l-2 border-indigo-400" />
-            <div className="absolute top-1 right-1 w-3 h-3 border-t-2 border-r-2 border-indigo-400" />
-            <div className="absolute bottom-1 left-1 w-3 h-3 border-b-2 border-l-2 border-indigo-400" />
-            <div className="absolute bottom-1 right-1 w-3 h-3 border-b-2 border-r-2 border-indigo-400" />
-          </div>
-        </div>
-      );
-    case 'mosaic':
-      return (
-        <div className="relative w-full h-full bg-[#0c0c0e] flex items-center justify-center p-3">
-          <img 
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" 
-            alt="Mosaic Target" 
-            className="w-full h-full object-cover opacity-50 rounded-xl" 
-          />
-          <div className="absolute inset-3 grid grid-cols-12 grid-rows-9 gap-[1px]">
-            {Array.from({ length: 108 }).map((_, i) => {
-              const opacities = ['bg-indigo-600/60', 'bg-sky-500/70', 'bg-teal-500/50', 'bg-indigo-400/80', 'bg-purple-650/70'];
-              return (
-                <div 
-                  key={i} 
-                  className={`rounded-xs ${opacities[i % opacities.length]} transition-opacity duration-1000 animate-pulse`} 
-                  style={{ animationDelay: `${(i % 10) * 150}ms` }}
-                />
-              );
-            })}
-          </div>
-        </div>
-      );
-    case 'compressor':
-      return (
-        <div className="relative w-full h-full bg-[#0c0c0e] flex flex-col items-center justify-center p-4">
-          <div className="absolute inset-0 bg-indigo-500/5 blur-2xl rounded-full scale-75" />
-          <div className="w-48 bg-zinc-900 border border-zinc-800 rounded-2xl p-4 flex flex-col gap-3 shadow-2xl animate-mockup-compress relative z-10">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-indigo-600/20 border border-indigo-500/35 flex items-center justify-center text-indigo-400">
-                <ImageIcon className="w-5 h-5" />
-              </div>
-              <div className="space-y-0.5 text-left">
-                <div className="text-xs font-bold text-zinc-200">photo_hq.jpg</div>
-                <div className="text-[10px] text-zinc-500">Local Compress</div>
-              </div>
-            </div>
-            <div className="h-[1px] bg-zinc-850" />
-            <div className="flex items-center justify-between text-[11px] font-extrabold">
-              <span className="text-zinc-400">File Size</span>
-              <div className="flex items-center gap-1.5">
-                <span className="text-zinc-500 line-through">4.8 MB</span>
-                <span className="text-indigo-450 animate-pulse">480 KB</span>
-              </div>
-            </div>
-            <div className="px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-emerald-400 text-[9px] font-black tracking-wider uppercase text-center w-full">
-              Size Optimized (-90%)
-            </div>
-          </div>
-        </div>
-      );
-    case 'vectorizer':
-      return (
-        <div className="relative w-full h-full bg-[#0c0c0e] flex items-center justify-center p-4">
-          <svg className="w-full h-full absolute inset-0 opacity-15" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="bluegrid" width="12" height="12" patternUnits="userSpaceOnUse">
-                <path d="M 12 0 L 0 0 0 12" fill="none" stroke="white" strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#bluegrid)" />
-          </svg>
-          <svg className="w-48 h-48 stroke-indigo-400 fill-indigo-500/5 relative z-10" viewBox="0 0 100 100">
-            <path 
-              d="M 50,15 L 85,75 L 15,75 Z" 
-              strokeWidth="2.5" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-              className="animate-mockup-dash"
-            />
-            <circle cx="50" cy="15" r="3.5" className="fill-white stroke-indigo-600 stroke-2" />
-            <circle cx="85" cy="75" r="3.5" className="fill-white stroke-indigo-600 stroke-2" />
-            <circle cx="15" cy="75" r="3.5" className="fill-white stroke-indigo-600 stroke-2" />
-          </svg>
-          <div className="absolute w-2 h-2 bg-indigo-500 border border-white rounded-full shadow-[0_0_8px_#6366f1] z-20 pointer-events-none" style={{
-            animation: 'mockupScan 4s linear infinite',
-            left: '50%',
-            top: '15%'
-          }} />
-        </div>
-      );
-    default:
-      return null;
-  }
+  const gifUrl = `/demo-gifs/${tab}.gif`;
+  
+  const altText = {
+    'bg-remover': 'AI Background Cutout Preview',
+    'crop': 'Smart Canvas Crop Preview',
+    'mosaic': 'Euclidean Color Grid Mosaic Preview',
+    'compressor': 'Quantization Quality Compressor Preview',
+    'vectorizer': 'Path Simplification Vectorizer Preview'
+  }[tab] || 'Demo Preview';
+
+  return (
+    <div className="w-full h-full relative overflow-hidden bg-[#0c0c0e] flex items-center justify-center">
+      <img 
+        src={gifUrl} 
+        alt={altText}
+        className="w-full h-full object-cover" 
+        loading="eager"
+      />
+    </div>
+  );
 };
 
 export const Home: React.FC = () => {
@@ -1005,9 +897,12 @@ export const Home: React.FC = () => {
             </div>
 
             <Link to="/background-remover" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-purple-400/80 group-hover:shadow-[0_12px_40px_rgba(167,139,250,0.15)] transition-all duration-300 block cursor-pointer">
-              <div className="w-full h-full transition-all duration-500 group-hover:scale-102 group-hover:brightness-105">
-                <DemoAnimation toolId="bg-remover" />
-              </div>
+              <img 
+                src="/demo-gifs/bg-remover.gif" 
+                alt="AI Background Remover Demo" 
+                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
+                loading="lazy" 
+              />
               <div className="absolute inset-0 bg-purple-950/0 group-hover:bg-purple-950/40 transition-all duration-300 flex items-center justify-center">
                 <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-purple-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
                   Open Tool <ArrowRight className="w-3.5 h-3.5" />
@@ -1046,9 +941,12 @@ export const Home: React.FC = () => {
             </div>
 
             <Link to="/photo-mosaic-generator" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-fuchsia-400/80 group-hover:shadow-[0_12px_40px_rgba(217,70,239,0.15)] transition-all duration-300 block cursor-pointer">
-              <div className="w-full h-full transition-all duration-500 group-hover:scale-102 group-hover:brightness-105">
-                <DemoAnimation toolId="mosaic" />
-              </div>
+              <img 
+                src="/demo-gifs/mosaic.gif" 
+                alt="Photo Mosaic Demo" 
+                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
+                loading="lazy" 
+              />
               <div className="absolute inset-0 bg-fuchsia-950/0 group-hover:bg-fuchsia-950/40 transition-all duration-300 flex items-center justify-center">
                 <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-fuchsia-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
                   Open Tool <ArrowRight className="w-3.5 h-3.5" />
@@ -1087,9 +985,12 @@ export const Home: React.FC = () => {
             </div>
 
             <Link to="/aspect-resizer" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-amber-400/80 group-hover:shadow-[0_12px_40px_rgba(245,158,11,0.15)] transition-all duration-300 block cursor-pointer">
-              <div className="w-full h-full transition-all duration-500 group-hover:scale-102 group-hover:brightness-105">
-                <DemoAnimation toolId="crop" />
-              </div>
+              <img 
+                src="/demo-gifs/crop.gif" 
+                alt="Aspect Resizer Demo" 
+                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
+                loading="lazy" 
+              />
               <div className="absolute inset-0 bg-amber-950/0 group-hover:bg-amber-950/40 transition-all duration-300 flex items-center justify-center">
                 <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-amber-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
                   Open Tool <ArrowRight className="w-3.5 h-3.5" />
@@ -1128,9 +1029,12 @@ export const Home: React.FC = () => {
             </div>
 
             <Link to="/image-compressor" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-indigo-400/80 group-hover:shadow-[0_12px_40px_rgba(99,102,241,0.15)] transition-all duration-300 block cursor-pointer">
-              <div className="w-full h-full transition-all duration-500 group-hover:scale-102 group-hover:brightness-105">
-                <DemoAnimation toolId="compressor" />
-              </div>
+              <img 
+                src="/demo-gifs/compressor.gif" 
+                alt="Image Compressor Demo" 
+                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
+                loading="lazy" 
+              />
               <div className="absolute inset-0 bg-indigo-950/0 group-hover:bg-indigo-950/40 transition-all duration-300 flex items-center justify-center">
                 <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
                   Open Tool <ArrowRight className="w-3.5 h-3.5" />
