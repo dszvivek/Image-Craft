@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Settings, Info, Sparkles } from 'lucide-react';
-import aspectResizerGif from '../assets/aspect_resizer_feature.gif';
-import aspectResizerStaticImg from '../assets/aspect_resizer_feature_static.webp';
 import { DemoPreview } from '../components/DemoPreview';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
@@ -673,8 +671,7 @@ export const AspectResizer: React.FC = () => {
                   </p>
                 </div>
                 <DemoPreview
-                  gifSrc={ aspectResizerGif }
-                  staticSrc={ aspectResizerStaticImg }
+                  toolId="crop"
                   alt="Aspect Resizer Demo"
                 />
               </div>

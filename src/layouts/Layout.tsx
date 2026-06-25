@@ -146,7 +146,7 @@ export const Layout = () => {
   const currentTool = tools.find(t => t.path === location.pathname);
 
   return (
-    <div className="min-h-screen flex flex-col bg-transparent text-slate-800 font-sans selection:bg-[#e2ddd0] selection:text-[#24201a]">
+    <div className="min-h-screen flex flex-col bg-transparent text-slate-800 font-sans selection:bg-indigo-100 selection:text-indigo-900">
       
       {/* Main Navigation */}
       <div className="sticky top-0 z-40 w-full px-4 sm:px-6 lg:px-8 pt-2 sm:pt-4 pointer-events-none">
@@ -172,7 +172,7 @@ export const Layout = () => {
               to="/" 
               end
               className={({ isActive }) => 
-                `text-[11px] font-bold uppercase tracking-wider hover:text-[#8c6d3e] transition-colors ${isActive ? 'text-[#8c6d3e]' : 'text-slate-550'}`
+                `text-[11px] font-bold uppercase tracking-wider hover:text-indigo-650 transition-colors ${isActive ? 'text-indigo-650' : 'text-slate-550'}`
               }
             >
               Home
@@ -216,7 +216,7 @@ export const Layout = () => {
             <NavLink 
               to="/about" 
               className={({ isActive }) => 
-                `text-[11px] font-bold uppercase tracking-wider hover:text-[#8c6d3e] transition-colors ${isActive ? 'text-[#8c6d3e]' : 'text-slate-550'}`
+                `text-[11px] font-bold uppercase tracking-wider hover:text-indigo-650 transition-colors ${isActive ? 'text-indigo-650' : 'text-slate-550'}`
               }
             >
               About
@@ -224,7 +224,7 @@ export const Layout = () => {
             <NavLink 
               to="/faq" 
               className={({ isActive }) => 
-                `text-[11px] font-bold uppercase tracking-wider hover:text-[#8c6d3e] transition-colors ${isActive ? 'text-[#8c6d3e]' : 'text-slate-550'}`
+                `text-[11px] font-bold uppercase tracking-wider hover:text-indigo-650 transition-colors ${isActive ? 'text-indigo-650' : 'text-slate-550'}`
               }
             >
               FAQ
@@ -232,7 +232,7 @@ export const Layout = () => {
             <NavLink 
               to="/contact" 
               className={({ isActive }) => 
-                `text-[11px] font-bold uppercase tracking-wider hover:text-[#8c6d3e] transition-colors ${isActive ? 'text-[#8c6d3e]' : 'text-slate-550'}`
+                `text-[11px] font-bold uppercase tracking-wider hover:text-indigo-650 transition-colors ${isActive ? 'text-indigo-650' : 'text-slate-550'}`
               }
             >
               Contact
@@ -245,7 +245,7 @@ export const Layout = () => {
               href="https://github.com/dszvivek/Image-Craft"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-slate-500 hover:text-[#8c6d3e] hover:scale-105 transition-all duration-200 cursor-pointer flex items-center justify-center"
+              className="p-2 text-slate-500 hover:text-indigo-650 hover:scale-105 transition-all duration-200 cursor-pointer flex items-center justify-center"
               title="View on GitHub"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -254,7 +254,7 @@ export const Layout = () => {
             </a>
             <Link
               to="/background-remover"
-              className="px-4 py-2 bg-gradient-to-br from-[#8c6d3e] to-[#a38350] hover:from-[#75592f] hover:to-[#8c6d3e] text-[11px] font-bold text-white rounded-xl shadow-md shadow-[#8c6d3e]/20 hover:shadow-[#8c6d3e]/30 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer uppercase tracking-wider"
+              className="px-5 py-2.5 bg-zinc-950 hover:bg-zinc-800 text-[11px] font-bold text-white rounded-full shadow-md shadow-zinc-950/10 hover:shadow-zinc-950/20 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer uppercase tracking-wider"
             >
               <Cpu className="w-3.5 h-3.5" />
               Try AI Cutout
@@ -419,7 +419,7 @@ export const Layout = () => {
       <AdPlacement type="mobile" className="lg:hidden" />
 
       {/* Footer */}
-      <footer className="w-full bg-[#ede8df] border-t border-[#d8d0c4] mt-auto py-12 px-4">
+      <footer className="w-full bg-slate-50 border-t border-slate-200/80 mt-auto py-12 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           
           <div className="flex flex-col gap-3">
@@ -446,7 +446,7 @@ export const Layout = () => {
             <h4 className="font-semibold text-sm text-slate-800 mb-3.5">Core Tools</h4>
             <ul className="text-xs text-slate-500 flex flex-col gap-2">
               {tools.slice(0, 6).map(t => (
-                <li key={t.path}><Link to={t.path} className="hover:text-[#8c6d3e] transition">{t.name}</Link></li>
+                <li key={t.path}><Link to={t.path} className="hover:text-indigo-650 transition">{t.name}</Link></li>
               ))}
             </ul>
           </div>
@@ -455,7 +455,7 @@ export const Layout = () => {
             <h4 className="font-semibold text-sm text-slate-800 mb-3.5">More Tools</h4>
             <ul className="text-xs text-slate-500 flex flex-col gap-2">
               {tools.slice(6).map(t => (
-                <li key={t.path}><Link to={t.path} className="hover:text-[#8c6d3e] transition">{t.name}</Link></li>
+                <li key={t.path}><Link to={t.path} className="hover:text-indigo-650 transition">{t.name}</Link></li>
               ))}
             </ul>
           </div>
@@ -463,31 +463,31 @@ export const Layout = () => {
           <div>
             <h4 className="font-semibold text-sm text-slate-800 mb-3.5">Privacy & Legal</h4>
             <ul className="text-xs text-slate-550 flex flex-col gap-2">
-              <li><Link to="/about" className="hover:text-[#8c6d3e] transition">About Us</Link></li>
-              <li><Link to="/faq" className="hover:text-[#8c6d3e] transition">FAQ Helpdesk</Link></li>
-              <li><Link to="/privacy" className="hover:text-[#8c6d3e] transition">Privacy Policy</Link></li>
-              <li><Link to="/contact" className="hover:text-[#8c6d3e] transition">Contact Support</Link></li>
+              <li><Link to="/about" className="hover:text-indigo-650 transition">About Us</Link></li>
+              <li><Link to="/faq" className="hover:text-indigo-650 transition">FAQ Helpdesk</Link></li>
+              <li><Link to="/privacy" className="hover:text-indigo-650 transition">Privacy Policy</Link></li>
+              <li><Link to="/contact" className="hover:text-indigo-650 transition">Contact Support</Link></li>
             </ul>
           </div>
 
         </div>
 
-        <div className="max-w-7xl mx-auto border-t border-[#d8d0c4] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="max-w-7xl mx-auto border-t border-slate-200/80 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} ImageGiri. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <a 
               href="https://github.com/dszvivek/Image-Craft" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="flex items-center gap-1 hover:text-[#8c6d3e] transition font-medium"
+              className="flex items-center gap-1 hover:text-indigo-650 transition font-medium"
             >
               <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
               </svg>
               GitHub
             </a>
-            <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-[#8c6d3e] transition">Sitemap</a>
-            <Link to="/privacy" className="hover:text-[#8c6d3e] transition">Terms of Service</Link>
+            <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-650 transition">Sitemap</a>
+            <Link to="/privacy" className="hover:text-indigo-650 transition">Terms of Service</Link>
           </div>
         </div>
       </footer>

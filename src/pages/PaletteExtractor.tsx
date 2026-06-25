@@ -5,8 +5,6 @@ import { extractDominantColors } from '../utils/colorExtractor';
 import type { ColorSwatch } from '../types';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
-import paletteExtractorGif from '../assets/palette_extractor_feature.gif';
-import paletteExtractorStaticImg from '../assets/palette_extractor_feature_static.webp';
 import { DemoPreview } from '../components/DemoPreview';
 
 export const PaletteExtractor: React.FC = () => {
@@ -207,8 +205,7 @@ export const PaletteExtractor: React.FC = () => {
                   </p>
                 </div>
                 <DemoPreview
-                  gifSrc={ paletteExtractorGif }
-                  staticSrc={ paletteExtractorStaticImg }
+                  toolId="palette"
                   alt="Color Palette Extractor Demo"
                 />
               </div>

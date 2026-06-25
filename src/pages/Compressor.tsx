@@ -3,8 +3,6 @@ import { Download, RefreshCw, Sparkles, AlertTriangle, CheckCircle, ArrowRight }
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
-import compressorGif from '../assets/compressor_feature.gif';
-import compressorStaticImg from '../assets/compressor_feature_static.webp';
 import { DemoPreview } from '../components/DemoPreview';
 
 export const Compressor: React.FC = () => {
@@ -212,8 +210,7 @@ export const Compressor: React.FC = () => {
                   </p>
                 </div>
                 <DemoPreview
-                  gifSrc={ compressorGif }
-                  staticSrc={ compressorStaticImg }
+                  toolId="compressor"
                   alt="Compressor Demo"
                 />
               </div>

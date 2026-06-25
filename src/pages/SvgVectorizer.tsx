@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Sliders, Sparkles, Layers, Eye, Settings, Info, Copy, Check } from 'lucide-react';
-import svgVectorizerGif from '../assets/svg_vectorizer_feature.gif';
-import svgVectorizerStaticImg from '../assets/svg_vectorizer_feature_static.webp';
 import { DemoPreview } from '../components/DemoPreview';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
@@ -624,8 +622,7 @@ export const SvgVectorizer: React.FC = () => {
                   </p>
                 </div>
                 <DemoPreview
-                  gifSrc={ svgVectorizerGif }
-                  staticSrc={ svgVectorizerStaticImg }
+                  toolId="vectorizer"
                   alt="SVG Vectorizer Demo"
                 />
               </div>

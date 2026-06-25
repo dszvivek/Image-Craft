@@ -5,8 +5,6 @@ import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
-import gridSplitterGif from '../assets/grid_splitter_feature.gif';
-import gridSplitterStaticImg from '../assets/grid_splitter_feature_static.webp';
 import { DemoPreview } from '../components/DemoPreview';
 
 export const GridSplitter: React.FC = () => {
@@ -260,8 +258,7 @@ export const GridSplitter: React.FC = () => {
                   </p>
                 </div>
                 <DemoPreview
-                  gifSrc={ gridSplitterGif }
-                  staticSrc={ gridSplitterStaticImg }
+                  toolId="splitter"
                   alt="Grid Splitter Demo"
                 />
               </div>

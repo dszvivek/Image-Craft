@@ -3,8 +3,6 @@ import { Download, RefreshCw, Plus, Trash2, Sliders, Crop } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
-import collageMakerGif from '../assets/collage_maker_feature.gif';
-import collageMakerStaticImg from '../assets/collage_maker_feature_static.webp';
 import { DemoPreview } from '../components/DemoPreview';
 
 interface CollageImage {
@@ -324,8 +322,7 @@ export const CollageMaker: React.FC = () => {
                   </p>
                 </div>
                 <DemoPreview
-                  gifSrc={ collageMakerGif }
-                  staticSrc={ collageMakerStaticImg }
+                  toolId="collage"
                   alt="Collage Maker Demo"
                 />
               </div>

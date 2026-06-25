@@ -5,8 +5,6 @@ import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
-import ocrExtractorGif from '../assets/ocr_extractor_feature.gif';
-import ocrExtractorStaticImg from '../assets/ocr_extractor_feature_static.webp';
 import { DemoPreview } from '../components/DemoPreview';
 
 interface LangOption {
@@ -458,8 +456,7 @@ export const OcrExtractor: React.FC = () => {
                   </p>
                 </div>
                 <DemoPreview
-                  gifSrc={ ocrExtractorGif }
-                  staticSrc={ ocrExtractorStaticImg }
+                  toolId="ocr"
                   alt="OCR Extractor Demo"
                 />
               </div>

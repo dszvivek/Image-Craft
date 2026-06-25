@@ -4,8 +4,6 @@ import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
-import bgRemoverGif from '../assets/bg_remover_feature.gif';
-import bgRemoverStaticImg from '../assets/bg_remover_feature_static.webp';
 import { DemoPreview } from '../components/DemoPreview';
 
 interface WorkerProgress {
@@ -260,8 +258,7 @@ export const BackgroundRemover: React.FC = () => {
                   </p>
                 </div>
                 <DemoPreview
-                  gifSrc={ bgRemoverGif }
-                  staticSrc={ bgRemoverStaticImg }
+                  toolId="bg-remover"
                   alt="Background Remover Demo"
                 />
               </div>

@@ -130,7 +130,7 @@ export const Faq: React.FC = () => {
             </Link>
             <Link 
               to="/contact" 
-              className="w-full md:w-auto px-5 py-2.5 bg-[#8c6d3e] hover:bg-[#75592f] text-white rounded-xl text-xs font-bold text-center transition-all shadow-md shadow-[#8c6d3e]/15"
+              className="w-full md:w-auto px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-full text-xs font-bold text-center transition-all shadow-md shadow-slate-950/10"
             >
               Contact Support
             </Link>

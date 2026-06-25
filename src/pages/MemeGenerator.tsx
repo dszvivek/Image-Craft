@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Type, Plus, Trash2, Info } from 'lucide-react';
-import memeGeneratorGif from '../assets/meme_generator_feature.gif';
-import memeGeneratorStaticImg from '../assets/meme_generator_feature_static.webp';
 import { DemoPreview } from '../components/DemoPreview';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
@@ -286,8 +284,7 @@ export const MemeGenerator: React.FC = () => {
                   </p>
                 </div>
                 <DemoPreview
-                  gifSrc={ memeGeneratorGif }
-                  staticSrc={ memeGeneratorStaticImg }
+                  toolId="meme"
                   alt="Meme Generator Demo"
                 />
               </div>

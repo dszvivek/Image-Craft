@@ -3,8 +3,6 @@ import { Download, RefreshCw, Fingerprint, Trash2, Eye, ShieldCheck, MapPin, Inf
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
-import metadataStripperGif from '../assets/metadata_stripper_feature.gif';
-import metadataStripperStaticImg from '../assets/metadata_stripper_feature_static.webp';
 import { DemoPreview } from '../components/DemoPreview';
 import EXIF from 'exif-js';
 
@@ -222,8 +220,7 @@ export const MetadataStripper: React.FC = () => {
                   </p>
                 </div>
                 <DemoPreview
-                  gifSrc={ metadataStripperGif }
-                  staticSrc={ metadataStripperStaticImg }
+                  toolId="stripper"
                   alt="Metadata Stripper Demo"
                 />
               </div>

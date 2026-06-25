@@ -3,8 +3,6 @@ import { Download, RefreshCw, Settings, Info, Play, Trash2 } from 'lucide-react'
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
-import mosaicImg from '../assets/mosaic_feature.gif';
-import mosaicStaticImg from '../assets/mosaic_feature_static.webp';
 import { DemoPreview } from '../components/DemoPreview';
 
 interface TileImage {
@@ -416,8 +414,7 @@ export const MosaicGenerator: React.FC = () => {
 
                 {/* Visual Showcase Preview GIF */}
                 <DemoPreview
-                  gifSrc={mosaicImg}
-                  staticSrc={mosaicStaticImg}
+                  toolId="mosaic"
                   alt="Photo Mosaic Preview"
                 />
 

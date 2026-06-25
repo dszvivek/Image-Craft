@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCw, Trash2, Settings, Type, Image as ImageIcon } from 'lucide-react';
-import watermarkOverlayGif from '../assets/watermark_overlay_feature.gif';
-import watermarkOverlayStaticImg from '../assets/watermark_overlay_feature_static.webp';
 import { DemoPreview } from '../components/DemoPreview';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
@@ -283,8 +281,7 @@ export const WatermarkOverlay: React.FC = () => {
                   </p>
                 </div>
                 <DemoPreview
-                  gifSrc={ watermarkOverlayGif }
-                  staticSrc={ watermarkOverlayStaticImg }
+                  toolId="watermark"
                   alt="Watermark Overlay Demo"
                 />
               </div>

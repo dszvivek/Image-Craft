@@ -4,8 +4,6 @@ import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import { ProgressBar } from '../components/ProgressBar';
-import batchConverterGif from '../assets/batch_converter_feature.gif';
-import batchConverterStaticImg from '../assets/batch_converter_feature_static.webp';
 import { DemoPreview } from '../components/DemoPreview';
 import JSZip from 'jszip';
 import { jsPDF } from 'jspdf';
@@ -479,8 +477,7 @@ export const BatchConverter: React.FC = () => {
                   </p>
                 </div>
                 <DemoPreview
-                  gifSrc={ batchConverterGif }
-                  staticSrc={ batchConverterStaticImg }
+                  toolId="converter"
                   alt="Batch Converter Demo"
                 />
               </div>
