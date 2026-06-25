@@ -1272,6 +1272,26 @@ export const StatementAnalyzer: React.FC = () => {
     setCurrentPage(1);
   };
 
+  const analyzerSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'PDF Bank Statement Analyzer - ImageGiri',
+    'applicationCategory': 'BusinessApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Convert secure PDF bank statements into clean CSV/Excel spreadsheets offline in your browser. Supports major banks with complete client-side processing.',
+    'featureList': [
+      'Parse password-protected PDF bank statements',
+      'Export parsed transaction tables directly to Excel/CSV',
+      '100% offline local parsing, zero server transmission',
+      'Support for HDFC, ICICI, SBI, and standard templates'
+    ]
+  };
+
   return (
     <div className="w-full">
       <SEO 
@@ -1279,6 +1299,7 @@ export const StatementAnalyzer: React.FC = () => {
         description="Analyze bank and credit card statements locally inside your browser cache. Calculate debit/credit cashflows, filter date ranges dynamically, and export clean logs securely." 
         keywords="bank statement, credit card statement, statement analyzer, transaction parser, PDF to CSV bank statement, parse excel bank statement, cash flow calculator, finance ledger, free banking tools, privacy finance tool, on-device ledger scanner"
         canonicalUrl="https://imagegiri.com/bank-statement-analyzer"
+        schema={analyzerSchema}
       />
 
       <div className="max-w-6xl mx-auto">
