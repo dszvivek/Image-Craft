@@ -18,7 +18,8 @@ import {
   Feather,
   Grid,
   ChevronRight,
-  Home
+  Home,
+  CreditCard
 } from 'lucide-react';
 import { AdPlacement } from '../components/AdPlacement';
 
@@ -75,6 +76,13 @@ export const Layout = () => {
       icon: FileText,
       description: 'Extract multi-language texts from image scans.',
       colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50'
+    },
+    { 
+      name: 'Bank Statement Analyzer', 
+      path: '/bank-statement-analyzer', 
+      icon: CreditCard,
+      description: 'Analyze PDF/CSV/Excel bank statements client-side.',
+      colorClass: 'text-teal-650 bg-teal-50 border-teal-100/50'
     },
     { 
       name: 'Image Compressor', 
@@ -319,7 +327,7 @@ export const Layout = () => {
             {isMobileToolsExpanded && (
               <div className="border-t border-slate-100/80 pt-3.5 pb-2.5 px-1 animate-fade-in">
                 <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold block mb-3">
-                  All 13 Tools
+                  All 14 Tools
                 </span>
                 <div className="grid grid-cols-2 gap-2">
                   {tools.map((tool) => {

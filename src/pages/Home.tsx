@@ -19,7 +19,8 @@ import {
   Feather,
   Grid,
   Check,
-  X
+  X,
+  CreditCard
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
@@ -72,6 +73,15 @@ const toolDirectory = [
     description: 'Extract text from scanned documents, screenshots, or receipts in multiple languages.',
     badge: 'Document Scan',
     colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 hover:border-emerald-300'
+  },
+  {
+    name: 'Bank Statement Analyzer',
+    path: '/bank-statement-analyzer',
+    icon: CreditCard,
+    category: 'utilities-creative',
+    description: 'Upload bank or credit card statements (PDF, CSV, Excel) to analyze credits, debits, cash flow and date ranges.',
+    badge: 'Finance Scan',
+    colorClass: 'text-teal-650 bg-teal-50 border-teal-100/50 hover:border-teal-300'
   },
   {
     name: 'Image Compressor',
@@ -276,7 +286,7 @@ export const Home: React.FC = () => {
             Explore Free Utilities
           </h2>
           <p className="text-xs md:text-sm text-slate-550 max-w-md mx-auto">
-            Choose from 13 high-performance tools running fully client-side inside your browser sandbox.
+            Choose from 14 high-performance tools running fully client-side inside your browser sandbox.
           </p>
         </div>
 

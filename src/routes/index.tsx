@@ -17,6 +17,7 @@ const AspectResizer = lazy(() => import('../pages/AspectResizer').then(module =>
 const MemeGenerator = lazy(() => import('../pages/MemeGenerator').then(module => ({ default: module.MemeGenerator })));
 const SvgVectorizer = lazy(() => import('../pages/SvgVectorizer').then(module => ({ default: module.SvgVectorizer })));
 const MosaicGenerator = lazy(() => import('../pages/MosaicGenerator').then(module => ({ default: module.MosaicGenerator })));
+const StatementAnalyzer = lazy(() => import('../pages/StatementAnalyzer').then(module => ({ default: module.StatementAnalyzer })));
 const About = lazy(() => import('../pages/About').then(module => ({ default: module.About })));
 const Privacy = lazy(() => import('../pages/Privacy').then(module => ({ default: module.Privacy })));
 const Contact = lazy(() => import('../pages/Contact').then(module => ({ default: module.Contact })));
@@ -157,6 +158,14 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <MosaicGenerator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'bank-statement-analyzer',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <StatementAnalyzer />
           </Suspense>
         ),
       },

@@ -124,6 +124,17 @@
   --color-emerald-650: #5a7a5a;
   --color-pink-550: #b38e55;
   --color-pink-650: #9e7b45;
+  
+  --color-teal-650: #385c50;
+  --color-teal-555: #446d5f;
+  --color-indigo-550: #96784a;
+  --color-indigo-555: #8f7042;
+  --color-purple-550: #c1a067;
+  --color-purple-555: #ba985f;
+  
+  --color-fuchsia-650: #9e7b45;
+  --color-fuchsia-700: #80602f;
+  --color-teal-700: #304e43;
 }
 
 /* Custom Base Styles */
@@ -321,3 +332,35 @@ input[type="range"].range-styled::-moz-range-thumb {
   border: 2.5px solid #8c6d3e; transition: border-color 0.2s;
 }
 .compare-handle:hover { border-color: #75592f; }
+
+/* Date Presets Buttons */
+.preset-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid var(--color-slate-200);
+}
+
+.preset-btn-inactive {
+  background-color: #ffffff !important;
+  color: var(--color-slate-600) !important;
+  border-color: var(--color-slate-200) !important;
+}
+
+.preset-btn-inactive:hover {
+  background-color: var(--color-slate-100) !important;
+  color: var(--color-slate-800) !important;
+  border-color: var(--color-slate-300) !important;
+}
+
+.preset-btn-active {
+  background: linear-gradient(135deg, var(--color-teal-555, #446d5f) 0%, var(--color-teal-650, #385c50) 100%) !important;
+  color: #ffffff !important;
+  border-color: var(--color-teal-650, #385c50) !important;
+  box-shadow: 0 4px 12px rgba(56, 92, 80, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
