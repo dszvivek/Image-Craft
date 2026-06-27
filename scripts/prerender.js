@@ -16,8 +16,8 @@ const templateContent = fs.readFileSync(templatePath, 'utf8');
 const routesConfig = {
   'background-remover': {
     title: 'Free AI Background Remover - Remove Image BG Offline',
-    description: 'Isolate subjects and remove image backgrounds automatically using local neural networks inside your browser. No files uploaded, absolute privacy.',
-    keywords: 'background remover, AI background removal, remove bg offline, transparent background, Tesseract OCR, Tesseract.js, offline image tool',
+    description: 'Remove image backgrounds automatically in 5 seconds. Get a transparent background using local AI. 100% private, zero uploads.',
+    keywords: 'background remover, remove bg, transparent background, background eraser, remove photo background free',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'AI Background Remover - ImageGiri',
@@ -34,8 +34,8 @@ const routesConfig = {
   },
   'aspect-resizer': {
     title: 'Free Aspect Resizer & Smart Crop - Social Media Presets',
-    description: 'Crop and resize images to standard aspect ratios for Instagram, YouTube, X, and Facebook. Fit canvas widths with smart blur padding.',
-    keywords: 'aspect resizer, smart crop, social media image sizes, image crop, crop handles, rule of thirds, blur padding',
+    description: 'Crop and resize images to standard ratios for Instagram, YouTube, X, and Facebook. Add smart blur padding. Runs offline in your browser.',
+    keywords: 'aspect resizer, crop image online, resize photos, social media crop templates, image grid resizer',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'Aspect Resizer & Smart Crop - ImageGiri',
@@ -52,8 +52,8 @@ const routesConfig = {
   },
   'batch-converter': {
     title: 'Free Batch Image Converter - Convert PNG, JPEG, WebP, PDF',
-    description: 'Convert multiple images between PNG, JPEG, WebP, and PDF formats simultaneously. Batch process locally in your browser memory.',
-    keywords: 'batch image converter, convert png to jpeg, webp to png, convert images offline, image to pdf, local format converter',
+    description: 'Convert multiple images between PNG, JPEG, WebP, and PDF formats simultaneously. Batch process photos locally with absolute data privacy.',
+    keywords: 'batch image converter, convert png to jpg, convert webp, bulk image format converter, pack image to pdf',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'Batch Image Converter - ImageGiri',
@@ -70,8 +70,8 @@ const routesConfig = {
   },
   'collage-maker': {
     title: 'Free Photo Collage Maker - Create Custom Photo Grids',
-    description: 'Combine multiple photos into beautiful, custom grid layouts. Adjust spacing, corners, and border widths offline.',
-    keywords: 'collage maker, photo collage, photo grid, create collage, offline collage, custom grids',
+    description: 'Combine multiple photos into beautiful custom collage layouts. Adjust spacing, border widths, and corner rounding offline. No sign-up required.',
+    keywords: 'photo collage maker, photo grid maker, create collage online, custom grid layout, picture grids free',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'Photo Collage Maker - ImageGiri',
@@ -88,8 +88,8 @@ const routesConfig = {
   },
   'image-compressor': {
     title: 'Free Image Compressor - Compress JPEG, PNG & WebP Offline',
-    description: 'Reduce image file sizes by up to 90% without losing visible quality. Optimize JPEGs, PNGs, and WebPs locally in milliseconds using hardware-accelerated quantization.',
-    keywords: 'image compressor, compress jpeg, reduce image size, offline compressor, compress webp, file size optimizer',
+    description: 'Reduce image file sizes by up to 90% without losing quality. Compress JPEG, PNG, and WebP files locally in milliseconds. Absolute privacy.',
+    keywords: 'image compressor, compress jpeg, reduce image size, shrink webp, compress png online free',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'Image Compressor - ImageGiri',
@@ -106,8 +106,8 @@ const routesConfig = {
   },
   'instagram-grid-splitter': {
     title: 'Free Instagram Grid Splitter - Split Image to Panels',
-    description: 'Split a single photo into 3x3, 4x4, or 5x5 grids for Instagram. Crop and export separate panels locally in high quality.',
-    keywords: 'instagram grid splitter, split image, grid maker, 3x3 grid, image splitter, grid layout, split photo for social media',
+    description: 'Split a single photo into 3x3, 4x4, or 5x5 grid panels for Instagram. Crop and export high-quality split tiles locally in a ZIP file.',
+    keywords: 'instagram grid splitter, split image online, 3x3 grid maker, crop photo to panels, split image for instagram',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'Instagram Grid Splitter - ImageGiri',
@@ -124,8 +124,8 @@ const routesConfig = {
   },
   'meme-generator': {
     title: 'Free Meme Generator - Add Impact Text Captions',
-    description: 'Create custom memes instantly using popular templates or your own uploaded photos. Add dragging text labels offline.',
-    keywords: 'meme generator, create meme, add text to image, meme creator, custom meme, impact font, blank memes',
+    description: 'Create custom memes instantly using popular blank templates or your own images. Add draggable text captions offline. Free and watermark-free.',
+    keywords: 'meme generator, meme maker online, caption template, custom memes, blank meme generator',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'Meme Generator - ImageGiri',
@@ -142,8 +142,8 @@ const routesConfig = {
   },
   'metadata-stripper': {
     title: 'Free EXIF Metadata Stripper - Remove GPS Photo Data',
-    description: 'Remove camera, location, and GPS metadata from your photos before sharing. Clean EXIF tags locally for complete privacy.',
-    keywords: 'exif metadata stripper, remove gps from photo, clean metadata, strip exif, photo privacy, remove photo location',
+    description: 'Remove camera settings, location coordinates, and EXIF metadata from your photos before sharing. Clean image properties locally for privacy.',
+    keywords: 'EXIF metadata stripper, remove gps from photo, clean camera metadata, exif tag cleaner, remove photo location',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'EXIF Metadata Stripper - ImageGiri',
@@ -160,8 +160,8 @@ const routesConfig = {
   },
   'photo-mosaic-generator': {
     title: 'Free Photo Mosaic Generator - Easymoza Alternative',
-    description: 'Reconstruct target images from thousands of small photo tiles locally. A 100% private, free alternative to Easymoza and online mosaic generators.',
-    keywords: 'photo mosaic generator, mosaic maker, picture mosaic, Easymoza alternative, mosaic art maker, tile mosaic',
+    description: 'Reconstruct target images from thousands of small photo tiles locally. A 100% private, free alternative to Easymoza and mosaic generators.',
+    keywords: 'photo mosaic generator, mosaic maker online, easymoza alternative, picture mosaic, grid tile art creator',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'Photo Mosaic Generator - ImageGiri',
@@ -178,8 +178,8 @@ const routesConfig = {
   },
   'ocr-text-extractor': {
     title: 'Free OCR Text Extractor - Scan Image to Text Offline',
-    description: 'Extract text from images, documents, and book pages locally using Tesseract OCR. Runs 100% in your browser, keeping your data secure.',
-    keywords: 'ocr text extractor, image to text, scan text, offline ocr, read text from image, tesseract ocr, tesseract.js',
+    description: 'Extract text from images, scanned documents, and books locally using Tesseract OCR. Runs 100% offline inside your browser. Safe and secure.',
+    keywords: 'ocr text extractor, scan image to text, picture word scanner, read text from photo, image to text converter',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'OCR Text Extractor - ImageGiri',
@@ -196,8 +196,8 @@ const routesConfig = {
   },
   'color-palette-extractor': {
     title: 'Free Color Palette Extractor - HEX/RGB Palette Generator',
-    description: 'Extract dominant color palettes from any photo instantly using local clustering. Supports HEX, RGB, and Tailwind CSS formats.',
-    keywords: 'color palette extractor, color generator, extract color from image, photo colors, color palette, hex color finder',
+    description: 'Extract dominant color palettes and harmonious swatches from any photo instantly. Get HEX, RGB, and Tailwind CSS code layouts.',
+    keywords: 'color palette extractor, palette generator from image, hex code picker, image color finder, extract swatches',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'Color Palette Extractor - ImageGiri',
@@ -214,8 +214,8 @@ const routesConfig = {
   },
   'svg-vectorizer': {
     title: 'Free SVG Vectorizer - Convert Raster to Vector Outline',
-    description: 'Trace raster PNG or JPEG images into clean vector SVG drawings locally. Adjust path tolerances and colors offline.',
-    keywords: 'svg vectorizer, image to svg, raster to vector, trace outline, vector outline, tracer, png to svg offline',
+    description: 'Trace raster PNG or JPEG images into clean vector SVG drawing outlines locally. Adjust edge thresholds and path tolerances in real-time.',
+    keywords: 'SVG vectorizer, raster to vector converter, convert png to svg, trace image outline, image tracer tool',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'SVG Vectorizer - ImageGiri',
@@ -232,8 +232,8 @@ const routesConfig = {
   },
   'watermark-overlay': {
     title: 'Free Watermark Overlay - Add Text & Logo to Images',
-    description: 'Protect your images by overlaying custom text or logo watermarks. Adjust transparency, spacing, and rotation offline.',
-    keywords: 'watermark overlay, add watermark, protect images, logo watermark, watermark tool, copyright image tool',
+    description: 'Protect your images by overlaying custom text or logo watermarks. Adjust transparency, spacing, rotation, and tile layouts offline.',
+    keywords: 'watermark overlay, add watermark to photo, protect images online, logo overlay, copyright image tool',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'Watermark Overlay - ImageGiri',
@@ -250,8 +250,8 @@ const routesConfig = {
   },
   'bank-statement-analyzer': {
     title: 'Free Bank Statement Analyzer - PDF/CSV/Excel Parser',
-    description: 'Analyze bank and credit card statements locally inside your browser cache. Calculate cash flows, identify categories, and export transactions.',
-    keywords: 'bank statement analyzer, statement parser, pdf to csv bank statement, excel bank statement, cash flow ledger calculator',
+    description: 'Parse credit card and bank statements locally in your browser. Calculate cash flows, categorize transactions, and export tables to Excel/CSV.',
+    keywords: 'bank statement analyzer, pdf bank statement parser, convert bank statement to csv, transaction ledger analyzer',
     schema: {
       '@type': 'SoftwareApplication',
       'name': 'PDF Bank Statement Analyzer - ImageGiri',
@@ -261,7 +261,7 @@ const routesConfig = {
       'description': 'Analyze credit card or bank statement sheets locally inside the client browser cache.',
       'featureList': [
         'Parse password-protected PDF bank statements',
-        'Export parsed tables directly to Excel/CSV',
+        'Export parsed transaction tables directly to Excel/CSV',
         '100% offline local parsing, zero server transmission'
       ]
     }
