@@ -94,6 +94,7 @@ export const PdfSigner: React.FC = () => {
   const isDrawingRef = useRef<boolean>(false);
   const dragStartRef = useRef<{ x: number; y: number } | null>(null);
   const lastPointRef = useRef<{ x: number; y: number } | null>(null);
+  const canvasSizeRef = useRef<{ width: number; height: number }>({ width: 600, height: 800 });
 
   // Load Google Fonts for typing signatures
   useEffect(() => {
@@ -125,9 +126,10 @@ export const PdfSigner: React.FC = () => {
   }, [pdfBytes, currentPage]);
 
   const renderPage = async (pageNumber: number) => {
+    if (!pdfBytes) return;
     try {
       const pdfjsLib = await loadPdfJS();
-      const pdf = await pdfjsLib.getDocument({ data: pdfBytes }).promise;
+      const pdf = await pdfjsLib.getDocument({ data: pdfBytes.slice(0) }).promise;
       const page = await pdf.getPage(pageNumber);
       
       const canvas = pdfCanvasRef.current;
@@ -144,6 +146,7 @@ export const PdfSigner: React.FC = () => {
 
       canvas.width = viewport.width;
       canvas.height = viewport.height;
+      canvasSizeRef.current = { width: viewport.width, height: viewport.height };
 
       const renderContext = {
         canvasContext: context,
@@ -159,24 +162,33 @@ export const PdfSigner: React.FC = () => {
   // Drawing Pad Handlers
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
     isDrawingRef.current = true;
+    e.preventDefault();
     const canvas = drawCanvasRef.current;
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
     let clientX, clientY;
     if ('touches' in e) {
+      if (e.touches.length === 0) return;
       clientX = e.touches[0].clientX;
       clientY = e.touches[0].clientY;
     } else {
       clientX = e.clientX;
       clientY = e.clientY;
     }
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
+    const x = (clientX - rect.left) * scaleX;
+    const y = (clientY - rect.top) * scaleY;
     lastPointRef.current = { x, y };
 
     const ctx = canvas.getContext('2d');
     if (ctx) {
       ctx.beginPath();
+      ctx.lineWidth = 3;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = drawColor;
       ctx.moveTo(x, y);
     }
   };
@@ -190,18 +202,25 @@ export const PdfSigner: React.FC = () => {
     if (!canvas || !ctx || !lastPoint) return;
 
     const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
     let clientX, clientY;
     if ('touches' in e) {
+      if (e.touches.length === 0) return;
       clientX = e.touches[0].clientX;
       clientY = e.touches[0].clientY;
     } else {
       clientX = e.clientX;
       clientY = e.clientY;
     }
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
+    const x = (clientX - rect.left) * scaleX;
+    const y = (clientY - rect.top) * scaleY;
 
     ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
     ctx.strokeStyle = drawColor;
     ctx.moveTo(lastPoint.x, lastPoint.y);
     ctx.lineTo(x, y);
@@ -282,9 +301,23 @@ export const PdfSigner: React.FC = () => {
 
     const reader = new FileReader();
     reader.onload = () => {
-      const src = reader.result as string;
-      setUploadedImageSrc(src);
-      setActiveSignature(src);
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0);
+          const pngDataUrl = canvas.toDataURL('image/png');
+          setUploadedImageSrc(pngDataUrl);
+          setActiveSignature(pngDataUrl);
+        }
+      };
+      img.onerror = () => {
+        setErrorMessage('Invalid image file for signature.');
+      };
+      img.src = reader.result as string;
     };
     reader.readAsDataURL(file);
   };
@@ -430,14 +463,14 @@ export const PdfSigner: React.FC = () => {
       setProgress(40);
       setStatusMessage('Parsing source PDF elements...');
       
-      const doc = await PDFLib.PDFDocument.load(pdfBytes);
+      const doc = await PDFLib.PDFDocument.load(pdfBytes.slice(0));
       const pages = doc.getPages();
       
       setProgress(60);
       setStatusMessage('Injecting electronic signatures...');
       
-      const canvas = pdfCanvasRef.current;
-      if (!canvas) throw new Error('Preview canvas viewport is unrendered.');
+      const canvasWidth = canvasSizeRef.current.width;
+      const canvasHeight = canvasSizeRef.current.height;
       
       for (let i = 0; i < placements.length; i++) {
         const item = placements[i];
@@ -449,17 +482,25 @@ export const PdfSigner: React.FC = () => {
         const pdfHeight = page.getHeight();
         
         // Calculate coordinate ratios between render-canvas and native PDF space
-        const scaleX = pdfWidth / canvas.width;
-        const scaleY = pdfHeight / canvas.height;
+        const scaleX = pdfWidth / canvasWidth;
+        const scaleY = pdfHeight / canvasHeight;
         
-        const signatureBytes = await fetch(item.imageSrc).then(res => res.arrayBuffer());
+        // Decode base64 image data synchronously instead of using fetch on data URIs
+        const base64Data = item.imageSrc.split(',')[1] || item.imageSrc;
+        const binaryString = atob(base64Data);
+        const len = binaryString.length;
+        const signatureBytes = new Uint8Array(len);
+        for (let j = 0; j < len; j++) {
+          signatureBytes[j] = binaryString.charCodeAt(j);
+        }
+        
         const signatureImage = await doc.embedPng(signatureBytes);
         
         // Position conversions (PDF coordinates start at bottom-left)
         const finalW = item.width * scaleX;
         const finalH = item.height * scaleY;
-        const finalX = (item.x / 100) * canvas.width * scaleX;
-        const finalY = pdfHeight - ((item.y / 100) * canvas.height * scaleY) - finalH;
+        const finalX = (item.x / 100) * canvasWidth * scaleX;
+        const finalY = pdfHeight - ((item.y / 100) * canvasHeight * scaleY) - finalH;
         
         page.drawImage(signatureImage, {
           x: finalX,
@@ -489,7 +530,7 @@ export const PdfSigner: React.FC = () => {
       setTimeout(() => setDownloaded(false), 3000);
     } catch (err: any) {
       console.error(err);
-      setErrorMessage('Failed to sign and export PDF: ' + err.message);
+      setErrorMessage('Failed to sign and export PDF: ' + (err?.message || String(err)));
     } finally {
       setIsProcessing(false);
       setProgress(0);
@@ -560,6 +601,7 @@ export const PdfSigner: React.FC = () => {
             <div className="md:col-span-7 flex flex-col justify-center">
               <DropZone 
                 onFilesSelected={handleFilesSelected}
+                accept="application/pdf"
                 title="Drop PDF here to sign"
                 subtitle="Supports standard document PDFs up to 50MB"
                 icon={FileText}
@@ -583,7 +625,7 @@ export const PdfSigner: React.FC = () => {
           </div>
         )}
 
-        {pdfBytes && !isProcessing && (
+        {pdfBytes && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Signature Creation Panel (Left Column) */}
@@ -653,6 +695,7 @@ export const PdfSigner: React.FC = () => {
                         onTouchStart={startDrawing}
                         onTouchMove={draw}
                         onTouchEnd={stopDrawing}
+                        onTouchCancel={stopDrawing}
                         className="w-full touch-none cursor-crosshair"
                       />
                       <button
@@ -712,13 +755,13 @@ export const PdfSigner: React.FC = () => {
                     <div className="border-2 border-dashed border-slate-200 hover:border-indigo-400 rounded-2xl p-6 text-center cursor-pointer relative bg-slate-50/30 transition-all flex flex-col items-center justify-center">
                       <input
                         type="file"
-                        accept="image/png, image/jpeg"
+                        accept="image/png, image/jpeg, image/jpg, image/webp"
                         onChange={handleSignatureUpload}
                         className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
                       />
                       <Upload className="w-7.5 h-7.5 text-slate-400 mb-2" />
                       <span className="text-xs font-bold text-slate-700 block">Choose Signature Image</span>
-                      <span className="text-[10px] text-slate-450 mt-1 font-medium">PNG or JPEG with clear backgrounds</span>
+                      <span className="text-[10px] text-slate-450 mt-1 font-medium">Supports PNG, JPEG, or WebP formats</span>
                     </div>
 
                     {uploadedImageSrc && (
