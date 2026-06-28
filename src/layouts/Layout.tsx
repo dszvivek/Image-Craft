@@ -19,7 +19,8 @@ import {
   Grid,
   ChevronRight,
   Home,
-  CreditCard
+  CreditCard,
+  PenTool
 } from 'lucide-react';
 import { AdPlacement } from '../components/AdPlacement';
 
@@ -83,6 +84,13 @@ export const Layout = () => {
       icon: CreditCard,
       description: 'Analyze PDF/CSV/Excel bank statements client-side.',
       colorClass: 'text-teal-650 bg-teal-50 border-teal-100/50'
+    },
+    { 
+      name: 'Electronic PDF Signer', 
+      path: '/sign-pdf', 
+      icon: PenTool,
+      description: 'Draw, type, or upload signatures to sign PDFs offline.',
+      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50'
     },
     { 
       name: 'Image Compressor', 

@@ -20,7 +20,8 @@ import {
   Grid,
   Check,
   X,
-  CreditCard
+  CreditCard,
+  PenTool
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
@@ -78,6 +79,15 @@ const toolDirectory = [
     description: 'Upload bank or credit card statements (PDF, CSV, Excel) to analyze credits, debits, cash flow and date ranges.',
     badge: 'Finance Scan',
     colorClass: 'text-teal-650 bg-teal-50 border-teal-100/50 hover:border-teal-300'
+  },
+  {
+    name: 'Electronic PDF Signer',
+    path: '/sign-pdf',
+    icon: PenTool,
+    category: 'utilities-creative',
+    description: 'Sign PDF documents client-side. Draw, type, or upload your signature. 100% private, on-device signing.',
+    badge: 'Sign PDF',
+    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300'
   },
   {
     name: 'Image Compressor',
@@ -282,6 +292,24 @@ const renderToolPreview = (path: string) => {
             <svg className="w-full h-3 stroke-indigo-500 fill-indigo-500/10" viewBox="0 0 100 10" preserveAspectRatio="none">
               <path d="M0,8 Q20,2 40,6 T80,1 T100,5 L100,10 L0,10 Z" strokeWidth="0.8" />
             </svg>
+          </div>
+        </div>
+      );
+    case '/sign-pdf':
+      return (
+        <div className="w-full h-24 rounded-2xl bg-white border border-slate-200/85 mb-4 p-2.5 overflow-hidden relative flex flex-col justify-between shadow-xs">
+          <div className="flex items-center gap-2 border-b border-slate-100 pb-1.5">
+            <FileText className="w-4 h-4 text-indigo-650" />
+            <span className="text-[7.5px] font-bold text-slate-700">document_agreement.pdf</span>
+          </div>
+          <div className="flex-1 flex items-center justify-end pr-4 relative">
+            <div className="flex flex-col items-center">
+              <span className="font-serif italic text-indigo-700 text-[10px] translate-y-1">Vivek Gupta</span>
+              <div className="w-16 h-0.5 bg-slate-200" />
+            </div>
+            <div className="absolute top-1 right-2 text-indigo-600 animate-pulse">
+              <PenTool className="w-3.5 h-3.5 rotate-45" />
+            </div>
           </div>
         </div>
       );

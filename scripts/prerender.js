@@ -266,6 +266,24 @@ const routesConfig = {
       ]
     }
   },
+  'sign-pdf': {
+    title: 'Free PDF Signer - Sign PDF Documents Online Offline',
+    description: 'Sign PDF documents locally in your browser. Draw, type, or upload your signature. 100% private and offline client-side signing.',
+    keywords: 'pdf signer, sign pdf, digital signature pdf, online pdf signature, electronic signature free, draw signature pdf, type signature on pdf, offline pdf sign, no upload pdf signer',
+    schema: {
+      '@type': 'SoftwareApplication',
+      'name': 'Electronic PDF Signer - ImageGiri',
+      'applicationCategory': 'BusinessApplication',
+      'operatingSystem': 'Web Browser',
+      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+      'description': 'Overlay custom drawn or typed electronic signatures onto PDF pages client-side using pdf-lib.',
+      'featureList': [
+        'Draw, type, or upload custom signatures',
+        'Natively overlay signatures on any PDF page',
+        '100% offline local signing, zero server transmission'
+      ]
+    }
+  },
   'about': {
     title: 'About Us - Privacy-First Local Image Tools Suite',
     description: 'Learn about ImageGiri and our absolute privacy commitment. We run 100% client-side web sandbox processing without cloud databases.',
@@ -307,7 +325,8 @@ const filesMap = {
   'color-palette-extractor': 'src/pages/PaletteExtractor.tsx',
   'svg-vectorizer': 'src/pages/SvgVectorizer.tsx',
   'watermark-overlay': 'src/pages/WatermarkOverlay.tsx',
-  'bank-statement-analyzer': 'src/pages/StatementAnalyzer.tsx'
+  'bank-statement-analyzer': 'src/pages/StatementAnalyzer.tsx',
+  'sign-pdf': 'src/pages/PdfSigner.tsx'
 };
 
 for (const [route, meta] of Object.entries(routesConfig)) {
