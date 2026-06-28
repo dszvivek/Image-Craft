@@ -11,7 +11,9 @@ import {
   ChevronRight, 
   Plus, 
   Trash2,
-  Lock
+  Lock,
+  ZoomIn,
+  ZoomOut
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -86,6 +88,7 @@ export const PdfSigner: React.FC = () => {
   const [placements, setPlacements] = useState<SignaturePlacement[]>([]);
   const [selectedPlacementId, setSelectedPlacementId] = useState<string | null>(null);
   const [downloaded, setDownloaded] = useState<boolean>(false);
+  const [zoomScale, setZoomScale] = useState<number>(1.0);
 
   // References
   const drawCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -95,6 +98,8 @@ export const PdfSigner: React.FC = () => {
   const dragStartRef = useRef<{ x: number; y: number } | null>(null);
   const lastPointRef = useRef<{ x: number; y: number } | null>(null);
   const canvasSizeRef = useRef<{ width: number; height: number }>({ width: 600, height: 800 });
+  const isResizingRef = useRef<boolean>(false);
+  const resizeStartRef = useRef<{ x: number; y: number; baseWidth: number; baseHeight: number } | null>(null);
 
   // Load Google Fonts for typing signatures
   useEffect(() => {
@@ -119,11 +124,11 @@ export const PdfSigner: React.FC = () => {
     ctx.strokeStyle = drawColor;
   }, [drawColor, signatureMode]);
 
-  // Render PDF page when currentPage or pdfBytes change
+  // Render PDF page when currentPage, pdfBytes, or zoomScale change
   useEffect(() => {
     if (!pdfBytes) return;
     renderPage(currentPage);
-  }, [pdfBytes, currentPage]);
+  }, [pdfBytes, currentPage, zoomScale]);
 
   const renderPage = async (pageNumber: number) => {
     if (!pdfBytes) return;
@@ -141,7 +146,7 @@ export const PdfSigner: React.FC = () => {
       // Fit container viewport width (maximum width of 600px for responsiveness)
       const containerWidth = Math.min(workspaceRef.current?.clientWidth || 600, 600);
       const tempViewport = page.getViewport({ scale: 1 });
-      const scale = containerWidth / tempViewport.width;
+      const scale = (containerWidth / tempViewport.width) * zoomScale;
       const viewport = page.getViewport({ scale });
 
       canvas.width = viewport.width;
@@ -376,50 +381,135 @@ export const PdfSigner: React.FC = () => {
   };
 
   // Drag and resize handlers inside PDF Canvas viewport
-  const handlePlacementMouseDown = (e: React.MouseEvent<HTMLDivElement>, placement: SignaturePlacement) => {
+  const handlePlacementMouseDown = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>, placement: SignaturePlacement) => {
     e.stopPropagation();
     setSelectedPlacementId(placement.id);
     const canvas = pdfCanvasRef.current;
     if (!canvas) return;
+
+    let clientX = 0;
+    let clientY = 0;
+    if ('touches' in e) {
+      if (e.touches.length === 0) return;
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
     
     dragStartRef.current = {
-      x: e.clientX,
-      y: e.clientY
+      x: clientX,
+      y: clientY
     };
   };
 
-  const handleContainerMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!dragStartRef.current || !selectedPlacementId) return;
-    
-    const placement = placements.find(p => p.id === selectedPlacementId);
-    const canvas = pdfCanvasRef.current;
-    if (!placement || !canvas || placement.page !== currentPage) return;
+  const handleResizeStart = (
+    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
+    placement: SignaturePlacement
+  ) => {
+    e.stopPropagation();
+    e.preventDefault();
+    isResizingRef.current = true;
+    setSelectedPlacementId(placement.id);
 
-    const deltaX = e.clientX - dragStartRef.current.x;
-    const deltaY = e.clientY - dragStartRef.current.y;
+    let clientX = 0;
+    let clientY = 0;
+    if ('touches' in e) {
+      if (e.touches.length === 0) return;
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
 
-    // Convert pixel movements into canvas percentage limits
-    const xChangePercent = (deltaX / canvas.width) * 100;
-    const yChangePercent = (deltaY / canvas.height) * 100;
-
-    let newX = Math.max(0, Math.min(100 - (placement.width / canvas.width) * 100, placement.x + xChangePercent));
-    let newY = Math.max(0, Math.min(100 - (placement.height / canvas.height) * 100, placement.y + yChangePercent));
-
-    setPlacements(placements.map(p => {
-      if (p.id === selectedPlacementId) {
-        return { ...p, x: newX, y: newY };
-      }
-      return p;
-    }));
-
-    dragStartRef.current = {
-      x: e.clientX,
-      y: e.clientY
+    resizeStartRef.current = {
+      x: clientX,
+      y: clientY,
+      baseWidth: placement.width,
+      baseHeight: placement.height
     };
+  };
+
+  const handleContainerMouseMove = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
+    const canvas = pdfCanvasRef.current;
+    if (!canvas || !selectedPlacementId) return;
+
+    const placement = placements.find(p => p.id === selectedPlacementId);
+    if (!placement || placement.page !== currentPage) return;
+
+    let clientX = 0;
+    let clientY = 0;
+    if ('touches' in e) {
+      if (e.touches.length === 0) return;
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
+
+    if (isResizingRef.current && resizeStartRef.current) {
+      // Drag-to-Resize Logic
+      const deltaX = clientX - resizeStartRef.current.x;
+      const deltaBase = deltaX / zoomScale;
+      
+      const aspect = resizeStartRef.current.baseHeight / resizeStartRef.current.baseWidth;
+      const newWidth = Math.max(50, Math.min((canvas.width * 0.8) / zoomScale, resizeStartRef.current.baseWidth + deltaBase));
+      const newHeight = newWidth * aspect;
+
+      // Boundaries adjustments using scaled values
+      const currentW = newWidth * zoomScale;
+      const currentH = newHeight * zoomScale;
+      const limitX = 100 - (currentW / canvas.width) * 100;
+      const limitY = 100 - (currentH / canvas.height) * 100;
+
+      setPlacements(placements.map(p => {
+        if (p.id === selectedPlacementId) {
+          return {
+            ...p,
+            width: newWidth,
+            height: newHeight,
+            x: Math.min(p.x, limitX),
+            y: Math.min(p.y, limitY)
+          };
+        }
+        return p;
+      }));
+    } else if (dragStartRef.current) {
+      // Dragging Placement Logic
+      const deltaX = clientX - dragStartRef.current.x;
+      const deltaY = clientY - dragStartRef.current.y;
+
+      const currentSigWidth = placement.width * zoomScale;
+      const currentSigHeight = placement.height * zoomScale;
+
+      // Convert pixel movements into canvas percentage limits
+      const xChangePercent = (deltaX / canvas.width) * 100;
+      const yChangePercent = (deltaY / canvas.height) * 100;
+
+      let newX = Math.max(0, Math.min(100 - (currentSigWidth / canvas.width) * 100, placement.x + xChangePercent));
+      let newY = Math.max(0, Math.min(100 - (currentSigHeight / canvas.height) * 100, placement.y + yChangePercent));
+
+      setPlacements(placements.map(p => {
+        if (p.id === selectedPlacementId) {
+          return { ...p, x: newX, y: newY };
+        }
+        return p;
+      }));
+
+      dragStartRef.current = {
+        x: clientX,
+        y: clientY
+      };
+    }
   };
 
   const handleContainerMouseUp = () => {
     dragStartRef.current = null;
+    isResizingRef.current = false;
+    resizeStartRef.current = null;
   };
 
   const handleResizeWidthChange = (val: number) => {
@@ -430,12 +520,15 @@ export const PdfSigner: React.FC = () => {
     setPlacements(placements.map(p => {
       if (p.id === selectedPlacementId) {
         const aspect = p.height / p.width;
-        const newWidth = Math.max(50, Math.min(canvas.width * 0.8, val));
+        // val is the new base width. Scaled max limit checked against canvas bounds.
+        const newWidth = Math.max(50, Math.min((canvas.width * 0.8) / zoomScale, val));
         const newHeight = newWidth * aspect;
         
-        // Boundaries adjustments
-        const limitX = 100 - (newWidth / canvas.width) * 100;
-        const limitY = 100 - (newHeight / canvas.height) * 100;
+        // Boundaries adjustments using scaled values
+        const currentW = newWidth * zoomScale;
+        const currentH = newHeight * zoomScale;
+        const limitX = 100 - (currentW / canvas.width) * 100;
+        const limitY = 100 - (currentH / canvas.height) * 100;
         
         return {
           ...p,
@@ -497,8 +590,11 @@ export const PdfSigner: React.FC = () => {
         const signatureImage = await doc.embedPng(signatureBytes);
         
         // Position conversions (PDF coordinates start at bottom-left)
-        const finalW = item.width * scaleX;
-        const finalH = item.height * scaleY;
+        const scaledWidth = item.width * zoomScale;
+        const scaledHeight = item.height * zoomScale;
+
+        const finalW = scaledWidth * scaleX;
+        const finalH = scaledHeight * scaleY;
         const finalX = (item.x / 100) * canvasWidth * scaleX;
         const finalY = pdfHeight - ((item.y / 100) * canvasHeight * scaleY) - finalH;
         
@@ -831,7 +927,35 @@ export const PdfSigner: React.FC = () => {
                     <h3 className="font-extrabold text-sm text-slate-900 truncate max-w-[200px] sm:max-w-xs">{pdfFile?.name}</h3>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 font-semibold">
+                    {/* Zoom Control Group */}
+                    <div className="flex items-center gap-1 border border-slate-200/80 rounded-xl p-1 bg-slate-50 mr-2">
+                      <button
+                        onClick={() => setZoomScale(Math.max(0.6, zoomScale - 0.2))}
+                        disabled={zoomScale <= 0.6}
+                        className={`p-1.5 rounded-lg transition cursor-pointer ${
+                          zoomScale <= 0.6 ? 'text-slate-350 cursor-not-allowed' : 'text-slate-655 hover:bg-white hover:shadow-xs'
+                        }`}
+                        title="Zoom Out"
+                      >
+                        <ZoomOut className="w-4 h-4" />
+                      </button>
+                      <span className="text-[10px] font-extrabold px-1 text-slate-700 min-w-[34px] text-center">
+                        {Math.round(zoomScale * 100)}%
+                      </span>
+                      <button
+                        onClick={() => setZoomScale(Math.min(3.0, zoomScale + 0.2))}
+                        disabled={zoomScale >= 3.0}
+                        className={`p-1.5 rounded-lg transition cursor-pointer ${
+                          zoomScale >= 3.0 ? 'text-slate-350 cursor-not-allowed' : 'text-slate-655 hover:bg-white hover:shadow-xs'
+                        }`}
+                        title="Zoom In"
+                      >
+                        <ZoomIn className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    {/* Page Control Group */}
                     <div className="flex items-center gap-1 border border-slate-200/80 rounded-xl p-1 bg-slate-50">
                       <button
                         onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
@@ -865,49 +989,69 @@ export const PdfSigner: React.FC = () => {
                   onMouseMove={handleContainerMouseMove}
                   onMouseUp={handleContainerMouseUp}
                   onMouseLeave={handleContainerMouseUp}
+                  onTouchMove={handleContainerMouseMove}
+                  onTouchEnd={handleContainerMouseUp}
+                  onTouchCancel={handleContainerMouseUp}
                 >
-                  {/* Native PDF page canvas */}
-                  <canvas 
-                    ref={pdfCanvasRef} 
-                    className="shadow-md rounded-lg max-w-full"
-                  />
+                  {/* Canvas & Overlays Shared Wrapper matching canvas size exactly */}
+                  <div 
+                    className="relative shadow-md rounded-lg overflow-hidden" 
+                    style={{ width: `${canvasSizeRef.current.width}px`, height: `${canvasSizeRef.current.height}px` }}
+                  >
+                    {/* Native PDF page canvas */}
+                    <canvas 
+                      ref={pdfCanvasRef} 
+                      className="w-full h-full block"
+                    />
 
-                  {/* Absolute Signature Placement Overlays */}
-                  {placements
-                    .filter(p => p.page === currentPage)
-                    .map(placement => (
-                      <div
-                        key={placement.id}
-                        onMouseDown={(e) => handlePlacementMouseDown(e, placement)}
-                        className={`absolute cursor-move group select-none flex items-center justify-center p-1 rounded transition-all border ${
-                          selectedPlacementId === placement.id
-                            ? 'border-indigo-600 ring-2 ring-indigo-500/10 bg-indigo-500/5'
-                            : 'border-dashed border-slate-400 bg-transparent hover:border-indigo-500 hover:bg-indigo-500/5'
-                        }`}
-                        style={{
-                          left: `calc(${placement.x}% + 10px)`, // pad offset
-                          top: `calc(${placement.y}% + 10px)`,
-                          width: `${placement.width}px`,
-                          height: `${placement.height}px`
-                        }}
-                      >
-                        <img 
-                          src={placement.imageSrc} 
-                          alt="Signature signature" 
-                          className="w-full h-full object-contain pointer-events-none"
-                        />
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            removePlacement(placement.id);
+                    {/* Absolute Signature Placement Overlays */}
+                    {placements
+                      .filter(p => p.page === currentPage)
+                      .map(placement => (
+                        <div
+                          key={placement.id}
+                          onMouseDown={(e) => handlePlacementMouseDown(e, placement)}
+                          onTouchStart={(e) => handlePlacementMouseDown(e, placement)}
+                          className={`absolute cursor-move group select-none flex items-center justify-center p-1 rounded transition-all border ${
+                            selectedPlacementId === placement.id
+                              ? 'border-indigo-600 ring-2 ring-indigo-500/10 bg-indigo-500/5 bg-white/40'
+                              : 'border-dashed border-slate-400 bg-transparent hover:border-indigo-500 hover:bg-indigo-500/5'
+                          }`}
+                          style={{
+                            left: `${placement.x}%`,
+                            top: `${placement.y}%`,
+                            width: `${placement.width * zoomScale}px`,
+                            height: `${placement.height * zoomScale}px`
                           }}
-                          className="absolute -top-3.5 -right-3.5 w-6 h-6 rounded-full bg-red-50 hover:bg-red-150 border border-red-200 text-red-500 hover:text-red-700 flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition duration-150 cursor-pointer"
-                          title="Remove signature"
                         >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    ))}
+                          <img 
+                            src={placement.imageSrc} 
+                            alt="Signature" 
+                            className="w-full h-full object-contain pointer-events-none"
+                          />
+                          
+                          {/* Visual Drag-to-Resize Handle */}
+                          {selectedPlacementId === placement.id && (
+                            <div 
+                              className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-indigo-600 border border-white rounded-full cursor-se-resize -mr-1.5 -mb-1.5 flex items-center justify-center shadow-md active:scale-125 z-30" 
+                              onMouseDown={(e) => handleResizeStart(e, placement)}
+                              onTouchStart={(e) => handleResizeStart(e, placement)}
+                            />
+                          )}
+
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              removePlacement(placement.id);
+                            }}
+                            className="absolute -top-3.5 -right-3.5 w-6 h-6 rounded-full bg-red-50 hover:bg-red-150 border border-red-200 text-red-500 hover:text-red-700 flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition duration-150 cursor-pointer z-30"
+                            title="Remove signature"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      ))}
+                  </div>
                 </div>
 
                 {/* Final Sign & reset options footer */}
