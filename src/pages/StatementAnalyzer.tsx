@@ -668,6 +668,23 @@ export const StatementAnalyzer: React.FC = () => {
       }
       if (!matchedDate) return;
       const textWithoutDate = line.replace(matchedDateStr, '').trim();
+      
+      // Skip opening/closing balance and brought/carried forward lines (they are summaries, not transactions)
+      const textLower = textWithoutDate.toLowerCase();
+      if (
+        textLower.includes('b/f') || 
+        textLower.includes('c/f') || 
+        textLower.includes('brought forward') || 
+        textLower.includes('carried forward') || 
+        textLower.includes('opening balance') || 
+        textLower.includes('closing balance') ||
+        textLower.includes('balance b/f') ||
+        textLower.includes('bal b/f') ||
+        textLower.includes('bal c/f')
+      ) {
+        return;
+      }
+      
       const numMatches = textWithoutDate.match(numRegex) || [];
       if (numMatches.length === 0) return;
       let desc = textWithoutDate;
