@@ -4,13 +4,60 @@ import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import { DemoPreview } from '../components/DemoPreview';
-import EXIF from 'exif-js';
+import exifr from 'exifr';
 
 interface ExifTag {
   label: string;
   value: string;
   category: 'camera' | 'exposure' | 'file' | 'gps' | 'other';
 }
+
+const EXCLUDED_TAGS = new Set([
+  'thumbnail', 'makerNote', 'userComment', 'errors', 'warning'
+]);
+
+const HANDLED_TAGS = new Set([
+  'Make', 'Model', 'Software', 'DateTime', 'FNumber', 'ExposureTime', 
+  'ISOSpeedRatings', 'FocalLength', 'LensModel', 'LensMake', 'Flash', 
+  'ExposureProgram', 'MeteringMode', 'DateTimeOriginal', 'UserComment',
+  'latitude', 'longitude', 'altitude', 'GPSLatitude', 'GPSLongitude', 
+  'GPSAltitude', 'GPSLatitudeRef', 'GPSLongitudeRef', 'GPSAltitudeRef', 
+  'GPSTimeStamp', 'GPSDateStamp'
+]);
+
+const formatTagValue = (val: any): string => {
+  if (val === null || val === undefined) return '';
+  if (val instanceof Date) {
+    return val.toLocaleString();
+  }
+  if (typeof val === 'object') {
+    if (typeof val.numerator === 'number' && typeof val.denominator === 'number') {
+      if (val.denominator === 0) return '0';
+      const num = val.numerator / val.denominator;
+      return Number.isInteger(num) ? String(num) : String(parseFloat(num.toFixed(4)));
+    }
+    if (Array.isArray(val)) {
+      return val.map(formatTagValue).filter((v) => v !== '').join(', ');
+    }
+    try {
+      return JSON.stringify(val);
+    } catch {
+      return String(val);
+    }
+  }
+  return String(val);
+};
+
+const formatKeyLabel = (key: string): string => {
+  const result = key.replace(/([a-z])([A-Z])/g, '$1 $2')
+                    .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')
+                    .replace(/([0-9]+)/g, ' $1')
+                    .trim();
+  return result
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
 
 export const MetadataStripper: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -24,73 +71,135 @@ export const MetadataStripper: React.FC = () => {
     if (files.length > 0) {
       const f = files[0];
       setFile(f);
-      setImageUrl(URL.createObjectURL(f));
-      parseMetadata(f);
+      const url = URL.createObjectURL(f);
+      setImageUrl(url);
+
+      const supportedFormats = ['image/jpeg', 'image/png', 'image/webp'];
+      if (supportedFormats.includes(f.type)) {
+        setDownloadFormat(f.type);
+      } else {
+        setDownloadFormat('image/jpeg');
+      }
+
+      parseMetadata(f, url);
     }
   };
 
-  // Helper to parse GPS coordinate values from rational numbers
-  const parseGPSCoordinate = (gpsArr: any, ref: string) => {
-    if (!gpsArr || gpsArr.length < 3) return null;
-    const deg = gpsArr[0].numerator / gpsArr[0].denominator;
-    const min = gpsArr[1].numerator / gpsArr[1].denominator;
-    const sec = gpsArr[2].numerator / gpsArr[2].denominator;
-    let decimal = deg + min / 60 + sec / 3600;
-    if (ref === 'S' || ref === 'W') decimal = -decimal;
-    return decimal;
-  };
-
-  const parseMetadata = (f: File) => {
+  const parseMetadata = (f: File, fileUrl: string) => {
     setIsProcessing(true);
     setMetadata([]);
     setGpsLink('');
 
-    EXIF.getData(f as any, function (this: any) {
-      const allTags = EXIF.getAllTags(this);
-      const tempTags: ExifTag[] = [];
+    const img = new Image();
 
-      // File Info
-      if (f.name) tempTags.push({ label: 'Filename', value: f.name, category: 'file' });
-      tempTags.push({ label: 'File Size', value: formatSize(f.size), category: 'file' });
-      tempTags.push({ label: 'Mime Type', value: f.type, category: 'file' });
+    const handleParseResults = (width?: number, height?: number) => {
+      exifr.parse(f, { tiff: true, xmp: true, gps: true, exif: true })
+        .then((allTags) => {
+          const tempTags: ExifTag[] = [];
 
-      if (allTags) {
-        // Camera Info
-        if (allTags.Make) tempTags.push({ label: 'Camera Make', value: String(allTags.Make), category: 'camera' });
-        if (allTags.Model) tempTags.push({ label: 'Camera Model', value: String(allTags.Model), category: 'camera' });
-        if (allTags.Software) tempTags.push({ label: 'Software', value: String(allTags.Software), category: 'camera' });
-        if (allTags.DateTime) tempTags.push({ label: 'Shot Time', value: String(allTags.DateTime), category: 'file' });
+          // File Info
+          if (f.name) tempTags.push({ label: 'Filename', value: f.name, category: 'file' });
+          tempTags.push({ label: 'File Size', value: formatSize(f.size), category: 'file' });
+          tempTags.push({ label: 'Mime Type', value: f.type || 'image/unknown', category: 'file' });
 
-        // Exposure Info
-        if (allTags.FNumber) tempTags.push({ label: 'Aperture (F-Stop)', value: `f/${Number(allTags.FNumber)}`, category: 'exposure' });
-        if (allTags.ExposureTime) {
-          const exp = Number(allTags.ExposureTime);
-          const expText = exp < 1 ? `1/${Math.round(1 / exp)}s` : `${exp}s`;
-          tempTags.push({ label: 'Exposure Time', value: expText, category: 'exposure' });
-        }
-        if (allTags.ISOSpeedRatings) tempTags.push({ label: 'ISO Speed', value: String(allTags.ISOSpeedRatings), category: 'exposure' });
-        if (allTags.FocalLength) tempTags.push({ label: 'Focal Length', value: `${Number(allTags.FocalLength)}mm`, category: 'exposure' });
-
-        // GPS Info
-        if (allTags.GPSLatitude && allTags.GPSLongitude) {
-          const lat = parseGPSCoordinate(allTags.GPSLatitude, allTags.GPSLatitudeRef);
-          const lon = parseGPSCoordinate(allTags.GPSLongitude, allTags.GPSLongitudeRef);
-          
-          if (lat !== null && lon !== null) {
-            tempTags.push({ label: 'GPS Latitude', value: `${lat.toFixed(6)}° ${allTags.GPSLatitudeRef || ''}`, category: 'gps' });
-            tempTags.push({ label: 'GPS Longitude', value: `${lon.toFixed(6)}° ${allTags.GPSLongitudeRef || ''}`, category: 'gps' });
-            if (allTags.GPSAltitude) {
-              const alt = allTags.GPSAltitude.numerator / allTags.GPSAltitude.denominator;
-              tempTags.push({ label: 'GPS Altitude', value: `${alt.toFixed(1)} meters`, category: 'gps' });
-            }
-            setGpsLink(`https://www.google.com/maps?q=${lat},${lon}`);
+          if (width && height) {
+            tempTags.push({ label: 'Dimensions', value: `${width} x ${height} px`, category: 'file' });
+            // Calculate Aspect Ratio
+            const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
+            const divisor = gcd(width, height);
+            const aspect = divisor > 0 ? `${width / divisor}:${height / divisor}` : 'N/A';
+            tempTags.push({ label: 'Aspect Ratio', value: aspect, category: 'file' });
           }
-        }
-      }
 
-      setMetadata(tempTags);
-      setIsProcessing(false);
-    });
+          if (allTags) {
+            // Camera Info
+            if (allTags.Make) tempTags.push({ label: 'Camera Make', value: formatTagValue(allTags.Make).trim(), category: 'camera' });
+            if (allTags.Model) tempTags.push({ label: 'Camera Model', value: formatTagValue(allTags.Model).trim(), category: 'camera' });
+            if (allTags.Software) tempTags.push({ label: 'Software', value: formatTagValue(allTags.Software).trim(), category: 'camera' });
+            if (allTags.DateTime) tempTags.push({ label: 'Shot Time', value: formatTagValue(allTags.DateTime), category: 'file' });
+
+            // Exposure Info
+            if (allTags.FNumber) tempTags.push({ label: 'Aperture (F-Stop)', value: `f/${Number(allTags.FNumber)}`, category: 'exposure' });
+            if (allTags.ExposureTime) {
+              const exp = Number(allTags.ExposureTime);
+              const expText = exp < 1 ? `1/${Math.round(1 / exp)}s` : `${exp}s`;
+              tempTags.push({ label: 'Exposure Time', value: expText, category: 'exposure' });
+            }
+            if (allTags.ISOSpeedRatings) tempTags.push({ label: 'ISO Speed', value: formatTagValue(allTags.ISOSpeedRatings), category: 'exposure' });
+            if (allTags.FocalLength) tempTags.push({ label: 'Focal Length', value: `${Number(allTags.FocalLength)}mm`, category: 'exposure' });
+
+            // Additional EXIF/TIFF tags
+            if (allTags.LensModel) tempTags.push({ label: 'Lens Model', value: formatTagValue(allTags.LensModel).trim(), category: 'exposure' });
+            if (allTags.LensMake) tempTags.push({ label: 'Lens Make', value: formatTagValue(allTags.LensMake).trim(), category: 'exposure' });
+            if (allTags.Flash) tempTags.push({ label: 'Flash Mode', value: formatTagValue(allTags.Flash), category: 'exposure' });
+            if (allTags.ExposureProgram) tempTags.push({ label: 'Exposure Program', value: formatTagValue(allTags.ExposureProgram), category: 'exposure' });
+            if (allTags.MeteringMode) tempTags.push({ label: 'Metering Mode', value: formatTagValue(allTags.MeteringMode), category: 'exposure' });
+            if (allTags.DateTimeOriginal) tempTags.push({ label: 'Capture Time', value: formatTagValue(allTags.DateTimeOriginal), category: 'file' });
+            if (allTags.UserComment) tempTags.push({ label: 'User Comment', value: formatTagValue(allTags.UserComment).trim(), category: 'other' });
+
+            // GPS Info
+            if (typeof allTags.latitude === 'number' && typeof allTags.longitude === 'number') {
+              const lat = allTags.latitude;
+              const lon = allTags.longitude;
+              tempTags.push({ label: 'GPS Latitude', value: `${lat.toFixed(6)}°`, category: 'gps' });
+              tempTags.push({ label: 'GPS Longitude', value: `${lon.toFixed(6)}°`, category: 'gps' });
+
+              if (allTags.GPSAltitude !== undefined) {
+                tempTags.push({ label: 'GPS Altitude', value: `${Number(allTags.GPSAltitude).toFixed(1)} meters`, category: 'gps' });
+              } else if (allTags.altitude !== undefined) {
+                tempTags.push({ label: 'GPS Altitude', value: `${Number(allTags.altitude).toFixed(1)} meters`, category: 'gps' });
+              }
+              setGpsLink(`https://www.google.com/maps?q=${lat},${lon}`);
+            }
+
+            // Map all remaining tags dynamically under 'other'
+            Object.keys(allTags).forEach((key) => {
+              if (!HANDLED_TAGS.has(key) && !EXCLUDED_TAGS.has(key)) {
+                const val = allTags[key];
+                const formattedVal = formatTagValue(val);
+                if (formattedVal) {
+                  tempTags.push({
+                    label: formatKeyLabel(key),
+                    value: formattedVal,
+                    category: 'other'
+                  });
+                }
+              }
+            });
+          }
+
+          setMetadata(tempTags);
+          setIsProcessing(false);
+        })
+        .catch((err) => {
+          console.error("Error parsing EXIF with exifr:", err);
+          const tempTags: ExifTag[] = [];
+          if (f.name) tempTags.push({ label: 'Filename', value: f.name, category: 'file' });
+          tempTags.push({ label: 'File Size', value: formatSize(f.size), category: 'file' });
+          tempTags.push({ label: 'Mime Type', value: f.type || 'image/unknown', category: 'file' });
+
+          if (width && height) {
+            tempTags.push({ label: 'Dimensions', value: `${width} x ${height} px`, category: 'file' });
+            const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
+            const divisor = gcd(width, height);
+            const aspect = divisor > 0 ? `${width / divisor}:${height / divisor}` : 'N/A';
+            tempTags.push({ label: 'Aspect Ratio', value: aspect, category: 'file' });
+          }
+
+          setMetadata(tempTags);
+          setIsProcessing(false);
+        });
+    };
+
+    img.onload = () => {
+      handleParseResults(img.naturalWidth, img.naturalHeight);
+    };
+
+    img.onerror = () => {
+      handleParseResults();
+    };
+
+    img.src = fileUrl;
   };
 
   const handleStripAndDownload = () => {
@@ -156,7 +265,7 @@ export const MetadataStripper: React.FC = () => {
     other: { label: 'Other Metadata', color: 'text-slate-600 bg-slate-50 border-slate-100' }
   };
 
-  const categorizedTags = (cat: 'file' | 'camera' | 'exposure' | 'gps') => 
+  const categorizedTags = (cat: 'file' | 'camera' | 'exposure' | 'gps' | 'other') => 
     metadata.filter((t) => t.category === cat);
 
   const metadataSchema = {
@@ -205,18 +314,18 @@ export const MetadataStripper: React.FC = () => {
             <div className="md:col-span-7 flex flex-col justify-center">
               <DropZone 
                 onFilesSelected={handleFilesSelected}
-                accept="image/jpeg"
+                accept="image/*"
                 title="Drop photo here to inspect metadata"
-                subtitle="Only JPG/JPEG files hold EXIF headers"
+                subtitle="Supports JPEG, PNG, WebP, GIF, BMP, etc."
               />
             </div>
             <div className="md:col-span-5 flex">
               <div className="premium-bento rounded-3xl p-6 flex flex-col justify-between w-full shadow-sm hover:border-red-350 transition-all duration-300">
                 <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-red-650 bg-red-50/30 border border-red-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
+                  <div className="text-[10px] font-bold text-red-655 bg-red-50/30 border border-red-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
                   <h3 className="text-base font-extrabold text-slate-900">How Metadata Stripper Works</h3>
                   <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                    Drop a JPEG to instantly expose hidden EXIF data — GPS coordinates, camera model, aperture and timestamps — then scrub them all with one click.
+                    Drop any image to instantly expose hidden metadata — GPS coordinates, camera model, exposure details, and capture timestamps — then scrub them all with one click.
                   </p>
                 </div>
                 <DemoPreview
@@ -253,18 +362,22 @@ export const MetadataStripper: React.FC = () => {
                   <label className="text-[10px] font-bold text-slate-450 uppercase tracking-widest block">
                     Target Format
                   </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {['image/jpeg', 'image/png'].map((f) => (
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { type: 'image/jpeg', label: 'JPEG (Lossy)' },
+                      { type: 'image/png', label: 'PNG (Lossless)' },
+                      { type: 'image/webp', label: 'WebP' }
+                    ].map((f) => (
                       <button
-                        key={f}
-                        onClick={() => setDownloadFormat(f)}
-                        className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                          downloadFormat === f
+                        key={f.type}
+                        onClick={() => setDownloadFormat(f.type)}
+                        className={`py-2 px-2 rounded-xl text-[10px] font-bold border transition-all cursor-pointer ${
+                          downloadFormat === f.type
                             ? 'bg-red-600 border-red-550 text-white shadow-md shadow-red-500/10'
                             : 'bg-white/85 border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
                         }`}
                       >
-                        {f === 'image/jpeg' ? 'JPEG (Lossy Clean)' : 'PNG (Lossless Clean)'}
+                        {f.label}
                       </button>
                     ))}
                   </div>
@@ -308,8 +421,12 @@ export const MetadataStripper: React.FC = () => {
                 {isProcessing ? (
                   <span className="text-[10px] font-semibold text-slate-400 animate-pulse">Reading headers...</span>
                 ) : (
-                  <span className="text-[10px] text-red-655 font-bold uppercase tracking-wider bg-red-50/50 border border-red-100/60 px-2 py-0.5 rounded shadow-xs">
-                    {metadata.length > 3 ? 'EXIF Tagged' : 'Metadata Free'}
+                  <span className={`text-[10px] font-bold uppercase tracking-wider border px-2 py-0.5 rounded shadow-xs ${
+                    metadata.some((t) => ['camera', 'exposure', 'gps'].includes(t.category))
+                      ? 'text-red-655 bg-red-50/50 border-red-100/60'
+                      : 'text-emerald-650 bg-emerald-50/50 border-emerald-100/60'
+                  }`}>
+                    {metadata.some((t) => ['camera', 'exposure', 'gps'].includes(t.category)) ? 'EXIF Tagged' : 'No EXIF Data'}
                   </span>
                 )}
               </div>
@@ -319,7 +436,7 @@ export const MetadataStripper: React.FC = () => {
                   <RefreshCw className="w-8 h-8 text-red-500 animate-spin" />
                   <span className="text-xs font-semibold text-slate-455">Reading binary headers...</span>
                 </div>
-              ) : metadata.length <= 3 ? (
+              ) : metadata.length === 0 ? (
                 <div className="glass-card p-8 rounded-3xl text-center flex flex-col items-center gap-3.5">
                   <div className="w-12 h-12 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm">
                     <ShieldCheck className="w-6 h-6 animate-pulse" />
@@ -331,6 +448,19 @@ export const MetadataStripper: React.FC = () => {
                 </div>
               ) : (
                 <div className="space-y-4 max-h-[520px] overflow-y-auto pr-1">
+                  
+                  {/* Privacy Check Alert */}
+                  {!metadata.some((t) => ['camera', 'exposure', 'gps'].includes(t.category)) && (
+                    <div className="bg-emerald-50 border border-emerald-150 p-4 rounded-2xl flex items-start gap-2.5 shadow-sm">
+                      <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                      <div>
+                        <h4 className="text-xs font-black text-emerald-800">Privacy Guaranteed</h4>
+                        <p className="text-[10px] text-emerald-655 leading-relaxed font-medium mt-0.5">
+                          No camera hardware markers, exposure parameters, timestamps, or GPS location tags were detected on this file. It is clean and safe to share!
+                        </p>
+                      </div>
+                    </div>
+                  )}
                   
                   {/* GPS Map Alert */}
                   {gpsLink && (
@@ -356,7 +486,7 @@ export const MetadataStripper: React.FC = () => {
                   )}
 
                   {/* Render Categories */}
-                  {(['file', 'camera', 'exposure', 'gps'] as const).map((cat) => {
+                  {(['file', 'camera', 'exposure', 'gps', 'other'] as const).map((cat) => {
                     const tags = categorizedTags(cat);
                     if (tags.length === 0) return null;
                     const catInfo = categories[cat];
