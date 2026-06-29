@@ -150,9 +150,9 @@
 /* Custom Base Styles */
 @layer base {
   body {
-    /* Pure bright off-white background matching CarWale */
+    /* Pure bright white background */
     background-attachment: fixed;
-    background: #f4f7fa !important; 
+    background: #ffffff !important; 
     /* Slate-900 text for crisp, premium readability */
     color: #0f172a; 
     @apply antialiased font-sans transition-colors duration-300;
