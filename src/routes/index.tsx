@@ -43,6 +43,7 @@ const AspectResizer = safeLazy(() => import('../pages/AspectResizer').then(modul
 const MemeGenerator = safeLazy(() => import('../pages/MemeGenerator').then(module => ({ default: module.MemeGenerator })));
 const SvgVectorizer = safeLazy(() => import('../pages/SvgVectorizer').then(module => ({ default: module.SvgVectorizer })));
 const MosaicGenerator = safeLazy(() => import('../pages/MosaicGenerator').then(module => ({ default: module.MosaicGenerator })));
+const ShapeArtGenerator = safeLazy(() => import('../pages/ShapeArtGenerator').then(module => ({ default: module.ShapeArtGenerator })));
 const StatementAnalyzer = safeLazy(() => import('../pages/StatementAnalyzer').then(module => ({ default: module.StatementAnalyzer })));
 const PdfSigner = safeLazy(() => import('../pages/PdfSigner').then(module => ({ default: module.PdfSigner })));
 const About = safeLazy(() => import('../pages/About').then(module => ({ default: module.About })));
@@ -185,6 +186,14 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <MosaicGenerator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'shape-art-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ShapeArtGenerator />
           </Suspense>
         ),
       },

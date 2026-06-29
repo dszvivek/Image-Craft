@@ -20,7 +20,8 @@ import {
   ChevronRight,
   Home,
   CreditCard,
-  PenTool
+  PenTool,
+  Sparkles
 } from 'lucide-react';
 import { AdPlacement } from '../components/AdPlacement';
 
@@ -56,6 +57,13 @@ export const Layout = () => {
       icon: Grid,
       description: 'Compose target images from tile collections.',
       colorClass: 'text-fuchsia-600 bg-fuchsia-50 border-fuchsia-100/50'
+    },
+    { 
+      name: 'AI Shape Art Generator', 
+      path: '/shape-art-generator', 
+      icon: Sparkles,
+      description: 'Turn photos into cosmic stars, cloud outlines, or floral sketches.',
+      colorClass: 'text-indigo-600 bg-indigo-50 border-indigo-100/50'
     },
     { 
       name: 'Smart Crop & Aspect Resizer', 

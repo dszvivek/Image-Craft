@@ -176,6 +176,25 @@ const routesConfig = {
       ]
     }
   },
+  'shape-art-generator': {
+    title: 'Free AI Shape Art Generator - Photo to Particle Sketch Portrait',
+    description: 'Turn your photographs into computational particle art portraits. Reconstruct face details and pose contours using stars, clouds, flowers, or pencil strokes offline.',
+    keywords: 'AI shape art generator, photo to sketch converter, star portrait maker, flower photo collage, contour stippling offline',
+    schema: {
+      '@type': 'SoftwareApplication',
+      'name': 'AI Shape Art Generator - ImageGiri',
+      'applicationCategory': 'MultimediaApplication',
+      'operatingSystem': 'Web Browser',
+      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+      'description': 'Convert images into creative shape collages matching body outlines and facial features client-side.',
+      'featureList': [
+        'Local Sobel contour edge scanning',
+        'Adaptive point density detail allocation',
+        'Handcrafted drawing styles (Stars, Pencil, Flowers)',
+        'Animate canvas rendering sequences'
+      ]
+    }
+  },
   'ocr-text-extractor': {
     title: 'Free OCR Text Extractor - Scan Image to Text Offline',
     description: 'Extract text from images, scanned documents, and books locally using Tesseract OCR. Runs 100% offline inside your browser. Safe and secure.',
@@ -321,6 +340,7 @@ const filesMap = {
   'meme-generator': 'src/pages/MemeGenerator.tsx',
   'metadata-stripper': 'src/pages/MetadataStripper.tsx',
   'photo-mosaic-generator': 'src/pages/MosaicGenerator.tsx',
+  'shape-art-generator': 'src/pages/ShapeArtGenerator.tsx',
   'ocr-text-extractor': 'src/pages/OcrExtractor.tsx',
   'color-palette-extractor': 'src/pages/PaletteExtractor.tsx',
   'svg-vectorizer': 'src/pages/SvgVectorizer.tsx',

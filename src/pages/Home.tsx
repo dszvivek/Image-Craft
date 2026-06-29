@@ -21,7 +21,8 @@ import {
   Check,
   X,
   CreditCard,
-  PenTool
+  PenTool,
+  Sparkles
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
@@ -43,6 +44,15 @@ const toolDirectory = [
     description: 'Compose high-resolution mosaic images from grid tile collections locally in your RAM.',
     badge: 'Artistic',
     colorClass: 'text-fuchsia-600 bg-fuchsia-50 border-fuchsia-100/50 hover:border-fuchsia-300'
+  },
+  {
+    name: 'AI Shape Art Generator',
+    path: '/shape-art-generator',
+    icon: Sparkles,
+    category: 'ai-editing',
+    description: 'Transform photos into creative computational art composed of stars, blossoms, clouds, or sketches.',
+    badge: 'Artistic',
+    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300'
   },
   {
     name: 'Aspect Resizer & Smart Crop',
@@ -210,6 +220,20 @@ const renderToolPreview = (path: string) => {
             <div className="px-2 py-0.5 rounded bg-slate-900/90 border border-slate-800 text-[8px] font-black text-indigo-400 uppercase tracking-widest shadow-lg">
               Mosaic Grid
             </div>
+          </div>
+        </div>
+      );
+    case '/shape-art-generator':
+      return (
+        <div className="w-full h-24 rounded-2xl bg-[#090d16] border border-slate-900 mb-4 overflow-hidden relative flex items-center justify-center gap-1.5">
+          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-transparent pointer-events-none" />
+          <div className="flex -space-x-1.5 relative">
+            <div className="w-8 h-8 rounded-full bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-[10px] text-indigo-400 font-bold rotate-[-12deg] shadow-lg shadow-indigo-500/10">✨</div>
+            <div className="w-8 h-8 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-[10px] text-purple-400 font-bold z-10 shadow-lg shadow-purple-500/10">🌸</div>
+            <div className="w-8 h-8 rounded-full bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-[10px] text-sky-400 font-bold rotate-[12deg] z-20 shadow-lg shadow-sky-500/10">☁️</div>
+          </div>
+          <div className="absolute bottom-1.5 right-2 bg-slate-900/90 border border-slate-800 px-2 py-0.5 rounded shadow-xs text-[7px] font-black text-indigo-400 uppercase tracking-wider">
+            Shape Art
           </div>
         </div>
       );
