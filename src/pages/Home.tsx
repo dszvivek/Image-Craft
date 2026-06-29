@@ -22,7 +22,8 @@ import {
   X,
   CreditCard,
   PenTool,
-  Sparkles
+  Sparkles,
+  Sliders
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
@@ -31,7 +32,7 @@ const toolDirectory = [
     name: 'AI Background Remover',
     path: '/background-remover',
     icon: Cpu,
-    category: 'ai-editing',
+    category: 'image-editing',
     description: 'Isolate subjects and remove backgrounds completely inside the browser using local AI.',
     badge: 'Local AI',
     colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50 hover:border-purple-300'
@@ -40,7 +41,7 @@ const toolDirectory = [
     name: 'Photo Mosaic Generator',
     path: '/photo-mosaic-generator',
     icon: Grid,
-    category: 'layout-design',
+    category: 'layout-grid',
     description: 'Compose high-resolution mosaic images from grid tile collections locally in your RAM.',
     badge: 'Artistic',
     colorClass: 'text-fuchsia-600 bg-fuchsia-50 border-fuchsia-100/50 hover:border-fuchsia-300'
@@ -49,7 +50,7 @@ const toolDirectory = [
     name: 'AI Shape Art Generator',
     path: '/shape-art-generator',
     icon: Sparkles,
-    category: 'ai-editing',
+    category: 'image-editing',
     description: 'Transform photos into creative computational art composed of stars, blossoms, clouds, or sketches.',
     badge: 'Artistic',
     colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300'
@@ -58,7 +59,7 @@ const toolDirectory = [
     name: 'Aspect Resizer & Smart Crop',
     path: '/aspect-resizer',
     icon: Crop,
-    category: 'layout-design',
+    category: 'layout-grid',
     description: 'Resize and crop images to social media templates with canvas blur-padding presets.',
     badge: 'Responsive',
     colorClass: 'text-amber-600 bg-amber-50 border-amber-100/50 hover:border-amber-300'
@@ -67,16 +68,16 @@ const toolDirectory = [
     name: 'SVG Vectorizer',
     path: '/svg-vectorizer',
     icon: Feather,
-    category: 'ai-editing',
+    category: 'image-editing',
     description: 'Trace and digitize raster files (JPG/PNG) into scalable vector coordinates (SVG).',
     badge: 'Vector',
-    colorClass: 'text-teal-650 bg-teal-50 border-teal-100/50 hover:border-teal-300'
+    colorClass: 'text-teal-655 bg-teal-50 border-teal-100/50 hover:border-teal-300'
   },
   {
     name: 'OCR Text Extractor',
     path: '/ocr-text-extractor',
     icon: FileText,
-    category: 'utilities-creative',
+    category: 'pdf-docs',
     description: 'Extract text from scanned documents, screenshots, or receipts in multiple languages.',
     badge: 'Document Scan',
     colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 hover:border-emerald-300'
@@ -85,7 +86,7 @@ const toolDirectory = [
     name: 'Bank Statement Analyzer',
     path: '/bank-statement-analyzer',
     icon: CreditCard,
-    category: 'utilities-creative',
+    category: 'pdf-docs',
     description: 'Upload bank or credit card statements (PDF, CSV, Excel) to analyze credits, debits, cash flow and date ranges.',
     badge: 'Finance Scan',
     colorClass: 'text-teal-650 bg-teal-50 border-teal-100/50 hover:border-teal-300'
@@ -94,7 +95,7 @@ const toolDirectory = [
     name: 'Electronic PDF Signer',
     path: '/sign-pdf',
     icon: PenTool,
-    category: 'utilities-creative',
+    category: 'pdf-docs',
     description: 'Sign PDF documents client-side. Draw, type, or upload your signature. 100% private, on-device signing.',
     badge: 'Sign PDF',
     colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300'
@@ -103,7 +104,7 @@ const toolDirectory = [
     name: 'Image Compressor',
     path: '/image-compressor',
     icon: ImageIcon,
-    category: 'format-bulk',
+    category: 'image-opt',
     description: 'Optimize JPEGs, PNGs, and WebPs in seconds with custom compression levels.',
     badge: 'Optimize',
     colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300'
@@ -112,7 +113,7 @@ const toolDirectory = [
     name: 'Batch Image to PDF & Format Converter',
     path: '/batch-converter',
     icon: Files,
-    category: 'format-bulk',
+    category: 'pdf-docs',
     description: 'Convert image formats in bulk, or merge them into a single custom-ordered PDF document.',
     badge: 'Bulk PDF',
     colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300'
@@ -121,7 +122,7 @@ const toolDirectory = [
     name: 'Photo Collage Maker',
     path: '/collage-maker',
     icon: LayoutGrid,
-    category: 'layout-design',
+    category: 'layout-grid',
     description: 'Combine multiple images in dynamic customizable grids and borders.',
     badge: 'Layout',
     colorClass: 'text-pink-655 bg-pink-50 border-pink-100/50 hover:border-pink-300'
@@ -130,7 +131,7 @@ const toolDirectory = [
     name: 'Color Palette Extractor',
     path: '/color-palette-extractor',
     icon: Palette,
-    category: 'utilities-creative',
+    category: 'image-opt',
     description: 'Retrieve dominant colors and swatches for Tailwind or standard CSS configs.',
     badge: 'Color Spec',
     colorClass: 'text-cyan-655 bg-cyan-50 border-cyan-100/50 hover:border-cyan-300'
@@ -139,7 +140,7 @@ const toolDirectory = [
     name: 'Watermark Overlay',
     path: '/watermark-overlay',
     icon: Copyright,
-    category: 'utilities-creative',
+    category: 'image-editing',
     description: 'Apply custom PNG branding logos or text copyrights in dynamic tile repeats.',
     badge: 'Security',
     colorClass: 'text-rose-650 bg-rose-50 border-rose-100/50 hover:border-rose-300'
@@ -148,16 +149,16 @@ const toolDirectory = [
     name: 'EXIF Metadata Stripper',
     path: '/metadata-stripper',
     icon: Fingerprint,
-    category: 'format-bulk',
+    category: 'image-opt',
     description: 'Audit cameras, locations, and GPS parameters to clean private metadata.',
     badge: 'Privacy Clean',
-    colorClass: 'text-red-650 bg-red-50 border-red-100/50 hover:border-red-300'
+    colorClass: 'text-red-655 bg-red-50 border-red-100/50 hover:border-red-300'
   },
   {
     name: 'Instagram Grid Splitter',
     path: '/instagram-grid-splitter',
     icon: Maximize2,
-    category: 'layout-design',
+    category: 'layout-grid',
     description: 'Slice photos into square tiles for Instagram profiles and grid shapes.',
     badge: 'Social Fit',
     colorClass: 'text-orange-655 bg-orange-50 border-orange-100/50 hover:border-orange-300'
@@ -166,7 +167,7 @@ const toolDirectory = [
     name: 'Meme Generator',
     path: '/meme-generator',
     icon: Smile,
-    category: 'layout-design',
+    category: 'image-editing',
     description: 'Add draggable top and bottom text overlays onto images with classic styling.',
     badge: 'Social Meme',
     colorClass: 'text-green-650 bg-green-50 border-green-100/50 hover:border-green-300'
@@ -174,11 +175,11 @@ const toolDirectory = [
 ];
 
 const categories = [
-  { id: 'all', label: 'All Tools' },
-  { id: 'ai-editing', label: 'AI & Editing' },
-  { id: 'layout-design', label: 'Layout & Design' },
-  { id: 'format-bulk', label: 'Format & Bulk' },
-  { id: 'utilities-creative', label: 'Utilities & Creative' }
+  { id: 'all', label: 'All Tools', icon: ImageIcon, colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50' },
+  { id: 'image-editing', label: 'AI & Image Editing', icon: Sparkles, colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50' },
+  { id: 'layout-grid', label: 'Layout & Grid', icon: LayoutGrid, colorClass: 'text-pink-650 bg-pink-50 border-pink-100/50' },
+  { id: 'image-opt', label: 'Optimization & Formats', icon: Sliders, colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50' },
+  { id: 'pdf-docs', label: 'PDF & Documents', icon: FileText, colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50' }
 ];
 
 const renderToolPreview = (path: string) => {
@@ -548,6 +549,58 @@ export const Home: React.FC = () => {
 
   const activeHeroData = heroTabsConfig[activeHeroTab];
 
+  const renderToolCard = (tool: typeof toolDirectory[0]) => {
+    const Icon = tool.icon;
+    return (
+      <Link
+        key={tool.path}
+        to={tool.path}
+        className="premium-bento group flex flex-col justify-between p-5 rounded-3xl bg-white border border-slate-200/50 hover:border-indigo-300 relative overflow-hidden transition-all duration-300 shadow-xs cursor-pointer min-h-[300px]"
+      >
+        {/* Glowing Ambient Light on Hover */}
+        <div className="absolute -right-16 -top-16 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition-all pointer-events-none" />
+
+        <div>
+          {/* Visual Card Preview Header */}
+          {renderToolPreview(tool.path)}
+
+          <div className="flex items-center justify-between mb-3 mt-1">
+            <div className={`w-8 h-8 rounded-lg flex items-center justify-center border shrink-0 ${tool.colorClass.split(' ')[0]} ${tool.colorClass.split(' ')[1]} ${tool.colorClass.split(' ')[2]}`}>
+              <Icon className="w-4 h-4" />
+            </div>
+            <span className="text-[9px] font-extrabold uppercase tracking-widest text-indigo-655 bg-indigo-50/60 border border-indigo-100/60 px-2 py-0.5 rounded-md shadow-2xs">
+              {tool.badge}
+            </span>
+          </div>
+          
+          <h3 className="font-extrabold text-sm text-slate-900 tracking-tight mb-1 group-hover:text-indigo-650 transition-colors">
+            {tool.name}
+          </h3>
+          <p className="text-xs text-slate-500 leading-relaxed font-medium">
+            {tool.description}
+          </p>
+        </div>
+
+        <div className="mt-4 flex items-center gap-1 text-[11px] font-bold text-indigo-650 group-hover:translate-x-1 transition-all">
+          <span>Open Tool</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </div>
+      </Link>
+    );
+  };
+
+  const renderEmptyState = () => (
+    <div className="text-center py-16 px-4 w-full col-span-full">
+      <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-slate-100 flex items-center justify-center">
+        <svg className="w-7 h-7 text-slate-400" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637z" />
+        </svg>
+      </div>
+      <span className="text-sm font-semibold text-slate-600">No tools found matching your criteria.</span>
+      <p className="text-xs text-slate-400 mt-1">Try a different keyword like <em>compress</em>, <em>pdf</em>, or <em>crop</em>.</p>
+    </div>
+  );
+
   return (
     <div className="w-full relative">
       <SEO 
@@ -832,73 +885,69 @@ export const Home: React.FC = () => {
 
         {/* Category Filters */}
         <div className="flex flex-wrap gap-2 justify-center mb-12 max-w-4xl mx-auto px-4">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`px-4.5 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer border ${
-                activeCategory === cat.id
-                  ? 'bg-indigo-650 border-indigo-655 text-white shadow-md shadow-indigo-500/15'
-                  : 'bg-white border-slate-200 text-slate-655 hover:text-slate-900 hover:border-slate-350 shadow-xs'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const CatIcon = cat.icon;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-4.5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer border flex items-center gap-1.5 ${
+                  activeCategory === cat.id
+                    ? 'bg-indigo-650 border-indigo-655 text-white shadow-md shadow-indigo-500/15'
+                    : 'bg-white border-slate-200 text-slate-655 hover:text-slate-900 hover:border-slate-350 shadow-xs'
+                }`}
+              >
+                <CatIcon className="w-3.5 h-3.5 shrink-0" />
+                <span>{cat.label}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Bento Grid */}
-        {filteredTools.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-            {filteredTools.map((tool) => {
-              const Icon = tool.icon;
+        {searchQuery ? (
+          filteredTools.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+              {filteredTools.map((tool) => renderToolCard(tool))}
+            </div>
+          ) : (
+            renderEmptyState()
+          )
+        ) : activeCategory !== 'all' ? (
+          filteredTools.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+              {filteredTools.map((tool) => renderToolCard(tool))}
+            </div>
+          ) : (
+            renderEmptyState()
+          )
+        ) : (
+          <div className="space-y-16 px-4 text-left">
+            {categories.filter(cat => cat.id !== 'all').map((cat) => {
+              const catTools = toolDirectory.filter(t => t.category === cat.id);
+              const CatIcon = cat.icon;
               return (
-                <Link
-                  key={tool.path}
-                  to={tool.path}
-                  className="premium-bento group flex flex-col justify-between p-5 rounded-3xl bg-white border border-slate-200/50 hover:border-indigo-300 relative overflow-hidden transition-all duration-300 shadow-xs cursor-pointer min-h-[300px]"
-                >
-                  {/* Glowing Ambient Light on Hover */}
-                  <div className="absolute -right-16 -top-16 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition-all pointer-events-none" />
-
-                  <div>
-                    {/* Visual Card Preview Header */}
-                    {renderToolPreview(tool.path)}
-
-                    <div className="flex items-center justify-between mb-3 mt-1">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center border shrink-0 ${tool.colorClass.split(' ')[0]} ${tool.colorClass.split(' ')[1]} ${tool.colorClass.split(' ')[2]}`}>
-                        <Icon className="w-4 h-4" />
+                <div key={cat.id} className="space-y-6">
+                  {/* Category Section Header */}
+                  <div className="flex items-center justify-between border-b border-slate-200/80 pb-2">
+                    <div className="flex items-center gap-2.5">
+                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center border ${cat.colorClass.split(' ')[0]} ${cat.colorClass.split(' ')[1]} ${cat.colorClass.split(' ')[2]}`}>
+                        <CatIcon className="w-4 h-4" />
                       </div>
-                      <span className="text-[9px] font-extrabold uppercase tracking-widest text-indigo-655 bg-indigo-50/60 border border-indigo-100/60 px-2 py-0.5 rounded-md shadow-2xs">
-                        {tool.badge}
-                      </span>
+                      <h3 className="text-base font-extrabold text-slate-900 tracking-tight">{cat.label}</h3>
                     </div>
-                    
-                    <h3 className="font-extrabold text-sm text-slate-900 tracking-tight mb-1 group-hover:text-indigo-650 transition-colors">
-                      {tool.name}
-                    </h3>
-                    <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                      {tool.description}
-                    </p>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-450 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-md shadow-2xs">
+                      {catTools.length} Tool{catTools.length !== 1 ? 's' : ''}
+                    </span>
                   </div>
-
-                  <div className="mt-4 flex items-center gap-1 text-[11px] font-bold text-indigo-650 group-hover:translate-x-1 transition-all">
-                    <span>Open Tool</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                  
+                  {/* Category Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {catTools.map((tool) => renderToolCard(tool))}
                   </div>
-                </Link>
+                </div>
               );
             })}
-          </div>
-        ) : (
-          <div className="text-center py-16 px-4">
-            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-slate-100 flex items-center justify-center">
-              <svg className="w-7 h-7 text-slate-400" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637z" />
-              </svg>
-            </div>
-            <span className="text-sm font-semibold text-slate-600">No tools found matching your criteria.</span>
-            <p className="text-xs text-slate-400 mt-1">Try a different keyword like <em>compress</em>, <em>pdf</em>, or <em>crop</em>.</p>
           </div>
         )}
 

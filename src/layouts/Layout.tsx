@@ -21,20 +21,33 @@ import {
   Home,
   CreditCard,
   PenTool,
-  Sparkles
+  Sparkles,
+  Sliders
 } from 'lucide-react';
 import { AdPlacement } from '../components/AdPlacement';
 
 export const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileToolsExpanded, setIsMobileToolsExpanded] = useState(false);
+  const [openMobileCategory, setOpenMobileCategory] = useState<string | null>(null);
   const location = useLocation();
 
   useEffect(() => {
     if (!isMobileMenuOpen) {
       setIsMobileToolsExpanded(false);
+      setOpenMobileCategory(null);
     }
   }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    if (!isMobileToolsExpanded) {
+      setOpenMobileCategory(null);
+    }
+  }, [isMobileToolsExpanded]);
+
+  const toggleMobileCategory = (catId: string) => {
+    setOpenMobileCategory(openMobileCategory === catId ? null : catId);
+  };
 
   // Scroll to top on navigation / route change
   useEffect(() => {
@@ -43,11 +56,39 @@ export const Layout = () => {
 
   const showSidebar = !['/', '/about', '/privacy', '/contact', '/faq'].includes(location.pathname);
 
+  const categoriesConfig = {
+    'image-editing': {
+      name: 'AI & Image Editing',
+      description: 'Smart editing, vector tracing & cutout tools',
+      colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50',
+      icon: Sparkles,
+    },
+    'layout-grid': {
+      name: 'Layout & Grid',
+      description: 'Grids, collages, aspect ratio, and memes',
+      colorClass: 'text-pink-650 bg-pink-50 border-pink-100/50',
+      icon: LayoutGrid,
+    },
+    'image-opt': {
+      name: 'Optimization & Formats',
+      description: 'Compress, optimize and clean metadata',
+      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50',
+      icon: Sliders,
+    },
+    'pdf-docs': {
+      name: 'PDF & Document Processing',
+      description: 'Analyze statements, sign PDFs, and scan text',
+      colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50',
+      icon: FileText,
+    }
+  };
+
   const tools = [
     { 
       name: 'AI Background Remover', 
       path: '/background-remover', 
       icon: Cpu,
+      category: 'image-editing',
       description: 'Isolate subjects completely inside browser.',
       colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50'
     },
@@ -55,6 +96,7 @@ export const Layout = () => {
       name: 'Photo Mosaic Generator', 
       path: '/photo-mosaic-generator', 
       icon: Grid,
+      category: 'layout-grid',
       description: 'Compose target images from tile collections.',
       colorClass: 'text-fuchsia-600 bg-fuchsia-50 border-fuchsia-100/50'
     },
@@ -62,6 +104,7 @@ export const Layout = () => {
       name: 'AI Shape Art Generator', 
       path: '/shape-art-generator', 
       icon: Sparkles,
+      category: 'image-editing',
       description: 'Turn photos into cosmic stars, cloud outlines, or floral sketches.',
       colorClass: 'text-indigo-600 bg-indigo-50 border-indigo-100/50'
     },
@@ -69,6 +112,7 @@ export const Layout = () => {
       name: 'Smart Crop & Aspect Resizer', 
       path: '/aspect-resizer', 
       icon: Crop,
+      category: 'layout-grid',
       description: 'Crop and scale to social preset dimensions.',
       colorClass: 'text-amber-600 bg-amber-50 border-amber-100/50'
     },
@@ -76,6 +120,7 @@ export const Layout = () => {
       name: 'SVG Vectorizer', 
       path: '/svg-vectorizer', 
       icon: Feather,
+      category: 'image-editing',
       description: 'Trace raster logos into scalable SVGs.',
       colorClass: 'text-teal-600 bg-teal-50 border-teal-100/50'
     },
@@ -83,6 +128,7 @@ export const Layout = () => {
       name: 'OCR Text Extractor', 
       path: '/ocr-text-extractor', 
       icon: FileText,
+      category: 'pdf-docs',
       description: 'Extract multi-language texts from image scans.',
       colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50'
     },
@@ -90,6 +136,7 @@ export const Layout = () => {
       name: 'Bank Statement Analyzer', 
       path: '/bank-statement-analyzer', 
       icon: CreditCard,
+      category: 'pdf-docs',
       description: 'Analyze PDF/CSV/Excel bank statements client-side.',
       colorClass: 'text-teal-650 bg-teal-50 border-teal-100/50'
     },
@@ -97,6 +144,7 @@ export const Layout = () => {
       name: 'Electronic PDF Signer', 
       path: '/sign-pdf', 
       icon: PenTool,
+      category: 'pdf-docs',
       description: 'Draw, type, or upload signatures to sign PDFs offline.',
       colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50'
     },
@@ -104,6 +152,7 @@ export const Layout = () => {
       name: 'Image Compressor', 
       path: '/image-compressor', 
       icon: ImageIcon,
+      category: 'image-opt',
       description: 'Optimize JPEGs, PNGs, and WebPs locally.',
       colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50'
     },
@@ -111,6 +160,7 @@ export const Layout = () => {
       name: 'Batch Image to PDF & Format Converter', 
       path: '/batch-converter', 
       icon: Files,
+      category: 'pdf-docs',
       description: 'Convert and merge images into PDF, WebP, PNG, or JPEG in bulk.',
       colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50'
     },
@@ -118,6 +168,7 @@ export const Layout = () => {
       name: 'Photo Collage Maker', 
       path: '/collage-maker', 
       icon: LayoutGrid,
+      category: 'layout-grid',
       description: 'Assemble images in dynamic canvases.',
       colorClass: 'text-pink-650 bg-pink-50 border-pink-100/50'
     },
@@ -125,6 +176,7 @@ export const Layout = () => {
       name: 'Color Palette Extractor', 
       path: '/color-palette-extractor', 
       icon: Palette,
+      category: 'image-opt',
       description: 'Quantize colors and copy HEX values.',
       colorClass: 'text-cyan-600 bg-cyan-50 border-cyan-100/50'
     },
@@ -132,6 +184,7 @@ export const Layout = () => {
       name: 'Watermark Overlay', 
       path: '/watermark-overlay', 
       icon: Copyright,
+      category: 'image-editing',
       description: 'Apply logos and text watermarks client-side.',
       colorClass: 'text-rose-600 bg-rose-50 border-rose-100/50'
     },
@@ -139,6 +192,7 @@ export const Layout = () => {
       name: 'EXIF Metadata Stripper', 
       path: '/metadata-stripper', 
       icon: Fingerprint,
+      category: 'image-opt',
       description: 'Inspect and strip EXIF privacy headers.',
       colorClass: 'text-red-600 bg-red-50 border-red-100/50'
     },
@@ -146,6 +200,7 @@ export const Layout = () => {
       name: 'Instagram Grid Splitter', 
       path: '/instagram-grid-splitter', 
       icon: Maximize2,
+      category: 'layout-grid',
       description: 'Slice photos into creative tile grids.',
       colorClass: 'text-orange-600 bg-orange-50 border-orange-100/50'
     },
@@ -153,6 +208,7 @@ export const Layout = () => {
       name: 'Instant Meme Generator', 
       path: '/meme-generator', 
       icon: Smile,
+      category: 'image-editing',
       description: 'Design custom top/bottom captioned memes.',
       colorClass: 'text-green-600 bg-green-50 border-green-100/50'
     },
@@ -203,27 +259,49 @@ export const Layout = () => {
                 </svg>
               </button>
 
-              {/* Dropdown Menu */}
-              <div className="absolute left-1/2 -translate-x-1/2 mt-3.5 w-[640px] bg-white border border-slate-200/60 p-4 rounded-2xl shadow-2xl shadow-slate-200/30 opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-200 grid grid-cols-2 gap-1.5 z-50">
+              {/* Dropdown Menu - Premium Category Grouped Mega Menu */}
+              <div className="absolute left-1/2 -translate-x-1/2 mt-3.5 w-[860px] bg-white border border-slate-200/60 p-5 rounded-2xl shadow-2xl shadow-slate-200/30 opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-200 grid grid-cols-4 gap-5 z-50">
                 {/* Visual Arrow */}
                 <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-t border-l border-slate-200/60 rotate-45" />
                 
-                {tools.map((tool) => {
-                  const Icon = tool.icon;
+                {Object.entries(categoriesConfig).map(([catId, cat]) => {
+                  const CatIcon = cat.icon;
+                  const catTools = tools.filter(t => t.category === catId);
                   return (
-                    <Link
-                      key={tool.path}
-                      to={tool.path}
-                      className="flex items-start gap-3 p-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-slate-900 transition-all text-left group/item"
-                    >
-                      <div className={`w-9 h-9 rounded-xl flex items-center justify-center border shrink-0 ${tool.colorClass} group-hover/item:scale-105 transition-transform`}>
-                        <Icon className="w-4 h-4" />
+                    <div key={catId} className="flex flex-col gap-2.5">
+                      {/* Category Header */}
+                      <div className="flex items-center gap-2 pb-2 border-b border-slate-100/80">
+                        <div className={`w-7 h-7 rounded-lg flex items-center justify-center border ${cat.colorClass}`}>
+                          <CatIcon className="w-3.5 h-3.5" />
+                        </div>
+                        <div className="min-w-0">
+                          <h4 className="text-[10px] font-extrabold text-slate-900 uppercase tracking-wider truncate">{cat.name}</h4>
+                          <p className="text-[8px] text-slate-400 font-bold leading-none mt-0.5 truncate">{cat.description}</p>
+                        </div>
                       </div>
-                      <div className="space-y-0.5">
-                        <div className="text-xs font-bold leading-tight group-hover/item:text-indigo-650 transition-colors">{tool.name}</div>
-                        <div className="text-[10px] text-slate-450 leading-relaxed font-medium">{tool.description}</div>
+                      
+                      {/* Category Tools */}
+                      <div className="flex flex-col gap-1">
+                        {catTools.map((tool) => {
+                          const Icon = tool.icon;
+                          return (
+                            <Link
+                              key={tool.path}
+                              to={tool.path}
+                              className="flex items-start gap-2 p-1.5 rounded-lg hover:bg-slate-50 text-slate-700 hover:text-slate-950 transition-all text-left group/item"
+                            >
+                              <div className={`w-7 h-7 rounded-lg flex items-center justify-center border shrink-0 ${tool.colorClass} group-hover/item:scale-105 transition-transform`}>
+                                <Icon className="w-3.5 h-3.5" />
+                              </div>
+                              <div className="space-y-0.5 min-w-0">
+                                <div className="text-[10px] font-extrabold leading-tight group-hover/item:text-indigo-650 transition-colors truncate">{tool.name}</div>
+                                <div className="text-[8px] text-slate-450 leading-relaxed font-bold line-clamp-2">{tool.description}</div>
+                              </div>
+                            </Link>
+                          );
+                        })}
                       </div>
-                    </Link>
+                    </div>
                   );
                 })}
               </div>
@@ -339,28 +417,65 @@ export const Layout = () => {
               </svg>
             </button>
 
-            {/* Mobile Tools Collapsible Grid */}
+            {/* Mobile Tools Collapsible Grid - Premium Accordions */}
             {isMobileToolsExpanded && (
-              <div className="border-t border-slate-100/80 pt-3.5 pb-2.5 px-1 animate-fade-in">
-                <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold block mb-3">
-                  All 14 Tools
+              <div className="border-t border-slate-100/80 pt-3.5 pb-2.5 px-1 animate-fade-in flex flex-col gap-2">
+                <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold block mb-1">
+                  Browse by Category
                 </span>
-                <div className="grid grid-cols-2 gap-2">
-                  {tools.map((tool) => {
-                    const Icon = tool.icon;
-                    return (
-                      <Link
-                        key={tool.path}
-                        to={tool.path}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center gap-2.5 p-2.5 rounded-xl border transition-all hover:shadow-sm ${tool.colorClass} bg-opacity-40`}
+                {Object.entries(categoriesConfig).map(([catId, cat]) => {
+                  const CatIcon = cat.icon;
+                  const catTools = tools.filter(t => t.category === catId);
+                  const isCatOpen = openMobileCategory === catId;
+                  return (
+                    <div key={catId} className="border border-slate-100 rounded-xl overflow-hidden bg-slate-50/50">
+                      <button
+                        onClick={() => toggleMobileCategory(catId)}
+                        className="w-full flex items-center justify-between p-3.5 text-left text-xs font-bold text-slate-700 hover:bg-slate-100/70 transition-all cursor-pointer"
                       >
-                        <Icon className="w-4 h-4 shrink-0" />
-                        <span className="text-[10px] font-bold text-slate-700 leading-tight">{tool.name}</span>
-                      </Link>
-                    );
-                  })}
-                </div>
+                        <div className="flex items-center gap-2">
+                          <div className={`w-6 h-6 rounded-lg flex items-center justify-center border ${cat.colorClass}`}>
+                            <CatIcon className="w-3.5 h-3.5" />
+                          </div>
+                          <span className="text-[11px] font-extrabold text-slate-800">{cat.name}</span>
+                        </div>
+                        <svg 
+                          className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isCatOpen ? 'rotate-180' : ''}`} 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                      
+                      {isCatOpen && (
+                        <div className="p-2 bg-white border-t border-slate-100/80 grid grid-cols-1 gap-1.5 animate-fade-in">
+                          {catTools.map((tool) => {
+                            const Icon = tool.icon;
+                            return (
+                              <Link
+                                key={tool.path}
+                                to={tool.path}
+                                onClick={() => {
+                                  setIsMobileMenuOpen(false);
+                                  setOpenMobileCategory(null);
+                                }}
+                                className={`flex items-center gap-2.5 p-2.5 rounded-xl border transition-all ${tool.colorClass} bg-opacity-30 hover:bg-opacity-50`}
+                              >
+                                <Icon className="w-3.5 h-3.5 shrink-0" />
+                                <div className="flex flex-col min-w-0">
+                                  <span className="text-[10px] font-extrabold text-slate-800">{tool.name}</span>
+                                  <span className="text-[8px] text-slate-450 font-bold leading-normal">{tool.description}</span>
+                                </div>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             )}
 
@@ -459,18 +574,18 @@ export const Layout = () => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-sm text-slate-800 mb-3.5">Core Tools</h4>
-            <ul className="text-xs text-slate-500 flex flex-col gap-2">
-              {tools.slice(0, 6).map(t => (
+            <h4 className="font-bold text-sm text-slate-800 mb-3.5">Image & Layout</h4>
+            <ul className="text-xs text-slate-500 flex flex-col gap-2 font-semibold">
+              {tools.filter(t => ['image-editing', 'layout-grid'].includes(t.category)).map(t => (
                 <li key={t.path}><Link to={t.path} className="hover:text-indigo-650 transition">{t.name}</Link></li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold text-sm text-slate-800 mb-3.5">More Tools</h4>
-            <ul className="text-xs text-slate-500 flex flex-col gap-2">
-              {tools.slice(6).map(t => (
+            <h4 className="font-bold text-sm text-slate-800 mb-3.5">PDF & Optimization</h4>
+            <ul className="text-xs text-slate-500 flex flex-col gap-2 font-semibold">
+              {tools.filter(t => ['image-opt', 'pdf-docs'].includes(t.category)).map(t => (
                 <li key={t.path}><Link to={t.path} className="hover:text-indigo-650 transition">{t.name}</Link></li>
               ))}
             </ul>

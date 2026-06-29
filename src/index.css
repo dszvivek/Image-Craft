@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -142,16 +143,16 @@
   --color-fuchsia-700: #c026d3;
   --color-teal-700: #0f766e;
 
-  /* Set geometric, modern fonts */
-  --font-sans: "Outfit", "Inter", system-ui, -apple-system, sans-serif;
+  /* Set Lato as the primary, modern font */
+  --font-sans: "Lato", "Outfit", "Inter", system-ui, -apple-system, sans-serif;
 }
 
 /* Custom Base Styles */
 @layer base {
   body {
-    /* Premium Cool Slate Radial Gradient background */
+    /* Pure bright off-white background matching CarWale */
     background-attachment: fixed;
-    background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f8fafd 60%, #eef2f6 100%) !important; 
+    background: #f4f7fa !important; 
     /* Slate-900 text for crisp, premium readability */
     color: #0f172a; 
     @apply antialiased font-sans transition-colors duration-300;
