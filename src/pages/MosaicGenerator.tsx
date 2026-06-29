@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, RefreshCw, Settings, Info, Play, Trash2 } from 'lucide-react';
+import { Download, RefreshCw, Settings, Info, Play, Trash2, Sparkles } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -22,18 +22,23 @@ export const MosaicGenerator: React.FC = () => {
   const [tiles, setTiles] = useState<TileImage[]>([]);
   
   // Settings states
-  const [gridCols, setGridCols] = useState<number>(40);
+  const [gridCols, setGridCols] = useState<number>(50);
   const [cellRatio, setCellRatio] = useState<number>(1); // 1 = 1:1, 1.33 = 4:3, 0.75 = 3:4
-  const [overlayOpacity, setOverlayOpacity] = useState<number>(30); // 0-100% original overlay
-  const [tileTint, setTileTint] = useState<number>(40); // 0-100% average color tinting
-  const [useDummyTiles, setUseDummyTiles] = useState<boolean>(true); // Use solid fallback colors if no tiles uploaded
-  const [tileRenderSize, setTileRenderSize] = useState<number>(60); // 30, 60, or 120 px
+  const [overlayOpacity, setOverlayOpacity] = useState<number>(25); // 0-100% original overlay
+  const [tileTint, setTileTint] = useState<number>(30); // 0-100% average color tinting
+  const [varietyLevel, setVarietyLevel] = useState<number>(50); // 0-100% variety level (anti-repetition penalty)
+  const [useDummyTiles, setUseDummyTiles] = useState<boolean>(true); // Solid colors fallback
+  const [tileRenderSize, setTileRenderSize] = useState<number>(60); // Tile output size in px
   
   // Processing states
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [tileLoadingProgress, setTileLoadingProgress] = useState<number>(0);
   const [renderingProgress, setRenderingProgress] = useState<number>(0);
   const [previewUrl, setPreviewUrl] = useState<string>('');
+
+  // Magnifier glass hover state
+  const [magnifier, setMagnifier] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false });
+  const previewContainerRef = useRef<HTMLDivElement>(null);
   
   const minTilesRequired = 5;
   const tilePoolSize = tiles.length > 0 ? tiles.length : (useDummyTiles ? 16 : 0);
@@ -72,7 +77,6 @@ export const MosaicGenerator: React.FC = () => {
     setTargetSize({ width: img.naturalWidth, height: img.naturalHeight });
   };
 
-  // Helper to load HTMLImageElement from URL
   const loadImage = (url: string): Promise<HTMLImageElement> => {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -83,7 +87,6 @@ export const MosaicGenerator: React.FC = () => {
     });
   };
 
-  // Extract average color using offscreen 1x1 canvas
   const getAverageColor = (img: HTMLImageElement): { r: number; g: number; b: number } => {
     const canvas = document.createElement('canvas');
     canvas.width = 1;
@@ -95,7 +98,6 @@ export const MosaicGenerator: React.FC = () => {
     return { r: data[0], g: data[1], b: data[2] };
   };
 
-  // Asynchronously process uploaded tile files in batches to prevent UI freeze
   const handleTilesSelected = async (files: File[]) => {
     if (files.length === 0) return;
     setIsProcessing(true);
@@ -130,7 +132,6 @@ export const MosaicGenerator: React.FC = () => {
       });
 
       setTileLoadingProgress(Math.round(((i + batch.length) / files.length) * 100));
-      // Small pause to yield main thread and update progress bar
       await new Promise((r) => setTimeout(r, 20));
     }
 
@@ -152,26 +153,25 @@ export const MosaicGenerator: React.FC = () => {
     setTiles([]);
   };
 
-  // Helper to generate solid color fallback tiles (used if no custom tiles uploaded)
   const generateSolidColorTiles = (): TileImage[] => {
     const dummyTiles: TileImage[] = [];
     const colors = [
-      { r: 239, g: 68, b: 68 }, // red-500
-      { r: 249, g: 115, b: 22 }, // orange-500
-      { r: 245, g: 158, b: 11 }, // amber-500
-      { r: 132, g: 204, b: 22 }, // lime-500
-      { r: 34, g: 197, b: 94 }, // green-500
-      { r: 16, g: 185, b: 129 }, // emerald-500
-      { r: 20, g: 184, b: 166 }, // teal-500
-      { r: 6, g: 182, b: 212 }, // cyan-500
-      { r: 59, g: 130, b: 246 }, // blue-500
-      { r: 99, g: 102, b: 241 }, // indigo-500
-      { r: 139, g: 92, b: 246 }, // violet-500
-      { r: 168, g: 85, b: 247 }, // purple-500
-      { r: 236, g: 72, b: 153 }, // pink-500
-      { r: 244, g: 63, b: 94 }, // rose-500
-      { r: 30, g: 41, b: 59 }, // slate-800
-      { r: 248, g: 250, b: 252 }, // slate-50
+      { r: 239, g: 68, b: 68 },
+      { r: 249, g: 115, b: 22 },
+      { r: 245, g: 158, b: 11 },
+      { r: 132, g: 204, b: 22 },
+      { r: 34, g: 197, b: 94 },
+      { r: 16, g: 185, b: 129 },
+      { r: 20, g: 184, b: 166 },
+      { r: 6, g: 182, b: 212 },
+      { r: 59, g: 130, b: 246 },
+      { r: 99, g: 102, b: 241 },
+      { r: 139, g: 92, b: 246 },
+      { r: 168, g: 85, b: 247 },
+      { r: 236, g: 72, b: 153 },
+      { r: 244, g: 63, b: 94 },
+      { r: 30, g: 41, b: 59 },
+      { r: 248, g: 250, b: 252 },
     ];
 
     colors.forEach((rgb, index) => {
@@ -199,18 +199,36 @@ export const MosaicGenerator: React.FC = () => {
     return dummyTiles;
   };
 
-  // Color distance matching
-  const findClosestTile = (cellColor: { r: number; g: number; b: number }, pool: TileImage[]): TileImage => {
+  // Perceptual color matching with variety penalty to prevent ugly repeating tiles
+  const findClosestTile = (
+    cellColor: { r: number; g: number; b: number },
+    pool: TileImage[],
+    usageMap: Record<string, number>
+  ): TileImage => {
     let minDistance = Infinity;
     let closest = pool[0];
+    
+    // Scale variety penalty multiplier
+    const penaltyMultiplier = (varietyLevel / 100) * 16000;
 
     for (let i = 0; i < pool.length; i++) {
       const tile = pool[i];
-      const distance = 
-        Math.pow(tile.avgColor.r - cellColor.r, 2) +
-        Math.pow(tile.avgColor.g - cellColor.g, 2) +
-        Math.pow(tile.avgColor.b - cellColor.b, 2);
+      const usageCount = usageMap[tile.id] || 0;
+
+      // Redmean perceptual color formula (accounts for human eye color sensitivities)
+      const rMean = (tile.avgColor.r + cellColor.r) / 2;
+      const dr = tile.avgColor.r - cellColor.r;
+      const dg = tile.avgColor.g - cellColor.g;
+      const db = tile.avgColor.b - cellColor.b;
       
+      const colorDistance = 
+        (2 + rMean / 256) * dr * dr +
+        4 * dg * dg +
+        (2 + (255 - rMean) / 256) * db * db;
+
+      // Apply variety penalty
+      const distance = colorDistance + usageCount * penaltyMultiplier;
+
       if (distance < minDistance) {
         minDistance = distance;
         closest = tile;
@@ -219,13 +237,35 @@ export const MosaicGenerator: React.FC = () => {
     return closest;
   };
 
-  // Main generation loop
+  // Center-crop drawing helper to prevent squashing and stretching of tile pictures
+  const drawTileCenterCrop = (
+    ctx: CanvasRenderingContext2D,
+    img: HTMLImageElement,
+    dx: number,
+    dy: number,
+    dw: number,
+    dh: number
+  ) => {
+    const imgRatio = img.width / img.height;
+    const cellRatio = dw / dh;
+    let sx = 0, sy = 0, sw = img.width, sh = img.height;
+
+    if (imgRatio > cellRatio) {
+      sw = img.height * cellRatio;
+      sx = (img.width - sw) / 2;
+    } else {
+      sh = img.width / cellRatio;
+      sy = (img.height - sh) / 2;
+    }
+    ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
+  };
+
   const generateMosaic = async () => {
     if (!targetUrl || !targetSize || !targetImageRef.current) return;
     
     const tilePool = tiles.length > 0 ? tiles : (useDummyTiles ? generateSolidColorTiles() : []);
     if (tilePool.length < minTilesRequired) {
-      alert(`Please upload at least ${minTilesRequired} tile images to construct a recognizable mosaic (or enable solid color fallbacks).`);
+      alert(`Please upload at least ${minTilesRequired} tile images to construct a recognizable mosaic.`);
       return;
     }
 
@@ -235,13 +275,11 @@ export const MosaicGenerator: React.FC = () => {
     const targetW = targetSize.width;
     const targetH = targetSize.height;
 
-    // Calculate grid dimensions
     const cols = gridCols;
     const cellW = targetW / cols;
     const cellH = cellW / cellRatio;
     const rows = Math.round(targetH / cellH);
 
-    // Downscale target image to get cell averages
     const downscaleCanvas = document.createElement('canvas');
     downscaleCanvas.width = cols;
     downscaleCanvas.height = rows;
@@ -253,7 +291,6 @@ export const MosaicGenerator: React.FC = () => {
     downscaleCtx.drawImage(targetImageRef.current, 0, 0, cols, rows);
     const targetBuffer = downscaleCtx.getImageData(0, 0, cols, rows).data;
 
-    // Setup output canvas dimensions
     const outputTileW = tileRenderSize;
     const outputTileH = Math.round(outputTileW / cellRatio);
     const outputW = cols * outputTileW;
@@ -268,7 +305,9 @@ export const MosaicGenerator: React.FC = () => {
       return;
     }
 
-    // Process rendering in chunks to keep browser responsive
+    // Keep track of tile usage during this generation to apply repetition penalties
+    const usageMap: Record<string, number> = {};
+
     const rowsPerChunk = 2;
     for (let r = 0; r < rows; r += rowsPerChunk) {
       const endRow = Math.min(r + rowsPerChunk, rows);
@@ -282,12 +321,16 @@ export const MosaicGenerator: React.FC = () => {
             b: targetBuffer[bufferIndex + 2]
           };
 
-          const matchedTile = findClosestTile(cellColor, tilePool);
+          const matchedTile = findClosestTile(cellColor, tilePool, usageMap);
+          
+          // Increment usage map
+          usageMap[matchedTile.id] = (usageMap[matchedTile.id] || 0) + 1;
+
           const dx = x * outputTileW;
           const dy = y * outputTileH;
 
-          // Draw tile
-          outputCtx.drawImage(matchedTile.imgElement, dx, dy, outputTileW, outputTileH);
+          // Draw tile center cropped (no stretching distortion)
+          drawTileCenterCrop(outputCtx, matchedTile.imgElement, dx, dy, outputTileW, outputTileH);
 
           // Apply average color tinting
           if (tileTint > 0) {
@@ -301,11 +344,10 @@ export const MosaicGenerator: React.FC = () => {
       }
 
       setRenderingProgress(Math.round((endRow / rows) * 100));
-      // Yield thread to update layout
       await new Promise((resolve) => requestAnimationFrame(resolve));
     }
 
-    // Draw original target overlay
+    // Overlay original template
     if (overlayOpacity > 0) {
       outputCtx.save();
       outputCtx.globalAlpha = overlayOpacity / 100;
@@ -313,7 +355,6 @@ export const MosaicGenerator: React.FC = () => {
       outputCtx.restore();
     }
 
-    // Export to preview
     outputCanvas.toBlob((blob) => {
       if (blob) {
         if (previewUrl) URL.revokeObjectURL(previewUrl);
@@ -345,12 +386,26 @@ export const MosaicGenerator: React.FC = () => {
     setTargetSize(null);
     setTiles([]);
     setPreviewUrl('');
-    setGridCols(40);
+    setGridCols(50);
     setCellRatio(1);
-    setOverlayOpacity(30);
-    setTileTint(40);
+    setOverlayOpacity(25);
+    setTileTint(30);
+    setVarietyLevel(50);
     setUseDummyTiles(true);
     setIsProcessing(false);
+  };
+
+  // Magnifier movement handler
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!previewUrl || !previewContainerRef.current) return;
+    const rect = previewContainerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMagnifier({ x, y, show: true });
+  };
+
+  const handleMouseLeave = () => {
+    setMagnifier(prev => ({ ...prev, show: false }));
   };
 
   const mosaicSchema = {
@@ -383,7 +438,7 @@ export const MosaicGenerator: React.FC = () => {
         schema={mosaicSchema}
       />
 
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <span className="text-xs font-bold text-indigo-650 uppercase tracking-widest px-2.5 py-1 bg-indigo-50 border border-indigo-100 rounded-full shadow-sm">
@@ -412,7 +467,6 @@ export const MosaicGenerator: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Visual Showcase Preview GIF */}
                 <DemoPreview
                   toolId="mosaic"
                   alt="Photo Mosaic Preview"
@@ -431,21 +485,21 @@ export const MosaicGenerator: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
-            {/* Left Controls Card — sticky on desktop */}
-            <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
-              <div className="glass-card p-6 rounded-3xl space-y-6">
+            {/* Left Controls Card */}
+            <div className="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
+              <div className="glass-card p-6 rounded-3xl space-y-5">
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
                   <Settings className="w-4.5 h-4.5 text-indigo-500" />
                   Generator Settings
                 </h3>
 
                 {/* Grid Density */}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <div className="flex justify-between items-center">
                     <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
                       Grid Density (Cols)
                     </label>
-                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 border border-indigo-100/60 px-2 py-0.5 rounded">
+                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded">
                       {gridCols} columns
                     </span>
                   </div>
@@ -455,8 +509,7 @@ export const MosaicGenerator: React.FC = () => {
                     max="100"
                     value={gridCols}
                     onChange={(e) => setGridCols(Number(e.target.value))}
-                    className="range-styled w-full"
-                    style={{ '--slider-pct': `${((gridCols - 15) / 85) * 100}%` } as React.CSSProperties}
+                    className="w-full accent-indigo-650 cursor-pointer"
                   />
                   <span className="text-[9px] text-slate-400 font-medium block">
                     Higher values produce detailed mosaics but require more source tile matches.
@@ -474,7 +527,7 @@ export const MosaicGenerator: React.FC = () => {
                       className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
                         cellRatio === 1
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md'
-                          : 'bg-white/80 border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
+                          : 'bg-white border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50'
                       }`}
                     >
                       Square 1:1
@@ -484,7 +537,7 @@ export const MosaicGenerator: React.FC = () => {
                       className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
                         cellRatio === 1.33
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md'
-                          : 'bg-white/80 border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
+                          : 'bg-white border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50'
                       }`}
                     >
                       Landscape 4:3
@@ -494,7 +547,7 @@ export const MosaicGenerator: React.FC = () => {
                       className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
                         cellRatio === 0.75
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md'
-                          : 'bg-white/80 border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
+                          : 'bg-white border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50'
                       }`}
                     >
                       Portrait 3:4
@@ -502,8 +555,31 @@ export const MosaicGenerator: React.FC = () => {
                   </div>
                 </div>
 
+                {/* Repetition variety slider */}
+                <div className="space-y-1.5">
+                  <div className="flex justify-between items-center">
+                    <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
+                      Tile Variety (De-duplication)
+                    </label>
+                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded">
+                      {varietyLevel}%
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={varietyLevel}
+                    onChange={(e) => setVarietyLevel(Number(e.target.value))}
+                    className="w-full accent-indigo-650 cursor-pointer"
+                  />
+                  <span className="text-[9px] text-slate-400 font-medium block">
+                    Higher values penalize repeating the same photos side-by-side, maximizing tile diversity.
+                  </span>
+                </div>
+
                 {/* Color Tinting Slider */}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <div className="flex justify-between items-center">
                     <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
                       Tile Color Tinting
@@ -518,8 +594,7 @@ export const MosaicGenerator: React.FC = () => {
                     max="100"
                     value={tileTint}
                     onChange={(e) => setTileTint(Number(e.target.value))}
-                    className="range-styled w-full"
-                    style={{ '--slider-pct': `${tileTint}%` } as React.CSSProperties}
+                    className="w-full accent-indigo-650 cursor-pointer"
                   />
                   <span className="text-[9px] text-slate-400 font-medium block">
                     Tint tiles toward the cell's target color to blend the composite smoothly.
@@ -527,12 +602,12 @@ export const MosaicGenerator: React.FC = () => {
                 </div>
 
                 {/* Overlay Blend Slider */}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <div className="flex justify-between items-center">
                     <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
                       Original Image Overlay
                     </label>
-                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 border border-indigo-100/60 px-2 py-0.5 rounded">
+                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded">
                       {overlayOpacity}%
                     </span>
                   </div>
@@ -542,8 +617,7 @@ export const MosaicGenerator: React.FC = () => {
                     max="100"
                     value={overlayOpacity}
                     onChange={(e) => setOverlayOpacity(Number(e.target.value))}
-                    className="range-styled w-full"
-                    style={{ '--slider-pct': `${overlayOpacity}%` } as React.CSSProperties}
+                    className="w-full accent-indigo-650 cursor-pointer"
                   />
                   <span className="text-[9px] text-slate-400 font-medium block">
                     Superimpose the original image transparently on top to preserve facial details/text.
@@ -571,7 +645,7 @@ export const MosaicGenerator: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Print Quality / Output Tile Size */}
+                {/* Export Quality */}
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
                     Export Print Quality
@@ -590,7 +664,7 @@ export const MosaicGenerator: React.FC = () => {
                 {/* Actions */}
                 <div className="flex flex-col gap-2.5 pt-2">
                   {tilePoolSize < minTilesRequired && (
-                    <div className="p-3 bg-amber-50 border border-amber-100 rounded-xl text-[10px] text-amber-700 leading-normal font-semibold text-center">
+                    <div className="p-3 bg-amber-50 border border-amber-100 rounded-xl text-[10px] text-amber-700 leading-normal font-semibold text-center animate-pulse">
                       ⚠️ Please upload at least {minTilesRequired} tile images to construct a recognizable mosaic (or enable Fallback Solid Colors). Currently: {tilePoolSize}
                     </div>
                   )}
@@ -598,7 +672,7 @@ export const MosaicGenerator: React.FC = () => {
                   <button
                     onClick={generateMosaic}
                     disabled={isGenerateDisabled}
-                    className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-655 hover:from-indigo-550 hover:to-purple-550 disabled:opacity-50 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3 bg-gradient-to-r from-indigo-650 to-indigo-750 hover:from-indigo-600 hover:to-indigo-700 disabled:opacity-50 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer border-0"
                   >
                     <Play className="w-4 h-4" />
                     {isProcessing ? 'Processing Mosaic...' : 'Generate Mosaic'}
@@ -616,7 +690,7 @@ export const MosaicGenerator: React.FC = () => {
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-3 bg-white hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="w-full py-3 bg-white hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                   >
                     <RefreshCw className="w-4 h-4" />
                     Reset Generator
@@ -627,7 +701,7 @@ export const MosaicGenerator: React.FC = () => {
               {/* Best Results Tips Card */}
               <div className="glass-card p-5 rounded-3xl space-y-3.5">
                 <h4 className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                  <Info className="w-4 h-4 text-indigo-650" />
+                  <Info className="w-4 h-4 text-indigo-655" />
                   Tips for Best Mosaic Results
                 </h4>
                 <ul className="space-y-2.5 text-[10px] text-slate-550 leading-relaxed font-medium">
@@ -652,7 +726,7 @@ export const MosaicGenerator: React.FC = () => {
             </div>
 
             {/* Right Canvas and Tiles Area */}
-            <div className="lg:col-span-8 space-y-6">
+            <div className="lg:col-span-7 space-y-6">
               {/* Target Image preview */}
               <div className="glass-card p-5 rounded-3xl shadow-xs flex flex-col gap-4">
                 <div className="flex justify-between items-center border-b border-slate-100 pb-3">
@@ -662,7 +736,7 @@ export const MosaicGenerator: React.FC = () => {
                       {targetFile.name} ({targetSize ? `${targetSize.width}x${targetSize.height} px` : 'Loading...'})
                     </span>
                   </div>
-                  <span className="text-[10px] font-bold text-slate-455 bg-white/80 border border-slate-150 px-2 py-0.5 rounded">
+                  <span className="text-[10px] font-bold text-slate-455 bg-white border border-slate-150 px-2 py-0.5 rounded">
                     Main Photo
                   </span>
                 </div>
@@ -690,7 +764,7 @@ export const MosaicGenerator: React.FC = () => {
                   {tiles.length > 0 && (
                     <button
                       onClick={clearAllTiles}
-                      className="px-2 py-1 text-[10px] font-bold text-red-650 bg-red-50 hover:bg-red-100/70 border border-red-100 rounded flex items-center gap-1 cursor-pointer transition"
+                      className="px-2 py-1 text-[10px] font-bold text-red-650 bg-red-50 hover:bg-red-100/70 border border-red-100 rounded flex items-center gap-1 cursor-pointer transition border-0"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       Clear Pool
@@ -711,13 +785,13 @@ export const MosaicGenerator: React.FC = () => {
                     <span className="text-[9px] font-bold text-slate-455 uppercase tracking-widest block">
                       Tile Collection (Previews)
                     </span>
-                    <div className="grid grid-cols-6 sm:grid-cols-10 gap-2 max-h-[148px] overflow-y-auto p-2 bg-slate-50/30 border border-slate-200/50 rounded-2xl shadow-inner scrollbar-thin">
+                    <div className="grid grid-cols-6 sm:grid-cols-8 gap-2 max-h-[148px] overflow-y-auto p-2 bg-slate-50/30 border border-slate-200/50 rounded-2xl shadow-inner scrollbar-thin">
                       {tiles.map((t, idx) => (
                         <div key={t.id} className="aspect-square rounded-lg border border-slate-200 relative group overflow-hidden bg-white shadow-xs">
                           <img src={t.url} alt={t.name} className="w-full h-full object-cover" />
                           <button
                             onClick={() => removeTile(idx)}
-                            className="absolute inset-0 bg-red-600/80 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-[10px] font-bold"
+                            className="absolute inset-0 bg-red-650/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-[10px] font-bold border-0"
                           >
                             Delete
                           </button>
@@ -749,11 +823,11 @@ export const MosaicGenerator: React.FC = () => {
                         <h4 className="text-xs font-bold text-slate-800">Assembling photo mosaic...</h4>
                         <div className="w-full bg-slate-100 rounded-full h-2 shadow-inner overflow-hidden border border-slate-200">
                           <div 
-                            className="bg-gradient-to-r from-indigo-600 to-purple-600 h-full transition-all duration-300 rounded-full" 
+                            className="bg-gradient-to-r from-indigo-600 to-indigo-700 h-full transition-all duration-300 rounded-full" 
                             style={{ width: `${renderingProgress}%` }}
                           />
                         </div>
-                        <span className="text-[10px] font-bold text-purple-650">{renderingProgress}%</span>
+                        <span className="text-[10px] font-bold text-indigo-650">{renderingProgress}%</span>
                       </>
                     )}
                   </div>
@@ -766,21 +840,60 @@ export const MosaicGenerator: React.FC = () => {
                     <div>
                       <h4 className="text-xs font-bold text-slate-800">Mosaic Canvas Frame Output</h4>
                       <span className="text-[9px] text-slate-400 font-semibold font-mono uppercase">
-                        PNG Generated locally in-memory
+                        Hover over the image below to zoom and inspect individual tiles!
                       </span>
                     </div>
-                    <span className="text-[10px] font-bold text-emerald-655 bg-emerald-50 border border-emerald-150 px-2 py-0.5 rounded animate-pulse">
+                    <span className="text-[10px] font-bold text-emerald-655 bg-emerald-50 border border-emerald-150 px-2 py-0.5 rounded flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 animate-pulse" />
                       Completed
                     </span>
                   </div>
 
-                  <div className="w-full flex items-center justify-center bg-slate-50/30 border border-slate-200 rounded-2xl p-4 overflow-hidden relative">
+                  {/* Interactive zoom lens preview container */}
+                  <div 
+                    ref={previewContainerRef}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                    className="w-full flex items-center justify-center bg-slate-50/30 border border-slate-200 rounded-2xl p-4 overflow-hidden relative select-none cursor-zoom-in"
+                  >
                     <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none" />
                     <img
                       src={previewUrl}
                       alt="Mosaic Output Preview"
-                      className="max-w-full max-h-[500px] object-contain rounded-xl shadow-2xl border border-slate-200/60 relative z-10 animate-float"
+                      className="max-w-full max-h-[500px] object-contain rounded-xl shadow-2xl border border-slate-200/60 relative z-10"
                     />
+
+                    {/* Magnifier Lens */}
+                    {magnifier.show && (
+                      <div
+                        className="absolute pointer-events-none w-32 h-32 rounded-full border-2 border-white shadow-2xl overflow-hidden z-30"
+                        style={{
+                          left: `${magnifier.x - 64}px`,
+                          top: `${magnifier.y - 64}px`,
+                          backgroundImage: `url(${previewUrl})`,
+                          backgroundRepeat: 'no-repeat',
+                          backgroundSize: `${
+                            previewContainerRef.current 
+                              ? (previewContainerRef.current.querySelector('img')?.clientWidth || 0) * 3 
+                              : 0
+                          }px ${
+                            previewContainerRef.current 
+                              ? (previewContainerRef.current.querySelector('img')?.clientHeight || 0) * 3 
+                              : 0
+                          }px`,
+                          backgroundPosition: `${
+                            previewContainerRef.current && previewContainerRef.current.querySelector('img')
+                              ? -(((magnifier.x - (previewContainerRef.current.clientWidth - (previewContainerRef.current.querySelector('img')?.clientWidth || 0)) / 2) * 3) - 64)
+                              : 0
+                          }px ${
+                            previewContainerRef.current && previewContainerRef.current.querySelector('img')
+                              ? -(((magnifier.y - (previewContainerRef.current.clientHeight - (previewContainerRef.current.querySelector('img')?.clientHeight || 0)) / 2) * 3) - 64)
+                              : 0
+                          }px`,
+                          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0,0,0,0.2)'
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
               )}
@@ -800,39 +913,37 @@ export const MosaicGenerator: React.FC = () => {
               description: 'Select the high-contrast target image you want to reconstruct.'
             },
             {
-              title: 'Select Tiles Source',
-              description: 'Toggle "Use Solid Colors" for a fast fallback pool, or deselect it and upload a directory of your own custom photographs.'
+              title: 'Upload Source Tiles',
+              description: 'Select multiple photos to construct the details of your mosaic template.'
             },
             {
-              title: 'Render & Download',
-              description: 'Adjust grid column sizes, color tint strength, and source opacity layers. Click "Generate Mosaic" and download the completed canvas.'
+              title: 'Adjust Settings & Generate',
+              description: 'Customize grid columns, de-duplication variety, color tinting, and download in print quality.'
             }
           ]}
           features={[
-            'On-device color-matching sorting algorithms that run in-browser.',
-            'Custom tile loader support: upload folder paths of user photos in bulk.',
-            'Solid-color cell fill fallback option for quick mockups and placeholders.',
-            'Adjustable blend controls: customize original image overlay and tint levels.',
-            'Generates high-resolution layouts without bandwidth consumption.'
+            'Perceptual color matching using the redmean algorithm for realistic mosaics.',
+            'Tile variety controls (anti-repetition penalty) to prevent identical duplicate grids.',
+            'No-distortion center cropping fits portrait and landscape photos automatically.',
+            'Interactive zoom lens to inspect individual miniature photos in real-time.',
+            'Ultra HD 4K+ print-ready upscaler runs entirely in browser memory.'
           ]}
           faq={[
             {
-              q: 'How many tile images should I upload?',
-              a: 'For best results with custom tiles, upload a directory containing 50 to 500 different photos so the matching algorithm has a wide color palette to select from.'
+              q: 'How many tile photos should I upload?',
+              a: 'We recommend uploading between 30 and 100+ photos. The larger your tile collection, the less repetition and the more realistic your mosaic will look.'
             },
             {
-              q: 'Does it support folder uploads?',
-              a: 'Yes, you can click to select and upload multiple images from a folder at once. They are processed entirely in local browser memory.'
+              q: 'Can I print these generated mosaics?',
+              a: 'Absolutely! Choose the Ultra Print-Ready 4K+ setting. This scales each mini tile to 120px wide, resulting in a high-resolution file suitable for physical print shops.'
             },
             {
-              q: 'Why does generation take a few seconds?',
-              a: 'The algorithm must read the average color coordinates of the target image segments and compare them against the color profiles of each uploaded tile to select the best match.'
+              q: 'Are my pictures uploaded to any servers?',
+              a: 'No. Both the target template and your source tiles are processed entirely locally in your browser memory. Your privacy is 100% guaranteed.'
             }
           ]}
         />
-
       </div>
-      <canvas ref={canvasRef} className="hidden" />
     </div>
   );
 };
