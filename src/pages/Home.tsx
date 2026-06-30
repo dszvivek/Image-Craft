@@ -660,7 +660,7 @@ export const Home: React.FC = () => {
       <div className="w-full max-w-4xl mx-auto px-4 mt-4 mb-24 relative group">
         <div className="absolute inset-0 bg-gradient-to-tr from-sky-400/15 via-indigo-500/10 to-purple-400/5 rounded-3xl blur-3xl opacity-80 pointer-events-none group-hover:scale-102 transition-transform duration-500" />
         
-        <div className="relative bg-zinc-950 border border-zinc-800/80 rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/20 aspect-[1.8/1] flex flex-col">
+        <div className="relative bg-zinc-950 border border-zinc-800/80 rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/20 aspect-[1.2/1] sm:aspect-[1.8/1] flex flex-col">
           <div className="h-10 border-b border-zinc-900 px-4 flex items-center justify-between shrink-0 bg-zinc-950">
             <div className="flex items-center gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
@@ -682,7 +682,7 @@ export const Home: React.FC = () => {
                 title="AI Background Remover"
                 className={`w-8 h-8 rounded-lg flex items-center justify-center border transition-all cursor-pointer ${
                   activeHeroTab === 'bg-remover'
-                    ? 'bg-indigo-600/25 border-indigo-500/40 text-indigo-400 scale-105 shadow-md shadow-indigo-500/10'
+                     ? 'bg-indigo-600/25 border-indigo-500/40 text-indigo-400 scale-105 shadow-md shadow-indigo-500/10'
                     : 'border-transparent text-zinc-500 hover:text-zinc-350 hover:bg-zinc-900'
                 }`}
               >
@@ -739,12 +739,12 @@ export const Home: React.FC = () => {
               {renderInteractiveCanvas(activeHeroTab)}
               
               {/* Dynamic Overlay info badge */}
-              <div className="absolute bottom-4 right-4 bg-zinc-950/90 backdrop-blur-md border border-zinc-800 rounded-xl p-3 shadow-xl max-w-[170px] text-left animate-fade-in z-20">
+              <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 bg-zinc-950/90 backdrop-blur-md border border-zinc-800 rounded-xl p-2 sm:p-3 shadow-xl max-w-[130px] sm:max-w-[170px] text-left animate-fade-in z-20">
                 <span className="text-[8px] font-black text-indigo-400 uppercase tracking-wider block mb-0.5">Image Craft Studio</span>
-                <p className="text-[10px] font-extrabold text-zinc-100 leading-tight">{activeHeroData.badgeText}</p>
-                <div className="flex items-center gap-1.5 mt-1.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-[8px] text-zinc-400 font-bold">{activeHeroData.badgeLabel}</span>
+                <p className="text-[9px] sm:text-[10px] font-extrabold text-zinc-100 leading-tight">{activeHeroData.badgeText}</p>
+                <div className="flex items-center gap-1.5 mt-1 sm:mt-1.5">
+                  <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[7.5px] sm:text-[8px] text-zinc-400 font-bold">{activeHeroData.badgeLabel}</span>
                 </div>
               </div>
             </div>

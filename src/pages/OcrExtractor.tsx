@@ -489,7 +489,7 @@ export const OcrExtractor: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Scanned Image Preview */}
-            <div className="lg:col-span-5 space-y-4">
+            <div className="lg:col-span-5 space-y-4 order-2 lg:order-1">
               <span className="text-[10px] font-bold text-slate-450 uppercase tracking-widest block">
                 Source Document
               </span>
@@ -499,7 +499,7 @@ export const OcrExtractor: React.FC = () => {
             </div>
 
             {/* Extracted Text Result */}
-            <div className="lg:col-span-7 space-y-4">
+            <div className="lg:col-span-7 space-y-4 order-1 lg:order-2">
               <span className="text-[10px] font-bold text-emerald-650 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-100 uppercase tracking-widest inline-block font-semibold">
                 Extracted Text Output
               </span>

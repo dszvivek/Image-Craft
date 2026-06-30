@@ -220,7 +220,7 @@ export const Compressor: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Left controls column — sticky on desktop */}
-            <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
+            <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start order-2 lg:order-1">
               <div className="glass-card p-6 rounded-3xl space-y-6">
                 
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
@@ -347,7 +347,7 @@ export const Compressor: React.FC = () => {
             </div>
 
             {/* Right preview column */}
-            <div className="lg:col-span-8 space-y-4">
+            <div className="lg:col-span-8 space-y-4 order-1 lg:order-2">
               
               {/* Header inside preview */}
               <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-3 shadow-xs">

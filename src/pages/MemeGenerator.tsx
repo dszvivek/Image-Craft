@@ -294,7 +294,7 @@ export const MemeGenerator: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
             
             {/* Left Controls column */}
-            <div className="lg:col-span-4 flex flex-col gap-6">
+            <div className="lg:col-span-4 flex flex-col gap-6 order-2 lg:order-1">
               
               {/* Global Typography Settings */}
               <div className="glass-card p-5 rounded-3xl space-y-4">
@@ -419,7 +419,7 @@ export const MemeGenerator: React.FC = () => {
             </div>
 
             {/* Right Interactive Drag Viewport column */}
-            <div className="lg:col-span-8 space-y-4">
+            <div className="lg:col-span-8 space-y-4 order-1 lg:order-2">
               
               <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-3 shadow-xs">
                 <span className="text-xs font-bold text-slate-800">

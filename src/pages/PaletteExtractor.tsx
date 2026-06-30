@@ -215,7 +215,7 @@ export const PaletteExtractor: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Left Image View */}
-            <div className="lg:col-span-5 space-y-4">
+            <div className="lg:col-span-5 space-y-4 order-2 lg:order-1">
               <span className="text-xs font-bold text-slate-550 uppercase tracking-wider block">
                 Source Design File
               </span>
@@ -243,7 +243,7 @@ export const PaletteExtractor: React.FC = () => {
             </div>
 
             {/* Right Color Swatches Result */}
-            <div className="lg:col-span-7 space-y-5">
+            <div className="lg:col-span-7 space-y-5 order-1 lg:order-2">
               
               <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-3 shadow-xs">
                 <span className="text-xs font-bold text-slate-800">

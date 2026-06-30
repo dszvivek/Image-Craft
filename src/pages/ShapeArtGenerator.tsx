@@ -987,7 +987,7 @@ export const ShapeArtGenerator: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
             
             {/* Left Control Column */}
-            <div className="lg:col-span-5 space-y-6">
+            <div className="lg:col-span-5 space-y-6 order-2 lg:order-1">
               
               {/* Theme Selector */}
               <div className="glass-card p-5 rounded-3xl space-y-4">
@@ -1194,7 +1194,7 @@ export const ShapeArtGenerator: React.FC = () => {
             </div>
 
             {/* Right Preview Column */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
               
               {/* Canvas Box */}
               <div className="glass-card p-5 rounded-3xl space-y-4">

@@ -339,7 +339,7 @@ export const MetadataStripper: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
             
             {/* Left Image View & Scrub Controls */}
-            <div className="lg:col-span-5 flex flex-col gap-6">
+            <div className="lg:col-span-5 flex flex-col gap-6 order-2 lg:order-1">
               
               {/* Image box */}
               <div className="space-y-3">
@@ -410,7 +410,7 @@ export const MetadataStripper: React.FC = () => {
             </div>
 
             {/* Right Metadata Inspector Column */}
-            <div className="lg:col-span-7 space-y-5 w-full">
+            <div className="lg:col-span-7 space-y-5 w-full order-1 lg:order-2">
               
               {/* Header */}
               <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-3 shadow-xs">

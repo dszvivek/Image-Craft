@@ -632,7 +632,7 @@ export const SvgVectorizer: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
             
             {/* Left Controls column */}
-            <div className="lg:col-span-4 flex flex-col gap-6">
+            <div className="lg:col-span-4 flex flex-col gap-6 order-2 lg:order-1">
               
               {/* Core Vector Settings */}              <div className="glass-card p-5 rounded-3xl space-y-5">
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2 text-sm">
@@ -815,7 +815,7 @@ export const SvgVectorizer: React.FC = () => {
             </div>
 
             {/* Right Interactive Drag Viewport column */}
-            <div className="lg:col-span-8 space-y-4">
+            <div className="lg:col-span-8 space-y-4 order-1 lg:order-2">
               
               {/* Workspace Navigation Header Tabs */}
               <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-2">

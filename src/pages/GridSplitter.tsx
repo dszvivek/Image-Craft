@@ -268,7 +268,7 @@ export const GridSplitter: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Left Controls */}
-            <div className="lg:col-span-4 flex flex-col gap-6">
+            <div className="lg:col-span-4 flex flex-col gap-6 order-2 lg:order-1">
               <div className="glass-card p-6 rounded-3xl space-y-6">
                 
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
@@ -339,7 +339,7 @@ export const GridSplitter: React.FC = () => {
             </div>
 
             {/* Right Preview */}
-            <div className="lg:col-span-8 space-y-4">
+            <div className="lg:col-span-8 space-y-4 order-1 lg:order-2">
               
               {isZipping && (
                 <div className="glass-card p-6 rounded-3xl border border-indigo-100/60 shadow-xs">

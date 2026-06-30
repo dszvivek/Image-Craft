@@ -332,7 +332,7 @@ export const CollageMaker: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Left Options pane */}
-            <div className="lg:col-span-4 flex flex-col gap-6">
+            <div className="lg:col-span-4 flex flex-col gap-6 order-2 lg:order-1">
               
               {/* Photo list */}
               <div className="premium-bento p-5 rounded-3xl bg-white space-y-4 shadow-xs">
@@ -515,7 +515,7 @@ export const CollageMaker: React.FC = () => {
             </div>
 
             {/* Right Canvas collage output preview */}
-            <div className="lg:col-span-8 space-y-4">
+            <div className="lg:col-span-8 space-y-4 order-1 lg:order-2">
               
               <div className="flex justify-between items-center bg-white border border-slate-200/50 rounded-2xl px-4 py-3 shadow-xs">
                 <span className="text-xs font-bold text-slate-800">

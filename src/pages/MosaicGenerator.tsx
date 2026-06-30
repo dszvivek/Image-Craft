@@ -486,7 +486,7 @@ export const MosaicGenerator: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
             {/* Left Controls Card */}
-            <div className="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
+            <div className="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start order-2 lg:order-1">
               <div className="glass-card p-6 rounded-3xl space-y-5">
                 <h3 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
                   <Settings className="w-4.5 h-4.5 text-indigo-500" />
@@ -726,7 +726,7 @@ export const MosaicGenerator: React.FC = () => {
             </div>
 
             {/* Right Canvas and Tiles Area */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
               {/* Target Image preview */}
               <div className="glass-card p-5 rounded-3xl shadow-xs flex flex-col gap-4">
                 <div className="flex justify-between items-center border-b border-slate-100 pb-3">

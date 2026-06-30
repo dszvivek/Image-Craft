@@ -725,7 +725,7 @@ export const PdfSigner: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Signature Creation Panel (Left Column) */}
-            <div className="lg:col-span-4 space-y-6">
+            <div className="lg:col-span-4 space-y-6 order-2 lg:order-1">
               
               <div className="glass-card p-5 rounded-3xl space-y-5">
                 <div className="flex justify-between items-center">
@@ -916,7 +916,7 @@ export const PdfSigner: React.FC = () => {
             </div>
 
             {/* Document Workspace (Center/Right Column) */}
-            <div className="lg:col-span-8 space-y-6">
+            <div className="lg:col-span-8 space-y-6 order-1 lg:order-2">
               
               <div className="glass-card p-4 sm:p-6 rounded-3xl flex flex-col items-center">
                 
