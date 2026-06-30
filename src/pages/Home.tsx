@@ -799,8 +799,8 @@ export const Home: React.FC = () => {
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 py-6 max-w-6xl mx-auto px-4">
         
         {/* Prop 1 */}
-        <div className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/50 flex flex-col justify-between gap-4 group cursor-default">
-          <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-650 border border-indigo-100/60 group-hover:scale-110 transition-transform duration-200">
+        <div className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/60 flex flex-col justify-between gap-4 group cursor-default hover:-translate-y-1 hover:shadow-md hover:shadow-slate-200/30 hover:border-slate-300 transition-all duration-300">
+          <div className="w-11 h-11 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-650 border border-indigo-100/60 group-hover:scale-105 transition-all duration-300">
             <Lock className="w-5 h-5" />
           </div>
           <div>
@@ -812,8 +812,8 @@ export const Home: React.FC = () => {
         </div>
 
         {/* Prop 2 */}
-        <div className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/50 flex flex-col justify-between gap-4 group cursor-default">
-          <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-650 border border-purple-100/60 group-hover:scale-110 transition-transform duration-200">
+        <div className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/60 flex flex-col justify-between gap-4 group cursor-default hover:-translate-y-1 hover:shadow-md hover:shadow-slate-200/30 hover:border-slate-300 transition-all duration-300">
+          <div className="w-11 h-11 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-650 border border-purple-100/60 group-hover:scale-105 transition-all duration-300">
             <Cpu className="w-5 h-5" />
           </div>
           <div>
@@ -825,8 +825,8 @@ export const Home: React.FC = () => {
         </div>
 
         {/* Prop 3 */}
-        <div className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/50 flex flex-col justify-between gap-4 group cursor-default">
-          <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-650 border border-emerald-100/60 group-hover:scale-110 transition-transform duration-200">
+        <div className="premium-bento p-6 rounded-3xl bg-white border border-slate-200/60 flex flex-col justify-between gap-4 group cursor-default hover:-translate-y-1 hover:shadow-md hover:shadow-slate-200/30 hover:border-slate-300 transition-all duration-300">
+          <div className="w-11 h-11 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-650 border border-emerald-100/60 group-hover:scale-105 transition-all duration-300">
             <Zap className="w-5 h-5" />
           </div>
           <div>
@@ -853,55 +853,58 @@ export const Home: React.FC = () => {
           </p>
         </div>
 
-        {/* Search Bar */}
-        <div className="max-w-xl mx-auto mb-8 relative px-4">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search tools (e.g. compress, pdf, crop, palette)..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-10 py-3.5 bg-white border border-slate-200 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all shadow-xs text-sm text-slate-800 font-medium placeholder-slate-400"
-            />
-            <svg className="w-5 h-5 text-slate-400 absolute left-4.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637z" />
-            </svg>
+        {/* Unified Search Console Panel */}
+        <div className="max-w-3xl mx-auto mb-12 bg-slate-50/50 border border-slate-200/80 rounded-3xl p-5 md:p-6 shadow-xs px-4 md:px-6">
+          {/* Search Bar */}
+          <div className="max-w-xl mx-auto mb-5 relative">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search tools (e.g. compress, pdf, crop, palette)..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-10 py-3 bg-white border border-slate-200 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all shadow-xs text-sm text-slate-800 font-medium placeholder-slate-400"
+              />
+              <svg className="w-5 h-5 text-slate-400 absolute left-4.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637z" />
+              </svg>
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-100 cursor-pointer transition-all"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+            {/* Results count */}
             {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-100 cursor-pointer transition-all"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              <p className="text-[11px] font-semibold text-slate-500 mt-2 text-right pr-1">
+                {filteredTools.length} tool{filteredTools.length !== 1 ? 's' : ''} found
+              </p>
             )}
           </div>
-          {/* Results count */}
-          {searchQuery && (
-            <p className="text-[11px] font-semibold text-slate-500 mt-2 text-right pr-1">
-              {filteredTools.length} tool{filteredTools.length !== 1 ? 's' : ''} found
-            </p>
-          )}
-        </div>
 
-        {/* Category Filters */}
-        <div className="flex flex-wrap gap-2 justify-center mb-12 max-w-4xl mx-auto px-4">
-          {categories.map((cat) => {
-            const CatIcon = cat.icon;
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-4.5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer border flex items-center gap-1.5 ${
-                  activeCategory === cat.id
-                    ? 'bg-indigo-650 border-indigo-655 text-white shadow-md shadow-indigo-500/15'
-                    : 'bg-white border-slate-200 text-slate-655 hover:text-slate-900 hover:border-slate-350 shadow-xs'
-                }`}
-              >
-                <CatIcon className="w-3.5 h-3.5 shrink-0" />
-                <span>{cat.label}</span>
-              </button>
-            );
-          })}
+          {/* Category Filters */}
+          <div className="flex flex-wrap gap-2 justify-center">
+            {categories.map((cat) => {
+              const CatIcon = cat.icon;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer border flex items-center gap-1.5 ${
+                    activeCategory === cat.id
+                      ? 'bg-indigo-650 border-indigo-655 text-white shadow-md shadow-indigo-500/15'
+                      : 'bg-white border-slate-200 text-slate-655 hover:text-slate-900 hover:border-slate-350 shadow-xs'
+                  }`}
+                >
+                  <CatIcon className="w-3.5 h-3.5 shrink-0" />
+                  <span>{cat.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Bento Grid */}
@@ -997,17 +1000,26 @@ export const Home: React.FC = () => {
               </Link>
             </div>
 
-            <Link to="/background-remover" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-purple-400/80 group-hover:shadow-[0_12px_40px_rgba(167,139,250,0.15)] transition-all duration-300 block cursor-pointer">
-              <img 
-                src="/demo-gifs/bg-remover.gif" 
-                alt="AI Background Remover Demo" 
-                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
-                loading="lazy" 
-              />
-              <div className="absolute inset-0 bg-purple-950/0 group-hover:bg-purple-950/40 transition-all duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-purple-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
-                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
-                </span>
+            <Link to="/background-remover" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-purple-400/80 group-hover:shadow-[0_12px_40px_rgba(167,139,250,0.15)] transition-all duration-300 flex flex-col cursor-pointer">
+              <div className="h-7 border-b border-zinc-900 px-3 flex items-center shrink-0 bg-zinc-950">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-rose-500/80" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-amber-500/80" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
+                </div>
+              </div>
+              <div className="flex-1 min-h-0 relative">
+                <img 
+                  src="/demo-gifs/bg-remover.gif" 
+                  alt="AI Background Remover Demo" 
+                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
+                  loading="lazy" 
+                />
+                <div className="absolute inset-0 bg-purple-950/0 group-hover:bg-purple-950/40 transition-all duration-300 flex items-center justify-center">
+                  <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-purple-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
+                    Open Tool <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </div>
               </div>
             </Link>
           </div>
@@ -1041,17 +1053,26 @@ export const Home: React.FC = () => {
               </Link>
             </div>
 
-            <Link to="/photo-mosaic-generator" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-fuchsia-400/80 group-hover:shadow-[0_12px_40px_rgba(217,70,239,0.15)] transition-all duration-300 block cursor-pointer">
-              <img 
-                src="/demo-gifs/mosaic.gif" 
-                alt="Photo Mosaic Demo" 
-                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
-                loading="lazy" 
-              />
-              <div className="absolute inset-0 bg-fuchsia-950/0 group-hover:bg-fuchsia-950/40 transition-all duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-fuchsia-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
-                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
-                </span>
+            <Link to="/photo-mosaic-generator" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-fuchsia-400/80 group-hover:shadow-[0_12px_40px_rgba(217,70,239,0.15)] transition-all duration-300 flex flex-col cursor-pointer">
+              <div className="h-7 border-b border-zinc-900 px-3 flex items-center shrink-0 bg-zinc-950">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-rose-500/80" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-amber-500/80" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
+                </div>
+              </div>
+              <div className="flex-1 min-h-0 relative">
+                <img 
+                  src="/demo-gifs/mosaic.gif" 
+                  alt="Photo Mosaic Demo" 
+                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
+                  loading="lazy" 
+                />
+                <div className="absolute inset-0 bg-fuchsia-950/0 group-hover:bg-fuchsia-950/40 transition-all duration-300 flex items-center justify-center">
+                  <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-fuchsia-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
+                    Open Tool <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </div>
               </div>
             </Link>
           </div>
@@ -1085,17 +1106,26 @@ export const Home: React.FC = () => {
               </Link>
             </div>
 
-            <Link to="/aspect-resizer" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-amber-400/80 group-hover:shadow-[0_12px_40px_rgba(245,158,11,0.15)] transition-all duration-300 block cursor-pointer">
-              <img 
-                src="/demo-gifs/crop.gif" 
-                alt="Aspect Resizer Demo" 
-                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
-                loading="lazy" 
-              />
-              <div className="absolute inset-0 bg-amber-950/0 group-hover:bg-amber-950/40 transition-all duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-amber-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
-                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
-                </span>
+            <Link to="/aspect-resizer" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-amber-400/80 group-hover:shadow-[0_12px_40px_rgba(245,158,11,0.15)] transition-all duration-300 flex flex-col cursor-pointer">
+              <div className="h-7 border-b border-zinc-900 px-3 flex items-center shrink-0 bg-zinc-950">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-rose-500/80" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-amber-500/80" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
+                </div>
+              </div>
+              <div className="flex-1 min-h-0 relative">
+                <img 
+                  src="/demo-gifs/crop.gif" 
+                  alt="Aspect Resizer Demo" 
+                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
+                  loading="lazy" 
+                />
+                <div className="absolute inset-0 bg-amber-950/0 group-hover:bg-amber-950/40 transition-all duration-300 flex items-center justify-center">
+                  <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-amber-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
+                    Open Tool <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </div>
               </div>
             </Link>
           </div>
@@ -1129,17 +1159,26 @@ export const Home: React.FC = () => {
               </Link>
             </div>
 
-            <Link to="/image-compressor" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-indigo-400/80 group-hover:shadow-[0_12px_40px_rgba(99,102,241,0.15)] transition-all duration-300 block cursor-pointer">
-              <img 
-                src="/demo-gifs/compressor.gif" 
-                alt="Image Compressor Demo" 
-                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
-                loading="lazy" 
-              />
-              <div className="absolute inset-0 bg-indigo-950/0 group-hover:bg-indigo-950/40 transition-all duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
-                  Open Tool <ArrowRight className="w-3.5 h-3.5" />
-                </span>
+            <Link to="/image-compressor" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-indigo-400/80 group-hover:shadow-[0_12px_40px_rgba(99,102,241,0.15)] transition-all duration-300 flex flex-col cursor-pointer">
+              <div className="h-7 border-b border-zinc-900 px-3 flex items-center shrink-0 bg-zinc-950">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-rose-500/80" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-amber-500/80" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
+                </div>
+              </div>
+              <div className="flex-1 min-h-0 relative">
+                <img 
+                  src="/demo-gifs/compressor.gif" 
+                  alt="Image Compressor Demo" 
+                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
+                  loading="lazy" 
+                />
+                <div className="absolute inset-0 bg-indigo-950/0 group-hover:bg-indigo-950/40 transition-all duration-300 flex items-center justify-center">
+                  <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
+                    Open Tool <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </div>
               </div>
             </Link>
           </div>
@@ -1147,16 +1186,16 @@ export const Home: React.FC = () => {
       </section>
 
       {/* Security Banner section */}
-      <section className="my-24 max-w-5xl mx-auto premium-bento rounded-3xl p-8 bg-gradient-to-r from-slate-100/40 via-white to-slate-50/40 border border-slate-200/80 relative overflow-hidden shadow-md flex flex-col md:flex-row items-center gap-8 justify-between">
-        <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-indigo-500/5 rounded-full blur-2xl pointer-events-none" />
+      <section className="my-24 max-w-5xl mx-auto rounded-3xl p-8 md:p-10 bg-slate-950 border border-slate-900 relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center gap-8 justify-between text-left">
+        <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="space-y-3 max-w-xl text-left">
-          <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-indigo-650 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100/60 shadow-xs">
+          <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 shadow-xs">
             <Lock className="w-3.5 h-3.5" />
             Client-Side Promise
           </div>
-          <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">Your private files never leave your device</h3>
-          <p className="text-xs text-slate-500 leading-relaxed font-medium">
+          <h3 className="text-xl md:text-2xl font-black text-white tracking-tight">Your private files never leave your device</h3>
+          <p className="text-xs text-slate-400 leading-relaxed font-medium">
             ImageGiri operates under a strict offline isolation sandbox. We do not collect cookies, compile usage analytics profiles, or transfer your pixel configurations.
           </p>
         </div>
@@ -1164,7 +1203,7 @@ export const Home: React.FC = () => {
         <div className="shrink-0 w-full md:w-auto">
           <Link 
             to="/privacy" 
-            className="w-full md:w-auto inline-flex justify-center items-center gap-2 px-6 py-3 bg-white hover:bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-700 hover:text-slate-900 rounded-full transition border border-slate-200 shadow-xs backdrop-blur-md"
+            className="w-full md:w-auto inline-flex justify-center items-center gap-2 px-6 py-3 bg-zinc-900 hover:bg-zinc-800 text-[11px] font-bold uppercase tracking-wider text-zinc-100 hover:text-white rounded-full transition border border-zinc-800 shadow-sm"
           >
             View Privacy Policy
             <ArrowRight className="w-3.5 h-3.5" />
