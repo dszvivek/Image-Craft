@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import metadata from '../routes/metadata.json';
 import { 
   Menu, 
   X, 
@@ -49,9 +50,65 @@ export const Layout = () => {
     setOpenMobileCategory(openMobileCategory === catId ? null : catId);
   };
 
-  // Scroll to top on navigation / route change
+  // Scroll to top on navigation and dynamically update SEO head tags
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    let cleanPath = location.pathname;
+    if (cleanPath.endsWith('/')) {
+      cleanPath = cleanPath.slice(0, -1);
+    }
+    if (cleanPath.startsWith('/')) {
+      cleanPath = cleanPath.substring(1);
+    }
+
+    const meta = (metadata as any)[cleanPath];
+    if (meta) {
+      const isHome = cleanPath === '';
+      const fullTitle = isHome ? meta.title : `${meta.title} | ImageGiri`;
+      document.title = fullTitle;
+      
+      // Update meta description
+      const descMeta = document.querySelector('meta[name="description"]');
+      if (descMeta) descMeta.setAttribute('content', meta.description);
+      
+      // Update meta keywords
+      const keywordsMeta = document.querySelector('meta[name="keywords"]');
+      if (keywordsMeta) keywordsMeta.setAttribute('content', meta.keywords);
+      
+      // Update canonical link
+      const canonicalLink = document.querySelector('link[rel="canonical"]');
+      if (canonicalLink) {
+        canonicalLink.setAttribute('href', `https://imagegiri.com${location.pathname}`);
+      }
+      
+      // Update Open Graph tags
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute('content', fullTitle);
+      
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.setAttribute('content', meta.description);
+      
+      const ogUrl = document.querySelector('meta[property="og:url"]');
+      if (ogUrl) ogUrl.setAttribute('content', `https://imagegiri.com${location.pathname}`);
+      
+      const ogImageAlt = document.querySelector('meta[property="og:image:alt"]');
+      if (ogImageAlt) {
+        ogImageAlt.setAttribute('content', isHome ? "ImageGiri - Free Privacy-First Local Image Tools" : `${meta.title} - ImageGiri`);
+      }
+      
+      // Update Twitter tags
+      const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+      if (twitterTitle) twitterTitle.setAttribute('content', fullTitle);
+      
+      const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+      if (twitterDesc) twitterDesc.setAttribute('content', meta.description);
+      
+      const twitterImageAlt = document.querySelector('meta[name="twitter:image:alt"]');
+      if (twitterImageAlt) {
+        twitterImageAlt.setAttribute('content', isHome ? "ImageGiri - Free Privacy-First Local Image Tools" : `${meta.title} - ImageGiri`);
+      }
+    }
   }, [location.pathname]);
 
   const showSidebar = !['/', '/about', '/privacy', '/contact', '/faq'].includes(location.pathname);

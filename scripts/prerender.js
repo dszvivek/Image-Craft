@@ -12,320 +12,15 @@ if (!fs.existsSync(templatePath)) {
 
 const templateContent = fs.readFileSync(templatePath, 'utf8');
 
-// Define metadata configuration for all routes
-const routesConfig = {
-  'background-remover': {
-    title: 'Free AI Background Remover - Remove Image BG Offline',
-    description: 'Remove image backgrounds automatically in 5 seconds. Get a transparent background using local AI. 100% private, zero uploads.',
-    keywords: 'background remover, remove bg, transparent background, background eraser, remove photo background free',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'AI Background Remover - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Remove image backdrops automatically using local neural networks client-side inside the browser sandbox.',
-      'featureList': [
-        'Neural subject segmentation (RMBG-1.4)',
-        '100% offline running in IndexedDB cache',
-        'Alpha transparency channel export'
-      ]
-    }
-  },
-  'aspect-resizer': {
-    title: 'Free Aspect Resizer & Smart Crop - Social Media Presets',
-    description: 'Crop and resize images to standard ratios for Instagram, YouTube, X, and Facebook. Add smart blur padding. Runs offline in your browser.',
-    keywords: 'aspect resizer, crop image online, resize photos, social media crop templates, image grid resizer',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'Aspect Resizer & Smart Crop - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Crop and resize images to standard templates with smart blur-padding options offline.',
-      'featureList': [
-        'Presets for Instagram, YouTube, and X (Twitter)',
-        'Dynamic blur padding fill for vertical/horizontal bounds',
-        'Interactive rule of thirds crop lines'
-      ]
-    }
-  },
-  'batch-converter': {
-    title: 'Free Batch Image Converter - Convert PNG, JPEG, WebP, PDF',
-    description: 'Convert multiple images between PNG, JPEG, WebP, and PDF formats simultaneously. Batch process photos locally with absolute data privacy.',
-    keywords: 'batch image converter, convert png to jpg, convert webp, bulk image format converter, pack image to pdf',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'Batch Image Converter - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Simultaneously convert formats and pack multiple images to PDF files locally.',
-      'featureList': [
-        'Batch format encoding (WebP, PNG, JPEG)',
-        'Compile multiple photos to a single PDF document',
-        'Adjustable image scale and canvas page margins'
-      ]
-    }
-  },
-  'collage-maker': {
-    title: 'Free Photo Collage Maker - Create Custom Photo Grids',
-    description: 'Combine multiple photos into beautiful custom collage layouts. Adjust spacing, border widths, and corner rounding offline. No sign-up required.',
-    keywords: 'photo collage maker, photo grid maker, create collage online, custom grid layout, picture grids free',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'Photo Collage Maker - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Combine photos into preset grids and fine-tune borders and aspect ratios locally.',
-      'featureList': [
-        'Dozens of custom aspect grid templates',
-        'Live spacing padding and border rounding sliders',
-        'Drag-and-drop cell swaps client-side'
-      ]
-    }
-  },
-  'image-compressor': {
-    title: 'Free Image Compressor - Compress JPEG, PNG & WebP Offline',
-    description: 'Reduce image file sizes by up to 90% without losing quality. Compress JPEG, PNG, and WebP files locally in milliseconds. Absolute privacy.',
-    keywords: 'image compressor, compress jpeg, reduce image size, shrink webp, compress png online free',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'Image Compressor - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Drastically reduce image file sizes in the browser local RAM cache using quantization algorithms.',
-      'featureList': [
-        'Lossy and lossless compression configurations',
-        'Interactive chroma subsampling adjustments',
-        'Speedy multi-threading worker compression'
-      ]
-    }
-  },
-  'instagram-grid-splitter': {
-    title: 'Free Instagram Grid Splitter - Split Image to Panels',
-    description: 'Split a single photo into 3x3, 4x4, or 5x5 grid panels for Instagram. Crop and export high-quality split tiles locally in a ZIP file.',
-    keywords: 'instagram grid splitter, split image online, 3x3 grid maker, crop photo to panels, split image for instagram',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'Instagram Grid Splitter - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Split photos into grid mosaics for Instagram profiles without image resolution loss.',
-      'featureList': [
-        'Split grids (3x1, 3x2, 3x3, 4x4, 5x5)',
-        'Zip packing for single-click downloads',
-        'Automatic cell coordinate naming conventions'
-      ]
-    }
-  },
-  'meme-generator': {
-    title: 'Free Meme Generator - Add Impact Text Captions',
-    description: 'Create custom memes instantly using popular blank templates or your own images. Add draggable text captions offline. Free and watermark-free.',
-    keywords: 'meme generator, meme maker online, caption template, custom memes, blank meme generator',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'Meme Generator - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Add dragging, styled text captions to image files to create memes offline.',
-      'featureList': [
-        'Classic Impact-style font settings',
-        'Dynamic bounding text boxes with drag handles',
-        'Save canvas as high-res PNG locally'
-      ]
-    }
-  },
-  'metadata-stripper': {
-    title: 'Free EXIF Metadata Stripper - Remove GPS Photo Data',
-    description: 'Remove camera settings, location coordinates, and EXIF metadata from your photos before sharing. Clean image properties locally for privacy.',
-    keywords: 'EXIF metadata stripper, remove gps from photo, clean camera metadata, exif tag cleaner, remove photo location',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'EXIF Metadata Stripper - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Audit and strip metadata strings from camera files locally in RAM.',
-      'featureList': [
-        'Complete scan of Exif, GPS, and IPTC parameters',
-        'One-click tag wipe matching security best practices',
-        'Export clean image data blocks immediately'
-      ]
-    }
-  },
-  'photo-mosaic-generator': {
-    title: 'Free Photo Mosaic Generator - Easymoza Alternative',
-    description: 'Reconstruct target images from thousands of small photo tiles locally. A 100% private, free alternative to Easymoza and mosaic generators.',
-    keywords: 'photo mosaic generator, mosaic maker online, easymoza alternative, picture mosaic, grid tile art creator',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'Photo Mosaic Generator - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Compose photo mosaic grids locally in client-side RAM using color average math.',
-      'featureList': [
-        'Automatic color distance matching',
-        'Custom tile batches or solid colors fallback pool',
-        'High-resolution offline canvas rendering'
-      ]
-    }
-  },
-  'shape-art-generator': {
-    title: 'Free AI Shape Art Generator - Photo to Particle Sketch Portrait',
-    description: 'Turn your photographs into computational particle art portraits. Reconstruct face details and pose contours using stars, clouds, flowers, or pencil strokes offline.',
-    keywords: 'AI shape art generator, photo to sketch converter, star portrait maker, flower photo collage, contour stippling offline',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'AI Shape Art Generator - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Convert images into creative shape collages matching body outlines and facial features client-side.',
-      'featureList': [
-        'Local Sobel contour edge scanning',
-        'Adaptive point density detail allocation',
-        'Handcrafted drawing styles (Stars, Pencil, Flowers)',
-        'Animate canvas rendering sequences'
-      ]
-    }
-  },
-  'ocr-text-extractor': {
-    title: 'Free OCR Text Extractor - Scan Image to Text Offline',
-    description: 'Extract text from images, scanned documents, and books locally using Tesseract OCR. Runs 100% offline inside your browser. Safe and secure.',
-    keywords: 'ocr text extractor, scan image to text, picture word scanner, read text from photo, image to text converter',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'OCR Text Extractor - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Scan and extract characters from text pictures locally in client memory.',
-      'featureList': [
-        'Local Tesseract.js language engines',
-        'Support for English, Spanish, French, and Japanese',
-        'Instant copy-to-clipboard transaction text box'
-      ]
-    }
-  },
-  'color-palette-extractor': {
-    title: 'Free Color Palette Extractor - HEX/RGB Palette Generator',
-    description: 'Extract dominant color palettes and harmonious swatches from any photo instantly. Get HEX, RGB, and Tailwind CSS code layouts.',
-    keywords: 'color palette extractor, palette generator from image, hex code picker, image color finder, extract swatches',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'Color Palette Extractor - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Extract harmonious color palettes from photography locally in browser memory.',
-      'featureList': [
-        'Dynamic color swatch extractors',
-        'HEX, RGB, and Tailwind class formats',
-        'Save and copy palettes instantly'
-      ]
-    }
-  },
-  'svg-vectorizer': {
-    title: 'Free SVG Vectorizer - Convert Raster to Vector Outline',
-    description: 'Trace raster PNG or JPEG images into clean vector SVG drawing outlines locally. Adjust edge thresholds and path tolerances in real-time.',
-    keywords: 'SVG vectorizer, raster to vector converter, convert png to svg, trace image outline, image tracer tool',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'SVG Vectorizer - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Convert bitmap files to vector SVG outlines locally using canvas color analysis.',
-      'featureList': [
-        'Local canvas edge tracing logic',
-        'Path simplification tolerance thresholds',
-        'Download vector SVG code inline'
-      ]
-    }
-  },
-  'watermark-overlay': {
-    title: 'Free Watermark Overlay - Add Text & Logo to Images',
-    description: 'Protect your images by overlaying custom text or logo watermarks. Adjust transparency, spacing, rotation, and tile layouts offline.',
-    keywords: 'watermark overlay, add watermark to photo, protect images online, logo overlay, copyright image tool',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'Watermark Overlay - ImageGiri',
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Overlay copyright text arrays or logo images onto canvases locally.',
-      'featureList': [
-        'Custom watermark text alignment controls',
-        'Opacity slider and repeating tile layouts',
-        'Local browser memory rendering'
-      ]
-    }
-  },
-  'bank-statement-analyzer': {
-    title: 'Free Bank Statement Analyzer - PDF/CSV/Excel Parser',
-    description: 'Parse credit card and bank statements locally in your browser. Calculate cash flows, categorize transactions, and export tables to Excel/CSV.',
-    keywords: 'bank statement analyzer, pdf bank statement parser, convert bank statement to csv, transaction ledger analyzer',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'PDF Bank Statement Analyzer - ImageGiri',
-      'applicationCategory': 'BusinessApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Analyze credit card or bank statement sheets locally inside the client browser cache.',
-      'featureList': [
-        'Parse password-protected PDF bank statements',
-        'Export parsed transaction tables directly to Excel/CSV',
-        '100% offline local parsing, zero server transmission'
-      ]
-    }
-  },
-  'sign-pdf': {
-    title: 'Free PDF Signer - Sign PDF Documents Online Offline',
-    description: 'Sign PDF documents locally in your browser. Draw, type, or upload your signature. 100% private and offline client-side signing.',
-    keywords: 'pdf signer, sign pdf, digital signature pdf, online pdf signature, electronic signature free, draw signature pdf, type signature on pdf, offline pdf sign, no upload pdf signer',
-    schema: {
-      '@type': 'SoftwareApplication',
-      'name': 'Electronic PDF Signer - ImageGiri',
-      'applicationCategory': 'BusinessApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-      'description': 'Overlay custom drawn or typed electronic signatures onto PDF pages client-side using pdf-lib.',
-      'featureList': [
-        'Draw, type, or upload custom signatures',
-        'Natively overlay signatures on any PDF page',
-        '100% offline local signing, zero server transmission'
-      ]
-    }
-  },
-  'about': {
-    title: 'About Us - Privacy-First Local Image Tools Suite',
-    description: 'Learn about ImageGiri and our absolute privacy commitment. We run 100% client-side web sandbox processing without cloud databases.',
-    keywords: 'about imagegiri, offline image tools, client-side tools, private image processing'
-  },
-  'privacy': {
-    title: 'Privacy Policy - Client-Side Promise',
-    description: 'Review the privacy policy for ImageGiri. Our strict client-side sandbox ensures files stay on your device and are never uploaded.',
-    keywords: 'privacy policy, cookie policy, client-side promise, data safety guarantee'
-  },
-  'faq': {
-    title: 'Frequently Asked Questions - Help & Guides',
-    description: 'Common questions answered about offline processing, browser compatibility, and private security frameworks.',
-    keywords: 'faq, help page, user guides, compatibility list, local security questions'
-  },
-  'contact': {
-    title: 'Contact Support & Feedback',
-    description: 'Reach out to the ImageGiri development team for queries, bug reports, and features requests.',
-    keywords: 'contact support, bug report, feedback form, request feature'
-  }
-};
+// Load central metadata database
+const metadataPath = path.resolve('src/routes/metadata.json');
+if (!fs.existsSync(metadataPath)) {
+  console.error(`Error: Could not find metadata.json at ${metadataPath}.`);
+  process.exit(1);
+}
+const routesConfig = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
 
-console.log('Generating pre-rendered static meta index pages...');
+console.log('Generating pre-rendered static meta index pages with semantic HTML bodies...');
 
 // Base URL of the site
 const siteUrl = 'https://imagegiri.com';
@@ -349,12 +44,207 @@ const filesMap = {
   'sign-pdf': 'src/pages/PdfSigner.tsx'
 };
 
-for (const [route, meta] of Object.entries(routesConfig)) {
-  const routeDir = path.join(distDir, route);
-  fs.mkdirSync(routeDir, { recursive: true });
+/**
+ * Generate semantic HTML body to inject inside <div id="root">
+ */
+function generateStaticBodyContent(route, meta, faqs) {
+  const isHome = route === '';
+  const currentYear = new Date().getFullYear();
   
-  const pageCanonical = `${siteUrl}/${route}`;
-  const fullTitle = `${meta.title} | ImageGiri`;
+  // Clean navigation header for bots and offline users
+  const navHtml = `
+    <header style="margin-bottom: 2.5rem; border-bottom: 1.1px solid #e2e8f0; padding-bottom: 1.25rem; font-family: 'Inter', sans-serif;">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div style="width: 2.25rem; height: 2.25rem; border-radius: 0.75rem; background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);">
+            <svg style="width: 1.25rem; height: 1.25rem; color: white;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 20l7-10 7 10" />
+              <path d="M9 20l4-6 4 6" />
+              <circle cx="12" cy="16" r="2" fill="currentColor" />
+            </svg>
+          </div>
+          <span style="font-size: 1.25rem; font-weight: 800; color: #0f172a; font-family: 'Outfit', sans-serif; letter-spacing: -0.02em;">Image<span style="color: #6366f1;">Giri</span></span>
+        </div>
+        <div style="font-size: 0.75rem; font-weight: 700; color: #059669; background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 9999px; padding: 0.25rem 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Inter', sans-serif;">
+          🔒 100% Client-Side Privacy
+        </div>
+      </div>
+      <nav style="display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: 0.875rem; font-weight: 600;">
+        <a href="/" style="color: #6366f1; text-decoration: none; transition: color 0.2s;">Home</a>
+        <a href="/about" style="color: #475569; text-decoration: none; transition: color 0.2s;">About Us</a>
+        <a href="/faq" style="color: #475569; text-decoration: none; transition: color 0.2s;">Help FAQ</a>
+        <a href="/privacy" style="color: #475569; text-decoration: none; transition: color 0.2s;">Privacy Policy</a>
+        <a href="/contact" style="color: #475569; text-decoration: none; transition: color 0.2s;">Contact Us</a>
+      </nav>
+    </header>
+  `;
+
+  // Standard footer for bots and offline users
+  const footerHtml = `
+    <footer style="margin-top: 5rem; border-top: 1px solid #e2e8f0; padding-top: 2.5rem; font-size: 0.875rem; color: #64748b; text-align: center; line-height: 1.6; font-family: 'Inter', sans-serif;">
+      <p style="font-weight: 600; color: #334155;">&copy; ${currentYear} ImageGiri. All rights reserved. Your privacy is our top priority.</p>
+      <p style="margin-top: 0.5rem; font-size: 0.75rem; color: #94a3b8; max-width: 600px; margin-left: auto; margin-right: auto;">
+        All files are processed locally inside your web browser sandbox via WebAssembly, canvas elements, and client-side models. We do not transfer, store, or view any of your images or sensitive documents.
+      </p>
+    </footer>
+  `;
+
+  if (isHome) {
+    // Generate homepage HTML showing all tools structured by categories
+    const categories = {
+      'AI & Image Editing': [
+        { name: 'AI Background Remover', path: '/background-remover', desc: 'Isolate subjects completely inside browser using local neural network RMGB-1.4 model.' },
+        { name: 'AI Shape Art Generator', path: '/shape-art-generator', desc: 'Turn photos into cosmic stars, cloud outlines, or floral sketches locally.' },
+        { name: 'SVG Vectorizer', path: '/svg-vectorizer', desc: 'Trace raster PNG/JPEG logos into clean, infinitely scalable vector SVGs.' },
+        { name: 'Watermark Overlay', path: '/watermark-overlay', desc: 'Apply custom text or logo image watermarks client-side with opacity and rotation.' },
+        { name: 'Instant Meme Generator', path: '/meme-generator', desc: 'Design captioned memes with classic drag-and-drop Impact text.' }
+      ],
+      'Layout & Grid': [
+        { name: 'Smart Crop & Aspect Resizer', path: '/aspect-resizer', desc: 'Resize and crop images to social media standard aspect ratios with blur padding.' },
+        { name: 'Photo Collage Maker', path: '/collage-maker', desc: 'Combine and fit multiple photos in grid layouts with customizable borders.' },
+        { name: 'Photo Mosaic Generator', path: '/photo-mosaic-generator', desc: 'Reconstruct target images from thousands of small photo tiles locally.' },
+        { name: 'Instagram Grid Splitter', path: '/instagram-grid-splitter', desc: 'Slice photos into 3x3, 4x4, or 5x5 tile grids for Instagram profiles.' }
+      ],
+      'Optimization & Formats': [
+        { name: 'Image Compressor', path: '/image-compressor', desc: 'Reduce JPEG, PNG, and WebP file sizes by up to 90% without visible quality loss.' },
+        { name: 'Color Palette Extractor', path: '/color-palette-extractor', desc: 'Extract dominant color palettes and swatches from images with HEX/RGB codes.' },
+        { name: 'EXIF Metadata Stripper', path: '/metadata-stripper', desc: 'Strip GPS locations, camera parameters, and EXIF flags from photos for safe sharing.' }
+      ],
+      'PDF & Documents': [
+        { name: 'Bank Statement Analyzer', path: '/bank-statement-analyzer', desc: 'Parse PDF, CSV, or Excel credit card and bank statements to audit finances offline.' },
+        { name: 'Electronic PDF Signer', path: '/sign-pdf', desc: 'Draw, type, or upload electronic signatures and place them on PDF pages.' },
+        { name: 'OCR Text Extractor', path: '/ocr-text-extractor', desc: 'Scan and extract multi-lingual printed text from images locally using Tesseract.' },
+        { name: 'Batch Converter', path: '/batch-converter', desc: 'Convert format sets and compile multiple photos into a single PDF document.' }
+      ]
+    };
+
+    const categoriesHtml = Object.entries(categories).map(([catName, toolsList]) => {
+      const toolsGridHtml = toolsList.map(t => `
+        <li style="border: 1px solid #e2e8f0; border-radius: 1rem; padding: 1.5rem; background-color: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.1rem; font-weight: 700; color: #0f172a; font-family: 'Outfit', sans-serif;">
+              <a href="${t.path}" style="color: #6366f1; text-decoration: none; border-bottom: 1.5px solid transparent; transition: border-color 0.2s;">${t.name}</a>
+            </h3>
+            <p style="margin: 0; font-size: 0.875rem; color: #475569; line-height: 1.6; font-family: 'Inter', sans-serif;">${t.desc}</p>
+          </div>
+          <div style="margin-top: 1.25rem;">
+            <a href="${t.path}" style="font-size: 0.8rem; font-weight: 700; color: #4f46e5; text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 0.25rem;">Launch Tool &rarr;</a>
+          </div>
+        </li>
+      `).join('\n');
+
+      return `
+        <section style="margin-bottom: 3.5rem;">
+          <h2 style="color: #0f172a; font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.5rem; font-family: 'Outfit', sans-serif; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: #6366f1;">•</span> ${catName}
+          </h2>
+          <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; padding: 0; margin: 0; list-style-type: none;">
+            ${toolsGridHtml}
+          </ul>
+        </section>
+      `;
+    }).join('\n');
+
+    return `
+      <div class="static-seo-content" style="padding: 2rem 1.5rem; max-width: 1100px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #334155; line-height: 1.5;">
+        ${navHtml}
+        <main>
+          <div style="text-align: center; max-width: 800px; margin: 3rem auto 4.5rem auto;">
+            <h1 style="color: #0f172a; font-size: 2.75rem; font-weight: 900; tracking-tight: -0.03em; margin-bottom: 1.25rem; line-height: 1.2; font-family: 'Outfit', sans-serif;">
+              Free Privacy-First Local Image Tools Suite
+            </h1>
+            <p style="color: #475569; font-size: 1.2rem; line-height: 1.75; font-family: 'Inter', sans-serif; margin: 0;">
+              Compress, convert, trace, resize, and edit files 100% offline inside your browser sandbox. All operations are run locally in client-side RAM using WebAssembly. Absolute privacy, zero uploads.
+            </p>
+          </div>
+          
+          ${categoriesHtml}
+        </main>
+        ${footerHtml}
+      </div>
+    `;
+  }
+
+  // Tool-specific page body rendering
+  const features = meta.schema && meta.schema.featureList ? meta.schema.featureList : [];
+  const featuresHtml = features.length > 0
+    ? `
+      <section style="margin-top: 2.5rem; font-family: 'Inter', sans-serif;">
+        <h2 style="color: #0f172a; font-size: 1.5rem; font-weight: 800; margin-bottom: 1.25rem; font-family: 'Outfit', sans-serif;">Key Features & Processing Details</h2>
+        <ul style="padding-left: 1.25rem; margin: 0; line-height: 1.8; font-size: 0.95rem; color: #475569; list-style-type: square;">
+          ${features.map(f => `<li style="margin-bottom: 0.5rem;"><strong style="color: #1e293b;">${f}</strong></li>`).join('\n')}
+        </ul>
+      </section>
+    `
+    : '';
+
+  const faqsSectionHtml = faqs.length > 0
+    ? `
+      <section style="margin-top: 3.5rem; font-family: 'Inter', sans-serif;">
+        <h2 style="color: #0f172a; font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; border-top: 1px solid #e2e8f0; padding-top: 2.5rem; font-family: 'Outfit', sans-serif;">Frequently Asked Questions (FAQ)</h2>
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          ${faqs.map(f => `
+            <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 1.25rem;">
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-top: 0; margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif;">${f.q}</h3>
+              <p style="font-size: 0.9rem; color: #475569; line-height: 1.65; margin: 0;">${f.a}</p>
+            </div>
+          `).join('\n')}
+        </div>
+      </section>
+    `
+    : '';
+
+  // internal linking structure
+  const otherToolsList = [
+    { name: 'AI Background Remover', path: '/background-remover' },
+    { name: 'Image Compressor', path: '/image-compressor' },
+    { name: 'OCR Text Extractor', path: '/ocr-text-extractor' },
+    { name: 'Photo Collage Maker', path: '/collage-maker' },
+    { name: 'Aspect Resizer & Crop', path: '/aspect-resizer' },
+    { name: 'Batch Image Converter', path: '/batch-converter' },
+    { name: 'Electronic PDF Signer', path: '/sign-pdf' },
+    { name: 'Bank Statement Analyzer', path: '/bank-statement-analyzer' }
+  ].filter(t => t.path !== `/${route}`);
+
+  const quickLinksHtml = otherToolsList.map(t => `
+    <li style="margin: 0;"><a href="${t.path}" style="color: #6366f1; text-decoration: none; font-weight: 600; font-size: 0.875rem; font-family: 'Inter', sans-serif; transition: color 0.2s;">${t.name} &rarr;</a></li>
+  `).join('\n');
+
+  return `
+    <div class="static-seo-content" style="padding: 2rem 1.5rem; max-width: 850px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #334155; line-height: 1.5;">
+      ${navHtml}
+      <main>
+        <div style="margin-bottom: 2.5rem;">
+          <h1 style="color: #0f172a; font-size: 2.5rem; font-weight: 900; tracking-tight: -0.03em; margin-bottom: 1rem; line-height: 1.2; font-family: 'Outfit', sans-serif;">${meta.title}</h1>
+          <p style="color: #475569; font-size: 1.15rem; line-height: 1.75; font-family: 'Inter', sans-serif; margin: 0;">${meta.description}</p>
+        </div>
+        
+        ${featuresHtml}
+        ${faqsSectionHtml}
+        
+        <section style="margin-top: 4rem; border-top: 1px solid #e2e8f0; padding-top: 2.5rem;">
+          <h2 style="color: #0f172a; font-size: 1.25rem; font-weight: 800; margin-bottom: 1.25rem; font-family: 'Outfit', sans-serif;">Try Our Other Free Local Tools</h2>
+          <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; list-style-type: none; padding: 0; margin: 0;">
+            ${quickLinksHtml}
+          </ul>
+        </section>
+      </main>
+      ${footerHtml}
+    </div>
+  `;
+}
+
+// Pre-render static pages loop
+for (const [route, meta] of Object.entries(routesConfig)) {
+  const isHome = route === '';
+  const routeDir = isHome ? distDir : path.join(distDir, route);
+  
+  if (!isHome) {
+    fs.mkdirSync(routeDir, { recursive: true });
+  }
+  
+  const pageCanonical = isHome ? `${siteUrl}/` : `${siteUrl}/${route}`;
+  const fullTitle = isHome ? meta.title : `${meta.title} | ImageGiri`;
   
   // Parse FAQs dynamically from the page source file
   const faqs = [];
@@ -467,7 +357,7 @@ for (const [route, meta] of Object.entries(routesConfig)) {
   );
   pageContent = pageContent.replace(
     'property="og:image:alt" content="ImageGiri - Free Privacy-First Local Image Tools"',
-    `property="og:image:alt" content="${meta.title} - ImageGiri"`
+    `property="og:image:alt" content="${isHome ? 'ImageGiri - Free Privacy-First Local Image Tools' : `${meta.title} - ImageGiri`}"`
   );
   
   // Replace Twitter card title and description tags
@@ -481,11 +371,15 @@ for (const [route, meta] of Object.entries(routesConfig)) {
   );
   pageContent = pageContent.replace(
     'name="twitter:image:alt" content="ImageGiri - Free Privacy-First Local Image Tools"',
-    `name="twitter:image:alt" content="${meta.title} - ImageGiri"`
+    `name="twitter:image:alt" content="${isHome ? 'ImageGiri - Free Privacy-First Local Image Tools' : `${meta.title} - ImageGiri`}"`
   );
   
   // Inject schemas before closing head tag
   pageContent = pageContent.replace('</head>', headInject);
+  
+  // Inject structured, search-engine-friendly static HTML body content inside <div id="root">
+  const staticBodyHtml = generateStaticBodyContent(route, meta, faqs);
+  pageContent = pageContent.replace('<div id="root"></div>', `<div id="root">${staticBodyHtml}</div>`);
   
   // Write the output file
   const pageOutputPath = path.join(routeDir, 'index.html');
@@ -493,4 +387,4 @@ for (const [route, meta] of Object.entries(routesConfig)) {
   console.log(` - Prerendered: /${route}`);
 }
 
-console.log('All static meta index pages prerendered successfully!');
+console.log('All static meta index pages prerendered successfully with rich bodies!');
