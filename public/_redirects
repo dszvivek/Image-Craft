@@ -1,0 +1,4 @@
+https://image-craft.pages.dev/* https://imageplumber.com/:splat 301
+https://imagegiri.com/* https://imageplumber.com/:splat 301
+https://www.imagegiri.com/* https://imageplumber.com/:splat 301
+/*    /index.html   200

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://imageplumber.com/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>ImagePlumber - Free Privacy-First Local Image Tools Suite</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/background-remover</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Free AI Background Remover Online - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/image-compressor</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Compress Image Files Online - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/sign-pdf</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Free Electronic PDF Signer Online - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/ocr-text-extractor</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>OCR Text Extractor Scan Image to Text - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/bank-statement-analyzer</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Bank Statement Analyzer Parse PDF to CSV Excel - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/svg-vectorizer</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>SVG Vectorizer Convert PNG to SVG - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/batch-converter</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Batch Image Converter - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/aspect-resizer</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Aspect Resizer Smart Crop - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/collage-maker</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Collage Maker Grid Layouts - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/instagram-grid-splitter</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Instagram Grid Splitter - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/color-palette-extractor</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Color Palette Extractor - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/metadata-stripper</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>EXIF Metadata Stripper - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/watermark-overlay</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Watermark Overlay - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/meme-generator</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Meme Generator Online - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/photo-mosaic-generator</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Mosaic Generator - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/shape-art-generator</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>AI Shape Art Generator - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/ambient</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Ambient Visuals Calming Focus Backgrounds - ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/about</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/privacy</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/faq</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/contact</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+</urlset>

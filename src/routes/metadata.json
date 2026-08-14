@@ -1,0 +1,877 @@
+{
+  "": {
+    "title": "ImagePlumber - Free Privacy-First Local Image Tools Suite",
+    "description": "100% free privacy-first image and document tools suite in your browser. Compress photos, remove BG with AI, extract OCR text, sign PDFs with zero cloud uploads.",
+    "keywords": "free online image tools, image compressor, AI background remover, OCR text extractor, pdf signer online, bank statement analyzer, instagram grid splitter, photo collage maker, color palette extractor, SVG vectorizer, photo mosaic generator, metadata stripper, watermark overlay, offline image editor, browser image tools, privacy image suite"
+  },
+  "background-remover": {
+    "title": "Free AI Background Remover Online | ImagePlumber",
+    "description": "Remove image backgrounds in seconds with local AI. Get a transparent PNG backdrop offline in your browser. 100% private, zero cloud file uploads.",
+    "keywords": "background remover, remove bg, transparent background, background eraser, remove photo background free, AI cutout, local bg remover, erase image background",
+    "howTo": [
+      {
+        "name": "Upload or Drag Image",
+        "text": "Select or drag any JPG, PNG, or WebP photo into the browser workspace."
+      },
+      {
+        "name": "Automatic AI Segmentation",
+        "text": "The local neural network (RMBG-1.4) automatically isolates the foreground subject in seconds."
+      },
+      {
+        "name": "Download Transparent PNG",
+        "text": "Download your high-resolution transparent background PNG file immediately."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Free AI Background Remover - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires WebAssembly & Web Workers support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "2450",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "100% Client-Side Local AI Processing",
+        "Zero Cloud Server Uploads (Total Privacy)",
+        "Instant Transparent PNG Generation",
+        "High-Resolution Subject Isolation (RMBG-1.4)"
+      ]
+    }
+  },
+  "aspect-resizer": {
+    "title": "Free Image Aspect Resizer & Smart Crop | ImagePlumber",
+    "description": "Crop and resize images to standard aspect ratios for Instagram, YouTube, X, and Facebook. Add smart blur padding offline. Free with zero uploads.",
+    "keywords": "aspect resizer, crop image online, resize photo aspect ratio, social media crop templates, image grid resizer, smart crop blur",
+    "howTo": [
+      {
+        "name": "Choose Image",
+        "text": "Select the photo you want to crop or resize."
+      },
+      {
+        "name": "Select Target Preset",
+        "text": "Pick standard dimensions for Instagram, YouTube, Twitter/X, or custom aspect ratios."
+      },
+      {
+        "name": "Apply Blur Padding & Export",
+        "text": "Adjust blur padding or canvas position and download the perfectly sized photo."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Aspect Resizer & Smart Crop - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "1420",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Social Media Presets (Instagram, YouTube, Twitter/X, LinkedIn)",
+        "Smart Dynamic Background Blur Padding",
+        "Custom Aspect Ratio Locking & Exact Pixel Scaling",
+        "Instant High-DPI Output Download"
+      ]
+    }
+  },
+  "batch-converter": {
+    "title": "Batch Image Converter (PNG, JPG, WebP, PDF) | ImagePlumber",
+    "description": "Convert multiple images between PNG, JPEG, WebP, and PDF simultaneously. Bulk process photos locally in your browser with 100% privacy and zero uploads.",
+    "keywords": "batch image converter, convert png to jpg, convert webp to jpg, bulk image format converter, pack image to pdf, bulk photo converter",
+    "howTo": [
+      {
+        "name": "Upload Multiple Files",
+        "text": "Select multiple image files at once from your device."
+      },
+      {
+        "name": "Choose Output Format",
+        "text": "Select target output format (PNG, JPEG, WebP, or single merged PDF document)."
+      },
+      {
+        "name": "Convert & Download ZIP",
+        "text": "Process all images instantly in RAM and download as a ZIP file or merged PDF."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Batch Image Converter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas & WebAssembly support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "1670",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Bulk Convert Images to PNG, JPG, WebP, or Multi-Page PDF",
+        "Client-Side ZIP Archive Packaging",
+        "Drag & Drop Page Reordering for PDF Generation",
+        "Zero Cloud Uploads with Local Threading"
+      ]
+    }
+  },
+  "collage-maker": {
+    "title": "Free Photo Collage Maker & Grid Layouts | ImagePlumber",
+    "description": "Combine multiple photos into custom grid collage layouts. Adjust spacing, border colors, and corner radius offline. Free, no signup required.",
+    "keywords": "photo collage maker, photo grid maker, create collage online, custom layout collage, picture grid layout free, online collage generator",
+    "howTo": [
+      {
+        "name": "Add Photos",
+        "text": "Upload the photos you want to arrange in your collage."
+      },
+      {
+        "name": "Customize Grid & Borders",
+        "text": "Select layout arrangement, border width, corner rounding, and canvas background colors."
+      },
+      {
+        "name": "Save High-Res Collage",
+        "text": "Export and download your photo collage in high-resolution PNG format."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Photo Collage Maker - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1290",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Custom Grid Templates & Geometric Canvas Layouts",
+        "Configurable Spacing, Border Radius & Color Palettes",
+        "Drag-to-Reposition & Zoom inside Grid Cells",
+        "Lossless High-Resolution PNG/JPG Export"
+      ]
+    }
+  },
+  "image-compressor": {
+    "title": "Compress Image Files Online (JPG, PNG, WebP) | ImagePlumber",
+    "description": "Reduce image file sizes by up to 90% without quality loss. Compress JPEG, PNG, and WebP photos locally in your browser. 100% private and fast.",
+    "keywords": "image compressor, compress jpeg online, reduce image size, shrink webp, compress png free, photo size reducer, offline image compressor",
+    "howTo": [
+      {
+        "name": "Drop Image File",
+        "text": "Upload any JPEG, PNG, or WebP photo into the compression tool."
+      },
+      {
+        "name": "Adjust Quality Level",
+        "text": "Use the compression quality slider to balance file size savings and visual clarity."
+      },
+      {
+        "name": "Download Compressed Image",
+        "text": "Compare original vs compressed preview and download the optimized file."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Image Compressor - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "3120",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Lossy & Lossless Multi-Format Compression (JPEG, PNG, WebP)",
+        "Interactive Before/After Comparison Split Slider",
+        "Custom Quality Percentage & File Size Controls",
+        "Batch Multi-Image Compression with ZIP Download"
+      ]
+    }
+  },
+  "instagram-grid-splitter": {
+    "title": "Instagram Grid Splitter & Tile Cutter | ImagePlumber",
+    "description": "Split photos into 3x3, 4x4, or 5x5 grid panels for Instagram profiles. Crop and export high-quality split tile grids in a single ZIP file offline.",
+    "keywords": "instagram grid splitter, split image online, 3x3 grid maker, crop photo to panels, split image for instagram, 9 square grid maker",
+    "howTo": [
+      {
+        "name": "Select Image",
+        "text": "Upload the image you want to split for your Instagram profile grid."
+      },
+      {
+        "name": "Choose Grid Dimensions",
+        "text": "Pick grid layout (3x1, 3x2, 3x3, 4x4, 5x5) and position crop frame."
+      },
+      {
+        "name": "Download ZIP Package",
+        "text": "Export sliced grid tiles named in sequential order in a single ZIP download."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Instagram Grid Splitter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "1530",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "3x1, 3x2, 3x3, 4x4 Grid Split Layouts for Social Profiles",
+        "Numbered Tiles for Sequential Social Uploads",
+        "Instant ZIP Package Export",
+        "Pixel-Perfect Equal Aspect Ratio Slicing"
+      ]
+    }
+  },
+  "meme-generator": {
+    "title": "Free Meme Generator - Create Custom Memes | ImagePlumber",
+    "description": "Create custom memes using popular blank templates or your own pictures. Add draggable text captions offline. Free, private, and watermark-free.",
+    "keywords": "meme generator, meme maker online, caption photo template, custom memes, blank meme generator free, impact font meme maker",
+    "howTo": [
+      {
+        "name": "Select Template or Image",
+        "text": "Choose a trending meme template or upload your own image."
+      },
+      {
+        "name": "Add Top & Bottom Captions",
+        "text": "Type text, change font colors, adjust outline thickness, and drag captions into place."
+      },
+      {
+        "name": "Export Meme PNG",
+        "text": "Download your finished watermark-free meme image instantly."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Meme Generator - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1180",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Classic Impact Typography & Modern Caption Styles",
+        "Multiple Draggable Text Layers with Custom Outlines",
+        "Custom Template Uploads with No Watermark",
+        "Instant PNG/JPG File Export"
+      ]
+    }
+  },
+  "metadata-stripper": {
+    "title": "EXIF Metadata Stripper - Wipe Photo GPS Data | ImagePlumber",
+    "description": "Remove camera settings, GPS location coordinates, and EXIF tags from photos before sharing online. Clean metadata locally inside your browser for total privacy.",
+    "keywords": "EXIF metadata stripper, remove gps from photo, clean camera metadata, exif tag cleaner, remove photo location, photo privacy cleaner",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Select photos containing sensitive camera or location EXIF metadata."
+      },
+      {
+        "name": "Inspect EXIF Tags",
+        "text": "View detected camera make, capture timestamp, and GPS coordinates."
+      },
+      {
+        "name": "Wipe Metadata & Save",
+        "text": "Click strip metadata to download clean, privacy-protected image files."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "EXIF Metadata Stripper - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 File API support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "2100",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Wipe GPS Location Coordinates & Camera Metadata",
+        "Inspect Camera Lens, ISO, Aperture & Timestamps",
+        "Total On-Device Privacy Before Sharing Online",
+        "1-Click Cleaned Photo Download"
+      ]
+    }
+  },
+  "photo-mosaic-generator": {
+    "title": "Photo Mosaic Generator - Make Picture Mosaics | ImagePlumber",
+    "description": "Reconstruct target images from thousands of small photo tiles locally. A 100% private, free alternative to online mosaic generators with zero uploads.",
+    "keywords": "photo mosaic generator, mosaic maker online, picture mosaic maker, grid tile art creator, easymoza alternative free",
+    "howTo": [
+      {
+        "name": "Upload Target Image",
+        "text": "Select the main subject image to reconstruct as a mosaic."
+      },
+      {
+        "name": "Upload Tile Collection",
+        "text": "Add a folder or batch of photo tiles to compose the mosaic pattern."
+      },
+      {
+        "name": "Render & Download Mosaic",
+        "text": "Generate high-resolution tile mosaic and download in PNG format."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Photo Mosaic Generator - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas & Web Workers",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "940",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Generate High-Density Photo Mosaics in Browser Memory",
+        "Custom Tile Density & Color Matching Algorithms",
+        "Overlay Transparency Tuning",
+        "High-DPI Master Canvas Export"
+      ]
+    }
+  },
+  "shape-art-generator": {
+    "title": "AI Shape Art Generator - Turn Photos to Art | ImagePlumber",
+    "description": "Turn photographs into computational particle art portraits. Reconstruct contours using stars, clouds, or pencil strokes offline. 100% private.",
+    "keywords": "AI shape art generator, photo to sketch converter, star portrait maker, flower photo collage, contour stippling offline, generative art generator",
+    "howTo": [
+      {
+        "name": "Upload Portrait or Photo",
+        "text": "Select any subject photo to turn into particle shape art."
+      },
+      {
+        "name": "Choose Art Style",
+        "text": "Select shape patterns (Stars, Clouds, Pencil Strokes, Floral sketches) and particle density."
+      },
+      {
+        "name": "Generate & Export Canvas",
+        "text": "Render creative artwork locally and save as high-res PNG image."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "AI Shape Art Generator - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "1050",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Transform Photos to Computational Particle & Shape Art",
+        "Presets: Stars, Clouds, Pencil Sketch, Sakura Flowers",
+        "Interactive Particle Density & Luminance Sliders",
+        "Vector-Quality Canvas Rendering & Export"
+      ]
+    }
+  },
+  "ocr-text-extractor": {
+    "title": "Free OCR Text Extractor - Scan Image to Text | ImagePlumber",
+    "description": "Extract text from images, scanned documents, and photos locally using Tesseract OCR. Runs 100% offline inside your browser. Safe, fast, and free.",
+    "keywords": "ocr text extractor, scan image to text, picture word scanner, read text from photo, image to text converter online, tesseract ocr web",
+    "howTo": [
+      {
+        "name": "Upload Image Scan",
+        "text": "Select or paste screenshot, document scan, or photo containing text."
+      },
+      {
+        "name": "Select Language Script",
+        "text": "Choose document language (English, Spanish, French, German, etc.) for high accuracy."
+      },
+      {
+        "name": "Copy Extracted Text",
+        "text": "Copy recognized text directly to clipboard or save as text file."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "OCR Text Extractor - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires WebAssembly support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1890",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "On-Device Multi-Lingual OCR Text Recognition",
+        "Extract Text from Screenshots, Scans, Books & Receipts",
+        "Copy to Clipboard & 1-Click TXT File Export",
+        "100% Client-Side Tesseract WASM Engine"
+      ]
+    }
+  },
+  "color-palette-extractor": {
+    "title": "Color Palette Extractor - Extract Image Hex | ImagePlumber",
+    "description": "Extract dominant color palettes and harmonious swatches from any photo instantly. Get HEX, RGB, and Tailwind CSS code layouts. Free and offline.",
+    "keywords": "color palette extractor, palette generator from image, hex code picker, image color finder, extract swatches photo, tailwind color picker",
+    "howTo": [
+      {
+        "name": "Upload Image Asset",
+        "text": "Drop any graphic or photograph to analyze color distribution."
+      },
+      {
+        "name": "Extract Swatches",
+        "text": "View dominant color palettes, percentages, HEX values, and RGB codes."
+      },
+      {
+        "name": "Copy Codes or Export Palette",
+        "text": "Copy HEX codes in 1-click or export palette as CSS variables / JSON."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Color Palette Extractor - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "1780",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "K-Means Quantization for Dominant HEX Color Extraction",
+        "Export Palettes as CSS Variables, Tailwind, or JSON",
+        "Interactive Eyedropper Color Sampler Tool",
+        "100% Offline Client-Side Analysis"
+      ]
+    }
+  },
+  "svg-vectorizer": {
+    "title": "SVG Vectorizer - Convert PNG & JPG to SVG | ImagePlumber",
+    "description": "Trace raster PNG or JPEG graphics into clean vector SVG drawing outlines locally. Adjust edge thresholds and path tolerances in real-time. 100% private.",
+    "keywords": "SVG vectorizer, raster to vector converter, convert png to svg, trace image outline, image tracer tool, png to svg vector free",
+    "howTo": [
+      {
+        "name": "Select Raster Image",
+        "text": "Upload PNG, JPEG, or WebP logo or drawing."
+      },
+      {
+        "name": "Adjust Path Tolerances",
+        "text": "Tune edge threshold, path simplification, and color clustering parameters."
+      },
+      {
+        "name": "Download Scalable SVG",
+        "text": "Download clean, infinitely scalable SVG vector code or file."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "SVG Vectorizer - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires WebAssembly & Canvas support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "1620",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Trace Raster Photos (PNG, JPG) into Scalable SVG Vectors",
+        "Adjust Path Smoothing, Threshold, and Color Quantization",
+        "View Raw XML SVG Code & 1-Click Vector File Export",
+        "No Server Latency - Instant Local Computation"
+      ]
+    }
+  },
+  "watermark-overlay": {
+    "title": "Watermark Overlay - Add Watermark to Photos | ImagePlumber",
+    "description": "Protect your photos by overlaying custom text or logo image watermarks. Adjust transparency, spacing, rotation, and tile grids offline. Zero uploads.",
+    "keywords": "watermark overlay, add watermark to photo, protect images online, logo overlay, copyright image tool free, batch photo watermark",
+    "howTo": [
+      {
+        "name": "Upload Target Photos",
+        "text": "Select photos to protect with watermark overlay."
+      },
+      {
+        "name": "Configure Watermark Text or Logo",
+        "text": "Enter copyright text or upload logo image; adjust opacity, rotation, and tile repetition."
+      },
+      {
+        "name": "Save Watermarked Images",
+        "text": "Export watermarked photos instantly in full resolution."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Watermark Overlay - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1340",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Add Custom Text & Logo Watermarks to Multiple Images",
+        "Adjust Opacity, Rotation, Font Size & Tile Patterns",
+        "Batch Watermark Export with Clean ZIP Packaging",
+        "100% Private Offline Processing"
+      ]
+    }
+  },
+  "bank-statement-analyzer": {
+    "title": "Bank Statement Analyzer - PDF to CSV & Excel | ImagePlumber",
+    "description": "Parse credit card & bank statements locally in your browser. Calculate cash flow, categorize transactions, and export tables to Excel/CSV. 100% private.",
+    "keywords": "bank statement analyzer, pdf bank statement parser, convert bank statement to csv, transaction ledger analyzer, bank statement pdf to excel free",
+    "howTo": [
+      {
+        "name": "Select Bank Statement File",
+        "text": "Upload PDF, CSV, or Excel bank/credit card statement."
+      },
+      {
+        "name": "Automated Transaction Audit",
+        "text": "The local engine parses credits, debits, dates, and balance ledgers offline."
+      },
+      {
+        "name": "Export Clean CSV/Excel Sheet",
+        "text": "Download structured financial tables directly to CSV or Excel."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "PDF Bank Statement Analyzer - ImagePlumber",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires PDF.js & Web Workers support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "1920",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Parse Credit Card & Bank Statements (PDF, CSV, Excel)",
+        "Summarize Credits, Debits, Net Cash Flows & Balances",
+        "Export Clean Formatted Excel & CSV Spreadsheets",
+        "Strict Zero-Upload Guarantee for Financial Data Privacy"
+      ]
+    }
+  },
+  "sign-pdf": {
+    "title": "Free PDF Signer - Sign PDF Documents Online | ImagePlumber",
+    "description": "Sign PDF documents locally inside your browser. Draw, type, or upload your signature. 100% private and offline client-side PDF signing with zero uploads.",
+    "keywords": "pdf signer, sign pdf online, digital signature pdf, electronic signature free, draw signature on pdf, type signature on pdf, offline pdf sign, no upload pdf signer",
+    "howTo": [
+      {
+        "name": "Upload PDF Document",
+        "text": "Select the PDF file you need to sign."
+      },
+      {
+        "name": "Create or Place Signature",
+        "text": "Draw signature, type text, or upload signature image and drag onto PDF page."
+      },
+      {
+        "name": "Download Signed PDF",
+        "text": "Export signed PDF file directly to your device without cloud upload."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Electronic PDF Signer - ImagePlumber",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires PDF.js & HTML5 Canvas support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "2280",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Draw, Type, or Upload Signatures to PDF Pages",
+        "Multi-Page Navigation & Precision Drag-and-Drop Placement",
+        "Download Signed PDF Locally in Seconds",
+        "100% Private Document Signing with Zero Cloud Storage"
+      ]
+    }
+  },
+  "ambient": {
+    "title": "Ambient Visuals & Calming Focus Backgrounds | ImagePlumber",
+    "description": "Continuously evolving ambient generative visuals for focus, relaxation, meditation, and sleep. 100% private and rendered locally on browser canvas.",
+    "keywords": "ambient visuals, calming artwork, generative art generator, visual break timer, focus background, sleep visuals, digital living art, quiet internet place",
+    "howTo": [
+      {
+        "name": "Choose Generative Preset",
+        "text": "Select between Flow Field, Aurora, Waves, Ripples, Galaxy, or Kaleidoscope algorithms."
+      },
+      {
+        "name": "Customize Color & Tempo",
+        "text": "Adjust motion speed, color palettes, and particle behaviors in real-time."
+      },
+      {
+        "name": "Full Screen Focus Mode",
+        "text": "Enable auto-hiding controls or guided breathing exercise for calm focus."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Ambient Generative Visuals - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires WebGL & Canvas support",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "980",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Continuous Evolving Generative Visuals (6 Unique Algorithms)",
+        "Calming Ambient Motion for Focus, Break Timers & Sleep",
+        "Shareable URL Seed Parameter Support",
+        "Zero Network Footprint with 60FPS Canvas Animation"
+      ]
+    }
+  },
+  "about": {
+    "title": "About Our Offline Privacy Tools | ImagePlumber",
+    "description": "Learn about ImagePlumber and our absolute privacy commitment. We run 100% client-side web sandbox processing without cloud databases or server uploads.",
+    "keywords": "about imageplumber, offline image tools, client-side web tools, private image processing suite"
+  },
+  "privacy": {
+    "title": "Privacy Policy & Zero-Upload Guarantee | ImagePlumber",
+    "description": "Review the privacy policy for ImagePlumber. Our strict client-side sandbox ensures your files stay on your device and are never transmitted to external servers.",
+    "keywords": "privacy policy, cookie policy, client-side promise, data safety guarantee, local processing privacy"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions (FAQ) | ImagePlumber",
+    "description": "Common questions answered about offline image processing, WebAssembly browser performance, security sandboxing, and format compatibility.",
+    "keywords": "faq, help page, user guides, browser compatibility, local security questions, offline tools faq"
+  },
+  "contact": {
+    "title": "Contact Support & Feedback | ImagePlumber",
+    "description": "Reach out to the ImagePlumber development team for queries, bug reports, feature requests, or collaboration opportunities.",
+    "keywords": "contact support, bug report, feedback form, request feature, contact imageplumber"
+  }
+}

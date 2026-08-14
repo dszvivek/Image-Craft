@@ -1,0 +1,241 @@
+import React, { Suspense } from 'react';
+import type { ComponentType } from 'react';
+import { createBrowserRouter } from 'react-router-dom';
+import { Layout } from '../layouts/Layout';
+
+// Clear chunk reload flag on successful script load
+if (typeof window !== 'undefined') {
+  sessionStorage.removeItem('chunk-reload');
+}
+
+// Wrapper for React.lazy to automatically reload the page on ChunkLoadError (triggered by new builds)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function safeLazy<T extends ComponentType<any>>(
+  importFn: () => Promise<{ default: T }>
+) {
+  return React.lazy(async () => {
+    try {
+      return await importFn();
+    } catch (error) {
+      console.error("Chunk loading failed, reloading page...", error);
+      const hasReloaded = sessionStorage.getItem('chunk-reload');
+      if (!hasReloaded) {
+        sessionStorage.setItem('chunk-reload', 'true');
+        window.location.reload();
+        return new Promise(() => {}); // block rendering
+      }
+      throw error;
+    }
+  });
+}
+
+// Lazy load page components with auto-reload recovery for code splitting
+const Home = safeLazy(() => import('../pages/Home').then(module => ({ default: module.Home })));
+const Compressor = safeLazy(() => import('../pages/Compressor').then(module => ({ default: module.Compressor })));
+const BackgroundRemover = safeLazy(() => import('../pages/BackgroundRemover').then(module => ({ default: module.BackgroundRemover })));
+const OcrExtractor = safeLazy(() => import('../pages/OcrExtractor').then(module => ({ default: module.OcrExtractor })));
+const GridSplitter = safeLazy(() => import('../pages/GridSplitter').then(module => ({ default: module.GridSplitter })));
+const CollageMaker = safeLazy(() => import('../pages/CollageMaker').then(module => ({ default: module.CollageMaker })));
+const PaletteExtractor = safeLazy(() => import('../pages/PaletteExtractor').then(module => ({ default: module.PaletteExtractor })));
+const BatchConverter = safeLazy(() => import('../pages/BatchConverter').then(module => ({ default: module.BatchConverter })));
+const MetadataStripper = safeLazy(() => import('../pages/MetadataStripper').then(module => ({ default: module.MetadataStripper })));
+const WatermarkOverlay = safeLazy(() => import('../pages/WatermarkOverlay').then(module => ({ default: module.WatermarkOverlay })));
+const AspectResizer = safeLazy(() => import('../pages/AspectResizer').then(module => ({ default: module.AspectResizer })));
+const MemeGenerator = safeLazy(() => import('../pages/MemeGenerator').then(module => ({ default: module.MemeGenerator })));
+const SvgVectorizer = safeLazy(() => import('../pages/SvgVectorizer').then(module => ({ default: module.SvgVectorizer })));
+const MosaicGenerator = safeLazy(() => import('../pages/MosaicGenerator').then(module => ({ default: module.MosaicGenerator })));
+const ShapeArtGenerator = safeLazy(() => import('../pages/ShapeArtGenerator').then(module => ({ default: module.ShapeArtGenerator })));
+const StatementAnalyzer = safeLazy(() => import('../pages/StatementAnalyzer').then(module => ({ default: module.StatementAnalyzer })));
+const PdfSigner = safeLazy(() => import('../pages/PdfSigner').then(module => ({ default: module.PdfSigner })));
+const AmbientVisuals = safeLazy(() => import('../pages/AmbientVisuals').then(module => ({ default: module.AmbientVisuals })));
+const About = safeLazy(() => import('../pages/About').then(module => ({ default: module.About })));
+const Privacy = safeLazy(() => import('../pages/Privacy').then(module => ({ default: module.Privacy })));
+const Contact = safeLazy(() => import('../pages/Contact').then(module => ({ default: module.Contact })));
+const Faq = safeLazy(() => import('../pages/Faq').then(module => ({ default: module.Faq })));
+
+import { PageLoader } from '../components/PageLoader';
+
+export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <Home />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'image-compressor',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <Compressor />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'background-remover',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BackgroundRemover />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'ocr-text-extractor',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <OcrExtractor />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'instagram-grid-splitter',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <GridSplitter />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'collage-maker',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CollageMaker />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'color-palette-extractor',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PaletteExtractor />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'batch-converter',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BatchConverter />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'metadata-stripper',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MetadataStripper />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'watermark-overlay',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <WatermarkOverlay />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'aspect-resizer',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AspectResizer />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'meme-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MemeGenerator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'svg-vectorizer',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SvgVectorizer />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'photo-mosaic-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MosaicGenerator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'shape-art-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ShapeArtGenerator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'bank-statement-analyzer',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <StatementAnalyzer />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'sign-pdf',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PdfSigner />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'ambient',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AmbientVisuals />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'about',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <About />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'privacy',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <Privacy />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'contact',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <Contact />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'faq',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <Faq />
+          </Suspense>
+        ),
+      },
+    ],
+  },
+]);

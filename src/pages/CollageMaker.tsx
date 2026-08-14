@@ -1,0 +1,610 @@
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Download, RefreshCw, Plus, Trash2, Sliders, Crop } from 'lucide-react';
+import { DropZone } from '../components/DropZone';
+import { SEO } from '../components/SEO';
+import { ToolGuide } from '../components/ToolGuide';
+import { DemoPreview } from '../components/DemoPreview';
+
+interface CollageImage {
+  id: string;
+  file: File;
+  url: string;
+}
+
+interface SlotRect {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+export const CollageMaker: React.FC = () => {
+  const [images, setImages] = useState<CollageImage[]>([]);
+  const [layoutId, setLayoutId] = useState<string>('2-cols');
+  const [aspectRatio, setAspectRatio] = useState<number>(1); // 1 = 1:1, 0.75 = 3:4, 1.33 = 4:3
+  const [spacing, setSpacing] = useState<number>(10);
+  const [borderWidth, setBorderWidth] = useState<number>(0);
+  const [borderColor, setBorderColor] = useState<string>('#ffffff');
+  const [borderRadius, setBorderRadius] = useState<number>(0);
+  const [canvasUrl, setCanvasUrl] = useState<string>('');
+  const [isAssembling, setIsAssembling] = useState<boolean>(false);
+
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const layouts = [
+    { id: '2-cols', name: '2 Columns', maxImages: 2 },
+    { id: '2-rows', name: '2 Rows', maxImages: 2 },
+    { id: '3-grid-l', name: '3 Grid (Left Focus)', maxImages: 3 },
+    { id: '4-grid', name: '4 Grid (2x2)', maxImages: 4 },
+  ];
+
+  const aspectRatios = [
+    { label: 'Square (1:1)', value: 1 },
+    { label: 'Portrait (3:4)', value: 3 / 4 },
+    { label: 'Landscape (4:3)', value: 4 / 3 },
+  ];
+
+  const handleFilesSelected = (files: File[]) => {
+    setImages((prev) => {
+      const currentCount = prev.length;
+      const allowedCount = Math.max(0, 4 - currentCount);
+      const filesToAdd = files.slice(0, allowedCount);
+      
+      const newImages = filesToAdd.map((file) => ({
+        id: Math.random().toString(36).substring(7),
+        file,
+        url: URL.createObjectURL(file),
+      }));
+      
+      return [...prev, ...newImages];
+    });
+  };
+
+  const removeImage = (id: string) => {
+    setImages((prev) => {
+      const target = prev.find((img) => img.id === id);
+      if (target) URL.revokeObjectURL(target.url);
+      return prev.filter((img) => img.id !== id);
+    });
+  };
+
+  // Helper to draw rounded rectangle on canvas
+  const drawRoundedRect = (
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    radius: number
+  ) => {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+  };
+
+  // Draw collage logic
+  const drawCollage = useCallback(() => {
+    if (images.length === 0) return;
+    setIsAssembling(true);
+
+    const canvasWidth = 1200;
+    const canvasHeight = 1200 / aspectRatio;
+
+    const canvas = canvasRef.current || document.createElement('canvas');
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      setIsAssembling(false);
+      return;
+    }
+
+    // Background color of collage (matching spacing color)
+    ctx.fillStyle = '#ffffff'; // Light backdrop
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+    // Calculate slots based on layout
+    const slots: SlotRect[] = [];
+    const pad = spacing;
+
+    if (layoutId === '2-cols') {
+      const w = (canvasWidth - pad * 3) / 2;
+      const h = canvasHeight - pad * 2;
+      slots.push({ x: pad, y: pad, w, h });
+      slots.push({ x: pad * 2 + w, y: pad, w, h });
+    } else if (layoutId === '2-rows') {
+      const w = canvasWidth - pad * 2;
+      const h = (canvasHeight - pad * 3) / 2;
+      slots.push({ x: pad, y: pad, w, h });
+      slots.push({ x: pad, y: pad * 2 + h, w, h });
+    } else if (layoutId === '3-grid-l') {
+      const w1 = (canvasWidth - pad * 3) * 0.6;
+      const w2 = (canvasWidth - pad * 3) * 0.4;
+      const h1 = canvasHeight - pad * 2;
+      const h2 = (canvasHeight - pad * 3) / 2;
+      slots.push({ x: pad, y: pad, w: w1, h: h1 });
+      slots.push({ x: pad * 2 + w1, y: pad, w: w2, h: h2 });
+      slots.push({ x: pad * 2 + w1, y: pad * 2 + h2, w: w2, h: h2 });
+    } else {
+      // 4 grid (2x2)
+      const w = (canvasWidth - pad * 3) / 2;
+      const h = (canvasHeight - pad * 3) / 2;
+      slots.push({ x: pad, y: pad, w, h });
+      slots.push({ x: pad * 2 + w, y: pad, w, h });
+      slots.push({ x: pad, y: pad * 2 + h, w, h });
+      slots.push({ x: pad * 2 + w, y: pad * 2 + h, w, h });
+    }
+
+    // Load and draw images into slots
+    const loadPromises = slots.map((slot, index) => {
+      return new Promise<void>((resolve) => {
+        const collageImg = images[index];
+        if (!collageImg) {
+          // Draw empty slot
+          ctx.fillStyle = '#f1f5f9';
+          drawRoundedRect(ctx, slot.x, slot.y, slot.w, slot.h, borderRadius);
+          ctx.fill();
+          resolve();
+          return;
+        }
+
+        const img = new Image();
+        img.src = collageImg.url;
+        img.onload = () => {
+          ctx.save();
+
+          // Border offset
+          const bWidth = borderWidth;
+          const sx = slot.x + bWidth;
+          const sy = slot.y + bWidth;
+          const sw = slot.w - bWidth * 2;
+          const sh = slot.h - bWidth * 2;
+
+          // Draw Border Outline
+          if (bWidth > 0) {
+            ctx.strokeStyle = borderColor;
+            ctx.lineWidth = bWidth;
+            drawRoundedRect(ctx, slot.x + bWidth/2, slot.y + bWidth/2, slot.w - bWidth, slot.h - bWidth, borderRadius);
+            ctx.stroke();
+          }
+
+          // Clip image to rounded rect of slot
+          drawRoundedRect(ctx, sx, sy, sw, sh, Math.max(0, borderRadius - bWidth));
+          ctx.clip();
+
+          // Calculate aspect cover drawing dimensions
+          const imgRatio = img.naturalWidth / img.naturalHeight;
+          const slotRatio = sw / sh;
+
+          let dx, dy, dw, dh;
+          if (imgRatio > slotRatio) {
+            // Image is wider than slot: scale height, clip sides
+            dh = sh;
+            dw = sh * imgRatio;
+            dx = sx - (dw - sw) / 2;
+            dy = sy;
+          } else {
+            // Image is taller than slot: scale width, clip top/bottom
+            dw = sw;
+            dh = sw / imgRatio;
+            dx = sx;
+            dy = sy - (dh - sh) / 2;
+          }
+
+          ctx.drawImage(img, dx, dy, dw, dh);
+          ctx.restore();
+          resolve();
+        };
+
+        img.onerror = () => {
+          resolve();
+        };
+      });
+    });
+
+    Promise.all(loadPromises).then(() => {
+      canvas.toBlob((blob) => {
+        if (blob) {
+          if (canvasUrl) URL.revokeObjectURL(canvasUrl);
+          setCanvasUrl(URL.createObjectURL(blob));
+        }
+        setIsAssembling(false);
+      }, 'image/png');
+    });
+  }, [images, layoutId, aspectRatio, spacing, borderWidth, borderColor, borderRadius]);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    drawCollage();
+  }, [images, layoutId, aspectRatio, spacing, borderWidth, borderColor, borderRadius, drawCollage]);
+
+  const handleDownload = () => {
+    if (!canvasUrl) return;
+    const link = document.createElement('a');
+    link.href = canvasUrl;
+    link.download = `collage_${Date.now()}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleReset = () => {
+    images.forEach((img) => URL.revokeObjectURL(img.url));
+    if (canvasUrl) URL.revokeObjectURL(canvasUrl);
+    setImages([]);
+    setCanvasUrl('');
+    setLayoutId('2-cols');
+    setAspectRatio(1);
+    setSpacing(10);
+    setBorderWidth(0);
+    setBorderColor('#ffffff');
+    setBorderRadius(0);
+  };
+
+  const imagesRef = useRef(images);
+  const canvasUrlRef = useRef(canvasUrl);
+
+  useEffect(() => {
+    imagesRef.current = images;
+  }, [images]);
+
+  useEffect(() => {
+    canvasUrlRef.current = canvasUrl;
+  }, [canvasUrl]);
+
+  useEffect(() => {
+    return () => {
+      imagesRef.current.forEach((img) => URL.revokeObjectURL(img.url));
+      if (canvasUrlRef.current) URL.revokeObjectURL(canvasUrlRef.current);
+    };
+  }, []);
+
+  const collageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'Photo Collage Maker - ImagePlumber',
+    'applicationCategory': 'MultimediaApplication',
+    'operatingSystem': 'Web Browser',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    },
+    'description': 'Create beautiful photo collages directly in your browser. Arrange up to 4 images in custom grid layouts. Adjust spacing, borders, border radius, and canvas color.',
+    'featureList': [
+      'Custom template grid structures',
+      'Adjustable border spacing, color and radius',
+      'Real-time HTML Canvas collage compiling',
+      'No registration or subscriptions'
+    ]
+  };
+
+  return (
+    <div className="w-full">
+      <SEO 
+        title="Free Online Photo Collage Maker - Canva Grid Alternative" 
+        description="Assemble images into custom collage grids locally in your browser. A free alternative to Canva collages, BeFunky, and PicMonkey with zero uploads." 
+        keywords="photo collage maker, collage maker online, free collage maker, image collage, picture collage, photo grid maker, photo layout maker, online collage creator, make collage online free, picture collage maker, no watermark collage maker, Canva collage alternative, BeFunky alternative, PicMonkey collage creator, photo collage offline"
+        canonicalUrl="https://imageplumber.com/collage-maker"
+        schema={collageSchema}
+      />
+
+      <div className="max-w-6xl mx-auto">
+        
+        {/* Header */}
+        <div className="text-center mb-8">
+          <span className="text-xs font-bold text-pink-650 uppercase tracking-widest px-2.5 py-1 bg-pink-50 border border-pink-100 rounded-full shadow-sm">
+            Creative Tool
+          </span>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">Photo Collage Maker</h1>
+          <p className="text-sm text-slate-555">Combine multiple files into tailored grids locally. High-resolution PNG output.</p>
+        </div>
+
+        {images.length === 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch max-w-5xl mx-auto">
+            <div className="md:col-span-7 flex flex-col justify-center">
+              <DropZone 
+                onFilesSelected={handleFilesSelected}
+                multiple={true}
+                title="Select photos to combine"
+                subtitle="Upload 2 to 4 images. JPG, PNG, WebP supported."
+              />
+            </div>
+            <div className="md:col-span-5 flex">
+              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-indigo-300 transition-all duration-300">
+                <div className="space-y-4">
+                  <div className="text-[10px] font-bold text-indigo-650 bg-indigo-50/50 border border-indigo-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
+                  <h2 className="text-base font-extrabold text-slate-900">How Collage Maker Works</h2>
+                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                    Upload up to 4 images and arrange them dynamically. Customize spacing, border thickness, border colors, and corner roundness client-side.
+                  </p>
+                </div>
+                <DemoPreview
+                  toolId="collage"
+                  alt="Collage Maker Demo"
+                />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            {/* Left Options pane */}
+            <div className="lg:col-span-4 flex flex-col gap-6 order-2 lg:order-1">
+              
+              {/* Photo list */}
+              <div className="premium-bento p-5 rounded-3xl bg-white space-y-4 shadow-xs">
+                <p className="text-xs font-bold text-slate-455 uppercase tracking-widest flex justify-between items-center">
+                  <span>Selected Photos ({images.length}/4)</span>
+                  {images.length < 4 && (
+                    <label className="text-[10px] text-indigo-650 hover:text-indigo-755 font-bold flex items-center gap-1 cursor-pointer">
+                      <Plus className="w-3.5 h-3.5" /> Add
+                      <input
+                        type="file"
+                        className="hidden"
+                        accept="image/*"
+                        multiple
+                        onChange={(e) => {
+                          if (e.target.files) handleFilesSelected(Array.from(e.target.files));
+                        }}
+                      />
+                    </label>
+                  )}
+                </p>
+
+                <div className="grid grid-cols-4 gap-2.5">
+                  {images.map((img) => (
+                    <div key={img.id} className="relative aspect-square bg-white/80 border border-slate-200/60 rounded-xl overflow-hidden group shadow-xs">
+                      <img src={img.url} alt="Thumbnail" className="w-full h-full object-cover" />
+                      <button
+                        onClick={() => removeImage(img.id)}
+                        className="absolute inset-0 bg-red-50/90 opacity-0 group-hover:opacity-100 flex items-center justify-center text-red-650 transition duration-200 cursor-pointer"
+                        title="Remove photo"
+                      >
+                        <Trash2 className="w-4.5 h-4.5" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Layout controls */}
+              <div className="premium-bento p-6 rounded-3xl bg-white space-y-6 shadow-xs">
+                
+                <h2 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2 text-sm">
+                  <Sliders className="w-4.5 h-4.5 text-indigo-500" />
+                  Collage Styles
+                </h2>
+
+                {/* Templates */}
+                <div className="space-y-2.5">
+                  <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
+                    Grid Template
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {layouts.map((lay) => (
+                      <button
+                        key={lay.id}
+                        onClick={() => setLayoutId(lay.id)}
+                        className={`py-2.5 px-3 rounded-xl text-[11px] font-bold border transition-all text-center cursor-pointer active:scale-95 ${
+                          layoutId === lay.id
+                            ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
+                            : 'bg-white/80 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
+                        }`}
+                      >
+                        {lay.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Aspect Ratio */}
+                <div className="space-y-2.5">
+                  <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest flex items-center gap-1.5">
+                    <Crop className="w-3.5 h-3.5 text-slate-450" /> Aspect Ratio
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {aspectRatios.map((ratio) => (
+                      <button
+                        key={ratio.label}
+                        onClick={() => setAspectRatio(ratio.value)}
+                        className={`py-2 px-2.5 rounded-xl text-[11px] font-bold border transition-all text-center cursor-pointer active:scale-95 ${
+                          aspectRatio === ratio.value
+                            ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
+                            : 'bg-white/80 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
+                        }`}
+                      >
+                        {ratio.label.split(' ')[0]}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Spacing & Border Slider */}
+                <div className="space-y-4">
+                  
+                  {/* Spacing */}
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between text-xs font-semibold">
+                      <span className="text-slate-455">Grid Spacing</span>
+                      <span className="font-mono text-indigo-650 font-bold bg-indigo-50 px-1.5 py-0.5 rounded shadow-xs">{spacing}px</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="50"
+                      value={spacing}
+                      onChange={(e) => setSpacing(Number(e.target.value))}
+                      className="range-styled w-full"
+                    />
+                  </div>
+
+                  {/* Border Width */}
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between text-xs font-semibold">
+                      <span className="text-slate-455">Border Thickness</span>
+                      <span className="font-mono text-indigo-650 font-bold bg-indigo-50 px-1.5 py-0.5 rounded shadow-xs">{borderWidth}px</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="30"
+                      value={borderWidth}
+                      onChange={(e) => setBorderWidth(Number(e.target.value))}
+                      className="range-styled w-full"
+                    />
+                  </div>
+
+                  {/* Corner Radius */}
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between text-xs font-semibold">
+                      <span className="text-slate-455">Corner Roundness</span>
+                      <span className="font-mono text-indigo-650 font-bold bg-indigo-50 px-1.5 py-0.5 rounded shadow-xs">{borderRadius}px</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="60"
+                      value={borderRadius}
+                      onChange={(e) => setBorderRadius(Number(e.target.value))}
+                      className="range-styled w-full"
+                    />
+                  </div>
+
+                  {/* Border Color */}
+                  {borderWidth > 0 && (
+                    <div className="flex justify-between items-center text-xs font-semibold border-t border-slate-100 pt-3">
+                      <span className="text-slate-455">Border Color</span>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="color"
+                          value={borderColor}
+                          onChange={(e) => setBorderColor(e.target.value)}
+                          className="w-7 h-7 rounded-lg border border-slate-200/80 bg-transparent cursor-pointer"
+                        />
+                        <span className="font-mono text-slate-700 text-[11px] font-bold">{borderColor.toUpperCase()}</span>
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+
+                {/* Actions */}
+                <div className="flex flex-col gap-2.5 pt-2">
+                  <button
+                    onClick={handleDownload}
+                    disabled={isAssembling || !canvasUrl}
+                    className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-655 hover:from-indigo-550 hover:to-purple-550 disabled:opacity-50 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <Download className="w-4 h-4" />
+                    Download Collage
+                  </button>
+
+                  <button
+                    onClick={handleReset}
+                    className="w-full py-3 bg-white/80 hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 hover:border-slate-350 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                    Reset Collage
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Right Canvas collage output preview */}
+            <div className="lg:col-span-8 space-y-4 order-1 lg:order-2">
+              
+              <div className="flex justify-between items-center bg-white border border-slate-200/50 rounded-2xl px-4 py-3 shadow-xs">
+                <span className="text-xs font-bold text-slate-800">
+                  Collage Compilation Output
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  High-res canvas is compiled client-side
+                </span>
+              </div>
+
+              <div className="w-full border border-slate-200/60 rounded-3xl bg-slate-50/30 flex items-center justify-center min-h-[400px] shadow-inner p-4 relative overflow-hidden">
+                <div className="absolute inset-0 bg-dot-grid opacity-30" />
+                {isAssembling ? (
+                  <div className="flex flex-col items-center gap-2.5 relative z-10">
+                    <RefreshCw className="w-8 h-8 text-indigo-650 animate-spin" />
+                    <span className="text-xs font-bold text-slate-600 animate-pulse">Assembling collage...</span>
+                  </div>
+                ) : (
+                  canvasUrl && (
+                    <img
+                      src={canvasUrl}
+                      alt="Collage Preview"
+                      className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-2xl border border-slate-200/50 relative z-10 animate-float"
+                    />
+                  )
+                )}
+              </div>
+
+            </div>
+
+          </div>
+        )}
+
+        <ToolGuide
+          toolName="Photo Collage Maker"
+          introText="Create custom photo grids and collages on-device. Control styling parameters including spacing, border colors, and border radius in real time."
+          competitorComparison={{
+            alternatives: ['Canva Collage Maker', 'BeFunky', 'PicMonkey'],
+            benefit: 'Unlike paid online cloud tools that force subscription sign-ups, watermark collage exports, or upload personal photos to the cloud, ImagePlumber arranges your collages locally in RAM. Your original photos are processed offline and exported in high quality with zero fees.'
+          }}
+          steps={[
+            {
+              title: 'Select Layout Grid',
+              description: 'Pick your preferred collage template configuration (e.g. 2-image vertical, 3-image grid, 4-image quad) and aspect ratio.'
+            },
+            {
+              title: 'Upload Photos',
+              description: 'Click each slot layout to upload an image from your device. You can swap or adjust individual images.'
+            },
+            {
+              title: 'Customize Borders',
+              description: 'Use the range sliders to adjust borders spacing and border corner radius. Change the canvas border background color.'
+            },
+            {
+              title: 'Export Collage',
+              description: 'Preview the final grid alignment, then click "Download Collage" to save it as a high-resolution PNG file.'
+            }
+          ]}
+          features={[
+            'Multiple collage grid templates accommodating 2, 3, or 4 images.',
+            'Precision border size sliders, border color swatches, and rounded corner radius.',
+            'Dynamic crop controls: lets you adjust crop centering inside individual slots.',
+            'High-definition rendering using browser-native 2D canvas context.',
+            'Runs completely client-side in sandboxed browser memory.'
+          ]}
+          faq={[
+            {
+              q: 'Can I swap photos after uploading?',
+              a: 'Yes, just click on any photo slot or the delete/add buttons to replace the photo for that specific grid segment.'
+            },
+            {
+              q: 'Are my images downscaled during collage creation?',
+              a: 'No. The canvas compiles the collage based on your uploaded images’ dimensions, retaining sharp, high-quality results.'
+            },
+            {
+              q: 'Can I save and resume editing later?',
+              a: 'Currently, collages are processed in temporary browser memory (RAM) and reset if you refresh the page. Download your results to save them.'
+            }
+          ]}
+        />
+
+      </div>
+    </div>
+  );
+};

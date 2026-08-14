@@ -1,0 +1,24 @@
+# Search Engine Crawlers
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: Slurp
+User-agent: DuckDuckBot
+User-agent: Baiduspider
+User-agent: YandexBot
+User-agent: Applebot
+Allow: /
+
+# AI Search & Discovery Bots
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+Allow: /
+
+# Default Directive
+User-agent: *
+Allow: /
+
+# Sitemap Index Reference
+Sitemap: https://imageplumber.com/sitemap.xml
