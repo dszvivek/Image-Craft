@@ -45,6 +45,12 @@ import { AdPlacement } from '../components/AdPlacement';
 import { CommandPalette } from '../components/CommandPalette';
 import { ScrollToTop } from '../components/ScrollToTop';
 import { LanguageSelector } from '../components/LanguageSelector';
+import { 
+  getLocaleFromPath, 
+  getLocalizedToolPath, 
+  getLocalizedToolMeta, 
+  UI_TRANSLATIONS 
+} from '../utils/i18n';
 
 export const Layout = () => {
   const [theme, setTheme] = useState<string>(() => {
@@ -70,6 +76,8 @@ export const Layout = () => {
   const [openMobileCategory, setOpenMobileCategory] = useState<string | null>(null);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const location = useLocation();
+  const locale = getLocaleFromPath(location.pathname);
+  const t = UI_TRANSLATIONS[locale] || UI_TRANSLATIONS.en;
 
   // Global Cmd+K / Ctrl+K keyboard shortcut listener
   useEffect(() => {
@@ -492,7 +500,7 @@ export const Layout = () => {
         <header className="max-w-7xl mx-auto h-16 glass rounded-2xl border border-slate-200/60 dark:border-slate-850 shadow-md shadow-slate-200/5 dark:shadow-none px-4 sm:px-6 lg:px-8 flex items-center justify-between pointer-events-auto">
           
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group">
+          <Link to={locale === 'en' ? '/' : `/${locale}`} className="flex items-center gap-2.5 group">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-200">
               <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 20l7-10 7 10" />
@@ -508,19 +516,19 @@ export const Layout = () => {
           {/* Desktop Menu */}
           <nav className="hidden md:flex items-center gap-6">
             <NavLink 
-              to="/" 
+              to={locale === 'en' ? '/' : `/${locale}`} 
               end
               className={({ isActive }) => 
                 `text-[11px] font-bold uppercase tracking-wider hover:text-indigo-650 dark:hover:text-indigo-400 transition-colors ${isActive ? 'text-indigo-650 dark:text-indigo-400' : 'text-slate-550 dark:text-slate-400'}`
               }
             >
-              Home
+              {locale === 'es' ? 'Inicio' : locale === 'pt' ? 'Início' : locale === 'hi' ? 'होम' : locale === 'fr' ? 'Accueil' : locale === 'de' ? 'Start' : 'Home'}
             </NavLink>
  
             {/* Tools Dropdown Trigger */}
             <div className="relative group/dropdown">
               <button className="text-[11px] font-bold uppercase tracking-wider text-slate-550 dark:text-slate-400 hover:text-indigo-650 dark:hover:text-indigo-400 flex items-center gap-1 py-2 cursor-pointer transition-colors">
-                Tools
+                {t.nav.tools}
                 <svg className="w-3.5 h-3.5 text-slate-400 dark:text-slate-555 transition-transform group-hover/dropdown:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
                 </svg>
@@ -534,6 +542,11 @@ export const Layout = () => {
                 {Object.entries(categoriesConfig).map(([catId, cat]) => {
                   const CatIcon = cat.icon;
                   const catTools = tools.filter(t => t.category === catId);
+                  const catName = catId === 'image-editing' ? t.categories.imageEditing :
+                                  catId === 'layout-grid' ? t.categories.layoutGrid :
+                                  catId === 'image-opt' ? t.categories.imageOpt :
+                                  catId === 'pdf-docs' ? t.categories.pdfDocs : cat.name;
+
                   return (
                     <div key={catId} className="flex flex-col gap-2.5">
                       {/* Category Header */}
@@ -542,7 +555,7 @@ export const Layout = () => {
                           <CatIcon className="w-3.5 h-3.5" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-[10px] font-extrabold text-slate-900 dark:text-slate-100 uppercase tracking-wider truncate">{cat.name}</p>
+                          <p className="text-[10px] font-extrabold text-slate-900 dark:text-slate-100 uppercase tracking-wider truncate">{catName}</p>
                           <p className="text-[8px] text-slate-400 dark:text-slate-500 font-bold leading-none mt-0.5 truncate">{cat.description}</p>
                         </div>
                       </div>
@@ -551,18 +564,23 @@ export const Layout = () => {
                       <div className="flex flex-col gap-1">
                         {catTools.map((tool) => {
                           const Icon = tool.icon;
+                          const localizedMeta = getLocalizedToolMeta(tool.path, locale);
+                          const toolTitle = localizedMeta?.title || tool.name;
+                          const toolDesc = localizedMeta?.description || tool.description;
+                          const toolUrl = getLocalizedToolPath(tool.path, locale);
+
                           return (
                             <Link
                               key={tool.path}
-                              to={tool.path}
+                              to={toolUrl}
                               className="flex items-start gap-2 p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white transition-all text-left group/item"
                             >
                               <div className={`w-7 h-7 rounded-lg flex items-center justify-center border shrink-0 ${tool.colorClass} group-hover/item:scale-105 transition-transform`}>
                                 <Icon className="w-3.5 h-3.5" />
                               </div>
                               <div className="space-y-0.5 min-w-0">
-                                <div className="text-[10px] font-extrabold leading-tight group-hover/item:text-indigo-650 dark:group-hover/item:text-indigo-400 transition-colors truncate">{tool.name}</div>
-                                <div className="text-[8px] text-slate-450 dark:text-slate-400 leading-relaxed font-bold line-clamp-2">{tool.description}</div>
+                                <div className="text-[10px] font-extrabold leading-tight group-hover/item:text-indigo-650 dark:group-hover/item:text-indigo-400 transition-colors truncate">{toolTitle}</div>
+                                <div className="text-[8px] text-slate-450 dark:text-slate-400 leading-relaxed font-bold line-clamp-2">{toolDesc}</div>
                               </div>
                             </Link>
                           );
@@ -580,7 +598,7 @@ export const Layout = () => {
                 `text-[11px] font-bold uppercase tracking-wider hover:text-indigo-650 dark:hover:text-indigo-400 transition-colors ${isActive ? 'text-indigo-650 dark:text-indigo-400' : 'text-slate-550 dark:text-slate-400'}`
               }
             >
-              About
+              {locale === 'es' ? 'Acerca de' : locale === 'pt' ? 'Sobre' : locale === 'hi' ? 'जानकारी' : locale === 'fr' ? 'À Propos' : locale === 'de' ? 'Über Uns' : 'About'}
             </NavLink>
             <NavLink 
               to="/faq" 
@@ -612,7 +630,7 @@ export const Layout = () => {
               title="Search tools (⌘K / Ctrl+K)"
             >
               <Search className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" />
-              <span className="text-[11px]">Search</span>
+              <span className="text-[11px]">{locale === 'es' ? 'Buscar' : locale === 'pt' ? 'Pesquisar' : locale === 'hi' ? 'खोजें' : locale === 'fr' ? 'Rechercher' : locale === 'de' ? 'Suchen' : 'Search'}</span>
               <kbd className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 font-bold ml-0.5">⌘K</kbd>
             </button>
 

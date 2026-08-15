@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   ShieldCheck, 
   Cpu, 
@@ -34,6 +34,12 @@ import {
   ShieldAlert
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { 
+  getLocaleFromPath, 
+  getLocalizedToolPath, 
+  getLocalizedToolMeta, 
+  UI_TRANSLATIONS 
+} from '../utils/i18n';
 
 const toolDirectory = [
   {
@@ -678,25 +684,16 @@ const renderInteractiveCanvas = (tab: string) => {
 };
 
 export const Home: React.FC = () => {
+  const location = useLocation();
+  const locale = getLocaleFromPath(location.pathname);
+  const t = UI_TRANSLATIONS[locale] || UI_TRANSLATIONS.en;
+
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeHeroTab, setActiveHeroTab] = useState<'bg-remover' | 'crop' | 'mosaic' | 'compressor' | 'vectorizer'>('bg-remover');
   const [openHomeFaq, setOpenHomeFaq] = useState<number | null>(null);
 
-  const homeFaqs = [
-    {
-      q: "Are my photos uploaded to any servers?",
-      a: "No. ImagePlumber runs 100% locally in your browser memory using client-side JavaScript, WebAssembly, and local AI model cache (IndexedDB). Your files never leave your device."
-    },
-    {
-      q: "Can I use these image tools offline?",
-      a: "Yes. Once the site is loaded, all tool scripts and configurations are fully cached. You can disconnect your internet and compress images, remove backgrounds, extract text (OCR), or crop photos completely offline."
-    },
-    {
-      q: "Is ImagePlumber free and safe to use?",
-      a: "Absolutely. ImagePlumber is 100% free with no sign-ups, subscriptions, or upload limits. Because we process your files on-device rather than sending them to third-party cloud servers, it is the safest option for sensitive personal or corporate documents."
-    }
-  ];
+  const homeFaqs = t.faqs;
 
   const homeFaqSchema = {
     "@context": "https://schema.org",
@@ -712,9 +709,14 @@ export const Home: React.FC = () => {
   };
 
   const filteredTools = toolDirectory.filter(tool => {
+    const localizedMeta = getLocalizedToolMeta(tool.path, locale);
+    const toolTitle = localizedMeta?.title || tool.name;
+    const toolDesc = localizedMeta?.description || tool.description;
+
     const matchesCategory = activeCategory === 'all' || tool.category === activeCategory;
-    const matchesSearch = tool.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const matchesSearch = toolTitle.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          toolDesc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           tool.badge.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
@@ -723,10 +725,21 @@ export const Home: React.FC = () => {
 
   const renderToolCard = (tool: typeof toolDirectory[0]) => {
     const Icon = tool.icon;
+    const localizedMeta = getLocalizedToolMeta(tool.path, locale);
+    const toolTitle = localizedMeta?.title || tool.name;
+    const toolDesc = localizedMeta?.description || tool.description;
+    const toolUrl = getLocalizedToolPath(tool.path, locale);
+
+    const ctaText = locale === 'es' ? 'Abrir Herramienta' : 
+                    locale === 'pt' ? 'Abrir Ferramenta' : 
+                    locale === 'hi' ? 'टूल खोलें' : 
+                    locale === 'fr' ? 'Ouvrir l\'Outil' : 
+                    locale === 'de' ? 'Tool Öffnen' : 'Open Tool';
+
     return (
       <Link
         key={tool.path}
-        to={tool.path}
+        to={toolUrl}
         className="premium-bento group flex flex-col justify-between p-5 rounded-3xl bg-white dark:bg-slate-900/70 border border-slate-200/50 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-700/60 relative overflow-hidden transition-all duration-300 shadow-xs cursor-pointer min-h-[300px]"
       >
         {/* Glowing Ambient Light on Hover */}
@@ -746,15 +759,15 @@ export const Home: React.FC = () => {
           </div>
           
           <h3 className="font-extrabold text-sm text-slate-900 dark:text-slate-100 tracking-tight mb-1 group-hover:text-indigo-650 dark:group-hover:text-indigo-400 transition-colors">
-            {tool.name}
+            {toolTitle}
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-            {tool.description}
+            {toolDesc}
           </p>
         </div>
 
         <div className="mt-4 flex items-center gap-1 text-[11px] font-bold text-indigo-650 group-hover:translate-x-1 transition-all">
-          <span>Open Tool</span>
+          <span>{ctaText}</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </div>
       </Link>
@@ -793,21 +806,20 @@ export const Home: React.FC = () => {
         {/* Anti-Cloud Tag */}
         <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-full text-[10px] font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-6 shadow-xs">
           <ShieldCheck className="w-3.5 h-3.5 text-indigo-500" />
-          <span>100% On-Device & Offline-Ready</span>
+          <span>{t.heroBadge}</span>
         </div>
 
         {/* Heading */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-6 max-w-4xl leading-[1.08]">
-          Free Privacy-First Image Tools. <br />
+          {t.heroTitle1} <br />
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-650 via-primary-500 to-accent-500 font-black">
-            Zero Server Uploads.
+            {t.heroTitle2}
           </span>
         </h1>
 
         {/* Description */}
         <p className="text-sm md:text-base lg:text-lg text-slate-500 dark:text-slate-400 max-w-2xl mb-10 leading-relaxed font-medium">
-          A premium suite of image and layout tools executing directly inside your browser cache.
-          Get instant transformations with absolute privacy.
+          {t.heroSubtitle}
         </p>
 
         {/* CTAs */}
@@ -817,13 +829,13 @@ export const Home: React.FC = () => {
             className="px-8 py-3.5 bg-zinc-950 hover:bg-zinc-800 text-[11px] font-bold uppercase tracking-wider text-white rounded-full shadow-lg shadow-zinc-950/10 active:scale-98 transition-all flex items-center gap-2 cursor-pointer"
           >
             <Zap className="w-4 h-4 text-indigo-400" />
-            Explore Free Tools
+            {t.heroCta}
           </a>
           <Link 
             to="/about" 
             className="px-8 py-3.5 bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 rounded-full transition-all shadow-xs backdrop-blur-md"
           >
-            How it works
+            {locale === 'es' ? 'Cómo Funciona' : locale === 'pt' ? 'Como Funciona' : locale === 'hi' ? 'यह कैसे काम करता है' : locale === 'fr' ? 'Comment Ça Marche' : locale === 'de' ? 'So Funktioniert Es' : 'How it works'}
           </Link>
         </div>
 
@@ -977,9 +989,9 @@ export const Home: React.FC = () => {
             <Lock className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="font-bold text-sm text-slate-800 dark:text-slate-100 tracking-tight mb-1 group-hover:text-indigo-650 dark:group-hover:text-indigo-400 transition-colors">Local Sandbox Processing</h2>
+            <h2 className="font-bold text-sm text-slate-800 dark:text-slate-100 tracking-tight mb-1 group-hover:text-indigo-650 dark:group-hover:text-indigo-400 transition-colors">{t.features.privacy}</h2>
             <p className="text-[13px] text-slate-550 dark:text-slate-400 leading-relaxed font-medium">
-              Files reside strictly within browser memory space. Web Workers execute all processing scripts locally without cloud transmission.
+              {t.features.privacyDesc}
             </p>
           </div>
         </div>
@@ -990,9 +1002,9 @@ export const Home: React.FC = () => {
             <Cpu className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="font-bold text-sm text-slate-800 dark:text-slate-100 tracking-tight mb-1 group-hover:text-purple-650 dark:group-hover:text-purple-400 transition-colors">Transformers.js AI Cutout</h2>
+            <h2 className="font-bold text-sm text-slate-800 dark:text-slate-100 tracking-tight mb-1 group-hover:text-purple-650 dark:group-hover:text-purple-400 transition-colors">{t.features.speed}</h2>
             <p className="text-[13px] text-slate-550 dark:text-slate-400 leading-relaxed font-medium">
-              Run neural network subject segmentation using WebAssembly. Leverage your CPU/GPU hardware capabilities locally.
+              {t.features.speedDesc}
             </p>
           </div>
         </div>
@@ -1003,9 +1015,9 @@ export const Home: React.FC = () => {
             <Zap className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="font-bold text-sm text-slate-800 dark:text-slate-100 tracking-tight mb-1 group-hover:text-emerald-650 dark:group-hover:text-emerald-400 transition-colors">Zero Latency Operations</h2>
+            <h2 className="font-bold text-sm text-slate-800 dark:text-slate-100 tracking-tight mb-1 group-hover:text-emerald-650 dark:group-hover:text-emerald-400 transition-colors">{t.features.free}</h2>
             <p className="text-[13px] text-slate-550 dark:text-slate-400 leading-relaxed font-medium">
-              Eliminate massive file upload bottlenecks. Batch split, extract colors, or extract text locally with instant downloads.
+              {t.features.freeDesc}
             </p>
           </div>
         </div>
@@ -1016,13 +1028,18 @@ export const Home: React.FC = () => {
       <section id="tools-grid" className="py-16 border-t border-slate-200/60 dark:border-slate-800 mt-12 max-w-6xl mx-auto scroll-mt-24">
         <div className="text-center mb-10 px-4">
           <span className="text-[10px] font-bold text-indigo-655 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-900 uppercase tracking-widest">
-            Module Catalog
+            {t.allTools}
           </span>
           <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-50 tracking-normal mt-3 mb-3">
-            Explore Free Utilities
+            {t.allTools}
           </h2>
           <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
-            Choose from 17 high-performance tools running fully client-side inside your browser sandbox.
+            {locale === 'es' ? 'Herramientas de alto rendimiento que se ejecutan 100% en tu navegador.' : 
+             locale === 'pt' ? 'Ferramentas de alto desempenho executadas 100% no seu navegador.' : 
+             locale === 'hi' ? 'हाई-स्पीड टूल्स जो सीधे आपके ब्राउज़र में 100% ऑफलाइन चलते हैं।' : 
+             locale === 'fr' ? 'Outils haute performance exécutés 100% dans votre navigateur.' : 
+             locale === 'de' ? 'Hochleistungs-Tools, die zu 100 % in Ihrem Browser laufen.' : 
+             'High-performance tools running fully client-side inside your browser sandbox.'}
           </p>
         </div>
 
@@ -1033,7 +1050,7 @@ export const Home: React.FC = () => {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search tools (e.g. compress, pdf, crop, palette)..."
+                placeholder={t.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-12 pr-10 py-3 bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all shadow-xs text-sm text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400 dark:placeholder-slate-500"
@@ -1053,7 +1070,7 @@ export const Home: React.FC = () => {
             {/* Results count */}
             {searchQuery && (
               <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-2 text-right pr-1">
-                {filteredTools.length} tool{filteredTools.length !== 1 ? 's' : ''} found
+                {filteredTools.length} {locale === 'hi' ? 'टूल्स मिले' : 'tools found'}
               </p>
             )}
           </div>
@@ -1062,6 +1079,11 @@ export const Home: React.FC = () => {
           <div className="flex flex-wrap gap-2 justify-center">
             {categories.map((cat) => {
               const CatIcon = cat.icon;
+              const catLabel = cat.id === 'all' ? t.categories.all :
+                               cat.id === 'image-editing' ? t.categories.imageEditing :
+                               cat.id === 'layout-grid' ? t.categories.layoutGrid :
+                               cat.id === 'image-opt' ? t.categories.imageOpt :
+                               cat.id === 'pdf-docs' ? t.categories.pdfDocs : cat.label;
               return (
                 <button
                   key={cat.id}
@@ -1073,7 +1095,7 @@ export const Home: React.FC = () => {
                   }`}
                 >
                   <CatIcon className="w-3.5 h-3.5 shrink-0" />
-                  <span>{cat.label}</span>
+                  <span>{catLabel}</span>
                 </button>
               );
             })}
