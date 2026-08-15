@@ -192,5 +192,15 @@
     "title": "Crear Cuadrícula y Collage de Fotos Online Gratis | ImagePlumber",
     "description": "Combina múltiples fotos en cuadrículas y collages personalizados en tu navegador sin marcas de agua.",
     "keywords": "crear cuadricula de fotos, collage de fotos online gratis, unir fotos en cuadricula, juntar varias fotos"
+  },
+  "censurar-foto": {
+    "title": "Censurar Fotos y Desenfocar Caras Online Gratis | ImagePlumber",
+    "description": "Tapa información confidencial, censura caras y añade barras negras a fotos directamente en tu navegador sin enviar archivos.",
+    "keywords": "censurar foto online, desenfocar caras gratis, tapar datos sensibles foto, barra negra censura imagen"
+  },
+  "esteganografia-imagenes": {
+    "title": "Ocultar Texto Secreto en Fotos (Esteganografía) | ImagePlumber",
+    "description": "Oculta mensajes de texto y contraseñas dentro de imágenes de forma invisible con contraseña y extracción 100% local.",
+    "keywords": "esteganografia de imagenes, ocultar texto en fotos, mensaje secreto en imagen, descodificador esteganografia gratis"
   }
 }

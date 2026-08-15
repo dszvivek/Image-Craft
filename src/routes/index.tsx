@@ -59,6 +59,8 @@ const AsciiArtGenerator = safeLazy(() => import('../pages/AsciiArtGenerator').th
 const GlitchArtStudio = safeLazy(() => import('../pages/GlitchArtStudio').then(module => ({ default: module.GlitchArtStudio })));
 const SideBySideCompare = safeLazy(() => import('../pages/SideBySideCompare').then(module => ({ default: module.SideBySideCompare })));
 const InstagramPanoramaSplitter = safeLazy(() => import('../pages/InstagramPanoramaSplitter').then(module => ({ default: module.InstagramPanoramaSplitter })));
+const ImageRedactor = safeLazy(() => import('../pages/ImageRedactor').then(module => ({ default: module.ImageRedactor })));
+const ImageSteganography = safeLazy(() => import('../pages/ImageSteganography').then(module => ({ default: module.ImageSteganography })));
 const About = safeLazy(() => import('../pages/About').then(module => ({ default: module.About })));
 const Privacy = safeLazy(() => import('../pages/Privacy').then(module => ({ default: module.Privacy })));
 const Contact = safeLazy(() => import('../pages/Contact').then(module => ({ default: module.Contact })));
@@ -624,6 +626,62 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: 'redact-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRedactor />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'blur-faces',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRedactor initialMode="blur" pageTitle="Blur Faces in Photos Online Free" pageSubtitle="Quickly blur faces and people in images with smooth frosted Gaussian blur." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pixelate-face',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRedactor initialMode="pixelate" pageTitle="Pixelate Faces & Censor Photos Online" pageSubtitle="Apply blocky 8-bit mosaic pixelation to conceal faces and sensitive details." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'censor-photo',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRedactor initialMode="solid" pageTitle="Censor Photos & Black Out Information" pageSubtitle="Draw blackout bars to censor addresses, credit cards, and license plates." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'image-steganography',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageSteganography />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hide-text-in-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageSteganography initialMode="encode" pageTitle="Hide Text in Image Online Free (Steganography)" pageSubtitle="Invisibly embed secret text notes and recovery phrases into PNG images." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'decode-hidden-message',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageSteganography initialMode="decode" pageTitle="Extract & Decode Hidden Message from Image" pageSubtitle="Extract secret text messages hidden in steganographic images with a password." />
+          </Suspense>
+        ),
+      },
+      {
         path: 'about',
         element: (
           <Suspense fallback={<PageLoader />}>
@@ -832,6 +890,22 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'es/censurar-foto',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRedactor pageTitle="Censurar Fotos y Desenfocar Caras Online" pageSubtitle="Oculta información confidencial, censura caras y tapa datos privados en el navegador." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/esteganografia-imagenes',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageSteganography pageTitle="Ocultar Texto Secreto en Fotos (Esteganografía)" pageSubtitle="Oculta mensajes de texto secretos dentro de imágenes con contraseña en local." />
+          </Suspense>
+        ),
+      },
       // Portuguese Localized Routes (i18n Phase 2)
       {
         path: 'pt',
@@ -1006,6 +1080,22 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <CollageMaker pageTitle="Criar Grade e Colagem de Fotos Grátis" pageSubtitle="Combine fotos em grades personalizadas diretamente no navegador sem marcas." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/censurar-foto',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRedactor pageTitle="Censurar Fotos e Desfocar Rostos Online" pageSubtitle="Oculte dados confidenciais, desfoque rostos e tampe informações privadas no navegador." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/esteganografia-imagem',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageSteganography pageTitle="Ocultar Texto Secreto em Fotos (Esteganografia)" pageSubtitle="Esconda notas secretas e senhas dentro de imagens com criptografia local." />
           </Suspense>
         ),
       },
@@ -1186,6 +1276,22 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'hi/photo-censor-kare',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRedactor pageTitle="Photo Censor & Face Blur Kare Online" pageSubtitle="फोटो में प्राइवेट डेटा, आधार कार्ड और चेहरों को ब्लर या ब्लैकआउट करें।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/image-steganography',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageSteganography pageTitle="Photo Me Secret Text Chupaye (Steganography)" pageSubtitle="फोटो के अंदर सीक्रेट मैसेज और पासवर्ड छिपाएं 100% सेफ और प्राइवेट।" />
+          </Suspense>
+        ),
+      },
       // French Localized Routes (i18n Phase 2)
       {
         path: 'fr',
@@ -1363,6 +1469,22 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'fr/censurer-photo',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRedactor pageTitle="Censurer des Photos et Flouter Visages" pageSubtitle="Masquez informations sensibles, floutez visages et caviardez documents en local." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/steganographie-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageSteganography pageTitle="Cacher Texte Secret dans une Image" pageSubtitle="Dissimulez des messages secrets et mots de passe dans des images en toute sécurité." />
+          </Suspense>
+        ),
+      },
       // German Localized Routes (i18n Phase 2)
       {
         path: 'de',
@@ -1537,6 +1659,22 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <CollageMaker pageTitle="Fotogitter & Collage Erstellen Online Kostenlos" pageSubtitle="Kombinieren Sie mehrere Fotos in individuelle Raster lokal ohne Wasserzeichen." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/bild-zensieren',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRedactor pageTitle="Bilder Zensieren & Gesichter Verpixeln" pageSubtitle="Schwärzen Sie vertrauliche Daten, verpixeln Sie Gesichter und zensieren Sie Dokumente lokal." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/bild-steganographie',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageSteganography pageTitle="Geheime Texte in Bildern Verstecken (Steganographie)" pageSubtitle="Verstecken Sie Passwörter und private Nachrichten unsichtbar in Bilddateien." />
           </Suspense>
         ),
       },

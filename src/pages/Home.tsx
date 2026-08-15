@@ -30,7 +30,8 @@ import {
   Moon,
   Gamepad2,
   Terminal,
-  ArrowLeftRight
+  ArrowLeftRight,
+  ShieldAlert
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
@@ -286,6 +287,24 @@ const toolDirectory = [
     description: 'Split wide panoramic landscape photos into seamless 4:5 portrait and 1:1 square swipe carousels with ZIP download.',
     badge: 'Seamless Swipe',
     colorClass: 'text-pink-650 bg-pink-50 border-pink-100/50 hover:border-pink-300 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
+  },
+  {
+    name: 'Photo Redactor & Censor Studio',
+    path: '/redact-image',
+    icon: ShieldAlert,
+    category: 'image-editing',
+    description: 'Permanently censor private data, blur faces, and blackout ID numbers with irreversible client-side pixel obliteration.',
+    badge: 'Zero Leak',
+    colorClass: 'text-red-650 bg-red-50 border-red-100/50 hover:border-red-300 dark:text-red-400 dark:bg-red-950/30 dark:border-red-900/30'
+  },
+  {
+    name: 'Image Steganography & Secret Text',
+    path: '/image-steganography',
+    icon: Lock,
+    category: 'image-opt',
+    description: 'Invisibly hide encrypted secret messages and recovery seed phrases inside photos with LSB encoding and password protection.',
+    badge: 'Cryptographic',
+    colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 hover:border-emerald-300 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
   }
 ];
 

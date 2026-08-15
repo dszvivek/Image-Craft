@@ -192,5 +192,15 @@
     "title": "Fotogitter & Collage Erstellen Online Kostenlos | ImagePlumber",
     "description": "Kombinieren Sie mehrere Fotos in individuelle Raster und Collagen direkt im Browser ohne Wasserzeichen.",
     "keywords": "fotogitter erstellen kostenlos, fotocollage online erstellen, bilder raster zusammenfuegen, mehrere fotos zusammenfuegen"
+  },
+  "bild-zensieren": {
+    "title": "Bilder Zensieren & Gesichter Verpixeln Online Kostenlos | ImagePlumber",
+    "description": "Schwärzen Sie vertrauliche Daten, verpixeln Sie Gesichter und zensieren Sie sensible Dokumente direkt im Browser.",
+    "keywords": "bild zensieren online, gesichter verpixeln kostenlos, sensible daten schwaerzen bild, schwarzer balken zensur"
+  },
+  "bild-steganographie": {
+    "title": "Geheime Texte in Bildern Verstecken (Steganographie) | ImagePlumber",
+    "description": "Verstecken Sie geheime Nachrichten und Passwörter unsichtbar in Bilddateien mit lokaler Entschlüsselung.",
+    "keywords": "steganographie online, text in bild verstecken, geheime nachricht in foto, steganographie decoder kostenlos"
   }
 }

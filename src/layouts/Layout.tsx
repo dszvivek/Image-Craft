@@ -38,7 +38,8 @@ import {
   Gamepad2,
   Terminal,
   Zap,
-  ArrowLeftRight
+  ArrowLeftRight,
+  ShieldAlert
 } from 'lucide-react';
 import { AdPlacement } from '../components/AdPlacement';
 import { CommandPalette } from '../components/CommandPalette';
@@ -461,6 +462,22 @@ export const Layout = () => {
       category: 'layout-grid',
       description: 'Split wide landscapes into seamless 4:5 swipe carousels.',
       colorClass: 'text-pink-650 bg-pink-50 border-pink-100/50 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
+    },
+    { 
+      name: 'Photo Redactor & Censor Tool', 
+      path: '/redact-image', 
+      icon: ShieldAlert, 
+      category: 'image-editing',
+      description: 'Censor documents, blur faces, and black-out ID numbers.',
+      colorClass: 'text-red-650 bg-red-50 border-red-100/50 dark:text-red-400 dark:bg-red-950/30 dark:border-red-900/30'
+    },
+    { 
+      name: 'Image Steganography & Secret Text', 
+      path: '/image-steganography', 
+      icon: Lock, 
+      category: 'image-opt',
+      description: 'Hide encrypted secret messages invisibly in PNG images.',
+      colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
     },
   ];
 

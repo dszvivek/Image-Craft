@@ -192,5 +192,15 @@
     "title": "Créer une Grille et Collage Photo en Ligne Gratuit | ImagePlumber",
     "description": "Assemblez plusieurs photos dans des grilles et collages personnalisés directement dans votre navigateur sans filigrane.",
     "keywords": "creer grille photo, collage photo en ligne gratuit, combiner plusieurs photos en une, assembleur photo gratuit"
+  },
+  "censurer-photo": {
+    "title": "Censurer des Photos et Flouter des Visages en Ligne | ImagePlumber",
+    "description": "Masquez informations confidentielles, floutez visages et ajoutez des barres noires sans aucun transfert sur serveur cloud.",
+    "keywords": "censurer photo en ligne, flouter visage photo gratuit, caviarder document image, barre noire censure photo"
+  },
+  "steganographie-image": {
+    "title": "Cacher Texte Secret dans une Image (Stéganographie) | ImagePlumber",
+    "description": "Dissimulez des messages secrets et mots de passe dans vos images avec chiffrement et extraction 100% dans votre navigateur.",
+    "keywords": "steganographie image en ligne, cacher texte dans photo, message secret dans image, decodeur steganographie gratuit"
   }
 }

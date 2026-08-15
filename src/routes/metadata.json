@@ -2857,6 +2857,255 @@
       }
     }
   },
+  "redact-image": {
+    "title": "Redact Image Online Free - Blur Faces & Censor Photos | ImagePlumber",
+    "description": "Censor sensitive information, blur faces, and black-out ID numbers on photos online for free with permanent client-side pixel destruction.",
+    "keywords": "redact image online, censor photo free, blur faces online, black out text on image, hide sensitive info in photo",
+    "howTo": [
+      {
+        "name": "Upload Document or Photo",
+        "text": "Drop your invoice, ID card, or screenshot."
+      },
+      {
+        "name": "Select Censor Tool",
+        "text": "Choose solid black bar, pixelate mosaic, or frosted blur."
+      },
+      {
+        "name": "Drag to Redact",
+        "text": "Draw boxes over sensitive data to permanently mutate canvas pixels."
+      },
+      {
+        "name": "Save Sanitized Image",
+        "text": "Download the redacted file in lossless PNG or JPEG."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Photo Redactor - ImagePlumber",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "blur-faces": {
+    "title": "Blur Faces in Photos Online Free | ImagePlumber",
+    "description": "Quickly blur faces, people, and sensitive background details in photos with smooth frosted Gaussian blur.",
+    "keywords": "blur faces online free, face blur tool, blur people in photos, photo privacy blur, anonymize photo free",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Select the photo with faces to blur."
+      },
+      {
+        "name": "Draw Blur Box",
+        "text": "Click and drag over faces to apply frosted blur."
+      },
+      {
+        "name": "Download Photo",
+        "text": "Export your anonymized photo locally."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Face Blur Tool - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "pixelate-face": {
+    "title": "Pixelate Faces & Censor Photos Online Free | ImagePlumber",
+    "description": "Apply retro blocky 8-bit mosaic pixelation to conceal faces, license plates, and credit card numbers.",
+    "keywords": "pixelate face online, pixelate image free, censor face with pixels, pixel mosaic censor, hide face pixelate",
+    "howTo": [
+      {
+        "name": "Select Image",
+        "text": "Upload any photo or screenshot."
+      },
+      {
+        "name": "Adjust Block Size",
+        "text": "Choose pixel size and drag over target areas."
+      },
+      {
+        "name": "Save Image",
+        "text": "Download the pixelated photo."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Face Pixelator - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "censor-photo": {
+    "title": "Censor Photos & Black Out Information Online | ImagePlumber",
+    "description": "Draw solid black censor bars over addresses, passport numbers, and private data with permanent client-side security.",
+    "keywords": "censor photo online, black out text on picture, censor document free, blackout private info image",
+    "howTo": [
+      {
+        "name": "Drop Photo",
+        "text": "Upload the picture to censor."
+      },
+      {
+        "name": "Draw Black Bars",
+        "text": "Drag boxes over confidential text."
+      },
+      {
+        "name": "Download File",
+        "text": "Save the sanitized image."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Censor Photo - ImagePlumber",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "image-steganography": {
+    "title": "Image Steganography - Hide Text in Image Online Free | ImagePlumber",
+    "description": "Hide secret text messages inside images using LSB steganography with optional password encryption. 100% private in-browser encoder and decoder.",
+    "keywords": "image steganography online, hide text in image, steganography encoder decoder, secret message in photo, lsb steganography tool",
+    "howTo": [
+      {
+        "name": "Upload Carrier Image",
+        "text": "Drop any clear photo or graphic."
+      },
+      {
+        "name": "Enter Secret Message",
+        "text": "Type confidential text and set optional password."
+      },
+      {
+        "name": "Download Stego PNG",
+        "text": "Save the lossless PNG with invisible embedded bits."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Image Steganography - ImagePlumber",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "hide-text-in-image": {
+    "title": "Hide Text in Image Online Free (Steganography) | ImagePlumber",
+    "description": "Invisibly embed secret text notes, recovery seed phrases, and passwords into PNG images with zero visual change.",
+    "keywords": "hide text in image, embed secret message in picture, encode text into image online, hide password in photo free",
+    "howTo": [
+      {
+        "name": "Select Image",
+        "text": "Upload the image to act as a secret carrier."
+      },
+      {
+        "name": "Embed Message",
+        "text": "Type the text and click Hide Message in Photo."
+      },
+      {
+        "name": "Save PNG",
+        "text": "Download the stego image."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Hide Text in Image - ImagePlumber",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "decode-hidden-message": {
+    "title": "Extract & Decode Hidden Message from Image Online | ImagePlumber",
+    "description": "Extract secret text messages hidden in steganographic images with password decryption and 1-click clipboard copy.",
+    "keywords": "decode hidden message from image, extract secret text from photo, steganography decoder online free, read hidden message in image",
+    "howTo": [
+      {
+        "name": "Upload Stego PNG",
+        "text": "Drop the image containing hidden data."
+      },
+      {
+        "name": "Enter Password",
+        "text": "Provide the decryption key if one was set."
+      },
+      {
+        "name": "Read Secret Message",
+        "text": "Instantly reveal and copy the hidden text."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Steganography Decoder - ImagePlumber",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
   "about": {
     "title": "About Our Offline Privacy Tools | ImagePlumber",
     "description": "Learn about ImagePlumber and our absolute privacy commitment. We run 100% client-side web sandbox processing without cloud databases or server uploads.",

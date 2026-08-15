@@ -52,7 +52,9 @@ const languages = [
       'efecto-glitch': 'glitch-image-generator',
       'comparar-fotos': 'side-by-side-image',
       'panoramica-instagram': 'instagram-panorama-splitter',
-      'cuadricula-fotos': 'collage-maker'
+      'cuadricula-fotos': 'collage-maker',
+      'censurar-foto': 'redact-image',
+      'esteganografia-imagenes': 'image-steganography'
     },
     toLocal: {
       '': '',
@@ -76,7 +78,9 @@ const languages = [
       'glitch-image-generator': 'efecto-glitch',
       'side-by-side-image': 'comparar-fotos',
       'instagram-panorama-splitter': 'panoramica-instagram',
-      'collage-maker': 'cuadricula-fotos'
+      'collage-maker': 'cuadricula-fotos',
+      'redact-image': 'censurar-foto',
+      'image-steganography': 'esteganografia-imagenes'
     }
   },
   {
@@ -105,7 +109,9 @@ const languages = [
       'efeito-glitch': 'glitch-image-generator',
       'comparar-fotos': 'side-by-side-image',
       'panoramica-instagram': 'instagram-panorama-splitter',
-      'grade-fotos': 'collage-maker'
+      'grade-fotos': 'collage-maker',
+      'censurar-foto': 'redact-image',
+      'esteganografia-imagem': 'image-steganography'
     },
     toLocal: {
       '': '',
@@ -129,7 +135,9 @@ const languages = [
       'glitch-image-generator': 'efeito-glitch',
       'side-by-side-image': 'comparar-fotos',
       'instagram-panorama-splitter': 'panoramica-instagram',
-      'collage-maker': 'grade-fotos'
+      'collage-maker': 'grade-fotos',
+      'redact-image': 'censurar-foto',
+      'image-steganography': 'esteganografia-imagem'
     }
   },
   {
@@ -158,7 +166,9 @@ const languages = [
       'glitch-art-studio': 'glitch-image-generator',
       'photo-compare-kare': 'side-by-side-image',
       'instagram-panorama-splitter': 'instagram-panorama-splitter',
-      'photo-grid-maker': 'collage-maker'
+      'photo-grid-maker': 'collage-maker',
+      'photo-censor-kare': 'redact-image',
+      'image-steganography': 'image-steganography'
     },
     toLocal: {
       '': '',
@@ -182,7 +192,9 @@ const languages = [
       'glitch-image-generator': 'glitch-art-studio',
       'side-by-side-image': 'photo-compare-kare',
       'instagram-panorama-splitter': 'instagram-panorama-splitter',
-      'collage-maker': 'photo-grid-maker'
+      'collage-maker': 'photo-grid-maker',
+      'redact-image': 'photo-censor-kare',
+      'image-steganography': 'image-steganography'
     }
   },
   {
@@ -211,7 +223,9 @@ const languages = [
       'effet-glitch': 'glitch-image-generator',
       'comparer-photos': 'side-by-side-image',
       'panorama-instagram': 'instagram-panorama-splitter',
-      'grille-photos': 'collage-maker'
+      'grille-photos': 'collage-maker',
+      'censurer-photo': 'redact-image',
+      'steganographie-image': 'image-steganography'
     },
     toLocal: {
       '': '',
@@ -235,7 +249,9 @@ const languages = [
       'glitch-image-generator': 'effet-glitch',
       'side-by-side-image': 'comparer-photos',
       'instagram-panorama-splitter': 'panorama-instagram',
-      'collage-maker': 'grille-photos'
+      'collage-maker': 'grille-photos',
+      'redact-image': 'censurer-photo',
+      'image-steganography': 'steganographie-image'
     }
   },
   {
@@ -264,7 +280,9 @@ const languages = [
       'glitch-effekt': 'glitch-image-generator',
       'bilder-vergleichen': 'side-by-side-image',
       'instagram-panorama-teiler': 'instagram-panorama-splitter',
-      'fotogitter-erstellen': 'collage-maker'
+      'fotogitter-erstellen': 'collage-maker',
+      'bild-zensieren': 'redact-image',
+      'bild-steganographie': 'image-steganography'
     },
     toLocal: {
       '': '',
@@ -288,7 +306,9 @@ const languages = [
       'glitch-image-generator': 'glitch-effekt',
       'side-by-side-image': 'bilder-vergleichen',
       'instagram-panorama-splitter': 'instagram-panorama-teiler',
-      'collage-maker': 'fotogitter-erstellen'
+      'collage-maker': 'fotogitter-erstellen',
+      'redact-image': 'bild-zensieren',
+      'image-steganography': 'bild-steganographie'
     }
   }
 ];
@@ -353,7 +373,22 @@ const filesMap = {
   'ansi-art': 'src/pages/AsciiArtGenerator.tsx',
   'glitch-image-generator': 'src/pages/GlitchArtStudio.tsx',
   'crt-tv-filter': 'src/pages/GlitchArtStudio.tsx',
-  'vhs-effect': 'src/pages/GlitchArtStudio.tsx'
+  'vhs-effect': 'src/pages/GlitchArtStudio.tsx',
+  'side-by-side-image': 'src/pages/SideBySideCompare.tsx',
+  'before-after-image': 'src/pages/SideBySideCompare.tsx',
+  'compare-images': 'src/pages/SideBySideCompare.tsx',
+  'instagram-panorama-splitter': 'src/pages/InstagramPanoramaSplitter.tsx',
+  'swipe-carousel-maker': 'src/pages/InstagramPanoramaSplitter.tsx',
+  'seamless-carousel': 'src/pages/InstagramPanoramaSplitter.tsx',
+  'photo-grid-maker': 'src/pages/CollageMaker.tsx',
+  'photo-joiner': 'src/pages/CollageMaker.tsx',
+  'redact-image': 'src/pages/ImageRedactor.tsx',
+  'blur-faces': 'src/pages/ImageRedactor.tsx',
+  'pixelate-face': 'src/pages/ImageRedactor.tsx',
+  'censor-photo': 'src/pages/ImageRedactor.tsx',
+  'image-steganography': 'src/pages/ImageSteganography.tsx',
+  'hide-text-in-image': 'src/pages/ImageSteganography.tsx',
+  'decode-hidden-message': 'src/pages/ImageSteganography.tsx'
 };
 
 /**

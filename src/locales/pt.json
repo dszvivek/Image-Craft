@@ -192,5 +192,15 @@
     "title": "Criar Grade e Colagem de Fotos Online Grátis | ImagePlumber",
     "description": "Combine múltiplas fotos em grades e colagens personalizadas diretamente no seu navegador sem marcas d'água.",
     "keywords": "criar grade de fotos, colagem de fotos online gratis, juntar fotos em grade, unir varias fotos em uma"
+  },
+  "censurar-foto": {
+    "title": "Censurar Fotos e Desfocar Rostos Online Grátis | ImagePlumber",
+    "description": "Oculte dados confidenciais, desfoque rostos e aplique tarjas pretas em documentos diretamente no navegador.",
+    "keywords": "censurar foto online, desfocar rostos gratis, ocultar dados sensiveis foto, tarja preta censura foto"
+  },
+  "esteganografia-imagem": {
+    "title": "Ocultar Texto Secreto em Fotos (Esteganografia) | ImagePlumber",
+    "description": "Esconda mensagens secretas e senhas dentro de imagens de forma invisível com chave de proteção 100% no navegador.",
+    "keywords": "esteganografia de imagens, esconder texto em foto, mensagem secreta em imagem, decodificador esteganografia gratis"
   }
 }

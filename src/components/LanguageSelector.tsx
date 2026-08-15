@@ -167,6 +167,20 @@ const TOOL_EQUIVALENTS: Record<string, Record<string, string>> = {
     fr: 'grille-photos',
     de: 'fotogitter-erstellen',
   },
+  'redact-image': {
+    es: 'censurar-foto',
+    pt: 'censurar-foto',
+    hi: 'photo-censor-kare',
+    fr: 'censurer-photo',
+    de: 'bild-zensieren',
+  },
+  'image-steganography': {
+    es: 'esteganografia-imagenes',
+    pt: 'esteganografia-imagem',
+    hi: 'image-steganography',
+    fr: 'steganographie-image',
+    de: 'bild-steganographie',
+  },
 };
 
 // Reverse map to find standard English route from localized path
@@ -192,6 +206,8 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'es/comparar-fotos': 'side-by-side-image',
   'es/panoramica-instagram': 'instagram-panorama-splitter',
   'es/cuadricula-fotos': 'collage-maker',
+  'es/censurar-foto': 'redact-image',
+  'es/esteganografia-imagenes': 'image-steganography',
   'pt/comprimir-imagem': 'image-compressor',
   'pt/remover-fundo': 'background-remover',
   'pt/conversor-em-lote': 'batch-converter',
@@ -213,6 +229,8 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'pt/comparar-fotos': 'side-by-side-image',
   'pt/panoramica-instagram': 'instagram-panorama-splitter',
   'pt/grade-fotos': 'collage-maker',
+  'pt/censurar-foto': 'redact-image',
+  'pt/esteganografia-imagem': 'image-steganography',
   'hi/photo-compress-kare': 'image-compressor',
   'hi/background-hataye': 'background-remover',
   'hi/batch-converter': 'batch-converter',
@@ -234,6 +252,8 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'hi/photo-compare-kare': 'side-by-side-image',
   'hi/instagram-panorama-splitter': 'instagram-panorama-splitter',
   'hi/photo-grid-maker': 'collage-maker',
+  'hi/photo-censor-kare': 'redact-image',
+  'hi/image-steganography': 'image-steganography',
   'fr/compresser-image': 'image-compressor',
   'fr/supprimer-arriere-plan': 'background-remover',
   'fr/convertisseur-par-lots': 'batch-converter',
@@ -255,6 +275,8 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'fr/comparer-photos': 'side-by-side-image',
   'fr/panorama-instagram': 'instagram-panorama-splitter',
   'fr/grille-photos': 'collage-maker',
+  'fr/censurer-photo': 'redact-image',
+  'fr/steganographie-image': 'image-steganography',
   'de/bild-komprimieren': 'image-compressor',
   'de/hintergrund-entfernen': 'background-remover',
   'de/stapel-konverter': 'batch-converter',
@@ -276,6 +298,8 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'de/bilder-vergleichen': 'side-by-side-image',
   'de/instagram-panorama-teiler': 'instagram-panorama-splitter',
   'de/fotogitter-erstellen': 'collage-maker',
+  'de/bild-zensieren': 'redact-image',
+  'de/bild-steganographie': 'image-steganography',
 };
 
 interface LanguageSelectorProps {
