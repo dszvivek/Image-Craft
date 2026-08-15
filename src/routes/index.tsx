@@ -48,6 +48,12 @@ const ShapeArtGenerator = safeLazy(() => import('../pages/ShapeArtGenerator').th
 const StatementAnalyzer = safeLazy(() => import('../pages/StatementAnalyzer').then(module => ({ default: module.StatementAnalyzer })));
 const PdfSigner = safeLazy(() => import('../pages/PdfSigner').then(module => ({ default: module.PdfSigner })));
 const AmbientVisuals = safeLazy(() => import('../pages/AmbientVisuals').then(module => ({ default: module.AmbientVisuals })));
+const ImageCropper = safeLazy(() => import('../pages/ImageCropper').then(module => ({ default: module.ImageCropper })));
+const ImageRotator = safeLazy(() => import('../pages/ImageRotator').then(module => ({ default: module.ImageRotator })));
+const BorderExpander = safeLazy(() => import('../pages/BorderExpander').then(module => ({ default: module.BorderExpander })));
+const PhotoFilterStudio = safeLazy(() => import('../pages/PhotoFilterStudio').then(module => ({ default: module.PhotoFilterStudio })));
+const ColorInverter = safeLazy(() => import('../pages/ColorInverter').then(module => ({ default: module.ColorInverter })));
+const ImageAdjuster = safeLazy(() => import('../pages/ImageAdjuster').then(module => ({ default: module.ImageAdjuster })));
 const About = safeLazy(() => import('../pages/About').then(module => ({ default: module.About })));
 const Privacy = safeLazy(() => import('../pages/Privacy').then(module => ({ default: module.Privacy })));
 const Contact = safeLazy(() => import('../pages/Contact').then(module => ({ default: module.Contact })));
@@ -341,6 +347,94 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: 'crop-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageCropper />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'passport-photo-cropper',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageCropper initialPreset="passport" pageTitle="Passport & Visa Photo Cropper" pageSubtitle="Crop photos to official 2x2 inch (51x51 mm) passport and visa ID standards locally in RAM." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'rotate-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRotator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'add-border-to-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BorderExpander />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'photo-filters',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PhotoFilterStudio />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'vintage-photo-filter',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PhotoFilterStudio initialPreset="vintage1977" pageTitle="Vintage & Retro Photo Filters" pageSubtitle="Apply 1970s film and retro Polaroid color grading to photos 100% locally." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'duotone-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PhotoFilterStudio initialMode="duotone" pageTitle="Duotone Effect Generator" pageSubtitle="Create Spotify-style two-tone gradient maps with custom shadow and highlight colors." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'invert-colors',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ColorInverter />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'black-and-white-converter',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ColorInverter initialMode="bw" pageTitle="Black & White Image Converter" pageSubtitle="Convert photos to high-contrast monochrome or 1-bit binary scans with Otsu auto-thresholding." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'adjust-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageAdjuster />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'brightness-contrast',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageAdjuster initialMode="brightness-contrast" pageTitle="Image Brightness & Contrast Tuner" pageSubtitle="Fine-tune lighting, contrast, and saturation with live before/after split comparison." />
+          </Suspense>
+        ),
+      },
+      {
         path: 'about',
         element: (
           <Suspense fallback={<PageLoader />}>
@@ -429,6 +523,54 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'es/recortar-imagen',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageCropper pageTitle="Recortar Imágenes Online Gratis" pageSubtitle="Recorta fotos con proporciones cuadradas, 16:9 y formatos de pasaporte sin subir archivos." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/rotar-imagen',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRotator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/agregar-borde-imagen',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BorderExpander />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/filtros-fotos',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PhotoFilterStudio pageTitle="Filtros de Fotos Online Gratis" pageSubtitle="Aplica filtros vintage, cyberpunk y efectos duotono a tus fotos 100% en el navegador." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/invertir-colores',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ColorInverter pageTitle="Invertir Colores de Imagen Online" pageSubtitle="Convierte fotos a negativo o blanco y negro de alto contraste sin subir archivos." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/ajustar-imagen',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageAdjuster pageTitle="Ajustar Brillo y Contraste de Fotos" pageSubtitle="Ajusta exposición, saturación y temperatura con vista comparativa en tiempo real." />
+          </Suspense>
+        ),
+      },
       // Portuguese Localized Routes (i18n Phase 2)
       {
         path: 'pt',
@@ -483,6 +625,54 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <BatchConverter defaultFormat="image/png" pageTitle="Converter JPG para PNG" pageSubtitle="Converta fotos JPG para PNG sem perdas de qualidade." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/cortar-imagem',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageCropper pageTitle="Cortar Imagens Online Grátis" pageSubtitle="Corte fotos em proporções personalizadas ou formatos para redes sociais 100% no navegador." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/girar-imagem',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRotator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/adicionar-borda-imagem',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BorderExpander />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/filtros-fotos',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PhotoFilterStudio pageTitle="Filtros de Fotos Online Grátis" pageSubtitle="Aplique efeitos vintage, cyberpunk e duotone nas suas fotos no navegador." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/inverter-cores',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ColorInverter pageTitle="Inverter Cores de Imagem Online" pageSubtitle="Transforme fotos em negativo ou preto e branco de alto contraste 100% local." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/ajustar-imagem',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageAdjuster pageTitle="Ajustar Brilho e Contraste de Fotos" pageSubtitle="Ajuste iluminação, saturação e nitidez com visualização comparativa." />
           </Suspense>
         ),
       },
@@ -543,6 +733,54 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'hi/photo-crop-kare',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageCropper pageTitle="Photo Crop Kare Online Free" pageSubtitle="फोटो को पासपोर्ट साइज, स्क्वायर (1:1) या 16:9 में फ्री में क्रॉप करें।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/photo-rotate-kare',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRotator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/border-lagaye',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BorderExpander />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/photo-filters',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PhotoFilterStudio pageTitle="Photo Filters Online Free" pageSubtitle="फोटो में विंटेज, साइबरपंक और डुओटोन फिल्टर्स लगाएं 100% फ्री।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/color-invert-kare',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ColorInverter pageTitle="Photo Color Invert & B&W Kare" pageSubtitle="फोटो को नेगेटिव में बदलें या हाई-कॉन्ट्रास्ट ब्लैक एंड व्हाइट बनाएं।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/photo-brightness-contrast',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageAdjuster pageTitle="Photo Brightness & Contrast Adjust Kare" pageSubtitle="फोटो की ब्राइटनेस, कॉन्ट्रास्ट और कलर्स को रियल-टाइम में ठीक करें।" />
+          </Suspense>
+        ),
+      },
       // French Localized Routes (i18n Phase 2)
       {
         path: 'fr',
@@ -600,6 +838,54 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'fr/recadrer-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageCropper pageTitle="Recadrer une Image en Ligne Gratuit" pageSubtitle="Recadrez vos photos aux ratios personnalisés ou passeport en local dans votre navigateur." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/pivoter-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRotator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/ajouter-bordure-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BorderExpander />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/filtres-photos',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PhotoFilterStudio pageTitle="Filtres Photos en Ligne Gratuit" pageSubtitle="Appliquez des filtres vintage, cyberpunk et des effets bicolores duotone." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/inverser-couleurs',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ColorInverter pageTitle="Inverser les Couleurs d'une Image" pageSubtitle="Convertissez vos photos en négatif ou en noir et blanc contrasté en local." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/ajuster-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageAdjuster pageTitle="Ajuster Luminosité et Contraste Photo" pageSubtitle="Ajustez l'exposition, les couleurs et la netteté avec comparaison instantanée." />
+          </Suspense>
+        ),
+      },
       // German Localized Routes (i18n Phase 2)
       {
         path: 'de',
@@ -654,6 +940,54 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <BatchConverter defaultFormat="image/png" pageTitle="JPG in PNG Umwandeln" pageSubtitle="Konvertieren Sie JPG-Fotos in hochwertige PNG-Dateien ohne Cloud." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/bild-zuschneiden',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageCropper pageTitle="Bilder Online Zuschneiden" pageSubtitle="Schneiden Sie Fotos in individuellen Seitenverhältnissen oder Passfoto-Größen lokal zu." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/bild-drehen',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageRotator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/rahmen-hinzufuegen',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BorderExpander />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/fotofilter',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PhotoFilterStudio pageTitle="Fotofilter Online Kostenlos" pageSubtitle="Wenden Sie Vintage-, Cyberpunk- und Duotone-Effekte direkt im Browser an." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/farben-invertieren',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ColorInverter pageTitle="Farben Invertieren & Schwarz-Weiß" pageSubtitle="Konvertieren Sie Fotos in Negative oder kontrastreiches Schwarz-Weiß." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/bild-anpassen',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ImageAdjuster pageTitle="Helligkeit & Kontrast Anpassen" pageSubtitle="Optimieren Sie Belichtung, Sättigung und Schärfe mit Vorher-Nachher-Vergleich." />
           </Suspense>
         ),
       },

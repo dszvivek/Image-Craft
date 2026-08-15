@@ -117,5 +117,35 @@
         "text": "Sauvegardez vos images au format PNG haute fidélité."
       }
     ]
+  },
+  "recadrer-image": {
+    "title": "Recadrer une Image en Ligne Gratuit (Carré, 16:9, Passeport) | ImagePlumber",
+    "description": "Recadrez vos photos en ligne gratuitement avec des formats prédéfinis (1:1, 4:5, 16:9, passeport 2x2 in). Règle des tiers et zéro upload.",
+    "keywords": "recadrer image en ligne, rogner photo gratuit, recadrer photo carre, recadrer photo passeport, recadrer photo instagram"
+  },
+  "pivoter-image": {
+    "title": "Faire Pivoter et Retourner une Image en Ligne (90°, Miroir) | ImagePlumber",
+    "description": "Faites pivoter vos photos à 90 ou 180 degrés en ligne. Redressez les horizons inclinés et appliquez un effet miroir sans envoyer de fichiers.",
+    "keywords": "faire pivoter image, retourner photo horizontal, effet miroir photo, redresser photo penchee, pivoter image 90 degres"
+  },
+  "ajouter-bordure-image": {
+    "title": "Ajouter une Bordure à une Photo en Ligne (Couleur, Flou) | ImagePlumber",
+    "description": "Ajoutez des cadres colorés, des arrière-plans floutés et des coins arrondis à vos photos de manière 100% privée dans votre navigateur.",
+    "keywords": "ajouter bordure photo, cadre photo en ligne, bordure blanche photo, flou arriere plan instagram, encadrer image gratuit"
+  },
+  "filtres-photos": {
+    "title": "Filtres Photos et Effet Duotone en Ligne Gratuit | ImagePlumber",
+    "description": "Appliquez des filtres vintage 1977, cyberpunk et duotone à vos photos dans votre navigateur sans serveur cloud.",
+    "keywords": "filtres photos en ligne, filtres vintage gratuit, effet duotone photo, filtre cyberpunk, retouche photo retro"
+  },
+  "inverser-couleurs": {
+    "title": "Inverser les Couleurs et Convertir en Noir et Blanc | ImagePlumber",
+    "description": "Convertissez vos photos en négatif ou en noir et blanc contrasté avec seuil d'Otsu en local.",
+    "keywords": "inverser couleurs en ligne, negatif photo gratuit, convertir noir et blanc, binariser image, solarisation photo"
+  },
+  "ajuster-image": {
+    "title": "Ajuster Luminosité, Contraste et Couleurs Photo | ImagePlumber",
+    "description": "Ajustez l'exposition, le contraste, la saturation et la netteté avec comparaison instantanée et auto-amélioration.",
+    "keywords": "ajuster luminosite photo, augmenter contraste image, saturation photo en ligne, amelioration photo auto, nettete photo"
   }
 }

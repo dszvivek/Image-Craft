@@ -1585,6 +1585,477 @@
       ]
     }
   },
+  "crop-image": {
+    "title": "Crop Image Online Free (Square, 16:9, Passport) | ImagePlumber",
+    "description": "Crop photos online for free with social aspect ratio presets (1:1, 4:5, 16:9, 9:16, 2x2 in). Interactive Rule of Thirds grid and zero cloud uploads.",
+    "keywords": "crop image online, photo cropper free, square image crop, instagram crop 4:5, youtube thumbnail crop, passport photo cropper, crop picture without upload, free image crop tool",
+    "howTo": [
+      {
+        "name": "Upload Image",
+        "text": "Select or drag any JPEG, PNG, or WebP photo into the browser canvas."
+      },
+      {
+        "name": "Choose Aspect Ratio Preset",
+        "text": "Select 1:1, 4:5, 16:9, 9:16, Passport 2x2 in, or drag handles for a freeform crop."
+      },
+      {
+        "name": "Download Cropped Image",
+        "text": "Export high-resolution cropped photo in lossless PNG, JPEG, or WebP."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Interactive Image Cropper - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Interactive 8-handle crop box with live dimension indicators",
+        "Social presets: Instagram 1:1, 4:5, Stories 9:16, YouTube 16:9",
+        "Rule of Thirds and Golden Ratio composition overlay grids",
+        "Lossless PNG, JPEG, and WebP export with zero cloud uploads"
+      ]
+    }
+  },
+  "passport-photo-cropper": {
+    "title": "Passport Photo Cropper Online (2x2 in, 51x51 mm) | ImagePlumber",
+    "description": "Crop photos to official 2x2 inch (51x51 mm) US Passport, Visa, and ID dimensions for free in your browser. 100% private with zero server uploads.",
+    "keywords": "passport photo cropper, visa photo crop 2x2, id photo cropper free, 51x51 mm photo crop, official passport photo creator, crop photo for visa online",
+    "howTo": [
+      {
+        "name": "Upload Portrait Photo",
+        "text": "Drop your headshot portrait into the passport cropper."
+      },
+      {
+        "name": "Align Face & Head",
+        "text": "Center your face inside the 2x2 inch square template using the composition grid."
+      },
+      {
+        "name": "Download Passport ID Photo",
+        "text": "Export the high-resolution 2x2 inch photo ready for printing or digital visa portals."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Passport Photo Cropper - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Official 2x2 in / 51x51 mm Passport & Visa ID standard crop",
+        "Rule of Thirds grid for head/chin alignment",
+        "100% Client-side sandbox execution",
+        "High-DPI print-ready photo export"
+      ]
+    }
+  },
+  "rotate-image": {
+    "title": "Rotate & Flip Image Online Free (90°, 180°, Mirror) | ImagePlumber",
+    "description": "Rotate images 90, 180, or 270 degrees online for free. Straighten crooked photos and mirror flip horizontally or vertically with zero cloud uploads.",
+    "keywords": "rotate image online, flip image horizontal, mirror image free, straighten photo online, rotate picture 90 degrees, photo orientation changer, image rotator without upload",
+    "howTo": [
+      {
+        "name": "Select Photo",
+        "text": "Upload any photo you want to rotate, flip, or straighten."
+      },
+      {
+        "name": "Rotate or Mirror",
+        "text": "Click Rotate 90° CW/CCW, Flip Horizontal, or adjust the fine angle straightener."
+      },
+      {
+        "name": "Download Rotated Image",
+        "text": "Save the reoriented image in lossless PNG, JPEG, or WebP format."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Image Rotator & Straightener - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "1-Click 90° and 180° rotation",
+        "Horizontal and vertical mirror flipping",
+        "Fine-tuned angle straightener slider (-45° to +45°)",
+        "Horizon alignment grid overlay"
+      ]
+    }
+  },
+  "add-border-to-image": {
+    "title": "Add Border to Image Online Free (Color, Blur, Padding) | ImagePlumber",
+    "description": "Add colored borders, frame padding, blurred background letterboxing, and rounded corners to photos online. 100% private in-browser canvas processing.",
+    "keywords": "add border to image, photo frame online, add white border to photo, instagram photo padding, blur background padding, add shadow to image, rounded corners image",
+    "howTo": [
+      {
+        "name": "Upload Image",
+        "text": "Select any photo to add frames or borders."
+      },
+      {
+        "name": "Style Border & Padding",
+        "text": "Select border color, padding thickness, frosted glass blur, rounded corners, and drop shadows."
+      },
+      {
+        "name": "Download Framed Image",
+        "text": "Export high-resolution framed photo ready for Instagram and social feeds."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Canvas Border Expander - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Uniform & asymmetrical border padding sliders",
+        "Solid color, gradient, and frosted glass blurred backdrops",
+        "Corner radius rounding and soft drop shadow engine",
+        "100% Client-side processing with zero server uploads"
+      ]
+    }
+  },
+  "photo-filters": {
+    "title": "Photo Filters Online Free (Vintage, Cyberpunk, HDR) | ImagePlumber",
+    "description": "Apply aesthetic photo filters online for free. Vintage 1977, Cyberpunk Neon, Film Noir B&W, and Golden Hour presets with zero cloud uploads.",
+    "keywords": "photo filters online, aesthetic photo filters, vintage image filter, cyberpunk photo effect, film noir black and white, image filter without upload, free photo effects",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Drag and drop any photo into the browser filter studio."
+      },
+      {
+        "name": "Select Filter Preset",
+        "text": "Choose from 12 aesthetic presets or create custom duotones."
+      },
+      {
+        "name": "Adjust Intensity & Download",
+        "text": "Fine-tune filter opacity slider and export high-resolution filtered image."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Photo Filter Studio - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "12 Curated aesthetic photo filters",
+        "Custom 2-color duotone generator",
+        "Intensity blend slider (0% to 100%)",
+        "100% Client-side GPU-accelerated canvas processing"
+      ]
+    }
+  },
+  "vintage-photo-filter": {
+    "title": "Vintage Photo Filter Online Free (Retro 1970s Film) | ImagePlumber",
+    "description": "Give photos a nostalgic 1970s film and retro Polaroid aesthetic for free in your browser. 100% private with zero server uploads.",
+    "keywords": "vintage photo filter, retro image filter, 1970s film effect, polaroid filter online, nostalgic photo editor, vintage aesthetic photo",
+    "howTo": [
+      {
+        "name": "Select Photo",
+        "text": "Drop your image into the vintage filter editor."
+      },
+      {
+        "name": "Apply Vintage 1977 Tone",
+        "text": "Warm nostalgic tones and faded matte shadows are applied instantly."
+      },
+      {
+        "name": "Export High-Res Image",
+        "text": "Download the vintage photo in lossless PNG, JPEG, or WebP."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Vintage Photo Filter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Authentic 1970s film emulation",
+        "Warm color temperature & faded blacks",
+        "Zero cloud uploads"
+      ]
+    }
+  },
+  "duotone-generator": {
+    "title": "Duotone Effect Generator Online Free (Two-Tone Filter) | ImagePlumber",
+    "description": "Create Spotify-style two-tone duotone graphics online for free. Custom Shadow and Highlight HEX color pickers with zero cloud uploads.",
+    "keywords": "duotone generator, two tone photo filter, spotify duotone effect, create duotone image, duotone photo maker, two color photo filter",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Select any portrait or landscape image."
+      },
+      {
+        "name": "Pick Shadow & Highlight Colors",
+        "text": "Choose custom colors or select Cyberpunk, Sunset Gold, or Neon Ocean presets."
+      },
+      {
+        "name": "Save Duotone Graphic",
+        "text": "Export the duotone artwork in high resolution."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Duotone Effect Generator - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Linear luminance gradient interpolation",
+        "Custom Shadow and Highlight HEX pickers",
+        "100% In-browser canvas processing"
+      ]
+    }
+  },
+  "invert-colors": {
+    "title": "Invert Image Colors Online Free (Negative Effect) | ImagePlumber",
+    "description": "Invert photo colors to photographic negatives online for free. Toggle individual RGB color channels with zero cloud uploads.",
+    "keywords": "invert colors online, invert image colors, photo negative effect, image color inverter free, invert picture colors, negative photo converter",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Select any photo to invert."
+      },
+      {
+        "name": "Configure Channels",
+        "text": "Invert all RGB channels or isolate Red, Green, or Blue channels."
+      },
+      {
+        "name": "Download Negative",
+        "text": "Save the inverted negative in lossless PNG or JPEG."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Color Inverter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "1-Click RGB negative color inversion",
+        "Individual channel isolation (Red, Green, Blue)",
+        "Sabatier solarization tone-line generator",
+        "100% Client-side sandbox execution"
+      ]
+    }
+  },
+  "black-and-white-converter": {
+    "title": "Black and White Image Converter Online Free (B&W & Otsu) | ImagePlumber",
+    "description": "Convert photos to high-contrast black & white or smooth grayscale online for free. Otsu auto-thresholding for document binarization.",
+    "keywords": "black and white converter, convert image to black and white, photo to grayscale online, otsu thresholding image, high contrast bw photo, 1 bit monochrome image",
+    "howTo": [
+      {
+        "name": "Upload Image",
+        "text": "Drop any color image or document scan."
+      },
+      {
+        "name": "Select Mode & Threshold",
+        "text": "Choose 1-Bit Binary B&W or Smooth Grayscale and click Auto-Otsu."
+      },
+      {
+        "name": "Download B&W Image",
+        "text": "Save the high-contrast monochrome image instantly."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Black & White Image Converter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "1-Bit Black & White binarization",
+        "Otsu optimal threshold calculation algorithm",
+        "Smooth ITU-R BT.601 grayscale conversion",
+        "Zero server uploads"
+      ]
+    }
+  },
+  "adjust-image": {
+    "title": "Adjust Image Brightness, Contrast & Colors Online | ImagePlumber",
+    "description": "Fine-tune brightness, contrast, saturation, temperature warmth, and sharpness online for free. 1-Click Auto-Enhance and split before/after comparison.",
+    "keywords": "adjust image online, photo brightness contrast tuner, adjust image saturation, photo color grading online, auto enhance photo, sharpen photo online free",
+    "howTo": [
+      {
+        "name": "Upload Image",
+        "text": "Select any image to adjust lighting and color balance."
+      },
+      {
+        "name": "Adjust Sliders or Auto-Enhance",
+        "text": "Fine-tune brightness, contrast, and saturation, or click 1-Click Auto-Enhance."
+      },
+      {
+        "name": "Compare & Download",
+        "text": "Inspect changes with Split View and export high-resolution graded photo."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Image Adjuster & Color Tuner - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Brightness, Contrast, Saturation, Exposure & Warmth sliders",
+        "1-Click Auto-Enhance histogram equalizer",
+        "Interactive Before vs After Split View comparison",
+        "3x3 Convolution matrix unsharp mask sharpness filter"
+      ]
+    }
+  },
+  "brightness-contrast": {
+    "title": "Adjust Image Brightness & Contrast Online Free | ImagePlumber",
+    "description": "Increase or decrease photo brightness and contrast online for free with real-time preview and 1-click auto-enhancement in your browser.",
+    "keywords": "adjust brightness contrast, change image brightness online, increase photo contrast, image lighting editor, auto contrast photo free",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Drop your photo into the brightness & contrast tuner."
+      },
+      {
+        "name": "Balance Lighting",
+        "text": "Adjust exposure, brightness, and contrast sliders for optimal clarity."
+      },
+      {
+        "name": "Save Enhanced Photo",
+        "text": "Download the balanced image in lossless PNG or JPEG."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Brightness & Contrast Tuner - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Real-time brightness & contrast adjustment sliders",
+        "1-Click Auto-Enhance histogram stretch",
+        "Split Before/After comparison view",
+        "100% Client-side sandbox processing"
+      ]
+    }
+  },
   "about": {
     "title": "About Our Offline Privacy Tools | ImagePlumber",
     "description": "Learn about ImagePlumber and our absolute privacy commitment. We run 100% client-side web sandbox processing without cloud databases or server uploads.",

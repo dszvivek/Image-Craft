@@ -31,7 +31,10 @@ import {
   Sliders,
   Sun,
   Moon,
-  Search
+  Search,
+  RotateCw,
+  Square,
+  Wand2
 } from 'lucide-react';
 import { AdPlacement } from '../components/AdPlacement';
 import { CommandPalette } from '../components/CommandPalette';
@@ -246,6 +249,54 @@ export const Layout = () => {
       category: 'image-editing',
       description: 'Isolate subjects completely inside browser.',
       colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30'
+    },
+    { 
+      name: 'Interactive Image Cropper', 
+      path: '/crop-image', 
+      icon: Crop,
+      category: 'image-editing',
+      description: 'Crop to 1:1, 4:5, 16:9, or passport ID dimensions.',
+      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    },
+    { 
+      name: 'Image Rotator & Straightener', 
+      path: '/rotate-image', 
+      icon: RotateCw,
+      category: 'image-editing',
+      description: 'Rotate 90°, mirror flip, and level horizon angles.',
+      colorClass: 'text-blue-600 bg-blue-50 border-blue-100/50 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
+    },
+    { 
+      name: 'Canvas Border Expander', 
+      path: '/add-border-to-image', 
+      icon: Square,
+      category: 'layout-grid',
+      description: 'Add color frames, blurred padding, and drop shadows.',
+      colorClass: 'text-amber-600 bg-amber-50 border-amber-100/50 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30'
+    },
+    { 
+      name: 'Photo Filter & Duotone Studio', 
+      path: '/photo-filters', 
+      icon: Wand2,
+      category: 'image-editing',
+      description: '12 aesthetic filters & custom duotone generator.',
+      colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30'
+    },
+    { 
+      name: 'Color Inverter & B&W Converter', 
+      path: '/invert-colors', 
+      icon: Moon,
+      category: 'image-editing',
+      description: 'Invert to photo negative & Otsu B&W binarize.',
+      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    },
+    { 
+      name: 'Image Adjuster & Color Tuner', 
+      path: '/adjust-image', 
+      icon: Sliders,
+      category: 'image-editing',
+      description: 'Adjust lighting, contrast & Auto-Enhance with split view.',
+      colorClass: 'text-blue-600 bg-blue-50 border-blue-100/50 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
     },
     { 
       name: 'Photo Mosaic Generator', 

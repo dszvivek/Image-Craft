@@ -117,5 +117,35 @@
         "text": "Salve as fotos em formato PNG de alta fidelidade."
       }
     ]
+  },
+  "cortar-imagem": {
+    "title": "Cortar Imagens Online Grátis (Quadrado, 16:9, Passaporte) | ImagePlumber",
+    "description": "Corte fotos online grátis com proporções para redes sociais (1:1, 4:5, 16:9, passaporte 2x2 in). Grade da regra dos terços e zero uploads.",
+    "keywords": "cortar imagem online, recortar foto gratis, cortar foto quadrado, cortar foto instagram, corte de imagem online"
+  },
+  "girar-imagem": {
+    "title": "Girar e Espelhar Fotos Online Grátis (90°, Espelho) | ImagePlumber",
+    "description": "Gire fotos 90 ou 180 graus online grátis. Endireite horizontes inclinados e espelhe fotos horizontalmente ou verticalmente sem enviar arquivos.",
+    "keywords": "girar imagem online, espelhar foto horizontal, endireitar foto, rodar foto 90 graus, inverter imagem online"
+  },
+  "adicionar-borda-imagem": {
+    "title": "Adicionar Borda a Fotos Online Grátis (Cor, Desfoque) | ImagePlumber",
+    "description": "Adicione molduras coloridas, fundos desfocados e cantos arredondados a fotos de forma 100% privada no navegador.",
+    "keywords": "adicionar borda na foto, moldura de foto online, borda branca foto, fundo desfocado instagram, colocar moldura em imagem"
+  },
+  "filtros-fotos": {
+    "title": "Filtros de Fotos e Efeito Duotone Online Grátis | ImagePlumber",
+    "description": "Aplique filtros vintage, cyberpunk e duotone nas suas fotos 100% no navegador sem enviar arquivos para a nuvem.",
+    "keywords": "filtros de fotos online, filtros vintage gratis, efeito duotone foto, filtro cyberpunk, editor de fotos retro"
+  },
+  "inverter-cores": {
+    "title": "Inverter Cores e Converter em Preto e Branco | ImagePlumber",
+    "description": "Converta fotos em negativo fotográfico ou preto e branco de alto contraste com limiar Otsu localmente.",
+    "keywords": "inverter cores online, foto negativo gratis, converter para preto e branco, binarizar imagem, efeito solarizacao"
+  },
+  "ajustar-imagem": {
+    "title": "Ajustar Brilho, Contraste e Cores Online | ImagePlumber",
+    "description": "Ajuste iluminação, saturação, temperatura e nitidez com visualização comparativa e auto-realce em 1 clique.",
+    "keywords": "ajustar brilho imagem, aumentar contraste foto, saturacao imagem online, auto realce foto, nitidez de foto online"
   }
 }

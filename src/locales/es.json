@@ -117,5 +117,35 @@
         "text": "Guarda los archivos PNG en tu dispositivo."
       }
     ]
+  },
+  "recortar-imagen": {
+    "title": "Recortar Imágenes Online Gratis (Cuadrado, 16:9, Pasaporte) | ImagePlumber",
+    "description": "Recorta fotos online gratis con proporciones predefinidas (1:1, 4:5, 16:9, pasaporte 2x2 in). Regla de los tercios y cero subidas al servidor.",
+    "keywords": "recortar imagen online, recortar foto gratis, recortar imagen cuadrado, recortar foto pasaporte, recortar foto instagram"
+  },
+  "rotar-imagen": {
+    "title": "Rotar y Voltear Fotos Online Gratis (90°, Espejo) | ImagePlumber",
+    "description": "Gira imágenes 90 o 180 grados online gratis. Endereza fotos torcidas y voltea en espejo horizontal o verticalmente sin subir archivos.",
+    "keywords": "rotar imagen online, voltear foto horizontal, efecto espejo foto, enderezar foto torcida, girar imagen 90 grados"
+  },
+  "agregar-borde-imagen": {
+    "title": "Añadir Borde a Fotos Online Gratis (Color, Desenfoque) | ImagePlumber",
+    "description": "Añade marcos de color, fondos desenfocados y esquinas redondeadas a tus fotos de forma 100% privada en el navegador.",
+    "keywords": "añadir borde a imagen, marco de fotos online, borde blanco foto, fondo desenfocado instagram, poner marco a imagen"
+  },
+  "filtros-fotos": {
+    "title": "Filtros de Fotos y Efecto Duotono Online Gratis | ImagePlumber",
+    "description": "Aplica filtros vintage 1977, cyberpunk y duotono a tus fotos 100% en el navegador sin subir archivos.",
+    "keywords": "filtros de fotos online, filtros vintage gratis, efecto duotono foto, filtro cyberpunk, editor de fotos retro"
+  },
+  "invertir-colores": {
+    "title": "Invertir Colores y Convertir a Blanco y Negro | ImagePlumber",
+    "description": "Convierte fotos a negativo fotográfico o a blanco y negro de alto contraste con umbral Otsu localmente.",
+    "keywords": "invertir colores online, foto negativo gratis, convertir a blanco y negro, binarizar imagen, efecto solarizacion"
+  },
+  "ajustar-imagen": {
+    "title": "Ajustar Brillo, Contraste y Colores Online | ImagePlumber",
+    "description": "Ajusta brillo, contraste, saturación, exposición y nitidez con vista comparativa y auto-mejora con 1 clic.",
+    "keywords": "ajustar brillo imagen, subir contraste foto, saturacion imagen online, auto mejorar foto, enfocar imagen gratis"
   }
 }

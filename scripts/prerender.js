@@ -37,7 +37,13 @@ const languages = [
       'convertidor-por-lotes': 'batch-converter',
       'firmar-pdf': 'sign-pdf',
       'png-a-jpg': 'png-to-jpg',
-      'jpg-a-png': 'jpg-to-png'
+      'jpg-a-png': 'jpg-to-png',
+      'recortar-imagen': 'crop-image',
+      'rotar-imagen': 'rotate-image',
+      'agregar-borde-imagen': 'add-border-to-image',
+      'filtros-fotos': 'photo-filters',
+      'invertir-colores': 'invert-colors',
+      'ajustar-imagen': 'adjust-image'
     },
     toLocal: {
       '': '',
@@ -46,7 +52,13 @@ const languages = [
       'batch-converter': 'convertidor-por-lotes',
       'sign-pdf': 'firmar-pdf',
       'png-to-jpg': 'png-a-jpg',
-      'jpg-to-png': 'jpg-a-png'
+      'jpg-to-png': 'jpg-a-png',
+      'crop-image': 'recortar-imagen',
+      'rotate-image': 'rotar-imagen',
+      'add-border-to-image': 'agregar-borde-imagen',
+      'photo-filters': 'filtros-fotos',
+      'invert-colors': 'invertir-colores',
+      'adjust-image': 'ajustar-imagen'
     }
   },
   {
@@ -60,7 +72,13 @@ const languages = [
       'conversor-em-lote': 'batch-converter',
       'assinar-pdf': 'sign-pdf',
       'png-para-jpg': 'png-to-jpg',
-      'jpg-para-png': 'jpg-to-png'
+      'jpg-para-png': 'jpg-to-png',
+      'cortar-imagem': 'crop-image',
+      'girar-imagem': 'rotate-image',
+      'adicionar-borda-imagem': 'add-border-to-image',
+      'filtros-fotos': 'photo-filters',
+      'inverter-cores': 'invert-colors',
+      'ajustar-imagem': 'adjust-image'
     },
     toLocal: {
       '': '',
@@ -69,7 +87,13 @@ const languages = [
       'batch-converter': 'conversor-em-lote',
       'sign-pdf': 'assinar-pdf',
       'png-to-jpg': 'png-para-jpg',
-      'jpg-to-png': 'jpg-para-png'
+      'jpg-to-png': 'jpg-para-png',
+      'crop-image': 'cortar-imagem',
+      'rotate-image': 'girar-imagem',
+      'add-border-to-image': 'adicionar-borda-imagem',
+      'photo-filters': 'filtros-fotos',
+      'invert-colors': 'inverter-cores',
+      'adjust-image': 'ajustar-imagem'
     }
   },
   {
@@ -83,7 +107,13 @@ const languages = [
       'batch-converter': 'batch-converter',
       'pdf-sign-kare': 'sign-pdf',
       'png-se-jpg': 'png-to-jpg',
-      'jpg-se-png': 'jpg-to-png'
+      'jpg-se-png': 'jpg-to-png',
+      'photo-crop-kare': 'crop-image',
+      'photo-rotate-kare': 'rotate-image',
+      'border-lagaye': 'add-border-to-image',
+      'photo-filters': 'photo-filters',
+      'color-invert-kare': 'invert-colors',
+      'photo-brightness-contrast': 'adjust-image'
     },
     toLocal: {
       '': '',
@@ -92,7 +122,13 @@ const languages = [
       'batch-converter': 'batch-converter',
       'sign-pdf': 'pdf-sign-kare',
       'png-to-jpg': 'png-se-jpg',
-      'jpg-to-png': 'jpg-se-png'
+      'jpg-to-png': 'jpg-se-png',
+      'crop-image': 'photo-crop-kare',
+      'rotate-image': 'photo-rotate-kare',
+      'add-border-to-image': 'border-lagaye',
+      'photo-filters': 'photo-filters',
+      'invert-colors': 'color-invert-kare',
+      'adjust-image': 'photo-brightness-contrast'
     }
   },
   {
@@ -106,7 +142,13 @@ const languages = [
       'convertisseur-par-lots': 'batch-converter',
       'signer-pdf': 'sign-pdf',
       'png-en-jpg': 'png-to-jpg',
-      'jpg-en-png': 'jpg-to-png'
+      'jpg-en-png': 'jpg-to-png',
+      'recadrer-image': 'crop-image',
+      'pivoter-image': 'rotate-image',
+      'ajouter-bordure-image': 'add-border-to-image',
+      'filtres-photos': 'photo-filters',
+      'inverser-couleurs': 'invert-colors',
+      'ajuster-image': 'adjust-image'
     },
     toLocal: {
       '': '',
@@ -115,7 +157,13 @@ const languages = [
       'batch-converter': 'convertisseur-par-lots',
       'sign-pdf': 'signer-pdf',
       'png-to-jpg': 'png-en-jpg',
-      'jpg-to-png': 'jpg-en-png'
+      'jpg-to-png': 'jpg-en-png',
+      'crop-image': 'recadrer-image',
+      'rotate-image': 'pivoter-image',
+      'add-border-to-image': 'ajouter-bordure-image',
+      'photo-filters': 'filtres-photos',
+      'invert-colors': 'inverser-couleurs',
+      'adjust-image': 'ajuster-image'
     }
   },
   {
@@ -129,7 +177,13 @@ const languages = [
       'stapel-konverter': 'batch-converter',
       'pdf-unterschreiben': 'sign-pdf',
       'png-in-jpg': 'png-to-jpg',
-      'jpg-in-png': 'jpg-to-png'
+      'jpg-in-png': 'jpg-to-png',
+      'bild-zuschneiden': 'crop-image',
+      'bild-drehen': 'rotate-image',
+      'rahmen-hinzufuegen': 'add-border-to-image',
+      'fotofilter': 'photo-filters',
+      'farben-invertieren': 'invert-colors',
+      'bild-anpassen': 'adjust-image'
     },
     toLocal: {
       '': '',
@@ -138,7 +192,13 @@ const languages = [
       'batch-converter': 'stapel-konverter',
       'sign-pdf': 'pdf-unterschreiben',
       'png-to-jpg': 'png-in-jpg',
-      'jpg-to-png': 'jpg-in-png'
+      'jpg-to-png': 'jpg-in-png',
+      'crop-image': 'bild-zuschneiden',
+      'rotate-image': 'bild-drehen',
+      'add-border-to-image': 'rahmen-hinzufuegen',
+      'photo-filters': 'fotofilter',
+      'invert-colors': 'farben-invertieren',
+      'adjust-image': 'bild-anpassen'
     }
   }
 ];

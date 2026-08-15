@@ -23,7 +23,11 @@ import {
   CreditCard,
   PenTool,
   Sparkles,
-  Sliders
+  Sliders,
+  RotateCw,
+  Square,
+  Wand2,
+  Moon
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
@@ -45,6 +49,60 @@ const toolDirectory = [
     description: 'Isolate subjects and remove backgrounds completely inside the browser using local AI.',
     badge: 'Local AI',
     colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50 hover:border-purple-300 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30'
+  },
+  {
+    name: 'Photo Filter & Duotone Studio',
+    path: '/photo-filters',
+    icon: Wand2,
+    category: 'image-editing',
+    description: 'Apply 12 aesthetic presets or create custom two-tone duotone graphics in your browser.',
+    badge: 'Grading',
+    colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50 hover:border-purple-300 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30'
+  },
+  {
+    name: 'Color Inverter & B&W Converter',
+    path: '/invert-colors',
+    icon: Moon,
+    category: 'image-editing',
+    description: 'Invert RGB to photographic negatives, solarize, or convert to 1-bit Otsu black & white.',
+    badge: 'Monochrome',
+    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+  },
+  {
+    name: 'Image Adjuster & Color Tuner',
+    path: '/adjust-image',
+    icon: Sliders,
+    category: 'image-editing',
+    description: 'Fine-tune exposure, contrast, saturation, temperature, and sharpness with live split comparison.',
+    badge: 'Tuner',
+    colorClass: 'text-blue-600 bg-blue-50 border-blue-100/50 hover:border-blue-300 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
+  },
+  {
+    name: 'Interactive Image Cropper',
+    path: '/crop-image',
+    icon: Crop,
+    category: 'image-editing',
+    description: 'Crop images with 1:1, 4:5, 16:9, and official passport 2x2 in aspect ratio presets.',
+    badge: 'Social & ID',
+    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+  },
+  {
+    name: 'Image Rotator & Straightener',
+    path: '/rotate-image',
+    icon: RotateCw,
+    category: 'image-editing',
+    description: 'Rotate 90°/180°, mirror flip horizontally, and level crooked horizon angles with grid.',
+    badge: 'Geometry',
+    colorClass: 'text-blue-600 bg-blue-50 border-blue-100/50 hover:border-blue-300 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
+  },
+  {
+    name: 'Canvas Border Expander',
+    path: '/add-border-to-image',
+    icon: Square,
+    category: 'layout-grid',
+    description: 'Add colored frames, frosted glass blurred padding, and soft drop shadows for social feeds.',
+    badge: 'Framing',
+    colorClass: 'text-amber-600 bg-amber-50 border-amber-100/50 hover:border-amber-300 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30'
   },
   {
     name: 'Photo Mosaic Generator',
@@ -1080,6 +1138,16 @@ export const Home: React.FC = () => {
             </div>
             <div className="flex flex-wrap gap-1.5">
               {[
+                { label: 'Photo Filters', path: '/photo-filters' },
+                { label: 'Vintage 1977 Filter', path: '/vintage-photo-filter' },
+                { label: 'Duotone Generator', path: '/duotone-generator' },
+                { label: 'Invert Colors', path: '/invert-colors' },
+                { label: 'Black & White Converter', path: '/black-and-white-converter' },
+                { label: 'Adjust Brightness & Contrast', path: '/brightness-contrast' },
+                { label: 'Crop Image (1:1, 16:9)', path: '/crop-image' },
+                { label: 'Passport Photo (2x2 in)', path: '/passport-photo-cropper' },
+                { label: 'Rotate & Flip Image', path: '/rotate-image' },
+                { label: 'Add Border & Frame', path: '/add-border-to-image' },
                 { label: 'Remove White BG', path: '/remove-white-background' },
                 { label: 'Transparent BG Maker', path: '/transparent-background-maker' },
                 { label: 'Bank Statement to Excel', path: '/bank-statement-to-excel' },

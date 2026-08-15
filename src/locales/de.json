@@ -117,5 +117,35 @@
         "text": "Laden Sie die fertigen PNG-Bilder in voller Auflösung herunter."
       }
     ]
+  },
+  "bild-zuschneiden": {
+    "title": "Bilder Online Kostenlos Zuschneiden (Quadrat, 16:9, Passfoto) | ImagePlumber",
+    "description": "Schneiden Sie Fotos kostenlos online zu mit Seitenverhältnis-Vorlagen (1:1, 4:5, 16:9, Passfoto 2x2 in). Drittel-Regel-Raster und null Uploads.",
+    "keywords": "bild zuschneiden online, foto zuschneiden kostenlos, bild quadratisch schneiden, passfoto zuschneiden, instagram bildformat zuschneiden"
+  },
+  "bild-drehen": {
+    "title": "Bilder Online Drehen und Spiegeln (90°, Spiegelung) | ImagePlumber",
+    "description": "Drehen Sie Bilder um 90 oder 180 Grad online kostenlos. Begradigen Sie schiefe Horizonte und spiegeln Sie Fotos horizontal oder vertikal.",
+    "keywords": "bild drehen online, foto spiegeln horizontal, horizont begradigen foto, bild um 90 grad drehen, foto spiegeln kostenlos"
+  },
+  "rahmen-hinzufuegen": {
+    "title": "Rahmen zu Bild Hinzufügen Online Kostenlos (Farbe, Unschärfe) | ImagePlumber",
+    "description": "Fügen Sie farbige Rahmen, weichgezeichnete Hintergründe und abgerundete Ecken zu Fotos 100% lokal im Browser hinzu.",
+    "keywords": "rahmen zu bild hinzufuegen, fotorahmen online, weisser rahmen foto, unscharfer hintergrund instagram, bild einrahmen kostenlos"
+  },
+  "fotofilter": {
+    "title": "Fotofilter & Duotone-Effekte Online Kostenlos | ImagePlumber",
+    "description": "Wenden Sie Vintage-1977-, Cyberpunk- und Duotone-Filter auf Ihre Fotos 100% lokal im Browser ohne Cloud-Uploads an.",
+    "keywords": "fotofilter online kostenlos, vintage filter foto, duotone effekt online, cyberpunk filter, retro fotobearbeitung"
+  },
+  "farben-invertieren": {
+    "title": "Farben Invertieren & Schwarz-Weiß Konverter | ImagePlumber",
+    "description": "Konvertieren Sie Fotos in Fotonegative oder kontrastreiches Schwarz-Weiß mit Otsu-Schwellenwert lokal im Browser.",
+    "keywords": "farben invertieren online, foto negativ kostenlos, bild in schwarz weiss umwandeln, otsu binarisierung, solarisation bild"
+  },
+  "bild-anpassen": {
+    "title": "Helligkeit, Kontrast & Farben Online Anpassen | ImagePlumber",
+    "description": "Optimieren Sie Belichtung, Sättigung, Wärme und Schärfe mit Vorher-Nachher-Vergleich und 1-Klick-Auto-Verbesserung.",
+    "keywords": "bild helligkeit anpassen, foto kontrast erhoehen, farbsaettigung bild online, foto auto verbessern, bild schaerfen kostenlos"
   }
 }
