@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Download, RefreshCw, Sparkles, AlertTriangle, CheckCircle, ArrowRight } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
@@ -211,7 +212,28 @@ export const Compressor: React.FC<CompressorProps> = ({
             Compression Tool
           </span>
           <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">{pageTitle || 'Image Compressor'}</h1>
-          <p className="text-sm text-slate-500">{pageSubtitle || 'Reduce file size using modern browser compression algorithms. No files leave your device.'}</p>
+          <p className="text-sm text-slate-500 mb-4">{pageSubtitle || 'Reduce file size using modern browser compression algorithms. No files leave your device.'}</p>
+          
+          {/* Quick Target Size & Format Presets Bar */}
+          <div className="flex flex-wrap items-center justify-center gap-1.5 max-w-2xl mx-auto">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-1">Target Presets:</span>
+            {[
+              { label: 'Target 100 KB', path: '/compress-image-to-100kb' },
+              { label: 'Target 50 KB', path: '/compress-image-to-50kb' },
+              { label: 'Target 20 KB', path: '/compress-image-to-20kb' },
+              { label: 'Compress PNG', path: '/compress-png' },
+              { label: 'Compress JPEG', path: '/compress-jpeg' },
+              { label: 'Compress WebP', path: '/compress-webp' },
+            ].map((p) => (
+              <Link
+                key={p.path}
+                to={p.path}
+                className="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-slate-100/80 hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 border border-slate-200/60 hover:border-indigo-200 transition-all cursor-pointer shadow-2xs"
+              >
+                {p.label}
+              </Link>
+            ))}
+          </div>
         </div>
 
         {!originalFile ? (

@@ -1004,6 +1004,100 @@ export const Home: React.FC = () => {
 
       </section>
 
+      {/* Popular Formats & Quick Conversion Matrix Section */}
+      <section className="py-12 border-t border-slate-200/60 dark:border-slate-800 max-w-6xl mx-auto px-4">
+        <div className="text-center mb-8">
+          <span className="text-[10px] font-bold text-indigo-655 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-900 uppercase tracking-widest">
+            High-Speed Matrix
+          </span>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-slate-50 tracking-normal mt-2.5 mb-2">
+            Popular Formats & Target Sizes
+          </h2>
+          <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto">
+            Direct 1-click access to preset conversion and compression workflows.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+          {/* Column 1: Format Converters */}
+          <div className="premium-bento p-5 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800 space-y-3">
+            <div className="flex items-center gap-2 font-bold text-xs text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">
+              <Files className="w-4 h-4 text-indigo-500" />
+              <span>Format Converters</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {[
+                { label: 'PNG to JPG', path: '/png-to-jpg' },
+                { label: 'JPG to PNG', path: '/jpg-to-png' },
+                { label: 'WebP to JPG', path: '/webp-to-jpg' },
+                { label: 'WebP to PNG', path: '/webp-to-png' },
+                { label: 'HEIC to JPG', path: '/heic-to-jpg' },
+                { label: 'SVG to PNG', path: '/svg-to-png' },
+                { label: 'PNG to SVG', path: '/png-to-svg' },
+              ].map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800/80 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 border border-slate-200/60 dark:border-slate-700/60 hover:border-indigo-200 dark:hover:border-indigo-800 transition-all cursor-pointer"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Column 2: Target Size Compression */}
+          <div className="premium-bento p-5 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800 space-y-3">
+            <div className="flex items-center gap-2 font-bold text-xs text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">
+              <ImageIcon className="w-4 h-4 text-indigo-500" />
+              <span>Compression & Target Sizes</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {[
+                { label: 'Compress to 100KB', path: '/compress-image-to-100kb' },
+                { label: 'Compress to 50KB', path: '/compress-image-to-50kb' },
+                { label: 'Compress to 20KB', path: '/compress-image-to-20kb' },
+                { label: 'Compress PNG', path: '/compress-png' },
+                { label: 'Compress JPEG', path: '/compress-jpeg' },
+                { label: 'Compress WebP', path: '/compress-webp' },
+              ].map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800/80 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 border border-slate-200/60 dark:border-slate-700/60 hover:border-indigo-200 dark:hover:border-indigo-800 transition-all cursor-pointer"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Column 3: Specialized Tasks */}
+          <div className="premium-bento p-5 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800 space-y-3">
+            <div className="flex items-center gap-2 font-bold text-xs text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">
+              <Sparkles className="w-4 h-4 text-purple-500" />
+              <span>Specialized Tasks</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {[
+                { label: 'Remove White BG', path: '/remove-white-background' },
+                { label: 'Transparent BG Maker', path: '/transparent-background-maker' },
+                { label: 'Bank Statement to Excel', path: '/bank-statement-to-excel' },
+                { label: 'Sign PDF Online', path: '/sign-pdf-online' },
+              ].map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800/80 hover:bg-purple-50 dark:hover:bg-purple-950/60 text-slate-700 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 border border-slate-200/60 dark:border-slate-700/60 hover:border-purple-200 dark:hover:border-purple-800 transition-all cursor-pointer"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Showcases (Selected high-impact tools) */}
       <section className="py-16 border-t border-slate-200/60 mt-12 max-w-5xl mx-auto scroll-mt-24">
         <div className="text-center mb-16 px-4">

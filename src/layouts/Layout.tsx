@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
-import metadata from '../routes/metadata.json';
+import metadataEn from '../routes/metadata.json';
+import metadataEs from '../locales/es.json';
+import metadataPt from '../locales/pt.json';
+import metadataHi from '../locales/hi.json';
+import metadataFr from '../locales/fr.json';
+import metadataDe from '../locales/de.json';
 import { 
   Menu, 
   X, 
@@ -31,6 +36,7 @@ import {
 import { AdPlacement } from '../components/AdPlacement';
 import { CommandPalette } from '../components/CommandPalette';
 import { ScrollToTop } from '../components/ScrollToTop';
+import { LanguageSelector } from '../components/LanguageSelector';
 
 export const Layout = () => {
   const [theme, setTheme] = useState<string>(() => {
@@ -98,9 +104,34 @@ export const Layout = () => {
       cleanPath = cleanPath.substring(1);
     }
 
-    const meta = (metadata as any)[cleanPath];
+    let meta: any = null;
+    let isHome = false;
+
+    if (cleanPath.startsWith('es')) {
+      const subKey = cleanPath === 'es' ? '' : cleanPath.replace(/^es\//, '');
+      meta = (metadataEs as any)[subKey];
+      isHome = cleanPath === 'es';
+    } else if (cleanPath.startsWith('pt')) {
+      const subKey = cleanPath === 'pt' ? '' : cleanPath.replace(/^pt\//, '');
+      meta = (metadataPt as any)[subKey];
+      isHome = cleanPath === 'pt';
+    } else if (cleanPath.startsWith('hi')) {
+      const subKey = cleanPath === 'hi' ? '' : cleanPath.replace(/^hi\//, '');
+      meta = (metadataHi as any)[subKey];
+      isHome = cleanPath === 'hi';
+    } else if (cleanPath.startsWith('fr')) {
+      const subKey = cleanPath === 'fr' ? '' : cleanPath.replace(/^fr\//, '');
+      meta = (metadataFr as any)[subKey];
+      isHome = cleanPath === 'fr';
+    } else if (cleanPath.startsWith('de')) {
+      const subKey = cleanPath === 'de' ? '' : cleanPath.replace(/^de\//, '');
+      meta = (metadataDe as any)[subKey];
+      isHome = cleanPath === 'de';
+    } else {
+      meta = (metadataEn as any)[cleanPath];
+      isHome = cleanPath === '';
+    }
     if (meta) {
-      const isHome = cleanPath === '';
       const fullTitle = isHome ? meta.title : `${meta.title} | ImagePlumber`;
       document.title = fullTitle;
       
@@ -459,6 +490,9 @@ export const Layout = () => {
  
           {/* Desktop Right CTA */}
           <div className="hidden md:flex items-center gap-3">
+            {/* Language Selector Dropdown */}
+            <LanguageSelector variant="header" />
+
             {/* Quick Search Command Palette Trigger */}
             <button
               onClick={() => setIsCommandPaletteOpen(true)}
@@ -650,6 +684,11 @@ export const Layout = () => {
               </Link>
             ))}
 
+            {/* Mobile Language Selector */}
+            <div className="pt-2 pb-1 border-t border-slate-100 dark:border-slate-800">
+              <LanguageSelector variant="mobile" />
+            </div>
+
             {/* Mobile Dark Mode Toggle */}
             <button
               onClick={() => {
@@ -752,7 +791,7 @@ export const Layout = () => {
 
           <div>
             <p className="font-bold text-sm text-slate-800 dark:text-slate-200 mb-3.5">Image & Layout</p>
-            <ul className="text-xs text-slate-500 dark:text-slate-400 flex flex-col gap-2 font-semibold">
+            <ul className="text-xs text-slate-550 dark:text-slate-400 flex flex-col gap-2 font-semibold">
               {tools.filter(t => ['image-editing', 'layout-grid'].includes(t.category)).map(t => (
                 <li key={t.path}><Link to={t.path} className="hover:text-indigo-650 dark:hover:text-indigo-400 transition">{t.name}</Link></li>
               ))}
@@ -761,7 +800,7 @@ export const Layout = () => {
 
           <div>
             <p className="font-bold text-sm text-slate-800 dark:text-slate-200 mb-3.5">PDF & Optimization</p>
-            <ul className="text-xs text-slate-500 dark:text-slate-400 flex flex-col gap-2 font-semibold">
+            <ul className="text-xs text-slate-550 dark:text-slate-400 flex flex-col gap-2 font-semibold">
               {tools.filter(t => ['image-opt', 'pdf-docs'].includes(t.category)).map(t => (
                 <li key={t.path}><Link to={t.path} className="hover:text-indigo-650 dark:hover:text-indigo-400 transition">{t.name}</Link></li>
               ))}
@@ -782,7 +821,8 @@ export const Layout = () => {
 
         <div className="max-w-7xl mx-auto border-t border-slate-200/80 dark:border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-450">
           <p>© {new Date().getFullYear()} ImagePlumber. All rights reserved.</p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
+            <LanguageSelector variant="header" />
             <a 
               href="https://github.com/dszvivek/Image-Craft" 
               target="_blank" 

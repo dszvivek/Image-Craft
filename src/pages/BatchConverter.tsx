@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Download, RefreshCw, Files, FileText, CheckCircle, Trash2, ShieldCheck, AlertTriangle } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
@@ -477,7 +478,29 @@ export const BatchConverter: React.FC<BatchConverterProps> = ({
             Batch Utility
           </span>
           <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">{pageTitle || 'Batch Image Converter'}</h1>
-          <p className="text-sm text-slate-500">{pageSubtitle || 'Convert image directories in bulk or package photos into multi-page PDFs locally in RAM.'}</p>
+          <p className="text-sm text-slate-500 mb-4">{pageSubtitle || 'Convert image directories in bulk or package photos into multi-page PDFs locally in RAM.'}</p>
+          
+          {/* Quick Format Presets Bar */}
+          <div className="flex flex-wrap items-center justify-center gap-1.5 max-w-2xl mx-auto">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-1">Quick Presets:</span>
+            {[
+              { label: 'PNG to JPG', path: '/png-to-jpg', fmt: 'image/jpeg' },
+              { label: 'JPG to PNG', path: '/jpg-to-png', fmt: 'image/png' },
+              { label: 'WebP to JPG', path: '/webp-to-jpg', fmt: 'image/jpeg' },
+              { label: 'WebP to PNG', path: '/webp-to-png', fmt: 'image/png' },
+              { label: 'HEIC to JPG', path: '/heic-to-jpg', fmt: 'image/jpeg' },
+              { label: 'SVG to PNG', path: '/svg-to-png', fmt: 'image/png' },
+              { label: 'PNG to SVG', path: '/png-to-svg', fmt: 'image/svg+xml' },
+            ].map((p) => (
+              <Link
+                key={p.path}
+                to={p.path}
+                className="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-slate-100/80 hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 border border-slate-200/60 hover:border-indigo-200 transition-all cursor-pointer shadow-2xs"
+              >
+                {p.label}
+              </Link>
+            ))}
+          </div>
         </div>
 
         {files.length === 0 ? (
