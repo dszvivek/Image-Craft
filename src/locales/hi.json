@@ -162,5 +162,20 @@
     "title": "Photo Se EXIF Metadata & GPS Location Hataye | ImagePlumber",
     "description": "फोटो की कैमरा सेटिंग्स और लोकेशन देखें और प्राइवेसी के लिए पूरी तरह रिमूव करें।",
     "keywords": "photo se location hataye, remove exif metadata hindi, photo privacy tool, exif viewer hindi"
+  },
+  "pixel-art-generator": {
+    "title": "Pixel Art & 8-Bit Photo Converter Online Free | ImagePlumber",
+    "description": "फोटो को 8-बिट पिक्सेल आर्ट और रेट्रो गेम बॉय स्टाइल में बदलें Floyd-Steinberg dithering के साथ।",
+    "keywords": "pixel art generator hindi, photo ko 8 bit banaye, gameboy filter photo, pixelate image free, retro 8 bit art"
+  },
+  "ascii-art-generator": {
+    "title": "ASCII Art & Image to Text Art Generator Online | ImagePlumber",
+    "description": "फोटो को ASCII कैरेक्टर आर्ट में बदलें और मैट्रिक्स ग्रीन व फुल-कलर ANSI में PNG सेव करें।",
+    "keywords": "ascii art generator hindi, photo ko text me convert kare, image to ascii online, ascii text copy portapapeles"
+  },
+  "glitch-art-studio": {
+    "title": "Glitch Art & CRT TV Effect Generator Online | ImagePlumber",
+    "description": "फोटो में RGB क्रोमैटिक एबरेशन, स्कैनलाइन्स और रेट्रो VHS ग्लिच इफेक्ट लगाएं।",
+    "keywords": "glitch art generator hindi, photo glitch effect online, retro vhs filter, crt scanlines effect, photo distortion tool"
   }
 }

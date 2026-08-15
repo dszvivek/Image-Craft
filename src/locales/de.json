@@ -162,5 +162,20 @@
     "title": "EXIF-Daten Anzeigen & Löschen Online Kostenlos | ImagePlumber",
     "description": "Lesen Sie GPS-Standortdaten und Kameraeinstellungen aus und entfernen Sie alle privaten Metadaten lokal.",
     "keywords": "exif daten loeschen, gps daten aus foto entfernen, exif viewer online kostenlos, bild metadaten bereinigen"
+  },
+  "pixel-art-generator": {
+    "title": "Pixel Art Generator & 8-Bit Bildkonverter Online | ImagePlumber",
+    "description": "Verwandeln Sie Fotos in 8-Bit Retro Pixel-Art mit Game Boy Farbpaletten und Floyd-Steinberg-Dithering.",
+    "keywords": "pixel art generator, 8 bit foto konverter, gameboy filter online, bild verpixeln kostenlos, retro 8 bit kunst"
+  },
+  "ascii-art-generator": {
+    "title": "ASCII Art Generator & Textkunst aus Bildern | ImagePlumber",
+    "description": "Konvertieren Sie Fotos in ASCII-Textkunst mit Matrix-Grün-Themes, ANSI-Farben und PNG-Export.",
+    "keywords": "ascii art generator kostenlos, bild in text umwandeln, foto zu ascii buchstaben, ascii kunst kopieren"
+  },
+  "glitch-effekt": {
+    "title": "Glitch Art & CRT Scanline Generator Online | ImagePlumber",
+    "description": "Erzeugen Sie RGB Farbverschiebung, Datamoshing und VHS Retro-Verzerrung direkt in Ihrem Browser.",
+    "keywords": "glitch generator online, glitch art kostenlos, vhs retro filter, crt scanlines fernseher, bild verzerrung"
   }
 }

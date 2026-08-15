@@ -2262,6 +2262,321 @@
       }
     }
   },
+  "pixel-art-generator": {
+    "title": "Pixel Art Generator & 8-Bit Photo Converter Online Free | ImagePlumber",
+    "description": "Convert photos into retro 8-bit pixel art with Game Boy, NES, and PICO-8 palettes and Floyd-Steinberg dithering for free online.",
+    "keywords": "pixel art generator, 8 bit photo converter, turn picture into pixel art, gameboy color palette filter, pixelate photo online free",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Drop your image into the pixel art studio."
+      },
+      {
+        "name": "Select Palette & Dithering",
+        "text": "Choose from Game Boy, PICO-8, or C64 palettes with Floyd-Steinberg dithering."
+      },
+      {
+        "name": "Export Pixel Art",
+        "text": "Download in crisp lossless PNG or infinite scalable SVG vector format."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Pixel Art Generator - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "8-bit-photo-converter": {
+    "title": "8-Bit Photo Converter Online Free (Retro Gaming Sprites) | ImagePlumber",
+    "description": "Transform portraits and landscapes into authentic 8-bit video game graphics with vintage console color quantization.",
+    "keywords": "8 bit photo converter online, retro game sprite maker, nes 8 bit photo filter, 8 bit pixel converter free, retro gaming art tool",
+    "howTo": [
+      {
+        "name": "Upload Image",
+        "text": "Select any image to transform into an 8-bit sprite."
+      },
+      {
+        "name": "Tune Block Size",
+        "text": "Adjust pixel block size for finer or chunkier retro game aesthetics."
+      },
+      {
+        "name": "Download 8-Bit Image",
+        "text": "Save the 8-bit image without cloud upload or watermarks."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "8-Bit Photo Converter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "pixelate-image": {
+    "title": "Pixelate Image Online Free (Blur & Block Effect) | ImagePlumber",
+    "description": "Pixelate photos online for free with custom block size, contrast boost, and optional CRT grid line overlays.",
+    "keywords": "pixelate image online, censor pixelate photo, pixel block effect free, pixelate picture without upload, image pixelator tool",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Drop the photo you wish to pixelate."
+      },
+      {
+        "name": "Set Block Size",
+        "text": "Use the slider to increase pixel block size."
+      },
+      {
+        "name": "Save Pixelated Image",
+        "text": "Download the pixelated image in lossless PNG or WebP."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Pixelate Image - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "ascii-art-generator": {
+    "title": "ASCII Art Generator & Image to Text Art Free | ImagePlumber",
+    "description": "Convert photos into ASCII text art online for free. Matrix phosphor green, full-color ANSI, Unicode blocks, and TXT/PNG export.",
+    "keywords": "ascii art generator online, image to ascii text, picture to text art free, matrix ascii generator, copy ascii art to clipboard",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Select your photo to generate ASCII characters."
+      },
+      {
+        "name": "Choose Character Style",
+        "text": "Pick from classic 10-char, 70-char dense, or Matrix green themes."
+      },
+      {
+        "name": "Copy or Save",
+        "text": "Copy directly to clipboard or download as TXT, HTML, or PNG image."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "ASCII Art Generator - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "image-to-text-art": {
+    "title": "Image to Text Art Converter Online Free | ImagePlumber",
+    "description": "Convert photos into monospace character art with adjustable resolution and instant Discord/Slack code block formatting.",
+    "keywords": "image to text art converter, photo to character text, text portrait maker online, convert picture to letters free",
+    "howTo": [
+      {
+        "name": "Upload Image",
+        "text": "Drop any photo into the text art generator."
+      },
+      {
+        "name": "Adjust Columns",
+        "text": "Tune column count for compact or high-definition text output."
+      },
+      {
+        "name": "Download Text Art",
+        "text": "Export as .txt file or copy to clipboard."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Image to Text Art - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "ansi-art": {
+    "title": "ANSI Art & Full-Color ASCII Generator Online | ImagePlumber",
+    "description": "Generate vibrant full-color ANSI text art and HTML colored character streams with 100% in-browser rendering.",
+    "keywords": "ansi art generator, colored ascii art maker, html ascii art generator, color text art from image, ansi text generator free",
+    "howTo": [
+      {
+        "name": "Upload Image",
+        "text": "Select your graphic to map onto colored ANSI characters."
+      },
+      {
+        "name": "Choose ANSI Mode",
+        "text": "Select Full-Color ANSI to preserve RGB pixel colors across characters."
+      },
+      {
+        "name": "Export Colored Webpage",
+        "text": "Save as standalone HTML web file or rendered PNG image."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "ANSI Art Generator - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "glitch-image-generator": {
+    "title": "Glitch Image Generator & CRT VHS Distortion Free | ImagePlumber",
+    "description": "Create surreal cyberpunk glitch art with RGB channel displacement, datamoshing slice corruption, and CRT scanlines online for free.",
+    "keywords": "glitch image generator, glitch art online free, rgb chromatic aberration tool, datamosh photo effect, vhs glitch photo editor",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Drop your image into the glitch studio."
+      },
+      {
+        "name": "Tweak Glitch Controls",
+        "text": "Adjust RGB split, slice displacement, and CRT scanlines or click Surprise Me."
+      },
+      {
+        "name": "Download Glitch Art",
+        "text": "Save high-resolution glitch artwork in lossless PNG, JPEG, or WebP."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Glitch Image Generator - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "crt-tv-filter": {
+    "title": "CRT TV Filter & Scanlines Online Free | ImagePlumber",
+    "description": "Simulate authentic retro cathode-ray tube television scanlines, phosphor glow, and analog noise on photos for free.",
+    "keywords": "crt tv filter online, retro scanlines generator, cathode ray tube photo effect, retro tv screen filter free, phosphor glow image editor",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Drop your image to apply retro television effects."
+      },
+      {
+        "name": "Set Scanline Density",
+        "text": "Adjust scanline darkness and analog noise level."
+      },
+      {
+        "name": "Export Retro Image",
+        "text": "Download with full CRT scanline overlay."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "CRT TV Filter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "vhs-effect": {
+    "title": "VHS Effect & Retro Tape Glitch Online Free | ImagePlumber",
+    "description": "Apply nostalgic 1980s VHS tape static, chromatic RGB channel split, and magnetic analog tracking distortion to photos.",
+    "keywords": "vhs effect online free, 80s vhs photo filter, retro video tape distortion, analog vhs glitch generator, vintage camcorder filter",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Select your photo for retro VHS grading."
+      },
+      {
+        "name": "Adjust Noise & Tape Shift",
+        "text": "Tune chromatic aberration and static noise."
+      },
+      {
+        "name": "Save VHS Photo",
+        "text": "Download the 80s aesthetic photo in high resolution."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "VHS Effect Generator - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
   "about": {
     "title": "About Our Offline Privacy Tools | ImagePlumber",
     "description": "Learn about ImagePlumber and our absolute privacy commitment. We run 100% client-side web sandbox processing without cloud databases or server uploads.",

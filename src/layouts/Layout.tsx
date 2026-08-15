@@ -34,7 +34,10 @@ import {
   Search,
   RotateCw,
   Square,
-  Wand2
+  Wand2,
+  Gamepad2,
+  Terminal,
+  Zap
 } from 'lucide-react';
 import { AdPlacement } from '../components/AdPlacement';
 import { CommandPalette } from '../components/CommandPalette';
@@ -417,6 +420,30 @@ export const Layout = () => {
       category: 'image-editing',
       description: 'Design custom top/bottom captioned memes.',
       colorClass: 'text-green-600 bg-green-50 border-green-100/50 dark:text-green-400 dark:bg-green-950/30 dark:border-green-900/30'
+    },
+    { 
+      name: 'Pixel Art & 8-Bit Converter', 
+      path: '/pixel-art-generator', 
+      icon: Gamepad2,
+      category: 'image-editing',
+      description: 'Game Boy, NES & PICO-8 retro dithering palettes.',
+      colorClass: 'text-fuchsia-650 bg-fuchsia-50 border-fuchsia-100/50 dark:text-fuchsia-400 dark:bg-fuchsia-950/30 dark:border-fuchsia-900/30'
+    },
+    { 
+      name: 'ASCII & Text Art Generator', 
+      path: '/ascii-art-generator', 
+      icon: Terminal,
+      category: 'image-editing',
+      description: 'Matrix green, ANSI colors & 1-click clipboard copy.',
+      colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
+    },
+    { 
+      name: 'Glitch Art & CRT Distortion', 
+      path: '/glitch-image-generator', 
+      icon: Zap,
+      category: 'image-editing',
+      description: 'RGB chromatic split, datamoshing & CRT scanlines.',
+      colorClass: 'text-violet-650 bg-violet-50 border-violet-100/50 dark:text-violet-400 dark:bg-violet-950/30 dark:border-violet-900/30'
     },
   ];
 

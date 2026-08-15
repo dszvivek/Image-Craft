@@ -54,6 +54,9 @@ const BorderExpander = safeLazy(() => import('../pages/BorderExpander').then(mod
 const PhotoFilterStudio = safeLazy(() => import('../pages/PhotoFilterStudio').then(module => ({ default: module.PhotoFilterStudio })));
 const ColorInverter = safeLazy(() => import('../pages/ColorInverter').then(module => ({ default: module.ColorInverter })));
 const ImageAdjuster = safeLazy(() => import('../pages/ImageAdjuster').then(module => ({ default: module.ImageAdjuster })));
+const PixelArtGenerator = safeLazy(() => import('../pages/PixelArtGenerator').then(module => ({ default: module.PixelArtGenerator })));
+const AsciiArtGenerator = safeLazy(() => import('../pages/AsciiArtGenerator').then(module => ({ default: module.AsciiArtGenerator })));
+const GlitchArtStudio = safeLazy(() => import('../pages/GlitchArtStudio').then(module => ({ default: module.GlitchArtStudio })));
 const About = safeLazy(() => import('../pages/About').then(module => ({ default: module.About })));
 const Privacy = safeLazy(() => import('../pages/Privacy').then(module => ({ default: module.Privacy })));
 const Contact = safeLazy(() => import('../pages/Contact').then(module => ({ default: module.Contact })));
@@ -483,6 +486,78 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: 'pixel-art-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PixelArtGenerator />
+          </Suspense>
+        ),
+      },
+      {
+        path: '8-bit-photo-converter',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PixelArtGenerator pageTitle="8-Bit Photo Converter Online Free" pageSubtitle="Convert photos into authentic 8-bit retro pixel art with Game Boy, NES, and PICO-8 palettes." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pixelate-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PixelArtGenerator pageTitle="Pixelate Image Online Free" pageSubtitle="Apply custom pixel block sizes and dithering algorithms to photos in your browser." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'ascii-art-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AsciiArtGenerator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'image-to-text-art',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AsciiArtGenerator pageTitle="Image to Text Art Converter" pageSubtitle="Map photo brightness to ASCII character sets with instant clipboard copy and TXT/PNG export." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'ansi-art',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AsciiArtGenerator pageTitle="ANSI Art & Colored ASCII Generator" pageSubtitle="Generate full-color ANSI text art and Matrix phosphor green character streams." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'glitch-image-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <GlitchArtStudio />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'crt-tv-filter',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <GlitchArtStudio pageTitle="CRT TV Filter & Scanlines Online" pageSubtitle="Simulate retro cathode ray tube scanlines, phosphor glow, and analog screen curvature." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'vhs-effect',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <GlitchArtStudio pageTitle="VHS Effect & Glitch Art Generator" pageSubtitle="Apply vintage 1980s VHS tape static, noise, and RGB chromatic aberration distortion." />
+          </Suspense>
+        ),
+      },
+      {
         path: 'about',
         element: (
           <Suspense fallback={<PageLoader />}>
@@ -643,6 +718,30 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'es/arte-pixel',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PixelArtGenerator pageTitle="Generador de Pixel Art y 8-Bits Online" pageSubtitle="Convierte fotos en arte pixel retro con paletas de Game Boy, NES y dithering." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/arte-ascii',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AsciiArtGenerator pageTitle="Generador de Arte ASCII Online Gratis" pageSubtitle="Convierte fotos a texto ASCII con temas verde Matrix, color ANSI y exportación PNG." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/efecto-glitch',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <GlitchArtStudio pageTitle="Generador de Efecto Glitch y Líneas CRT" pageSubtitle="Crea aberración cromática RGB, datamoshing y distorsión retro VHS 100% local." />
+          </Suspense>
+        ),
+      },
       // Portuguese Localized Routes (i18n Phase 2)
       {
         path: 'pt',
@@ -769,6 +868,30 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <MetadataStripper pageTitle="Ver e Remover Metadados EXIF Online" pageSubtitle="Inspecione configurações da câmera, GPS e limpe dados privados em local." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/arte-pixel',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PixelArtGenerator pageTitle="Gerador de Pixel Art e 8-Bits Online" pageSubtitle="Transforme fotos em pixel art retrô com paletas Game Boy, NES e dithering." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/arte-ascii',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AsciiArtGenerator pageTitle="Gerador de Arte ASCII Online Grátis" pageSubtitle="Converta fotos em texto ASCII com temas Matrix, cores ANSI e exportação PNG." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/efeito-glitch',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <GlitchArtStudio pageTitle="Gerador de Efeito Glitch e Linhas CRT" pageSubtitle="Crie aberração cromática RGB, datamoshing e distorção retrô VHS no navegador." />
           </Suspense>
         ),
       },
@@ -901,6 +1024,30 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'hi/pixel-art-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PixelArtGenerator pageTitle="Pixel Art & 8-Bit Photo Converter" pageSubtitle="फोटो को 8-बिट पिक्सेल आर्ट और रेट्रो गेम बॉय स्टाइल में बदलें फ्री में।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/ascii-art-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AsciiArtGenerator pageTitle="ASCII Art & Text Art Generator Hindi" pageSubtitle="फोटो को ASCII कैरेक्टर आर्ट में बदलें और 1-क्लिक में कॉपी या PNG सेव करें।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/glitch-art-studio',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <GlitchArtStudio pageTitle="Glitch Art & CRT TV Effect Generator" pageSubtitle="फोटो में RGB क्रोमैटिक एबरेशन, स्कैनलाइन्स और रेट्रो ग्लिच इफेक्ट लगाएं।" />
+          </Suspense>
+        ),
+      },
       // French Localized Routes (i18n Phase 2)
       {
         path: 'fr',
@@ -1030,6 +1177,30 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'fr/pixel-art',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PixelArtGenerator pageTitle="Générateur de Pixel Art et 8-Bits en Ligne" pageSubtitle="Transformez vos photos en pixel art rétro avec palettes Game Boy et tramage Floyd-Steinberg." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/art-ascii',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AsciiArtGenerator pageTitle="Générateur d'Art ASCII en Ligne Gratuit" pageSubtitle="Convertissez vos photos en texte ASCII avec thèmes Matrix vert et export PNG." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/effet-glitch',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <GlitchArtStudio pageTitle="Générateur d'Effet Glitch et Lignes CRT" pageSubtitle="Créez aberration chromatique RGB, datamoshing et distorsion rétro VHS dans votre navigateur." />
+          </Suspense>
+        ),
+      },
       // German Localized Routes (i18n Phase 2)
       {
         path: 'de',
@@ -1156,6 +1327,30 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <MetadataStripper pageTitle="EXIF-Daten Anzeigen & Löschen" pageSubtitle="Inspizieren Sie Kameraeinstellungen, GPS und bereinigen Sie sensible Daten lokal." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/pixel-art-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PixelArtGenerator pageTitle="Pixel Art & 8-Bit Bildkonverter Online" pageSubtitle="Verwandeln Sie Fotos in 8-Bit Retro Pixel-Art mit Game Boy Farbpaletten und Dithering." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/ascii-art-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AsciiArtGenerator pageTitle="ASCII Art Generator Online Kostenlos" pageSubtitle="Konvertieren Sie Fotos in ASCII-Textkunst mit Matrix-Grün-Themes und PNG-Export." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/glitch-effekt',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <GlitchArtStudio pageTitle="Glitch Art & CRT Scanline Generator" pageSubtitle="Erzeugen Sie RGB Farbverschiebung, Datamoshing und VHS Retro-Verzerrung im Browser." />
           </Suspense>
         ),
       },

@@ -162,5 +162,20 @@
     "title": "Afficher et Supprimer Métadonnées EXIF Photo | ImagePlumber",
     "description": "Inspectez les données GPS et de l'appareil photo et supprimez toutes les données privées en local.",
     "keywords": "supprimer metadonnees photo, effacer gps photo, visualiseur exif gratuit, nettoyer donnees exif"
+  },
+  "pixel-art": {
+    "title": "Générateur de Pixel Art et Convertisseur 8-Bits | ImagePlumber",
+    "description": "Transformez vos photos en pixel art rétro avec palettes Game Boy, NES et tramage Floyd-Steinberg.",
+    "keywords": "generateur pixel art, convertir photo en 8 bits, filtre game boy en ligne, pixeliser image gratuit, art retro 8 bit"
+  },
+  "art-ascii": {
+    "title": "Générateur d'Art ASCII et Texte depuis Photos | ImagePlumber",
+    "description": "Convertissez des photos en art de texte ASCII avec thèmes Matrix vert, couleurs ANSI et export PNG.",
+    "keywords": "generateur art ascii, photo en texte lettres, convertir image en ascii gratuit, copier art ascii"
+  },
+  "effet-glitch": {
+    "title": "Générateur d'Effet Glitch et Lignes CRT en Ligne | ImagePlumber",
+    "description": "Créez aberration chromatique RGB, datamoshing et distorsion rétro VHS 100% dans votre navigateur.",
+    "keywords": "generateur effet glitch, art glitch gratuit, filtre vhs retro, lignes crt television, distorsion photo"
   }
 }

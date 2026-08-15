@@ -27,7 +27,9 @@ import {
   RotateCw,
   Square,
   Wand2,
-  Moon
+  Moon,
+  Gamepad2,
+  Terminal
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
@@ -238,6 +240,33 @@ const toolDirectory = [
     description: 'Add draggable top and bottom text overlays onto images with classic styling.',
     badge: 'Social Meme',
     colorClass: 'text-green-650 bg-green-50 border-green-100/50 hover:border-green-300 dark:text-green-400 dark:bg-green-950/30 dark:border-green-900/30'
+  },
+  {
+    name: 'Pixel Art & 8-Bit Converter',
+    path: '/pixel-art-generator',
+    icon: Gamepad2,
+    category: 'image-editing',
+    description: 'Convert photos to 8-bit retro pixel art with Game Boy, NES, and PICO-8 dithering.',
+    badge: 'Retro Gaming',
+    colorClass: 'text-fuchsia-650 bg-fuchsia-50 border-fuchsia-100/50 hover:border-fuchsia-300 dark:text-fuchsia-400 dark:bg-fuchsia-950/30 dark:border-fuchsia-900/30'
+  },
+  {
+    name: 'ASCII & Text Art Generator',
+    path: '/ascii-art-generator',
+    icon: Terminal,
+    category: 'image-editing',
+    description: 'Convert photos into terminal ASCII character artwork with Matrix phosphor green and ANSI colors.',
+    badge: 'Typographic',
+    colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 hover:border-emerald-300 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
+  },
+  {
+    name: 'Glitch Art & CRT Distortion',
+    path: '/glitch-image-generator',
+    icon: Zap,
+    category: 'image-editing',
+    description: 'Generate RGB chromatic aberration, datamoshing slice corruption, and retro CRT television scanlines.',
+    badge: 'Cyberpunk',
+    colorClass: 'text-violet-650 bg-violet-50 border-violet-100/50 hover:border-violet-300 dark:text-violet-400 dark:bg-violet-950/30 dark:border-violet-900/30'
   }
 ];
 

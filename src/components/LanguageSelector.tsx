@@ -125,6 +125,27 @@ const TOOL_EQUIVALENTS: Record<string, Record<string, string>> = {
     fr: 'supprimer-metadonnees',
     de: 'metadaten-entfernen',
   },
+  'pixel-art-generator': {
+    es: 'arte-pixel',
+    pt: 'arte-pixel',
+    hi: 'pixel-art-generator',
+    fr: 'pixel-art',
+    de: 'pixel-art-generator',
+  },
+  'ascii-art-generator': {
+    es: 'arte-ascii',
+    pt: 'arte-ascii',
+    hi: 'ascii-art-generator',
+    fr: 'art-ascii',
+    de: 'ascii-art-generator',
+  },
+  'glitch-image-generator': {
+    es: 'efecto-glitch',
+    pt: 'efeito-glitch',
+    hi: 'glitch-art-studio',
+    fr: 'effet-glitch',
+    de: 'glitch-effekt',
+  },
 };
 
 // Reverse map to find standard English route from localized path
@@ -144,6 +165,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'es/generador-memes': 'meme-generator',
   'es/marca-de-agua': 'watermark-overlay',
   'es/eliminar-metadatos': 'metadata-stripper',
+  'es/arte-pixel': 'pixel-art-generator',
+  'es/arte-ascii': 'ascii-art-generator',
+  'es/efecto-glitch': 'glitch-image-generator',
   'pt/comprimir-imagem': 'image-compressor',
   'pt/remover-fundo': 'background-remover',
   'pt/conversor-em-lote': 'batch-converter',
@@ -159,6 +183,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'pt/gerador-memes': 'meme-generator',
   'pt/marca-dagua': 'watermark-overlay',
   'pt/remover-metadados': 'metadata-stripper',
+  'pt/arte-pixel': 'pixel-art-generator',
+  'pt/arte-ascii': 'ascii-art-generator',
+  'pt/efeito-glitch': 'glitch-image-generator',
   'hi/photo-compress-kare': 'image-compressor',
   'hi/background-hataye': 'background-remover',
   'hi/batch-converter': 'batch-converter',
@@ -174,6 +201,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'hi/meme-generator': 'meme-generator',
   'hi/watermark-lagaye': 'watermark-overlay',
   'hi/exif-metadata-hataye': 'metadata-stripper',
+  'hi/pixel-art-generator': 'pixel-art-generator',
+  'hi/ascii-art-generator': 'ascii-art-generator',
+  'hi/glitch-art-studio': 'glitch-image-generator',
   'fr/compresser-image': 'image-compressor',
   'fr/supprimer-arriere-plan': 'background-remover',
   'fr/convertisseur-par-lots': 'batch-converter',
@@ -189,6 +219,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'fr/generateur-memes': 'meme-generator',
   'fr/filigrane-image': 'watermark-overlay',
   'fr/supprimer-metadonnees': 'metadata-stripper',
+  'fr/pixel-art': 'pixel-art-generator',
+  'fr/art-ascii': 'ascii-art-generator',
+  'fr/effet-glitch': 'glitch-image-generator',
   'de/bild-komprimieren': 'image-compressor',
   'de/hintergrund-entfernen': 'background-remover',
   'de/stapel-konverter': 'batch-converter',
@@ -204,6 +237,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'de/meme-generator': 'meme-generator',
   'de/wasserzeichen-hinzufuegen': 'watermark-overlay',
   'de/metadaten-entfernen': 'metadata-stripper',
+  'de/pixel-art-generator': 'pixel-art-generator',
+  'de/ascii-art-generator': 'ascii-art-generator',
+  'de/glitch-effekt': 'glitch-image-generator',
 };
 
 interface LanguageSelectorProps {
