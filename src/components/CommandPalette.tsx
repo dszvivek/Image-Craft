@@ -23,7 +23,17 @@ import {
   Sun, 
   Moon, 
   ShieldCheck, 
-  HelpCircle
+  HelpCircle,
+  RotateCw,
+  Square,
+  Wand2,
+  Sliders,
+  Gamepad2,
+  Terminal,
+  Zap,
+  ArrowLeftRight,
+  ShieldAlert,
+  Lock
 } from 'lucide-react';
 
 interface CommandPaletteProps {
@@ -112,12 +122,122 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     {
       id: 'meme',
       name: 'Instant Meme Generator',
-      description: 'Create custom captioned memes with draggable text layers',
+      description: 'Create custom captioned memes with draggable text layers and curated fonts',
       path: '/meme-generator',
       category: 'AI & Image Editing',
       icon: Smile,
       badge: 'Meme',
       colorClass: 'text-green-600 bg-green-50 dark:bg-green-950/40 dark:text-green-400'
+    },
+    {
+      id: 'crop-image',
+      name: 'Interactive Image Cropper',
+      description: 'Crop images with 8-point handle, aspect ratio presets & passport photo mode',
+      path: '/crop-image',
+      category: 'AI & Image Editing',
+      icon: Crop,
+      badge: 'Crop',
+      colorClass: 'text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 dark:text-indigo-400'
+    },
+    {
+      id: 'rotate-image',
+      name: 'Image Rotator & Straightener',
+      description: 'Rotate 90°, mirror flip, and level horizon tilt angles with fine straightener',
+      path: '/rotate-image',
+      category: 'AI & Image Editing',
+      icon: RotateCw,
+      badge: 'Rotate',
+      colorClass: 'text-blue-600 bg-blue-50 dark:bg-blue-950/40 dark:text-blue-400'
+    },
+    {
+      id: 'border-expander',
+      name: 'Canvas Border Expander',
+      description: 'Add solid color frames, frosted blurred margins, and soft drop shadows',
+      path: '/add-border-to-image',
+      category: 'AI & Image Editing',
+      icon: Square,
+      badge: 'Border',
+      colorClass: 'text-amber-600 bg-amber-50 dark:bg-amber-950/40 dark:text-amber-400'
+    },
+    {
+      id: 'photo-filters',
+      name: 'Photo Filter & Duotone Studio',
+      description: 'Apply 12 aesthetic photo filters and custom duotone gradient maps',
+      path: '/photo-filters',
+      category: 'AI & Image Editing',
+      icon: Wand2,
+      badge: 'Filters',
+      colorClass: 'text-purple-600 bg-purple-50 dark:bg-purple-950/40 dark:text-purple-400'
+    },
+    {
+      id: 'invert-colors',
+      name: 'Color Inverter & B&W Converter',
+      description: 'Invert colors to photographic negative and generate Otsu binary B&W',
+      path: '/invert-colors',
+      category: 'AI & Image Editing',
+      icon: Moon,
+      badge: 'Invert',
+      colorClass: 'text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 dark:text-indigo-400'
+    },
+    {
+      id: 'adjust-image',
+      name: 'Image Adjuster & Color Tuner',
+      description: 'Tune exposure, brightness, contrast, sharpness & 1-click Auto Enhance',
+      path: '/adjust-image',
+      category: 'AI & Image Editing',
+      icon: Sliders,
+      badge: 'Adjust',
+      colorClass: 'text-blue-600 bg-blue-50 dark:bg-blue-950/40 dark:text-blue-400'
+    },
+    {
+      id: 'pixel-art',
+      name: 'Pixel Art & 8-Bit Converter',
+      description: 'Retro 8-bit pixel art generator with Game Boy palettes and Floyd-Steinberg dithering',
+      path: '/pixel-art-generator',
+      category: 'AI & Image Editing',
+      icon: Gamepad2,
+      badge: 'Pixel Art',
+      colorClass: 'text-fuchsia-600 bg-fuchsia-50 dark:bg-fuchsia-950/40 dark:text-fuchsia-400'
+    },
+    {
+      id: 'ascii-art',
+      name: 'ASCII & Text Art Generator',
+      description: 'Convert photos to terminal ASCII text art with Matrix green and ANSI color styles',
+      path: '/ascii-art-generator',
+      category: 'AI & Image Editing',
+      icon: Terminal,
+      badge: 'ASCII',
+      colorClass: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 dark:text-emerald-400'
+    },
+    {
+      id: 'glitch-art',
+      name: 'Glitch Art & CRT Distortion',
+      description: 'RGB chromatic split, digital datamoshing slices, and retro CRT television scanlines',
+      path: '/glitch-image-generator',
+      category: 'AI & Image Editing',
+      icon: Zap,
+      badge: 'Glitch',
+      colorClass: 'text-violet-600 bg-violet-50 dark:bg-violet-950/40 dark:text-violet-400'
+    },
+    {
+      id: 'redact-image',
+      name: 'Photo Redactor & Censor Studio',
+      description: 'Permanently censor private data, blur faces, and blackout ID numbers with zero server leaks',
+      path: '/redact-image',
+      category: 'AI & Image Editing',
+      icon: ShieldAlert,
+      badge: 'Redact',
+      colorClass: 'text-red-600 bg-red-50 dark:bg-red-950/40 dark:text-red-400'
+    },
+    {
+      id: 'steganography',
+      name: 'Image Steganography & Secret Text',
+      description: 'Invisibly embed and extract encrypted secret messages inside photos using LSB encoding',
+      path: '/image-steganography',
+      category: 'AI & Image Editing',
+      icon: Lock,
+      badge: 'Stego',
+      colorClass: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 dark:text-emerald-400'
     },
 
     // Optimization & Formats
@@ -153,6 +273,26 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     },
 
     // Layout & Grid
+    {
+      id: 'side-by-side',
+      name: 'Side-by-Side & Before/After Combiner',
+      description: 'Combine two photos horizontally or vertically with Before/After badges & divider borders',
+      path: '/side-by-side-image',
+      category: 'Layout & Grid',
+      icon: ArrowLeftRight,
+      badge: 'Compare',
+      colorClass: 'text-blue-600 bg-blue-50 dark:bg-blue-950/40 dark:text-blue-400'
+    },
+    {
+      id: 'panorama-splitter',
+      name: 'Instagram Panorama & Carousel Splitter',
+      description: 'Split wide panoramic landscape photos into seamless 4:5 swipe carousels with ZIP download',
+      path: '/instagram-panorama-splitter',
+      category: 'Layout & Grid',
+      icon: Maximize2,
+      badge: 'Panorama',
+      colorClass: 'text-pink-600 bg-pink-50 dark:bg-pink-950/40 dark:text-pink-400'
+    },
     {
       id: 'aspect-resizer',
       name: 'Aspect Resizer & Smart Crop',

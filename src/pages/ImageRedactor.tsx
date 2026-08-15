@@ -207,20 +207,20 @@ export const ImageRedactor: React.FC<ImageRedactorProps> = ({
   ]);
 
   // Coordinate Conversion Helper
-  const getCanvasCoords = (e: React.MouseEvent<HTMLCanvasElement>): { x: number; y: number } | null => {
+  const getCanvasCoords = (clientX: number, clientY: number): { x: number; y: number } | null => {
     const canvas = canvasRef.current;
     if (!canvas) return null;
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
 
-    const x = Math.round((e.clientX - rect.left) * scaleX);
-    const y = Math.round((e.clientY - rect.top) * scaleY);
+    const x = Math.round((clientX - rect.left) * scaleX);
+    const y = Math.round((clientY - rect.top) * scaleY);
     return { x: Math.max(0, Math.min(x, canvas.width)), y: Math.max(0, Math.min(y, canvas.height)) };
   };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    const pos = getCanvasCoords(e);
+    const pos = getCanvasCoords(e.clientX, e.clientY);
     if (!pos) return;
     setIsDrawing(true);
     setStartPos(pos);
@@ -229,7 +229,23 @@ export const ImageRedactor: React.FC<ImageRedactorProps> = ({
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing) return;
-    const pos = getCanvasCoords(e);
+    const pos = getCanvasCoords(e.clientX, e.clientY);
+    if (!pos) return;
+    setCurrentPos(pos);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!e.touches[0]) return;
+    const pos = getCanvasCoords(e.touches[0].clientX, e.touches[0].clientY);
+    if (!pos) return;
+    setIsDrawing(true);
+    setStartPos(pos);
+    setCurrentPos(pos);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!isDrawing || !e.touches[0]) return;
+    const pos = getCanvasCoords(e.touches[0].clientX, e.touches[0].clientY);
     if (!pos) return;
     setCurrentPos(pos);
   };
@@ -642,7 +658,11 @@ export const ImageRedactor: React.FC<ImageRedactorProps> = ({
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUp}
                     onMouseLeave={handleMouseUp}
-                    className="max-w-full max-h-[600px] object-contain select-none"
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleMouseUp}
+                    onTouchCancel={handleMouseUp}
+                    className="max-w-full max-h-[600px] object-contain select-none touch-none"
                   />
                 </div>
               </div>

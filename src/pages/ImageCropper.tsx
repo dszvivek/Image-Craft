@@ -156,12 +156,27 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
     });
   };
 
+  const handleTouchStart = (
+    e: React.TouchEvent,
+    type: 'move' | 'nw' | 'ne' | 'se' | 'sw' | 'n' | 'e' | 's' | 'w'
+  ) => {
+    e.stopPropagation();
+    const touch = e.touches[0];
+    if (!touch) return;
+    setDragAction({
+      type,
+      startX: touch.clientX,
+      startY: touch.clientY,
+      startCrop: { ...cropBox },
+    });
+  };
+
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMoveCoord = (clientX: number, clientY: number) => {
       if (!dragAction || displayRect.width === 0 || displayRect.height === 0) return;
 
-      const dx = (e.clientX - dragAction.startX) / displayRect.width;
-      const dy = (e.clientY - dragAction.startY) / displayRect.height;
+      const dx = (clientX - dragAction.startX) / displayRect.width;
+      const dy = (clientY - dragAction.startY) / displayRect.height;
       const { startCrop, type } = dragAction;
       const preset = PRESETS.find(p => p.id === selectedPreset);
       const ratio = preset?.ratio;
@@ -198,19 +213,13 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
 
         // Apply locked aspect ratio if preset selected
         if (ratio && imageSize.width > 0 && imageSize.height > 0) {
-          const naturalRatio = imageSize.width / imageSize.height;
-          if (type === 'e' || type === 'w' || type === 'se' || type === 'sw') {
-            nextH = (nextW * naturalRatio) / ratio;
-            if (nextY + nextH > 1) {
-              nextH = 1 - nextY;
-              nextW = (nextH * ratio) / naturalRatio;
-            }
-          } else if (type === 'n' || type === 's' || type === 'ne' || type === 'nw') {
-            nextW = (nextH * ratio) / naturalRatio;
-            if (nextX + nextW > 1) {
-              nextW = 1 - nextX;
-              nextH = (nextW * naturalRatio) / ratio;
-            }
+          const currentPixelW = nextW * imageSize.width;
+          const currentPixelH = nextH * imageSize.height;
+
+          if (type.includes('e') || type.includes('w')) {
+            nextH = currentPixelW / (ratio * imageSize.height);
+          } else {
+            nextW = (currentPixelH * ratio) / imageSize.width;
           }
         }
       }
@@ -223,17 +232,33 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
       });
     };
 
-    const handleMouseUp = () => {
+    const handleMouseMove = (e: MouseEvent) => {
+      handleMoveCoord(e.clientX, e.clientY);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches[0]) {
+        handleMoveCoord(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    };
+
+    const handleEnd = () => {
       setDragAction(null);
     };
 
     if (dragAction) {
       window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
+      window.addEventListener('mouseup', handleEnd);
+      window.addEventListener('touchmove', handleTouchMove);
+      window.addEventListener('touchend', handleEnd);
+      window.addEventListener('touchcancel', handleEnd);
     }
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('mouseup', handleEnd);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleEnd);
+      window.removeEventListener('touchcancel', handleEnd);
     };
   }, [dragAction, displayRect, selectedPreset, imageSize]);
 
@@ -529,8 +554,9 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
                   >
                     {/* Crop Border Box */}
                     <div
-                      className="w-full h-full border-2 border-white cursor-move relative"
+                      className="w-full h-full border-2 border-white cursor-move relative touch-none"
                       onMouseDown={(e) => handleMouseDown(e, 'move')}
+                      onTouchStart={(e) => handleTouchStart(e, 'move')}
                     >
                       {/* Composition Grid Lines */}
                       {gridType === 'thirds' && (
@@ -560,37 +586,45 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
                       {/* Corner Handles */}
                       <div
                         onMouseDown={(e) => handleMouseDown(e, 'nw')}
-                        className="absolute -top-2 -left-2 w-4 h-4 bg-white border-2 border-indigo-600 rounded-sm cursor-nw-resize shadow-md"
+                        onTouchStart={(e) => handleTouchStart(e, 'nw')}
+                        className="absolute -top-2 -left-2 w-4 h-4 bg-white border-2 border-indigo-600 rounded-sm cursor-nw-resize shadow-md touch-none"
                       />
                       <div
                         onMouseDown={(e) => handleMouseDown(e, 'ne')}
-                        className="absolute -top-2 -right-2 w-4 h-4 bg-white border-2 border-indigo-600 rounded-sm cursor-ne-resize shadow-md"
+                        onTouchStart={(e) => handleTouchStart(e, 'ne')}
+                        className="absolute -top-2 -right-2 w-4 h-4 bg-white border-2 border-indigo-600 rounded-sm cursor-ne-resize shadow-md touch-none"
                       />
                       <div
                         onMouseDown={(e) => handleMouseDown(e, 'sw')}
-                        className="absolute -bottom-2 -left-2 w-4 h-4 bg-white border-2 border-indigo-600 rounded-sm cursor-sw-resize shadow-md"
+                        onTouchStart={(e) => handleTouchStart(e, 'sw')}
+                        className="absolute -bottom-2 -left-2 w-4 h-4 bg-white border-2 border-indigo-600 rounded-sm cursor-sw-resize shadow-md touch-none"
                       />
                       <div
                         onMouseDown={(e) => handleMouseDown(e, 'se')}
-                        className="absolute -bottom-2 -right-2 w-4 h-4 bg-white border-2 border-indigo-600 rounded-sm cursor-se-resize shadow-md"
+                        onTouchStart={(e) => handleTouchStart(e, 'se')}
+                        className="absolute -bottom-2 -right-2 w-4 h-4 bg-white border-2 border-indigo-600 rounded-sm cursor-se-resize shadow-md touch-none"
                       />
 
                       {/* Mid Handles */}
                       <div
                         onMouseDown={(e) => handleMouseDown(e, 'n')}
-                        className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-6 h-2.5 bg-white border border-indigo-600 rounded-sm cursor-n-resize shadow-sm"
+                        onTouchStart={(e) => handleTouchStart(e, 'n')}
+                        className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-6 h-2.5 bg-white border border-indigo-600 rounded-sm cursor-n-resize shadow-sm touch-none"
                       />
                       <div
                         onMouseDown={(e) => handleMouseDown(e, 's')}
-                        className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-6 h-2.5 bg-white border border-indigo-600 rounded-sm cursor-s-resize shadow-sm"
+                        onTouchStart={(e) => handleTouchStart(e, 's')}
+                        className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-6 h-2.5 bg-white border border-indigo-600 rounded-sm cursor-s-resize shadow-sm touch-none"
                       />
                       <div
                         onMouseDown={(e) => handleMouseDown(e, 'w')}
-                        className="absolute top-1/2 -left-1.5 -translate-y-1/2 w-2.5 h-6 bg-white border border-indigo-600 rounded-sm cursor-w-resize shadow-sm"
+                        onTouchStart={(e) => handleTouchStart(e, 'w')}
+                        className="absolute top-1/2 -left-1.5 -translate-y-1/2 w-2.5 h-6 bg-white border border-indigo-600 rounded-sm cursor-w-resize shadow-sm touch-none"
                       />
                       <div
                         onMouseDown={(e) => handleMouseDown(e, 'e')}
-                        className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-2.5 h-6 bg-white border border-indigo-600 rounded-sm cursor-e-resize shadow-sm"
+                        onTouchStart={(e) => handleTouchStart(e, 'e')}
+                        className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-2.5 h-6 bg-white border border-indigo-600 rounded-sm cursor-e-resize shadow-sm touch-none"
                       />
 
                       {/* Floating Dimension Tag */}
