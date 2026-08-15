@@ -1,0 +1,121 @@
+{
+  "": {
+    "title": "ImagePlumber - Kostenlose & 100% Private Bildbearbeitungstools",
+    "description": "Umfassende Suite für Bild- und Dokumentbearbeitung im Browser. Fotos komprimieren, Hintergründe mit KI entfernen und PDFs unterschreiben ohne Cloud-Uploads.",
+    "keywords": "kostenlose bildtools, bild komprimieren, hintergrund entfernen KI, PDF unterschreiben online, PNG in JPG umwandeln, offline foto editor"
+  },
+  "bild-komprimieren": {
+    "title": "Bilder Online Kostenlos Komprimieren (100% Privat) | ImagePlumber",
+    "description": "Reduzieren Sie die Dateigröße von JPEG, PNG und WebP um bis zu 90% ohne sichtbaren Qualitätsverlust. Vollständig lokale Ausführung im Browser.",
+    "keywords": "bild komprimieren, foto verkleinern, JPG komprimieren kostenlos, PNG optimizer online, tinypng alternative kostenlos",
+    "howTo": [
+      {
+        "name": "Bild Auswählen",
+        "text": "Wählen Sie JPG, PNG oder WebP Bilder von Ihrem Gerät aus."
+      },
+      {
+        "name": "Qualität Einstellen",
+        "text": "Passen Sie den Schieberegler für Dateigröße und Schärfe an."
+      },
+      {
+        "name": "Komprimiertes Bild Herunterladen",
+        "text": "Speichern Sie das optimierte Bild ohne Server-Wartezeiten."
+      }
+    ]
+  },
+  "hintergrund-entfernen": {
+    "title": "Hintergrund Kostenlos Entfernen mit KI | ImagePlumber",
+    "description": "Entfernen Sie Fotohintergründe in Sekundenschnelle mit lokaler künstlicher Intelligenz. Transparentes PNG ohne Server-Uploads erhalten.",
+    "keywords": "hintergrund entfernen, transparenten hintergrund erstellen, fotohintergrund freistellen, KI freistellen kostenlos, remove bg alternative",
+    "howTo": [
+      {
+        "name": "Foto Hochladen",
+        "text": "Ziehen Sie Ihr Foto in den Browser-Arbeitsbereich."
+      },
+      {
+        "name": "Automatische KI-Freistellung",
+        "text": "Das lokale neuronale Netz isoliert das Hauptmotiv präzise."
+      },
+      {
+        "name": "Transparentes PNG Speichern",
+        "text": "Laden Sie das freigestellte Bild in voller Auflösung herunter."
+      }
+    ]
+  },
+  "stapel-konverter": {
+    "title": "Stapel-Bildkonverter & PDF-Maker Kostenlos | ImagePlumber",
+    "description": "Konvertieren Sie mehrere Bilder im Stapel in WebP, PNG, JPEG oder PDF. Führen Sie Fotos zu einem einzigen PDF-Dokument zusammen.",
+    "keywords": "stapel bildkonverter, bilder in pdf umwandeln, JPG in PDF, PNG in PDF, fotos zusammenfugen pdf",
+    "howTo": [
+      {
+        "name": "Bilder Hinzufügen",
+        "text": "Mehrere Fotos in die Warteschlange einfügen."
+      },
+      {
+        "name": "Zielformat Wählen",
+        "text": "Wählen Sie JPG, PNG, WebP oder kombiniertes PDF als Ausgabe."
+      },
+      {
+        "name": "Paket Herunterladen",
+        "text": "Laden Sie das ZIP-Paket oder das PDF-Dokument herunter."
+      }
+    ]
+  },
+  "pdf-unterschreiben": {
+    "title": "PDF Online Kostenlos Unterschreiben (100% Privat) | ImagePlumber",
+    "description": "Unterschreiben Sie PDF-Dokumente und Verträge digital ohne Server-Upload. Zeichnen oder tippen Sie Ihre Unterschrift sicher im Browser.",
+    "keywords": "pdf unterschreiben online, digitale unterschrift kostenlos, pdf ausfullen und unterschreiben, vertrag digital signieren",
+    "howTo": [
+      {
+        "name": "PDF-Dokument Öffnen",
+        "text": "Wählen Sie die gewünschte PDF-Datei auf Ihrem Gerät aus."
+      },
+      {
+        "name": "Unterschrift Erstellen",
+        "text": "Zeichnen oder tippen Sie Ihre Signatur auf der digitalen Fläche."
+      },
+      {
+        "name": "Signiertes PDF Speichern",
+        "text": "Platzieren Sie die Unterschrift auf der Seite und laden Sie das PDF herunter."
+      }
+    ]
+  },
+  "png-in-jpg": {
+    "title": "PNG in JPG Online Kostenlos Umwandeln (100% Privat) | ImagePlumber",
+    "description": "Konvertieren Sie PNG-Bilder in hoher Qualität in JPG im Stapelbetrieb ohne Cloud-Uploads. Schnell und sicher.",
+    "keywords": "png in jpg umwandeln, png zu jpg konvertieren, png in jpeg kostenlos, png to jpg converter deutsch",
+    "howTo": [
+      {
+        "name": "PNG-Dateien Wählen",
+        "text": "Ziehen Sie Ihre PNG-Bilder in das Tool."
+      },
+      {
+        "name": "JPG-Qualität Einstellen",
+        "text": "Wählen Sie die gewünschte Kompressionsstufe."
+      },
+      {
+        "name": "JPG Herunterladen",
+        "text": "Speichern Sie die konvertierten JPG-Dateien einzeln oder als ZIP."
+      }
+    ]
+  },
+  "jpg-in-png": {
+    "title": "JPG in PNG Online Kostenlos Umwandeln (Verlustfrei) | ImagePlumber",
+    "description": "Konvertieren Sie JPG- und JPEG-Fotos verlustfrei in das PNG-Format direkt in Ihrem Browser.",
+    "keywords": "jpg in png umwandeln, jpg zu png konverter, jpeg in png kostenlos umwandeln",
+    "howTo": [
+      {
+        "name": "JPG-Fotos Hochladen",
+        "text": "Legen Sie Ihre JPG-Bilder im Konverter ab."
+      },
+      {
+        "name": "Lokale Konvertierung",
+        "text": "Die Bilder werden direkt im Arbeitsspeicher umgewandelt."
+      },
+      {
+        "name": "PNG-Dateien Speichern",
+        "text": "Laden Sie die fertigen PNG-Bilder in voller Auflösung herunter."
+      }
+    ]
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "": {
+    "title": "ImagePlumber - 100% फ्री और प्राइवेट इमेज टूल्स सुइट",
+    "description": "अपने ब्राउज़र में बिना किसी क्लाउड अपलोड के फोटो कंप्रेस करें, AI से बैकग्राउंड हटाएं, OCR से टेक्स्ट निकालें और PDF साइन करें। 100% सुरक्षित और ऑफलाइन सक्षम।",
+    "keywords": "फ्री इमेज टूल्स, photo size kam kare, photo ka background hataye, photo compress kare, png ko jpg me convert kare, offline photo editor, privacy image tools"
+  },
+  "photo-compress-kare": {
+    "title": "Photo Size Kam Kare Online Free (100% Private) | ImagePlumber",
+    "description": "JPEG, PNG और WebP फोटो का साइज 90% तक कम करें बिना क्वालिटी खोए। सरकारी फॉर्म, जॉब पोर्टल और पासपोर्ट फोटो के लिए 20KB, 50KB, 100KB में फोटो कंप्रेस करें।",
+    "keywords": "photo size kam kare, image size kam kare, photo compress kare, 50kb photo compressor, 20kb signature compressor, photo kb kam karne wala tool",
+    "howTo": [
+      {
+        "name": "फोटो चुनें",
+        "text": "अपने मोबाइल या कंप्यूटर से JPG, PNG या WebP फोटो सेलेक्ट करें।"
+      },
+      {
+        "name": "क्वालिटी और साइज सेट करें",
+        "text": "क्वालिटी स्लाइडर से मनचाहा साइज (20KB, 50KB, 100KB) सेट करें।"
+      },
+      {
+        "name": "कंप्रेस फोटो डाउनलोड करें",
+        "text": "बिना किसी सर्वर अपलोड के तुरंत कंप्रेस की गई फोटो डाउनलोड करें।"
+      }
+    ]
+  },
+  "background-hataye": {
+    "title": "Photo Ka Background Hataye Online Free (AI Cutout) | ImagePlumber",
+    "description": "लोकल AI से फोटो का बैकग्राउंड 5 सेकंड में हटाएं। बिना इंटरनेट या सर्वर पर फोटो भेजे पारदर्शी (Transparent) PNG डाउनलोड करें।",
+    "keywords": "photo ka background hataye, background eraser online, photo background change kare, transparent png banaye, remove bg free",
+    "howTo": [
+      {
+        "name": "फोटो अपलोड करें",
+        "text": "जिस फोटो का बैकग्राउंड हटाना है उसे ब्राउज़र में ड्रॉप करें।"
+      },
+      {
+        "name": "ऑटोमैटिक AI कटआउट",
+        "text": "लोकल न्यूरल नेटवर्क बिना सर्वर पर भेजे बैकग्राउंड अलग कर देता है।"
+      },
+      {
+        "name": "ट्रांसपेरेंट PNG डाउनलोड करें",
+        "text": "फुल रेजोल्यूशन में पारदर्शी PNG फाइल सेव करें।"
+      }
+    ]
+  },
+  "batch-converter": {
+    "title": "Batch Image Converter & PDF Maker Online | ImagePlumber",
+    "description": "एक साथ कई फोटो को JPG, PNG, WebP या सिंगल PDF डॉक्यूमेंट में बदलें। 100% प्राइवेट लोकल इन-ब्राउज़र कन्वर्जन।",
+    "keywords": "photo to pdf convert kare, multiple photo ko ek pdf banaye, bulk image converter, jpg to pdf hindi",
+    "howTo": [
+      {
+        "name": "मल्टीपल फोटो सेलेक्ट करें",
+        "text": "एक साथ कई फोटो को सेलेक्ट करके लिस्ट में जोड़ें।"
+      },
+      {
+        "name": "टारगेट फॉर्मेट चुनें",
+        "text": "JPG, PNG, WebP या कंबाइंड PDF का चुनाव करें।"
+      },
+      {
+        "name": "पैकेज डाउनलोड करें",
+        "text": "ZIP फाइल या सिंगल PDF डॉक्यूमेंट तुरंत डाउनलोड करें।"
+      }
+    ]
+  },
+  "pdf-sign-kare": {
+    "title": "PDF Par Sign Kare Online Free (100% सुरक्षित) | ImagePlumber",
+    "description": "किसी भी PDF डॉक्यूमेंट पर डिजिटल सिग्नेचर बनाएं और लगाएं। बिना क्लाउड अपलोड के 100% सुरक्षित और कानूनी रूप से मान्य।",
+    "keywords": "pdf par sign kare, digital signature online, pdf me sign kaise kare, sign pdf free hindi",
+    "howTo": [
+      {
+        "name": "PDF फाइल खोलें",
+        "text": "जिस फॉर्म या एग्रीमेंट पर साइन करना है उसे सेलेक्ट करें।"
+      },
+      {
+        "name": "डिजिटल सिग्नेचर बनाएं",
+        "text": "स्क्रीन पर अपना सिग्नेचर ड्रा करें या नाम टाइप करें।"
+      },
+      {
+        "name": "साइंड PDF सेव करें",
+        "text": "सिग्नेचर को सही जगह सेट करें और साइंड PDF डाउनलोड करें।"
+      }
+    ]
+  },
+  "png-se-jpg": {
+    "title": "PNG Ko JPG Me Convert Kare Online Free | ImagePlumber",
+    "description": "PNG फोटो को हाई क्वालिटी JPG फॉर्मेट में बल्क में बदलें। बिना सर्वर पर अपलोड किए तेज और सुरक्षित।",
+    "keywords": "png ko jpg me convert kare, png se jpg converter, png to jpg hindi free",
+    "howTo": [
+      {
+        "name": "PNG फाइल चुनें",
+        "text": "अपनी PNG इमेजेस को ब्राउज़र में सेलेक्ट करें।"
+      },
+      {
+        "name": "JPG क्वालिटी सेट करें",
+        "text": "अपनी जरूरत के हिसाब से क्वालिटी स्लाइडर एडजस्ट करें।"
+      },
+      {
+        "name": "JPG डाउनलोड करें",
+        "text": "कन्वर्ट हुई JPG फाइल्स को सिंगल या ZIP में डाउनलोड करें।"
+      }
+    ]
+  },
+  "jpg-se-png": {
+    "title": "JPG Ko PNG Me Convert Kare Online Free | ImagePlumber",
+    "description": "JPG और JPEG फोटो को बिना क्वालिटी खोए लॉसलेस PNG फॉर्मेट में बदलें। 100% लोकल और मुफ्त।",
+    "keywords": "jpg ko png me convert kare, jpg se png converter, photo ko png banaye",
+    "howTo": [
+      {
+        "name": "JPG फोटो अपलोड करें",
+        "text": "अपनी JPG फोटो को कनवर्टर में ड्रॉप करें।"
+      },
+      {
+        "name": "लोकल कन्वर्जन",
+        "text": "ब्राउज़र मेमोरी में इमेज को तुरंत PNG में बदलें।"
+      },
+      {
+        "name": "PNG सेव करें",
+        "text": "हाई रेजोल्यूशन PNG फाइल अपने डिवाइस में सेव करें।"
+      }
+    ]
+  }
+}

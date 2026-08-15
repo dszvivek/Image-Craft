@@ -25,6 +25,124 @@ console.log('Generating pre-rendered static meta index pages with semantic HTML 
 // Base URL of the site
 const siteUrl = 'https://imageplumber.com';
 
+const languages = [
+  {
+    code: 'es',
+    name: 'Spanish',
+    file: 'src/locales/es.json',
+    toEn: {
+      '': '',
+      'comprimir-imagen': 'image-compressor',
+      'quitar-fondo': 'background-remover',
+      'convertidor-por-lotes': 'batch-converter',
+      'firmar-pdf': 'sign-pdf',
+      'png-a-jpg': 'png-to-jpg',
+      'jpg-a-png': 'jpg-to-png'
+    },
+    toLocal: {
+      '': '',
+      'image-compressor': 'comprimir-imagen',
+      'background-remover': 'quitar-fondo',
+      'batch-converter': 'convertidor-por-lotes',
+      'sign-pdf': 'firmar-pdf',
+      'png-to-jpg': 'png-a-jpg',
+      'jpg-to-png': 'jpg-a-png'
+    }
+  },
+  {
+    code: 'pt',
+    name: 'Portuguese',
+    file: 'src/locales/pt.json',
+    toEn: {
+      '': '',
+      'comprimir-imagem': 'image-compressor',
+      'remover-fundo': 'background-remover',
+      'conversor-em-lote': 'batch-converter',
+      'assinar-pdf': 'sign-pdf',
+      'png-para-jpg': 'png-to-jpg',
+      'jpg-para-png': 'jpg-to-png'
+    },
+    toLocal: {
+      '': '',
+      'image-compressor': 'comprimir-imagem',
+      'background-remover': 'remover-fundo',
+      'batch-converter': 'conversor-em-lote',
+      'sign-pdf': 'assinar-pdf',
+      'png-to-jpg': 'png-para-jpg',
+      'jpg-to-png': 'jpg-para-png'
+    }
+  },
+  {
+    code: 'hi',
+    name: 'Hindi',
+    file: 'src/locales/hi.json',
+    toEn: {
+      '': '',
+      'photo-compress-kare': 'image-compressor',
+      'background-hataye': 'background-remover',
+      'batch-converter': 'batch-converter',
+      'pdf-sign-kare': 'sign-pdf',
+      'png-se-jpg': 'png-to-jpg',
+      'jpg-se-png': 'jpg-to-png'
+    },
+    toLocal: {
+      '': '',
+      'image-compressor': 'photo-compress-kare',
+      'background-remover': 'background-hataye',
+      'batch-converter': 'batch-converter',
+      'sign-pdf': 'pdf-sign-kare',
+      'png-to-jpg': 'png-se-jpg',
+      'jpg-to-png': 'jpg-se-png'
+    }
+  },
+  {
+    code: 'fr',
+    name: 'French',
+    file: 'src/locales/fr.json',
+    toEn: {
+      '': '',
+      'compresser-image': 'image-compressor',
+      'supprimer-arriere-plan': 'background-remover',
+      'convertisseur-par-lots': 'batch-converter',
+      'signer-pdf': 'sign-pdf',
+      'png-en-jpg': 'png-to-jpg',
+      'jpg-en-png': 'jpg-to-png'
+    },
+    toLocal: {
+      '': '',
+      'image-compressor': 'compresser-image',
+      'background-remover': 'supprimer-arriere-plan',
+      'batch-converter': 'convertisseur-par-lots',
+      'sign-pdf': 'signer-pdf',
+      'png-to-jpg': 'png-en-jpg',
+      'jpg-to-png': 'jpg-en-png'
+    }
+  },
+  {
+    code: 'de',
+    name: 'German',
+    file: 'src/locales/de.json',
+    toEn: {
+      '': '',
+      'bild-komprimieren': 'image-compressor',
+      'hintergrund-entfernen': 'background-remover',
+      'stapel-konverter': 'batch-converter',
+      'pdf-unterschreiben': 'sign-pdf',
+      'png-in-jpg': 'png-to-jpg',
+      'jpg-in-png': 'jpg-to-png'
+    },
+    toLocal: {
+      '': '',
+      'image-compressor': 'bild-komprimieren',
+      'background-remover': 'hintergrund-entfernen',
+      'batch-converter': 'stapel-konverter',
+      'sign-pdf': 'pdf-unterschreiben',
+      'png-to-jpg': 'png-in-jpg',
+      'jpg-to-png': 'jpg-in-png'
+    }
+  }
+];
+
 const filesMap = {
   'background-remover': 'src/pages/BackgroundRemover.tsx',
   'aspect-resizer': 'src/pages/AspectResizer.tsx',
@@ -42,7 +160,24 @@ const filesMap = {
   'watermark-overlay': 'src/pages/WatermarkOverlay.tsx',
   'bank-statement-analyzer': 'src/pages/StatementAnalyzer.tsx',
   'sign-pdf': 'src/pages/PdfSigner.tsx',
-  'ambient': 'src/pages/AmbientVisuals.tsx'
+  'ambient': 'src/pages/AmbientVisuals.tsx',
+  'png-to-jpg': 'src/pages/BatchConverter.tsx',
+  'jpg-to-png': 'src/pages/BatchConverter.tsx',
+  'webp-to-jpg': 'src/pages/BatchConverter.tsx',
+  'webp-to-png': 'src/pages/BatchConverter.tsx',
+  'heic-to-jpg': 'src/pages/BatchConverter.tsx',
+  'svg-to-png': 'src/pages/BatchConverter.tsx',
+  'png-to-svg': 'src/pages/SvgVectorizer.tsx',
+  'compress-png': 'src/pages/Compressor.tsx',
+  'compress-jpeg': 'src/pages/Compressor.tsx',
+  'compress-webp': 'src/pages/Compressor.tsx',
+  'compress-image-to-100kb': 'src/pages/Compressor.tsx',
+  'compress-image-to-50kb': 'src/pages/Compressor.tsx',
+  'compress-image-to-20kb': 'src/pages/Compressor.tsx',
+  'remove-white-background': 'src/pages/BackgroundRemover.tsx',
+  'transparent-background-maker': 'src/pages/BackgroundRemover.tsx',
+  'bank-statement-to-excel': 'src/pages/StatementAnalyzer.tsx',
+  'sign-pdf-online': 'src/pages/PdfSigner.tsx'
 };
 
 /**
@@ -399,18 +534,28 @@ for (const [route, meta] of Object.entries(routesConfig)) {
     `<meta name="keywords" content="${meta.keywords}" />`
   );
   
-  // Replace canonical URL
+  // Replace canonical URL & construct bi-directional hreflang tags for all languages
+  const pageEnRoute = isHome ? '' : route;
+  
+  const hreflangTags = [
+    `<link rel="alternate" hreflang="x-default" href="${siteUrl}/${pageEnRoute}" />`,
+    `<link rel="alternate" hreflang="en" href="${siteUrl}/${pageEnRoute}" />`
+  ];
+
+  for (const lang of languages) {
+    const localRoute = lang.toLocal[pageEnRoute];
+    if (localRoute !== undefined) {
+      hreflangTags.push(`<link rel="alternate" hreflang="${lang.code}" href="${siteUrl}/${lang.code}${localRoute ? `/${localRoute}` : ''}" />`);
+    }
+  }
+
   pageContent = pageContent.replace(
     /<link rel="canonical" href=".*?" \/>/,
     `<link rel="canonical" href="${pageCanonical}" />`
   );
   pageContent = pageContent.replace(
-    /<link rel="alternate" hreflang="x-default" href=".*?" \/>/,
-    `<link rel="alternate" hreflang="x-default" href="${pageCanonical}" />`
-  );
-  pageContent = pageContent.replace(
-    /<link rel="alternate" hreflang="en" href=".*?" \/>/,
-    `<link rel="alternate" hreflang="en" href="${pageCanonical}" />`
+    /<link rel="alternate" hreflang="x-default" href=".*?" \/>[\s\S]*?<link rel="alternate" hreflang=".*?" href=".*?" \/>/,
+    hreflangTags.join('\n    ')
   );
   
   // Replace Open Graph title, description, and URL tags
@@ -462,6 +607,59 @@ for (const [route, meta] of Object.entries(routesConfig)) {
   const pageOutputPath = path.join(routeDir, 'index.html');
   fs.writeFileSync(pageOutputPath, pageContent, 'utf8');
   console.log(` - Prerendered: /${route}`);
+}
+
+// Prerender all multi-lingual localized routes (es, pt, hi)
+for (const lang of languages) {
+  const langMetadataPath = path.resolve(lang.file);
+  if (fs.existsSync(langMetadataPath)) {
+    const langRoutesConfig = JSON.parse(fs.readFileSync(langMetadataPath, 'utf8'));
+    console.log(`\nGenerating ${lang.name} (${lang.code}) localized static pages...`);
+
+    for (const [localRoute, localMeta] of Object.entries(langRoutesConfig)) {
+      const isLocalHome = localRoute === '';
+      const localRouteDir = isLocalHome ? path.join(distDir, lang.code) : path.join(distDir, lang.code, localRoute);
+      fs.mkdirSync(localRouteDir, { recursive: true });
+
+      const pageCanonical = isLocalHome ? `${siteUrl}/${lang.code}` : `${siteUrl}/${lang.code}/${localRoute}`;
+      const enEquivalent = lang.toEn[localRoute] !== undefined ? lang.toEn[localRoute] : '';
+      const enUrl = enEquivalent ? `${siteUrl}/${enEquivalent}` : `${siteUrl}/`;
+
+      const localHreflangTags = [
+        `<link rel="alternate" hreflang="x-default" href="${enUrl}" />`,
+        `<link rel="alternate" hreflang="en" href="${enUrl}" />`
+      ];
+
+      for (const otherLang of languages) {
+        const otherLocalRoute = otherLang.toLocal[enEquivalent];
+        if (otherLocalRoute !== undefined) {
+          localHreflangTags.push(`<link rel="alternate" hreflang="${otherLang.code}" href="${siteUrl}/${otherLang.code}${otherLocalRoute ? `/${otherLocalRoute}` : ''}" />`);
+        }
+      }
+
+      let pageContent = templateContent;
+      pageContent = pageContent.replace(/<html lang="en">/, `<html lang="${lang.code}">`);
+      pageContent = pageContent.replace(/<title>.*?<\/title>/, `<title>${localMeta.title}</title>`);
+      pageContent = pageContent.replace(/<meta name="title" content=".*?" \/>/, `<meta name="title" content="${localMeta.title}" />`);
+      pageContent = pageContent.replace(/<meta name="description" content=".*?" \/>/, `<meta name="description" content="${localMeta.description}" />`);
+      pageContent = pageContent.replace(/<meta name="keywords" content=".*?" \/>/, `<meta name="keywords" content="${localMeta.keywords}" />`);
+      pageContent = pageContent.replace(/<link rel="canonical" href=".*?" \/>/, `<link rel="canonical" href="${pageCanonical}" />`);
+      pageContent = pageContent.replace(
+        /<link rel="alternate" hreflang="x-default" href=".*?" \/>[\s\S]*?<link rel="alternate" hreflang=".*?" href=".*?" \/>/,
+        localHreflangTags.join('\n    ')
+      );
+      pageContent = pageContent.replace(/<meta property="og:title" content=".*?" \/>/, `<meta property="og:title" content="${localMeta.title}" />`);
+      pageContent = pageContent.replace(/<meta property="og:description" content=".*?" \/>/, `<meta property="og:description" content="${localMeta.description}" />`);
+      pageContent = pageContent.replace(/<meta property="og:url" content=".*?" \/>/, `<meta property="og:url" content="${pageCanonical}" />`);
+      pageContent = pageContent.replace(/<meta name="twitter:title" content=".*?" \/>/, `<meta name="twitter:title" content="${localMeta.title}" />`);
+      pageContent = pageContent.replace(/<meta name="twitter:description" content=".*?" \/>/, `<meta name="twitter:description" content="${localMeta.description}" />`);
+      pageContent = pageContent.replace(/<meta property="twitter:url" content=".*?" \/>/, `<meta property="twitter:url" content="${pageCanonical}" />`);
+
+      const pageOutputPath = path.join(localRouteDir, 'index.html');
+      fs.writeFileSync(pageOutputPath, pageContent, 'utf8');
+      console.log(` - Prerendered (${lang.code}): /${lang.code}${localRoute ? `/${localRoute}` : ''}`);
+    }
+  }
 }
 
 console.log('All static meta index pages prerendered successfully with rich bodies!');

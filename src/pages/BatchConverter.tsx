@@ -18,9 +18,25 @@ interface BatchFile {
   convertedName: string | null;
 }
 
-export const BatchConverter: React.FC = () => {
+export interface BatchConverterProps {
+  defaultFormat?: string;
+  pageTitle?: string;
+  pageSubtitle?: string;
+}
+
+export const BatchConverter: React.FC<BatchConverterProps> = ({
+  defaultFormat = 'image/webp',
+  pageTitle,
+  pageSubtitle,
+}) => {
   const [files, setFiles] = useState<BatchFile[]>([]);
-  const [format, setFormat] = useState<string>('image/webp');
+  const [format, setFormat] = useState<string>(defaultFormat);
+
+  useEffect(() => {
+    if (defaultFormat) {
+      setFormat(defaultFormat);
+    }
+  }, [defaultFormat]);
   const [quality, setQuality] = useState<number>(80);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
@@ -460,8 +476,8 @@ export const BatchConverter: React.FC = () => {
           <span className="text-xs font-bold text-indigo-650 uppercase tracking-widest px-2.5 py-1 bg-indigo-50 border border-indigo-100 rounded-full shadow-sm">
             Batch Utility
           </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">Batch Image Converter</h1>
-          <p className="text-sm text-slate-500">Convert image directories in bulk or package photos into multi-page PDFs locally in RAM.</p>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">{pageTitle || 'Batch Image Converter'}</h1>
+          <p className="text-sm text-slate-500">{pageSubtitle || 'Convert image directories in bulk or package photos into multi-page PDFs locally in RAM.'}</p>
         </div>
 
         {files.length === 0 ? (

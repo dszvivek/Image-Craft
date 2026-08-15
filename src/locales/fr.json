@@ -1,0 +1,121 @@
+{
+  "": {
+    "title": "ImagePlumber - Suite d'Outils d'Image 100% Gratuite et Privée",
+    "description": "Suite complète d'outils d'image et de documents sans aucun téléchargement sur le cloud. Compressez vos photos, supprimez l'arrière-plan avec l'IA et signez des PDF en local.",
+    "keywords": "outils image gratuits, compresser image, supprimer arriere plan IA, signer PDF en ligne, convertir PNG en JPG, editeur photo hors ligne"
+  },
+  "compresser-image": {
+    "title": "Compresser une Image en Ligne Gratuitement (100% Privé) | ImagePlumber",
+    "description": "Réduisez la taille de vos fichiers JPEG, PNG et WebP jusqu'à 90% sans perte de qualité. Traitement 100% local dans votre navigateur sans serveur cloud.",
+    "keywords": "compresser image, reduire taille photo, compresseur jpg gratuit, compresseur png en ligne, optimiser image web, alternative tinypng",
+    "howTo": [
+      {
+        "name": "Sélectionnez l'Image",
+        "text": "Glissez ou choisissez vos photos JPG, PNG ou WebP."
+      },
+      {
+        "name": "Ajustez la Qualité",
+        "text": "Réglez le curseur de qualité pour équilibrer poids et netteté."
+      },
+      {
+        "name": "Téléchargez l'Image",
+        "text": "Enregistrez l'image compressée instantanément sans attente."
+      }
+    ]
+  },
+  "supprimer-arriere-plan": {
+    "title": "Supprimer l'Arrière-Plan d'une Image avec IA | ImagePlumber",
+    "description": "Détourez vos photos en quelques secondes grâce à une IA locale. Obtenez un PNG transparent sans jamais envoyer vos fichiers sur un serveur externe.",
+    "keywords": "supprimer arriere plan, effacer fond photo, fond transparent gratuit, detourage IA en ligne, remove bg gratuit",
+    "howTo": [
+      {
+        "name": "Ajoutez votre Photo",
+        "text": "Importez votre image JPG, PNG ou WebP dans le navigateur."
+      },
+      {
+        "name": "Détourage Automatique",
+        "text": "Le réseau neuronal local isole le sujet en quelques secondes."
+      },
+      {
+        "name": "Téléchargez le PNG",
+        "text": "Enregistrez votre photo détourée en haute résolution."
+      }
+    ]
+  },
+  "convertisseur-par-lots": {
+    "title": "Convertisseur d'Images et PDF par Lots Gratuit | ImagePlumber",
+    "description": "Convertissez plusieurs images en WebP, PNG, JPEG ou PDF en lot. Fusionnez vos photos dans un document PDF unique en local.",
+    "keywords": "convertisseur image, images en pdf, convertir jpg en pdf, convertir png en pdf, fusionner photos en pdf",
+    "howTo": [
+      {
+        "name": "Ajoutez vos Images",
+        "text": "Glissez plusieurs fichiers dans la file de conversion."
+      },
+      {
+        "name": "Choisissez le Format",
+        "text": "Sélectionnez le format cible (JPG, PNG, WebP ou PDF groupé)."
+      },
+      {
+        "name": "Téléchargez le Paquet",
+        "text": "Récupérez votre archive ZIP ou votre document PDF compilé."
+      }
+    ]
+  },
+  "signer-pdf": {
+    "title": "Signer un PDF en Ligne Gratuitement (100% Sécurisé) | ImagePlumber",
+    "description": "Signez vos contrats et documents PDF sans transfert cloud. Dessinez ou tapez votre signature numérique en toute confidentialité.",
+    "keywords": "signer pdf en ligne, signature electronique gratuite, signer document sans telechargement, remplir et signer pdf",
+    "howTo": [
+      {
+        "name": "Ouvrez le Document PDF",
+        "text": "Sélectionnez votre fichier PDF à signer."
+      },
+      {
+        "name": "Créez votre Signature",
+        "text": "Dessinez ou tapez votre signature numérique sur le canevas."
+      },
+      {
+        "name": "Enregistrez le PDF Signé",
+        "text": "Placez la signature sur la page souhaitée et téléchargez le PDF."
+      }
+    ]
+  },
+  "png-en-jpg": {
+    "title": "Convertir PNG en JPG en Ligne Gratuit (100% Privé) | ImagePlumber",
+    "description": "Convertissez des images PNG en JPG en lot avec une qualité optimale et zéro transfert serveur. Rapide et sécurisé.",
+    "keywords": "png en jpg, convertir png en jpg, transformer png en jpg gratuit, convertisseur png vers jpg",
+    "howTo": [
+      {
+        "name": "Sélectionnez vos PNG",
+        "text": "Glissez vos fichiers PNG dans l'outil de conversion."
+      },
+      {
+        "name": "Définissez la Qualité",
+        "text": "Ajustez le niveau de compression JPG souhaité."
+      },
+      {
+        "name": "Téléchargez les JPG",
+        "text": "Enregistrez vos fichiers JPG convertis immédiatement."
+      }
+    ]
+  },
+  "jpg-en-png": {
+    "title": "Convertir JPG en PNG en Ligne Gratuit (Sans Perte) | ImagePlumber",
+    "description": "Convertissez des photos JPG et JPEG en format PNG sans perte de qualité directement dans votre navigateur.",
+    "keywords": "jpg en png, convertir jpg en png, transformer photo en png, convertisseur jpeg vers png",
+    "howTo": [
+      {
+        "name": "Importez vos Photos JPG",
+        "text": "Glissez vos images JPG dans le convertisseur."
+      },
+      {
+        "name": "Conversion Locale",
+        "text": "Traitez les fichiers instantanément dans la mémoire du navigateur."
+      },
+      {
+        "name": "Téléchargez les PNG",
+        "text": "Sauvegardez vos images au format PNG haute fidélité."
+      }
+    ]
+  }
+}

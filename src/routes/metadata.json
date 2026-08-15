@@ -854,6 +854,737 @@
       ]
     }
   },
+  "png-to-jpg": {
+    "title": "Convert PNG to JPG Online Free (100% Private, Bulk) | ImagePlumber",
+    "description": "Convert PNG images to JPG format in bulk with zero cloud uploads. Fast, high-quality local in-browser converter with custom compression quality.",
+    "keywords": "png to jpg, convert png to jpg, png to jpg converter, bulk png to jpg, png to jpeg free, offline png to jpg, private png to jpg converter",
+    "howTo": [
+      {
+        "name": "Select PNG Files",
+        "text": "Drop or select one or more PNG images from your device."
+      },
+      {
+        "name": "Configure Quality",
+        "text": "Adjust JPG output quality slider or keep default 80% compression."
+      },
+      {
+        "name": "Download JPGs",
+        "text": "Download converted JPG files individually or packaged as a single ZIP archive."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "PNG to JPG Converter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Bulk PNG to JPG file conversion",
+        "100% Client-side local processing in browser RAM",
+        "Zero server uploads for complete data privacy",
+        "Export as individual JPGs or packaged ZIP archive"
+      ]
+    }
+  },
+  "jpg-to-png": {
+    "title": "Convert JPG to PNG Online Free (High Quality) | ImagePlumber",
+    "description": "Convert JPG and JPEG photos to lossless PNG format in bulk offline. Fast in-browser conversion with zero cloud uploads.",
+    "keywords": "jpg to png, convert jpg to png, jpeg to png converter, photo to png, bulk jpg to png, offline jpg to png",
+    "howTo": [
+      {
+        "name": "Upload JPG Images",
+        "text": "Drag and drop your JPG or JPEG images into the converter."
+      },
+      {
+        "name": "Run Conversion",
+        "text": "Click Convert Batch to process all images in local memory."
+      },
+      {
+        "name": "Download PNGs",
+        "text": "Save the converted PNG images to your computer or mobile device."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "JPG to PNG Converter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Lossless JPG to PNG conversion",
+        "Bulk multi-image processing",
+        "100% Private local execution",
+        "Instant ZIP packaging download"
+      ]
+    }
+  },
+  "webp-to-jpg": {
+    "title": "Convert WebP to JPG Online Free (Fast & Private) | ImagePlumber",
+    "description": "Convert Google WebP images to universally compatible JPG format in bulk. 100% client-side in your browser with zero file uploads.",
+    "keywords": "webp to jpg, convert webp to jpg, webp to jpeg, bulk webp to jpg converter, free webp to jpg, offline webp converter",
+    "howTo": [
+      {
+        "name": "Select WebP Images",
+        "text": "Drop your .webp files into the upload area."
+      },
+      {
+        "name": "Select Quality",
+        "text": "Choose your desired JPG quality setting."
+      },
+      {
+        "name": "Download JPG",
+        "text": "Download converted JPG files instantly with zero server lag."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "WebP to JPG Converter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Fast WebP to standard JPG conversion",
+        "Local memory processing with zero server uploads",
+        "Batch conversion support",
+        "High fidelity output"
+      ]
+    }
+  },
+  "webp-to-png": {
+    "title": "Convert WebP to PNG Online Free (Lossless Alpha) | ImagePlumber",
+    "description": "Convert WebP images to lossless PNG format preserving transparency offline in your browser. 100% free with zero cloud uploads.",
+    "keywords": "webp to png, convert webp to png, webp to transparent png, webp to png converter, bulk webp to png",
+    "howTo": [
+      {
+        "name": "Add WebP Files",
+        "text": "Select your WebP files from your computer or phone."
+      },
+      {
+        "name": "Convert Locally",
+        "text": "Click Convert Batch to process images in browser memory."
+      },
+      {
+        "name": "Download PNG",
+        "text": "Export high-resolution PNGs with intact transparency."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "WebP to PNG Converter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Preserves alpha channel transparency",
+        "Lossless WebP to PNG conversion",
+        "Private offline processing",
+        "Bulk conversion support"
+      ]
+    }
+  },
+  "heic-to-jpg": {
+    "title": "Convert HEIC to JPG Online Free (iPhone Photos) | ImagePlumber",
+    "description": "Convert Apple iPhone HEIC and HEIF photos to universally compatible JPG format locally in your browser. No file size limits and zero cloud uploads.",
+    "keywords": "heic to jpg, convert heic to jpg, iphone photo to jpg, heif to jpg, heic converter free, offline heic to jpg, private heic converter",
+    "howTo": [
+      {
+        "name": "Upload HEIC Photos",
+        "text": "Select Apple iPhone HEIC or HEIF images from your device."
+      },
+      {
+        "name": "Convert to JPG",
+        "text": "Process photos locally using high-speed client-side decoding."
+      },
+      {
+        "name": "Download JPGs",
+        "text": "Download standard JPG files compatible with all platforms."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "HEIC to JPG Converter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Apple iPhone HEIC/HEIF photo support",
+        "Fast local batch conversion",
+        "Total privacy with zero server uploads",
+        "Universal JPG export"
+      ]
+    }
+  },
+  "svg-to-png": {
+    "title": "Convert SVG to PNG Online Free (High Resolution) | ImagePlumber",
+    "description": "Convert scalable vector SVG graphics to high-resolution raster PNG images in seconds. 100% private, free, and processed in your browser.",
+    "keywords": "svg to png, convert svg to png, vector to png, svg to high res png, svg to transparent png, free svg to png converter",
+    "howTo": [
+      {
+        "name": "Upload SVG Vector",
+        "text": "Select or drag your SVG file into the workspace."
+      },
+      {
+        "name": "Convert in Browser",
+        "text": "Rasterize vector paths locally to crisp PNG format."
+      },
+      {
+        "name": "Download PNG",
+        "text": "Export high-resolution PNG file with preserved transparent backgrounds."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "SVG to PNG Converter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Crisp vector rasterization",
+        "Preserves transparent backgrounds",
+        "100% Offline client-side conversion",
+        "Bulk conversion support"
+      ]
+    }
+  },
+  "png-to-svg": {
+    "title": "Convert PNG to SVG Online Free (Vectorize Image) | ImagePlumber",
+    "description": "Vectorize raster PNG and JPG images into scalable SVG vector graphics offline in your browser. Clean contours, color tracing, and zero cloud uploads.",
+    "keywords": "png to svg, convert png to svg, vectorize image, image to vector, raster to vector, png to svg converter, free vectorizer online",
+    "howTo": [
+      {
+        "name": "Upload PNG Image",
+        "text": "Select a logo, icon, or drawing to vectorize."
+      },
+      {
+        "name": "Adjust Vector Thresholds",
+        "text": "Fine-tune color palette size, curve smoothing, and contour detail."
+      },
+      {
+        "name": "Download SVG",
+        "text": "Download clean, infinitely scalable vector SVG file."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "PNG to SVG Vectorizer - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas & WebAssembly support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Moore-Neighbor contour tracing algorithm",
+        "Douglas-Peucker vector curve simplification",
+        "Color palette clustering and monochrome modes",
+        "100% Client-side vectorization"
+      ]
+    }
+  },
+  "compress-png": {
+    "title": "Compress PNG Online Free (Preserve Transparency) | ImagePlumber",
+    "description": "Compress PNG images offline in your browser with zero quality loss and intact transparency. 100% private alternative to TinyPNG with zero cloud uploads.",
+    "keywords": "compress png, reduce png size, compress png transparent, tinypng alternative, compress png without losing quality, offline png compressor",
+    "howTo": [
+      {
+        "name": "Upload PNG Image",
+        "text": "Select or drag your PNG image into the browser compressor."
+      },
+      {
+        "name": "Fine-tune Optimization",
+        "text": "Adjust compression level or convert to lossless WebP for maximum byte savings."
+      },
+      {
+        "name": "Download Compressed PNG",
+        "text": "Save the optimized PNG file instantly without server delays."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "PNG Compressor - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Lossless PNG optimization",
+        "Preserves alpha channel transparency",
+        "Side-by-side comparison slider",
+        "100% Client-side sandbox execution"
+      ]
+    }
+  },
+  "compress-jpeg": {
+    "title": "Compress JPEG Online Free (Lossy & Lossless) | ImagePlumber",
+    "description": "Compress JPG and JPEG photos online with custom quality sliders and instant visual preview. Reduce file size by up to 90% without cloud uploads.",
+    "keywords": "compress jpeg, compress jpg online, reduce jpeg size, compress photo online free, compress jpeg without losing quality, best jpg compressor",
+    "howTo": [
+      {
+        "name": "Add JPEG Photo",
+        "text": "Drag and drop your JPG/JPEG image into the upload box."
+      },
+      {
+        "name": "Set Quality Level",
+        "text": "Slide the quality bar (10% to 100%) to balance file size and visual fidelity."
+      },
+      {
+        "name": "Download Small JPEG",
+        "text": "Download the compressed JPEG directly to your device."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "JPEG Compressor - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Dynamic lossy JPEG compression slider",
+        "Real-time visual comparison split slider",
+        "Up to 90% file size reduction",
+        "Zero server uploads"
+      ]
+    }
+  },
+  "compress-webp": {
+    "title": "Compress WebP Online Free (Next-Gen Optimizer) | ImagePlumber",
+    "description": "Optimize Google WebP images with maximum compression efficiency locally in browser RAM. Free, instant, and 100% private.",
+    "keywords": "compress webp, reduce webp size, webp optimizer, compress webp online, free webp compressor, offline webp optimizer",
+    "howTo": [
+      {
+        "name": "Select WebP File",
+        "text": "Drop your .webp image into the compressor."
+      },
+      {
+        "name": "Adjust Quality",
+        "text": "Choose your desired compression quality level."
+      },
+      {
+        "name": "Save WebP",
+        "text": "Download the lightweight WebP image for fast web performance."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "WebP Compressor - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "High efficiency WebP byte compression",
+        "Local browser encoding",
+        "Zero data transmission",
+        "Instant download"
+      ]
+    }
+  },
+  "compress-image-to-100kb": {
+    "title": "Compress Image to 100KB Online Free | ImagePlumber",
+    "description": "Easily reduce image file size under 100KB online for job applications, portals, and fast web upload. 100% private with instant slider adjustment.",
+    "keywords": "compress image to 100kb, reduce photo size to 100kb, compress jpeg to 100kb, compress image below 100kb online, 100kb image compressor",
+    "howTo": [
+      {
+        "name": "Drop Photo",
+        "text": "Select any large photo or document scan from your device."
+      },
+      {
+        "name": "Check Size Indicator",
+        "text": "Adjust slider until the compressed file size is below 100KB."
+      },
+      {
+        "name": "Download 100KB Image",
+        "text": "Download the compressed image ready for portal submission."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Compress Image to 100KB - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Precise target file size estimation",
+        "Instant 100KB reduction slider",
+        "Side-by-side quality check",
+        "100% Client-side privacy"
+      ]
+    }
+  },
+  "compress-image-to-50kb": {
+    "title": "Compress Image to 50KB Online Free | ImagePlumber",
+    "description": "Compress JPG and PNG photos below 50KB for government portals, exams, and visa applications. Fast, free, and completely offline.",
+    "keywords": "compress image to 50kb, reduce image to 50kb, compress photo to 50kb online, 50kb photo converter, compress passport photo 50kb",
+    "howTo": [
+      {
+        "name": "Upload Image",
+        "text": "Upload the image you need to compress under 50KB."
+      },
+      {
+        "name": "Adjust Quality Slider",
+        "text": "Use the quality slider to reach under 50KB target size."
+      },
+      {
+        "name": "Download Image",
+        "text": "Save the 50KB optimized file for immediate form upload."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Compress Image to 50KB - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Sub-50KB size compression",
+        "Real-time byte size counter",
+        "Zero cloud uploads",
+        "Compatible with all exam/government portals"
+      ]
+    }
+  },
+  "compress-image-to-20kb": {
+    "title": "Compress Image to 20KB Online Free (Signatures & Photos) | ImagePlumber",
+    "description": "Compress signature scans and passport photos below 20KB for official application requirements. 100% private in-browser compression.",
+    "keywords": "compress image to 20kb, compress signature to 20kb, reduce photo size to 20kb, 20kb image compressor online, signature resize 20kb",
+    "howTo": [
+      {
+        "name": "Select Signature or Photo",
+        "text": "Upload the scanned signature or passport photo."
+      },
+      {
+        "name": "Set Under 20KB",
+        "text": "Slide quality until the file size reads under 20KB."
+      },
+      {
+        "name": "Download 20KB File",
+        "text": "Download the compliant image file ready for submission."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Compress Image to 20KB - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Optimized for signature and ID photo compression",
+        "Precise sub-20KB compression",
+        "100% Offline client-side sandbox",
+        "Instant portal compliance"
+      ]
+    }
+  },
+  "remove-white-background": {
+    "title": "Remove White Background from Image Online Free | ImagePlumber",
+    "description": "Isolate logos, graphics, and product photos with local AI. Remove white or solid backgrounds instantly in your browser with zero cloud uploads.",
+    "keywords": "remove white background, remove background from logo, transparent logo maker, erase white background, product photo cutout",
+    "howTo": [
+      {
+        "name": "Upload Logo or Image",
+        "text": "Drop your product photo, signature, or logo with a white background."
+      },
+      {
+        "name": "AI Subject Cutout",
+        "text": "The local neural network extracts the subject with crisp edges."
+      },
+      {
+        "name": "Export Transparent PNG",
+        "text": "Download your high-resolution PNG with a transparent backdrop."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "White Background Remover - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires WebAssembly & Web Workers support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Specialized logo and product cutout",
+        "Local RMBG-1.4 AI neural network",
+        "100% Client-side sandbox execution",
+        "Transparent PNG export"
+      ]
+    }
+  },
+  "transparent-background-maker": {
+    "title": "Transparent Background Maker Online Free (PNG Cutout) | ImagePlumber",
+    "description": "Create transparent background PNGs from any photo in seconds using local AI. Free, private, and runs entirely in your browser memory.",
+    "keywords": "transparent background maker, make background transparent, png cutout online, background eraser free, create transparent png",
+    "howTo": [
+      {
+        "name": "Select Photo",
+        "text": "Select the photo you want to convert into a transparent PNG."
+      },
+      {
+        "name": "Instant Masking",
+        "text": "The local neural model separates the background from foreground."
+      },
+      {
+        "name": "Download Cutout",
+        "text": "Save the transparent PNG with full resolution."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Transparent Background Maker - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires WebAssembly & Web Workers support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "One-click alpha transparency cutout",
+        "Runs on device hardware with WebAssembly",
+        "Zero server uploads",
+        "No watermark on exports"
+      ]
+    }
+  },
+  "bank-statement-to-excel": {
+    "title": "Convert Bank Statement PDF to Excel & CSV Free | ImagePlumber",
+    "description": "Extract tabular transactions from PDF bank statements and export to Excel/CSV offline. 100% private financial document parsing with zero cloud uploads.",
+    "keywords": "bank statement to excel, convert bank statement pdf to csv, bank statement converter free, extract transactions from pdf, offline bank statement parser",
+    "howTo": [
+      {
+        "name": "Upload Bank Statement PDF",
+        "text": "Drop your PDF, CSV, or Excel credit card or bank statement."
+      },
+      {
+        "name": "Offline Transaction Audit",
+        "text": "Transactions, debits, credits, and balances are automatically categorized locally."
+      },
+      {
+        "name": "Export Clean Excel / CSV",
+        "text": "Download structured tabular data ready for accounting software or budgeting spreadsheets."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Bank Statement to Excel Converter - ImagePlumber",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires WebAssembly & PDF parsing support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "100% Client-side financial document parsing",
+        "Export to CSV and Microsoft Excel (.xlsx)",
+        "Audit trail with debit/credit breakdown",
+        "Zero cloud storage for sensitive financial data"
+      ]
+    }
+  },
+  "sign-pdf-online": {
+    "title": "Sign PDF Online Free (100% Private, No Upload) | ImagePlumber",
+    "description": "Sign PDF documents online for free with zero cloud uploads. Draw signatures, type names, add dates, and download signed PDFs offline in your browser.",
+    "keywords": "sign pdf online, sign pdf free, electronic signature online, sign document without upload, offline pdf signer, fill and sign pdf free",
+    "howTo": [
+      {
+        "name": "Open PDF Document",
+        "text": "Select any PDF contract, agreement, or form."
+      },
+      {
+        "name": "Create Electronic Signature",
+        "text": "Draw your signature on the digital canvas or type your legal name."
+      },
+      {
+        "name": "Place & Save PDF",
+        "text": "Drag signature to any page, resize as needed, and download the signed PDF locally."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Free Electronic PDF Signer - ImagePlumber",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      "browserRequirements": "Requires HTML5 Canvas & WebAssembly support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      },
+      "featureList": [
+        "Draw, type, or upload custom signatures",
+        "Multi-page PDF document navigation",
+        "100% Offline execution with zero server storage",
+        "Legally compliant electronic signature stamps"
+      ]
+    }
+  },
   "about": {
     "title": "About Our Offline Privacy Tools | ImagePlumber",
     "description": "Learn about ImagePlumber and our absolute privacy commitment. We run 100% client-side web sandbox processing without cloud databases or server uploads.",

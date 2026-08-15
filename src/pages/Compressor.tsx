@@ -5,13 +5,33 @@ import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import { DemoPreview } from '../components/DemoPreview';
 
-export const Compressor: React.FC = () => {
+export interface CompressorProps {
+  defaultFormat?: string;
+  defaultQuality?: number;
+  pageTitle?: string;
+  pageSubtitle?: string;
+}
+
+export const Compressor: React.FC<CompressorProps> = ({
+  defaultFormat = 'image/jpeg',
+  defaultQuality = 80,
+  pageTitle,
+  pageSubtitle,
+}) => {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
   const [originalUrl, setOriginalUrl] = useState<string>('');
   const [compressedUrl, setCompressedUrl] = useState<string>('');
   const [compressedSize, setCompressedSize] = useState<number | null>(null);
-  const [quality, setQuality] = useState<number>(80);
-  const [format, setFormat] = useState<string>('image/jpeg');
+  const [quality, setQuality] = useState<number>(defaultQuality);
+  const [format, setFormat] = useState<string>(defaultFormat);
+
+  useEffect(() => {
+    if (defaultFormat) setFormat(defaultFormat);
+  }, [defaultFormat]);
+
+  useEffect(() => {
+    if (defaultQuality) setQuality(defaultQuality);
+  }, [defaultQuality]);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [sliderPosition, setSliderPosition] = useState<number>(50);
   const [dimensions, setDimensions] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
@@ -190,8 +210,8 @@ export const Compressor: React.FC = () => {
           <span className="text-xs font-bold text-indigo-650 uppercase tracking-widest px-2.5 py-1 bg-indigo-50 border border-indigo-100 rounded-full shadow-sm">
             Compression Tool
           </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">Image Compressor</h1>
-          <p className="text-sm text-slate-500">Reduce file size using modern browser compression algorithms. No files leave your device.</p>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">{pageTitle || 'Image Compressor'}</h1>
+          <p className="text-sm text-slate-500">{pageSubtitle || 'Reduce file size using modern browser compression algorithms. No files leave your device.'}</p>
         </div>
 
         {!originalFile ? (
