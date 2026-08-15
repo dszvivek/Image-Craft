@@ -29,7 +29,8 @@ import {
   Wand2,
   Moon,
   Gamepad2,
-  Terminal
+  Terminal,
+  ArrowLeftRight
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
@@ -267,6 +268,24 @@ const toolDirectory = [
     description: 'Generate RGB chromatic aberration, datamoshing slice corruption, and retro CRT television scanlines.',
     badge: 'Cyberpunk',
     colorClass: 'text-violet-650 bg-violet-50 border-violet-100/50 hover:border-violet-300 dark:text-violet-400 dark:bg-violet-950/30 dark:border-violet-900/30'
+  },
+  {
+    name: 'Side-by-Side & Before/After Combiner',
+    path: '/side-by-side-image',
+    icon: ArrowLeftRight,
+    category: 'layout-grid',
+    description: 'Combine two photos horizontally or vertically with customizable Before/After badges and divider borders.',
+    badge: 'Comparison',
+    colorClass: 'text-blue-650 bg-blue-50 border-blue-100/50 hover:border-blue-300 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
+  },
+  {
+    name: 'Instagram Panorama & Carousel Splitter',
+    path: '/instagram-panorama-splitter',
+    icon: Maximize2,
+    category: 'layout-grid',
+    description: 'Split wide panoramic landscape photos into seamless 4:5 portrait and 1:1 square swipe carousels with ZIP download.',
+    badge: 'Seamless Swipe',
+    colorClass: 'text-pink-650 bg-pink-50 border-pink-100/50 hover:border-pink-300 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
   }
 ];
 

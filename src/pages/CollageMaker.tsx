@@ -18,7 +18,15 @@ interface SlotRect {
   h: number;
 }
 
-export const CollageMaker: React.FC = () => {
+interface CollageMakerProps {
+  pageTitle?: string;
+  pageSubtitle?: string;
+}
+
+export const CollageMaker: React.FC<CollageMakerProps> = ({
+  pageTitle,
+  pageSubtitle,
+}) => {
   const [images, setImages] = useState<CollageImage[]>([]);
   const [layoutId, setLayoutId] = useState<string>('2-cols');
   const [aspectRatio, setAspectRatio] = useState<number>(1); // 1 = 1:1, 0.75 = 3:4, 1.33 = 4:3
@@ -68,7 +76,6 @@ export const CollageMaker: React.FC = () => {
     });
   };
 
-  // Helper to draw rounded rectangle on canvas
   const drawRoundedRect = (
     ctx: CanvasRenderingContext2D,
     x: number,
@@ -90,140 +97,118 @@ export const CollageMaker: React.FC = () => {
     ctx.closePath();
   };
 
-  // Draw collage logic
   const drawCollage = useCallback(() => {
-    if (images.length === 0) return;
-    setIsAssembling(true);
-
-    const canvasWidth = 1200;
-    const canvasHeight = 1200 / aspectRatio;
-
-    const canvas = canvasRef.current || document.createElement('canvas');
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) {
-      setIsAssembling(false);
+    if (images.length === 0) {
+      if (canvasUrl) URL.revokeObjectURL(canvasUrl);
+      setCanvasUrl('');
       return;
     }
 
-    // Background color of collage (matching spacing color)
-    ctx.fillStyle = '#ffffff'; // Light backdrop
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    // Calculate slots based on layout
-    const slots: SlotRect[] = [];
-    const pad = spacing;
+    setIsAssembling(true);
 
-    if (layoutId === '2-cols') {
-      const w = (canvasWidth - pad * 3) / 2;
-      const h = canvasHeight - pad * 2;
-      slots.push({ x: pad, y: pad, w, h });
-      slots.push({ x: pad * 2 + w, y: pad, w, h });
-    } else if (layoutId === '2-rows') {
-      const w = canvasWidth - pad * 2;
-      const h = (canvasHeight - pad * 3) / 2;
-      slots.push({ x: pad, y: pad, w, h });
-      slots.push({ x: pad, y: pad * 2 + h, w, h });
-    } else if (layoutId === '3-grid-l') {
-      const w1 = (canvasWidth - pad * 3) * 0.6;
-      const w2 = (canvasWidth - pad * 3) * 0.4;
-      const h1 = canvasHeight - pad * 2;
-      const h2 = (canvasHeight - pad * 3) / 2;
-      slots.push({ x: pad, y: pad, w: w1, h: h1 });
-      slots.push({ x: pad * 2 + w1, y: pad, w: w2, h: h2 });
-      slots.push({ x: pad * 2 + w1, y: pad * 2 + h2, w: w2, h: h2 });
-    } else {
-      // 4 grid (2x2)
-      const w = (canvasWidth - pad * 3) / 2;
-      const h = (canvasHeight - pad * 3) / 2;
-      slots.push({ x: pad, y: pad, w, h });
-      slots.push({ x: pad * 2 + w, y: pad, w, h });
-      slots.push({ x: pad, y: pad * 2 + h, w, h });
-      slots.push({ x: pad * 2 + w, y: pad * 2 + h, w, h });
-    }
+    const baseWidth = 1200;
+    const baseHeight = Math.round(baseWidth / aspectRatio);
+    canvas.width = baseWidth;
+    canvas.height = baseHeight;
 
-    // Load and draw images into slots
-    const loadPromises = slots.map((slot, index) => {
-      return new Promise<void>((resolve) => {
-        const collageImg = images[index];
-        if (!collageImg) {
-          // Draw empty slot
-          ctx.fillStyle = '#f1f5f9';
-          drawRoundedRect(ctx, slot.x, slot.y, slot.w, slot.h, borderRadius);
-          ctx.fill();
-          resolve();
-          return;
+    ctx.fillStyle = borderColor;
+    ctx.fillRect(0, 0, baseWidth, baseHeight);
+
+    const activeLayout = layouts.find((l) => l.id === layoutId) || layouts[0];
+    const imageCount = Math.min(images.length, activeLayout.maxImages);
+
+    const calculateSlots = (): SlotRect[] => {
+      const slots: SlotRect[] = [];
+      const innerX = borderWidth;
+      const innerY = borderWidth;
+      const innerW = baseWidth - borderWidth * 2;
+      const innerH = baseHeight - borderWidth * 2;
+
+      if (layoutId === '2-cols' || (layoutId === '4-grid' && imageCount === 2)) {
+        const colW = (innerW - spacing) / 2;
+        slots.push({ x: innerX, y: innerY, w: colW, h: innerH });
+        slots.push({ x: innerX + colW + spacing, y: innerY, w: colW, h: innerH });
+      } else if (layoutId === '2-rows') {
+        const rowH = (innerH - spacing) / 2;
+        slots.push({ x: innerX, y: innerY, w: innerW, h: rowH });
+        slots.push({ x: innerX, y: innerY + rowH + spacing, w: innerW, h: rowH });
+      } else if (layoutId === '3-grid-l') {
+        const leftW = (innerW - spacing) * 0.6;
+        const rightW = innerW - spacing - leftW;
+        const rightH = (innerH - spacing) / 2;
+        slots.push({ x: innerX, y: innerY, w: leftW, h: innerH });
+        slots.push({ x: innerX + leftW + spacing, y: innerY, w: rightW, h: rightH });
+        slots.push({ x: innerX + leftW + spacing, y: innerY + rightH + spacing, w: rightW, h: rightH });
+      } else if (layoutId === '4-grid') {
+        const colW = (innerW - spacing) / 2;
+        const rowH = (innerH - spacing) / 2;
+        slots.push({ x: innerX, y: innerY, w: colW, h: rowH });
+        slots.push({ x: innerX + colW + spacing, y: innerY, w: colW, h: rowH });
+        slots.push({ x: innerX, y: innerY + rowH + spacing, w: colW, h: rowH });
+        slots.push({ x: innerX + colW + spacing, y: innerY + rowH + spacing, w: colW, h: rowH });
+      }
+
+      return slots;
+    };
+
+    const slots = calculateSlots();
+    const loadedImages: HTMLImageElement[] = [];
+    let loadedCount = 0;
+
+    images.slice(0, slots.length).forEach((imgObj, idx) => {
+      const img = new Image();
+      img.src = imgObj.url;
+      img.onload = () => {
+        loadedImages[idx] = img;
+        loadedCount++;
+        if (loadedCount === Math.min(images.length, slots.length)) {
+          renderSlots(ctx, slots, loadedImages);
         }
-
-        const img = new Image();
-        img.src = collageImg.url;
-        img.onload = () => {
-          ctx.save();
-
-          // Border offset
-          const bWidth = borderWidth;
-          const sx = slot.x + bWidth;
-          const sy = slot.y + bWidth;
-          const sw = slot.w - bWidth * 2;
-          const sh = slot.h - bWidth * 2;
-
-          // Draw Border Outline
-          if (bWidth > 0) {
-            ctx.strokeStyle = borderColor;
-            ctx.lineWidth = bWidth;
-            drawRoundedRect(ctx, slot.x + bWidth/2, slot.y + bWidth/2, slot.w - bWidth, slot.h - bWidth, borderRadius);
-            ctx.stroke();
-          }
-
-          // Clip image to rounded rect of slot
-          drawRoundedRect(ctx, sx, sy, sw, sh, Math.max(0, borderRadius - bWidth));
-          ctx.clip();
-
-          // Calculate aspect cover drawing dimensions
-          const imgRatio = img.naturalWidth / img.naturalHeight;
-          const slotRatio = sw / sh;
-
-          let dx, dy, dw, dh;
-          if (imgRatio > slotRatio) {
-            // Image is wider than slot: scale height, clip sides
-            dh = sh;
-            dw = sh * imgRatio;
-            dx = sx - (dw - sw) / 2;
-            dy = sy;
-          } else {
-            // Image is taller than slot: scale width, clip top/bottom
-            dw = sw;
-            dh = sw / imgRatio;
-            dx = sx;
-            dy = sy - (dh - sh) / 2;
-          }
-
-          ctx.drawImage(img, dx, dy, dw, dh);
-          ctx.restore();
-          resolve();
-        };
-
-        img.onerror = () => {
-          resolve();
-        };
-      });
+      };
     });
 
-    Promise.all(loadPromises).then(() => {
-      canvas.toBlob((blob) => {
-        if (blob) {
-          if (canvasUrl) URL.revokeObjectURL(canvasUrl);
-          setCanvasUrl(URL.createObjectURL(blob));
+    const renderSlots = (context: CanvasRenderingContext2D, targetSlots: SlotRect[], imgs: HTMLImageElement[]) => {
+      targetSlots.forEach((slot, index) => {
+        const img = imgs[index];
+        if (!img) return;
+
+        context.save();
+        if (borderRadius > 0) {
+          drawRoundedRect(context, slot.x, slot.y, slot.w, slot.h, borderRadius);
+          context.clip();
         }
+
+        const imgAspect = img.width / img.height;
+        const slotAspect = slot.w / slot.h;
+        let sx = 0, sy = 0, sWidth = img.width, sHeight = img.height;
+
+        if (imgAspect > slotAspect) {
+          sWidth = img.height * slotAspect;
+          sx = (img.width - sWidth) / 2;
+        } else {
+          sHeight = img.width / slotAspect;
+          sy = (img.height - sHeight) / 2;
+        }
+
+        context.drawImage(img, sx, sy, sWidth, sHeight, slot.x, slot.y, slot.w, slot.h);
+        context.restore();
+      });
+
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        setCanvasUrl(url);
         setIsAssembling(false);
       }, 'image/png');
-    });
+    };
   }, [images, layoutId, aspectRatio, spacing, borderWidth, borderColor, borderRadius]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     drawCollage();
   }, [images, layoutId, aspectRatio, spacing, borderWidth, borderColor, borderRadius, drawCollage]);
 
@@ -289,11 +274,11 @@ export const CollageMaker: React.FC = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full py-8 md:py-12 max-w-7xl mx-auto px-4 sm:px-6">
       <SEO 
-        title="Free Online Photo Collage Maker - Canva Grid Alternative" 
-        description="Assemble images into custom collage grids locally in your browser. A free alternative to Canva collages, BeFunky, and PicMonkey with zero uploads." 
-        keywords="photo collage maker, collage maker online, free collage maker, image collage, picture collage, photo grid maker, photo layout maker, online collage creator, make collage online free, picture collage maker, no watermark collage maker, Canva collage alternative, BeFunky alternative, PicMonkey collage creator, photo collage offline"
+        title={pageTitle || "Free Online Photo Collage Maker & Photo Grid Joiner | ImagePlumber"} 
+        description={pageSubtitle || "Assemble images into custom collage grids locally in your browser. A free private alternative to Canva collages with zero uploads."} 
+        keywords="photo collage maker, collage maker online, free collage maker, image collage, picture collage, photo grid maker, photo layout maker, online collage creator, make collage online free, picture collage maker, no watermark collage maker, Canva collage alternative, photo collage offline"
         canonicalUrl="https://imageplumber.com/collage-maker"
         schema={collageSchema}
       />
@@ -301,12 +286,16 @@ export const CollageMaker: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
           <span className="text-xs font-bold text-pink-650 uppercase tracking-widest px-2.5 py-1 bg-pink-50 border border-pink-100 rounded-full shadow-sm">
-            Creative Tool
+            Creative Layout Suite
           </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">Photo Collage Maker</h1>
-          <p className="text-sm text-slate-555">Combine multiple files into tailored grids locally. High-resolution PNG output.</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight leading-tight mt-3 mb-2">
+            {pageTitle || "Photo Collage & Grid Maker"}
+          </h1>
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300">
+            {pageSubtitle || "Combine multiple photos into tailored grids locally in your browser with adjustable border spacing, corner rounding, and lossless PNG output."}
+          </p>
         </div>
 
         {images.length === 0 ? (

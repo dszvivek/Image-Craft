@@ -49,7 +49,10 @@ const languages = [
       'eliminar-metadatos': 'metadata-stripper',
       'arte-pixel': 'pixel-art-generator',
       'arte-ascii': 'ascii-art-generator',
-      'efecto-glitch': 'glitch-image-generator'
+      'efecto-glitch': 'glitch-image-generator',
+      'comparar-fotos': 'side-by-side-image',
+      'panoramica-instagram': 'instagram-panorama-splitter',
+      'cuadricula-fotos': 'collage-maker'
     },
     toLocal: {
       '': '',
@@ -70,7 +73,10 @@ const languages = [
       'metadata-stripper': 'eliminar-metadatos',
       'pixel-art-generator': 'arte-pixel',
       'ascii-art-generator': 'arte-ascii',
-      'glitch-image-generator': 'efecto-glitch'
+      'glitch-image-generator': 'efecto-glitch',
+      'side-by-side-image': 'comparar-fotos',
+      'instagram-panorama-splitter': 'panoramica-instagram',
+      'collage-maker': 'cuadricula-fotos'
     }
   },
   {
@@ -89,14 +95,17 @@ const languages = [
       'girar-imagem': 'rotate-image',
       'adicionar-borda-imagem': 'add-border-to-image',
       'filtros-fotos': 'photo-filters',
-      'inverter-cores': 'invert-colors',
+      'inverter-cores': 'inverter-cores',
       'ajustar-imagem': 'adjust-image',
       'gerador-memes': 'meme-generator',
       'marca-dagua': 'watermark-overlay',
       'remover-metadados': 'metadata-stripper',
       'arte-pixel': 'pixel-art-generator',
       'arte-ascii': 'ascii-art-generator',
-      'efeito-glitch': 'glitch-image-generator'
+      'efeito-glitch': 'glitch-image-generator',
+      'comparar-fotos': 'side-by-side-image',
+      'panoramica-instagram': 'instagram-panorama-splitter',
+      'grade-fotos': 'collage-maker'
     },
     toLocal: {
       '': '',
@@ -117,7 +126,10 @@ const languages = [
       'metadata-stripper': 'remover-metadados',
       'pixel-art-generator': 'arte-pixel',
       'ascii-art-generator': 'arte-ascii',
-      'glitch-image-generator': 'efeito-glitch'
+      'glitch-image-generator': 'efeito-glitch',
+      'side-by-side-image': 'comparar-fotos',
+      'instagram-panorama-splitter': 'panoramica-instagram',
+      'collage-maker': 'grade-fotos'
     }
   },
   {
@@ -143,7 +155,10 @@ const languages = [
       'exif-metadata-hataye': 'metadata-stripper',
       'pixel-art-generator': 'pixel-art-generator',
       'ascii-art-generator': 'ascii-art-generator',
-      'glitch-art-studio': 'glitch-image-generator'
+      'glitch-art-studio': 'glitch-image-generator',
+      'photo-compare-kare': 'side-by-side-image',
+      'instagram-panorama-splitter': 'instagram-panorama-splitter',
+      'photo-grid-maker': 'collage-maker'
     },
     toLocal: {
       '': '',
@@ -164,7 +179,10 @@ const languages = [
       'metadata-stripper': 'exif-metadata-hataye',
       'pixel-art-generator': 'pixel-art-generator',
       'ascii-art-generator': 'ascii-art-generator',
-      'glitch-image-generator': 'glitch-art-studio'
+      'glitch-image-generator': 'glitch-art-studio',
+      'side-by-side-image': 'photo-compare-kare',
+      'instagram-panorama-splitter': 'instagram-panorama-splitter',
+      'collage-maker': 'photo-grid-maker'
     }
   },
   {
@@ -190,7 +208,10 @@ const languages = [
       'supprimer-metadonnees': 'metadata-stripper',
       'pixel-art': 'pixel-art-generator',
       'art-ascii': 'ascii-art-generator',
-      'effet-glitch': 'glitch-image-generator'
+      'effet-glitch': 'glitch-image-generator',
+      'comparer-photos': 'side-by-side-image',
+      'panorama-instagram': 'instagram-panorama-splitter',
+      'grille-photos': 'collage-maker'
     },
     toLocal: {
       '': '',
@@ -211,7 +232,10 @@ const languages = [
       'metadata-stripper': 'supprimer-metadonnees',
       'pixel-art-generator': 'pixel-art',
       'ascii-art-generator': 'art-ascii',
-      'glitch-image-generator': 'effet-glitch'
+      'glitch-image-generator': 'effet-glitch',
+      'side-by-side-image': 'comparer-photos',
+      'instagram-panorama-splitter': 'panorama-instagram',
+      'collage-maker': 'grille-photos'
     }
   },
   {
@@ -237,7 +261,10 @@ const languages = [
       'metadaten-entfernen': 'metadata-stripper',
       'pixel-art-generator': 'pixel-art-generator',
       'ascii-art-generator': 'ascii-art-generator',
-      'glitch-effekt': 'glitch-image-generator'
+      'glitch-effekt': 'glitch-image-generator',
+      'bilder-vergleichen': 'side-by-side-image',
+      'instagram-panorama-teiler': 'instagram-panorama-splitter',
+      'fotogitter-erstellen': 'collage-maker'
     },
     toLocal: {
       '': '',
@@ -258,7 +285,10 @@ const languages = [
       'metadata-stripper': 'metadaten-entfernen',
       'pixel-art-generator': 'pixel-art-generator',
       'ascii-art-generator': 'ascii-art-generator',
-      'glitch-image-generator': 'glitch-effekt'
+      'glitch-image-generator': 'glitch-effekt',
+      'side-by-side-image': 'bilder-vergleichen',
+      'instagram-panorama-splitter': 'instagram-panorama-teiler',
+      'collage-maker': 'fotogitter-erstellen'
     }
   }
 ];

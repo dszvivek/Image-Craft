@@ -37,7 +37,8 @@ import {
   Wand2,
   Gamepad2,
   Terminal,
-  Zap
+  Zap,
+  ArrowLeftRight
 } from 'lucide-react';
 import { AdPlacement } from '../components/AdPlacement';
 import { CommandPalette } from '../components/CommandPalette';
@@ -444,6 +445,22 @@ export const Layout = () => {
       category: 'image-editing',
       description: 'RGB chromatic split, datamoshing & CRT scanlines.',
       colorClass: 'text-violet-650 bg-violet-50 border-violet-100/50 dark:text-violet-400 dark:bg-violet-950/30 dark:border-violet-900/30'
+    },
+    { 
+      name: 'Side-by-Side & Before/After Combiner', 
+      path: '/side-by-side-image', 
+      icon: ArrowLeftRight,
+      category: 'layout-grid',
+      description: 'Stitch two photos with Before/After tags & divider borders.',
+      colorClass: 'text-blue-650 bg-blue-50 border-blue-100/50 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
+    },
+    { 
+      name: 'Instagram Panorama & Carousel Splitter', 
+      path: '/instagram-panorama-splitter', 
+      icon: Maximize2,
+      category: 'layout-grid',
+      description: 'Split wide landscapes into seamless 4:5 swipe carousels.',
+      colorClass: 'text-pink-650 bg-pink-50 border-pink-100/50 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
     },
   ];
 

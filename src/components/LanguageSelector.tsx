@@ -146,6 +146,27 @@ const TOOL_EQUIVALENTS: Record<string, Record<string, string>> = {
     fr: 'effet-glitch',
     de: 'glitch-effekt',
   },
+  'side-by-side-image': {
+    es: 'comparar-fotos',
+    pt: 'comparar-fotos',
+    hi: 'photo-compare-kare',
+    fr: 'comparer-photos',
+    de: 'bilder-vergleichen',
+  },
+  'instagram-panorama-splitter': {
+    es: 'panoramica-instagram',
+    pt: 'panoramica-instagram',
+    hi: 'instagram-panorama-splitter',
+    fr: 'panorama-instagram',
+    de: 'instagram-panorama-teiler',
+  },
+  'collage-maker': {
+    es: 'cuadricula-fotos',
+    pt: 'grade-fotos',
+    hi: 'photo-grid-maker',
+    fr: 'grille-photos',
+    de: 'fotogitter-erstellen',
+  },
 };
 
 // Reverse map to find standard English route from localized path
@@ -168,6 +189,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'es/arte-pixel': 'pixel-art-generator',
   'es/arte-ascii': 'ascii-art-generator',
   'es/efecto-glitch': 'glitch-image-generator',
+  'es/comparar-fotos': 'side-by-side-image',
+  'es/panoramica-instagram': 'instagram-panorama-splitter',
+  'es/cuadricula-fotos': 'collage-maker',
   'pt/comprimir-imagem': 'image-compressor',
   'pt/remover-fundo': 'background-remover',
   'pt/conversor-em-lote': 'batch-converter',
@@ -186,6 +210,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'pt/arte-pixel': 'pixel-art-generator',
   'pt/arte-ascii': 'ascii-art-generator',
   'pt/efeito-glitch': 'glitch-image-generator',
+  'pt/comparar-fotos': 'side-by-side-image',
+  'pt/panoramica-instagram': 'instagram-panorama-splitter',
+  'pt/grade-fotos': 'collage-maker',
   'hi/photo-compress-kare': 'image-compressor',
   'hi/background-hataye': 'background-remover',
   'hi/batch-converter': 'batch-converter',
@@ -204,6 +231,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'hi/pixel-art-generator': 'pixel-art-generator',
   'hi/ascii-art-generator': 'ascii-art-generator',
   'hi/glitch-art-studio': 'glitch-image-generator',
+  'hi/photo-compare-kare': 'side-by-side-image',
+  'hi/instagram-panorama-splitter': 'instagram-panorama-splitter',
+  'hi/photo-grid-maker': 'collage-maker',
   'fr/compresser-image': 'image-compressor',
   'fr/supprimer-arriere-plan': 'background-remover',
   'fr/convertisseur-par-lots': 'batch-converter',
@@ -222,6 +252,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'fr/pixel-art': 'pixel-art-generator',
   'fr/art-ascii': 'ascii-art-generator',
   'fr/effet-glitch': 'glitch-image-generator',
+  'fr/comparer-photos': 'side-by-side-image',
+  'fr/panorama-instagram': 'instagram-panorama-splitter',
+  'fr/grille-photos': 'collage-maker',
   'de/bild-komprimieren': 'image-compressor',
   'de/hintergrund-entfernen': 'background-remover',
   'de/stapel-konverter': 'batch-converter',
@@ -240,6 +273,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'de/pixel-art-generator': 'pixel-art-generator',
   'de/ascii-art-generator': 'ascii-art-generator',
   'de/glitch-effekt': 'glitch-image-generator',
+  'de/bilder-vergleichen': 'side-by-side-image',
+  'de/instagram-panorama-teiler': 'instagram-panorama-splitter',
+  'de/fotogitter-erstellen': 'collage-maker',
 };
 
 interface LanguageSelectorProps {

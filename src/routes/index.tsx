@@ -57,6 +57,8 @@ const ImageAdjuster = safeLazy(() => import('../pages/ImageAdjuster').then(modul
 const PixelArtGenerator = safeLazy(() => import('../pages/PixelArtGenerator').then(module => ({ default: module.PixelArtGenerator })));
 const AsciiArtGenerator = safeLazy(() => import('../pages/AsciiArtGenerator').then(module => ({ default: module.AsciiArtGenerator })));
 const GlitchArtStudio = safeLazy(() => import('../pages/GlitchArtStudio').then(module => ({ default: module.GlitchArtStudio })));
+const SideBySideCompare = safeLazy(() => import('../pages/SideBySideCompare').then(module => ({ default: module.SideBySideCompare })));
+const InstagramPanoramaSplitter = safeLazy(() => import('../pages/InstagramPanoramaSplitter').then(module => ({ default: module.InstagramPanoramaSplitter })));
 const About = safeLazy(() => import('../pages/About').then(module => ({ default: module.About })));
 const Privacy = safeLazy(() => import('../pages/Privacy').then(module => ({ default: module.Privacy })));
 const Contact = safeLazy(() => import('../pages/Contact').then(module => ({ default: module.Contact })));
@@ -558,6 +560,70 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: 'side-by-side-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SideBySideCompare />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'before-after-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SideBySideCompare pageTitle="Before and After Image Combiner Free" pageSubtitle="Combine Before and After photos with custom text badge labels and divider borders." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'compare-images',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SideBySideCompare pageTitle="Compare Two Images Side by Side" pageSubtitle="Compare two images with horizontal or vertical split and custom badge styling." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'instagram-panorama-splitter',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <InstagramPanoramaSplitter />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'swipe-carousel-maker',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <InstagramPanoramaSplitter pageTitle="Swipe Carousel Maker for Instagram & TikTok" pageSubtitle="Create seamless 4:5 portrait and square swipe carousels from panoramic photos." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'seamless-carousel',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <InstagramPanoramaSplitter pageTitle="Seamless Panorama Carousel Splitter" pageSubtitle="Split panoramic photos into seamless swipe slides with batch ZIP download." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'photo-grid-maker',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CollageMaker pageTitle="Photo Grid Maker Online Free" pageSubtitle="Combine photos into custom grid structures with adjustable spacing and corner radius." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'photo-joiner',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CollageMaker pageTitle="Photo Joiner & Image Combiner" pageSubtitle="Join multiple photos into a single canvas locally in your browser." />
+          </Suspense>
+        ),
+      },
+      {
         path: 'about',
         element: (
           <Suspense fallback={<PageLoader />}>
@@ -742,6 +808,30 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'es/comparar-fotos',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SideBySideCompare pageTitle="Comparar Fotos Lado a Lado y Antes/Después" pageSubtitle="Combina dos fotos lado a lado con etiquetas de Antes/Después y bordes divisorios." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/panoramica-instagram',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <InstagramPanoramaSplitter pageTitle="Dividir Panorámica para Carrusel de Instagram" pageSubtitle="Crea publicaciones continuas de Instagram en 4:5 y cuadrado con descarga en ZIP." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/cuadricula-fotos',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CollageMaker pageTitle="Crear Cuadrícula y Collage de Fotos Gratis" pageSubtitle="Combina múltiples imágenes en cuadrículas personalizadas sin marcas de agua." />
+          </Suspense>
+        ),
+      },
       // Portuguese Localized Routes (i18n Phase 2)
       {
         path: 'pt',
@@ -892,6 +982,30 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <GlitchArtStudio pageTitle="Gerador de Efeito Glitch e Linhas CRT" pageSubtitle="Crie aberração cromática RGB, datamoshing e distorção retrô VHS no navegador." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/comparar-fotos',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SideBySideCompare pageTitle="Comparar Fotos Lado a Lado e Antes/Depois" pageSubtitle="Junte duas fotos lado a lado com tags Antes/Depois e molduras personalizadas." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/panoramica-instagram',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <InstagramPanoramaSplitter pageTitle="Dividir Panorâmica para Carrossel Instagram" pageSubtitle="Crie posts contínuos no Instagram em formato 4:5 e quadrado com download ZIP." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/grade-fotos',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CollageMaker pageTitle="Criar Grade e Colagem de Fotos Grátis" pageSubtitle="Combine fotos em grades personalizadas diretamente no navegador sem marcas." />
           </Suspense>
         ),
       },
@@ -1048,6 +1162,30 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'hi/photo-compare-kare',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SideBySideCompare pageTitle="Photo Compare Kare & Before After Combiner" pageSubtitle="दो फोटो को एक साथ साइड-बाय-साइड जोड़ें बिफोर/आफ्टर टैग के साथ।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/instagram-panorama-splitter',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <InstagramPanoramaSplitter pageTitle="Instagram Panorama Splitter & Swipe Carousel" pageSubtitle="पैनोरमा फोटो को इंस्टाग्राम स्वाइप कैरोसेल में काटें और ZIP डाउनलोड करें।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/photo-grid-maker',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CollageMaker pageTitle="Photo Grid & Collage Maker Hindi" pageSubtitle="कई फोटो को एक साथ सुंदर ग्रिड और कोलाज में जोड़ें फ्री में।" />
+          </Suspense>
+        ),
+      },
       // French Localized Routes (i18n Phase 2)
       {
         path: 'fr',
@@ -1201,6 +1339,30 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'fr/comparer-photos',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SideBySideCompare pageTitle="Comparer Deux Photos Côte à Côte" pageSubtitle="Combinez deux photos côte à côte ou avant/après avec étiquettes personnalisées." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/panorama-instagram',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <InstagramPanoramaSplitter pageTitle="Découper Panorama pour Carrousel Instagram" pageSubtitle="Créez des carrousels continus en 4:5 et carré avec téléchargement ZIP." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/grille-photos',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CollageMaker pageTitle="Créer une Grille et Collage Photo Gratuit" pageSubtitle="Assemblez plusieurs images en grilles personnalisées sans filigrane." />
+          </Suspense>
+        ),
+      },
       // German Localized Routes (i18n Phase 2)
       {
         path: 'de',
@@ -1351,6 +1513,30 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <GlitchArtStudio pageTitle="Glitch Art & CRT Scanline Generator" pageSubtitle="Erzeugen Sie RGB Farbverschiebung, Datamoshing und VHS Retro-Verzerrung im Browser." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/bilder-vergleichen',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SideBySideCompare pageTitle="Bilder Nebeneinander Vergleichen (Vorher/Nachher)" pageSubtitle="Fügen Sie zwei Bilder nebeneinander mit Vorher/Nachher-Badges und Rahmen zusammen." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/instagram-panorama-teiler',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <InstagramPanoramaSplitter pageTitle="Panorama für Instagram Karussell Teilen" pageSubtitle="Erstellen Sie nahtlose Wisch-Karussells in 4:5 Porträt mit ZIP-Download." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/fotogitter-erstellen',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CollageMaker pageTitle="Fotogitter & Collage Erstellen Online Kostenlos" pageSubtitle="Kombinieren Sie mehrere Fotos in individuelle Raster lokal ohne Wasserzeichen." />
           </Suspense>
         ),
       },

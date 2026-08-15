@@ -2577,6 +2577,286 @@
       }
     }
   },
+  "side-by-side-image": {
+    "title": "Side by Side Image & Before/After Photo Combiner Free | ImagePlumber",
+    "description": "Combine two photos side by side or vertically with customizable Before/After badges and divider borders online for free.",
+    "keywords": "side by side image combiner, before and after photo maker, combine two photos online free, side by side picture joiner, compare photos side by side",
+    "howTo": [
+      {
+        "name": "Upload Both Images",
+        "text": "Drop your Before (Left) and After (Right) photos."
+      },
+      {
+        "name": "Choose Orientation & Badges",
+        "text": "Select horizontal or vertical layout and customize Before/After badge text and colors."
+      },
+      {
+        "name": "Download Combined Image",
+        "text": "Export high-resolution comparison graphic in lossless PNG or JPEG."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Side by Side Image Combiner - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "before-after-image": {
+    "title": "Before and After Image Combiner Online Free | ImagePlumber",
+    "description": "Create stunning transformation Before & After comparison graphics with custom pill badges and divider gaps.",
+    "keywords": "before and after image combiner, before after photo editor, transformation photo comparison, fitness progress photo combiner free",
+    "howTo": [
+      {
+        "name": "Upload Photos",
+        "text": "Upload Before and After transformation pictures."
+      },
+      {
+        "name": "Add Badges",
+        "text": "Customize text pills, divider borders, and corner rounding."
+      },
+      {
+        "name": "Save Image",
+        "text": "Download the combined before/after photo."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Before and After Image Combiner - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "compare-images": {
+    "title": "Compare Two Images Side by Side Online | ImagePlumber",
+    "description": "Put two images side by side to compare differences in quality, grading, and layout in local browser memory.",
+    "keywords": "compare two images online, photo comparison tool free, image difference viewer, side by side picture comparator",
+    "howTo": [
+      {
+        "name": "Upload Two Images",
+        "text": "Select both images to place on the comparison canvas."
+      },
+      {
+        "name": "Align Heights",
+        "text": "Choose dimension matching mode to scale images evenly."
+      },
+      {
+        "name": "Download Comparison",
+        "text": "Save your comparison canvas locally."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Compare Two Images - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "instagram-panorama-splitter": {
+    "title": "Instagram Panorama Splitter & Seamless Swipe Carousel Free | ImagePlumber",
+    "description": "Split panoramic photos into seamless swipeable carousels for Instagram (4:5 Portrait & 1:1 Square) with live simulator and ZIP download.",
+    "keywords": "instagram panorama splitter, seamless swipe carousel maker, split panorama for instagram, instagram carousel photo splitter, panorasplit online free",
+    "howTo": [
+      {
+        "name": "Upload Panorama",
+        "text": "Drop your wide panoramic landscape photo."
+      },
+      {
+        "name": "Select Slide Count & Ratio",
+        "text": "Choose 2 to 10 slides and select Instagram Portrait (4:5)."
+      },
+      {
+        "name": "Download ZIP",
+        "text": "Export all sequential carousel slides inside a single ZIP file."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Instagram Panorama Splitter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "swipe-carousel-maker": {
+    "title": "Swipe Carousel Maker for Instagram & TikTok (4:5 Portrait) | ImagePlumber",
+    "description": "Create seamless continuous swipeable carousel posts for Instagram and TikTok feeds with zero gap lines.",
+    "keywords": "swipe carousel maker, instagram swipe post maker, continuous photo carousel, multi slide panorama instagram free",
+    "howTo": [
+      {
+        "name": "Upload Image",
+        "text": "Drop your wide photo into the swipe maker."
+      },
+      {
+        "name": "Preview in Swipe Simulator",
+        "text": "Test the real-time swipe interaction in the simulator."
+      },
+      {
+        "name": "Export Carousel ZIP",
+        "text": "Download all slides ready to upload to Instagram."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Swipe Carousel Maker - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "seamless-carousel": {
+    "title": "Seamless Panorama Carousel Splitter Online Free | ImagePlumber",
+    "description": "Slice long panoramic photos into seamless swipe slides for Instagram and LinkedIn with automatic resolution scaling.",
+    "keywords": "seamless carousel splitter, seamless panorama instagram, swipe panorama tool, panoramic image slicer free",
+    "howTo": [
+      {
+        "name": "Upload Panorama",
+        "text": "Drop any wide landscape image."
+      },
+      {
+        "name": "Choose Number of Slices",
+        "text": "Select slice count and tune horizon position."
+      },
+      {
+        "name": "Download All Slices",
+        "text": "Save the ZIP archive with sequential slide names."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Seamless Carousel Splitter - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "photo-grid-maker": {
+    "title": "Photo Grid Maker Online Free (Custom Layouts) | ImagePlumber",
+    "description": "Combine multiple photos into customizable grid structures with adjustable spacing, corner radius, and canvas backgrounds.",
+    "keywords": "photo grid maker online, picture grid generator, photo layout creator free, image grid joiner online",
+    "howTo": [
+      {
+        "name": "Add Photos",
+        "text": "Upload 2 to 4 photos to arrange in a grid."
+      },
+      {
+        "name": "Choose Grid Layout",
+        "text": "Select from columns, rows, or 2x2 grid templates."
+      },
+      {
+        "name": "Download Photo Grid",
+        "text": "Save the assembled high-resolution grid PNG."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Photo Grid Maker - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "photo-joiner": {
+    "title": "Photo Joiner & Image Combiner Online Free | ImagePlumber",
+    "description": "Join multiple pictures together vertically or horizontally into a single image file with custom border styling.",
+    "keywords": "photo joiner online, combine images into one, join pictures vertically, stitch photos together free",
+    "howTo": [
+      {
+        "name": "Select Images",
+        "text": "Choose photos to stitch together."
+      },
+      {
+        "name": "Configure Spacing",
+        "text": "Adjust border width and corner rounding."
+      },
+      {
+        "name": "Save Joined Image",
+        "text": "Download the joined image in lossless PNG."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Photo Joiner - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
   "about": {
     "title": "About Our Offline Privacy Tools | ImagePlumber",
     "description": "Learn about ImagePlumber and our absolute privacy commitment. We run 100% client-side web sandbox processing without cloud databases or server uploads.",
