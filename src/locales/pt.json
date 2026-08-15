@@ -147,5 +147,20 @@
     "title": "Ajustar Brilho, Contraste e Cores Online | ImagePlumber",
     "description": "Ajuste iluminação, saturação, temperatura e nitidez com visualização comparativa e auto-realce em 1 clique.",
     "keywords": "ajustar brilho imagem, aumentar contraste foto, saturacao imagem online, auto realce foto, nitidez de foto online"
+  },
+  "gerador-memes": {
+    "title": "Gerador de Memes e Texto na Foto Online | ImagePlumber",
+    "description": "Crie memes e adicione legendas personalizadas às fotos sem marcas d'água 100% no navegador.",
+    "keywords": "gerador de memes online, colocar texto na foto gratis, escrever em fotos online, criar meme sem marca dagua"
+  },
+  "marca-dagua": {
+    "title": "Colocar Marca d'Água em Fotos Online (Lote e ZIP) | ImagePlumber",
+    "description": "Adicione texto ou logotipo em lote nas suas fotos com download em ZIP e máxima privacidade.",
+    "keywords": "marca dagua em fotos online, colocar logo na foto gratis, marca dagua em lote, proteger fotos online"
+  },
+  "remover-metadados": {
+    "title": "Ver e Remover Metadados EXIF de Fotos | ImagePlumber",
+    "description": "Visualize localização GPS e dados da câmera e limpe todas as informações confidenciais localmente.",
+    "keywords": "remover metadados foto, apagar gps da foto, visualizador exif online, limpar dados exif gratis"
   }
 }

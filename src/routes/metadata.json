@@ -2056,6 +2056,212 @@
       ]
     }
   },
+  "add-text-to-image": {
+    "title": "Add Text to Photo Online Free (Fonts & Outlines) | ImagePlumber",
+    "description": "Overlay custom typography and text on photos online for free. Draggable text, Google Fonts, outline strokes, and zero cloud uploads.",
+    "keywords": "add text to photo online, write text on image free, photo typography editor, text on picture without upload, caption photo online",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Drop your image into the typography editor."
+      },
+      {
+        "name": "Type & Style Text",
+        "text": "Choose font family, size, stroke color, and outline thickness."
+      },
+      {
+        "name": "Export High-Res Image",
+        "text": "Download the image with rendered text in lossless PNG or JPEG."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Add Text to Photo - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "caption-generator": {
+    "title": "Photo Caption & Subtitle Generator Online Free | ImagePlumber",
+    "description": "Add high-contrast captions, subtitles, and text boxes to photos online for free with customizable background highlights.",
+    "keywords": "photo caption generator, add subtitles to image, photo text box maker, subtitle overlay image, caption photo online free",
+    "howTo": [
+      {
+        "name": "Upload Image",
+        "text": "Select any photo to add subtitles or captions."
+      },
+      {
+        "name": "Customize Caption Box",
+        "text": "Add highlight box background and adjust padding and opacity."
+      },
+      {
+        "name": "Save Captioned Photo",
+        "text": "Download the captioned photo in high resolution."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Photo Caption Generator - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "batch-watermark": {
+    "title": "Batch Watermark Photos Online Free (1-Click ZIP) | ImagePlumber",
+    "description": "Add text or logo watermarks to multiple photos at once online for free. 9-point grid, tiled repeating pattern, and ZIP export with zero cloud uploads.",
+    "keywords": "batch watermark online, watermark multiple photos free, bulk watermark photos, batch logo stamp, watermark images zip download",
+    "howTo": [
+      {
+        "name": "Upload Multiple Photos",
+        "text": "Drag and drop dozens of photos into the batch watermarker."
+      },
+      {
+        "name": "Configure Watermark",
+        "text": "Choose text stamp or transparent logo and pick anchor or tiled pattern."
+      },
+      {
+        "name": "Download All as ZIP",
+        "text": "Process in local RAM and download all watermarked images in a single ZIP."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Batch Watermark Studio - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "add-logo-to-photo": {
+    "title": "Add Logo to Photo Online Free (Transparent PNG) | ImagePlumber",
+    "description": "Stamp your business logo or brand icon onto photos online for free with adjustable scale, opacity, and anchor positioning.",
+    "keywords": "add logo to photo online, stamp logo on image free, brand logo watermark, transparent png on photo, watermark with logo online",
+    "howTo": [
+      {
+        "name": "Upload Base Photo & Logo",
+        "text": "Select your background photo and transparent PNG logo."
+      },
+      {
+        "name": "Adjust Scale & Position",
+        "text": "Use the 9-point grid to position the logo and set opacity."
+      },
+      {
+        "name": "Download Branded Photo",
+        "text": "Save the branded image in lossless PNG or JPEG."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Add Logo to Photo - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "exif-viewer": {
+    "title": "EXIF Metadata Viewer Online Free (Camera & GPS) | ImagePlumber",
+    "description": "Inspect camera settings, aperture, shutter speed, ISO, focal length, and GPS coordinates online for free with interactive map links.",
+    "keywords": "exif viewer online, inspect photo metadata, view camera settings, read photo gps coordinates, exif tag reader free",
+    "howTo": [
+      {
+        "name": "Upload Photo",
+        "text": "Drop any RAW, JPG, or PNG photo to read its EXIF payload."
+      },
+      {
+        "name": "View Telemetry & Map",
+        "text": "Review camera model, lens, exposure, and click GPS map links."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "EXIF Viewer - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
+  "remove-exif-data": {
+    "title": "Remove EXIF Data & GPS from Photos Online Free | ImagePlumber",
+    "description": "Strip geolocation, camera serial numbers, and personal timestamps from single or batch photos online for free in your browser.",
+    "keywords": "remove exif data online, strip photo metadata, erase gps from photo, remove camera data, sanitize image privacy free",
+    "howTo": [
+      {
+        "name": "Upload Photos",
+        "text": "Drop single or batch photos to sanitize."
+      },
+      {
+        "name": "1-Click Clean",
+        "text": "Click Clean & Strip Photo to erase all metadata tags in local RAM."
+      },
+      {
+        "name": "Download Clean Files",
+        "text": "Download sanitized images individually or in a combined ZIP."
+      }
+    ],
+    "schema": {
+      "@type": "SoftwareApplication",
+      "name": "Remove EXIF Data - ImagePlumber",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImagePlumber",
+        "url": "https://imageplumber.com"
+      }
+    }
+  },
   "about": {
     "title": "About Our Offline Privacy Tools | ImagePlumber",
     "description": "Learn about ImagePlumber and our absolute privacy commitment. We run 100% client-side web sandbox processing without cloud databases or server uploads.",

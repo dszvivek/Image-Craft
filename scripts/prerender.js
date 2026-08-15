@@ -43,7 +43,10 @@ const languages = [
       'agregar-borde-imagen': 'add-border-to-image',
       'filtros-fotos': 'photo-filters',
       'invertir-colores': 'invert-colors',
-      'ajustar-imagen': 'adjust-image'
+      'ajustar-imagen': 'adjust-image',
+      'generador-memes': 'meme-generator',
+      'marca-de-agua': 'watermark-overlay',
+      'eliminar-metadatos': 'metadata-stripper'
     },
     toLocal: {
       '': '',
@@ -58,7 +61,10 @@ const languages = [
       'add-border-to-image': 'agregar-borde-imagen',
       'photo-filters': 'filtros-fotos',
       'invert-colors': 'invertir-colores',
-      'adjust-image': 'ajustar-imagen'
+      'adjust-image': 'ajustar-imagen',
+      'meme-generator': 'generador-memes',
+      'watermark-overlay': 'marca-de-agua',
+      'metadata-stripper': 'eliminar-metadatos'
     }
   },
   {
@@ -78,7 +84,10 @@ const languages = [
       'adicionar-borda-imagem': 'add-border-to-image',
       'filtros-fotos': 'photo-filters',
       'inverter-cores': 'invert-colors',
-      'ajustar-imagem': 'adjust-image'
+      'ajustar-imagem': 'adjust-image',
+      'gerador-memes': 'meme-generator',
+      'marca-dagua': 'watermark-overlay',
+      'remover-metadados': 'metadata-stripper'
     },
     toLocal: {
       '': '',
@@ -93,7 +102,10 @@ const languages = [
       'add-border-to-image': 'adicionar-borda-imagem',
       'photo-filters': 'filtros-fotos',
       'invert-colors': 'inverter-cores',
-      'adjust-image': 'ajustar-imagem'
+      'adjust-image': 'ajustar-imagem',
+      'meme-generator': 'gerador-memes',
+      'watermark-overlay': 'marca-dagua',
+      'metadata-stripper': 'remover-metadados'
     }
   },
   {
@@ -113,7 +125,10 @@ const languages = [
       'border-lagaye': 'add-border-to-image',
       'photo-filters': 'photo-filters',
       'color-invert-kare': 'invert-colors',
-      'photo-brightness-contrast': 'adjust-image'
+      'photo-brightness-contrast': 'adjust-image',
+      'meme-generator': 'meme-generator',
+      'watermark-lagaye': 'watermark-overlay',
+      'exif-metadata-hataye': 'metadata-stripper'
     },
     toLocal: {
       '': '',
@@ -128,7 +143,10 @@ const languages = [
       'add-border-to-image': 'border-lagaye',
       'photo-filters': 'photo-filters',
       'invert-colors': 'color-invert-kare',
-      'adjust-image': 'photo-brightness-contrast'
+      'adjust-image': 'photo-brightness-contrast',
+      'meme-generator': 'meme-generator',
+      'watermark-overlay': 'watermark-lagaye',
+      'metadata-stripper': 'exif-metadata-hataye'
     }
   },
   {
@@ -148,7 +166,10 @@ const languages = [
       'ajouter-bordure-image': 'add-border-to-image',
       'filtres-photos': 'photo-filters',
       'inverser-couleurs': 'invert-colors',
-      'ajuster-image': 'adjust-image'
+      'ajuster-image': 'adjust-image',
+      'generateur-memes': 'meme-generator',
+      'filigrane-image': 'watermark-overlay',
+      'supprimer-metadonnees': 'metadata-stripper'
     },
     toLocal: {
       '': '',
@@ -163,7 +184,10 @@ const languages = [
       'add-border-to-image': 'ajouter-bordure-image',
       'photo-filters': 'filtres-photos',
       'invert-colors': 'inverser-couleurs',
-      'adjust-image': 'ajuster-image'
+      'adjust-image': 'ajuster-image',
+      'meme-generator': 'generateur-memes',
+      'watermark-overlay': 'filigrane-image',
+      'metadata-stripper': 'supprimer-metadonnees'
     }
   },
   {
@@ -183,7 +207,10 @@ const languages = [
       'rahmen-hinzufuegen': 'add-border-to-image',
       'fotofilter': 'photo-filters',
       'farben-invertieren': 'invert-colors',
-      'bild-anpassen': 'adjust-image'
+      'bild-anpassen': 'adjust-image',
+      'meme-generator': 'meme-generator',
+      'wasserzeichen-hinzufuegen': 'watermark-overlay',
+      'metadaten-entfernen': 'metadata-stripper'
     },
     toLocal: {
       '': '',
@@ -198,7 +225,10 @@ const languages = [
       'add-border-to-image': 'rahmen-hinzufuegen',
       'photo-filters': 'fotofilter',
       'invert-colors': 'farben-invertieren',
-      'adjust-image': 'bild-anpassen'
+      'adjust-image': 'bild-anpassen',
+      'meme-generator': 'meme-generator',
+      'watermark-overlay': 'wasserzeichen-hinzufuegen',
+      'metadata-stripper': 'metadaten-entfernen'
     }
   }
 ];
@@ -237,7 +267,24 @@ const filesMap = {
   'remove-white-background': 'src/pages/BackgroundRemover.tsx',
   'transparent-background-maker': 'src/pages/BackgroundRemover.tsx',
   'bank-statement-to-excel': 'src/pages/StatementAnalyzer.tsx',
-  'sign-pdf-online': 'src/pages/PdfSigner.tsx'
+  'sign-pdf-online': 'src/pages/PdfSigner.tsx',
+  'crop-image': 'src/pages/ImageCropper.tsx',
+  'passport-photo-cropper': 'src/pages/ImageCropper.tsx',
+  'rotate-image': 'src/pages/ImageRotator.tsx',
+  'add-border-to-image': 'src/pages/BorderExpander.tsx',
+  'photo-filters': 'src/pages/PhotoFilterStudio.tsx',
+  'vintage-photo-filter': 'src/pages/PhotoFilterStudio.tsx',
+  'duotone-generator': 'src/pages/PhotoFilterStudio.tsx',
+  'invert-colors': 'src/pages/ColorInverter.tsx',
+  'black-and-white-converter': 'src/pages/ColorInverter.tsx',
+  'adjust-image': 'src/pages/ImageAdjuster.tsx',
+  'brightness-contrast': 'src/pages/ImageAdjuster.tsx',
+  'add-text-to-image': 'src/pages/MemeGenerator.tsx',
+  'caption-generator': 'src/pages/MemeGenerator.tsx',
+  'batch-watermark': 'src/pages/WatermarkOverlay.tsx',
+  'add-logo-to-photo': 'src/pages/WatermarkOverlay.tsx',
+  'exif-viewer': 'src/pages/MetadataStripper.tsx',
+  'remove-exif-data': 'src/pages/MetadataStripper.tsx'
 };
 
 /**

@@ -259,10 +259,42 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: 'exif-viewer',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MetadataStripper initialMode="view" pageTitle="EXIF Metadata Viewer Online" pageSubtitle="Inspect camera settings, aperture, ISO, and GPS coordinates online for free." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'remove-exif-data',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MetadataStripper initialMode="strip" pageTitle="Remove EXIF Data & GPS from Photos" pageSubtitle="Strip geolocation, serial numbers, and metadata from single or batch photos." />
+          </Suspense>
+        ),
+      },
+      {
         path: 'watermark-overlay',
         element: (
           <Suspense fallback={<PageLoader />}>
             <WatermarkOverlay />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'batch-watermark',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <WatermarkOverlay initialMode="batch" pageTitle="Batch Watermark Photos Online" pageSubtitle="Watermark multiple photos simultaneously and export as a ZIP archive." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'add-logo-to-photo',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <WatermarkOverlay initialMode="single" pageTitle="Add Logo to Photo Online Free" pageSubtitle="Overlay transparent PNG logos with custom opacity, scale, and anchor positioning." />
           </Suspense>
         ),
       },
@@ -279,6 +311,22 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <MemeGenerator />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'add-text-to-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MemeGenerator initialMode="text" pageTitle="Add Text to Photo Online Free" pageSubtitle="Overlay custom text, outline strokes, and fonts on images without cloud uploads." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'caption-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MemeGenerator initialMode="caption" pageTitle="Photo Caption & Subtitle Generator" pageSubtitle="Add high-visibility subtitles and highlight caption boxes to images." />
           </Suspense>
         ),
       },
@@ -571,6 +619,30 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'es/generador-memes',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MemeGenerator pageTitle="Generador de Memes Online Gratis" pageSubtitle="Crea memes personalizados y añade texto con fuentes y bordes en tu navegador." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/marca-de-agua',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <WatermarkOverlay pageTitle="Poner Marca de Agua a Fotos Online" pageSubtitle="Añade texto, logos o marcas repetidas en lote con descarga en ZIP." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/eliminar-metadatos',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MetadataStripper pageTitle="Ver y Eliminar Metadatos EXIF Online" pageSubtitle="Inspecciona ajustes de cámara, ubicación GPS y limpia datos sensibles en local." />
+          </Suspense>
+        ),
+      },
       // Portuguese Localized Routes (i18n Phase 2)
       {
         path: 'pt',
@@ -673,6 +745,30 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <ImageAdjuster pageTitle="Ajustar Brilho e Contraste de Fotos" pageSubtitle="Ajuste iluminação, saturação e nitidez com visualização comparativa." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/gerador-memes',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MemeGenerator pageTitle="Gerador de Memes Online Grátis" pageSubtitle="Crie memes personalizados e adicione textos com fontes e contornos no navegador." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/marca-dagua',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <WatermarkOverlay pageTitle="Colocar Marca d'Água em Fotos Online" pageSubtitle="Adicione textos, logotipos ou marcas repetidas em lote com download em ZIP." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/remover-metadados',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MetadataStripper pageTitle="Ver e Remover Metadados EXIF Online" pageSubtitle="Inspecione configurações da câmera, GPS e limpe dados privados em local." />
           </Suspense>
         ),
       },
@@ -781,6 +877,30 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'hi/meme-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MemeGenerator pageTitle="Meme Generator & Photo Par Text Likhe" pageSubtitle="फोटो पर स्टाइलिश टेक्स्ट, मीम्स और आउटलाइन स्ट्रोक लगाएं फ्री में।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/watermark-lagaye',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <WatermarkOverlay pageTitle="Photo Me Watermark Lagaye Online" pageSubtitle="एक साथ कई फोटो में अपना लोगो या टेक्स्ट वाटरमार्क लगाएं और ZIP डाउनलोड करें।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/exif-metadata-hataye',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MetadataStripper pageTitle="Photo Se EXIF Metadata & GPS Hataye" pageSubtitle="फोटो की लोकेशन और कैमरा सेटिंग्स देखें और पूरी तरह साफ करें।" />
+          </Suspense>
+        ),
+      },
       // French Localized Routes (i18n Phase 2)
       {
         path: 'fr',
@@ -886,6 +1006,30 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'fr/generateur-memes',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MemeGenerator pageTitle="Générateur de Mèmes en Ligne Gratuit" pageSubtitle="Créez des mèmes personnalisés et ajoutez du texte avec contours et polices." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/filigrane-image',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <WatermarkOverlay pageTitle="Ajouter un Filigrane sur une Image" pageSubtitle="Ajoutez texte, logos ou filigranes répétés par lots avec téléchargement ZIP." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/supprimer-metadonnees',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MetadataStripper pageTitle="Afficher et Supprimer Métadonnées EXIF" pageSubtitle="Inspectez réglages de l'appareil, GPS et effacez les données privées en local." />
+          </Suspense>
+        ),
+      },
       // German Localized Routes (i18n Phase 2)
       {
         path: 'de',
@@ -988,6 +1132,30 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <ImageAdjuster pageTitle="Helligkeit & Kontrast Anpassen" pageSubtitle="Optimieren Sie Belichtung, Sättigung und Schärfe mit Vorher-Nachher-Vergleich." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/meme-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MemeGenerator pageTitle="Meme Generator & Text auf Bild" pageSubtitle="Erstellen Sie Memes und fügen Sie Texte mit Konturen und Schriftarten lokal hinzu." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/wasserzeichen-hinzufuegen',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <WatermarkOverlay pageTitle="Wasserzeichen zu Bildern Hinzufügen" pageSubtitle="Fügen Sie Text, Logos oder gekachelte Wasserzeichen im Stapel mit ZIP-Export hinzu." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/metadaten-entfernen',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MetadataStripper pageTitle="EXIF-Daten Anzeigen & Löschen" pageSubtitle="Inspizieren Sie Kameraeinstellungen, GPS und bereinigen Sie sensible Daten lokal." />
           </Suspense>
         ),
       },

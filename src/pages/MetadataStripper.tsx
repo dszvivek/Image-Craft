@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Download, RefreshCw, Fingerprint, Trash2, Eye, ShieldCheck, MapPin, Info } from 'lucide-react';
+import React, { useState } from 'react';
+import { RefreshCw, Fingerprint, ShieldCheck, MapPin, FolderArchive } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import { DemoPreview } from '../components/DemoPreview';
 import exifr from 'exifr';
+import JSZip from 'jszip';
 
 interface ExifTag {
   label: string;
@@ -12,564 +13,489 @@ interface ExifTag {
   category: 'camera' | 'exposure' | 'file' | 'gps' | 'other';
 }
 
-const EXCLUDED_TAGS = new Set([
-  'thumbnail', 'makerNote', 'userComment', 'errors', 'warning'
-]);
+interface MetadataStripperProps {
+  initialMode?: 'view' | 'strip';
+  pageTitle?: string;
+  pageSubtitle?: string;
+}
 
-const HANDLED_TAGS = new Set([
-  'Make', 'Model', 'Software', 'DateTime', 'FNumber', 'ExposureTime', 
-  'ISOSpeedRatings', 'FocalLength', 'LensModel', 'LensMake', 'Flash', 
-  'ExposureProgram', 'MeteringMode', 'DateTimeOriginal', 'UserComment',
-  'latitude', 'longitude', 'altitude', 'GPSLatitude', 'GPSLongitude', 
-  'GPSAltitude', 'GPSLatitudeRef', 'GPSLongitudeRef', 'GPSAltitudeRef', 
-  'GPSTimeStamp', 'GPSDateStamp'
-]);
-
-const formatTagValue = (val: any): string => {
-  if (val === null || val === undefined) return '';
-  if (val instanceof Date) {
-    return val.toLocaleString();
-  }
-  if (typeof val === 'object') {
-    if (typeof val.numerator === 'number' && typeof val.denominator === 'number') {
-      if (val.denominator === 0) return '0';
-      const num = val.numerator / val.denominator;
-      return Number.isInteger(num) ? String(num) : String(parseFloat(num.toFixed(4)));
-    }
-    if (Array.isArray(val)) {
-      return val.map(formatTagValue).filter((v) => v !== '').join(', ');
-    }
-    try {
-      return JSON.stringify(val);
-    } catch {
-      return String(val);
-    }
-  }
-  return String(val);
-};
-
-const formatKeyLabel = (key: string): string => {
-  const result = key.replace(/([a-z])([A-Z])/g, '$1 $2')
-                    .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')
-                    .replace(/([0-9]+)/g, ' $1')
-                    .trim();
-  return result
-    .split(' ')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-};
-
-export const MetadataStripper: React.FC = () => {
-  const [file, setFile] = useState<File | null>(null);
+export const MetadataStripper: React.FC<MetadataStripperProps> = ({
+  pageTitle,
+  pageSubtitle,
+}) => {
+  const [files, setFiles] = useState<File[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [imageUrl, setImageUrl] = useState<string>('');
-  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [imageSize, setImageSize] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
+
   const [metadata, setMetadata] = useState<ExifTag[]>([]);
-  const [gpsLink, setGpsLink] = useState<string>('');
-  const [downloadFormat, setDownloadFormat] = useState<string>('image/jpeg');
+  const [gpsData, setGpsData] = useState<{ lat: number; lon: number } | null>(null);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [batchProgress, setBatchProgress] = useState<{ current: number; total: number } | null>(null);
 
-  const handleFilesSelected = (files: File[]) => {
-    if (files.length > 0) {
-      const f = files[0];
-      setFile(f);
-      const url = URL.createObjectURL(f);
-      setImageUrl(url);
+  const [exportFormat, setExportFormat] = useState<'image/jpeg' | 'image/png' | 'image/webp'>('image/jpeg');
+  const [jpegQuality, setJpegQuality] = useState<number>(95);
 
-      const supportedFormats = ['image/jpeg', 'image/png', 'image/webp'];
-      if (supportedFormats.includes(f.type)) {
-        setDownloadFormat(f.type);
-      } else {
-        setDownloadFormat('image/jpeg');
-      }
-
-      parseMetadata(f, url);
+  const handleFilesSelected = (selectedFiles: File[]) => {
+    if (selectedFiles.length > 0) {
+      setFiles(selectedFiles);
+      setSelectedIndex(0);
+      inspectFile(selectedFiles[0]);
     }
   };
 
-  const parseMetadata = (f: File, fileUrl: string) => {
+  const inspectFile = async (file: File) => {
+    if (imageUrl) URL.revokeObjectURL(imageUrl);
+    const url = URL.createObjectURL(file);
+    setImageUrl(url);
     setIsProcessing(true);
     setMetadata([]);
-    setGpsLink('');
+    setGpsData(null);
 
     const img = new Image();
-
-    const handleParseResults = (width?: number, height?: number) => {
-      exifr.parse(f, { tiff: true, xmp: true, gps: true, exif: true })
-        .then((allTags) => {
-          const tempTags: ExifTag[] = [];
-
-          // File Info
-          if (f.name) tempTags.push({ label: 'Filename', value: f.name, category: 'file' });
-          tempTags.push({ label: 'File Size', value: formatSize(f.size), category: 'file' });
-          tempTags.push({ label: 'Mime Type', value: f.type || 'image/unknown', category: 'file' });
-
-          if (width && height) {
-            tempTags.push({ label: 'Dimensions', value: `${width} x ${height} px`, category: 'file' });
-            // Calculate Aspect Ratio
-            const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
-            const divisor = gcd(width, height);
-            const aspect = divisor > 0 ? `${width / divisor}:${height / divisor}` : 'N/A';
-            tempTags.push({ label: 'Aspect Ratio', value: aspect, category: 'file' });
-          }
-
-          if (allTags) {
-            // Camera Info
-            if (allTags.Make) tempTags.push({ label: 'Camera Make', value: formatTagValue(allTags.Make).trim(), category: 'camera' });
-            if (allTags.Model) tempTags.push({ label: 'Camera Model', value: formatTagValue(allTags.Model).trim(), category: 'camera' });
-            if (allTags.Software) tempTags.push({ label: 'Software', value: formatTagValue(allTags.Software).trim(), category: 'camera' });
-            if (allTags.DateTime) tempTags.push({ label: 'Shot Time', value: formatTagValue(allTags.DateTime), category: 'file' });
-
-            // Exposure Info
-            if (allTags.FNumber) tempTags.push({ label: 'Aperture (F-Stop)', value: `f/${Number(allTags.FNumber)}`, category: 'exposure' });
-            if (allTags.ExposureTime) {
-              const exp = Number(allTags.ExposureTime);
-              const expText = exp < 1 ? `1/${Math.round(1 / exp)}s` : `${exp}s`;
-              tempTags.push({ label: 'Exposure Time', value: expText, category: 'exposure' });
-            }
-            if (allTags.ISOSpeedRatings) tempTags.push({ label: 'ISO Speed', value: formatTagValue(allTags.ISOSpeedRatings), category: 'exposure' });
-            if (allTags.FocalLength) tempTags.push({ label: 'Focal Length', value: `${Number(allTags.FocalLength)}mm`, category: 'exposure' });
-
-            // Additional EXIF/TIFF tags
-            if (allTags.LensModel) tempTags.push({ label: 'Lens Model', value: formatTagValue(allTags.LensModel).trim(), category: 'exposure' });
-            if (allTags.LensMake) tempTags.push({ label: 'Lens Make', value: formatTagValue(allTags.LensMake).trim(), category: 'exposure' });
-            if (allTags.Flash) tempTags.push({ label: 'Flash Mode', value: formatTagValue(allTags.Flash), category: 'exposure' });
-            if (allTags.ExposureProgram) tempTags.push({ label: 'Exposure Program', value: formatTagValue(allTags.ExposureProgram), category: 'exposure' });
-            if (allTags.MeteringMode) tempTags.push({ label: 'Metering Mode', value: formatTagValue(allTags.MeteringMode), category: 'exposure' });
-            if (allTags.DateTimeOriginal) tempTags.push({ label: 'Capture Time', value: formatTagValue(allTags.DateTimeOriginal), category: 'file' });
-            if (allTags.UserComment) tempTags.push({ label: 'User Comment', value: formatTagValue(allTags.UserComment).trim(), category: 'other' });
-
-            // GPS Info
-            if (typeof allTags.latitude === 'number' && typeof allTags.longitude === 'number') {
-              const lat = allTags.latitude;
-              const lon = allTags.longitude;
-              tempTags.push({ label: 'GPS Latitude', value: `${lat.toFixed(6)}°`, category: 'gps' });
-              tempTags.push({ label: 'GPS Longitude', value: `${lon.toFixed(6)}°`, category: 'gps' });
-
-              if (allTags.GPSAltitude !== undefined) {
-                tempTags.push({ label: 'GPS Altitude', value: `${Number(allTags.GPSAltitude).toFixed(1)} meters`, category: 'gps' });
-              } else if (allTags.altitude !== undefined) {
-                tempTags.push({ label: 'GPS Altitude', value: `${Number(allTags.altitude).toFixed(1)} meters`, category: 'gps' });
-              }
-              setGpsLink(`https://www.google.com/maps?q=${lat},${lon}`);
-            }
-
-            // Map all remaining tags dynamically under 'other'
-            Object.keys(allTags).forEach((key) => {
-              if (!HANDLED_TAGS.has(key) && !EXCLUDED_TAGS.has(key)) {
-                const val = allTags[key];
-                const formattedVal = formatTagValue(val);
-                if (formattedVal) {
-                  tempTags.push({
-                    label: formatKeyLabel(key),
-                    value: formattedVal,
-                    category: 'other'
-                  });
-                }
-              }
-            });
-          }
-
-          setMetadata(tempTags);
-          setIsProcessing(false);
-        })
-        .catch((err) => {
-          console.error("Error parsing EXIF with exifr:", err);
-          const tempTags: ExifTag[] = [];
-          if (f.name) tempTags.push({ label: 'Filename', value: f.name, category: 'file' });
-          tempTags.push({ label: 'File Size', value: formatSize(f.size), category: 'file' });
-          tempTags.push({ label: 'Mime Type', value: f.type || 'image/unknown', category: 'file' });
-
-          if (width && height) {
-            tempTags.push({ label: 'Dimensions', value: `${width} x ${height} px`, category: 'file' });
-            const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
-            const divisor = gcd(width, height);
-            const aspect = divisor > 0 ? `${width / divisor}:${height / divisor}` : 'N/A';
-            tempTags.push({ label: 'Aspect Ratio', value: aspect, category: 'file' });
-          }
-
-          setMetadata(tempTags);
-          setIsProcessing(false);
-        });
-    };
-
+    img.src = url;
     img.onload = () => {
-      handleParseResults(img.naturalWidth, img.naturalHeight);
+      setImageSize({ width: img.naturalWidth, height: img.naturalHeight });
     };
 
-    img.onerror = () => {
-      handleParseResults();
-    };
+    try {
+      const allTags = await exifr.parse(file, { tiff: true, xmp: true, gps: true, exif: true });
+      const tempTags: ExifTag[] = [];
 
-    img.src = fileUrl;
+      // File Details
+      tempTags.push({ label: 'Filename', value: file.name, category: 'file' });
+      tempTags.push({ label: 'File Size', value: `${(file.size / 1024).toFixed(1)} KB`, category: 'file' });
+      tempTags.push({ label: 'MIME Type', value: file.type || 'image/jpeg', category: 'file' });
+
+      if (allTags) {
+        // Camera Details
+        if (allTags.Make) tempTags.push({ label: 'Camera Make', value: String(allTags.Make), category: 'camera' });
+        if (allTags.Model) tempTags.push({ label: 'Camera Model', value: String(allTags.Model), category: 'camera' });
+        if (allTags.LensModel) tempTags.push({ label: 'Lens Model', value: String(allTags.LensModel), category: 'camera' });
+        if (allTags.Software) tempTags.push({ label: 'Software / OS', value: String(allTags.Software), category: 'camera' });
+
+        // Exposure Details
+        if (allTags.FNumber) tempTags.push({ label: 'Aperture', value: `f/${allTags.FNumber}`, category: 'exposure' });
+        if (allTags.ExposureTime) {
+          const exp = allTags.ExposureTime < 1 ? `1/${Math.round(1 / allTags.ExposureTime)} s` : `${allTags.ExposureTime} s`;
+          tempTags.push({ label: 'Shutter Speed', value: exp, category: 'exposure' });
+        }
+        if (allTags.ISO || allTags.ISOSpeedRatings) {
+          tempTags.push({ label: 'ISO Sensitivity', value: `ISO ${allTags.ISO || allTags.ISOSpeedRatings}`, category: 'exposure' });
+        }
+        if (allTags.FocalLength) tempTags.push({ label: 'Focal Length', value: `${allTags.FocalLength} mm`, category: 'exposure' });
+        if (allTags.Flash) tempTags.push({ label: 'Flash Status', value: String(allTags.Flash), category: 'exposure' });
+
+        // Timestamp
+        if (allTags.DateTimeOriginal || allTags.CreateDate) {
+          const d = allTags.DateTimeOriginal || allTags.CreateDate;
+          tempTags.push({ label: 'Date Taken', value: new Date(d).toLocaleString(), category: 'file' });
+        }
+
+        // GPS Location
+        if (typeof allTags.latitude === 'number' && typeof allTags.longitude === 'number') {
+          const lat = parseFloat(allTags.latitude.toFixed(6));
+          const lon = parseFloat(allTags.longitude.toFixed(6));
+          setGpsData({ lat, lon });
+          tempTags.push({ label: 'GPS Latitude', value: `${lat}°`, category: 'gps' });
+          tempTags.push({ label: 'GPS Longitude', value: `${lon}°`, category: 'gps' });
+          if (allTags.altitude) tempTags.push({ label: 'GPS Altitude', value: `${Math.round(allTags.altitude)} m`, category: 'gps' });
+        }
+      }
+
+      setMetadata(tempTags);
+    } catch (err) {
+      console.warn('Could not parse EXIF metadata', err);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
-  const handleStripAndDownload = () => {
-    if (!file || !imageUrl) return;
-
-    const img = new Image();
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      // Draw image onto clean canvas context (which strips out all EXIF bytes)
-      ctx.drawImage(img, 0, 0);
-
-      const ext = downloadFormat.split('/')[1];
-      const lastDot = file.name.lastIndexOf('.');
-      const origName = lastDot > 0 ? file.name.substring(0, lastDot) : file.name;
-      
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const cleanUrl = URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.href = cleanUrl;
-          link.download = `${origName}_clean.${ext}`;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          URL.revokeObjectURL(cleanUrl);
+  // Strip EXIF from a File by Re-Drawing on Client Canvas
+  const stripFileMetadata = async (file: File): Promise<Blob | null> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      const objUrl = URL.createObjectURL(file);
+      img.src = objUrl;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0);
+          canvas.toBlob(
+            (blob) => {
+              URL.revokeObjectURL(objUrl);
+              resolve(blob);
+            },
+            exportFormat,
+            exportFormat === 'image/jpeg' ? jpegQuality / 100 : undefined
+          );
+        } else {
+          URL.revokeObjectURL(objUrl);
+          resolve(null);
         }
-      }, downloadFormat, 0.9);
-    };
-    img.src = imageUrl;
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(objUrl);
+        resolve(null);
+      };
+    });
+  };
+
+  // Download Sanitized Single Image
+  const handleDownloadClean = async () => {
+    if (files.length === 0) return;
+    setIsProcessing(true);
+
+    const currentFile = files[selectedIndex];
+    const blob = await stripFileMetadata(currentFile);
+    if (blob) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const baseName = currentFile.name.replace(/\.[^/.]+$/, '');
+      const ext = exportFormat === 'image/png' ? 'png' : exportFormat === 'image/webp' ? 'webp' : 'jpg';
+      a.download = `${baseName}-sanitized.${ext}`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    setIsProcessing(false);
+  };
+
+  // Download All as Batch Sanitized ZIP
+  const handleDownloadBatchZip = async () => {
+    if (files.length === 0) return;
+    setIsProcessing(true);
+    setBatchProgress({ current: 0, total: files.length });
+
+    const zip = new JSZip();
+
+    for (let i = 0; i < files.length; i++) {
+      setBatchProgress({ current: i + 1, total: files.length });
+      const currentFile = files[i];
+      const blob = await stripFileMetadata(currentFile);
+
+      if (blob) {
+        const baseName = currentFile.name.replace(/\.[^/.]+$/, '');
+        const ext = exportFormat === 'image/png' ? 'png' : exportFormat === 'image/webp' ? 'webp' : 'jpg';
+        zip.file(`${baseName}-sanitized.${ext}`, blob);
+      }
+    }
+
+    const zipContent = await zip.generateAsync({ type: 'blob' });
+    const a = document.createElement('a');
+    const zipUrl = URL.createObjectURL(zipContent);
+    a.href = zipUrl;
+    a.download = `sanitized-photos-${Date.now()}.zip`;
+    a.click();
+    URL.revokeObjectURL(zipUrl);
+
+    setIsProcessing(false);
+    setBatchProgress(null);
   };
 
   const handleReset = () => {
     if (imageUrl) URL.revokeObjectURL(imageUrl);
-    setFile(null);
+    setFiles([]);
+    setSelectedIndex(0);
     setImageUrl('');
     setMetadata([]);
-    setGpsLink('');
+    setGpsData(null);
   };
 
-  useEffect(() => {
-    return () => {
-      if (imageUrl) URL.revokeObjectURL(imageUrl);
-    };
-  }, [imageUrl]);
-
-  const formatSize = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-  };
-
-  const categories = {
-    file: { label: 'File Info', color: 'text-indigo-600 bg-indigo-50 border-indigo-100' },
-    camera: { label: 'Camera Hardware', color: 'text-purple-600 bg-purple-50 border-purple-100' },
-    exposure: { label: 'Exposure & Lens', color: 'text-amber-600 bg-amber-50 border-amber-100' },
-    gps: { label: 'GPS Geolocation', color: 'text-red-650 bg-red-50 border-red-100' },
-    other: { label: 'Other Metadata', color: 'text-slate-600 bg-slate-50 border-slate-100' }
-  };
-
-  const categorizedTags = (cat: 'file' | 'camera' | 'exposure' | 'gps' | 'other') => 
-    metadata.filter((t) => t.category === cat);
-
-  const metadataSchema = {
+  const stripperSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    'name': 'EXIF Metadata Stripper - ImagePlumber',
+    'name': 'EXIF Metadata Inspector & Privacy Cleaner - ImagePlumber',
     'applicationCategory': 'MultimediaApplication',
     'operatingSystem': 'Web Browser',
     'offers': {
       '@type': 'Offer',
       'price': '0',
-      'priceCurrency': 'USD'
+      'priceCurrency': 'USD',
     },
-    'description': 'View and remove hidden EXIF metadata from photos in your browser. Inspect GPS location, camera model, exposure details, and capture timestamp. Strip all metadata to protect your privacy.',
+    'description': 'View photo EXIF metadata, camera settings, GPS coordinates, and strip all sensitive tags for free online. 100% private in-browser canvas sanitizer with zero cloud uploads.',
     'featureList': [
-      'Interactive EXIF tag table viewer',
-      'Integrated map visualizer for GPS coordinates',
-      'Local metadata removal routines',
-      'Zero trace, client-side execution'
+      'Visual camera, lens, exposure, and timestamp inspector',
+      'GPS coordinate detection with OpenStreetMap & Google Maps links',
+      '1-Click EXIF, XMP, IPTC, and location tag stripper',
+      'Multi-photo batch metadata cleaner with ZIP export'
     ]
   };
 
   return (
-    <div className="w-full">
-      <SEO 
-        title="Free EXIF Metadata Viewer & Remover - EXIF Purge Alternative" 
-        description="View and remove hidden EXIF metadata from photos in your browser. A private, offline alternative to EXIF Purge and Metadata2Go." 
-        keywords="EXIF metadata remover, EXIF viewer, remove metadata from image, strip EXIF data, photo metadata remover, GPS location remover from photo, image metadata cleaner, EXIF data viewer, remove photo location data, image privacy tool, EXIF stripper, EXIF Purge alternative, Metadata2Go alternative, strip photo metadata offline"
+    <div className="py-8 md:py-12 max-w-7xl mx-auto px-4 sm:px-6">
+      <SEO
+        title={pageTitle || "EXIF Viewer & Remove Image Metadata Online Free | ImagePlumber"}
+        description={pageSubtitle || "View camera settings, lens details, GPS location tags, and strip all sensitive EXIF metadata online for free. 100% private with zero cloud uploads."}
         canonicalUrl="https://imageplumber.com/metadata-stripper"
-        schema={metadataSchema}
+        schema={stripperSchema}
       />
 
-      <div className="max-w-5xl mx-auto">
-        
-        {/* Header */}
-        <div className="text-center mb-8">
-          <span className="text-xs font-bold text-red-650 uppercase tracking-widest px-2.5 py-1 bg-red-50 border border-red-100 rounded-full shadow-sm">
-            Privacy Shield
-          </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">EXIF Metadata Stripper</h1>
-          <p className="text-sm text-slate-500">Scan secret tracking metrics and strip camera headers offline to keep your files clean.</p>
+      {/* Header */}
+      <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-650 dark:text-emerald-300 text-xs font-semibold uppercase tracking-wider mb-4">
+          <Fingerprint className="w-3.5 h-3.5" />
+          <span>Privacy & Telemetry Sanitizer</span>
         </div>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight leading-tight mb-4">
+          {pageTitle || "EXIF Inspector & Metadata Cleaner"}
+        </h1>
+        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300">
+          {pageSubtitle || "Inspect camera exposure settings, view GPS location data on a map, and completely remove sensitive privacy tags from single or batch photos."}
+        </p>
+      </div>
 
-        {!file ? (
+      <div className="max-w-6xl mx-auto">
+        {files.length === 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch max-w-5xl mx-auto">
             <div className="md:col-span-7 flex flex-col justify-center">
-              <DropZone 
+              <DropZone
                 onFilesSelected={handleFilesSelected}
-                accept="image/*"
-                title="Drop photo here to inspect metadata"
-                subtitle="Supports JPEG, PNG, WebP, GIF, BMP, etc."
+                title="Drop photo to inspect or remove EXIF metadata"
+                subtitle="Supports JPG, PNG, WebP, HEIC up to 50MB (Batch supported)"
               />
             </div>
             <div className="md:col-span-5 flex">
-              <div className="premium-bento rounded-3xl p-6 flex flex-col justify-between w-full shadow-sm hover:border-red-350 transition-all duration-300">
+              <div className="premium-bento rounded-3xl p-6 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 flex flex-col justify-between w-full shadow-sm">
                 <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-red-655 bg-red-50/30 border border-red-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
-                  <h2 className="text-base font-extrabold text-slate-900">How Metadata Stripper Works</h2>
-                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                    Drop any image to instantly expose hidden metadata — GPS coordinates, camera model, exposure details, and capture timestamps — then scrub them all with one click.
+                  <div className="text-[10px] font-bold text-emerald-650 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-900 px-2 py-0.5 rounded uppercase tracking-wider inline-block">
+                    Privacy Guardian
+                  </div>
+                  <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Zero-Trace Sanitizer</h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                    Remove hidden geolocation, camera serial numbers, and personal timestamps before sharing photos online.
                   </p>
                 </div>
-                <DemoPreview
-                  toolId="stripper"
-                  alt="Metadata Stripper Demo"
-                />
+                <DemoPreview toolId="metadata" alt="Metadata Stripper Preview" />
               </div>
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* Left Image View & Scrub Controls */}
-            <div className="lg:col-span-5 flex flex-col gap-6 order-2 lg:order-1">
-              
-              {/* Image box */}
-              <div className="space-y-3">
-                <span className="text-[10px] font-bold text-slate-450 uppercase tracking-widest block">
-                  Source Image Preview
-                </span>
-                <div className="w-full h-[280px] bg-slate-50/30 border border-slate-200/80 rounded-2xl overflow-hidden flex items-center justify-center p-2 relative shadow-inner">
-                  <img src={imageUrl} alt="Source" className="max-w-full max-h-full object-contain rounded-lg shadow-md" />
-                </div>
-              </div>
-
-              {/* Stripping panel */}
-              <div className="glass-card p-5 rounded-3xl space-y-5">
-                <h2 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2 text-sm">
-                  <Trash2 className="w-4.5 h-4.5 text-red-500" />
-                  Scrub & Export Options
-                </h2>
-
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-450 uppercase tracking-widest block">
-                    Target Format
-                  </label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {[
-                      { type: 'image/jpeg', label: 'JPEG (Lossy)' },
-                      { type: 'image/png', label: 'PNG (Lossless)' },
-                      { type: 'image/webp', label: 'WebP' }
-                    ].map((f) => (
-                      <button
-                        key={f.type}
-                        onClick={() => setDownloadFormat(f.type)}
-                        className={`py-2 px-2 rounded-xl text-[10px] font-bold border transition-all cursor-pointer ${
-                          downloadFormat === f.type
-                            ? 'bg-red-600 border-red-550 text-white shadow-md shadow-red-500/10'
-                            : 'bg-white/85 border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
-                        }`}
-                      >
-                        {f.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="space-y-3 pt-2">
-                  <button
-                    onClick={handleStripAndDownload}
-                    className="w-full py-3 bg-red-600 hover:bg-red-550 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-md hover:shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <Download className="w-4 h-4" />
-                    Strip Metadata & Download
-                  </button>
-
-                  <button
-                    onClick={handleReset}
-                    className="w-full py-3 bg-white hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-                  >
-                    <RefreshCw className="w-4 h-4" />
-                    Upload Different Photo
-                  </button>
-                </div>
-
-                <div className="flex items-center gap-2 text-[10px] text-slate-505 bg-white/80 p-2.5 rounded-xl border border-slate-200/50 shadow-xs font-medium">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  Local Canvas redrawing strips EXIF headers instantly.
-                </div>
-              </div>
-
-            </div>
-
-            {/* Right Metadata Inspector Column */}
-            <div className="lg:col-span-7 space-y-5 w-full order-1 lg:order-2">
-              
-              {/* Header */}
-              <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-3 shadow-xs">
-                <span className="text-xs font-bold text-slate-800 flex items-center gap-2">
-                  <Fingerprint className="w-4.5 h-4.5 text-red-500" />
-                  EXIF Metadata Inspector
-                </span>
-                {isProcessing ? (
-                  <span className="text-[10px] font-semibold text-slate-400 animate-pulse">Reading headers...</span>
-                ) : (
-                  <span className={`text-[10px] font-bold uppercase tracking-wider border px-2 py-0.5 rounded shadow-xs ${
-                    metadata.some((t) => ['camera', 'exposure', 'gps'].includes(t.category))
-                      ? 'text-red-655 bg-red-50/50 border-red-100/60'
-                      : 'text-emerald-650 bg-emerald-50/50 border-emerald-100/60'
-                  }`}>
-                    {metadata.some((t) => ['camera', 'exposure', 'gps'].includes(t.category)) ? 'EXIF Tagged' : 'No EXIF Data'}
-                  </span>
-                )}
-              </div>
-
-              {isProcessing ? (
-                <div className="w-full h-[300px] glass-card rounded-3xl flex flex-col items-center justify-center gap-3">
-                  <RefreshCw className="w-8 h-8 text-red-500 animate-spin" />
-                  <span className="text-xs font-semibold text-slate-455">Reading binary headers...</span>
-                </div>
-              ) : metadata.length === 0 ? (
-                <div className="glass-card p-8 rounded-3xl text-center flex flex-col items-center gap-3.5">
-                  <div className="w-12 h-12 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm">
-                    <ShieldCheck className="w-6 h-6 animate-pulse" />
-                  </div>
-                  <p className="text-base font-extrabold text-slate-850">Privacy Guaranteed</p>
-                  <p className="text-xs text-slate-500 max-w-sm leading-relaxed font-medium">
-                    No EXIF hardware details, timestamps, or geolocations were found on this file. It is clean and safe to share online!
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-4 max-h-[520px] overflow-y-auto pr-1">
-                  
-                  {/* Privacy Check Alert */}
-                  {!metadata.some((t) => ['camera', 'exposure', 'gps'].includes(t.category)) && (
-                    <div className="bg-emerald-50 border border-emerald-150 p-4 rounded-2xl flex items-start gap-2.5 shadow-sm">
-                      <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                      <div>
-                        <h4 className="text-xs font-black text-emerald-800">Privacy Guaranteed</h4>
-                        <p className="text-[10px] text-emerald-655 leading-relaxed font-medium mt-0.5">
-                          No camera hardware markers, exposure parameters, timestamps, or GPS location tags were detected on this file. It is clean and safe to share!
-                        </p>
-                      </div>
+            {/* Control Sidebar (5 cols) */}
+            <div className="lg:col-span-5 space-y-6">
+              <div className="premium-bento p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-5 shadow-xl shadow-slate-200/20 dark:shadow-none">
+                
+                {/* Batch File Selector */}
+                {files.length > 1 && (
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
+                      Active Batch Preview ({selectedIndex + 1} of {files.length})
+                    </label>
+                    <div className="flex gap-2 overflow-x-auto pb-2">
+                      {files.map((f, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => {
+                            setSelectedIndex(idx);
+                            inspectFile(f);
+                          }}
+                          className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+                            selectedIndex === idx
+                              ? 'bg-emerald-600 text-white shadow-sm'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                          }`}
+                        >
+                          #{idx + 1}: {f.name.slice(0, 12)}
+                        </button>
+                      ))}
                     </div>
-                  )}
-                  
-                  {/* GPS Map Alert */}
-                  {gpsLink && (
-                    <div className="bg-red-50 border border-red-150 p-4 rounded-2xl flex items-start justify-between gap-4 shadow-sm animate-pulse-subtle">
-                      <div className="flex gap-2.5">
-                        <MapPin className="w-5 h-5 text-red-650 shrink-0 mt-0.5" />
-                        <div>
-                          <h4 className="text-xs font-black text-red-800">Critical: GPS Location Data Found</h4>
-                          <p className="text-[10px] text-red-650 leading-relaxed font-medium mt-0.5">
-                            This photograph contains latitude/longitude coordinates that reveal exactly where it was taken.
-                          </p>
-                        </div>
-                      </div>
+                  </div>
+                )}
+
+                {/* GPS Location Warning & Map Link */}
+                {gpsData && (
+                  <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 space-y-2">
+                    <div className="flex items-center gap-2 text-amber-800 dark:text-amber-300 text-xs font-bold">
+                      <MapPin className="w-4 h-4 text-amber-600" />
+                      <span>GPS Coordinates Embedded in Photo!</span>
+                    </div>
+                    <p className="text-[11px] text-amber-700 dark:text-amber-400">
+                      Latitude: {gpsData.lat}°, Longitude: {gpsData.lon}°
+                    </p>
+                    <div className="flex gap-2 pt-1">
                       <a
-                        href={gpsLink}
+                        href={`https://www.google.com/maps?q=${gpsData.lat},${gpsData.lon}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="px-3 py-1.5 bg-red-600 hover:bg-red-550 text-[10px] font-bold text-white rounded-lg transition shadow-xs shrink-0 inline-flex items-center gap-1 cursor-pointer"
+                        className="text-[11px] font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-2.5 py-1 rounded-lg border border-amber-300 dark:border-amber-800 hover:text-amber-600 inline-block"
                       >
-                        <Eye className="w-3.5 h-3.5" /> Map Location
+                        View on Google Maps ↗
+                      </a>
+                      <a
+                        href={`https://www.openstreetmap.org/?mlat=${gpsData.lat}&mlon=${gpsData.lon}#map=16/${gpsData.lat}/${gpsData.lon}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-[11px] font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-2.5 py-1 rounded-lg border border-amber-300 dark:border-amber-800 hover:text-amber-600 inline-block"
+                      >
+                        OpenStreetMap ↗
                       </a>
                     </div>
-                  )}
+                  </div>
+                )}
 
-                  {/* Render Categories */}
-                  {(['file', 'camera', 'exposure', 'gps', 'other'] as const).map((cat) => {
-                    const tags = categorizedTags(cat);
-                    if (tags.length === 0) return null;
-                    const catInfo = categories[cat];
-
-                    return (
-                      <div key={cat} className="glass-card p-5 rounded-2xl space-y-3.5">
-                        <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border inline-block ${catInfo.color}`}>
-                          {catInfo.label}
-                        </span>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5">
-                          {tags.map((tag) => (
-                            <div key={tag.label} className="flex justify-between items-center text-xs border-b border-slate-50 pb-2">
-                              <span className="text-slate-450 font-medium">{tag.label}</span>
-                              <span className="font-mono text-slate-800 font-bold text-right truncate max-w-[160px]" title={tag.value}>
-                                {tag.value}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })}
-
-                  <div className="p-3.5 bg-indigo-50/50 border border-indigo-100/60 rounded-2xl flex items-start gap-2.5 text-[10px] text-slate-550 leading-normal font-medium">
-                    <Info className="w-4 h-4 text-indigo-650 shrink-0 mt-0.5 animate-pulse" />
-                    <span>
-                      Online platforms (like chat apps or marketplaces) usually strip EXIF markers to save bandwidth, but direct email attachments, messaging channels, or forums often preserve them, exposing your details.
-                    </span>
+                {/* Export Format */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                      Sanitized Output Format
+                    </label>
+                    <div className="flex gap-1.5">
+                      {(['image/jpeg', 'image/png', 'image/webp'] as const).map((fmt) => (
+                        <button
+                          key={fmt}
+                          onClick={() => setExportFormat(fmt)}
+                          className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                            exportFormat === fmt
+                              ? 'bg-emerald-600 text-white'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                          }`}
+                        >
+                          {fmt === 'image/jpeg' ? 'JPEG' : fmt === 'image/png' ? 'PNG' : 'WebP'}
+                        </button>
+                      ))}
+                    </div>
                   </div>
 
+                  {exportFormat === 'image/jpeg' && (
+                    <div className="space-y-1 pt-1">
+                      <div className="flex justify-between text-xs font-bold text-slate-600 dark:text-slate-400">
+                        <span>JPEG Quality</span>
+                        <span className="font-mono text-emerald-600">{jpegQuality}%</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="60"
+                        max="100"
+                        value={jpegQuality}
+                        onChange={(e) => setJpegQuality(Number(e.target.value))}
+                        className="range-styled w-full"
+                      />
+                    </div>
+                  )}
                 </div>
-              )}
+
+                {/* Actions */}
+                <div className="flex flex-col gap-2 pt-2">
+                  <div className="flex gap-3">
+                    <button
+                      onClick={handleReset}
+                      className="flex-1 py-3 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      <RefreshCw className="w-4 h-4" />
+                      <span>Reset</span>
+                    </button>
+                    <button
+                      onClick={handleDownloadClean}
+                      disabled={isProcessing}
+                      className="flex-2 py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                    >
+                      <ShieldCheck className="w-4 h-4" />
+                      <span>Clean & Strip Photo</span>
+                    </button>
+                  </div>
+
+                  {files.length > 1 && (
+                    <button
+                      onClick={handleDownloadBatchZip}
+                      disabled={isProcessing}
+                      className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold text-sm shadow-lg shadow-indigo-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                    >
+                      <FolderArchive className="w-4 h-4" />
+                      <span>
+                        {batchProgress
+                          ? `Sanitizing ${batchProgress.current}/${batchProgress.total}...`
+                          : `Strip All ${files.length} Photos as ZIP`}
+                      </span>
+                    </button>
+                  )}
+                </div>
+
+              </div>
+            </div>
+
+            {/* Telemetry Stage (7 cols) */}
+            <div className="lg:col-span-7 space-y-4">
+              
+              {/* Photo Preview Thumbnail */}
+              <div className="relative rounded-3xl bg-slate-950/5 dark:bg-slate-950/50 border border-slate-200/80 dark:border-slate-800 p-4 flex items-center justify-center max-h-[300px] overflow-hidden">
+                <img
+                  src={imageUrl}
+                  alt="Inspected File Preview"
+                  className="max-h-[260px] object-contain rounded-2xl shadow-md"
+                />
+              </div>
+
+              {/* Metadata Table */}
+              <div className="premium-bento rounded-3xl p-5 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-4 shadow-sm">
+                <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
+                    Detected EXIF Tags ({metadata.length})
+                  </span>
+                  <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded">
+                    {imageSize.width} × {imageSize.height} px
+                  </span>
+                </div>
+
+                {metadata.length === 0 ? (
+                  <p className="text-xs text-slate-500 py-4 text-center">
+                    No EXIF tags found or file has already been stripped clean.
+                  </p>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[320px] overflow-y-auto pr-1">
+                    {metadata.map((tag, idx) => (
+                      <div
+                        key={idx}
+                        className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 space-y-0.5"
+                      >
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block truncate">
+                          {tag.label}
+                        </span>
+                        <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 break-words block">
+                          {tag.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
 
             </div>
 
           </div>
         )}
 
-        <ToolGuide
-          toolName="EXIF Metadata Stripper"
-          introText="Inspect and purge invisible binary headers attached to your photographs. View exact GPS coordinates, aperture, shutter speed, and camera models before cleaning."
-          competitorComparison={{
-            alternatives: ['EXIF Purge', 'Metadata2Go', 'Scrubly'],
-            benefit: 'Using online metadata cleaners exposes your private photos, GPS locations, and home coordinates to third-party web servers. ImagePlumber reads and redraws files locally, scrubbing the metadata tags from the binary stream without uploading anything.'
-          }}
-          steps={[
-            {
-              title: 'Upload Photo',
-              description: 'Drop or select a JPEG/PNG photo from your mobile device or desktop browser.'
-            },
-            {
-              title: 'Inspect Metadata',
-              description: 'Analyze tags across File Info, Camera Hardware, and GPS Geolocation. View the coordinates plotted directly on our map overlay.'
-            },
-            {
-              title: 'Strip & Download',
-              description: 'Click "Strip Metadata" to rebuild the canvas pixel buffers without metadata headers, and save the scrubbed image.'
-            }
-          ]}
-          features={[
-            'Detailed parsing of camera tags (make, model, lens model, aperture, focal length).',
-            'Interactive GPS coordinates mapping integration with direct navigation links.',
-            'Instant 1-click removal of all EXIF, TIFF, and IPTC privacy headers.',
-            'Preserves photo dimensions and layout structure upon rendering.',
-            'Keeps your personal location completely safe by keeping data local.'
-          ]}
-          faq={[
-            {
-              q: 'What is EXIF data?',
-              a: 'Exchangeable Image File Format (EXIF) data represents a set of camera tags embedded inside files by smartphones and cameras, detailing capture date, camera configuration, and GPS locations.'
-            },
-            {
-              q: 'Why should I remove EXIF data?',
-              a: 'Sharing photos online with GPS coordinates enables anyone to discover where the photo was taken, posing privacy risks for your home or personal travels.'
-            },
-            {
-              q: 'Does it compress my photo size?',
-              a: 'No. The image pixels are drawn to canvas at full resolution, retaining maximum visual quality during the EXIF removal process.'
-            }
-          ]}
-        />
+        {/* SEO Guide Section */}
+        <div className="mt-16 border-t border-slate-200/60 dark:border-slate-800 pt-12">
+          <ToolGuide
+            toolName="EXIF Metadata Inspector & Privacy Sanitizer"
+            introText="Inspect camera exposure parameters, lens metadata, and GPS location coordinates, or completely sanitize sensitive tags with zero cloud uploads."
+            competitorComparison={{
+              alternatives: ['Jeffrey’s Image Metadata Viewer', 'iLoveIMG Exif Remover', 'Jimpl EXIF'],
+              benefit: 'Our metadata sanitizer executes 100% inside your browser sandbox. Unlike other tools that transmit photos with confidential GPS coordinates over the internet to remote servers, your files never leave your device.',
+            }}
+            steps={[
+              { title: 'Upload Photo', description: 'Drop your photo into the inspector workspace.' },
+              { title: 'Review EXIF & GPS', description: 'Inspect camera aperture, shutter speed, ISO, and click map links to view embedded coordinates.' },
+              { title: '1-Click Sanitize', description: 'Click "Clean & Strip Photo" to erase all EXIF, XMP, IPTC, and location payloads.' },
+              { title: 'Download Anonymized File', description: 'Save the stripped image in lossless PNG, JPEG, or WebP format.' },
+            ]}
+            features={[
+              'Comprehensive EXIF, XMP, IPTC, and MakerNote tag inspection',
+              'Embedded GPS coordinate detector with Google Maps & OpenStreetMap links',
+              '1-Click total privacy sanitization via in-browser canvas re-encoding',
+              'Multi-photo batch EXIF cleaner with ZIP package download'
+            ]}
+            faq={[
+              { q: 'Why is stripping EXIF metadata important for privacy?', a: 'Smartphone and digital camera photos often contain exact GPS latitude and longitude coordinates, camera serial numbers, and exact timestamps that can expose private locations when uploaded to forums or social media.' },
+              { q: 'Does stripping metadata reduce image quality?', a: 'No! The image pixel data is cleanly re-encoded at maximum quality while stripping the separate EXIF metadata payload.' }
+            ]}
+          />
+        </div>
 
       </div>
     </div>

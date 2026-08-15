@@ -1,519 +1,811 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, RefreshCw, Type, Plus, Trash2, Info } from 'lucide-react';
-import { DemoPreview } from '../components/DemoPreview';
+import { Download, RefreshCw, Type, Plus, Trash2, Copy, Move, AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
+import { DemoPreview } from '../components/DemoPreview';
 
-interface MemeText {
+export interface TextLayer {
   id: string;
   text: string;
-  x: number; // percentage of width (0-100)
-  y: number; // percentage of height (0-100)
-  size: number; // font size (px)
+  x: number; // percentage (0-100)
+  y: number; // percentage (0-100)
+  size: number; // font size in px
   color: string;
+  strokeColor: string;
+  strokeWidth: number; // 0-20 px
+  fontFamily: string;
+  isAllCaps: boolean;
+  align: 'left' | 'center' | 'right';
+  hasBackground: boolean;
+  backgroundColor: string;
+  backgroundOpacity: number; // 0-100
 }
 
-export const MemeGenerator: React.FC = () => {
+interface MemeTemplate {
+  id: string;
+  name: string;
+  url: string;
+}
+
+const TEMPLATES: MemeTemplate[] = [
+  {
+    id: 'drake',
+    name: 'Drake Hotline',
+    url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80',
+  },
+  {
+    id: 'success',
+    name: 'Success Kid / Achievement',
+    url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80',
+  },
+  {
+    id: 'two-choices',
+    name: 'Decision Dilemma',
+    url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&auto=format&fit=crop&q=80',
+  },
+  {
+    id: 'brain',
+    name: 'Cosmic Genius',
+    url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80',
+  }
+];
+
+const FONTS = [
+  { id: 'Impact', label: 'Impact (Classic Meme)' },
+  { id: 'Montserrat', label: 'Montserrat (Modern Bold)' },
+  { id: 'Anton', label: 'Anton (Heavy Header)' },
+  { id: 'Comic Neue, Comic Sans MS', label: 'Comic Neue (Humorous)' },
+  { id: 'Pacifico', label: 'Pacifico (Cursive Script)' },
+  { id: 'Playfair Display', label: 'Playfair Display (Serif Elegance)' },
+  { id: 'Outfit, sans-serif', label: 'Outfit (Clean UI)' },
+  { id: 'monospace', label: 'Monospace (Code / Retro)' }
+];
+
+interface MemeGeneratorProps {
+  initialMode?: 'meme' | 'caption' | 'text';
+  pageTitle?: string;
+  pageSubtitle?: string;
+}
+
+export const MemeGenerator: React.FC<MemeGeneratorProps> = ({
+  initialMode = 'meme',
+  pageTitle,
+  pageSubtitle,
+}) => {
   const [file, setFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string>('');
-  
-  // Settings
-  const [textBlocks, setTextBlocks] = useState<MemeText[]>([]);
-  const [fontFamily, setFontFamily] = useState<string>('Impact');
-  const [allCaps, setAllCaps] = useState<boolean>(true);
-  
-  const [isAssembling, setIsAssembling] = useState<boolean>(false);
-  const [previewUrl, setPreviewUrl] = useState<string>('');
-  const [activeDragId, setActiveDragId] = useState<string | null>(null);
-  
+  const [imageSrc, setImageSrc] = useState<string>('');
+  const [imageSize, setImageSize] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
+
+  const [layers, setLayers] = useState<TextLayer[]>([]);
+  const [selectedLayerId, setSelectedLayerId] = useState<string | null>(null);
+
+  const [exportFormat, setExportFormat] = useState<'image/png' | 'image/jpeg' | 'image/webp'>('image/png');
+  const [jpegQuality, setJpegQuality] = useState<number>(92);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const isDraggingRef = useRef<boolean>(false);
 
   const handleFilesSelected = (files: File[]) => {
     if (files.length > 0) {
+      if (imageSrc) URL.revokeObjectURL(imageSrc);
       const f = files[0];
       setFile(f);
-      setImageUrl(URL.createObjectURL(f));
-      
-      // Initialize with standard top and bottom text blocks
-      setTextBlocks([
-        { id: 'top', text: 'WRITE TOP TEXT', x: 50, y: 15, size: 40, color: '#ffffff' },
-        { id: 'bottom', text: 'WRITE BOTTOM TEXT', x: 50, y: 85, size: 40, color: '#ffffff' }
-      ]);
+      const url = URL.createObjectURL(f);
+      setImageSrc(url);
+
+      const img = new Image();
+      img.src = url;
+      img.onload = () => {
+        setImageSize({ width: img.naturalWidth, height: img.naturalHeight });
+        initDefaultLayers(initialMode);
+      };
     }
   };
 
-  const addTextBlock = () => {
-    const newBlock: MemeText = {
-      id: Math.random().toString(36).substring(7),
-      text: 'NEW CAPTION',
+  const loadTemplate = (templateUrl: string) => {
+    if (imageSrc) URL.revokeObjectURL(imageSrc);
+    setFile(null);
+    setImageSrc(templateUrl);
+
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = templateUrl;
+    img.onload = () => {
+      setImageSize({ width: img.naturalWidth, height: img.naturalHeight });
+      initDefaultLayers(initialMode);
+    };
+  };
+
+  const initDefaultLayers = (mode: string) => {
+    if (mode === 'meme') {
+      const top: TextLayer = {
+        id: 'layer-top',
+        text: 'TOP MEME CAPTION',
+        x: 50,
+        y: 12,
+        size: 42,
+        color: '#FFFFFF',
+        strokeColor: '#000000',
+        strokeWidth: 4,
+        fontFamily: 'Impact',
+        isAllCaps: true,
+        align: 'center',
+        hasBackground: false,
+        backgroundColor: '#000000',
+        backgroundOpacity: 60
+      };
+      const bottom: TextLayer = {
+        id: 'layer-bottom',
+        text: 'BOTTOM MEME CAPTION',
+        x: 50,
+        y: 88,
+        size: 42,
+        color: '#FFFFFF',
+        strokeColor: '#000000',
+        strokeWidth: 4,
+        fontFamily: 'Impact',
+        isAllCaps: true,
+        align: 'center',
+        hasBackground: false,
+        backgroundColor: '#000000',
+        backgroundOpacity: 60
+      };
+      setLayers([top, bottom]);
+      setSelectedLayerId('layer-top');
+    } else if (mode === 'caption') {
+      const cap: TextLayer = {
+        id: 'layer-caption',
+        text: 'Add your photo caption or subtitle here...',
+        x: 50,
+        y: 85,
+        size: 32,
+        color: '#FFFFFF',
+        strokeColor: '#000000',
+        strokeWidth: 2,
+        fontFamily: 'Outfit, sans-serif',
+        isAllCaps: false,
+        align: 'center',
+        hasBackground: true,
+        backgroundColor: '#000000',
+        backgroundOpacity: 75
+      };
+      setLayers([cap]);
+      setSelectedLayerId('layer-caption');
+    } else {
+      const txt: TextLayer = {
+        id: 'layer-text',
+        text: 'Custom Typography Overlay',
+        x: 50,
+        y: 50,
+        size: 40,
+        color: '#FFFFFF',
+        strokeColor: '#1E1B4B',
+        strokeWidth: 3,
+        fontFamily: 'Montserrat',
+        isAllCaps: false,
+        align: 'center',
+        hasBackground: false,
+        backgroundColor: '#000000',
+        backgroundOpacity: 50
+      };
+      setLayers([txt]);
+      setSelectedLayerId('layer-text');
+    }
+  };
+
+  const addLayer = () => {
+    const newLayer: TextLayer = {
+      id: `layer-${Date.now()}`,
+      text: 'NEW TEXT LAYER',
       x: 50,
       y: 50,
-      size: 35,
-      color: '#ffffff'
+      size: 36,
+      color: '#FFFFFF',
+      strokeColor: '#000000',
+      strokeWidth: 3,
+      fontFamily: 'Impact',
+      isAllCaps: true,
+      align: 'center',
+      hasBackground: false,
+      backgroundColor: '#000000',
+      backgroundOpacity: 60
     };
-    setTextBlocks((prev) => [...prev, newBlock]);
+    setLayers((prev) => [...prev, newLayer]);
+    setSelectedLayerId(newLayer.id);
   };
 
-  const deleteTextBlock = (id: string) => {
-    setTextBlocks((prev) => prev.filter((t) => t.id !== id));
+  const duplicateLayer = (layer: TextLayer) => {
+    const dup: TextLayer = {
+      ...layer,
+      id: `layer-${Date.now()}`,
+      y: Math.min(95, layer.y + 6)
+    };
+    setLayers((prev) => [...prev, dup]);
+    setSelectedLayerId(dup.id);
   };
 
-  const updateTextBlock = (id: string, field: keyof MemeText, value: any) => {
-    setTextBlocks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, [field]: value } : t))
+  const deleteLayer = (id: string) => {
+    setLayers((prev) => prev.filter((l) => l.id !== id));
+    if (selectedLayerId === id) setSelectedLayerId(null);
+  };
+
+  const updateLayer = (id: string, updates: Partial<TextLayer>) => {
+    setLayers((prev) =>
+      prev.map((l) => (l.id === id ? { ...l, ...updates } : l))
     );
   };
 
-  // Compile and draw meme canvas
-  useEffect(() => {
-    if (!imageUrl) return;
+  const selectedLayer = layers.find((l) => l.id === selectedLayerId);
 
-    const drawMeme = () => {
-      setIsAssembling(true);
-      const img = new Image();
-      img.src = imageUrl;
-      
-      img.onload = () => {
-        const canvas = canvasRef.current || document.createElement('canvas');
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
+  // Render Canvas
+  useEffect(() => {
+    if (!imageSrc || imageSize.width === 0 || imageSize.height === 0) return;
+
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = imageSrc;
+    img.onload = () => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+
+      const w = imageSize.width;
+      const h = imageSize.height;
+      canvas.width = w;
+      canvas.height = h;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      // Draw background image
+      ctx.drawImage(img, 0, 0, w, h);
+
+      // Draw all text layers
+      layers.forEach((layer) => {
+        ctx.save();
+
+        const displayText = layer.isAllCaps ? layer.text.toUpperCase() : layer.text;
+        // Scale font proportionally to 1000px width baseline
+        const scaleFactor = w / 1000;
+        const computedFontSize = Math.max(14, Math.round(layer.size * scaleFactor));
         
-        const ctx = canvas.getContext('2d');
-        if (!ctx) {
-          setIsAssembling(false);
-          return;
+        ctx.font = `bold ${computedFontSize}px ${layer.fontFamily}`;
+        ctx.textAlign = layer.align;
+        ctx.textBaseline = 'middle';
+
+        const posX = (layer.x / 100) * w;
+        const posY = (layer.y / 100) * h;
+
+        // Optional Background Highlight Box
+        if (layer.hasBackground) {
+          const metrics = ctx.measureText(displayText);
+          const padX = computedFontSize * 0.5;
+          const padY = computedFontSize * 0.3;
+          const boxW = metrics.width + padX * 2;
+          const boxH = computedFontSize + padY * 2;
+
+          let startX = posX - padX;
+          if (layer.align === 'center') startX = posX - boxW / 2;
+          if (layer.align === 'right') startX = posX - boxW + padX;
+          const startY = posY - boxH / 2;
+
+          ctx.fillStyle = layer.backgroundColor;
+          ctx.globalAlpha = layer.backgroundOpacity / 100;
+          ctx.fillRect(startX, startY, boxW, boxH);
+          ctx.globalAlpha = 1.0;
         }
 
-        // Draw original background image
-        ctx.drawImage(img, 0, 0);
+        // Stroke Outline
+        if (layer.strokeWidth > 0) {
+          ctx.strokeStyle = layer.strokeColor;
+          ctx.lineWidth = Math.max(1, Math.round(layer.strokeWidth * scaleFactor));
+          ctx.lineJoin = 'round';
+          ctx.miterLimit = 2;
+          ctx.strokeText(displayText, posX, posY);
+        }
 
-        // Draw text blocks
-        textBlocks.forEach((tb) => {
-          ctx.save();
-          
-          const rawText = allCaps ? tb.text.toUpperCase() : tb.text;
-          const px = (tb.x / 100) * canvas.width;
-          const py = (tb.y / 100) * canvas.height;
-          
-          // Responsive font size adjustment based on canvas size
-          const scaleFactor = canvas.width / 500;
-          const fontSize = Math.max(12, Math.round(tb.size * scaleFactor));
-          
-          ctx.font = `bold ${fontSize}px ${fontFamily}`;
-          ctx.fillStyle = tb.color;
-          ctx.strokeStyle = '#000000';
-          ctx.lineWidth = Math.max(2, Math.round(fontSize / 6));
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          
-          ctx.strokeText(rawText, px, py);
-          ctx.fillText(rawText, px, py);
-          ctx.restore();
-        });
+        // Fill Text
+        ctx.fillStyle = layer.color;
+        ctx.fillText(displayText, posX, posY);
 
-        // Export preview blob
-        canvas.toBlob((blob) => {
-          if (blob) {
-            if (previewUrl) URL.revokeObjectURL(previewUrl);
-            setPreviewUrl(URL.createObjectURL(blob));
-          }
-          setIsAssembling(false);
-        }, 'image/png');
-      };
+        ctx.restore();
+      });
     };
+  }, [imageSrc, imageSize, layers]);
 
-    const timer = setTimeout(drawMeme, 250); // debounce canvas render
-    return () => clearTimeout(timer);
-  }, [imageUrl, textBlocks, fontFamily, allCaps]);
+  // Handle Drag on Canvas
+  const handleCanvasPointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current;
+    if (!canvas || layers.length === 0) return;
 
-  // Draggable text positioning mathematics
-  const handleDragStart = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
-    if (!containerRef.current || textBlocks.length === 0) return;
-    
-    const rect = containerRef.current.getBoundingClientRect();
-    
-    // Get client position
-    const clientX = 'touches' in e ? (e.touches[0]?.clientX ?? 0) : e.clientX;
-    const clientY = 'touches' in e ? (e.touches[0]?.clientY ?? 0) : e.clientY;
+    const rect = canvas.getBoundingClientRect();
+    const clickX = ((e.clientX - rect.left) / rect.width) * 100;
+    const clickY = ((e.clientY - rect.top) / rect.height) * 100;
 
-    const clickedPctX = ((clientX - rect.left) / rect.width) * 100;
-    const clickedPctY = ((clientY - rect.top) / rect.height) * 100;
-
-    // Find closest text block within threshold distance
+    // Find closest layer
     let closestId: string | null = null;
-    let minDist = 15; // threshold distance (percent)
+    let minDist = 20; // threshold in %
 
-    textBlocks.forEach((tb) => {
-      const dist = Math.sqrt((tb.x - clickedPctX) ** 2 + (tb.y - clickedPctY) ** 2);
+    layers.forEach((l) => {
+      const dist = Math.hypot(l.x - clickX, l.y - clickY);
       if (dist < minDist) {
         minDist = dist;
-        closestId = tb.id;
+        closestId = l.id;
       }
     });
 
     if (closestId) {
-      e.preventDefault();
-      setActiveDragId(closestId);
+      setSelectedLayerId(closestId);
+      isDraggingRef.current = true;
     }
   };
 
-  const handleDragMove = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
-    if (!activeDragId || !containerRef.current) return;
+  const handleCanvasPointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!isDraggingRef.current || !selectedLayerId) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    const rect = containerRef.current.getBoundingClientRect();
-    
-    const clientX = 'touches' in e ? (e.touches[0]?.clientX ?? 0) : e.clientX;
-    const clientY = 'touches' in e ? (e.touches[0]?.clientY ?? 0) : e.clientY;
+    const rect = canvas.getBoundingClientRect();
+    const newX = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+    const newY = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100));
 
-    const newPctX = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
-    const newPctY = Math.max(0, Math.min(100, ((clientY - rect.top) / rect.height) * 100));
-
-    updateTextBlock(activeDragId, 'x', newPctX);
-    updateTextBlock(activeDragId, 'y', newPctY);
+    updateLayer(selectedLayerId, { x: Math.round(newX), y: Math.round(newY) });
   };
 
-  const handleDragEnd = () => {
-    setActiveDragId(null);
+  const handleCanvasPointerUp = () => {
+    isDraggingRef.current = false;
   };
 
   const handleDownload = () => {
-    if (!previewUrl || !file) return;
-    const link = document.createElement('a');
-    link.href = previewUrl;
-    link.download = `meme_${file.name}`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    setIsProcessing(true);
+    canvas.toBlob(
+      (blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const originalName = file?.name.replace(/\.[^/.]+$/, '') || 'meme';
+        const ext = exportFormat === 'image/png' ? 'png' : exportFormat === 'image/webp' ? 'webp' : 'jpg';
+        a.download = `${originalName}-${Date.now()}.${ext}`;
+        a.click();
+        URL.revokeObjectURL(url);
+        setIsProcessing(false);
+      },
+      exportFormat,
+      exportFormat === 'image/jpeg' ? jpegQuality / 100 : undefined
+    );
   };
 
   const handleReset = () => {
-    if (imageUrl) URL.revokeObjectURL(imageUrl);
-    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    if (imageSrc) URL.revokeObjectURL(imageSrc);
     setFile(null);
-    setImageUrl('');
-    setPreviewUrl('');
-    setTextBlocks([]);
-    setFontFamily('Impact');
-    setAllCaps(true);
+    setImageSrc('');
+    setImageSize({ width: 0, height: 0 });
+    setLayers([]);
+    setSelectedLayerId(null);
   };
-
-  const imageUrlRef = useRef(imageUrl);
-  const previewUrlRef = useRef(previewUrl);
-
-  useEffect(() => {
-    imageUrlRef.current = imageUrl;
-  }, [imageUrl]);
-
-  useEffect(() => {
-    previewUrlRef.current = previewUrl;
-  }, [previewUrl]);
-
-  useEffect(() => {
-    return () => {
-      if (imageUrlRef.current) URL.revokeObjectURL(imageUrlRef.current);
-      if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
-    };
-  }, []);
 
   const memeSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    'name': 'Meme Generator - ImagePlumber',
+    'name': 'Interactive Meme Generator & Photo Typography Studio - ImagePlumber',
     'applicationCategory': 'MultimediaApplication',
     'operatingSystem': 'Web Browser',
     'offers': {
       '@type': 'Offer',
       'price': '0',
-      'priceCurrency': 'USD'
+      'priceCurrency': 'USD',
     },
-    'description': 'Create custom memes and captioned social cards directly in your browser. Drag-and-drop movable text layers, Impact font, custom colors, and black text outlines.',
+    'description': 'Create custom memes and add text overlays to photos online for free. Drag-and-drop captions, Google Fonts, outline strokes, and popular meme templates.',
     'featureList': [
-      'Interactive drag-and-drop text positioning',
-      'Impact font rendering with custom outlines',
-      'Add unlimited custom text caption blocks',
-      'Local canvas compilation for instant downloads'
+      'Multi-layer draggable text overlay with Impact, Anton, and Montserrat Google Fonts',
+      'Outline stroke thickness, custom fill colors, and subtitle highlight boxes',
+      'Instant meme templates library & custom photo upload',
+      'Lossless PNG, JPEG, and WebP export with zero cloud uploads'
     ]
   };
 
   return (
-    <div className="w-full">
-      <SEO 
-        title="Free Online Meme Generator - Imgflip Alternative" 
-        description="Create custom memes with draggable text layers offline in your browser. A free alternative to Imgflip and Meme Generator Pro with no watermarks." 
-        keywords="meme generator, meme maker, create meme online, free meme maker, meme creator, funny meme maker, caption generator, social card maker, meme text editor, Impact font meme, custom meme creator, meme without watermark, Imgflip alternative, Meme Generator Pro alternative, make memes offline"
+    <div className="py-8 md:py-12 max-w-7xl mx-auto px-4 sm:px-6">
+      <SEO
+        title={pageTitle || "Free Online Meme Generator & Add Text to Photo | ImagePlumber"}
+        description={pageSubtitle || "Create custom memes and add captions to photos online for free. Multi-layer draggable text, outline strokes, Google Fonts, and zero cloud uploads."}
         canonicalUrl="https://imageplumber.com/meme-generator"
         schema={memeSchema}
       />
 
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <span className="text-xs font-bold text-green-650 uppercase tracking-widest px-2.5 py-1 bg-green-50 border border-green-100 rounded-full shadow-sm">
-            Creator Studio
-          </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">Meme Generator</h1>
-          <p className="text-sm text-slate-500">Design viral templates locally. Drag captions freely on the preview canvas to position text.</p>
+      {/* Header */}
+      <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 text-amber-650 dark:text-amber-300 text-xs font-semibold uppercase tracking-wider mb-4">
+          <Type className="w-3.5 h-3.5" />
+          <span>Typography & Meme Engine</span>
         </div>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight leading-tight mb-4">
+          {pageTitle || "Meme Generator & Text Overlay"}
+        </h1>
+        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300">
+          {pageSubtitle || "Add custom captions, outline strokes, and typography to any photo or template with live draggable canvas positioning."}
+        </p>
+      </div>
 
-        {!file ? (
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch max-w-5xl mx-auto">
-            <div className="md:col-span-7 flex flex-col justify-center">
-              <DropZone 
-                onFilesSelected={handleFilesSelected}
-                title="Drop photo template to load generator"
-                subtitle="Supports JPG, PNG, WebP up to 30MB"
-              />
-            </div>
-            <div className="md:col-span-5 flex">
-              <div className="premium-bento rounded-3xl p-6 flex flex-col justify-between w-full shadow-sm hover:border-green-350 transition-all duration-300">
-                <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-green-650 bg-green-50/30 border border-green-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
-                  <h2 className="text-base font-extrabold text-slate-900">How Meme Generator Works</h2>
-                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                    Load any image, add draggable text layers with Impact-style fonts and black outlines, position them freely by dragging on the canvas, then download your meme.
-                  </p>
-                </div>
-                <DemoPreview
-                  toolId="meme"
-                  alt="Meme Generator Demo"
+      <div className="max-w-6xl mx-auto">
+        {!imageSrc ? (
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+              <div className="md:col-span-7 flex flex-col justify-center">
+                <DropZone
+                  onFilesSelected={handleFilesSelected}
+                  title="Drop any photo to add text or create a meme"
+                  subtitle="Supports JPG, PNG, WebP, HEIC up to 50MB"
                 />
+              </div>
+              <div className="md:col-span-5 flex">
+                <div className="premium-bento rounded-3xl p-6 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 flex flex-col justify-between w-full shadow-sm">
+                  <div className="space-y-4">
+                    <div className="text-[10px] font-bold text-amber-650 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 border border-amber-100 dark:border-amber-900 px-2 py-0.5 rounded uppercase tracking-wider inline-block">
+                      Typography Studio
+                    </div>
+                    <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Multi-Layer Captions</h2>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                      Add multiple text blocks with custom outline strokes, Google Fonts, and subtitle highlight boxes.
+                    </p>
+                  </div>
+                  <DemoPreview toolId="meme" alt="Meme Generator Preview" />
+                </div>
+              </div>
+            </div>
+
+            {/* Popular Templates Gallery */}
+            <div className="border-t border-slate-200/60 dark:border-slate-800 pt-6 space-y-4">
+              <h3 className="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
+                Or pick a classic starter template:
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {TEMPLATES.map((tmpl) => (
+                  <button
+                    key={tmpl.id}
+                    onClick={() => loadTemplate(tmpl.url)}
+                    className="group rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden bg-slate-50 dark:bg-slate-900/50 hover:border-amber-400 dark:hover:border-amber-500 transition-all text-left cursor-pointer p-2 flex flex-col items-center gap-2 shadow-sm hover:shadow-md"
+                  >
+                    <img
+                      src={tmpl.url}
+                      alt={tmpl.name}
+                      className="w-full h-28 object-cover rounded-xl group-hover:scale-105 transition-transform"
+                    />
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate w-full text-center">
+                      {tmpl.name}
+                    </span>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* Left Controls column */}
-            <div className="lg:col-span-4 flex flex-col gap-6 order-2 lg:order-1">
-              
-              {/* Global Typography Settings */}
-              <div className="glass-card p-5 rounded-3xl space-y-4">
-                <h2 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2 text-sm">
-                  <Type className="w-4.5 h-4.5 text-indigo-505" />
-                  Meme Typography
-                </h2>
+            {/* Controls (5 cols) */}
+            <div className="lg:col-span-5 space-y-6">
+              <div className="premium-bento p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-5 shadow-xl shadow-slate-200/20 dark:shadow-none">
                 
-                <div className="grid grid-cols-2 gap-3">
-                  {/* Font Family */}
-                  <div className="space-y-1">
-                    <label className="text-[9px] font-bold text-slate-455 uppercase tracking-wider block">Font Family</label>
-                    <select
-                      value={fontFamily}
-                      onChange={(e) => setFontFamily(e.target.value)}
-                      className="w-full bg-white/95 border border-slate-200/80 rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer shadow-xs"
-                    >
-                      <option value="Impact">Impact</option>
-                      <option value="Arial">Arial</option>
-                      <option value="sans-serif">Sans-serif</option>
-                      <option value="monospace">Monospace</option>
-                    </select>
-                  </div>
-
-                  {/* Caps Lock Toggle */}
-                  <div className="space-y-1">
-                    <label className="text-[9px] font-bold text-slate-450 uppercase tracking-wider block">Text Case</label>
-                    <button
-                      onClick={() => setAllCaps(!allCaps)}
-                      className={`w-full py-1.5 px-2 rounded-lg text-xs font-bold border transition cursor-pointer ${
-                        allCaps 
-                          ? 'bg-indigo-650 border-indigo-500 text-white shadow-sm'
-                          : 'bg-white/80 border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
-                      }`}
-                    >
-                      {allCaps ? 'ALL CAPS' : 'Normal Case'}
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Text Blocks list */}
-              <div className="glass-card p-5 rounded-3xl space-y-4 max-h-[350px] overflow-y-auto">
-                <div className="flex justify-between items-center border-b border-slate-100 pb-2">
-                  <h2 className="font-bold text-slate-800 text-sm">Captions List</h2>
-                  <button 
-                    onClick={addTextBlock}
-                    className="px-2.5 py-1 bg-indigo-50/70 hover:bg-indigo-100 border border-indigo-150 text-[10px] font-bold text-indigo-650 rounded-lg transition-all flex items-center gap-1 cursor-pointer"
+                {/* Header Actions */}
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
+                    Text Layers ({layers.length})
+                  </span>
+                  <button
+                    onClick={addLayer}
+                    className="py-1.5 px-3 rounded-xl bg-amber-50 dark:bg-amber-950/60 hover:bg-amber-100 text-amber-700 dark:text-amber-300 font-bold text-xs border border-amber-200/60 dark:border-amber-800 transition-all cursor-pointer flex items-center gap-1.5 shadow-sm"
                   >
-                    <Plus className="w-3.5 h-3.5" /> Add
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Add Layer</span>
                   </button>
                 </div>
 
-                <div className="space-y-3.5">
-                  {textBlocks.map((tb, idx) => (
-                    <div key={tb.id} className="p-3 bg-white/80 border border-slate-200/50 rounded-2xl space-y-3 relative">
-                      <div className="flex justify-between items-center">
-                        <span className="text-[9px] font-bold text-slate-450 uppercase tracking-wider">#Caption {idx + 1}</span>
-                        <button
-                          onClick={() => deleteTextBlock(tb.id)}
-                          className="p-1 hover:bg-red-50 text-slate-400 hover:text-red-650 rounded transition cursor-pointer"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
+                {/* Layer Selector Tabs */}
+                <div className="flex flex-wrap gap-1.5 bg-slate-100 dark:bg-slate-800/80 p-1.5 rounded-2xl border border-slate-200/60 dark:border-slate-700/60">
+                  {layers.map((l, index) => (
+                    <button
+                      key={l.id}
+                      onClick={() => setSelectedLayerId(l.id)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                        selectedLayerId === l.id
+                          ? 'bg-white dark:bg-slate-700 text-amber-600 dark:text-amber-300 shadow-sm'
+                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                      }`}
+                    >
+                      <span>#{index + 1}: {l.text.slice(0, 10) || 'Empty'}</span>
+                    </button>
+                  ))}
+                </div>
 
+                {/* Selected Layer Controls */}
+                {selectedLayer && (
+                  <div className="space-y-4 pt-2 border-t border-slate-100 dark:border-slate-800">
+                    
+                    {/* Caption Input */}
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
+                        Caption Text
+                      </label>
                       <input
                         type="text"
-                        value={tb.text}
-                        onChange={(e) => updateTextBlock(tb.id, 'text', e.target.value)}
-                        className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-indigo-500 transition-all"
-                        placeholder="Caption text..."
+                        value={selectedLayer.text}
+                        onChange={(e) => updateLayer(selectedLayer.id, { text: e.target.value })}
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                        placeholder="Type text..."
                       />
+                    </div>
 
-                      <div className="flex justify-between items-center gap-3">
-                        {/* Size slider */}
-                        <div className="flex-1 space-y-1">
-                          <span className="text-[8px] font-bold text-slate-450 uppercase tracking-wider block">Size: {tb.size}px</span>
-                          <input
-                            type="range"
-                            min="15"
-                            max="80"
-                            value={tb.size}
-                            onChange={(e) => updateTextBlock(tb.id, 'size', Number(e.target.value))}
-                            className="range-styled w-full"
-                          />
+                    {/* Font & Alignment */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
+                          Font Family
+                        </label>
+                        <select
+                          value={selectedLayer.fontFamily}
+                          onChange={(e) => updateLayer(selectedLayer.id, { fontFamily: e.target.value })}
+                          className="w-full px-2.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs font-medium focus:outline-none"
+                        >
+                          {FONTS.map((f) => (
+                            <option key={f.id} value={f.id}>{f.label}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
+                          Alignment
+                        </label>
+                        <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+                          <button
+                            onClick={() => updateLayer(selectedLayer.id, { align: 'left' })}
+                            className={`flex-1 py-1 rounded-lg flex items-center justify-center cursor-pointer ${
+                              selectedLayer.align === 'left' ? 'bg-white dark:bg-slate-700 text-amber-600 shadow-sm' : 'text-slate-400'
+                            }`}
+                          >
+                            <AlignLeft className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => updateLayer(selectedLayer.id, { align: 'center' })}
+                            className={`flex-1 py-1 rounded-lg flex items-center justify-center cursor-pointer ${
+                              selectedLayer.align === 'center' ? 'bg-white dark:bg-slate-700 text-amber-600 shadow-sm' : 'text-slate-400'
+                            }`}
+                          >
+                            <AlignCenter className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => updateLayer(selectedLayer.id, { align: 'right' })}
+                            className={`flex-1 py-1 rounded-lg flex items-center justify-center cursor-pointer ${
+                              selectedLayer.align === 'right' ? 'bg-white dark:bg-slate-700 text-amber-600 shadow-sm' : 'text-slate-400'
+                            }`}
+                          >
+                            <AlignRight className="w-3.5 h-3.5" />
+                          </button>
                         </div>
-                        {/* Color Picker */}
+                      </div>
+                    </div>
+
+                    {/* Font Size & Stroke Width Sliders */}
+                    <div className="space-y-3">
+                      <div className="space-y-1.5">
+                        <div className="flex justify-between text-xs font-bold text-slate-600 dark:text-slate-400">
+                          <span>Font Size</span>
+                          <span className="font-mono text-amber-600">{selectedLayer.size} px</span>
+                        </div>
                         <input
-                          type="color"
-                          value={tb.color}
-                          onChange={(e) => updateTextBlock(tb.id, 'color', e.target.value)}
-                          className="w-6 h-6 border-none bg-transparent cursor-pointer rounded-full shrink-0"
-                          title="Color"
+                          type="range"
+                          min="14"
+                          max="120"
+                          value={selectedLayer.size}
+                          onChange={(e) => updateLayer(selectedLayer.id, { size: Number(e.target.value) })}
+                          className="range-styled w-full"
+                        />
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <div className="flex justify-between text-xs font-bold text-slate-600 dark:text-slate-400">
+                          <span>Outline Stroke</span>
+                          <span className="font-mono text-amber-600">{selectedLayer.strokeWidth} px</span>
+                        </div>
+                        <input
+                          type="range"
+                          min="0"
+                          max="16"
+                          value={selectedLayer.strokeWidth}
+                          onChange={(e) => updateLayer(selectedLayer.id, { strokeWidth: Number(e.target.value) })}
+                          className="range-styled w-full"
                         />
                       </div>
                     </div>
-                  ))}
+
+                    {/* Color Pickers */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="color"
+                          value={selectedLayer.color}
+                          onChange={(e) => updateLayer(selectedLayer.id, { color: e.target.value })}
+                          className="w-8 h-8 rounded-lg cursor-pointer border border-slate-200 dark:border-slate-700"
+                        />
+                        <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Text Color</span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="color"
+                          value={selectedLayer.strokeColor}
+                          onChange={(e) => updateLayer(selectedLayer.id, { strokeColor: e.target.value })}
+                          className="w-8 h-8 rounded-lg cursor-pointer border border-slate-200 dark:border-slate-700"
+                        />
+                        <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Stroke Color</span>
+                      </div>
+                    </div>
+
+                    {/* All-Caps & Subtitle Box Toggles */}
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => updateLayer(selectedLayer.id, { isAllCaps: !selectedLayer.isAllCaps })}
+                        className={`flex-1 py-2 px-3 rounded-xl border text-xs font-bold transition-all cursor-pointer text-center ${
+                          selectedLayer.isAllCaps
+                            ? 'bg-amber-50 dark:bg-amber-950/50 border-amber-300 text-amber-700 dark:text-amber-300'
+                            : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500'
+                        }`}
+                      >
+                        ALL-CAPS ({selectedLayer.isAllCaps ? 'ON' : 'OFF'})
+                      </button>
+
+                      <button
+                        onClick={() => updateLayer(selectedLayer.id, { hasBackground: !selectedLayer.hasBackground })}
+                        className={`flex-1 py-2 px-3 rounded-xl border text-xs font-bold transition-all cursor-pointer text-center ${
+                          selectedLayer.hasBackground
+                            ? 'bg-amber-50 dark:bg-amber-950/50 border-amber-300 text-amber-700 dark:text-amber-300'
+                            : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500'
+                        }`}
+                      >
+                        Highlight Box ({selectedLayer.hasBackground ? 'ON' : 'OFF'})
+                      </button>
+                    </div>
+
+                    {/* Layer Actions */}
+                    <div className="flex gap-2 pt-2">
+                      <button
+                        onClick={() => duplicateLayer(selectedLayer)}
+                        className="flex-1 py-2 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                      >
+                        <Copy className="w-3.5 h-3.5" />
+                        <span>Duplicate</span>
+                      </button>
+                      <button
+                        onClick={() => deleteLayer(selectedLayer.id)}
+                        className="py-2 px-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 hover:bg-rose-100 text-rose-600 dark:text-rose-400 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>Delete</span>
+                      </button>
+                    </div>
+
+                  </div>
+                )}
+
+                {/* Export Options */}
+                <div className="space-y-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                      Export Format
+                    </label>
+                    <div className="flex gap-1.5">
+                      {(['image/png', 'image/jpeg', 'image/webp'] as const).map((fmt) => (
+                        <button
+                          key={fmt}
+                          onClick={() => setExportFormat(fmt)}
+                          className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                            exportFormat === fmt
+                              ? 'bg-amber-600 text-white'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                          }`}
+                        >
+                          {fmt === 'image/png' ? 'PNG' : fmt === 'image/jpeg' ? 'JPEG' : 'WebP'}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {exportFormat === 'image/jpeg' && (
+                    <div className="space-y-1 pt-1">
+                      <div className="flex justify-between text-xs font-bold text-slate-600 dark:text-slate-400">
+                        <span>Quality</span>
+                        <span className="font-mono text-amber-600">{jpegQuality}%</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="50"
+                        max="100"
+                        value={jpegQuality}
+                        onChange={(e) => setJpegQuality(Number(e.target.value))}
+                        className="range-styled w-full"
+                      />
+                    </div>
+                  )}
                 </div>
+
+                {/* Actions */}
+                <div className="flex gap-3 pt-2">
+                  <button
+                    onClick={handleReset}
+                    className="flex-1 py-3 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                    <span>Reset</span>
+                  </button>
+                  <button
+                    onClick={handleDownload}
+                    disabled={isProcessing}
+                    className="flex-2 py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold text-sm shadow-lg shadow-amber-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                  >
+                    <Download className="w-4 h-4" />
+                    <span>{isProcessing ? 'Processing...' : 'Download Meme'}</span>
+                  </button>
+                </div>
+
               </div>
-
-              {/* CTAs */}
-              <div className="glass-card p-5 rounded-3xl space-y-3">
-                <button
-                  onClick={handleDownload}
-                  disabled={isAssembling || !previewUrl}
-                  className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-655 hover:from-indigo-550 hover:to-purple-550 disabled:opacity-50 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <Download className="w-4 h-4" />
-                  Download Meme Image
-                </button>
-
-                <button
-                  onClick={handleReset}
-                  className="w-full py-3 bg-white hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-                >
-                  <RefreshCw className="w-4 h-4" />
-                  Reset Template
-                </button>
-              </div>
-
             </div>
 
-            {/* Right Interactive Drag Viewport column */}
-            <div className="lg:col-span-8 space-y-4 order-1 lg:order-2">
-              
-              <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-3 shadow-xs">
-                <span className="text-xs font-bold text-slate-800">
-                  Interactive Drag-and-Drop Workspace
+            {/* Canvas Stage (7 cols) */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="relative rounded-3xl bg-slate-950/5 dark:bg-slate-950/50 border border-slate-200/80 dark:border-slate-800 p-4 min-h-[420px] flex items-center justify-center overflow-hidden">
+                <canvas
+                  ref={canvasRef}
+                  onPointerDown={handleCanvasPointerDown}
+                  onPointerMove={handleCanvasPointerMove}
+                  onPointerUp={handleCanvasPointerUp}
+                  className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-xl transition-all cursor-move select-none"
+                />
+              </div>
+
+              <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-2 font-medium">
+                <span className="flex items-center gap-1.5">
+                  <Move className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Drag text directly on canvas to position</span>
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  Drag text directly on the image to position
-                </span>
+                <span>{imageSize.width} × {imageSize.height} px</span>
               </div>
-
-              {/* Viewport container */}
-              <div 
-                ref={containerRef}
-                onMouseDown={handleDragStart}
-                onMouseMove={handleDragMove}
-                onMouseUp={handleDragEnd}
-                onMouseLeave={handleDragEnd}
-                onTouchStart={handleDragStart}
-                onTouchMove={handleDragMove}
-                onTouchEnd={handleDragEnd}
-                className="w-full border border-slate-200/80 rounded-3xl bg-slate-50/30 flex items-center justify-center min-h-[400px] shadow-inner p-4 relative overflow-hidden select-none cursor-move"
-              >
-                <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none" />
-
-                {isAssembling ? (
-                  <div className="flex flex-col items-center gap-2.5 relative z-10 pointer-events-none">
-                    <RefreshCw className="w-8 h-8 text-indigo-650 animate-spin" />
-                    <span className="text-xs font-bold text-slate-600 animate-pulse">Rendering meme...</span>
-                  </div>
-                ) : (
-                  previewUrl && (
-                    <img
-                      src={previewUrl}
-                      alt="Meme Preview"
-                      draggable={false}
-                      className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-2xl border border-slate-200 relative z-10 pointer-events-none select-none animate-float-subtle"
-                    />
-                  )
-                )}
-              </div>
-
-              <div className="p-3.5 bg-indigo-50/50 border border-indigo-100/60 rounded-2xl flex items-start gap-2.5 text-[10px] text-slate-555 leading-normal font-medium">
-                <Info className="w-4 h-4 text-indigo-650 shrink-0 mt-0.5 animate-pulse" />
-                <div className="space-y-1">
-                  <span>
-                    **Tips on Positioning**:
-                  </span>
-                  <ul className="list-disc pl-3.5 space-y-0.5 text-slate-500">
-                    <li>Simply click and hold any caption on the preview image, drag to change location, and release.</li>
-                    <li>Add new caption blocks above using the "+ Add" control on the captions sidebar.</li>
-                  </ul>
-                </div>
-              </div>
-
             </div>
 
           </div>
         )}
 
-        <ToolGuide
-          toolName="Meme Generator"
-          introText="Caption popular meme formats or custom templates on-device. Position text boxes via simple drag-and-drop coordinates and export clean memes without watermark overlays."
-          competitorComparison={{
-            alternatives: ['Imgflip', 'Meme Generator Pro', 'Kapwing'],
-            benefit: 'Most cloud meme generators force watermarks on free exports or charge subscriptions to unlock basic text formatting. ImagePlumber generates high-res memes on your browser Canvas. No watermark is ever stamped, and your content remains completely local and private.'
-          }}
-          steps={[
-            {
-              title: 'Upload Meme Template',
-              description: 'Select a clean template image (PNG, JPEG, WebP) by dragging it into the active upload zone.'
-            },
-            {
-              title: 'Add Caption Blocks',
-              description: 'Type caption texts, adjust font sizes, color fills, and outline weights. Click "+ Add Caption" to create more movable tags.'
-            },
-            {
-              title: 'Position & Save',
-              description: 'Drag text blocks around the preview canvas to align them perfectly. Once complete, click "Download Meme".'
-            }
-          ]}
-          features={[
-            'Interactive drag-and-drop positioning to align text boxes anywhere on the template.',
-            'Classic Impact typography rendering with robust black outline borders for legibility.',
-            'Customizable color fills, outline widths, and dynamic font sizes.',
-            'Add unlimited text layers to create complex dialogues and layout cards.',
-            'Offline-first execution ensures memes compile instantly without network lag.'
-          ]}
-          faq={[
-            {
-              q: 'Can I change the font style?',
-              a: 'The tool uses the iconic sans-serif Impact font to maintain classic meme styling, but you can fully configure size, fill color, and stroke outline width.'
-            },
-            {
-              q: 'How do I position the text?',
-              a: 'Simply hover over the text in the preview box, click and drag it to your target coordinates, and let go.'
-            },
-            {
-              q: 'Does it support animated GIFs?',
-              a: 'Currently, the local Canvas context handles static raster image templates (PNG, JPEG, WebP).'
-            }
-          ]}
-        />
+        {/* SEO Guide Section */}
+        <div className="mt-16 border-t border-slate-200/60 dark:border-slate-800 pt-12">
+          <ToolGuide
+            toolName="Meme Generator & Photo Typography Studio"
+            introText="Create viral memes, add captions, and style typography with outline strokes and Google Fonts in seconds."
+            competitorComparison={{
+              alternatives: ['Imgflip Meme Generator', 'iLoveIMG Meme Maker', 'Kapwing Meme Editor'],
+              benefit: 'Our meme creator is 100% free with zero watermarks, zero pop-up subscriptions, and zero cloud uploads. Design captions with 60 FPS real-time rendering in local browser RAM.',
+            }}
+            steps={[
+              { title: 'Upload Photo or Pick Template', description: 'Drop your own image or choose from popular meme starter templates.' },
+              { title: 'Style Your Captions', description: 'Customize font size, stroke thickness, colors, and subtitle highlight boxes.' },
+              { title: 'Drag to Position', description: 'Drag captions anywhere on the canvas with touch and mouse support.' },
+              { title: 'Export Watermark-Free', description: 'Download your high-resolution meme in lossless PNG, JPEG, or WebP format.' },
+            ]}
+            features={[
+              'Multi-layer draggable text overlay with Impact, Anton, Montserrat, and Pacifico fonts',
+              'Custom outline stroke thickness and shadow glow engine',
+              'Subtitle highlight boxes with adjustable background opacity',
+              '100% In-browser processing with zero watermarks or server uploads'
+            ]}
+            faq={[
+              { q: 'Does ImagePlumber put a watermark on generated memes?', a: 'No! All generated memes are completely watermark-free and 100% yours.' },
+              { q: 'Can I upload my own custom fonts or images?', a: 'You can drop any custom PNG, JPEG, or WebP photo into the studio and select from 8 curated font styles.' }
+            ]}
+          />
+        </div>
 
       </div>
     </div>

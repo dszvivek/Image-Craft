@@ -147,5 +147,20 @@
     "title": "Ajustar Brillo, Contraste y Colores Online | ImagePlumber",
     "description": "Ajusta brillo, contraste, saturación, exposición y nitidez con vista comparativa y auto-mejora con 1 clic.",
     "keywords": "ajustar brillo imagen, subir contraste foto, saturacion imagen online, auto mejorar foto, enfocar imagen gratis"
+  },
+  "generador-memes": {
+    "title": "Generador de Memes y Añadir Texto a Fotos | ImagePlumber",
+    "description": "Crea memes online gratis con textos arrastrables, bordes y fuentes sin marcas de agua.",
+    "keywords": "generador de memes online, añadir texto a foto, poner letras en fotos gratis, crear memes sin marca de agua"
+  },
+  "marca-de-agua": {
+    "title": "Poner Marca de Agua a Fotos Online (Lotes y ZIP) | ImagePlumber",
+    "description": "Añade texto o logotipo a múltiples imágenes a la vez y descarga un archivo ZIP 100% privado.",
+    "keywords": "poner marca de agua gratis, marca de agua en fotos por lotes, proteger fotos con logo, marca de agua online"
+  },
+  "eliminar-metadatos": {
+    "title": "Ver y Eliminar Metadatos EXIF de Fotos Online | ImagePlumber",
+    "description": "Inspecciona ubicación GPS, datos de la cámara y borra todos los metadatos privados en el navegador.",
+    "keywords": "eliminar metadatos foto online, borrar gps de foto, visor exif online, quitar datos exif gratis"
   }
 }

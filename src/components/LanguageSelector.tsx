@@ -104,6 +104,27 @@ const TOOL_EQUIVALENTS: Record<string, Record<string, string>> = {
     fr: 'ajuster-image',
     de: 'bild-anpassen',
   },
+  'meme-generator': {
+    es: 'generador-memes',
+    pt: 'gerador-memes',
+    hi: 'meme-generator',
+    fr: 'generateur-memes',
+    de: 'meme-generator',
+  },
+  'watermark-overlay': {
+    es: 'marca-de-agua',
+    pt: 'marca-dagua',
+    hi: 'watermark-lagaye',
+    fr: 'filigrane-image',
+    de: 'wasserzeichen-hinzufuegen',
+  },
+  'metadata-stripper': {
+    es: 'eliminar-metadatos',
+    pt: 'remover-metadados',
+    hi: 'exif-metadata-hataye',
+    fr: 'supprimer-metadonnees',
+    de: 'metadaten-entfernen',
+  },
 };
 
 // Reverse map to find standard English route from localized path
@@ -120,6 +141,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'es/filtros-fotos': 'photo-filters',
   'es/invertir-colores': 'invert-colors',
   'es/ajustar-imagen': 'adjust-image',
+  'es/generador-memes': 'meme-generator',
+  'es/marca-de-agua': 'watermark-overlay',
+  'es/eliminar-metadatos': 'metadata-stripper',
   'pt/comprimir-imagem': 'image-compressor',
   'pt/remover-fundo': 'background-remover',
   'pt/conversor-em-lote': 'batch-converter',
@@ -132,6 +156,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'pt/filtros-fotos': 'photo-filters',
   'pt/inverter-cores': 'invert-colors',
   'pt/ajustar-imagem': 'adjust-image',
+  'pt/gerador-memes': 'meme-generator',
+  'pt/marca-dagua': 'watermark-overlay',
+  'pt/remover-metadados': 'metadata-stripper',
   'hi/photo-compress-kare': 'image-compressor',
   'hi/background-hataye': 'background-remover',
   'hi/batch-converter': 'batch-converter',
@@ -144,6 +171,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'hi/photo-filters': 'photo-filters',
   'hi/color-invert-kare': 'invert-colors',
   'hi/photo-brightness-contrast': 'adjust-image',
+  'hi/meme-generator': 'meme-generator',
+  'hi/watermark-lagaye': 'watermark-overlay',
+  'hi/exif-metadata-hataye': 'metadata-stripper',
   'fr/compresser-image': 'image-compressor',
   'fr/supprimer-arriere-plan': 'background-remover',
   'fr/convertisseur-par-lots': 'batch-converter',
@@ -156,6 +186,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'fr/filtres-photos': 'photo-filters',
   'fr/inverser-couleurs': 'invert-colors',
   'fr/ajuster-image': 'adjust-image',
+  'fr/generateur-memes': 'meme-generator',
+  'fr/filigrane-image': 'watermark-overlay',
+  'fr/supprimer-metadonnees': 'metadata-stripper',
   'de/bild-komprimieren': 'image-compressor',
   'de/hintergrund-entfernen': 'background-remover',
   'de/stapel-konverter': 'batch-converter',
@@ -168,6 +201,9 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'de/fotofilter': 'photo-filters',
   'de/farben-invertieren': 'invert-colors',
   'de/bild-anpassen': 'adjust-image',
+  'de/meme-generator': 'meme-generator',
+  'de/wasserzeichen-hinzufuegen': 'watermark-overlay',
+  'de/metadaten-entfernen': 'metadata-stripper',
 };
 
 interface LanguageSelectorProps {

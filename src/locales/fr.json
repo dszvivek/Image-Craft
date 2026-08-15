@@ -147,5 +147,20 @@
     "title": "Ajuster Luminosité, Contraste et Couleurs Photo | ImagePlumber",
     "description": "Ajustez l'exposition, le contraste, la saturation et la netteté avec comparaison instantanée et auto-amélioration.",
     "keywords": "ajuster luminosite photo, augmenter contraste image, saturation photo en ligne, amelioration photo auto, nettete photo"
+  },
+  "generateur-memes": {
+    "title": "Générateur de Mèmes et Texte sur Photo en Ligne | ImagePlumber",
+    "description": "Créez des mèmes personnalisés et ajoutez du texte avec polices et contours sans filigrane.",
+    "keywords": "generateur de memes en ligne, ecrire texte sur photo gratuit, ajouter legende image, creer meme sans filigrane"
+  },
+  "filigrane-image": {
+    "title": "Ajouter un Filigrane sur Photo en Ligne (Lots & ZIP) | ImagePlumber",
+    "description": "Ajoutez un filigrane texte ou logo sur plusieurs images en lot avec téléchargement ZIP sécurisé.",
+    "keywords": "ajouter filigrane photo, filigrane en lot gratuit, mettre logo sur photo, proteger images filigrane"
+  },
+  "supprimer-metadonnees": {
+    "title": "Afficher et Supprimer Métadonnées EXIF Photo | ImagePlumber",
+    "description": "Inspectez les données GPS et de l'appareil photo et supprimez toutes les données privées en local.",
+    "keywords": "supprimer metadonnees photo, effacer gps photo, visualiseur exif gratuit, nettoyer donnees exif"
   }
 }
