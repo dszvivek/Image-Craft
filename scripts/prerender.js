@@ -394,7 +394,7 @@ const filesMap = {
 /**
  * Generate semantic HTML body to inject inside <div id="root">
  */
-function generateStaticBodyContent(route, meta, faqs) {
+function generateStaticBodyContent(route, meta, faqs, competitorComparison = null) {
   const isHome = route === '';
   const currentYear = new Date().getFullYear();
   
@@ -526,10 +526,24 @@ function generateStaticBodyContent(route, meta, faqs) {
     `
     : '';
 
+  const competitorHtml = competitorComparison && competitorComparison.alternatives && competitorComparison.alternatives.length > 0
+    ? `
+      <section style="margin-top: 2rem; background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%); border: 1px solid #e0e7ff; border-radius: 1rem; padding: 1.5rem; font-family: 'Inter', sans-serif;">
+        <span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #6366f1; letter-spacing: 0.05em; background: #e0e7ff; padding: 0.2rem 0.5rem; border-radius: 0.375rem; display: inline-block;">Private Alternative Comparison</span>
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0.75rem 0 0.5rem 0; font-family: 'Outfit', sans-serif;">
+          Looking for a private alternative to ${competitorComparison.alternatives.join(', ')}?
+        </h3>
+        <p style="font-size: 0.9rem; color: #475569; line-height: 1.65; margin: 0;">
+          ${competitorComparison.benefit}
+        </p>
+      </section>
+    `
+    : '';
+
   const howToHtml = meta.howTo && Array.isArray(meta.howTo) && meta.howTo.length > 0
     ? `
       <section style="margin-top: 3rem; font-family: 'Inter', sans-serif; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 1rem; padding: 1.75rem;">
-        <h2 style="color: #0f172a; font-size: 1.35rem; font-weight: 800; margin-top: 0; margin-bottom: 1.25rem; font-family: 'Outfit', sans-serif;">How It Works: Easy 3-Step Guide</h2>
+        <h2 style="color: #0f172a; font-size: 1.35rem; font-weight: 800; margin-top: 0; margin-bottom: 1.25rem; font-family: 'Outfit', sans-serif;">How It Works: Easy Step-by-Step Guide</h2>
         <ol style="padding-left: 1.25rem; margin: 0; line-height: 1.7; font-size: 0.95rem; color: #334155;">
           ${meta.howTo.map(step => `
             <li style="margin-bottom: 0.75rem;">
@@ -583,6 +597,7 @@ function generateStaticBodyContent(route, meta, faqs) {
           <p style="color: #475569; font-size: 1.15rem; line-height: 1.75; font-family: 'Inter', sans-serif; margin: 0;">${meta.description}</p>
         </div>
         
+        ${competitorHtml}
         ${howToHtml}
         ${featuresHtml}
         ${faqsSectionHtml}
@@ -611,8 +626,9 @@ for (const [route, meta] of Object.entries(routesConfig)) {
   const pageCanonical = isHome ? `${siteUrl}/` : `${siteUrl}/${route}`;
   const fullTitle = isHome || meta.title.includes('ImagePlumber') ? meta.title : `${meta.title} | ImagePlumber`;
   
-  // Parse FAQs dynamically from the page source file
+  // Parse FAQs and Competitor Comparison dynamically from the page source file
   const faqs = [];
+  let competitorComparison = null;
   const fileRelativePath = filesMap[route];
   if (fileRelativePath) {
     const absolutePath = path.resolve(fileRelativePath);
@@ -628,6 +644,16 @@ for (const [route, meta] of Object.entries(routesConfig)) {
             q: match[1].replace(/\\'/g, "'").replace(/\\"/g, '"').trim(),
             a: match[2].replace(/\\'/g, "'").replace(/\\"/g, '"').trim()
           });
+        }
+      }
+
+      const compMatch = content.match(/competitorComparison=\{\{\s*alternatives:\s*\[([\s\S]*?)\],\s*benefit:\s*['"`]([\s\S]*?)['"`]\s*\}\}/);
+      if (compMatch) {
+        const altStr = compMatch[1];
+        const benefit = compMatch[2].replace(/\\'/g, "'").replace(/\\"/g, '"').trim();
+        const alts = (altStr.match(/['"`]([\s\S]*?)['"`]/g) || []).map(s => s.replace(/['"`]/g, '').trim());
+        if (alts.length > 0) {
+          competitorComparison = { alternatives: alts, benefit };
         }
       }
     }
@@ -811,7 +837,7 @@ for (const [route, meta] of Object.entries(routesConfig)) {
   pageContent = pageContent.replace('</head>', headInject);
   
   // Inject structured, search-engine-friendly static HTML body content inside <div id="root">
-  const staticBodyHtml = generateStaticBodyContent(route, meta, faqs);
+  const staticBodyHtml = generateStaticBodyContent(route, meta, faqs, competitorComparison);
   pageContent = pageContent.replace('<div id="root"></div>', `<div id="root">${staticBodyHtml}</div>`);
   
   // Write the output file
