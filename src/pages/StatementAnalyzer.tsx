@@ -21,6 +21,7 @@ import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
+import { DemoPreview } from '../components/DemoPreview';
 
 // Dynamic script loading helpers
 const loadPdfJS = (): Promise<any> => {
@@ -1345,18 +1346,20 @@ export const StatementAnalyzer: React.FC = () => {
             
             <div className="md:col-span-5 flex">
               <div className="premium-bento rounded-3xl p-6 flex flex-col justify-between w-full shadow-sm hover:border-teal-350 transition-all duration-300">
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <div className="text-[10px] font-bold text-teal-650 bg-teal-50/50 border border-teal-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">
                     On-Device Sandbox
                   </div>
-                  <h2 className="text-base font-extrabold text-slate-900">100% Client-Side Parsing</h2>
-                  <p className="text-xs text-slate-555 leading-relaxed font-medium">
+                  <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">100% Client-Side Parsing</h2>
+                  <p className="text-xs text-slate-555 dark:text-slate-400 leading-relaxed font-medium">
                     Your sensitive banking sheets are processed entirely inside your local browser memory space.
                     No data is ever dispatched to our server, keeping your financial privacy absolutely locked.
                   </p>
                 </div>
                 
-                <div className="pt-6">
+                <DemoPreview toolId="statement" alt="Bank Statement Analyzer Preview" />
+
+                <div className="pt-2">
                   <button
                     onClick={handleLoadDemo}
                     className="w-full py-3 px-4 bg-gradient-to-r from-teal-650 to-indigo-650 hover:from-teal-555 hover:to-indigo-555 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg shadow-teal-500/10 active:scale-98 transition flex items-center justify-center gap-2 cursor-pointer"

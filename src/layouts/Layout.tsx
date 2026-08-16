@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import metadataEn from '../routes/metadata.json';
 import metadataEs from '../locales/es.json';
 import metadataPt from '../locales/pt.json';
@@ -74,8 +74,42 @@ export const Layout = () => {
   const [openMobileCategory, setOpenMobileCategory] = useState<string | null>(null);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const locale = getLocaleFromPath(location.pathname);
   const t = UI_TRANSLATIONS[locale] || UI_TRANSLATIONS.en;
+
+  const handleExploreAllTools = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    const homePath = locale === 'en' ? '/' : `/${locale}`;
+    const cleanPath = location.pathname.replace(/\/$/, '') || '/';
+    const cleanHomePath = homePath.replace(/\/$/, '') || '/';
+    const isHomePage = cleanPath === cleanHomePath;
+
+    if (isHomePage) {
+      const el = document.getElementById('tools-grid');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 400, behavior: 'smooth' });
+      }
+    } else {
+      navigate(`${homePath}#tools-grid`);
+    }
+  };
+
+  // Smooth scroll listener when navigating to #tools-grid from another page
+  useEffect(() => {
+    if (location.hash === '#tools-grid') {
+      const scrollTimer = setTimeout(() => {
+        const el = document.getElementById('tools-grid');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 150);
+      return () => clearTimeout(scrollTimer);
+    }
+  }, [location.pathname, location.hash]);
 
   // Global Cmd+K / Ctrl+K keyboard shortcut listener
   useEffect(() => {
@@ -106,9 +140,19 @@ export const Layout = () => {
     setOpenMobileCategory(openMobileCategory === catId ? null : catId);
   };
 
-  // Scroll to top on navigation and dynamically update SEO head tags
+  // Scroll to top on navigation (or smooth scroll to #tools-grid if targeted) and dynamically update SEO head tags
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    } else if (location.hash === '#tools-grid') {
+      const scrollTimer = setTimeout(() => {
+        const el = document.getElementById('tools-grid');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+      return () => clearTimeout(scrollTimer);
+    }
 
     let cleanPath = location.pathname;
     if (cleanPath.endsWith('/')) {
@@ -572,13 +616,13 @@ export const Layout = () => {
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                     <span>100% Client-Side Local Memory • Zero Server Uploads • Offline-Ready</span>
                   </div>
-                  <a
-                    href="#tools-grid"
-                    className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 transition-colors"
+                  <button
+                    onClick={handleExploreAllTools}
+                    className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 transition-colors cursor-pointer"
                   >
-                    <span>Explore All 28 Tools</span>
+                    <span>{locale === 'es' ? 'Explorar las 28 herramientas' : locale === 'pt' ? 'Explorar todas as 28 ferramentas' : locale === 'hi' ? 'सभी 28 टूल्स देखें' : locale === 'fr' ? 'Explorer les 28 outils' : locale === 'de' ? 'Alle 28 Tools entdecken' : 'Explore All 28 Tools'}</span>
                     <ChevronRight className="w-3.5 h-3.5" />
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -890,54 +934,104 @@ export const Layout = () => {
       <AdPlacement type="mobile" className="lg:hidden" />
 
       {/* Footer */}
-      <footer className="w-full bg-slate-50 dark:bg-slate-900 border-t border-slate-200/80 dark:border-slate-800 mt-auto py-12 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <footer className="w-full bg-slate-50 dark:bg-slate-900 border-t border-slate-200/80 dark:border-slate-800 mt-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-10 text-left">
           
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
-                <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          {/* Brand & Privacy Statement */}
+          <div className="flex flex-col gap-3 lg:col-span-1">
+            <Link to={locale === 'en' ? '/' : `/${locale}`} className="flex items-center gap-2 group">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+                <svg className="w-4.5 h-4.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M3 20l7-10 7 10" />
                   <path d="M9 20l4-6 4 6" />
                   <circle cx="12" cy="16" r="2" fill="currentColor" />
                 </svg>
               </div>
               <span className="font-bold text-lg text-slate-900 dark:text-slate-100">ImagePlumber</span>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            </Link>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
               Privacy-first local image processing tools. Your files never leave your device. No cloud storage, no data harvesting.
             </p>
-            <div className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-900 rounded-full px-2.5 py-1 w-fit">
+            <div className="flex items-center gap-1.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-900 rounded-full px-2.5 py-1 w-fit">
               <Lock className="w-3 h-3" />
-              100% Local Processing
+              100% Local RAM Processing
             </div>
           </div>
 
+          {/* Col 2: Photo Studio */}
           <div>
-            <p className="font-bold text-sm text-slate-800 dark:text-slate-200 mb-3.5">Image & Layout</p>
-            <ul className="text-xs text-slate-550 dark:text-slate-400 flex flex-col gap-2 font-semibold">
-              {tools.filter(t => ['image-editing', 'layout-grid'].includes(t.category)).map(t => (
-                <li key={t.path}><Link to={t.path} className="hover:text-indigo-650 dark:hover:text-indigo-400 transition">{t.name}</Link></li>
-              ))}
+            <p className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-slate-100 mb-3.5 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-purple-500" />
+              Photo Studio
+            </p>
+            <ul className="text-xs text-slate-550 dark:text-slate-400 flex flex-col gap-2 font-medium">
+              {tools.filter(t => t.category === 'photo-editing').map(t => {
+                const shortMeta = getShortToolMeta(t.path, locale);
+                const toolUrl = getLocalizedToolPath(t.path, locale);
+                return (
+                  <li key={t.path}>
+                    <Link to={toolUrl} className="hover:text-indigo-650 dark:hover:text-indigo-400 hover:translate-x-0.5 transition-all inline-block">
+                      {shortMeta.name}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
+          {/* Col 3: Privacy & Security */}
           <div>
-            <p className="font-bold text-sm text-slate-800 dark:text-slate-200 mb-3.5">PDF & Optimization</p>
-            <ul className="text-xs text-slate-550 dark:text-slate-400 flex flex-col gap-2 font-semibold">
-              {tools.filter(t => ['image-opt', 'pdf-docs'].includes(t.category)).map(t => (
-                <li key={t.path}><Link to={t.path} className="hover:text-indigo-650 dark:hover:text-indigo-400 transition">{t.name}</Link></li>
-              ))}
+            <p className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-slate-100 mb-3.5 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-rose-500" />
+              Privacy & Security
+            </p>
+            <ul className="text-xs text-slate-550 dark:text-slate-400 flex flex-col gap-2 font-medium">
+              {tools.filter(t => t.category === 'privacy-security').map(t => {
+                const shortMeta = getShortToolMeta(t.path, locale);
+                const toolUrl = getLocalizedToolPath(t.path, locale);
+                return (
+                  <li key={t.path}>
+                    <Link to={toolUrl} className="hover:text-indigo-650 dark:hover:text-indigo-400 hover:translate-x-0.5 transition-all inline-block">
+                      {shortMeta.name}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
+          {/* Col 4: Creative & Layout */}
           <div>
-            <p className="font-bold text-sm text-slate-800 dark:text-slate-200 mb-3.5">Privacy & Legal</p>
-            <ul className="text-xs text-slate-550 dark:text-slate-400 flex flex-col gap-2 font-semibold">
-              <li><Link to="/about" className="hover:text-indigo-650 dark:hover:text-indigo-400 transition">About Us</Link></li>
-              <li><Link to="/faq" className="hover:text-indigo-650 dark:hover:text-indigo-400 transition">FAQ Helpdesk</Link></li>
-              <li><Link to="/privacy" className="hover:text-indigo-650 dark:hover:text-indigo-400 transition">Privacy Policy</Link></li>
-              <li><Link to="/contact" className="hover:text-indigo-650 dark:hover:text-indigo-400 transition">Contact Support</Link></li>
+            <p className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-slate-100 mb-3.5 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-fuchsia-500" />
+              Creative & Layout
+            </p>
+            <ul className="text-xs text-slate-550 dark:text-slate-400 flex flex-col gap-2 font-medium">
+              {tools.filter(t => ['creative-art', 'layout-formats'].includes(t.category)).slice(0, 7).map(t => {
+                const shortMeta = getShortToolMeta(t.path, locale);
+                const toolUrl = getLocalizedToolPath(t.path, locale);
+                return (
+                  <li key={t.path}>
+                    <Link to={toolUrl} className="hover:text-indigo-650 dark:hover:text-indigo-400 hover:translate-x-0.5 transition-all inline-block">
+                      {shortMeta.name}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          {/* Col 5: Company & Legal */}
+          <div>
+            <p className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-slate-100 mb-3.5 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-slate-400" />
+              Privacy & Legal
+            </p>
+            <ul className="text-xs text-slate-550 dark:text-slate-400 flex flex-col gap-2 font-medium">
+              <li><Link to="/about" className="hover:text-indigo-650 dark:hover:text-indigo-400 hover:translate-x-0.5 transition-all inline-block">About Us</Link></li>
+              <li><Link to="/faq" className="hover:text-indigo-650 dark:hover:text-indigo-400 hover:translate-x-0.5 transition-all inline-block">FAQ Helpdesk</Link></li>
+              <li><Link to="/privacy" className="hover:text-indigo-650 dark:hover:text-indigo-400 hover:translate-x-0.5 transition-all inline-block">Privacy Policy</Link></li>
+              <li><Link to="/contact" className="hover:text-indigo-650 dark:hover:text-indigo-400 hover:translate-x-0.5 transition-all inline-block">Contact Support</Link></li>
             </ul>
           </div>
 

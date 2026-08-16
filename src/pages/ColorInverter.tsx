@@ -269,7 +269,7 @@ export const ColorInverter: React.FC<ColorInverterProps> = ({
                     Convert photographs to photographic negatives or extract pure 1-bit high-contrast black & white scans for OCR.
                   </p>
                 </div>
-                <DemoPreview toolId="editor" alt="Color Inverter Preview" />
+                <DemoPreview toolId="invert" alt="Color Inverter Preview" />
               </div>
             </div>
           </div>

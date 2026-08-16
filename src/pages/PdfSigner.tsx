@@ -19,6 +19,7 @@ import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
 import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
+import { DemoPreview } from '../components/DemoPreview';
 
 // Script loaders
 const loadPdfJS = (): Promise<any> => {
@@ -685,15 +686,16 @@ export const PdfSigner: React.FC = () => {
               />
             </div>
             <div className="md:col-span-5 flex">
-              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-indigo-300 transition-all duration-300">
-                <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-indigo-650 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Security Check</div>
-                  <h2 className="text-base font-extrabold text-slate-900">100% Local & Encrypted</h2>
-                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                    Most PDF signers upload your sensitive documents to remote servers. ImagePlumber processes all PDF modifications on-device. Your signature and PDF pages never leave your computer.
+              <div className="premium-bento rounded-3xl p-6 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 flex flex-col justify-between w-full shadow-sm hover:border-indigo-300 transition-all duration-300">
+                <div className="space-y-3">
+                  <div className="text-[10px] font-bold text-indigo-650 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Security Check</div>
+                  <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">100% Local Vector Signing</h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                    Most PDF signers upload sensitive contracts to remote servers. ImagePlumber embeds high-precision vector signatures locally in WebAssembly memory.
                   </p>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-600 bg-emerald-50 border border-emerald-100 rounded-full px-3 py-1.5 w-fit mt-4">
+                <DemoPreview toolId="sign" alt="Electronic PDF Signer Preview" />
+                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-900 rounded-full px-3 py-1.5 w-fit">
                   <Lock className="w-4 h-4" />
                   No Upload Sandbox
                 </div>

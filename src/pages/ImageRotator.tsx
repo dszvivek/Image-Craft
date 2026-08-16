@@ -195,7 +195,7 @@ export const ImageRotator: React.FC = () => {
                     Correct tilted photography using the fine-angle slider with interactive alignment grid overlay.
                   </p>
                 </div>
-                <DemoPreview toolId="resizer" alt="Rotator Demo Preview" />
+                <DemoPreview toolId="rotate" alt="Rotator Demo Preview" />
               </div>
             </div>
           </div>

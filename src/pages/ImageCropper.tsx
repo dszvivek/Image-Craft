@@ -387,7 +387,7 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
                     Select from popular social media presets or customize freeform crop boxes with live Rule of Thirds alignment guides.
                   </p>
                 </div>
-                <DemoPreview toolId="resizer" alt="Image Cropper Preview" />
+                <DemoPreview toolId="crop" alt="Image Cropper Preview" />
               </div>
             </div>
           </div>

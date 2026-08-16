@@ -248,7 +248,7 @@ export const BorderExpander: React.FC = () => {
                     Add clean white frames, frosted glass blurred backgrounds, and rounded corners for Instagram and Twitter posts.
                   </p>
                 </div>
-                <DemoPreview toolId="resizer" alt="Border Expander Preview" />
+                <DemoPreview toolId="border" alt="Border Expander Preview" />
               </div>
             </div>
           </div>

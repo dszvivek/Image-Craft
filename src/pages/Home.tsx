@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   ShieldCheck, 
@@ -888,6 +888,19 @@ export const Home: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [viewMode, setViewMode] = useState<'grid' | 'compact'>('grid');
   const [openHomeFaq, setOpenHomeFaq] = useState<number | null>(null);
+
+  // Auto-scroll to tools directory when navigated with #tools-grid
+  useEffect(() => {
+    if (location.hash === '#tools-grid') {
+      const scrollTimer = setTimeout(() => {
+        const el = document.getElementById('tools-grid');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+      return () => clearTimeout(scrollTimer);
+    }
+  }, [location.hash]);
 
   const homeFaqs = t.faqs;
 

@@ -343,7 +343,7 @@ export const PhotoFilterStudio: React.FC<PhotoFilterStudioProps> = ({
                     Apply vintage Polaroid tones, cyberpunk neon, or Spotify duotones with live opacity blending.
                   </p>
                 </div>
-                <DemoPreview toolId="editor" alt="Photo Filter Preview" />
+                <DemoPreview toolId="filters" alt="Photo Filter Preview" />
               </div>
             </div>
           </div>

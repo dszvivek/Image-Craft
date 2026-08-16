@@ -353,7 +353,7 @@ export const ImageAdjuster: React.FC<ImageAdjusterProps> = ({
                     Adjust brightness, contrast, saturation, warmth, and sharpness with instant 60 FPS split-view rendering.
                   </p>
                 </div>
-                <DemoPreview toolId="editor" alt="Image Adjuster Preview" />
+                <DemoPreview toolId="adjust" alt="Image Adjuster Preview" />
               </div>
             </div>
           </div>
