@@ -7,680 +7,876 @@ import {
   Image as ImageIcon, 
   Maximize2, 
   LayoutGrid, 
-  Palette, 
   FileText, 
-  Lock,
-  ArrowRight,
-  Files,
-  Fingerprint,
-  Copyright,
-  Crop,
-  Smile,
-  Feather,
-  Grid,
-  Check,
-  X,
-  CreditCard,
-  PenTool,
-  Sparkles,
-  Sliders,
-  RotateCw,
-  Square,
-  Wand2,
-  Moon,
-  Gamepad2,
-  Terminal,
-  ArrowLeftRight,
-  ShieldAlert
+  Lock, 
+  ArrowRight, 
+  Files, 
+  Fingerprint, 
+  Copyright, 
+  Crop, 
+  Smile, 
+  Feather, 
+  Check, 
+  X, 
+  CreditCard, 
+  PenTool, 
+  Sparkles, 
+  Sliders, 
+  RotateCw, 
+  Square, 
+  Wand2, 
+  Moon, 
+  Gamepad2, 
+  Terminal, 
+  ArrowLeftRight, 
+  ShieldAlert,
+  Layout,
+  Table,
+  Search,
+  ChevronRight
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { 
   getLocaleFromPath, 
   getLocalizedToolPath, 
-  getLocalizedToolMeta, 
+  getShortToolMeta,
   UI_TRANSLATIONS 
 } from '../utils/i18n';
 
-const toolDirectory = [
-  {
-    name: 'Ambient Generative Visuals',
-    path: '/ambient',
-    icon: Sparkles,
-    category: 'image-editing',
-    description: 'A quiet place on the internet. Continuously evolving generative artwork for focus & calm.',
-    badge: 'Generative Art',
-    colorClass: 'text-indigo-600 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
-  },
+interface ToolItem {
+  name: string;
+  path: string;
+  icon: any;
+  category: 'photo-editing' | 'privacy-security' | 'creative-art' | 'layout-formats';
+  description: string;
+  badge: string;
+  colorClass: string;
+  tag: string;
+}
+
+const toolDirectory: ToolItem[] = [
+  // 🪄 Category 1: Photo & Image Studio (7 tools)
   {
     name: 'AI Background Remover',
     path: '/background-remover',
     icon: Cpu,
-    category: 'image-editing',
-    description: 'Isolate subjects and remove backgrounds completely inside the browser using local AI.',
-    badge: 'Local AI',
-    colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50 hover:border-purple-300 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30'
-  },
-  {
-    name: 'Photo Filter & Duotone Studio',
-    path: '/photo-filters',
-    icon: Wand2,
-    category: 'image-editing',
-    description: 'Apply 12 aesthetic presets or create custom two-tone duotone graphics in your browser.',
-    badge: 'Grading',
-    colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50 hover:border-purple-300 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30'
-  },
-  {
-    name: 'Color Inverter & B&W Converter',
-    path: '/invert-colors',
-    icon: Moon,
-    category: 'image-editing',
-    description: 'Invert RGB to photographic negatives, solarize, or convert to 1-bit Otsu black & white.',
-    badge: 'Monochrome',
-    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
-  },
-  {
-    name: 'Image Adjuster & Color Tuner',
-    path: '/adjust-image',
-    icon: Sliders,
-    category: 'image-editing',
-    description: 'Fine-tune exposure, contrast, saturation, temperature, and sharpness with live split comparison.',
-    badge: 'Tuner',
-    colorClass: 'text-blue-600 bg-blue-50 border-blue-100/50 hover:border-blue-300 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
+    category: 'photo-editing',
+    description: 'Isolate subjects and erase backgrounds automatically with local on-device neural AI cutout.',
+    badge: 'Local Neural AI',
+    tag: 'WASM AI',
+    colorClass: 'text-purple-650 bg-purple-50 border-purple-100/60 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30'
   },
   {
     name: 'Interactive Image Cropper',
     path: '/crop-image',
     icon: Crop,
-    category: 'image-editing',
-    description: 'Crop images with 1:1, 4:5, 16:9, and official passport 2x2 in aspect ratio presets.',
-    badge: 'Social & ID',
-    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    category: 'photo-editing',
+    description: 'Crop images with 8-handle touch canvas, 1:1, 4:5, 16:9, and official passport 2x2 in aspect ratios.',
+    badge: 'Social & Passport',
+    tag: 'Touch Crop',
+    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
   },
   {
     name: 'Image Rotator & Straightener',
     path: '/rotate-image',
     icon: RotateCw,
-    category: 'image-editing',
-    description: 'Rotate 90°/180°, mirror flip horizontally, and level crooked horizon angles with grid.',
-    badge: 'Geometry',
-    colorClass: 'text-blue-600 bg-blue-50 border-blue-100/50 hover:border-blue-300 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
+    category: 'photo-editing',
+    description: 'Rotate 90°/180°, mirror flip horizontally/vertically, and level crooked horizon angles with grid overlay.',
+    badge: 'Precision Geometry',
+    tag: 'Angle Level',
+    colorClass: 'text-blue-600 bg-blue-50 border-blue-100/60 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
   },
   {
-    name: 'Canvas Border Expander',
-    path: '/add-border-to-image',
-    icon: Square,
-    category: 'layout-grid',
-    description: 'Add colored frames, frosted glass blurred padding, and soft drop shadows for social feeds.',
-    badge: 'Framing',
-    colorClass: 'text-amber-600 bg-amber-50 border-amber-100/50 hover:border-amber-300 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30'
+    name: 'Image Adjuster & Color Tuner',
+    path: '/adjust-image',
+    icon: Sliders,
+    category: 'photo-editing',
+    description: 'Fine-tune exposure, contrast, saturation, temperature, tint, and sharpness with live split comparison.',
+    badge: 'Pro Grading',
+    tag: 'Live Split',
+    colorClass: 'text-blue-600 bg-blue-50 border-blue-100/60 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
   },
   {
-    name: 'Photo Mosaic Generator',
-    path: '/photo-mosaic-generator',
-    icon: Grid,
-    category: 'layout-grid',
-    description: 'Compose high-resolution mosaic images from grid tile collections locally in your RAM.',
-    badge: 'Artistic',
-    colorClass: 'text-fuchsia-600 bg-fuchsia-50 border-fuchsia-100/50 hover:border-fuchsia-300 dark:text-fuchsia-400 dark:bg-fuchsia-950/30 dark:border-fuchsia-900/30'
+    name: 'Photo Filter & Duotone Studio',
+    path: '/photo-filters',
+    icon: Wand2,
+    category: 'photo-editing',
+    description: 'Apply 12 aesthetic presets or create custom dual-gradient duotone maps entirely in client memory.',
+    badge: '12 Aesthetics',
+    tag: 'Duotone Map',
+    colorClass: 'text-purple-650 bg-purple-50 border-purple-100/60 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30'
   },
   {
-    name: 'AI Shape Art Generator',
-    path: '/shape-art-generator',
-    icon: Sparkles,
-    category: 'image-editing',
-    description: 'Transform photos into creative computational art composed of stars, blossoms, clouds, or sketches.',
-    badge: 'Artistic',
-    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    name: 'Color Inverter & B&W Converter',
+    path: '/invert-colors',
+    icon: Moon,
+    category: 'photo-editing',
+    description: 'Invert RGB channels to film negatives, solarize, or convert to 1-bit high-contrast Otsu black & white.',
+    badge: 'Photo Negative',
+    tag: 'Otsu B&W',
+    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
   },
   {
-    name: 'Aspect Resizer & Smart Crop',
+    name: 'Smart Aspect Resizer',
     path: '/aspect-resizer',
     icon: Crop,
-    category: 'layout-grid',
-    description: 'Resize and crop images to social media templates with canvas blur-padding presets.',
-    badge: 'Responsive',
-    colorClass: 'text-amber-600 bg-amber-50 border-amber-100/50 hover:border-amber-300 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30'
+    category: 'photo-editing',
+    description: 'Resize and crop images to social media templates with canvas blur-padding presets and zero distortion.',
+    badge: 'Social Media',
+    tag: 'Blur Padding',
+    colorClass: 'text-amber-600 bg-amber-50 border-amber-100/60 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30'
   },
+
+  // 🛡️ Category 2: Privacy, Security & Docs (7 tools)
   {
-    name: 'SVG Vectorizer',
-    path: '/svg-vectorizer',
-    icon: Feather,
-    category: 'image-editing',
-    description: 'Trace and digitize raster files (JPG/PNG) into scalable vector coordinates (SVG).',
-    badge: 'Vector',
-    colorClass: 'text-teal-655 bg-teal-50 border-teal-100/50 hover:border-teal-300 dark:text-teal-400 dark:bg-teal-950/30 dark:border-teal-900/30'
-  },
-  {
-    name: 'OCR Text Extractor',
-    path: '/ocr-text-extractor',
-    icon: FileText,
-    category: 'pdf-docs',
-    description: 'Extract text from scanned documents, screenshots, or receipts in multiple languages.',
-    badge: 'Document Scan',
-    colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 hover:border-emerald-300 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
-  },
-  {
-    name: 'Bank Statement Analyzer',
-    path: '/bank-statement-analyzer',
-    icon: CreditCard,
-    category: 'pdf-docs',
-    description: 'Upload bank or credit card statements (PDF, CSV, Excel) to analyze credits, debits, cash flow and date ranges.',
-    badge: 'Finance Scan',
-    colorClass: 'text-teal-650 bg-teal-50 border-teal-100/50 hover:border-teal-300 dark:text-teal-450 dark:bg-teal-950/30 dark:border-teal-900/30'
-  },
-  {
-    name: 'Electronic PDF Signer',
-    path: '/sign-pdf',
-    icon: PenTool,
-    category: 'pdf-docs',
-    description: 'Sign PDF documents client-side. Draw, type, or upload your signature. 100% private, on-device signing.',
-    badge: 'Sign PDF',
-    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
-  },
-  {
-    name: 'Image Compressor',
-    path: '/image-compressor',
-    icon: ImageIcon,
-    category: 'image-opt',
-    description: 'Optimize JPEGs, PNGs, and WebPs in seconds with custom compression levels.',
-    badge: 'Optimize',
-    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
-  },
-  {
-    name: 'Batch Image to PDF & Format Converter',
-    path: '/batch-converter',
-    icon: Files,
-    category: 'pdf-docs',
-    description: 'Convert image formats in bulk, or merge them into a single custom-ordered PDF document.',
-    badge: 'Bulk PDF',
-    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 hover:border-indigo-300 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
-  },
-  {
-    name: 'Photo Collage Maker',
-    path: '/collage-maker',
-    icon: LayoutGrid,
-    category: 'layout-grid',
-    description: 'Combine multiple images in dynamic customizable grids and borders.',
-    badge: 'Layout',
-    colorClass: 'text-pink-655 bg-pink-50 border-pink-100/50 hover:border-pink-300 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
-  },
-  {
-    name: 'Color Palette Extractor',
-    path: '/color-palette-extractor',
-    icon: Palette,
-    category: 'image-opt',
-    description: 'Retrieve dominant colors and swatches for Tailwind or standard CSS configs.',
-    badge: 'Color Spec',
-    colorClass: 'text-cyan-655 bg-cyan-50 border-cyan-100/50 hover:border-cyan-300 dark:text-cyan-400 dark:bg-cyan-950/30 dark:border-cyan-900/30'
-  },
-  {
-    name: 'Watermark Overlay',
-    path: '/watermark-overlay',
-    icon: Copyright,
-    category: 'image-editing',
-    description: 'Apply custom PNG branding logos or text copyrights in dynamic tile repeats.',
-    badge: 'Security',
-    colorClass: 'text-rose-650 bg-rose-50 border-rose-100/50 hover:border-rose-300 dark:text-rose-450 dark:bg-rose-950/30 dark:border-rose-900/30'
-  },
-  {
-    name: 'EXIF Metadata Stripper',
-    path: '/metadata-stripper',
-    icon: Fingerprint,
-    category: 'image-opt',
-    description: 'Audit cameras, locations, and GPS parameters to clean private metadata.',
-    badge: 'Privacy Clean',
-    colorClass: 'text-red-655 bg-red-50 border-red-100/50 hover:border-red-300 dark:text-red-400 dark:bg-red-950/30 dark:border-red-900/30'
-  },
-  {
-    name: 'Instagram Grid Splitter',
-    path: '/instagram-grid-splitter',
-    icon: Maximize2,
-    category: 'layout-grid',
-    description: 'Slice photos into square tiles for Instagram profiles and grid shapes.',
-    badge: 'Social Fit',
-    colorClass: 'text-orange-655 bg-orange-50 border-orange-100/50 hover:border-orange-300 dark:text-orange-400 dark:bg-orange-950/30 dark:border-orange-900/30'
-  },
-  {
-    name: 'Meme Generator',
-    path: '/meme-generator',
-    icon: Smile,
-    category: 'image-editing',
-    description: 'Add draggable top and bottom text overlays onto images with classic styling.',
-    badge: 'Social Meme',
-    colorClass: 'text-green-650 bg-green-50 border-green-100/50 hover:border-green-300 dark:text-green-400 dark:bg-green-950/30 dark:border-green-900/30'
-  },
-  {
-    name: 'Pixel Art & 8-Bit Converter',
-    path: '/pixel-art-generator',
-    icon: Gamepad2,
-    category: 'image-editing',
-    description: 'Convert photos to 8-bit retro pixel art with Game Boy, NES, and PICO-8 dithering.',
-    badge: 'Retro Gaming',
-    colorClass: 'text-fuchsia-650 bg-fuchsia-50 border-fuchsia-100/50 hover:border-fuchsia-300 dark:text-fuchsia-400 dark:bg-fuchsia-950/30 dark:border-fuchsia-900/30'
-  },
-  {
-    name: 'ASCII & Text Art Generator',
-    path: '/ascii-art-generator',
-    icon: Terminal,
-    category: 'image-editing',
-    description: 'Convert photos into terminal ASCII character artwork with Matrix phosphor green and ANSI colors.',
-    badge: 'Typographic',
-    colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 hover:border-emerald-300 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
-  },
-  {
-    name: 'Glitch Art & CRT Distortion',
-    path: '/glitch-image-generator',
-    icon: Zap,
-    category: 'image-editing',
-    description: 'Generate RGB chromatic aberration, datamoshing slice corruption, and retro CRT television scanlines.',
-    badge: 'Cyberpunk',
-    colorClass: 'text-violet-650 bg-violet-50 border-violet-100/50 hover:border-violet-300 dark:text-violet-400 dark:bg-violet-950/30 dark:border-violet-900/30'
-  },
-  {
-    name: 'Side-by-Side & Before/After Combiner',
-    path: '/side-by-side-image',
-    icon: ArrowLeftRight,
-    category: 'layout-grid',
-    description: 'Combine two photos horizontally or vertically with customizable Before/After badges and divider borders.',
-    badge: 'Comparison',
-    colorClass: 'text-blue-650 bg-blue-50 border-blue-100/50 hover:border-blue-300 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
-  },
-  {
-    name: 'Instagram Panorama & Carousel Splitter',
-    path: '/instagram-panorama-splitter',
-    icon: Maximize2,
-    category: 'layout-grid',
-    description: 'Split wide panoramic landscape photos into seamless 4:5 portrait and 1:1 square swipe carousels with ZIP download.',
-    badge: 'Seamless Swipe',
-    colorClass: 'text-pink-650 bg-pink-50 border-pink-100/50 hover:border-pink-300 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
-  },
-  {
-    name: 'Photo Redactor & Censor Studio',
+    name: 'Photo Redactor & Censor Tool',
     path: '/redact-image',
     icon: ShieldAlert,
-    category: 'image-editing',
-    description: 'Permanently censor private data, blur faces, and blackout ID numbers with irreversible client-side pixel obliteration.',
+    category: 'privacy-security',
+    description: 'Permanently censor private data, blur faces, and blackout ID numbers with irreversible pixel obliteration.',
     badge: 'Zero Leak',
-    colorClass: 'text-red-650 bg-red-50 border-red-100/50 hover:border-red-300 dark:text-red-400 dark:bg-red-950/30 dark:border-red-900/30'
+    tag: 'Face Blur',
+    colorClass: 'text-red-650 bg-red-50 border-red-100/60 dark:text-red-400 dark:bg-red-950/30 dark:border-red-900/30'
   },
   {
     name: 'Image Steganography & Secret Text',
     path: '/image-steganography',
     icon: Lock,
-    category: 'image-opt',
-    description: 'Invisibly hide encrypted secret messages and recovery seed phrases inside photos with LSB encoding and password protection.',
+    category: 'privacy-security',
+    description: 'Invisibly hide encrypted secret messages and recovery seed phrases inside photos with LSB encoding.',
     badge: 'Cryptographic',
-    colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 hover:border-emerald-300 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
-  }
+    tag: 'AES-256',
+    colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/60 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
+  },
+  {
+    name: 'EXIF Metadata Stripper',
+    path: '/metadata-stripper',
+    icon: Fingerprint,
+    category: 'privacy-security',
+    description: 'Inspect and purge GPS coordinates, camera serials, and privacy headers before sharing photos online.',
+    badge: 'GPS Purge',
+    tag: 'EXIF Clean',
+    colorClass: 'text-red-600 bg-red-50 border-red-100/60 dark:text-red-400 dark:bg-red-950/30 dark:border-red-900/30'
+  },
+  {
+    name: 'Batch Watermark Overlay',
+    path: '/watermark-overlay',
+    icon: Copyright,
+    category: 'privacy-security',
+    description: 'Stamp custom logos, tiled copyright text, and security marks across single or multiple images in bulk.',
+    badge: 'Copyright Stamp',
+    tag: 'Batch Stamp',
+    colorClass: 'text-rose-600 bg-rose-50 border-rose-100/60 dark:text-rose-450 dark:bg-rose-950/30 dark:border-rose-900/30'
+  },
+  {
+    name: 'Electronic PDF Signer',
+    path: '/sign-pdf',
+    icon: PenTool,
+    category: 'privacy-security',
+    description: 'Draw, type, or upload electronic signatures to sign PDF contracts and documents 100% offline.',
+    badge: 'Offline Sign',
+    tag: 'Vector Sign',
+    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+  },
+  {
+    name: 'Bank Statement Analyzer',
+    path: '/bank-statement-analyzer',
+    icon: CreditCard,
+    category: 'privacy-security',
+    description: 'Audit and convert PDF bank statements to Excel and CSV spreadsheets without third-party server exposure.',
+    badge: 'Financial Audit',
+    tag: 'PDF to CSV',
+    colorClass: 'text-teal-650 bg-teal-50 border-teal-100/60 dark:text-teal-450 dark:bg-teal-950/30 dark:border-teal-900/30'
+  },
+  {
+    name: 'OCR Text Extractor',
+    path: '/ocr-text-extractor',
+    icon: FileText,
+    category: 'privacy-security',
+    description: 'Extract multi-lingual text from receipts, documents, and screenshots using local Tesseract OCR.',
+    badge: 'Multi-Lingual',
+    tag: 'Local OCR',
+    colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/60 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
+  },
+
+  // 🎨 Category 3: Creative Art & Pixel FX (7 tools)
+  {
+    name: 'Pixel Art & 8-Bit Converter',
+    path: '/pixel-art-generator',
+    icon: Gamepad2,
+    category: 'creative-art',
+    description: 'Convert photos to 8-bit retro pixel art with Game Boy, NES, and PICO-8 Floyd-Steinberg dithering palettes.',
+    badge: '8-Bit Retro',
+    tag: 'Dithering',
+    colorClass: 'text-fuchsia-650 bg-fuchsia-50 border-fuchsia-100/60 dark:text-fuchsia-400 dark:bg-fuchsia-950/30 dark:border-fuchsia-900/30'
+  },
+  {
+    name: 'ASCII & Text Art Studio',
+    path: '/ascii-art-generator',
+    icon: Terminal,
+    category: 'creative-art',
+    description: 'Convert photos into terminal ASCII character artwork with Matrix phosphor green and ANSI colors.',
+    badge: 'Matrix Green',
+    tag: 'ASCII Copy',
+    colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/60 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
+  },
+  {
+    name: 'Glitch Art & CRT Distortion',
+    path: '/glitch-image-generator',
+    icon: Zap,
+    category: 'creative-art',
+    description: 'Generate RGB chromatic aberration, datamoshing slice corruption, and retro CRT television scanlines.',
+    badge: 'Cyberpunk FX',
+    tag: 'RGB Split',
+    colorClass: 'text-violet-650 bg-violet-50 border-violet-100/60 dark:text-violet-400 dark:bg-violet-950/30 dark:border-violet-900/30'
+  },
+  {
+    name: 'SVG Vectorizer',
+    path: '/svg-vectorizer',
+    icon: Feather,
+    category: 'creative-art',
+    description: 'Trace and digitize raster files (JPG/PNG) into scalable vector coordinates (SVG) with bezier handles.',
+    badge: 'Vector Paths',
+    tag: 'Raster2SVG',
+    colorClass: 'text-teal-600 bg-teal-50 border-teal-100/60 dark:text-teal-400 dark:bg-teal-950/30 dark:border-teal-900/30'
+  },
+  {
+    name: 'Instant Meme Generator',
+    path: '/meme-generator',
+    icon: Smile,
+    category: 'creative-art',
+    description: 'Design custom memes with bold Impact font captions, multi-layer draggable text, and custom font size.',
+    badge: 'Meme Studio',
+    tag: 'Impact Font',
+    colorClass: 'text-green-600 bg-green-50 border-green-100/60 dark:text-green-400 dark:bg-green-950/30 dark:border-green-900/30'
+  },
+  {
+    name: 'AI Shape Art Generator',
+    path: '/shape-art-generator',
+    icon: Sparkles,
+    category: 'creative-art',
+    description: 'Transform photos into creative computational art composed of cosmic stars, blossoms, or particle sketches.',
+    badge: 'Cosmic Sketch',
+    tag: 'Particle Art',
+    colorClass: 'text-indigo-605 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+  },
+  {
+    name: 'Ambient Generative Visuals',
+    path: '/ambient',
+    icon: Sparkles,
+    category: 'creative-art',
+    description: 'A quiet place on the internet. Continuously evolving generative liquid artwork for focus and calm.',
+    badge: 'Calm & Focus',
+    tag: 'Organic Flow',
+    colorClass: 'text-indigo-600 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+  },
+
+  // 📐 Category 4: Layout, Social & Formats (7 tools)
+  {
+    name: 'Instagram Panorama Splitter',
+    path: '/instagram-panorama-splitter',
+    icon: Maximize2,
+    category: 'layout-formats',
+    description: 'Split wide panoramic landscape photos into seamless 4:5 portrait and 1:1 square swipe carousels.',
+    badge: 'Seamless Swipe',
+    tag: '4:5 Slices',
+    colorClass: 'text-pink-650 bg-pink-50 border-pink-100/60 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
+  },
+  {
+    name: 'Side-by-Side Combiner',
+    path: '/side-by-side-image',
+    icon: ArrowLeftRight,
+    category: 'layout-formats',
+    description: 'Combine two photos horizontally or vertically with customizable Before/After badges and divider borders.',
+    badge: 'Before / After',
+    tag: 'Dual Stitch',
+    colorClass: 'text-blue-650 bg-blue-50 border-blue-100/60 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
+  },
+  {
+    name: 'Photo Collage Maker',
+    path: '/collage-maker',
+    icon: LayoutGrid,
+    category: 'layout-formats',
+    description: 'Assemble multiple photos into dynamic grid layouts with custom gap spacing and border rounding.',
+    badge: 'Grid Templates',
+    tag: 'Snap Layout',
+    colorClass: 'text-pink-655 bg-pink-50 border-pink-100/60 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
+  },
+  {
+    name: 'Instagram Grid Splitter',
+    path: '/instagram-grid-splitter',
+    icon: Maximize2,
+    category: 'layout-formats',
+    description: 'Slice high-resolution photos into 3x3, 3x2, or 3x1 square grid tiles for creative profile feed layouts.',
+    badge: '3x3 Profile Grid',
+    tag: '9-Tile Slice',
+    colorClass: 'text-orange-600 bg-orange-50 border-orange-100/60 dark:text-orange-400 dark:bg-orange-950/30 dark:border-orange-900/30'
+  },
+  {
+    name: 'Canvas Border Expander',
+    path: '/add-border-to-image',
+    icon: Square,
+    category: 'layout-formats',
+    description: 'Add colored frames, frosted glass blurred padding, and soft drop shadows for social media feeds.',
+    badge: 'Framing & Halo',
+    tag: 'Drop Shadow',
+    colorClass: 'text-amber-600 bg-amber-50 border-amber-100/60 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30'
+  },
+  {
+    name: 'Smart Image Compressor',
+    path: '/image-compressor',
+    icon: ImageIcon,
+    category: 'layout-formats',
+    description: 'Reduce JPEG, PNG, and WebP file sizes up to 90% locally with intelligent chroma subsampling.',
+    badge: 'Up to -90% Size',
+    tag: 'Lossless WebP',
+    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+  },
+  {
+    name: 'Batch Format & PDF Converter',
+    path: '/batch-converter',
+    icon: Files,
+    category: 'layout-formats',
+    description: 'Convert and merge single or multiple images into PDF, WebP, PNG, or JPEG formats in bulk.',
+    badge: 'Bulk Conversion',
+    tag: 'Batch PDF',
+    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+  },
 ];
 
 const categories = [
-  { id: 'all', label: 'All Tools', icon: ImageIcon, colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30' },
-  { id: 'image-editing', label: 'AI & Image Editing', icon: Sparkles, colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30' },
-  { id: 'layout-grid', label: 'Layout & Grid', icon: LayoutGrid, colorClass: 'text-pink-650 bg-pink-50 border-pink-100/50 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30' },
-  { id: 'image-opt', label: 'Optimization & Formats', icon: Sliders, colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30' },
-  { id: 'pdf-docs', label: 'PDF & Documents', icon: FileText, colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30' }
+  { id: 'all', label: 'All Tools', count: 28, icon: ImageIcon, colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30' },
+  { id: 'photo-editing', label: 'Photo & Image Studio', count: 7, icon: Wand2, colorClass: 'text-purple-650 bg-purple-50 border-purple-100/60 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30' },
+  { id: 'privacy-security', label: 'Privacy, Security & Docs', count: 7, icon: ShieldAlert, colorClass: 'text-rose-650 bg-rose-50 border-rose-100/60 dark:text-rose-400 dark:bg-rose-950/30 dark:border-rose-900/30' },
+  { id: 'creative-art', label: 'Creative Art & Pixel FX', count: 7, icon: Sparkles, colorClass: 'text-fuchsia-650 bg-fuchsia-50 border-fuchsia-100/60 dark:text-fuchsia-400 dark:bg-fuchsia-950/30 dark:border-fuchsia-900/30' },
+  { id: 'layout-formats', label: 'Layout, Social & Formats', count: 7, icon: LayoutGrid, colorClass: 'text-amber-650 bg-amber-50 border-amber-100/60 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30' }
 ];
 
 const renderToolPreview = (path: string) => {
   switch (path) {
-    case '/ambient':
-      return (
-        <div className="w-full h-24 rounded-2xl bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 border border-indigo-800/40 mb-4 overflow-hidden relative flex items-center justify-center">
-          <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-500/30 via-purple-500/20 to-transparent animate-pulse" />
-          <div className="w-9 h-9 rounded-full bg-indigo-500/20 border border-indigo-400/50 flex items-center justify-center text-indigo-300 z-10 shadow-lg shadow-indigo-500/30">
-            <Sparkles className="w-4.5 h-4.5" />
-          </div>
-        </div>
-      );
+    // 1. AI Background Remover
     case '/background-remover':
       return (
-        <div className="w-full h-24 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-4 overflow-hidden relative flex items-center justify-center">
-          <div className="absolute inset-y-0 left-0 right-1/2 bg-indigo-500/5 flex items-center justify-center">
-            <span className="text-[9px] text-zinc-500 font-bold uppercase tracking-widest">Original</span>
-          </div>
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-purple-500/50 transition-colors">
           <div 
-            className="absolute inset-y-0 right-0 left-1/2 flex items-center justify-center border-l border-zinc-800"
+            className="absolute inset-0"
             style={{
-              background: 'rgba(99, 102, 241, 0.08)',
-              backgroundImage: 'radial-gradient(rgba(99, 102, 241, 0.15) 1px, transparent 1px)',
-              backgroundSize: '10px 10px'
+              backgroundImage: 'linear-gradient(45deg, #1c1c20 25%, transparent 25%), linear-gradient(-45deg, #1c1c20 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #1c1c20 75%), linear-gradient(-45deg, transparent 75%, #1c1c20 75%)',
+              backgroundSize: '12px 12px',
+              backgroundPosition: '0 0, 0 6px, 6px -6px, -6px 0px'
             }}
-          >
-            <span className="text-[9px] text-indigo-400 font-bold uppercase tracking-widest">Cutout</span>
+          />
+          <div className="absolute inset-y-0 left-0 w-1/2 bg-emerald-950/70 border-r border-emerald-500/30 flex items-center justify-center">
+            <span className="text-[7.5px] font-black text-emerald-400/90 uppercase tracking-widest absolute top-1.5 left-2">Original</span>
           </div>
-          <div className="w-9 h-9 rounded-full bg-indigo-600/30 border border-indigo-400/40 flex items-center justify-center text-indigo-400 z-10 shadow-lg shadow-indigo-500/20">
-            <Cpu className="w-4.5 h-4.5" />
+          <span className="text-[7.5px] font-black text-purple-400 uppercase tracking-widest absolute top-1.5 right-2">Cutout</span>
+          <div className="relative z-10 flex flex-col items-center">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-b from-purple-400 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 border-2 border-white/20">
+              <Cpu className="w-4.5 h-4.5" />
+            </div>
+            <div className="w-14 h-4 rounded-t-xl bg-purple-500/40 mt-1 border-t border-purple-400/40" />
+          </div>
+          <div className="absolute inset-y-0 w-1 bg-gradient-to-b from-purple-400 via-white to-purple-400 shadow-[0_0_12px_#a855f7] animate-wipe-x z-20" />
+        </div>
+      );
+
+    // 2. Interactive Image Cropper
+    case '/crop-image':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-indigo-500/50 transition-colors">
+          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-950 via-slate-900 to-zinc-900 opacity-60" />
+          <div className="w-24 h-20 border border-slate-800 grid grid-cols-3 grid-rows-3 opacity-30">
+            {Array.from({ length: 9 }).map((_, i) => <div key={i} className="border border-slate-800" />)}
+          </div>
+          <div className="absolute border-2 border-indigo-400 bg-indigo-500/15 shadow-[0_0_15px_rgba(99,102,241,0.3)] animate-crop-box flex items-center justify-center">
+            <div className="w-full h-full grid grid-cols-3 grid-rows-3 opacity-40">
+              {Array.from({ length: 9 }).map((_, i) => <div key={i} className="border border-indigo-300/40" />)}
+            </div>
+            <div className="absolute -top-1 -left-1 w-2 h-2 bg-white border border-indigo-600 rounded-xs" />
+            <div className="absolute -top-1 -right-1 w-2 h-2 bg-white border border-indigo-600 rounded-xs" />
+            <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white border border-indigo-600 rounded-xs" />
+            <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-white border border-indigo-600 rounded-xs" />
+          </div>
+          <div className="absolute bottom-1.5 right-2 bg-slate-900/90 border border-slate-800 px-2 py-0.5 rounded text-[7.5px] font-black text-indigo-400 uppercase tracking-widest z-20">
+            1:1 • 4:5 • 16:9 • ID
           </div>
         </div>
       );
-    case '/photo-mosaic-generator':
+
+    // 3. Image Rotator & Straightener
+    case '/rotate-image':
       return (
-        <div className="w-full h-24 rounded-2xl bg-slate-950 border border-slate-900 mb-4 overflow-hidden relative grid grid-cols-6 grid-rows-3 gap-0.5 p-1">
-          {Array.from({ length: 18 }).map((_, i) => {
-            const colors = ['bg-indigo-500/20', 'bg-sky-500/30', 'bg-teal-500/20', 'bg-purple-500/20', 'bg-indigo-400/30'];
-            return (
-              <div key={i} className={`rounded-xs ${colors[i % colors.length]} flex items-center justify-center text-[7px] text-slate-500/45 font-bold`}>
-                T
-              </div>
-            );
-          })}
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-teal-500/10 mix-blend-overlay" />
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="px-2 py-0.5 rounded bg-slate-900/90 border border-slate-800 text-[8px] font-black text-indigo-400 uppercase tracking-widest shadow-lg">
-              Mosaic Grid
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-blue-500/50 transition-colors">
+          <div className="w-20 h-20 rounded-full border border-dashed border-blue-500/30 flex items-center justify-center relative">
+            <span className="absolute -top-2 text-[7px] font-bold text-blue-400">0°</span>
+            <span className="absolute -right-3 text-[7px] font-bold text-blue-400">90°</span>
+            <span className="absolute -bottom-2 text-[7px] font-bold text-blue-400">180°</span>
+            <span className="absolute -left-3 text-[7px] font-bold text-blue-400">270°</span>
+            <div className="w-11 h-8 rounded-md bg-gradient-to-br from-blue-500 to-indigo-600 border border-white/40 shadow-lg shadow-blue-500/20 flex items-center justify-center text-white animate-rotate-dial">
+              <RotateCw className="w-4 h-4 text-white" />
+            </div>
+          </div>
+          <div className="absolute bottom-1.5 left-2 bg-slate-900/90 border border-slate-800 px-2 py-0.5 rounded text-[7px] font-bold text-blue-400">
+            Level Tilt: 0.0°
+          </div>
+        </div>
+      );
+
+    // 4. Canvas Border Expander
+    case '/add-border-to-image':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center p-3 select-none group-hover:border-amber-500/50 transition-colors">
+          <div className="w-28 h-18 rounded-xl bg-gradient-to-tr from-amber-500/20 via-rose-500/20 to-indigo-500/20 p-2 border border-amber-500/40 flex items-center justify-center shadow-lg shadow-amber-500/10">
+            <div className="w-full h-full rounded-lg bg-zinc-900 border border-zinc-700 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-500/20 to-transparent" />
+              <Square className="w-4 h-4 text-amber-400" />
+              <span className="text-[7.5px] font-bold text-amber-300 ml-1.5">Border Frame</span>
             </div>
           </div>
         </div>
       );
-    case '/shape-art-generator':
+
+    // 5. Photo Filter & Duotone Studio
+    case '/photo-filters':
       return (
-        <div className="w-full h-24 rounded-2xl bg-[#090d16] border border-slate-900 mb-4 overflow-hidden relative flex items-center justify-center gap-1.5">
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-transparent pointer-events-none" />
-          <div className="flex -space-x-1.5 relative">
-            <div className="w-8 h-8 rounded-full bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-[10px] text-indigo-400 font-bold rotate-[-12deg] shadow-lg shadow-indigo-500/10">✨</div>
-            <div className="w-8 h-8 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-[10px] text-purple-400 font-bold z-10 shadow-lg shadow-purple-500/10">🌸</div>
-            <div className="w-8 h-8 rounded-full bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-[10px] text-sky-400 font-bold rotate-[12deg] z-20 shadow-lg shadow-sky-500/10">☁️</div>
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-purple-500/50 transition-colors">
+          <div className="w-full h-full grid grid-cols-3">
+            <div className="bg-gradient-to-b from-amber-800/60 to-amber-950/80 border-r border-zinc-800 flex flex-col items-center justify-center">
+              <span className="text-[7px] font-black text-amber-300 uppercase tracking-wider">Sepia</span>
+            </div>
+            <div className="bg-gradient-to-b from-fuchsia-600/70 to-cyan-700/80 border-r border-zinc-800 flex flex-col items-center justify-center">
+              <span className="text-[7px] font-black text-white uppercase tracking-wider">Duotone</span>
+            </div>
+            <div className="bg-gradient-to-b from-zinc-700 to-zinc-950 flex flex-col items-center justify-center">
+              <span className="text-[7px] font-black text-zinc-300 uppercase tracking-wider">Noir</span>
+            </div>
           </div>
-          <div className="absolute bottom-1.5 right-2 bg-slate-900/90 border border-slate-800 px-2 py-0.5 rounded shadow-xs text-[7px] font-black text-indigo-400 uppercase tracking-wider">
-            Shape Art
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-8 h-8 rounded-full bg-purple-600/80 border border-white/40 flex items-center justify-center text-white shadow-xl shadow-purple-500/30">
+              <Wand2 className="w-4 h-4" />
+            </div>
           </div>
         </div>
       );
+
+    // 6. Color Inverter & B&W Converter
+    case '/invert-colors':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-indigo-500/50 transition-colors">
+          <div className="w-full h-full flex">
+            <div className="w-1/2 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-[8px] font-black">
+              RGB Color
+            </div>
+            <div className="w-1/2 bg-zinc-950 flex items-center justify-center text-zinc-100 text-[8px] font-mono font-black border-l-2 border-white/60">
+              Negative
+            </div>
+          </div>
+          <div className="absolute inset-y-0 w-1 bg-white shadow-[0_0_10px_white] animate-wipe-x" />
+        </div>
+      );
+
+    // 7. Smart Aspect Resizer
     case '/aspect-resizer':
       return (
-        <div className="w-full h-24 rounded-2xl bg-slate-50 border border-slate-200/80 mb-4 overflow-hidden relative flex items-center justify-center gap-2 p-3">
-          <div className="w-10 h-10 rounded border-2 border-dashed border-indigo-500/40 bg-indigo-50/20 flex flex-col items-center justify-center relative">
-            <span className="text-[7px] text-indigo-600 font-bold">1:1</span>
-            <div className="absolute -top-1 -left-1 w-1.5 h-1.5 border-t-2 border-l-2 border-indigo-600" />
-            <div className="absolute -bottom-1 -right-1 w-1.5 h-1.5 border-b-2 border-r-2 border-indigo-600" />
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center gap-2 select-none group-hover:border-amber-500/50 transition-colors p-2">
+          {/* 1:1 Box with Blur Margin */}
+          <div className="w-16 h-16 rounded-xl bg-amber-500/10 border border-amber-500/30 p-1 flex flex-col items-center justify-center relative shadow-md">
+            <div className="absolute inset-0 bg-amber-400/10 blur-sm rounded-xl" />
+            <span className="text-[7.5px] font-black text-amber-400 z-10">1:1 Square</span>
+            <span className="text-[6.5px] font-mono text-zinc-400 z-10 mt-0.5">Blur Pad</span>
           </div>
-          <div className="w-14 h-8 rounded border border-slate-300 bg-slate-100/50 flex items-center justify-center">
-            <span className="text-[7px] text-slate-500 font-medium">16:9</span>
-          </div>
-          <div className="w-7 h-12 rounded border border-slate-300 bg-slate-100/50 flex items-center justify-center">
-            <span className="text-[7px] text-slate-500 font-medium">9:16</span>
+          {/* 16:9 Box */}
+          <div className="w-20 h-12 rounded-lg bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center shadow-xs">
+            <span className="text-[7px] font-black text-indigo-300">16:9 Feed</span>
           </div>
         </div>
       );
-    case '/svg-vectorizer':
+
+    // 8. Image Adjuster & Color Tuner
+    case '/adjust-image':
       return (
-        <div className="w-full h-24 rounded-2xl bg-zinc-950 border border-zinc-800 mb-4 overflow-hidden relative flex items-center justify-center">
-          <svg className="w-full h-full absolute inset-0 opacity-20" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="cardGrid" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#cardGrid)" />
-          </svg>
-          <div className="flex items-center gap-4 z-10">
-            <div className="text-2xl font-black text-zinc-700 blur-[0.8px] select-none">A</div>
-            <div className="text-sm text-zinc-600">→</div>
-            <div className="relative">
-              <div className="text-2xl font-black text-indigo-400 select-none font-sans">A</div>
-              <div className="absolute -top-1 -left-1 w-1.5 h-1.5 bg-indigo-500 border border-white rounded-full" />
-              <div className="absolute -bottom-1 -right-1 w-1.5 h-1.5 bg-indigo-500 border border-white rounded-full" />
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-blue-500/50 transition-colors">
+          <div className="w-full h-full flex">
+            <div className="w-1/2 bg-slate-900/90 flex flex-col items-center justify-center opacity-40">
+              <span className="text-[7.5px] font-bold text-slate-400">Dim</span>
+            </div>
+            <div className="w-1/2 bg-gradient-to-tr from-blue-600 via-indigo-500 to-sky-400 flex flex-col items-center justify-center">
+              <span className="text-[7.5px] font-black text-white">HDR Enhance</span>
             </div>
           </div>
-        </div>
-      );
-    case '/ocr-text-extractor':
-      return (
-        <div className="w-full h-24 rounded-2xl bg-slate-50 border border-slate-200/80 mb-4 p-3 overflow-hidden relative flex flex-col gap-1.5 justify-center">
-          <div className="w-full h-2 bg-indigo-650/10 rounded" />
-          <div className="w-3/4 h-2 bg-indigo-655/15 rounded relative">
-            <div className="absolute inset-y-0 left-1/4 right-1/4 bg-indigo-500/20 border-x border-indigo-500/40" />
-          </div>
-          <div className="w-5/6 h-2 bg-slate-200 rounded" />
-          <div className="w-1/2 h-2 bg-slate-200 rounded" />
-          <div className="absolute bottom-1.5 right-2 bg-white border border-slate-200 px-2 py-0.5 rounded shadow-sm text-[7px] font-black text-indigo-600 uppercase tracking-wider">
-            Text OCR
+          <div className="absolute inset-y-0 w-1 bg-blue-400 shadow-[0_0_12px_#60a5fa] animate-wipe-x z-10" />
+          <div className="absolute bottom-1.5 right-2 bg-slate-900/90 border border-slate-800 px-2 py-0.5 rounded text-[7px] font-black text-blue-400 uppercase tracking-wider z-20">
+            Auto Contrast
           </div>
         </div>
       );
-    case '/bank-statement-analyzer':
+
+    // 8. Photo Redactor & Censor Tool
+    case '/redact-image':
       return (
-        <div className="w-full h-24 rounded-2xl bg-white border border-slate-200/85 mb-4 p-2.5 overflow-hidden relative flex flex-col justify-between shadow-xs">
-          <div className="grid grid-cols-4 gap-1 text-[7px] font-bold text-slate-400 border-b border-slate-100 pb-1">
-            <span>Date</span>
-            <span>Desc</span>
-            <span className="text-right">Credit</span>
-            <span className="text-right">Debit</span>
-          </div>
-          <div className="space-y-0.5">
-            <div className="grid grid-cols-4 gap-1 text-[7px] font-bold text-slate-700">
-              <span>24 Jun</span>
-              <span className="truncate">Stripe</span>
-              <span className="text-right text-emerald-600">+$1.2k</span>
-              <span className="text-right text-slate-300">-</span>
-            </div>
-            <div className="grid grid-cols-4 gap-1 text-[7px] font-bold text-slate-700">
-              <span>25 Jun</span>
-              <span className="truncate">AWS Cloud</span>
-              <span className="text-right text-slate-300">-</span>
-              <span className="text-right text-rose-600">-$150</span>
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-3 overflow-hidden relative flex flex-col justify-between select-none group-hover:border-red-500/50 transition-colors">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-full bg-zinc-800 border border-zinc-700 blur-[2px] flex items-center justify-center" />
+            <div className="flex-1 space-y-1">
+              <div className="w-full h-2 bg-zinc-950 rounded border border-zinc-900 relative">
+                <div className="absolute inset-y-0 left-0 w-3/4 bg-black border border-red-500/40 rounded" />
+              </div>
+              <div className="w-2/3 h-2 bg-zinc-950 rounded border border-zinc-900 relative">
+                <div className="absolute inset-y-0 left-0 w-1/2 bg-black border border-red-500/40 rounded" />
+              </div>
             </div>
           </div>
-          <div className="h-3 w-full flex items-end">
-            <svg className="w-full h-3 stroke-indigo-500 fill-indigo-500/10" viewBox="0 0 100 10" preserveAspectRatio="none">
-              <path d="M0,8 Q20,2 40,6 T80,1 T100,5 L100,10 L0,10 Z" strokeWidth="0.8" />
-            </svg>
+          <div className="flex items-center justify-between border-t border-zinc-900 pt-1.5">
+            <span className="text-[7px] font-bold text-zinc-500">Document Redaction</span>
+            <span className="text-[7px] font-black text-red-400 bg-red-950/60 border border-red-900/60 px-1.5 py-0.5 rounded">
+              CENSORED
+            </span>
           </div>
         </div>
       );
-    case '/sign-pdf':
+
+    // 9. Image Steganography & Secret Text
+    case '/image-steganography':
       return (
-        <div className="w-full h-24 rounded-2xl bg-white border border-slate-200/85 mb-4 p-2.5 overflow-hidden relative flex flex-col justify-between shadow-xs">
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-1.5">
-            <FileText className="w-4 h-4 text-indigo-650" />
-            <span className="text-[7.5px] font-bold text-slate-700">document_agreement.pdf</span>
+        <div className="w-full h-28 rounded-2xl bg-[#080d14] border border-zinc-800/80 mb-3.5 p-2.5 overflow-hidden relative flex flex-col justify-between select-none group-hover:border-emerald-500/50 transition-colors">
+          <div className="font-mono text-[7px] text-emerald-500/60 leading-tight tracking-wider truncate">
+            01010011 01000101 01000011 01010010 01000101 01010100
           </div>
-          <div className="flex-1 flex items-center justify-end pr-4 relative">
-            <div className="flex flex-col items-center">
-              <span className="font-serif italic text-indigo-700 text-[10px] translate-y-1">Vivek Gupta</span>
-              <div className="w-16 h-0.5 bg-slate-200" />
+          <div className="flex items-center justify-center gap-2 my-auto">
+            <div className="w-7 h-7 rounded-lg bg-emerald-950/60 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-md shadow-emerald-500/10 animate-float-subtle">
+              <Lock className="w-3.5 h-3.5" />
             </div>
-            <div className="absolute top-1 right-2 text-indigo-600 animate-pulse">
-              <PenTool className="w-3.5 h-3.5 rotate-45" />
-            </div>
+            <span className="text-[8.5px] font-mono font-bold text-emerald-400">Secret Embedded</span>
+          </div>
+          <div className="flex items-center justify-between text-[7px] font-mono text-zinc-500 border-t border-zinc-900 pt-1">
+            <span>LSB Encoding</span>
+            <span className="text-emerald-400 font-bold">AES-256</span>
           </div>
         </div>
       );
-    case '/image-compressor':
-      return (
-        <div className="w-full h-24 rounded-2xl bg-slate-50 border border-slate-200/80 mb-4 overflow-hidden relative flex items-center justify-center gap-2">
-          <div className="px-2 py-1 bg-white border border-slate-200 rounded-lg shadow-xs text-center flex flex-col">
-            <span className="text-[6.5px] text-slate-400 font-bold uppercase">Original</span>
-            <span className="text-[9px] text-slate-700 font-extrabold">2.4 MB</span>
-          </div>
-          <div className="text-indigo-500">
-            <ArrowRight className="w-3.5 h-3.5" />
-          </div>
-          <div className="px-2 py-1 bg-indigo-50 border border-indigo-100 rounded-lg shadow-xs text-center flex flex-col">
-            <span className="text-[6.5px] text-indigo-500 font-bold uppercase">Optimized</span>
-            <span className="text-[9px] text-indigo-700 font-extrabold">340 KB</span>
-          </div>
-        </div>
-      );
-    case '/batch-converter':
-      return (
-        <div className="w-full h-24 rounded-2xl bg-slate-50 border border-slate-200/80 mb-4 overflow-hidden relative flex items-center justify-center">
-          <div className="flex -space-x-2 relative">
-            <div className="w-8 h-11 rounded bg-white border border-slate-200 shadow-xs flex items-center justify-center text-[7px] font-bold text-rose-500 rotate-[-6deg]">PNG</div>
-            <div className="w-8 h-11 rounded bg-white border border-slate-200 shadow-sm flex items-center justify-center text-[7px] font-bold text-sky-500 rotate-[4deg] z-10">WEBP</div>
-            <div className="w-8 h-11 rounded bg-indigo-600 text-white shadow-md flex flex-col items-center justify-center text-[8px] font-black rotate-[12deg] z-20">
-              <span>PDF</span>
-            </div>
-          </div>
-        </div>
-      );
-    case '/collage-maker':
-      return (
-        <div className="w-full h-24 rounded-2xl bg-slate-50 border border-slate-200/85 mb-4 p-2 overflow-hidden relative grid grid-cols-3 gap-1">
-          <div className="bg-indigo-500/10 border border-indigo-500/25 rounded-lg flex items-center justify-center text-[9px] text-indigo-500/40 font-bold">A</div>
-          <div className="col-span-2 grid grid-rows-2 gap-1">
-            <div className="bg-sky-500/10 border border-sky-500/25 rounded-lg flex items-center justify-center text-[8px] text-sky-500/40 font-bold">B</div>
-            <div className="bg-teal-500/10 border border-teal-500/25 rounded-lg flex items-center justify-center text-[8px] text-teal-500/40 font-bold">C</div>
-          </div>
-        </div>
-      );
-    case '/color-palette-extractor':
-      return (
-        <div className="w-full h-24 rounded-2xl bg-slate-50 border border-slate-200/80 mb-4 overflow-hidden relative flex items-center justify-center gap-1.5 px-3">
-          <div className="w-6 h-8 rounded-md bg-indigo-900 border border-white shadow-sm" />
-          <div className="w-6 h-8 rounded-md bg-indigo-600 border border-white shadow-sm" />
-          <div className="w-6 h-8 rounded-md bg-indigo-400 border border-white shadow-sm" />
-          <div className="w-6 h-8 rounded-md bg-teal-500 border border-white shadow-sm" />
-          <div className="w-6 h-8 rounded-md bg-teal-200 border border-white shadow-sm" />
-        </div>
-      );
-    case '/watermark-overlay':
-      return (
-        <div className="w-full h-24 rounded-2xl bg-slate-900 border border-slate-950 mb-4 overflow-hidden relative flex items-center justify-center">
-          <div className="absolute inset-0 flex flex-col justify-center gap-2.5 rotate-[-15deg] scale-110 opacity-15">
-            <div className="text-[6.5px] text-white font-bold tracking-widest whitespace-nowrap">COPYRIGHT © COPY</div>
-            <div className="text-[6.5px] text-white font-bold tracking-widest whitespace-nowrap translate-x-2">COPYRIGHT © COPY</div>
-          </div>
-          <div className="px-2.5 py-0.5 rounded-lg bg-slate-800/80 border border-slate-700/60 text-[8px] font-black text-slate-300 uppercase tracking-widest z-10 shadow-md">
-            Watermark
-          </div>
-        </div>
-      );
+
+    // 10. EXIF Metadata Stripper
     case '/metadata-stripper':
       return (
-        <div className="w-full h-24 rounded-2xl bg-slate-50 border border-slate-200/80 mb-4 p-2.5 overflow-hidden relative flex flex-col justify-between text-left">
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-2.5 overflow-hidden relative flex flex-col justify-between select-none group-hover:border-red-500/50 transition-colors">
           <div className="space-y-0.5">
-            <div className="flex items-center justify-between text-[6.5px] font-bold text-slate-400">
-              <span>GPS Details</span>
-              <span className="text-red-500 font-extrabold">STRIP</span>
+            <div className="flex items-center justify-between text-[7px] font-mono text-zinc-500">
+              <span>GPS: 37.7749° N, 122.4194° W</span>
+              <span className="text-red-400 font-black">PURGED</span>
             </div>
-            <p className="text-[7.5px] font-bold text-slate-600">Camera: Sony A7r IV (GPS: Active)</p>
+            <div className="text-[7.5px] font-mono text-zinc-400">Sony A7R IV • 85mm f/1.4</div>
           </div>
-          <div className="flex items-center justify-between border-t border-slate-200/60 pt-1">
-            <span className="text-[6.5px] text-slate-400 font-bold">Metadata clean</span>
-            <span className="text-[7.5px] font-black text-emerald-600">PRUNED</span>
+          <div className="w-full h-0.5 bg-red-500/20 relative overflow-hidden rounded">
+            <div className="absolute inset-y-0 w-1/3 bg-red-500 animate-wipe-x" />
+          </div>
+          <div className="flex items-center justify-between border-t border-zinc-900 pt-1">
+            <span className="text-[7px] font-bold text-zinc-500">Privacy Status</span>
+            <span className="text-[7.5px] font-black text-emerald-400 flex items-center gap-1">
+              <ShieldCheck className="w-3 h-3" /> CLEAN
+            </span>
           </div>
         </div>
       );
+
+    // 11. Pixel Art & 8-Bit Converter
+    case '/pixel-art-generator':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-fuchsia-500/50 transition-colors">
+          <div className="w-24 h-16 bg-[#8bac0f] border-2 border-[#0f380f] rounded-lg grid grid-cols-8 grid-rows-6 gap-0.5 p-1 shadow-md shadow-fuchsia-500/10">
+            {Array.from({ length: 48 }).map((_, i) => {
+              const dither = (i % 2 === 0 && (i % 7 < 3)) ? 'bg-[#0f380f]' : (i % 3 === 0) ? 'bg-[#306230]' : 'bg-[#9bbc0f]';
+              return <div key={i} className={`rounded-none ${dither}`} />;
+            })}
+          </div>
+          <div className="absolute bottom-1.5 right-2 bg-black/90 border border-fuchsia-500/40 px-2 py-0.5 rounded text-[7px] font-black text-fuchsia-400 uppercase tracking-widest font-mono">
+            8-BIT GAMEBOY
+          </div>
+        </div>
+      );
+
+    // 12. ASCII & Text Art Generator
+    case '/ascii-art-generator':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-black border border-emerald-900/60 mb-3.5 p-2 overflow-hidden relative flex flex-col justify-center select-none group-hover:border-emerald-500/50 transition-colors font-mono">
+          <div className="text-[6.5px] text-emerald-450 leading-[7px] tracking-tighter opacity-80 select-none">
+            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@<br/>
+            @@@@@@@@@@%##**+===*#%@@@@@@@@@@<br/>
+            @@@@@@@#*+=--:.....:-=+*#@@@@@@@<br/>
+            @@@@@#+=:..  Image  ..:-=+%@@@@@<br/>
+            @@@@*=:..   Plumber   ..:=*@@@@@<br/>
+            @@@@@#+=:..  ASCII  ..:-=+%@@@@@<br/>
+            @@@@@@@#*+=--:.....:-=+*#@@@@@@@<br/>
+            @@@@@@@@@@%##**+===*#%@@@@@@@@@@
+          </div>
+          <div className="absolute bottom-1.5 right-2 bg-emerald-950/90 border border-emerald-500/40 px-1.5 py-0.5 rounded text-[6.5px] font-black text-emerald-400 uppercase tracking-wider">
+            ANSI MATRIX
+          </div>
+        </div>
+      );
+
+    // 13. Glitch Art & CRT Distortion
+    case '/glitch-image-generator':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-violet-500/50 transition-colors">
+          <div 
+            className="absolute inset-0 z-20 pointer-events-none opacity-40"
+            style={{
+              backgroundImage: 'repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0px, rgba(0, 0, 0, 0.4) 1px, transparent 1px, transparent 2px)',
+            }}
+          />
+          <div className="relative font-black text-xl tracking-wider animate-glitch-fx z-10 select-none text-white">
+            <span className="text-cyan-400">GL</span>
+            <span className="text-fuchsia-500">IT</span>
+            <span className="text-amber-400">CH</span>
+          </div>
+          <div className="absolute bottom-1.5 left-2 bg-violet-950/80 border border-violet-700/60 px-2 py-0.5 rounded text-[7px] font-black text-violet-300 uppercase tracking-widest z-30">
+            CRT & RGB Split
+          </div>
+        </div>
+      );
+
+    // 14. Side-by-Side Combiner
+    case '/side-by-side-image':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-blue-500/50 transition-colors p-2">
+          <div className="w-full h-full rounded-xl overflow-hidden flex border border-zinc-700 shadow-md">
+            <div className="w-1/2 bg-gradient-to-br from-slate-800 to-slate-900 relative flex items-center justify-center">
+              <span className="text-[7.5px] font-black text-white bg-black/70 px-1.5 py-0.5 rounded absolute top-1.5 left-1.5">BEFORE</span>
+              <ImageIcon className="w-5 h-5 text-slate-500" />
+            </div>
+            <div className="w-0.5 bg-blue-500 shadow-[0_0_8px_#3b82f6] z-10" />
+            <div className="w-1/2 bg-gradient-to-br from-blue-600 to-indigo-600 relative flex items-center justify-center">
+              <span className="text-[7.5px] font-black text-white bg-blue-900/80 px-1.5 py-0.5 rounded absolute top-1.5 right-1.5">AFTER</span>
+              <Sparkles className="w-5 h-5 text-white" />
+            </div>
+          </div>
+        </div>
+      );
+
+    // 15. Instagram Panorama Splitter
+    case '/instagram-panorama-splitter':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-pink-500/50 transition-colors p-2">
+          <div className="flex gap-1.5 items-center">
+            <div className="w-14 h-20 rounded-lg bg-zinc-900 border border-pink-500/40 p-1 flex flex-col justify-between relative overflow-hidden shadow-md">
+              <div className="text-[6.5px] font-bold text-pink-400">Slide 1 (4:5)</div>
+              <div className="w-full h-10 bg-gradient-to-r from-pink-500/30 to-purple-500/30 rounded" />
+              <div className="text-[6px] text-zinc-500">1 of 2</div>
+            </div>
+            <div className="text-pink-500 font-black text-xs">→</div>
+            <div className="w-14 h-20 rounded-lg bg-zinc-900 border border-pink-500/40 p-1 flex flex-col justify-between relative overflow-hidden shadow-md">
+              <div className="text-[6.5px] font-bold text-pink-400">Slide 2 (4:5)</div>
+              <div className="w-full h-10 bg-gradient-to-r from-purple-500/30 to-indigo-500/30 rounded" />
+              <div className="text-[6px] text-zinc-500">2 of 2</div>
+            </div>
+          </div>
+          <div className="absolute bottom-1.5 right-2 bg-pink-950/90 border border-pink-500/40 px-1.5 py-0.5 rounded text-[6.5px] font-black text-pink-300 uppercase tracking-wider">
+            Seamless Swipe
+          </div>
+        </div>
+      );
+
+    // 16. Photo Collage Maker
+    case '/collage-maker':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-2 overflow-hidden relative grid grid-cols-3 gap-1 select-none group-hover:border-pink-500/50 transition-colors">
+          <div className="bg-indigo-500/20 border border-indigo-500/30 rounded-lg flex items-center justify-center text-[9px] text-indigo-400 font-bold">1</div>
+          <div className="col-span-2 grid grid-rows-2 gap-1">
+            <div className="bg-pink-500/20 border border-pink-500/30 rounded-lg flex items-center justify-center text-[8px] text-pink-400 font-bold">2</div>
+            <div className="bg-teal-500/20 border border-teal-500/30 rounded-lg flex items-center justify-center text-[8px] text-teal-400 font-bold">3</div>
+          </div>
+        </div>
+      );
+
+    // 17. Instagram Grid Splitter
     case '/instagram-grid-splitter':
       return (
-        <div className="w-full h-24 rounded-2xl bg-slate-50 border border-slate-200/80 mb-4 p-1.5 overflow-hidden relative flex items-center justify-center">
-          <div className="w-14 h-14 bg-white border border-slate-200 grid grid-cols-3 grid-rows-3 gap-0.5 p-0.5 shadow-sm rounded-md">
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-2 overflow-hidden relative flex items-center justify-center select-none group-hover:border-orange-500/50 transition-colors">
+          <div className="w-20 h-20 bg-zinc-900 border border-zinc-800 grid grid-cols-3 grid-rows-3 gap-0.5 p-0.5 shadow-sm rounded-lg">
             {Array.from({ length: 9 }).map((_, i) => (
-              <div key={i} className="bg-indigo-500/10 border border-indigo-500/5 rounded-xs flex items-center justify-center text-[6px] text-indigo-500 font-black">
+              <div key={i} className="bg-orange-500/15 border border-orange-500/20 rounded-xs flex items-center justify-center text-[6.5px] text-orange-400 font-black">
                 {i + 1}
               </div>
             ))}
           </div>
         </div>
       );
-    case '/meme-generator':
+
+    // 18. Smart Image Compressor
+    case '/image-compressor':
       return (
-        <div className="w-full h-24 rounded-2xl bg-slate-900 border border-slate-950 mb-4 overflow-hidden relative flex items-center justify-center p-1">
-          <div className="w-full h-full rounded-lg overflow-hidden relative bg-gradient-to-tr from-indigo-900/40 to-slate-900">
-            <div className="absolute top-1 inset-x-0 text-center text-[7.5px] font-black text-white uppercase tracking-wider">
-              TOP TEXT
-            </div>
-            <div className="absolute bottom-1 inset-x-0 text-center text-[7.5px] font-black text-white uppercase tracking-wider">
-              BOTTOM TEXT
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center gap-2 select-none group-hover:border-indigo-500/50 transition-colors px-2">
+          <div className="px-2 py-1 bg-zinc-900 border border-zinc-800 rounded-lg text-center flex flex-col">
+            <span className="text-[6.5px] text-zinc-500 font-bold uppercase">Original</span>
+            <span className="text-[9px] text-zinc-300 font-extrabold">4.8 MB</span>
+          </div>
+          <div className="text-indigo-400">
+            <ArrowRight className="w-3.5 h-3.5" />
+          </div>
+          <div className="px-2 py-1 bg-indigo-950/60 border border-indigo-500/40 rounded-lg text-center flex flex-col shadow-md shadow-indigo-500/10">
+            <span className="text-[6.5px] text-emerald-400 font-bold uppercase">-91% Saved</span>
+            <span className="text-[9px] text-indigo-300 font-extrabold">420 KB</span>
+          </div>
+        </div>
+      );
+
+    // 19. Batch Format & PDF Converter
+    case '/batch-converter':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-indigo-500/50 transition-colors">
+          <div className="flex -space-x-2 relative">
+            <div className="w-8 h-11 rounded bg-zinc-900 border border-zinc-700 shadow-xs flex items-center justify-center text-[7px] font-bold text-rose-400 rotate-[-6deg]">PNG</div>
+            <div className="w-8 h-11 rounded bg-zinc-900 border border-zinc-700 shadow-sm flex items-center justify-center text-[7px] font-bold text-sky-400 rotate-[4deg] z-10">WEBP</div>
+            <div className="w-8 h-11 rounded bg-indigo-600 text-white shadow-md flex flex-col items-center justify-center text-[8px] font-black rotate-[12deg] z-20">
+              <span>PDF</span>
             </div>
           </div>
         </div>
       );
+
+    // 20. Batch Watermark Overlay
+    case '/watermark-overlay':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-rose-500/50 transition-colors">
+          <div className="absolute inset-0 flex flex-col justify-center gap-2.5 rotate-[-15deg] scale-110 opacity-20">
+            <div className="text-[7px] text-white font-bold tracking-widest whitespace-nowrap">COPYRIGHT © CONFIDENTIAL</div>
+            <div className="text-[7px] text-white font-bold tracking-widest whitespace-nowrap translate-x-3">COPYRIGHT © CONFIDENTIAL</div>
+          </div>
+          <div className="px-2.5 py-0.5 rounded-lg bg-rose-950/80 border border-rose-500/40 text-[8px] font-black text-rose-300 uppercase tracking-widest z-10 shadow-md">
+            Watermark Stamp
+          </div>
+        </div>
+      );
+
+    // 21. Electronic PDF Signer
+    case '/sign-pdf':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-2.5 overflow-hidden relative flex flex-col justify-between select-none group-hover:border-indigo-500/50 transition-colors">
+          <div className="flex items-center gap-2 border-b border-zinc-800 pb-1.5">
+            <FileText className="w-3.5 h-3.5 text-indigo-400" />
+            <span className="text-[7.5px] font-bold text-zinc-400">contract_agreement.pdf</span>
+          </div>
+          <div className="flex-1 flex items-center justify-end pr-3 relative">
+            <div className="flex flex-col items-center">
+              <span className="font-serif italic text-indigo-300 text-[11px] translate-y-1">Verified Signature</span>
+              <div className="w-20 h-0.5 bg-indigo-500/40" />
+            </div>
+            <div className="absolute top-1 right-1 text-indigo-400 animate-pulse">
+              <PenTool className="w-3.5 h-3.5 rotate-45" />
+            </div>
+          </div>
+        </div>
+      );
+
+    // 22. Bank Statement Analyzer
+    case '/bank-statement-analyzer':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-2.5 overflow-hidden relative flex flex-col justify-between select-none group-hover:border-teal-500/50 transition-colors">
+          <div className="grid grid-cols-4 gap-1 text-[7px] font-bold text-zinc-500 border-b border-zinc-800 pb-1">
+            <span>Date</span>
+            <span>Desc</span>
+            <span className="text-right">Credit</span>
+            <span className="text-right">Debit</span>
+          </div>
+          <div className="space-y-0.5">
+            <div className="grid grid-cols-4 gap-1 text-[7px] font-bold text-zinc-300">
+              <span>24 Jun</span>
+              <span className="truncate">Stripe Payout</span>
+              <span className="text-right text-emerald-400">+$2.4k</span>
+              <span className="text-right text-zinc-600">-</span>
+            </div>
+            <div className="grid grid-cols-4 gap-1 text-[7px] font-bold text-zinc-300">
+              <span>25 Jun</span>
+              <span className="truncate">Server Cloud</span>
+              <span className="text-right text-zinc-600">-</span>
+              <span className="text-right text-rose-400">-$85</span>
+            </div>
+          </div>
+          <div className="h-2 w-full flex items-end">
+            <svg className="w-full h-2 stroke-teal-400 fill-teal-500/10" viewBox="0 0 100 10" preserveAspectRatio="none">
+              <path d="M0,8 Q20,2 40,6 T80,1 T100,5 L100,10 L0,10 Z" strokeWidth="1" />
+            </svg>
+          </div>
+        </div>
+      );
+
+    // 23. OCR Text Extractor
+    case '/ocr-text-extractor':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-3 overflow-hidden relative flex flex-col gap-1.5 justify-center select-none group-hover:border-emerald-500/50 transition-colors">
+          <div className="w-full h-2 bg-emerald-500/20 rounded" />
+          <div className="w-3/4 h-2 bg-emerald-500/30 rounded relative overflow-hidden">
+            <div className="absolute inset-y-0 left-0 w-1/3 bg-emerald-400 animate-wipe-x" />
+          </div>
+          <div className="w-5/6 h-2 bg-zinc-800 rounded" />
+          <div className="w-1/2 h-2 bg-zinc-800 rounded" />
+          <div className="absolute bottom-1.5 right-2 bg-emerald-950/90 border border-emerald-500/40 px-2 py-0.5 rounded text-[7px] font-black text-emerald-400 uppercase tracking-wider">
+            Tesseract OCR
+          </div>
+        </div>
+      );
+
+    // 24. SVG Vectorizer
+    case '/svg-vectorizer':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-teal-500/50 transition-colors">
+          <div className="flex items-center gap-4 z-10">
+            <div className="text-2xl font-black text-zinc-700 blur-[0.8px] select-none">A</div>
+            <div className="text-sm text-zinc-600">→</div>
+            <div className="relative">
+              <div className="text-2xl font-black text-teal-400 select-none font-sans">A</div>
+              <div className="absolute -top-1 -left-1 w-1.5 h-1.5 bg-teal-400 border border-white rounded-full" />
+              <div className="absolute -bottom-1 -right-1 w-1.5 h-1.5 bg-teal-400 border border-white rounded-full" />
+            </div>
+          </div>
+        </div>
+      );
+
+    // 25. Instant Meme Generator
+    case '/meme-generator':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-green-500/50 transition-colors p-1.5">
+          <div className="w-full h-full rounded-xl overflow-hidden relative bg-gradient-to-tr from-green-950/50 to-slate-900 border border-zinc-800 flex flex-col justify-between p-2 text-center">
+            <span className="text-[7.5px] font-black text-white uppercase tracking-wider drop-shadow-md">TOP CAPTION</span>
+            <span className="text-[7.5px] font-black text-white uppercase tracking-wider drop-shadow-md">BOTTOM TEXT</span>
+          </div>
+        </div>
+      );
+
+    // 26. AI Shape Art Generator
+    case '/shape-art-generator':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-[#090d16] border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center gap-1.5 select-none group-hover:border-indigo-500/50 transition-colors">
+          <div className="flex -space-x-1.5 relative">
+            <div className="w-8 h-8 rounded-full bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-[10px] text-indigo-400 font-bold rotate-[-12deg] shadow-lg">✨</div>
+            <div className="w-8 h-8 rounded-full bg-purple-500/25 border border-purple-500/40 flex items-center justify-center text-[10px] text-purple-400 font-bold z-10 shadow-lg">🌸</div>
+            <div className="w-8 h-8 rounded-full bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-[10px] text-sky-400 font-bold rotate-[12deg] z-20 shadow-lg">☁️</div>
+          </div>
+          <div className="absolute bottom-1.5 right-2 bg-slate-900/90 border border-slate-800 px-2 py-0.5 rounded text-[7px] font-black text-indigo-400 uppercase tracking-wider">
+            Shape Art
+          </div>
+        </div>
+      );
+
+    // 27. Ambient Generative Visuals
+    case '/ambient':
+      return (
+        <div className="w-full h-28 rounded-2xl bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 border border-indigo-800/40 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-indigo-500/50 transition-colors">
+          <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-500/30 via-purple-500/20 to-transparent animate-pulse" />
+          <div className="w-8 h-8 rounded-full bg-indigo-500/20 border border-indigo-400/50 flex items-center justify-center text-indigo-300 z-10 shadow-lg shadow-indigo-500/30">
+            <Sparkles className="w-4 h-4" />
+          </div>
+        </div>
+      );
+
+    // Default fallback
     default:
       return (
-        <div className="w-full h-24 rounded-2xl bg-indigo-50/50 border border-indigo-100/50 mb-4 flex items-center justify-center text-indigo-500">
-          <ImageIcon className="w-7 h-7" />
+        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800 mb-3.5 flex items-center justify-center text-indigo-400">
+          <ImageIcon className="w-6 h-6" />
         </div>
       );
   }
-};
-
-const heroTabsConfig = {
-  'bg-remover': {
-    title: 'AI Background Cutout',
-    slider1Label: 'Mask Sensitivity',
-    slider1Val: '85%',
-    slider1Pct: '85%',
-    slider2Label: 'Feather Edge',
-    slider2Val: '12px',
-    slider2Pct: '40%',
-    btnLabel: 'Apply Mask',
-    badgeText: 'Subject Isolated',
-    badgeLabel: '100% Client-Side'
-  },
-  'crop': {
-    title: 'Smart Canvas Crop',
-    slider1Label: 'Canvas Zoom',
-    slider1Val: '100%',
-    slider1Pct: '100%',
-    slider2Label: 'Blur Padding',
-    slider2Val: '60%',
-    slider2Pct: '60%',
-    btnLabel: 'Crop Image',
-    badgeText: 'Social Presets',
-    badgeLabel: 'Aspect Bounds'
-  },
-  'mosaic': {
-    title: 'Euclidean Color Grid',
-    slider1Label: 'Tile Density',
-    slider1Val: '120 tiles',
-    slider1Pct: '70%',
-    slider2Label: 'Overlay Opacity',
-    slider2Val: '45%',
-    slider2Pct: '45%',
-    btnLabel: 'Compile Mosaic',
-    badgeText: 'Tile Composing',
-    badgeLabel: 'Euclidean Search'
-  },
-  'compressor': {
-    title: 'Quantization Quality',
-    slider1Label: 'Compression Quality',
-    slider1Val: '75%',
-    slider1Pct: '75%',
-    slider2Label: 'Chroma Subsampling',
-    slider2Val: '4:2:0',
-    slider2Pct: '90%',
-    btnLabel: 'Optimize Size',
-    badgeText: 'Size Reduction',
-    badgeLabel: 'JPEG / PNG / WEBP'
-  },
-  'vectorizer': {
-    title: 'Path Simplification',
-    slider1Label: 'Color Palette',
-    slider1Val: '16 Colors',
-    slider1Pct: '50%',
-    slider2Label: 'Trace Tolerance',
-    slider2Val: '1.5',
-    slider2Pct: '35%',
-    btnLabel: 'Trace Vectors',
-    badgeText: 'Raster to SVG',
-    badgeLabel: 'Vector Outline'
-  }
-};
-
-const renderInteractiveCanvas = (tab: string) => {
-  const gifUrl = `/demo-gifs/${tab}.gif`;
-  
-  const altText = {
-    'bg-remover': 'AI Background Cutout Preview',
-    'crop': 'Smart Canvas Crop Preview',
-    'mosaic': 'Euclidean Color Grid Mosaic Preview',
-    'compressor': 'Quantization Quality Compressor Preview',
-    'vectorizer': 'Path Simplification Vectorizer Preview'
-  }[tab] || 'Demo Preview';
-
-  return (
-    <div className="w-full h-full relative overflow-hidden bg-[#0c0c0e] flex items-center justify-center">
-      <img 
-        src={gifUrl} 
-        alt={altText}
-        className="w-full h-full object-cover" 
-        loading="eager"
-      />
-    </div>
-  );
 };
 
 export const Home: React.FC = () => {
@@ -690,7 +886,7 @@ export const Home: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
-  const [activeHeroTab, setActiveHeroTab] = useState<'bg-remover' | 'crop' | 'mosaic' | 'compressor' | 'vectorizer'>('bg-remover');
+  const [viewMode, setViewMode] = useState<'grid' | 'compact'>('grid');
   const [openHomeFaq, setOpenHomeFaq] = useState<number | null>(null);
 
   const homeFaqs = t.faqs;
@@ -709,66 +905,97 @@ export const Home: React.FC = () => {
   };
 
   const filteredTools = toolDirectory.filter(tool => {
-    const localizedMeta = getLocalizedToolMeta(tool.path, locale);
-    const toolTitle = localizedMeta?.title || tool.name;
-    const toolDesc = localizedMeta?.description || tool.description;
-
+    const shortMeta = getShortToolMeta(tool.path, locale);
     const matchesCategory = activeCategory === 'all' || tool.category === activeCategory;
-    const matchesSearch = toolTitle.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          toolDesc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const matchesSearch = shortMeta.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          shortMeta.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          tool.badge.toLowerCase().includes(searchQuery.toLowerCase());
+                          tool.badge.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          tool.tag.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
-  const activeHeroData = heroTabsConfig[activeHeroTab];
-
-  const renderToolCard = (tool: typeof toolDirectory[0]) => {
+  const renderToolCard = (tool: ToolItem) => {
     const Icon = tool.icon;
-    const localizedMeta = getLocalizedToolMeta(tool.path, locale);
-    const toolTitle = localizedMeta?.title || tool.name;
-    const toolDesc = localizedMeta?.description || tool.description;
+    const shortMeta = getShortToolMeta(tool.path, locale);
     const toolUrl = getLocalizedToolPath(tool.path, locale);
 
     const ctaText = locale === 'es' ? 'Abrir Herramienta' : 
                     locale === 'pt' ? 'Abrir Ferramenta' : 
                     locale === 'hi' ? 'टूल खोलें' : 
                     locale === 'fr' ? 'Ouvrir l\'Outil' : 
-                    locale === 'de' ? 'Tool Öffnen' : 'Open Tool';
+                    locale === 'de' ? 'Tool Öffnen' : 'Launch Tool';
 
     return (
       <Link
         key={tool.path}
         to={toolUrl}
-        className="premium-bento group flex flex-col justify-between p-5 rounded-3xl bg-white dark:bg-slate-900/70 border border-slate-200/50 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-700/60 relative overflow-hidden transition-all duration-300 shadow-xs cursor-pointer min-h-[300px]"
+        className="premium-bento group flex flex-col justify-between p-4.5 rounded-3xl bg-white dark:bg-slate-900/70 border border-slate-200/70 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-600/80 relative overflow-hidden transition-all duration-300 shadow-xs hover:shadow-xl hover:shadow-indigo-500/10 cursor-pointer text-left"
       >
-        {/* Glowing Ambient Light on Hover */}
-        <div className="absolute -right-16 -top-16 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition-all pointer-events-none" />
+        {/* Ambient Top Glow */}
+        <div className="absolute -right-12 -top-12 w-28 h-28 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/15 transition-all pointer-events-none" />
 
         <div>
-          {/* Visual Card Preview Header */}
+          {/* Animated Interactive Visual Preview */}
           {renderToolPreview(tool.path)}
 
-          <div className="flex items-center justify-between mb-3 mt-1">
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center border shrink-0 ${tool.colorClass.split(' ').filter(c => !c.startsWith('hover:')).join(' ')}`}>
+          {/* Header Row */}
+          <div className="flex items-center justify-between mb-2">
+            <div className={`w-8 h-8 rounded-xl flex items-center justify-center border shrink-0 ${tool.colorClass} group-hover:scale-105 transition-transform`}>
               <Icon className="w-4 h-4" />
             </div>
-            <span className="text-[9px] font-extrabold uppercase tracking-widest text-indigo-655 bg-indigo-50/60 border border-indigo-100/60 px-2 py-0.5 rounded-md shadow-2xs">
-              {tool.badge}
+            <span className="text-[9px] font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 bg-indigo-50/80 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 px-2 py-0.5 rounded-md shadow-2xs">
+              {tool.tag}
             </span>
           </div>
           
-          <h3 className="font-extrabold text-sm text-slate-900 dark:text-slate-100 tracking-tight mb-1 group-hover:text-indigo-650 dark:group-hover:text-indigo-400 transition-colors">
-            {toolTitle}
+          <h3 className="font-extrabold text-[13.5px] text-slate-900 dark:text-slate-100 tracking-tight mb-1 group-hover:text-indigo-650 dark:group-hover:text-indigo-400 transition-colors">
+            {shortMeta.name}
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-            {toolDesc}
+          <p className="text-[11.5px] text-slate-500 dark:text-slate-400 leading-relaxed font-medium line-clamp-2">
+            {shortMeta.desc}
           </p>
         </div>
 
-        <div className="mt-4 flex items-center gap-1 text-[11px] font-bold text-indigo-650 group-hover:translate-x-1 transition-all">
+        <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[11px] font-bold text-indigo-600 dark:text-indigo-400 group-hover:translate-x-0.5 transition-all">
           <span>{ctaText}</span>
-          <ArrowRight className="w-3.5 h-3.5" />
+          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+        </div>
+      </Link>
+    );
+  };
+
+  const renderCompactToolRow = (tool: ToolItem) => {
+    const Icon = tool.icon;
+    const shortMeta = getShortToolMeta(tool.path, locale);
+    const toolUrl = getLocalizedToolPath(tool.path, locale);
+
+    return (
+      <Link
+        key={tool.path}
+        to={toolUrl}
+        className="flex items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-700/60 hover:bg-indigo-50/30 dark:hover:bg-slate-800/50 transition-all text-left group"
+      >
+        <div className="flex items-center gap-3 min-w-0">
+          <div className={`w-8 h-8 rounded-xl flex items-center justify-center border shrink-0 ${tool.colorClass} group-hover:scale-105 transition-transform`}>
+            <Icon className="w-4 h-4" />
+          </div>
+          <div className="min-w-0">
+            <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">
+              {shortMeta.name}
+            </h4>
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium truncate mt-0.5">
+              {shortMeta.desc}
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-3 shrink-0 ml-3">
+          <span className="hidden sm:inline-block text-[9px] font-mono font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
+            {tool.tag}
+          </span>
+          <div className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+            <ArrowRight className="w-3.5 h-3.5" />
+          </div>
         </div>
       </Link>
     );
@@ -776,13 +1003,11 @@ export const Home: React.FC = () => {
 
   const renderEmptyState = () => (
     <div className="text-center py-16 px-4 w-full col-span-full">
-      <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-slate-100 flex items-center justify-center">
-        <svg className="w-7 h-7 text-slate-400" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637z" />
-        </svg>
+      <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+        <Search className="w-6 h-6 text-slate-400" />
       </div>
-      <span className="text-sm font-semibold text-slate-600">No tools found matching your criteria.</span>
-      <p className="text-xs text-slate-400 mt-1">Try a different keyword like <em>compress</em>, <em>pdf</em>, or <em>crop</em>.</p>
+      <span className="text-sm font-bold text-slate-700 dark:text-slate-300">No tools found matching your search</span>
+      <p className="text-xs text-slate-400 mt-1">Try keywords like <em>crop</em>, <em>censor</em>, <em>pdf</em>, or <em>compress</em>.</p>
     </div>
   );
 
@@ -790,369 +1015,164 @@ export const Home: React.FC = () => {
     <div className="w-full relative">
       <SEO 
         title="Free Privacy-First Image Tools" 
-        description="Free browser-based image tools suite: compress images, remove backgrounds with AI, scan text (OCR), split Instagram grids, make collages, extract color palettes, convert batch images, strip EXIF metadata, add watermarks, resize for social media, generate memes, vectorize to SVG, and create photo mosaics. 100% offline, zero uploads." 
-        keywords="free image tools, image compressor, AI background remover, OCR text extractor, Instagram grid splitter, photo collage maker, color palette extractor, batch image to pdf converter, EXIF metadata stripper, watermark tool, aspect ratio resizer, meme generator, SVG vectorizer, photo mosaic generator, online image editor, browser image tools, privacy image editor, no upload image tool, free photo editor online"
+        description="Free browser-based image tools suite: compress images, remove backgrounds with AI, crop, rotate, censor, convert batch images, strip EXIF metadata, add watermarks, and generate pixel art. 100% offline, zero uploads." 
+        keywords="free image tools, image compressor, AI background remover, crop image, rotate image, censor photo, EXIF metadata stripper, watermark tool, pixel art generator, ascii art, glitch photo editor"
         canonicalUrl="https://imageplumber.com/"
         schema={homeFaqSchema}
       />
 
       {/* Decorative Blur Backdrops */}
-      <div className="absolute top-0 inset-x-0 h-[600px] bg-dot-grid opacity-60 pointer-events-none -z-10" />
-      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[70%] h-[350px] bg-gradient-to-tr from-sky-400/10 via-indigo-500/8 to-teal-500/5 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow" />
+      <div className="absolute top-0 inset-x-0 h-[500px] bg-dot-grid opacity-50 pointer-events-none -z-10" />
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[70%] h-[300px] bg-gradient-to-tr from-sky-400/10 via-indigo-500/8 to-teal-500/5 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow" />
 
       {/* Hero Section */}
-      <section className="text-center pt-16 pb-12 md:pt-24 md:pb-16 flex flex-col items-center justify-center relative overflow-hidden">
+      <section className="text-center pt-14 pb-8 md:pt-20 md:pb-12 flex flex-col items-center justify-center relative overflow-hidden">
         
         {/* Anti-Cloud Tag */}
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-full text-[10px] font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-6 shadow-xs">
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700 rounded-full text-[10px] font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-6 shadow-xs">
           <ShieldCheck className="w-3.5 h-3.5 text-indigo-500" />
           <span>{t.heroBadge}</span>
         </div>
 
         {/* Heading */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-6 max-w-4xl leading-[1.08]">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-5 max-w-4xl leading-[1.1]">
           {t.heroTitle1} <br />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-650 via-primary-500 to-accent-500 font-black">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-650 via-purple-500 to-pink-500 font-black">
             {t.heroTitle2}
           </span>
         </h1>
 
-        {/* Description */}
-        <p className="text-sm md:text-base lg:text-lg text-slate-500 dark:text-slate-400 max-w-2xl mb-10 leading-relaxed font-medium">
+        {/* Subtitle */}
+        <p className="text-xs sm:text-sm md:text-base text-slate-500 dark:text-slate-400 max-w-2xl mb-8 leading-relaxed font-medium px-4">
           {t.heroSubtitle}
         </p>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a 
-            href="#tools-grid" 
-            className="px-8 py-3.5 bg-zinc-950 hover:bg-zinc-800 text-[11px] font-bold uppercase tracking-wider text-white rounded-full shadow-lg shadow-zinc-950/10 active:scale-98 transition-all flex items-center gap-2 cursor-pointer"
-          >
-            <Zap className="w-4 h-4 text-indigo-400" />
-            {t.heroCta}
-          </a>
-          <Link 
-            to="/about" 
-            className="px-8 py-3.5 bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 rounded-full transition-all shadow-xs backdrop-blur-md"
-          >
-            {locale === 'es' ? 'Cómo Funciona' : locale === 'pt' ? 'Como Funciona' : locale === 'hi' ? 'यह कैसे काम करता है' : locale === 'fr' ? 'Comment Ça Marche' : locale === 'de' ? 'So Funktioniert Es' : 'How it works'}
-          </Link>
-        </div>
-
-      </section>
-
-      {/* Hero Editor Mockup */}
-      <div className="w-full max-w-4xl mx-auto px-4 mt-4 mb-24 relative group">
-        <div className="absolute inset-0 bg-gradient-to-tr from-sky-400/15 via-indigo-500/10 to-purple-400/5 rounded-3xl blur-3xl opacity-80 pointer-events-none group-hover:scale-102 transition-transform duration-500" />
-        
-        <div className="relative bg-zinc-950 border border-zinc-800/80 rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/20 aspect-[1.2/1] sm:aspect-[1.8/1] flex flex-col">
-          <div className="h-10 border-b border-zinc-900 px-4 flex items-center justify-between shrink-0 bg-zinc-950">
-            <div className="flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-              <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-              <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-            </div>
-            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-ping" />
-              <span>Interactive Live Preview: {activeHeroData.title}</span>
-            </div>
-            <div className="w-10" />
-          </div>
-          
-          <div className="flex-1 flex min-h-0 bg-zinc-900">
-            {/* Sidebar Navigation - Interactive Tabs */}
-            <div className="w-12 border-r border-zinc-950 flex flex-col items-center py-4 gap-4 shrink-0 bg-zinc-950">
-              <button 
-                onClick={() => setActiveHeroTab('bg-remover')}
-                title="AI Background Remover"
-                className={`w-8 h-8 rounded-lg flex items-center justify-center border transition-all cursor-pointer ${
-                  activeHeroTab === 'bg-remover'
-                     ? 'bg-indigo-600/25 border-indigo-500/40 text-indigo-400 scale-105 shadow-md shadow-indigo-500/10'
-                    : 'border-transparent text-zinc-500 hover:text-zinc-350 hover:bg-zinc-900'
-                }`}
+        {/* Quick Search & Launch Action */}
+        <div className="w-full max-w-xl mx-auto px-4 mb-4">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder={t.searchPlaceholder}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-10 py-3.5 bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all shadow-md shadow-slate-200/10 dark:shadow-none text-sm text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400 dark:placeholder-slate-500"
+            />
+            <Search className="w-5 h-5 text-slate-400 dark:text-slate-500 absolute left-4 top-1/2 -translate-y-1/2" />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer transition-all"
               >
-                <Cpu className="w-4.5 h-4.5" />
+                <X className="w-4 h-4" />
               </button>
-              <button 
-                onClick={() => setActiveHeroTab('crop')}
-                title="Aspect Resizer & Smart Crop"
-                className={`w-8 h-8 rounded-lg flex items-center justify-center border transition-all cursor-pointer ${
-                  activeHeroTab === 'crop'
-                    ? 'bg-indigo-600/25 border-indigo-500/40 text-indigo-400 scale-105 shadow-md shadow-indigo-500/10'
-                    : 'border-transparent text-zinc-500 hover:text-zinc-350 hover:bg-zinc-900'
-                }`}
-              >
-                <Crop className="w-4.5 h-4.5" />
-              </button>
-              <button 
-                onClick={() => setActiveHeroTab('mosaic')}
-                title="Photo Mosaic Generator"
-                className={`w-8 h-8 rounded-lg flex items-center justify-center border transition-all cursor-pointer ${
-                  activeHeroTab === 'mosaic'
-                    ? 'bg-indigo-600/25 border-indigo-500/40 text-indigo-400 scale-105 shadow-md shadow-indigo-500/10'
-                    : 'border-transparent text-zinc-500 hover:text-zinc-350 hover:bg-zinc-900'
-                }`}
-              >
-                <Grid className="w-4.5 h-4.5" />
-              </button>
-              <button 
-                onClick={() => setActiveHeroTab('compressor')}
-                title="Image Compressor"
-                className={`w-8 h-8 rounded-lg flex items-center justify-center border transition-all cursor-pointer ${
-                  activeHeroTab === 'compressor'
-                    ? 'bg-indigo-600/25 border-indigo-500/40 text-indigo-400 scale-105 shadow-md shadow-indigo-500/10'
-                    : 'border-transparent text-zinc-500 hover:text-zinc-350 hover:bg-zinc-900'
-                }`}
-              >
-                <ImageIcon className="w-4.5 h-4.5" />
-              </button>
-              <button 
-                onClick={() => setActiveHeroTab('vectorizer')}
-                title="SVG Vectorizer"
-                className={`w-8 h-8 rounded-lg flex items-center justify-center border transition-all cursor-pointer ${
-                  activeHeroTab === 'vectorizer'
-                    ? 'bg-indigo-600/25 border-indigo-500/40 text-indigo-400 scale-105 shadow-md shadow-indigo-500/10'
-                    : 'border-transparent text-zinc-500 hover:text-zinc-350 hover:bg-zinc-900'
-                }`}
-              >
-                <Feather className="w-4.5 h-4.5" />
-              </button>
-            </div>
-            
-            {/* Canvas Area with Bespoke Interactive Layout Previews */}
-            <div className="flex-1 flex items-center justify-center overflow-hidden relative select-none bg-[#0c0c0e]">
-              {renderInteractiveCanvas(activeHeroTab)}
-              
-              {/* Dynamic Overlay info badge */}
-              <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 bg-zinc-950/90 backdrop-blur-md border border-zinc-800 rounded-xl p-2 sm:p-3 shadow-xl max-w-[130px] sm:max-w-[170px] text-left animate-fade-in z-20">
-                <span className="text-[8px] font-black text-indigo-400 uppercase tracking-wider block mb-0.5">Image Craft Studio</span>
-                <p className="text-[9px] sm:text-[10px] font-extrabold text-zinc-100 leading-tight">{activeHeroData.badgeText}</p>
-                <div className="flex items-center gap-1.5 mt-1 sm:mt-1.5">
-                  <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-[7.5px] sm:text-[8px] text-zinc-400 font-bold">{activeHeroData.badgeLabel}</span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Right Controls Panel */}
-            <div className="hidden md:flex w-44 border-l border-zinc-950 flex-col p-4 gap-4 shrink-0 bg-zinc-950 text-left">
-              <div className="space-y-0.5">
-                <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-widest">Adjustment</span>
-                <h4 className="text-[11px] font-bold text-zinc-200 truncate">{activeHeroData.title}</h4>
-              </div>
-              <div className="h-[1px] bg-zinc-900" />
-              
-              <div className="space-y-4">
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between text-[9px] font-bold text-zinc-400">
-                    <span>{activeHeroData.slider1Label}</span>
-                    <span>{activeHeroData.slider1Val}</span>
-                  </div>
-                  <div className="h-1 bg-zinc-850 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-indigo-500 rounded-full transition-all duration-300" 
-                      style={{ width: activeHeroData.slider1Pct }}
-                    />
-                  </div>
-                </div>
-                
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between text-[9px] font-bold text-zinc-400">
-                    <span>{activeHeroData.slider2Label}</span>
-                    <span>{activeHeroData.slider2Val}</span>
-                  </div>
-                  <div className="h-1 bg-zinc-850 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-indigo-500 rounded-full transition-all duration-300" 
-                      style={{ width: activeHeroData.slider2Pct }}
-                    />
-                  </div>
-                </div>
-              </div>
-              
-              <div className="mt-auto">
-                <button className="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-[9px] font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer shadow-md shadow-indigo-650/20 active:scale-98">
-                  {activeHeroData.btnLabel}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bento Cards: Core Value Propositions */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 py-6 max-w-6xl mx-auto px-4">
-        
-        {/* Prop 1 */}
-        <div className="premium-bento p-6 rounded-3xl bg-white dark:bg-slate-900/70 border border-slate-200/60 dark:border-slate-800 flex flex-col justify-between gap-4 group cursor-default hover:-translate-y-1 hover:shadow-md hover:shadow-slate-200/30 hover:border-slate-300 dark:hover:border-indigo-800/50 transition-all duration-300">
-          <div className="w-11 h-11 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-650 border border-indigo-100/60 group-hover:scale-105 transition-all duration-300">
-            <Lock className="w-5 h-5" />
-          </div>
-          <div>
-            <h2 className="font-bold text-sm text-slate-800 dark:text-slate-100 tracking-tight mb-1 group-hover:text-indigo-650 dark:group-hover:text-indigo-400 transition-colors">{t.features.privacy}</h2>
-            <p className="text-[13px] text-slate-550 dark:text-slate-400 leading-relaxed font-medium">
-              {t.features.privacyDesc}
-            </p>
+            )}
           </div>
         </div>
 
-        {/* Prop 2 */}
-        <div className="premium-bento p-6 rounded-3xl bg-white dark:bg-slate-900/70 border border-slate-200/60 dark:border-slate-800 flex flex-col justify-between gap-4 group cursor-default hover:-translate-y-1 hover:shadow-md hover:shadow-slate-200/30 hover:border-slate-300 dark:hover:border-purple-800/50 transition-all duration-300">
-          <div className="w-11 h-11 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-650 border border-purple-100/60 group-hover:scale-105 transition-all duration-300">
-            <Cpu className="w-5 h-5" />
-          </div>
-          <div>
-            <h2 className="font-bold text-sm text-slate-800 dark:text-slate-100 tracking-tight mb-1 group-hover:text-purple-650 dark:group-hover:text-purple-400 transition-colors">{t.features.speed}</h2>
-            <p className="text-[13px] text-slate-550 dark:text-slate-400 leading-relaxed font-medium">
-              {t.features.speedDesc}
-            </p>
-          </div>
-        </div>
-
-        {/* Prop 3 */}
-        <div className="premium-bento p-6 rounded-3xl bg-white dark:bg-slate-900/70 border border-slate-200/60 dark:border-slate-800 flex flex-col justify-between gap-4 group cursor-default hover:-translate-y-1 hover:shadow-md hover:shadow-slate-200/30 hover:border-slate-300 dark:hover:border-emerald-800/50 transition-all duration-300">
-          <div className="w-11 h-11 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-650 border border-emerald-100/60 group-hover:scale-105 transition-all duration-300">
-            <Zap className="w-5 h-5" />
-          </div>
-          <div>
-            <h2 className="font-bold text-sm text-slate-800 dark:text-slate-100 tracking-tight mb-1 group-hover:text-emerald-650 dark:group-hover:text-emerald-400 transition-colors">{t.features.free}</h2>
-            <p className="text-[13px] text-slate-550 dark:text-slate-400 leading-relaxed font-medium">
-              {t.features.freeDesc}
-            </p>
-          </div>
+        {/* Core Value Props Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mt-4 text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-900/60">
+            <Check className="w-3 h-3" /> 100% In-Browser RAM
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-900/60">
+            <Zap className="w-3 h-3" /> Hardware Accelerated WASM
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 border border-purple-200/60 dark:border-purple-900/60">
+            <ShieldCheck className="w-3 h-3" /> Zero Server Uploads
+          </span>
         </div>
 
       </section>
 
       {/* Tools Directory Section: Bento Grid Dashboard */}
-      <section id="tools-grid" className="py-16 border-t border-slate-200/60 dark:border-slate-800 mt-12 max-w-6xl mx-auto scroll-mt-24">
-        <div className="text-center mb-10 px-4">
-          <span className="text-[10px] font-bold text-indigo-655 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-900 uppercase tracking-widest">
-            {t.allTools}
-          </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-50 tracking-normal mt-3 mb-3">
-            {t.allTools}
-          </h2>
-          <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
-            {locale === 'es' ? 'Herramientas de alto rendimiento que se ejecutan 100% en tu navegador.' : 
-             locale === 'pt' ? 'Ferramentas de alto desempenho executadas 100% no seu navegador.' : 
-             locale === 'hi' ? 'हाई-स्पीड टूल्स जो सीधे आपके ब्राउज़र में 100% ऑफलाइन चलते हैं।' : 
-             locale === 'fr' ? 'Outils haute performance exécutés 100% dans votre navigateur.' : 
-             locale === 'de' ? 'Hochleistungs-Tools, die zu 100 % in Ihrem Browser laufen.' : 
-             'High-performance tools running fully client-side inside your browser sandbox.'}
-          </p>
-        </div>
-
-        {/* Unified Search Console Panel */}
-        <div className="max-w-3xl mx-auto mb-12 bg-slate-50/50 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-5 md:p-6 shadow-xs px-4 md:px-6">
-          {/* Search Bar */}
-          <div className="max-w-xl mx-auto mb-5 relative">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder={t.searchPlaceholder}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-10 py-3 bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all shadow-xs text-sm text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400 dark:placeholder-slate-500"
-              />
-              <svg className="w-5 h-5 text-slate-400 dark:text-slate-500 absolute left-4.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637z" />
-              </svg>
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer transition-all"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-            {/* Results count */}
-            {searchQuery && (
-              <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-2 text-right pr-1">
-                {filteredTools.length} {locale === 'hi' ? 'टूल्स मिले' : 'tools found'}
-              </p>
-            )}
-          </div>
-
-          {/* Category Filters */}
-          <div className="flex flex-wrap gap-2 justify-center">
+      <section id="tools-grid" className="py-10 border-t border-slate-200/60 dark:border-slate-800 max-w-7xl mx-auto scroll-mt-20 px-4 sm:px-6 lg:px-8">
+        
+        {/* Category Controls & View Switcher Bar */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 bg-slate-50/70 dark:bg-slate-900/50 p-3 rounded-2xl border border-slate-200/70 dark:border-slate-800">
+          
+          {/* Category Tabs */}
+          <div className="flex flex-wrap gap-1.5 justify-center">
             {categories.map((cat) => {
               const CatIcon = cat.icon;
-              const catLabel = cat.id === 'all' ? t.categories.all :
-                               cat.id === 'image-editing' ? t.categories.imageEditing :
-                               cat.id === 'layout-grid' ? t.categories.layoutGrid :
-                               cat.id === 'image-opt' ? t.categories.imageOpt :
-                               cat.id === 'pdf-docs' ? t.categories.pdfDocs : cat.label;
+              const catLabel = cat.id === 'all' ? t.allTools :
+                               cat.id === 'photo-editing' ? (locale === 'es' ? 'Edición & Retoque' : locale === 'hi' ? 'फोटो एडिटिंग' : 'Photo Studio') :
+                               cat.id === 'privacy-security' ? (locale === 'es' ? 'Privacidad & Docs' : locale === 'hi' ? 'प्राइवेसी व Docs' : 'Privacy & Docs') :
+                               cat.id === 'creative-art' ? (locale === 'es' ? 'Arte & Pixel FX' : locale === 'hi' ? 'क्रिएटिव आर्ट' : 'Creative & FX') :
+                               cat.id === 'layout-formats' ? (locale === 'es' ? 'Diseño & Formatos' : locale === 'hi' ? 'लेआउट व फॉर्मेट्स' : 'Layout & Formats') : cat.label;
+
               return (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer border flex items-center gap-1.5 ${
+                  className={`px-3.5 py-1.5 rounded-xl text-[11px] font-bold tracking-tight transition-all cursor-pointer border flex items-center gap-1.5 ${
                     activeCategory === cat.id
-                      ? 'bg-indigo-650 border-indigo-655 text-white shadow-md shadow-indigo-500/15'
-                      : 'bg-white dark:bg-slate-800/70 border-slate-200 dark:border-slate-700 text-slate-655 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:border-slate-350 dark:hover:border-slate-600 shadow-xs'
+                      ? 'bg-indigo-650 border-indigo-655 text-white shadow-sm shadow-indigo-500/20'
+                      : 'bg-white dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-650 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600 shadow-2xs'
                   }`}
                 >
                   <CatIcon className="w-3.5 h-3.5 shrink-0" />
                   <span>{catLabel}</span>
+                  <span className={`text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-md ${activeCategory === cat.id ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400'}`}>
+                    {cat.count}
+                  </span>
                 </button>
               );
             })}
           </div>
+
+          {/* View Mode Toggle Button */}
+          <div className="flex items-center gap-1 bg-white dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 shrink-0">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`p-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                viewMode === 'grid'
+                  ? 'bg-indigo-600 text-white shadow-xs'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+              }`}
+              title="Visual Cards View"
+            >
+              <Layout className="w-3.5 h-3.5" />
+              <span className="text-[10px]">Cards</span>
+            </button>
+            <button
+              onClick={() => setViewMode('compact')}
+              className={`p-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                viewMode === 'compact'
+                  ? 'bg-indigo-600 text-white shadow-xs'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+              }`}
+              title="Compact Quick Finder View"
+            >
+              <Table className="w-3.5 h-3.5" />
+              <span className="text-[10px]">List</span>
+            </button>
+          </div>
         </div>
 
-        {/* Bento Grid */}
-        {searchQuery ? (
-          filteredTools.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-              {filteredTools.map((tool) => renderToolCard(tool))}
-            </div>
-          ) : (
-            renderEmptyState()
-          )
-        ) : activeCategory !== 'all' ? (
-          filteredTools.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-              {filteredTools.map((tool) => renderToolCard(tool))}
-            </div>
-          ) : (
-            renderEmptyState()
-          )
+        {/* Results Info Bar when filtered */}
+        {searchQuery && (
+          <div className="mb-4 text-xs font-semibold text-slate-500 dark:text-slate-400 text-left">
+            Showing {filteredTools.length} tools matching "{searchQuery}"
+          </div>
+        )}
+
+        {/* Directory Presentation (Grid vs Compact) */}
+        {filteredTools.length === 0 ? (
+          renderEmptyState()
+        ) : viewMode === 'grid' ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {filteredTools.map((tool) => renderToolCard(tool))}
+          </div>
         ) : (
-          <div className="space-y-16 px-4 text-left">
-            {categories.filter(cat => cat.id !== 'all').map((cat) => {
-              const catTools = toolDirectory.filter(t => t.category === cat.id);
-              const CatIcon = cat.icon;
-              return (
-                <div key={cat.id} className="space-y-6">
-                  {/* Category Section Header */}
-                  <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-2">
-                    <div className="flex items-center gap-2.5">
-                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center border ${cat.colorClass.split(' ').filter(c => !c.startsWith('hover:')).join(' ')}`}>
-                        <CatIcon className="w-4 h-4" />
-                      </div>
-                      <h3 className="text-base font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">{cat.label}</h3>
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-450 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded-md shadow-2xs">
-                      {catTools.length} Tool{catTools.length !== 1 ? 's' : ''}
-                    </span>
-                  </div>
-                  
-                  {/* Category Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {catTools.map((tool) => renderToolCard(tool))}
-                  </div>
-                </div>
-              );
-            })}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {filteredTools.map((tool) => renderCompactToolRow(tool))}
           </div>
         )}
 
       </section>
 
       {/* Popular Formats & Quick Conversion Matrix Section */}
-      <section className="py-12 border-t border-slate-200/60 dark:border-slate-800 max-w-6xl mx-auto px-4">
+      <section className="py-12 border-t border-slate-200/60 dark:border-slate-800 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <span className="text-[10px] font-bold text-indigo-655 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-900 uppercase tracking-widest">
             High-Speed Matrix
@@ -1255,365 +1275,66 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Featured Showcases (Selected high-impact tools) */}
-      <section className="py-16 border-t border-slate-200/60 mt-12 max-w-5xl mx-auto scroll-mt-24">
-        <div className="text-center mb-16 px-4">
-          <span className="text-[10px] font-bold text-purple-650 bg-purple-50 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30 px-3 py-1 rounded-full border border-purple-100 uppercase tracking-widest">
-            Highlights
+      {/* Trust & Zero-Upload Privacy Guarantee Section */}
+      <section className="py-12 border-t border-slate-200/60 dark:border-slate-800 max-w-5xl mx-auto px-4 text-center">
+        <div className="bg-gradient-to-br from-indigo-950 via-slate-900 to-zinc-950 p-8 sm:p-12 rounded-3xl border border-indigo-900/50 shadow-2xl text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none" />
+          <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center text-indigo-300 mx-auto mb-4 shadow-lg shadow-indigo-500/20">
+            <ShieldCheck className="w-6 h-6" />
+          </div>
+          <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-3">
+            Why 100% Client-Side Matters
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed font-medium mb-6">
+            Unlike cloud image editors that upload your private photos, passport scans, and sensitive bank records to remote servers, ImagePlumber runs completely inside your browser's WebAssembly memory. Your files never leave your device.
+          </p>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-400/30 rounded-full text-emerald-400 text-xs font-bold">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>0 Bytes Transferred • No Server Tracking • Offline Ready</span>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Accordion Section */}
+      <section className="py-12 border-t border-slate-200/60 dark:border-slate-800 max-w-4xl mx-auto px-4 text-left">
+        <div className="text-center mb-8">
+          <span className="text-[10px] font-bold text-indigo-655 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-900 uppercase tracking-widest">
+            FAQ
           </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-50 tracking-normal mt-3 mb-3">
-            See It In Action
+          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-slate-50 tracking-normal mt-2 mb-2">
+            {t.faqTitle}
           </h2>
-          <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
-            Take a closer look at our four flagship local engines running completely client-side in browser threads.
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            {t.faqSubtitle}
           </p>
         </div>
 
-        <div className="space-y-24 px-4">
-          {/* 1. AI Background Remover */}
-          <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
-            <div className="flex-1 space-y-5 text-left">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-purple-50 rounded-2xl flex items-center justify-center border border-purple-100 text-purple-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
-                  <Cpu className="w-5.5 h-5.5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold text-purple-650 uppercase tracking-wider bg-purple-50/40 border border-purple-100/60 px-2 py-0.5 rounded">AI Segmenting</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 mt-1 group-hover:text-purple-650 dark:group-hover:text-purple-400 transition-colors">AI Background Remover</h3>
-                </div>
-              </div>
-              <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-                Remove image backdrops automatically. Powered by neural networks compiling directly in your browser's IndexedDB models cache.
-              </p>
-              <ul className="space-y-2 text-xs font-semibold text-slate-655 dark:text-slate-400">
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Neural subject segmentation (RMBG-1.4)</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>No files transferred to cloud servers</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Instant transparent alpha download</span></li>
-              </ul>
-              <Link 
-                to="/background-remover" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-purple-650 hover:bg-purple-700 text-white rounded-full text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-purple-500/10 active:scale-98"
+        <div className="space-y-3">
+          {homeFaqs.map((faq, index) => {
+            const isOpen = openHomeFaq === index;
+            return (
+              <div 
+                key={index} 
+                className="border border-slate-200/80 dark:border-slate-800 rounded-2xl overflow-hidden bg-white dark:bg-slate-900/60 shadow-2xs transition-all"
               >
-                Launch AI Cutout
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <Link to="/background-remover" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-purple-400/80 group-hover:shadow-[0_12px_40px_rgba(167,139,250,0.15)] transition-all duration-300 flex flex-col cursor-pointer">
-              <div className="h-7 border-b border-zinc-900 px-3 flex items-center shrink-0 bg-zinc-950">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-rose-500/80" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-amber-500/80" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
-                </div>
-              </div>
-              <div className="flex-1 min-h-0 relative">
-                <img 
-                  src="/demo-gifs/bg-remover.gif" 
-                  alt="AI Background Remover Demo" 
-                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
-                  loading="lazy" 
-                />
-                <div className="absolute inset-0 bg-purple-950/0 group-hover:bg-purple-950/40 transition-all duration-300 flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-purple-700 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
-                    Open Tool <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </div>
-            </Link>
-          </div>
-
-          {/* 2. Photo Mosaic Generator */}
-          <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
-            <div className="flex-1 space-y-5 text-left">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-fuchsia-50 rounded-2xl flex items-center justify-center border border-fuchsia-100 text-fuchsia-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
-                  <Grid className="w-5.5 h-5.5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold text-fuchsia-650 uppercase tracking-wider bg-fuchsia-50/40 border border-fuchsia-100/60 px-2 py-0.5 rounded animate-pulse-slow">Artistic Compositions</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 mt-1 group-hover:text-fuchsia-650 dark:group-hover:text-fuchsia-400 transition-colors">Photo Mosaic Generator</h3>
-                </div>
-              </div>
-              <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-                Reconstruct target images from thousands of small photo tiles client-side. Live overlay density controls, color tinting scales, and zero server-side storage footprint.
-              </p>
-              <ul className="space-y-2 text-xs font-semibold text-slate-655 dark:text-slate-400">
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Advanced color-distance Euclidean search</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Adjustable target transparency & tint sliders</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Dynamic 16-color placeholder tiles fallback</span></li>
-              </ul>
-              <Link 
-                to="/photo-mosaic-generator" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-fuchsia-650 hover:bg-fuchsia-700 text-white rounded-full text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-fuchsia-500/10 active:scale-98"
-              >
-                Launch Mosaic Engine
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <Link to="/photo-mosaic-generator" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-fuchsia-400/80 group-hover:shadow-[0_12px_40px_rgba(217,70,239,0.15)] transition-all duration-300 flex flex-col cursor-pointer">
-              <div className="h-7 border-b border-zinc-900 px-3 flex items-center shrink-0 bg-zinc-950">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-rose-500/80" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-amber-500/80" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
-                </div>
-              </div>
-              <div className="flex-1 min-h-0 relative">
-                <img 
-                  src="/demo-gifs/mosaic.gif" 
-                  alt="Photo Mosaic Demo" 
-                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
-                  loading="lazy" 
-                />
-                <div className="absolute inset-0 bg-fuchsia-950/0 group-hover:bg-fuchsia-950/40 transition-all duration-300 flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-fuchsia-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
-                    Open Tool <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </div>
-            </Link>
-          </div>
-
-          {/* 3. Aspect Resizer & Smart Crop */}
-          <div className="flex flex-col md:flex-row-reverse gap-12 items-center justify-between group">
-            <div className="flex-1 space-y-5 text-left">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-amber-50 rounded-2xl flex items-center justify-center border border-amber-100 text-amber-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
-                  <Crop className="w-5.5 h-5.5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold text-amber-650 uppercase tracking-wider bg-amber-50/40 border border-amber-100/60 px-2 py-0.5 rounded">Social Optimization</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 mt-1 group-hover:text-amber-650 dark:group-hover:text-amber-400 transition-colors">Aspect Resizer & Smart Crop</h3>
-                </div>
-              </div>
-              <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-                Crop and resize images to standard social templates. Apply custom margin spacing and smart blur-padding to fit any aspect ratio without stretching.
-              </p>
-              <ul className="space-y-2 text-xs font-semibold text-slate-655 dark:text-slate-400">
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Presets for Instagram, YouTube, and X (Twitter)</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Dynamic blur padding fill for vertical/horizontal bounds</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Interactive canvas crop handles and guides</span></li>
-              </ul>
-              <Link 
-                to="/aspect-resizer" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-amber-600 hover:bg-amber-705 text-white rounded-full text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-amber-500/10 active:scale-98"
-              >
-                Launch Aspect Crop
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <Link to="/aspect-resizer" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-amber-400/80 group-hover:shadow-[0_12px_40px_rgba(245,158,11,0.15)] transition-all duration-300 flex flex-col cursor-pointer">
-              <div className="h-7 border-b border-zinc-900 px-3 flex items-center shrink-0 bg-zinc-950">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-rose-500/80" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-amber-500/80" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
-                </div>
-              </div>
-              <div className="flex-1 min-h-0 relative">
-                <img 
-                  src="/demo-gifs/crop.gif" 
-                  alt="Aspect Resizer Demo" 
-                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
-                  loading="lazy" 
-                />
-                <div className="absolute inset-0 bg-amber-950/0 group-hover:bg-amber-950/40 transition-all duration-300 flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-amber-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
-                    Open Tool <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </div>
-            </Link>
-          </div>
-
-          {/* 4. Image Compressor */}
-          <div className="flex flex-col md:flex-row gap-12 items-center justify-between group">
-            <div className="flex-1 space-y-5 text-left">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-indigo-50 rounded-2xl flex items-center justify-center border border-indigo-100 text-indigo-650 group-hover:scale-105 transition-transform duration-200 shadow-sm">
-                  <ImageIcon className="w-5.5 h-5.5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold text-indigo-650 uppercase tracking-wider bg-indigo-50/40 border border-indigo-100/60 px-2 py-0.5 rounded">Quantization Optimize</span>
-                  <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 mt-1 group-hover:text-indigo-650 dark:group-hover:text-indigo-400 transition-colors">Image Compressor</h3>
-                </div>
-              </div>
-              <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-                Reduce image file sizes by up to 90% without losing visible quality. Optimize JPEGs, PNGs, and WebPs locally in milliseconds using hardware-accelerated quantization.
-              </p>
-              <ul className="space-y-2 text-xs font-semibold text-slate-655 dark:text-slate-400">
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Lossy and lossless client-side compression</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Configurable chroma subsampling & quality sliders</span></li>
-                <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-emerald-650 shrink-0 mt-0.5" /><span>Instant download with batch size comparisons</span></li>
-              </ul>
-              <Link 
-                to="/image-compressor" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-650 hover:bg-indigo-700 text-white rounded-full text-[11px] font-bold uppercase tracking-wider transition shadow-md shadow-indigo-500/10 active:scale-98"
-              >
-                Launch Compressor
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <Link to="/image-compressor" className="flex-1 w-full max-w-[460px] bg-[#0c0c0e] border border-slate-200/40 rounded-3xl overflow-hidden aspect-[4/3] relative select-none shadow-sm group-hover:scale-[1.02] group-hover:border-indigo-400/80 group-hover:shadow-[0_12px_40px_rgba(99,102,241,0.15)] transition-all duration-300 flex flex-col cursor-pointer">
-              <div className="h-7 border-b border-zinc-900 px-3 flex items-center shrink-0 bg-zinc-950">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-rose-500/80" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-amber-500/80" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
-                </div>
-              </div>
-              <div className="flex-1 min-h-0 relative">
-                <img 
-                  src="/demo-gifs/compressor.gif" 
-                  alt="Image Compressor Demo" 
-                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-102 group-hover:brightness-105" 
-                  loading="lazy" 
-                />
-                <div className="absolute inset-0 bg-indigo-950/0 group-hover:bg-indigo-950/40 transition-all duration-300 flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-750 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-xl">
-                    Open Tool <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Security Banner section */}
-      <section className="my-24 max-w-5xl mx-auto rounded-3xl p-8 md:p-10 bg-slate-950 border border-slate-900 relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center gap-8 justify-between text-left">
-        <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-        
-        <div className="space-y-3 max-w-xl text-left">
-          <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 shadow-xs">
-            <Lock className="w-3.5 h-3.5" />
-            Client-Side Promise
-          </div>
-          <p className="text-xl md:text-2xl font-black text-white tracking-tight">Your private files never leave your device</p>
-          <p className="text-xs text-slate-400 leading-relaxed font-medium">
-            ImagePlumber operates under a strict offline isolation sandbox. We do not collect cookies, compile usage analytics profiles, or transfer your pixel configurations.
-          </p>
-        </div>
-
-        <div className="shrink-0 w-full md:w-auto">
-          <Link 
-            to="/privacy" 
-            className="w-full md:w-auto inline-flex justify-center items-center gap-2 px-6 py-3 bg-zinc-900 hover:bg-zinc-800 text-[11px] font-bold uppercase tracking-wider text-zinc-100 hover:text-white rounded-full transition border border-zinc-800 shadow-sm"
-          >
-            View Privacy Policy
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-      </section>
-
-      {/* Dynamic SEO Informational Article & Interactive FAQs */}
-      <section className="max-w-5xl mx-auto px-4 py-16 border-t border-slate-200/60 mt-12 flex flex-col md:flex-row gap-12 text-left">
-        {/* Left Column: 600-word SEO Article */}
-        <div className="flex-1 space-y-6">
-          <div>
-            <span className="text-[10px] font-bold text-indigo-655 bg-indigo-50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30 px-3 py-1 rounded-full border border-indigo-100 uppercase tracking-widest">
-              Knowledge Base
-            </span>
-            <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-normal mt-3 mb-2">
-              Why Use Client-Side Image Tools?
-            </h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 font-semibold uppercase tracking-wider">
-              Secure local file processing in the browser
-            </p>
-          </div>
-          
-          <div className="text-xs md:text-sm text-slate-555 leading-relaxed space-y-4 font-medium">
-            <p>
-              ImagePlumber is a state-of-the-art, free privacy-first local image tools suite designed to bring desktop-class file optimization and editing capabilities straight to your web browser. In the modern digital era, almost every online utility forces users to upload their images and files to remote cloud servers. This standard workflow exposes sensitive data—ranging from government IDs, personal portraits, and confidential receipts to private bank statements—to database leaks, cloud storage vulnerabilities, and third-party data tracking. ImagePlumber completely redefines this paradigm by executing all file transformations 100% client-side. Powered by advanced browser APIs, WebAssembly binaries, Offscreen Canvas rendering, and client-side neural networks like Transformers.js, your files remain strictly within your device's sandbox.
-            </p>
-            
-            <p className="text-slate-900 font-bold text-sm pt-2">Why Local Client-Side Processing is the Modern Standard:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>
-                <strong>Uncompromising Privacy and Safety:</strong> By running all logic inside your browser's sandboxed environment, your original files never cross the network. There are no server uploads, no cloud databases, and no telemetry tracking, making it fully compliant with strict data protection acts like GDPR and CCPA.
-              </li>
-              <li>
-                <strong>Instant Operations with Zero Latency:</strong> Traditional cloud-based file editors suffer from upload bottlenecks, particularly when dealing with massive batches of high-resolution images. ImagePlumber reads your files directly into local RAM. This allows you to compress, crop, or extract text in milliseconds, saving time and cellular data.
-              </li>
-              <li>
-                <strong>Fully Offline-Ready:</strong> All scripts, vector tracers, and AI models are cached directly on your device. Once you visit ImagePlumber, you can disconnect your internet and continue optimizing images, signing PDFs, or splitting grids in absolute offline isolation.
-              </li>
-            </ul>
-
-            <p className="text-slate-900 font-bold text-sm pt-2">An All-In-One Free Toolkit for Creators and Businesses:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li><strong>Local Image Compressor:</strong> Drastically reduce image file sizes by up to 90% in milliseconds. Optimize JPEGs, PNGs, and WebPs client-side with full control over chroma subsampling and quality parameters.</li>
-              <li><strong>AI Background Remover:</strong> Automatically erase backgrounds from images in seconds. Using local ONNX runtime engines, subject segmentation is executed locally on your physical CPU or GPU, downloading model weights directly to your browser's cache.</li>
-              <li><strong>Multi-Language OCR Text Extractor:</strong> Extract text from scanned documents, screenshots, or book pages locally using Tesseract OCR. Copy processed text immediately to your clipboard with no external data transmission.</li>
-              <li><strong>Bank Statement Analyzer & Parser:</strong> Upload credit card and bank statements in PDF, CSV, or Excel formats. Automatically categorize transactions, calculate total cash flow, and export tables to clean spreadsheets without server exposure.</li>
-              <li><strong>Client-Side PDF Signer:</strong> Draw, type, or upload digital signatures to natively overlay on PDF pages. Process contract signing offline and export the signed document safely.</li>
-              <li><strong>Aspect Resizer & Smart Crop:</strong> Easily fit images into social media ratios. Scale, crop, or add smart blurred padding to fit Instagram, YouTube, X, or Facebook layouts.</li>
-              <li><strong>Collage Maker & Grid Splitter:</strong> Compose beautiful photo grids with custom margins, borders, and rounding, or slice single photos into panels for creative Instagram grids.</li>
-              <li><strong>SVG Vectorizer:</strong> Tracing bitmap PNG and JPEG files into clean, scalable vector SVG drawings in real-time.</li>
-            </ul>
-
-            <p className="pt-2">
-              The technological breakthrough behind ImagePlumber lies in the evolution of modern web engines. Historically, complex operations like deep learning subject extraction or multi-threaded image compression required high-performance cloud servers. Today, Web Assembly (WASM) allows developers to run pre-compiled C++ or Rust code inside the browser at near-native speeds, while Web Workers allow running heavy tasks in the background without freezing the UI. This enables ImagePlumber to run Tesseract OCR parsing and ONNX neural models directly on the client's device. Leveraging your local CPU and GPU threads means that the processing power scales with your hardware, providing desktop-class efficiency while giving you 100% ownership and control over your files.
-            </p>
-          </div>
-        </div>
-
-        {/* Right Column: FAQ Accordions */}
-        <div className="w-full md:w-[360px] shrink-0 space-y-6">
-          <div>
-            <span className="text-[10px] font-bold text-purple-650 bg-purple-50 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30 px-3 py-1 rounded-full border border-purple-100 uppercase tracking-widest">
-              FAQ Help
-            </span>
-            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-normal mt-3 mb-2">
-              Common Questions
-            </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-              Quick answers about privacy, offline access, and how client-side computing works.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {homeFaqs.map((faq, index) => {
-              const isOpen = openHomeFaq === index;
-              return (
-                <div 
-                  key={index}
-                  className="premium-bento rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800 p-4 transition-all duration-200 shadow-xs"
+                <button
+                  onClick={() => setOpenHomeFaq(isOpen ? null : index)}
+                  className="w-full flex items-center justify-between p-4 text-left text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 hover:text-indigo-650 dark:hover:text-indigo-400 transition-colors cursor-pointer"
                 >
-                  <button
-                    onClick={() => setOpenHomeFaq(isOpen ? null : index)}
-                    className="w-full flex items-center justify-between text-left text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 hover:text-indigo-650 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-                  >
-                    <span>{faq.q}</span>
-                    <svg
-                      className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-250 ${isOpen ? 'rotate-180 text-indigo-600' : ''}`}
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  <div
-                    className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                      isOpen ? 'max-h-[200px] opacity-100 mt-2.5' : 'max-h-0 opacity-0'
-                    }`}
-                  >
-                    <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-                      {faq.a}
-                    </p>
+                  <span>{faq.q}</span>
+                  <ChevronRight className={`w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0 ml-2 ${isOpen ? 'rotate-90 text-indigo-600' : ''}`} />
+                </button>
+                {isOpen && (
+                  <div className="px-4 pb-4 pt-1 text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium border-t border-slate-100 dark:border-slate-800/60 animate-fade-in">
+                    {faq.a}
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </section>
+
     </div>
   );
 };

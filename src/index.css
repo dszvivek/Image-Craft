@@ -513,3 +513,90 @@ input[type="range"].range-styled::-moz-range-thumb {
 .dark input[type="search"]::placeholder {
   color: #64748b !important;
 }
+
+/* ==========================================================================
+   Interactive Tool Micro-Demo Keyframes & Animations (60 FPS GPU-accelerated)
+   ========================================================================== */
+
+@keyframes wipe-horizontal {
+  0%, 100% { left: 15%; }
+  50% { left: 85%; }
+}
+
+@keyframes laser-sweep {
+  0%, 100% { transform: translateY(-100%); opacity: 0; }
+  20%, 80% { opacity: 1; }
+  50% { transform: translateY(220%); opacity: 1; }
+}
+
+@keyframes glitch-jitter {
+  0%, 100% { transform: translate(0); filter: hue-rotate(0deg); }
+  20% { transform: translate(-3px, 2px); filter: hue-rotate(90deg); }
+  40% { transform: translate(3px, -1px); filter: hue-rotate(180deg); }
+  60% { transform: translate(-2px, -2px); filter: hue-rotate(270deg); }
+  80% { transform: translate(2px, 1px); filter: hue-rotate(360deg); }
+}
+
+@keyframes crop-morph {
+  0%, 100% { width: 52px; height: 52px; border-radius: 6px; }
+  33% { width: 70px; height: 42px; border-radius: 4px; }
+  66% { width: 42px; height: 64px; border-radius: 8px; }
+}
+
+@keyframes rotate-gauge {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  50% { transform: rotate(180deg); }
+  75% { transform: rotate(270deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes panorama-pan {
+  0%, 100% { transform: translateX(0%); }
+  50% { transform: translateX(-40%); }
+}
+
+@keyframes float-badge {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes signature-draw {
+  0% { stroke-dashoffset: 120; }
+  50% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.animate-wipe-x {
+  animation: wipe-horizontal 4s ease-in-out infinite;
+}
+
+.animate-laser {
+  animation: laser-sweep 3s ease-in-out infinite;
+}
+
+.animate-glitch-fx {
+  animation: glitch-jitter 3.5s steps(2, start) infinite;
+}
+
+.animate-crop-box {
+  animation: crop-morph 6s ease-in-out infinite;
+}
+
+.animate-rotate-dial {
+  animation: rotate-gauge 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-pan-scroll {
+  animation: panorama-pan 6s ease-in-out infinite;
+}
+
+.animate-float-subtle {
+  animation: float-badge 3s ease-in-out infinite;
+}
+
+.animate-signature {
+  stroke-dasharray: 120;
+  animation: signature-draw 4s ease-in-out infinite;
+}
+

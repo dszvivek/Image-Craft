@@ -13,7 +13,6 @@ import {
   Image as ImageIcon, 
   Maximize2, 
   LayoutGrid, 
-  Palette, 
   FileText,
   Lock,
   Files,
@@ -22,7 +21,6 @@ import {
   Crop,
   Smile,
   Feather,
-  Grid,
   ChevronRight,
   Home,
   CreditCard,
@@ -48,7 +46,7 @@ import { LanguageSelector } from '../components/LanguageSelector';
 import { 
   getLocaleFromPath, 
   getLocalizedToolPath, 
-  getLocalizedToolMeta, 
+  getShortToolMeta,
   UI_TRANSLATIONS 
 } from '../utils/i18n';
 
@@ -228,273 +226,236 @@ export const Layout = () => {
 
   const showSidebar = !['/', '/about', '/privacy', '/contact', '/faq', '/ambient'].includes(location.pathname);
 
-  const categoriesConfig = {
-    'image-editing': {
-      name: 'AI & Image Editing',
-      description: 'Smart editing, vector tracing & cutout tools',
+  const categoriesConfig: Record<string, { name: string; description: string; colorClass: string; icon: any }> = {
+    'photo-editing': {
+      name: locale === 'es' ? 'Edición y Retoque' : locale === 'pt' ? 'Edição e Retoque' : locale === 'hi' ? 'फोटो स्टूडियो' : locale === 'fr' ? 'Édition & Retouche' : locale === 'de' ? 'Bildbearbeitung' : 'Photo & Image Studio',
+      description: locale === 'es' ? 'Recorte, IA, filtros y color' : locale === 'pt' ? 'Recorte, IA, filtros e cor' : locale === 'hi' ? 'क्रॉप, AI, फिल्टर्स व कलर' : locale === 'fr' ? 'Recadrage, IA et filtres' : locale === 'de' ? 'Zuschneiden, KI & Filter' : 'AI cutout, crop, rotate & filters',
       colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30',
+      icon: Wand2,
+    },
+    'privacy-security': {
+      name: locale === 'es' ? 'Privacidad y Docs' : locale === 'pt' ? 'Privacidade e Docs' : locale === 'hi' ? 'प्राइवेसी व सिक्योरिटी' : locale === 'fr' ? 'Sécurité & Docs' : locale === 'de' ? 'Privatsphäre & Docs' : 'Privacy, Security & Docs',
+      description: locale === 'es' ? 'Censurar, EXIF, firmas y OCR' : locale === 'pt' ? 'Censurar, EXIF, assinaturas e OCR' : locale === 'hi' ? 'ब्लर, EXIF, सिग्नेचर व OCR' : locale === 'fr' ? 'Censure, EXIF et signature' : locale === 'de' ? 'Zensur, EXIF & Signatur' : 'Redact, steganography & PDF tools',
+      colorClass: 'text-rose-650 bg-rose-50 border-rose-100/50 dark:text-rose-400 dark:bg-rose-950/30 dark:border-rose-900/30',
+      icon: ShieldAlert,
+    },
+    'creative-art': {
+      name: locale === 'es' ? 'Arte y Efectos FX' : locale === 'pt' ? 'Arte e Efeitos FX' : locale === 'hi' ? 'क्रिएटिव आर्ट व FX' : locale === 'fr' ? 'Art & Effets FX' : locale === 'de' ? 'Kreativkunst & FX' : 'Creative Art & Pixel FX',
+      description: locale === 'es' ? 'Pixel art, ASCII, glitch y memes' : locale === 'pt' ? 'Pixel art, ASCII, glitch e memes' : locale === 'hi' ? 'पिक्सेल आर्ट, ASCII, ग्लिच व मीम' : locale === 'fr' ? 'Pixel art, ASCII et glitch' : locale === 'de' ? 'Pixel-Art, ASCII & Glitch' : 'Pixel art, ASCII, glitch & SVG',
+      colorClass: 'text-fuchsia-650 bg-fuchsia-50 border-fuchsia-100/50 dark:text-fuchsia-400 dark:bg-fuchsia-950/30 dark:border-fuchsia-900/30',
       icon: Sparkles,
     },
-    'layout-grid': {
-      name: 'Layout & Grid',
-      description: 'Grids, collages, aspect ratio, and memes',
-      colorClass: 'text-pink-655 bg-pink-50 border-pink-100/50 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30',
+    'layout-formats': {
+      name: locale === 'es' ? 'Diseño y Formatos' : locale === 'pt' ? 'Design e Formatos' : locale === 'hi' ? 'लेआउट व फॉर्मेट्स' : locale === 'fr' ? 'Mise en Page' : locale === 'de' ? 'Layout & Formate' : 'Layout, Social & Formats',
+      description: locale === 'es' ? 'Panoramas, collages y compresión' : locale === 'pt' ? 'Panoramas, colagens e compressão' : locale === 'hi' ? 'पैनोरमा, कोलाज व कंप्रेसर' : locale === 'fr' ? 'Panoramas et compression' : locale === 'de' ? 'Panoramen & Komprimierung' : 'Panoramas, collages & converter',
+      colorClass: 'text-amber-650 bg-amber-50 border-amber-100/50 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30',
       icon: LayoutGrid,
-    },
-    'image-opt': {
-      name: 'Optimization & Formats',
-      description: 'Compress, optimize and clean metadata',
-      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30',
-      icon: Sliders,
-    },
-    'pdf-docs': {
-      name: 'PDF & Document Processing',
-      description: 'Analyze statements, sign PDFs, and scan text',
-      colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30',
-      icon: FileText,
     }
   };
 
   const tools = [
-    { 
-      name: 'Ambient Generative Visuals', 
-      path: '/ambient', 
-      icon: Sparkles,
-      category: 'image-editing',
-      description: 'A quiet place on the internet. Living artwork for focus & calm.',
-      colorClass: 'text-indigo-600 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
-    },
+    // Column 1: Photo & Image Studio (7 tools)
     { 
       name: 'AI Background Remover', 
       path: '/background-remover', 
       icon: Cpu,
-      category: 'image-editing',
-      description: 'Isolate subjects completely inside browser.',
+      category: 'photo-editing',
       colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30'
     },
     { 
       name: 'Interactive Image Cropper', 
       path: '/crop-image', 
       icon: Crop,
-      category: 'image-editing',
-      description: 'Crop to 1:1, 4:5, 16:9, or passport ID dimensions.',
+      category: 'photo-editing',
       colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
     },
     { 
       name: 'Image Rotator & Straightener', 
       path: '/rotate-image', 
       icon: RotateCw,
-      category: 'image-editing',
-      description: 'Rotate 90°, mirror flip, and level horizon angles.',
+      category: 'photo-editing',
       colorClass: 'text-blue-600 bg-blue-50 border-blue-100/50 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
     },
     { 
-      name: 'Canvas Border Expander', 
-      path: '/add-border-to-image', 
-      icon: Square,
-      category: 'layout-grid',
-      description: 'Add color frames, blurred padding, and drop shadows.',
-      colorClass: 'text-amber-600 bg-amber-50 border-amber-100/50 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30'
+      name: 'Image Adjuster & Color Tuner', 
+      path: '/adjust-image', 
+      icon: Sliders,
+      category: 'photo-editing',
+      colorClass: 'text-blue-600 bg-blue-50 border-blue-100/50 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
     },
     { 
       name: 'Photo Filter & Duotone Studio', 
       path: '/photo-filters', 
       icon: Wand2,
-      category: 'image-editing',
-      description: '12 aesthetic filters & custom duotone generator.',
+      category: 'photo-editing',
       colorClass: 'text-purple-650 bg-purple-50 border-purple-100/50 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30'
     },
     { 
       name: 'Color Inverter & B&W Converter', 
       path: '/invert-colors', 
       icon: Moon,
-      category: 'image-editing',
-      description: 'Invert to photo negative & Otsu B&W binarize.',
+      category: 'photo-editing',
       colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
-    },
-    { 
-      name: 'Image Adjuster & Color Tuner', 
-      path: '/adjust-image', 
-      icon: Sliders,
-      category: 'image-editing',
-      description: 'Adjust lighting, contrast & Auto-Enhance with split view.',
-      colorClass: 'text-blue-600 bg-blue-50 border-blue-100/50 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
-    },
-    { 
-      name: 'Photo Mosaic Generator', 
-      path: '/photo-mosaic-generator', 
-      icon: Grid,
-      category: 'layout-grid',
-      description: 'Compose target images from tile collections.',
-      colorClass: 'text-fuchsia-600 bg-fuchsia-50 border-fuchsia-100/50 dark:text-fuchsia-400 dark:bg-fuchsia-950/30 dark:border-fuchsia-900/30'
-    },
-    { 
-      name: 'AI Shape Art Generator', 
-      path: '/shape-art-generator', 
-      icon: Sparkles,
-      category: 'image-editing',
-      description: 'Turn photos into cosmic stars, cloud outlines, or floral sketches.',
-      colorClass: 'text-indigo-605 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
     },
     { 
       name: 'Smart Crop & Aspect Resizer', 
       path: '/aspect-resizer', 
       icon: Crop,
-      category: 'layout-grid',
-      description: 'Crop and scale to social preset dimensions.',
+      category: 'photo-editing',
       colorClass: 'text-amber-600 bg-amber-50 border-amber-100/50 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30'
     },
-    { 
-      name: 'SVG Vectorizer', 
-      path: '/svg-vectorizer', 
-      icon: Feather,
-      category: 'image-editing',
-      description: 'Trace raster logos into scalable SVGs.',
-      colorClass: 'text-teal-600 bg-teal-50 border-teal-100/50 dark:text-teal-400 dark:bg-teal-950/30 dark:border-teal-900/30'
-    },
-    { 
-      name: 'OCR Text Extractor', 
-      path: '/ocr-text-extractor', 
-      icon: FileText,
-      category: 'pdf-docs',
-      description: 'Extract multi-language texts from image scans.',
-      colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
-    },
-    { 
-      name: 'Bank Statement Analyzer', 
-      path: '/bank-statement-analyzer', 
-      icon: CreditCard,
-      category: 'pdf-docs',
-      description: 'Analyze PDF/CSV/Excel bank statements client-side.',
-      colorClass: 'text-teal-650 bg-teal-50 border-teal-100/50 dark:text-teal-450 dark:bg-teal-950/30 dark:border-teal-900/30'
-    },
-    { 
-      name: 'Electronic PDF Signer', 
-      path: '/sign-pdf', 
-      icon: PenTool,
-      category: 'pdf-docs',
-      description: 'Draw, type, or upload signatures to sign PDFs offline.',
-      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
-    },
-    { 
-      name: 'Image Compressor', 
-      path: '/image-compressor', 
-      icon: ImageIcon,
-      category: 'image-opt',
-      description: 'Optimize JPEGs, PNGs, and WebPs locally.',
-      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
-    },
-    { 
-      name: 'Batch Image to PDF & Format Converter', 
-      path: '/batch-converter', 
-      icon: Files,
-      category: 'pdf-docs',
-      description: 'Convert and merge images into PDF, WebP, PNG, or JPEG in bulk.',
-      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
-    },
-    { 
-      name: 'Photo Collage Maker', 
-      path: '/collage-maker', 
-      icon: LayoutGrid,
-      category: 'layout-grid',
-      description: 'Assemble images in dynamic canvases.',
-      colorClass: 'text-pink-655 bg-pink-50 border-pink-100/50 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
-    },
-    { 
-      name: 'Color Palette Extractor', 
-      path: '/color-palette-extractor', 
-      icon: Palette,
-      category: 'image-opt',
-      description: 'Quantize colors and copy HEX values.',
-      colorClass: 'text-cyan-600 bg-cyan-50 border-cyan-100/50 dark:text-cyan-400 dark:bg-cyan-950/30 dark:border-cyan-900/30'
-    },
-    { 
-      name: 'Watermark Overlay', 
-      path: '/watermark-overlay', 
-      icon: Copyright,
-      category: 'image-editing',
-      description: 'Apply logos and text watermarks client-side.',
-      colorClass: 'text-rose-600 bg-rose-50 border-rose-100/50 dark:text-rose-450 dark:bg-rose-950/30 dark:border-rose-900/30'
-    },
-    { 
-      name: 'EXIF Metadata Stripper', 
-      path: '/metadata-stripper', 
-      icon: Fingerprint,
-      category: 'image-opt',
-      description: 'Inspect and strip EXIF privacy headers.',
-      colorClass: 'text-red-600 bg-red-50 border-red-100/50 dark:text-red-400 dark:bg-red-950/30 dark:border-red-900/30'
-    },
-    { 
-      name: 'Instagram Grid Splitter', 
-      path: '/instagram-grid-splitter', 
-      icon: Maximize2,
-      category: 'layout-grid',
-      description: 'Slice photos into creative tile grids.',
-      colorClass: 'text-orange-600 bg-orange-50 border-orange-100/50 dark:text-orange-400 dark:bg-orange-950/30 dark:border-orange-900/30'
-    },
-    { 
-      name: 'Instant Meme Generator', 
-      path: '/meme-generator', 
-      icon: Smile,
-      category: 'image-editing',
-      description: 'Design custom top/bottom captioned memes.',
-      colorClass: 'text-green-600 bg-green-50 border-green-100/50 dark:text-green-400 dark:bg-green-950/30 dark:border-green-900/30'
-    },
-    { 
-      name: 'Pixel Art & 8-Bit Converter', 
-      path: '/pixel-art-generator', 
-      icon: Gamepad2,
-      category: 'image-editing',
-      description: 'Game Boy, NES & PICO-8 retro dithering palettes.',
-      colorClass: 'text-fuchsia-650 bg-fuchsia-50 border-fuchsia-100/50 dark:text-fuchsia-400 dark:bg-fuchsia-950/30 dark:border-fuchsia-900/30'
-    },
-    { 
-      name: 'ASCII & Text Art Generator', 
-      path: '/ascii-art-generator', 
-      icon: Terminal,
-      category: 'image-editing',
-      description: 'Matrix green, ANSI colors & 1-click clipboard copy.',
-      colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
-    },
-    { 
-      name: 'Glitch Art & CRT Distortion', 
-      path: '/glitch-image-generator', 
-      icon: Zap,
-      category: 'image-editing',
-      description: 'RGB chromatic split, datamoshing & CRT scanlines.',
-      colorClass: 'text-violet-650 bg-violet-50 border-violet-100/50 dark:text-violet-400 dark:bg-violet-950/30 dark:border-violet-900/30'
-    },
-    { 
-      name: 'Side-by-Side & Before/After Combiner', 
-      path: '/side-by-side-image', 
-      icon: ArrowLeftRight,
-      category: 'layout-grid',
-      description: 'Stitch two photos with Before/After tags & divider borders.',
-      colorClass: 'text-blue-650 bg-blue-50 border-blue-100/50 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
-    },
-    { 
-      name: 'Instagram Panorama & Carousel Splitter', 
-      path: '/instagram-panorama-splitter', 
-      icon: Maximize2,
-      category: 'layout-grid',
-      description: 'Split wide landscapes into seamless 4:5 swipe carousels.',
-      colorClass: 'text-pink-650 bg-pink-50 border-pink-100/50 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
-    },
+
+    // Column 2: Privacy, Security & Docs (7 tools)
     { 
       name: 'Photo Redactor & Censor Tool', 
       path: '/redact-image', 
       icon: ShieldAlert, 
-      category: 'image-editing',
-      description: 'Censor documents, blur faces, and black-out ID numbers.',
+      category: 'privacy-security',
       colorClass: 'text-red-650 bg-red-50 border-red-100/50 dark:text-red-400 dark:bg-red-950/30 dark:border-red-900/30'
     },
     { 
       name: 'Image Steganography & Secret Text', 
       path: '/image-steganography', 
       icon: Lock, 
-      category: 'image-opt',
-      description: 'Hide encrypted secret messages invisibly in PNG images.',
+      category: 'privacy-security',
       colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
+    },
+    { 
+      name: 'EXIF Metadata Stripper', 
+      path: '/metadata-stripper', 
+      icon: Fingerprint,
+      category: 'privacy-security',
+      colorClass: 'text-red-600 bg-red-50 border-red-100/50 dark:text-red-400 dark:bg-red-950/30 dark:border-red-900/30'
+    },
+    { 
+      name: 'Batch Watermark Overlay', 
+      path: '/watermark-overlay', 
+      icon: Copyright,
+      category: 'privacy-security',
+      colorClass: 'text-rose-600 bg-rose-50 border-rose-100/50 dark:text-rose-450 dark:bg-rose-950/30 dark:border-rose-900/30'
+    },
+    { 
+      name: 'Electronic PDF Signer', 
+      path: '/sign-pdf', 
+      icon: PenTool,
+      category: 'privacy-security',
+      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    },
+    { 
+      name: 'Bank Statement Analyzer', 
+      path: '/bank-statement-analyzer', 
+      icon: CreditCard,
+      category: 'privacy-security',
+      colorClass: 'text-teal-650 bg-teal-50 border-teal-100/50 dark:text-teal-450 dark:bg-teal-950/30 dark:border-teal-900/30'
+    },
+    { 
+      name: 'OCR Text Extractor', 
+      path: '/ocr-text-extractor', 
+      icon: FileText,
+      category: 'privacy-security',
+      colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
+    },
+
+    // Column 3: Creative Art & Pixel FX (7 tools)
+    { 
+      name: 'Pixel Art & 8-Bit Converter', 
+      path: '/pixel-art-generator', 
+      icon: Gamepad2,
+      category: 'creative-art',
+      colorClass: 'text-fuchsia-650 bg-fuchsia-50 border-fuchsia-100/50 dark:text-fuchsia-400 dark:bg-fuchsia-950/30 dark:border-fuchsia-900/30'
+    },
+    { 
+      name: 'ASCII & Text Art Generator', 
+      path: '/ascii-art-generator', 
+      icon: Terminal,
+      category: 'creative-art',
+      colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/50 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
+    },
+    { 
+      name: 'Glitch Art & CRT Distortion', 
+      path: '/glitch-image-generator', 
+      icon: Zap,
+      category: 'creative-art',
+      colorClass: 'text-violet-650 bg-violet-50 border-violet-100/50 dark:text-violet-400 dark:bg-violet-950/30 dark:border-violet-900/30'
+    },
+    { 
+      name: 'SVG Vectorizer', 
+      path: '/svg-vectorizer', 
+      icon: Feather,
+      category: 'creative-art',
+      colorClass: 'text-teal-600 bg-teal-50 border-teal-100/50 dark:text-teal-400 dark:bg-teal-950/30 dark:border-teal-900/30'
+    },
+    { 
+      name: 'Instant Meme Generator', 
+      path: '/meme-generator', 
+      icon: Smile,
+      category: 'creative-art',
+      colorClass: 'text-green-600 bg-green-50 border-green-100/50 dark:text-green-400 dark:bg-green-950/30 dark:border-green-900/30'
+    },
+    { 
+      name: 'AI Shape Art Generator', 
+      path: '/shape-art-generator', 
+      icon: Sparkles,
+      category: 'creative-art',
+      colorClass: 'text-indigo-605 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    },
+    { 
+      name: 'Ambient Generative Visuals', 
+      path: '/ambient', 
+      icon: Sparkles,
+      category: 'creative-art',
+      colorClass: 'text-indigo-600 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    },
+
+    // Column 4: Layout, Social & Formats (7 tools)
+    { 
+      name: 'Instagram Panorama & Carousel Splitter', 
+      path: '/instagram-panorama-splitter', 
+      icon: Maximize2,
+      category: 'layout-formats',
+      colorClass: 'text-pink-650 bg-pink-50 border-pink-100/50 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
+    },
+    { 
+      name: 'Side-by-Side & Before/After Combiner', 
+      path: '/side-by-side-image', 
+      icon: ArrowLeftRight,
+      category: 'layout-formats',
+      colorClass: 'text-blue-650 bg-blue-50 border-blue-100/50 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
+    },
+    { 
+      name: 'Photo Collage Maker', 
+      path: '/collage-maker', 
+      icon: LayoutGrid,
+      category: 'layout-formats',
+      colorClass: 'text-pink-655 bg-pink-50 border-pink-100/50 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
+    },
+    { 
+      name: 'Instagram Grid Splitter', 
+      path: '/instagram-grid-splitter', 
+      icon: Maximize2,
+      category: 'layout-formats',
+      colorClass: 'text-orange-600 bg-orange-50 border-orange-100/50 dark:text-orange-400 dark:bg-orange-950/30 dark:border-orange-900/30'
+    },
+    { 
+      name: 'Canvas Border Expander', 
+      path: '/add-border-to-image', 
+      icon: Square,
+      category: 'layout-formats',
+      colorClass: 'text-amber-600 bg-amber-50 border-amber-100/50 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30'
+    },
+    { 
+      name: 'Image Compressor', 
+      path: '/image-compressor', 
+      icon: ImageIcon,
+      category: 'layout-formats',
+      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    },
+    { 
+      name: 'Batch Image to PDF & Format Converter', 
+      path: '/batch-converter', 
+      icon: Files,
+      category: 'layout-formats',
+      colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/50 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
     },
   ];
 
@@ -506,7 +467,7 @@ export const Layout = () => {
       
       {/* Main Navigation */}
       <div className="sticky top-0 z-40 w-full px-4 sm:px-6 lg:px-8 pt-2 sm:pt-4 pointer-events-none">
-        <header className="max-w-7xl mx-auto h-16 glass rounded-2xl border border-slate-200/60 dark:border-slate-850 shadow-md shadow-slate-200/5 dark:shadow-none px-4 sm:px-6 lg:px-8 flex items-center justify-between pointer-events-auto">
+        <header className="max-w-7xl mx-auto h-16 glass rounded-2xl border border-slate-200/60 dark:border-slate-850 shadow-md shadow-slate-200/5 dark:shadow-none px-4 sm:px-6 lg:px-8 flex items-center justify-between pointer-events-auto relative">
           
           {/* Logo */}
           <Link to={locale === 'en' ? '/' : `/${locale}`} className="flex items-center gap-2.5 group">
@@ -535,7 +496,7 @@ export const Layout = () => {
             </NavLink>
  
             {/* Tools Dropdown Trigger */}
-            <div className="relative group/dropdown">
+            <div className="group/dropdown">
               <button className="text-[11px] font-bold uppercase tracking-wider text-slate-550 dark:text-slate-400 hover:text-indigo-650 dark:hover:text-indigo-400 flex items-center gap-1 py-2 cursor-pointer transition-colors">
                 {t.nav.tools}
                 <svg className="w-3.5 h-3.5 text-slate-400 dark:text-slate-555 transition-transform group-hover/dropdown:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -543,61 +504,82 @@ export const Layout = () => {
                 </svg>
               </button>
  
-              {/* Dropdown Menu - Premium Category Grouped Mega Menu */}
-              <div className="absolute left-1/2 -translate-x-1/2 mt-3.5 w-[860px] bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 p-5 rounded-2xl shadow-2xl shadow-slate-200/30 dark:shadow-none opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-200 grid grid-cols-4 gap-5 z-50">
+              {/* Dropdown Menu - Top Tier Balanced Mega Menu (Centered to Header) */}
+              <div className="absolute left-0 right-0 mx-auto top-full mt-2 w-[990px] max-w-[calc(100vw-48px)] bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/80 dark:border-slate-800 p-6 rounded-3xl shadow-2xl shadow-slate-900/15 dark:shadow-none opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-200 z-50">
                 {/* Visual Arrow */}
-                <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white dark:bg-slate-900 border-t border-l border-slate-200/60 dark:border-slate-800 rotate-45" />
+                <div className="absolute -top-1.5 left-[242px] -translate-x-1/2 w-3.5 h-3.5 bg-white dark:bg-slate-900 border-t border-l border-slate-200/80 dark:border-slate-800 rotate-45" />
                 
-                {Object.entries(categoriesConfig).map(([catId, cat]) => {
-                  const CatIcon = cat.icon;
-                  const catTools = tools.filter(t => t.category === catId);
-                  const catName = catId === 'image-editing' ? t.categories.imageEditing :
-                                  catId === 'layout-grid' ? t.categories.layoutGrid :
-                                  catId === 'image-opt' ? t.categories.imageOpt :
-                                  catId === 'pdf-docs' ? t.categories.pdfDocs : cat.name;
+                {/* 4 Balanced Columns */}
+                <div className="grid grid-cols-4 gap-5">
+                  {Object.entries(categoriesConfig).map(([catId, cat]) => {
+                    const CatIcon = cat.icon;
+                    const catTools = tools.filter(t => t.category === catId);
 
-                  return (
-                    <div key={catId} className="flex flex-col gap-2.5">
-                      {/* Category Header */}
-                      <div className="flex items-center gap-2 pb-2 border-b border-slate-100/80 dark:border-slate-800/60">
-                        <div className={`w-7 h-7 rounded-lg flex items-center justify-center border ${cat.colorClass}`}>
-                          <CatIcon className="w-3.5 h-3.5" />
+                    return (
+                      <div key={catId} className="flex flex-col gap-3">
+                        {/* Category Header */}
+                        <div className="flex items-center justify-between pb-2.5 border-b border-slate-100 dark:border-slate-800/80">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <div className={`w-7 h-7 rounded-xl flex items-center justify-center border shadow-xs shrink-0 ${cat.colorClass}`}>
+                              <CatIcon className="w-3.5 h-3.5" />
+                            </div>
+                            <div className="min-w-0">
+                              <p className="text-[11px] font-extrabold text-slate-900 dark:text-slate-100 tracking-tight truncate">{cat.name}</p>
+                              <p className="text-[9px] text-slate-400 dark:text-slate-500 font-semibold truncate mt-0.5">{cat.description}</p>
+                            </div>
+                          </div>
+                          <span className="text-[8.5px] font-mono font-bold text-slate-400 dark:text-slate-500 bg-slate-100/80 dark:bg-slate-800/80 px-1.5 py-0.5 rounded-md shrink-0">
+                            7
+                          </span>
                         </div>
-                        <div className="min-w-0">
-                          <p className="text-[10px] font-extrabold text-slate-900 dark:text-slate-100 uppercase tracking-wider truncate">{catName}</p>
-                          <p className="text-[8px] text-slate-400 dark:text-slate-500 font-bold leading-none mt-0.5 truncate">{cat.description}</p>
+                        
+                        {/* Category Tools List */}
+                        <div className="flex flex-col gap-1">
+                          {catTools.map((tool) => {
+                            const Icon = tool.icon;
+                            const shortMeta = getShortToolMeta(tool.path, locale);
+                            const toolUrl = getLocalizedToolPath(tool.path, locale);
+
+                            return (
+                              <Link
+                                key={tool.path}
+                                to={toolUrl}
+                                className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-slate-50/90 dark:hover:bg-slate-800/70 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white transition-all text-left group/item cursor-pointer"
+                              >
+                                <div className={`w-7 h-7 rounded-lg flex items-center justify-center border shrink-0 ${tool.colorClass} group-hover/item:scale-110 transition-transform`}>
+                                  <Icon className="w-3.5 h-3.5" />
+                                </div>
+                                <div className="space-y-0.5 min-w-0 flex-1">
+                                  <div className="text-[11.5px] font-bold text-slate-800 dark:text-slate-200 leading-tight group-hover/item:text-indigo-650 dark:group-hover/item:text-indigo-400 transition-colors truncate">
+                                    {shortMeta.name}
+                                  </div>
+                                  <div className="text-[9.5px] text-slate-400 dark:text-slate-500 leading-tight font-medium line-clamp-1">
+                                    {shortMeta.desc}
+                                  </div>
+                                </div>
+                              </Link>
+                            );
+                          })}
                         </div>
                       </div>
-                      
-                      {/* Category Tools */}
-                      <div className="flex flex-col gap-1">
-                        {catTools.map((tool) => {
-                          const Icon = tool.icon;
-                          const localizedMeta = getLocalizedToolMeta(tool.path, locale);
-                          const toolTitle = localizedMeta?.title || tool.name;
-                          const toolDesc = localizedMeta?.description || tool.description;
-                          const toolUrl = getLocalizedToolPath(tool.path, locale);
+                    );
+                  })}
+                </div>
 
-                          return (
-                            <Link
-                              key={tool.path}
-                              to={toolUrl}
-                              className="flex items-start gap-2 p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white transition-all text-left group/item"
-                            >
-                              <div className={`w-7 h-7 rounded-lg flex items-center justify-center border shrink-0 ${tool.colorClass} group-hover/item:scale-105 transition-transform`}>
-                                <Icon className="w-3.5 h-3.5" />
-                              </div>
-                              <div className="space-y-0.5 min-w-0">
-                                <div className="text-[10px] font-extrabold leading-tight group-hover/item:text-indigo-650 dark:group-hover/item:text-indigo-400 transition-colors truncate">{toolTitle}</div>
-                                <div className="text-[8px] text-slate-450 dark:text-slate-400 leading-relaxed font-bold line-clamp-2">{toolDesc}</div>
-                              </div>
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                })}
+                {/* Mega Menu Footer Banner */}
+                <div className="mt-5 pt-3.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs px-1">
+                  <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-[11px] font-semibold">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>100% Client-Side Local Memory • Zero Server Uploads • Offline-Ready</span>
+                  </div>
+                  <a
+                    href="#tools-grid"
+                    className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 transition-colors"
+                  >
+                    <span>Explore All 28 Tools</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
               </div>
             </div>
  
@@ -781,20 +763,23 @@ export const Layout = () => {
                         <div className="p-2 bg-white dark:bg-slate-950 border-t border-slate-100/80 dark:border-slate-800 grid grid-cols-1 gap-1.5 animate-fade-in">
                           {catTools.map((tool) => {
                              const Icon = tool.icon;
+                             const shortMeta = getShortToolMeta(tool.path, locale);
+                             const toolUrl = getLocalizedToolPath(tool.path, locale);
+
                              return (
                                <Link
                                  key={tool.path}
-                                 to={tool.path}
+                                 to={toolUrl}
                                  onClick={() => {
                                    setIsMobileMenuOpen(false);
                                    setOpenMobileCategory(null);
                                  }}
-                                 className={`flex items-center gap-2.5 p-2.5 rounded-xl border transition-all ${tool.colorClass} bg-opacity-30 hover:bg-opacity-50`}
+                                 className={`flex items-center gap-2.5 p-2 rounded-xl border transition-all ${tool.colorClass} bg-opacity-30 hover:bg-opacity-50`}
                                >
-                                 <Icon className="w-3.5 h-3.5 shrink-0" />
-                                 <div className="flex flex-col min-w-0">
-                                   <span className="text-[10px] font-extrabold text-slate-805 dark:text-slate-200">{tool.name}</span>
-                                   <span className="text-[8px] text-slate-450 dark:text-slate-400 font-bold leading-normal">{tool.description}</span>
+                                 <Icon className="w-4 h-4 shrink-0" />
+                                 <div className="flex flex-col min-w-0 flex-1">
+                                   <span className="text-[11px] font-extrabold text-slate-850 dark:text-slate-200">{shortMeta.name}</span>
+                                   <span className="text-[9px] text-slate-500 dark:text-slate-400 font-medium leading-normal line-clamp-1">{shortMeta.desc}</span>
                                  </div>
                                </Link>
                              );

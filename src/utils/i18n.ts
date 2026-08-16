@@ -372,8 +372,269 @@ export function getLocalizedToolPath(enPath: string, locale: SupportedLocale): s
   return `/${locale}${enPath}`;
 }
 
+export const SHORT_TOOL_NAMES: Record<string, Record<SupportedLocale, { name: string; desc: string }>> = {
+  'background-remover': {
+    en: { name: 'AI Background Remover', desc: 'Isolate subjects with on-device AI' },
+    es: { name: 'Eliminar Fondo AI', desc: 'Elimina fondos localmente con IA' },
+    pt: { name: 'Remover Fundo AI', desc: 'Recorte de fundo com IA local' },
+    hi: { name: 'बैकग्राउंड हटाएं (AI)', desc: 'लोकल AI से फोटो बैकग्राउंड हटाएं' },
+    fr: { name: 'Supprimer Arrière-Plan', desc: 'Détourage photo avec IA locale' },
+    de: { name: 'Hintergrund Entfernen', desc: 'Objekte lokal mit KI freistellen' },
+  },
+  'crop-image': {
+    en: { name: 'Interactive Cropper', desc: '8-handle crop & passport aspect ratios' },
+    es: { name: 'Recortador de Fotos', desc: 'Recorte 1:1, 4:5, 16:9 y pasaporte' },
+    pt: { name: 'Cortador de Fotos', desc: 'Corte 1:1, 4:5, 16:9 e passaporte' },
+    hi: { name: 'फोटो क्रॉप करें', desc: '1:1, 4:5, 16:9 व पासपोर्ट साइज' },
+    fr: { name: 'Recadrer Image', desc: 'Ratios 1:1, 4:5, 16:9 et passeport' },
+    de: { name: 'Bild Zuschneiden', desc: '1:1, 4:5, 16:9 & Passfoto-Formate' },
+  },
+  'rotate-image': {
+    en: { name: 'Rotator & Straightener', desc: '90° rotate, mirror flip & level tilt' },
+    es: { name: 'Girar y Enderezar', desc: 'Rotación 90°, espejos y nivelación' },
+    pt: { name: 'Girar e Endireitar', desc: 'Gire 90°, espelhe e nivele o horizonte' },
+    hi: { name: 'फोटो घुमाएं / सीधा करें', desc: '90° रोटेट, मिरर और एंगल सीधा करें' },
+    fr: { name: 'Pivoter et Redresser', desc: 'Rotation 90°, miroir et redressement' },
+    de: { name: 'Bild Drehen & Ausrichten', desc: '90° drehen, spiegeln & begradigen' },
+  },
+  'adjust-image': {
+    en: { name: 'Image Adjuster & Tuner', desc: 'Lighting, contrast & auto-enhance' },
+    es: { name: 'Ajustar Brillo y Tono', desc: 'Exposición, contraste y mejora 1-clic' },
+    pt: { name: 'Ajustar Brilho e Tom', desc: 'Exposição, contraste e auto-ajuste' },
+    hi: { name: 'ब्राइटनेस व कंट्रास्ट', desc: 'लाइटिंग, शार्पनेस व ऑटो-एन्हांस' },
+    fr: { name: 'Ajuster Image & Ton', desc: 'Luminosité, contraste et amélioration' },
+    de: { name: 'Bild Anpassen & Tunen', desc: 'Belichtung, Kontrast & Auto-Enhance' },
+  },
+  'photo-filters': {
+    en: { name: 'Photo Filter & Duotone', desc: '12 aesthetic presets & duotone studio' },
+    es: { name: 'Filtros y Duotono', desc: '12 filtros estéticos y mapas de color' },
+    pt: { name: 'Filtros e Duotono', desc: '12 presets e gradientes duotone' },
+    hi: { name: 'फोटो फिल्टर्स व डुओटोन', desc: '12 खूबसूरत फिल्टर्स व कस्टम टोन' },
+    fr: { name: 'Filtres et Duotone', desc: '12 filtres esthétiques et duotones' },
+    de: { name: 'Fotofilter & Duotone', desc: '12 Filter-Presets & Duotone-Generator' },
+  },
+  'invert-colors': {
+    en: { name: 'Color Inverter & B&W', desc: 'Photo negative, solarize & Otsu B&W' },
+    es: { name: 'Invertir Colores y B/N', desc: 'Negativo fotográfico y binarización' },
+    pt: { name: 'Inverter Cores e P&B', desc: 'Negativo de foto e binarização P&B' },
+    hi: { name: 'कलर इनवर्ट व B&W', desc: 'फोटो नेगेटिव और ब्लैक & व्हाइट' },
+    fr: { name: 'Inverser Couleurs', desc: 'Négatif photo et noir & blanc' },
+    de: { name: 'Farben Invertieren & S/W', desc: 'Foto-Negativ & Schwarz-Weiß' },
+  },
+  'aspect-resizer': {
+    en: { name: 'Smart Aspect Resizer', desc: 'Fit social templates with blur padding' },
+    es: { name: 'Redimensionar Aspecto', desc: 'Adapta a redes con relleno difuso' },
+    pt: { name: 'Redimensionar Proporção', desc: 'Ajuste para redes com fundo desfocado' },
+    hi: { name: 'साइज व रेश्यो बदलें', desc: 'सोशल मीडिया साइज व ब्लर पैडिंग' },
+    fr: { name: 'Redimensionneur Ratio', desc: 'Formats sociaux avec flou de marge' },
+    de: { name: 'Format Anpassen', desc: 'Social-Media-Größen mit Unschärfe' },
+  },
+
+  'redact-image': {
+    en: { name: 'Photo Redactor & Censor', desc: 'Blackout private data & blur faces' },
+    es: { name: 'Censurar y Desenfocar', desc: 'Oculta datos privados y caras' },
+    pt: { name: 'Censurar e Desfocar', desc: 'Oculte dados confidenciais e rostos' },
+    hi: { name: 'फोटो सेंसर व ब्लर करें', desc: 'प्राइवेट डेटा छुपाएं व चेहरे ब्लर करें' },
+    fr: { name: 'Censurer et Flouter', desc: 'Masquez données privées et visages' },
+    de: { name: 'Bild Zensieren & Verpixeln', desc: 'Private Daten schwärzen & Gesichter' },
+  },
+  'image-steganography': {
+    en: { name: 'Steganography Secret Text', desc: 'Invisibly hide encrypted text in PNG' },
+    es: { name: 'Esteganografía Oculta', desc: 'Oculta mensajes cifrados en imágenes' },
+    pt: { name: 'Esteganografia Oculta', desc: 'Oculte mensagens secretas em imagens' },
+    hi: { name: 'सीक्रेट मैसेज छिपाएं', desc: 'फोटो में छिपाएं एन्क्रिप्टेड टेक्स्ट' },
+    fr: { name: 'Stéganographie Secrète', desc: 'Cachez du texte chiffré dans l\'image' },
+    de: { name: 'Bild-Steganographie', desc: 'Geheime Nachrichten in Bildern' },
+  },
+  'metadata-stripper': {
+    en: { name: 'EXIF Metadata Stripper', desc: 'Inspect & purge GPS camera headers' },
+    es: { name: 'Eliminar Metadatos EXIF', desc: 'Inspecciona y borra GPS y cámara' },
+    pt: { name: 'Remover Metadados EXIF', desc: 'Limpe coordenadas GPS e câmera' },
+    hi: { name: 'EXIF डेटा हटाएं', desc: 'GPS व कैमरा मेटाडेटा साफ करें' },
+    fr: { name: 'Supprimer Métadonnées', desc: 'Purgez GPS et données d\'appareil' },
+    de: { name: 'Metadaten Entfernen', desc: 'GPS & Kamera-Header löschen' },
+  },
+  'watermark-overlay': {
+    en: { name: 'Batch Watermark Overlay', desc: 'Apply copyright logos & text stamps' },
+    es: { name: 'Marca de Agua en Lote', desc: 'Aplica logos y textos protegidos' },
+    pt: { name: 'Marca d\'Água em Lote', desc: 'Aplique logos e marcas em fotos' },
+    hi: { name: 'वॉटरमार्क लगाएं', desc: 'फोटो पर लोगो व कॉपीराइट टेक्स्ट' },
+    fr: { name: 'Filigrane en Lot', desc: 'Appliquez logos et mentions copyright' },
+    de: { name: 'Wasserzeichen Hinzufügen', desc: 'Logos & Text-Stempel aufbringen' },
+  },
+  'sign-pdf': {
+    en: { name: 'Electronic PDF Signer', desc: 'Draw, type or upload signatures offline' },
+    es: { name: 'Firmar PDF Online', desc: 'Dibuja o escribe firmas sin subir' },
+    pt: { name: 'Assinar PDF Online', desc: 'Desenhe ou digite assinaturas offline' },
+    hi: { name: 'PDF साइन करें', desc: 'डिजिटल सिग्नेचर लगाएं सुरक्षित रूप से' },
+    fr: { name: 'Signer un PDF', desc: 'Signez vos contrats PDF hors ligne' },
+    de: { name: 'PDF Unterschreiben', desc: 'Dokumente offline signieren' },
+  },
+  'bank-statement-analyzer': {
+    en: { name: 'Bank Statement Analyzer', desc: 'Parse PDF/CSV ledgers client-side' },
+    es: { name: 'Analizador de Extractos', desc: 'Audita extractos bancarios en local' },
+    pt: { name: 'Analisador de Extratos', desc: 'Analise extratos bancários em local' },
+    hi: { name: 'बैंक स्टेटमेंट एनालाइजर', desc: 'स्टेटमेंट का हिसाब-किताब देखें' },
+    fr: { name: 'Analyseur Bancaire', desc: 'Analysez relevés bancaires en local' },
+    de: { name: 'Kontoauszug-Analyzer', desc: 'Kontoauszüge lokal analysieren' },
+  },
+  'ocr-text-extractor': {
+    en: { name: 'OCR Text Extractor', desc: 'Extract multi-lingual text from scans' },
+    es: { name: 'Extractor de Texto OCR', desc: 'Extrae texto de fotos y documentos' },
+    pt: { name: 'Extrator de Texto OCR', desc: 'Extraia texto de fotos e recibos' },
+    hi: { name: 'OCR टेक्स्ट निकालें', desc: 'फोटो से लिखा हुआ टेक्स्ट कॉपी करें' },
+    fr: { name: 'Extracteur de Texte OCR', desc: 'Numérisez le texte de vos images' },
+    de: { name: 'OCR Texterkennung', desc: 'Text aus Bildern scannen' },
+  },
+
+  'pixel-art-generator': {
+    en: { name: 'Pixel Art & 8-Bit Studio', desc: 'Game Boy, NES & PICO-8 retro dither' },
+    es: { name: 'Pixel Art 8-Bit', desc: 'Paletas retro Game Boy y tramado' },
+    pt: { name: 'Pixel Art 8-Bit', desc: 'Paletas retro Game Boy e pontilhado' },
+    hi: { name: 'पिक्सेल आर्ट जेनरेटर', desc: '8-बिट रेट्रो गेमिंग स्टाइल फोटो' },
+    fr: { name: 'Pixel Art 8-Bit', desc: 'Palettes rétro Game Boy et trames' },
+    de: { name: 'Pixel-Art-Generator', desc: '8-Bit Retro-Stil & Game Boy Paletten' },
+  },
+  'ascii-art-generator': {
+    en: { name: 'ASCII & Text Art Studio', desc: 'Matrix green & ANSI terminal art' },
+    es: { name: 'Arte ASCII y Texto', desc: 'Convierte fotos en arte de terminal' },
+    pt: { name: 'Arte ASCII e Texto', desc: 'Converta fotos em arte de terminal' },
+    hi: { name: 'ASCII टेक्स्ट आर्ट', desc: 'फोटो को टेक्स्ट व कैरेक्टर में बदलें' },
+    fr: { name: 'Art ASCII & Texte', desc: 'Convertissez en art de terminal vert' },
+    de: { name: 'ASCII-Art-Studio', desc: 'Bilder in Matrix-Textkunst wandeln' },
+  },
+  'glitch-image-generator': {
+    en: { name: 'Glitch Art & CRT Studio', desc: 'RGB split, datamoshing & scanlines' },
+    es: { name: 'Efecto Glitch y CRT', desc: 'Aberración cromática y líneas CRT' },
+    pt: { name: 'Efeito Glitch e CRT', desc: 'Aberração cromática e linhas CRT' },
+    hi: { name: 'ग्लिच आर्ट स्टूडियो', desc: 'RGB स्प्लिट व CRT टीवी इफेक्ट्स' },
+    fr: { name: 'Effet Glitch & CRT', desc: 'Aberration chromatique et lignes CRT' },
+    de: { name: 'Glitch & CRT Effekt', desc: 'RGB-Verschiebung & Scanlines' },
+  },
+  'svg-vectorizer': {
+    en: { name: 'SVG Path Vectorizer', desc: 'Trace raster JPG/PNG to vector SVG' },
+    es: { name: 'Vectorizador SVG', desc: 'Convierte fotos a vectores SVG' },
+    pt: { name: 'Vetorizador SVG', desc: 'Converta imagens em vetor SVG' },
+    hi: { name: 'SVG वेक्टर बनाएं', desc: 'फोटो को स्केलेबल वेक्टर SVG बनाएं' },
+    fr: { name: 'Vectoriseur SVG', desc: 'Tracez en tracés vectoriels SVG' },
+    de: { name: 'SVG Vektorisierer', desc: 'Rasterbilder in SVG-Vektoren umwandeln' },
+  },
+  'meme-generator': {
+    en: { name: 'Instant Meme Generator', desc: 'Custom draggable text captions & fonts' },
+    es: { name: 'Generador de Memes', desc: 'Crea memes con textos arrastrables' },
+    pt: { name: 'Gerador de Memes', desc: 'Crie memes com textos arrastáveis' },
+    hi: { name: 'मीम जेनरेटर', desc: 'फोटो पर फनी मीम टेक्स्ट लिखें' },
+    fr: { name: 'Générateur de Mèmes', desc: 'Créez vos mèmes avec textes' },
+    de: { name: 'Meme-Generator', desc: 'Memes mit Texten & Fonts erstellen' },
+  },
+  'shape-art-generator': {
+    en: { name: 'AI Shape Art Generator', desc: 'Cosmic stars, particle clouds & floral' },
+    es: { name: 'Arte de Formas AI', desc: 'Retratos con estrellas y bocetos' },
+    pt: { name: 'Arte de Formas AI', desc: 'Retratos em estrelas e esboços' },
+    hi: { name: 'शेप आर्ट जेनरेटर', desc: 'तारों व पार्टिकल्स से कलाकृति बनाएं' },
+    fr: { name: 'Art Vectoriel Formes', desc: 'Portraits en étoiles et esquisses' },
+    de: { name: 'Formen-Kunst Generator', desc: 'Fotos in Sternen-Porträts wandeln' },
+  },
+  'ambient': {
+    en: { name: 'Ambient Visuals & Focus', desc: 'Generative canvas for focus & calm' },
+    es: { name: 'Visuales Ambientales', desc: 'Arte generativo para concentración' },
+    pt: { name: 'Visuais Ambientais', desc: 'Arte generativa para foco e calma' },
+    hi: { name: 'एंबिएंट विजुअल्स', desc: 'फोकस व ध्यान के लिए विजुअल आर्ट' },
+    fr: { name: 'Visuels d\'Ambiance', desc: 'Toile générative pour concentration' },
+    de: { name: 'Ambient Visuals', desc: 'Generative Kunst für Entspannung' },
+  },
+
+  'instagram-panorama-splitter': {
+    en: { name: 'Instagram Panorama Splitter', desc: 'Seamless 4:5 swipeable carousel slices' },
+    es: { name: 'Panorámica Instagram', desc: 'Divide paisajes en carrusel deslizable' },
+    pt: { name: 'Panorâmica Instagram', desc: 'Divida fotos em carrossel contínuo' },
+    hi: { name: 'इंस्टाग्राम पैनोरमा स्प्लिटर', desc: 'स्वाइप कैरोसेल 4:5 स्लाइस में काटें' },
+    fr: { name: 'Panorama Instagram', desc: 'Découpez en carrousel sans couture' },
+    de: { name: 'Panorama-Teiler Instagram', desc: 'Nahtlose Swipe-Karussell-Bilder' },
+  },
+  'side-by-side-image': {
+    en: { name: 'Side-by-Side Combiner', desc: 'Stitch Before/After comparison photos' },
+    es: { name: 'Comparar Antes/Después', desc: 'Une fotos en paralelo con etiquetas' },
+    pt: { name: 'Comparar Antes/Depois', desc: 'Junte fotos com tags Antes/Depois' },
+    hi: { name: 'फोटो कंपेयर (Before/After)', desc: 'दो फोटो को साथ-साथ जोड़ें' },
+    fr: { name: 'Comparer Photos', desc: 'Assemblez avant/après avec étiquettes' },
+    de: { name: 'Bilder Vergleichen', desc: 'Vorher/Nachher Fotos zusammenfügen' },
+  },
+  'collage-maker': {
+    en: { name: 'Photo Collage Maker', desc: 'Multi-photo grid templates & spacing' },
+    es: { name: 'Creador de Collages', desc: 'Plantillas de cuadrículas dinámicas' },
+    pt: { name: 'Criador de Colagens', desc: 'Templates de grades para fotos' },
+    hi: { name: 'फोटो कोलाज मेकर', desc: 'सुंदर ग्रिड कोलाज बनाएं' },
+    fr: { name: 'Créateur de Collages', desc: 'Grilles photo avec espacements' },
+    de: { name: 'Fotocollage Erstellen', desc: 'Bilder-Raster & Layout-Vorlagen' },
+  },
+  'instagram-grid-splitter': {
+    en: { name: 'Instagram Grid Splitter', desc: 'Slice photos into 3x3, 3x2 social tiles' },
+    es: { name: 'Cuadrícula Instagram', desc: 'Divide en mosaicos 3x3 para tu perfil' },
+    pt: { name: 'Grade Instagram', desc: 'Divida em blocos 3x3 para o feed' },
+    hi: { name: 'ग्रिड स्प्लिटर (3x3)', desc: 'फोटो को 9 टुकड़ों में बांटें' },
+    fr: { name: 'Grille Instagram', desc: 'Découpez en tuiles 3x3 pour le profil' },
+    de: { name: 'Instagram Raster-Teiler', desc: 'Fotos in 3x3 Kacheln aufteilen' },
+  },
+  'add-border-to-image': {
+    en: { name: 'Canvas Border Expander', desc: 'Frames, blurred padding & drop shadows' },
+    es: { name: 'Bordes y Sombras', desc: 'Bordes sólidos, sombras y desenfoque' },
+    pt: { name: 'Bordas e Sombras', desc: 'Bordas sólidas, sombras e desfoque' },
+    hi: { name: 'बॉर्डर व शैडो लगाएं', desc: 'कलर बॉर्डर, शैडो व ब्लर पैडिंग' },
+    fr: { name: 'Bordures et Ombres', desc: 'Bordures colorées et ombres douces' },
+    de: { name: 'Rahmen & Schatten', desc: 'Farbränder, Schatten & Unschärfe' },
+  },
+  'image-compressor': {
+    en: { name: 'Smart Image Compressor', desc: 'Reduce JPEG, PNG, WebP up to 90%' },
+    es: { name: 'Compresor de Fotos', desc: 'Reduce tamaño sin perder calidad' },
+    pt: { name: 'Compressor de Fotos', desc: 'Reduza tamanho de JPEG, PNG e WebP' },
+    hi: { name: 'फोटो कंप्रेस करें', desc: 'बिना क्वालिटी खोए फोटो साइज घटाएं' },
+    fr: { name: 'Compresseur d\'Image', desc: 'Réduisez le poids sans perte visuelle' },
+    de: { name: 'Bild Komprimieren', desc: 'JPEG, PNG & WebP Dateigröße sparen' },
+  },
+  'batch-converter': {
+    en: { name: 'Batch Format & PDF Converter', desc: 'Bulk convert PNG, JPG, WebP & PDF' },
+    es: { name: 'Conversor por Lotes', desc: 'Convierte y une a PDF o formatos' },
+    pt: { name: 'Conversor em Lote', desc: 'Converta e junte em PDF e formatos' },
+    hi: { name: 'बैच फोटो व PDF कनवर्टर', desc: 'एक साथ कई फोटो को PDF व फॉर्मेट बदलें' },
+    fr: { name: 'Convertisseur par Lots', desc: 'Convertissez et fusionnez en PDF' },
+    de: { name: 'Stapel-Konverter', desc: 'Bilder stapelweise in PDF & WebP' },
+  },
+  'photo-mosaic-generator': {
+    en: { name: 'Photo Mosaic Generator', desc: 'Compose target photos from photo tiles' },
+    es: { name: 'Mosaico de Fotos', desc: 'Recrea fotos a partir de miles de azulejos' },
+    pt: { name: 'Mosaico de Fotos', desc: 'Crie mosaicos a partir de miniaturas' },
+    hi: { name: 'फोटो मोज़ेक मेकर', desc: 'हजारों छोटी फोटो से बड़ी फोटो बनाएं' },
+    fr: { name: 'Mosaïque Photo', desc: 'Composez des mosaïques à partir de tuiles' },
+    de: { name: 'Fotomosaik Erstellen', desc: 'Mosaikbilder aus vielen kleinen Fotos' },
+  },
+  'color-palette-extractor': {
+    en: { name: 'Color Palette Extractor', desc: 'Extract dominant HEX colors with K-Means' },
+    es: { name: 'Paleta de Colores', desc: 'Extrae códigos HEX dominantes con K-Means' },
+    pt: { name: 'Paleta de Cores', desc: 'Extraia paletas HEX dominantes com K-Means' },
+    hi: { name: 'कलर पैलेट एक्सट्रैक्टर', desc: 'फोटो से मुख्य रंग (HEX) निकालें' },
+    fr: { name: 'Palette de Couleurs', desc: 'Extrayez les couleurs HEX dominantes' },
+    de: { name: 'Farbpalette Extrahieren', desc: 'Dominante HEX-Farbwerte extrahieren' },
+  }
+};
+
 /**
- * Returns localized tool title and description from locale JSON
+ * Returns clean, concise short tool title and description for UI components
+ */
+export function getShortToolMeta(enPath: string, locale: SupportedLocale): { name: string; desc: string } {
+  const toolKey = enPath.replace(/^\//, '');
+  const entry = SHORT_TOOL_NAMES[toolKey]?.[locale] || SHORT_TOOL_NAMES[toolKey]?.en;
+  if (entry) {
+    return entry;
+  }
+  return {
+    name: toolKey.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+    desc: 'Client-side privacy tool'
+  };
+}
+
+/**
+ * Returns localized tool title and description from locale JSON (for SEO tags)
  */
 export function getLocalizedToolMeta(enPath: string, locale: SupportedLocale) {
   const toolKey = enPath.replace(/^\//, '');
