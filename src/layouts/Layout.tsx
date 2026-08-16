@@ -214,6 +214,15 @@ export const Layout = () => {
         document.head.appendChild(twitterUrl);
       }
       twitterUrl.setAttribute('content', `https://imageplumber.com${location.pathname}`);
+
+      // Google Analytics (GA4) SPA Virtual Pageview
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'page_view', {
+          page_title: fullTitle,
+          page_location: `https://imageplumber.com${location.pathname}`,
+          page_path: location.pathname,
+        });
+      }
     }
   }, [location.pathname]);
 
