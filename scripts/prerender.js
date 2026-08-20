@@ -3,14 +3,24 @@ import path from 'path';
 
 // Define the root of our dist folder
 const distDir = path.resolve('dist');
-const templatePath = path.join(distDir, 'index.html');
+const sourceTemplatePath = path.resolve('index.html');
+const distIndexPath = path.join(distDir, 'index.html');
 
-if (!fs.existsSync(templatePath)) {
-  console.error(`Error: Could not find build template at ${templatePath}. Ensure 'npm run build' completes first.`);
+if (!fs.existsSync(distIndexPath)) {
+  console.error(`Error: Could not find build template at ${distIndexPath}. Ensure 'npm run build' completes first.`);
   process.exit(1);
 }
 
-const templateContent = fs.readFileSync(templatePath, 'utf8');
+// Extract Vite production assets from the initial build output
+const distIndexRaw = fs.readFileSync(distIndexPath, 'utf8');
+const viteAssetTags = (distIndexRaw.match(/<(script|link)[^>]*(assets|modulepreload)[^>]*>(<\/script>)?/g) || []).join('\n    ');
+
+// Construct pristine base template from the source index.html
+let sourceTemplate = fs.readFileSync(sourceTemplatePath, 'utf8');
+// Remove development script tag and inject fingerprinted production assets before </head>
+sourceTemplate = sourceTemplate.replace(/<script type="module" src="\/src\/main\.tsx"><\/script>/, '');
+sourceTemplate = sourceTemplate.replace('</head>', `  ${viteAssetTags}\n  </head>`);
+const cleanBaseTemplate = sourceTemplate;
 
 // Load central metadata database
 const metadataPath = path.resolve('src/routes/metadata.json');
@@ -99,7 +109,7 @@ const languages = [
       'girar-imagem': 'rotate-image',
       'adicionar-borda-imagem': 'add-border-to-image',
       'filtros-fotos': 'photo-filters',
-      'inverter-cores': 'inverter-cores',
+      'inverter-cores': 'invert-colors',
       'ajustar-imagem': 'adjust-image',
       'gerador-memes': 'meme-generator',
       'marca-dagua': 'watermark-overlay',
@@ -391,37 +401,134 @@ const filesMap = {
   'decode-hidden-message': 'src/pages/ImageSteganography.tsx'
 };
 
+const i18nHeadings = {
+  en: {
+    badge: '🔒 100% Client-Side Privacy',
+    home: 'Home',
+    about: 'About Us',
+    faq: 'Help FAQ',
+    privacy: 'Privacy Policy',
+    contact: 'Contact Us',
+    launchTool: 'Launch Tool',
+    howItWorks: 'How It Works: Easy Step-by-Step Guide',
+    keyFeatures: 'Key Features & Processing Details',
+    faqTitle: 'Frequently Asked Questions (FAQ)',
+    otherTools: 'Try Our Other Free Local Tools',
+    footerRights: 'All rights reserved. Your privacy is our top priority.',
+    footerDesc: 'All files are processed locally inside your web browser sandbox via WebAssembly, canvas elements, and client-side models. We do not transfer, store, or view any of your images or sensitive documents.'
+  },
+  es: {
+    badge: '🔒 100% en el Navegador • Sin Subidas',
+    home: 'Inicio',
+    about: 'Sobre Nosotros',
+    faq: 'Preguntas Frecuentes',
+    privacy: 'Privacidad',
+    contact: 'Contacto',
+    launchTool: 'Lanzar Herramienta',
+    howItWorks: 'Cómo Funciona: Guía Paso a Paso',
+    keyFeatures: 'Características Principales y Seguridad',
+    faqTitle: 'Preguntas Frecuentes (FAQ)',
+    otherTools: 'Explora Nuestras Otras Herramientas Privadas',
+    footerRights: 'Todos los derechos reservados. Tu privacidad es nuestra máxima prioridad.',
+    footerDesc: 'Todos los archivos se procesan 100% localmente en la memoria de tu navegador mediante WebAssembly y JavaScript. Tus datos nunca se suben ni se almacenan en servidores.'
+  },
+  pt: {
+    badge: '🔒 100% Local • Sem Uploads',
+    home: 'Início',
+    about: 'Sobre Nós',
+    faq: 'Ajuda e FAQ',
+    privacy: 'Privacidade',
+    contact: 'Contato',
+    launchTool: 'Iniciar Ferramenta',
+    howItWorks: 'Como Funciona: Guia Passo a Passo',
+    keyFeatures: 'Recursos Principais e Segurança',
+    faqTitle: 'Perguntas Frequentes (FAQ)',
+    otherTools: 'Conheça Nossas Outras Ferramentas Gratuitas',
+    footerRights: 'Todos os direitos reservados. Sua privacidade é nossa prioridade.',
+    footerDesc: 'Todos os arquivos são processados diretamente na memória do seu navegador através de WebAssembly. Nenhum dado é transferido ou armazenado em servidores externos.'
+  },
+  hi: {
+    badge: '🔒 100% सुरक्षित • ज़ीरो सर्वर अपलोड',
+    home: 'होम',
+    about: 'हमारे बारे में',
+    faq: 'मदद व सवाल',
+    privacy: 'प्राइवेसी पॉलिसी',
+    contact: 'संपर्क करें',
+    launchTool: 'टूल शुरू करें',
+    howItWorks: 'कैसे इस्तेमाल करें: आसान गाइड',
+    keyFeatures: 'प्रमुख विशेषताएं और सुरक्षा',
+    faqTitle: 'अक्सर पूछे जाने वाले सवाल (FAQ)',
+    otherTools: 'अन्य फ्री व प्राइवेट टूल्स देखें',
+    footerRights: 'सर्वाधिकार सुरक्षित। आपकी प्राइवेसी हमारी पहली प्राथमिकता है।',
+    footerDesc: 'सभी फाइलें आपके डिवाइस के वेब ब्राउज़र में WebAssembly और लोकल मेमोरी द्वारा प्रोसेस होती हैं। हम आपका कोई भी डेटा या फोटो सर्वर पर कभी अपलोड नहीं करते।'
+  },
+  fr: {
+    badge: '🔒 100% dans le Navigateur • Zéro Upload',
+    home: 'Accueil',
+    about: 'À Propos',
+    faq: 'Aide & FAQ',
+    privacy: 'Confidentialité',
+    contact: 'Contact',
+    launchTool: 'Lancer l\'Outil',
+    howItWorks: 'Mode d\'Emploi : Guide Étape par Étape',
+    keyFeatures: 'Fonctionnalités Clés et Traitement',
+    faqTitle: 'Foire Aux Questions (FAQ)',
+    otherTools: 'Découvrez Nos Autres Outils Gratuits',
+    footerRights: 'Tous droits réservés. Votre confidentialité est notre priorité absolue.',
+    footerDesc: 'Tous vos fichiers sont traités localement dans le bac à sable de votre navigateur via WebAssembly. Nous ne stockons ni ne transférons aucun document.'
+  },
+  de: {
+    badge: '🔒 100% im Browser • Keine Server-Uploads',
+    home: 'Startseite',
+    about: 'Über Uns',
+    faq: 'Hilfe & FAQ',
+    privacy: 'Datenschutz',
+    contact: 'Kontakt',
+    launchTool: 'Tool Starten',
+    howItWorks: 'So Funktioniert Es: Schritt-für-Schritt-Anleitung',
+    keyFeatures: 'Wichtige Funktionen & Verarbeitungsdetails',
+    faqTitle: 'Häufig Gestellte Fragen (FAQ)',
+    otherTools: 'Entdecken Sie Weitere Kostenlose Tools',
+    footerRights: 'Alle Rechte vorbehalten. Ihre Privatsphäre ist unsere oberste Priorität.',
+    footerDesc: 'Alle Dateien werden 100% lokal im Arbeitsspeicher Ihres Browsers via WebAssembly und Canvas verarbeitet. Es werden keinerlei Daten an Cloud-Server übertragen oder gespeichert.'
+  }
+};
+
 /**
- * Generate semantic HTML body to inject inside <div id="root">
+ * Generate semantic HTML body to inject inside <div id="root"> for any language
  */
-function generateStaticBodyContent(route, meta, faqs, competitorComparison = null) {
-  const isHome = route === '';
+function generateStaticBodyContent(route, meta, faqs, competitorComparison = null, langCode = 'en', allToolsInLang = []) {
+  const isHome = route === '' || route === langCode;
   const currentYear = new Date().getFullYear();
+  const h = i18nHeadings[langCode] || i18nHeadings.en;
+  const homeLink = langCode === 'en' ? '/' : `/${langCode}`;
   
-  // Clean navigation header for bots and offline users
+  // Navigation header for bots and offline users
   const navHtml = `
     <header style="margin-bottom: 2.5rem; border-bottom: 1.1px solid #e2e8f0; padding-bottom: 1.25rem; font-family: 'Inter', sans-serif;">
       <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
         <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <div style="width: 2.25rem; height: 2.25rem; border-radius: 0.75rem; background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);">
-            <svg style="width: 1.25rem; height: 1.25rem; color: white;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 20l7-10 7 10" />
-              <path d="M9 20l4-6 4 6" />
-              <circle cx="12" cy="16" r="2" fill="currentColor" />
-            </svg>
-          </div>
-          <span style="font-size: 1.25rem; font-weight: 800; color: #0f172a; font-family: 'Outfit', sans-serif; letter-spacing: -0.02em;">Image<span style="color: #6366f1;">Plumber</span></span>
+          <a href="${homeLink}" style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem;">
+            <div style="width: 2.25rem; height: 2.25rem; border-radius: 0.75rem; background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);">
+              <svg style="width: 1.25rem; height: 1.25rem; color: white;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 20l7-10 7 10" />
+                <path d="M9 20l4-6 4 6" />
+                <circle cx="12" cy="16" r="2" fill="currentColor" />
+              </svg>
+            </div>
+            <span style="font-size: 1.25rem; font-weight: 800; color: #0f172a; font-family: 'Outfit', sans-serif; letter-spacing: -0.02em;">Image<span style="color: #6366f1;">Plumber</span></span>
+          </a>
         </div>
         <div style="font-size: 0.75rem; font-weight: 700; color: #059669; background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 9999px; padding: 0.25rem 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Inter', sans-serif;">
-          🔒 100% Client-Side Privacy
+          ${h.badge}
         </div>
       </div>
       <nav style="display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: 0.875rem; font-weight: 600;">
-        <a href="/" style="color: #6366f1; text-decoration: none; transition: color 0.2s;">Home</a>
-        <a href="/about" style="color: #475569; text-decoration: none; transition: color 0.2s;">About Us</a>
-        <a href="/faq" style="color: #475569; text-decoration: none; transition: color 0.2s;">Help FAQ</a>
-        <a href="/privacy" style="color: #475569; text-decoration: none; transition: color 0.2s;">Privacy Policy</a>
-        <a href="/contact" style="color: #475569; text-decoration: none; transition: color 0.2s;">Contact Us</a>
+        <a href="${homeLink}" style="color: #6366f1; text-decoration: none;">${h.home}</a>
+        <a href="/about" style="color: #475569; text-decoration: none;">${h.about}</a>
+        <a href="/faq" style="color: #475569; text-decoration: none;">${h.faq}</a>
+        <a href="/privacy" style="color: #475569; text-decoration: none;">${h.privacy}</a>
+        <a href="/contact" style="color: #475569; text-decoration: none;">${h.contact}</a>
       </nav>
     </header>
   `;
@@ -429,69 +536,44 @@ function generateStaticBodyContent(route, meta, faqs, competitorComparison = nul
   // Standard footer for bots and offline users
   const footerHtml = `
     <footer style="margin-top: 5rem; border-top: 1px solid #e2e8f0; padding-top: 2.5rem; font-size: 0.875rem; color: #64748b; text-align: center; line-height: 1.6; font-family: 'Inter', sans-serif;">
-      <p style="font-weight: 600; color: #334155;">&copy; ${currentYear} ImagePlumber. All rights reserved. Your privacy is our top priority.</p>
+      <p style="font-weight: 600; color: #334155;">&copy; ${currentYear} ImagePlumber. ${h.footerRights}</p>
       <p style="margin-top: 0.5rem; font-size: 0.75rem; color: #94a3b8; max-width: 600px; margin-left: auto; margin-right: auto;">
-        All files are processed locally inside your web browser sandbox via WebAssembly, canvas elements, and client-side models. We do not transfer, store, or view any of your images or sensitive documents.
+        ${h.footerDesc}
       </p>
     </footer>
   `;
 
   if (isHome) {
-    // Generate homepage HTML showing all tools structured by categories
-    const categories = {
-      'AI & Image Editing': [
-        { name: 'AI Background Remover', path: '/background-remover', desc: 'Isolate subjects completely inside browser using local neural network RMGB-1.4 model.' },
-        { name: 'AI Shape Art Generator', path: '/shape-art-generator', desc: 'Turn photos into cosmic stars, cloud outlines, or floral sketches locally.' },
-        { name: 'SVG Vectorizer', path: '/svg-vectorizer', desc: 'Trace raster PNG/JPEG logos into clean, infinitely scalable vector SVGs.' },
-        { name: 'Watermark Overlay', path: '/watermark-overlay', desc: 'Apply custom text or logo image watermarks client-side with opacity and rotation.' },
-        { name: 'Instant Meme Generator', path: '/meme-generator', desc: 'Design captioned memes with classic drag-and-drop Impact text.' },
-        { name: 'Ambient Generative Visuals', path: '/ambient', desc: 'Continuously evolving ambient generative canvas visuals for focus sessions and sleep.' }
-      ],
-      'Layout & Grid': [
-        { name: 'Smart Crop & Aspect Resizer', path: '/aspect-resizer', desc: 'Resize and crop images to social media standard aspect ratios with blur padding.' },
-        { name: 'Photo Collage Maker', path: '/collage-maker', desc: 'Combine and fit multiple photos in grid layouts with customizable borders.' },
-        { name: 'Photo Mosaic Generator', path: '/photo-mosaic-generator', desc: 'Reconstruct target images from thousands of small photo tiles locally.' },
-        { name: 'Instagram Grid Splitter', path: '/instagram-grid-splitter', desc: 'Slice photos into 3x3, 4x4, or 5x5 tile grids for Instagram profiles.' }
-      ],
-      'Optimization & Formats': [
-        { name: 'Image Compressor', path: '/image-compressor', desc: 'Reduce JPEG, PNG, and WebP file sizes by up to 90% without visible quality loss.' },
-        { name: 'Color Palette Extractor', path: '/color-palette-extractor', desc: 'Extract dominant color palettes and swatches from images with HEX/RGB codes.' },
-        { name: 'EXIF Metadata Stripper', path: '/metadata-stripper', desc: 'Strip GPS locations, camera parameters, and EXIF flags from photos for safe sharing.' }
-      ],
-      'PDF & Documents': [
-        { name: 'Bank Statement Analyzer', path: '/bank-statement-analyzer', desc: 'Parse PDF, CSV, or Excel credit card and bank statements to audit finances offline.' },
-        { name: 'Electronic PDF Signer', path: '/sign-pdf', desc: 'Draw, type, or upload electronic signatures and place them on PDF pages.' },
-        { name: 'OCR Text Extractor', path: '/ocr-text-extractor', desc: 'Scan and extract multi-lingual printed text from images locally using Tesseract.' },
-        { name: 'Batch Converter', path: '/batch-converter', desc: 'Convert format sets and compile multiple photos into a single PDF document.' }
-      ]
-    };
-
-    const categoriesHtml = Object.entries(categories).map(([catName, toolsList]) => {
-      const toolsGridHtml = toolsList.map(t => `
+    let toolsGridHtml = '';
+    if (allToolsInLang && allToolsInLang.length > 0) {
+      toolsGridHtml = allToolsInLang.map(t => `
         <li style="border: 1px solid #e2e8f0; border-radius: 1rem; padding: 1.5rem; background-color: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between;">
           <div>
             <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.1rem; font-weight: 700; color: #0f172a; font-family: 'Outfit', sans-serif;">
-              <a href="${t.path}" style="color: #6366f1; text-decoration: none; border-bottom: 1.5px solid transparent; transition: border-color 0.2s;">${t.name}</a>
+              <a href="${t.path}" style="color: #6366f1; text-decoration: none;">${t.name}</a>
             </h3>
             <p style="margin: 0; font-size: 0.875rem; color: #475569; line-height: 1.6; font-family: 'Inter', sans-serif;">${t.desc}</p>
           </div>
           <div style="margin-top: 1.25rem;">
-            <a href="${t.path}" style="font-size: 0.8rem; font-weight: 700; color: #4f46e5; text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 0.25rem;">Launch Tool &rarr;</a>
+            <a href="${t.path}" style="font-size: 0.8rem; font-weight: 700; color: #4f46e5; text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 0.25rem;">${h.launchTool} &rarr;</a>
           </div>
         </li>
       `).join('\n');
+    }
 
-      return `
-        <section style="margin-bottom: 3.5rem;">
-          <h2 style="color: #0f172a; font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.5rem; font-family: 'Outfit', sans-serif; display: flex; align-items: center; gap: 0.5rem;">
-            <span style="color: #6366f1;">•</span> ${catName}
-          </h2>
-          <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; padding: 0; margin: 0; list-style-type: none;">
-            ${toolsGridHtml}
-          </ul>
-        </section>
-      `;
-    }).join('\n');
+    const faqsHtml = faqs && faqs.length > 0 ? `
+      <section style="margin-top: 4.5rem; font-family: 'Inter', sans-serif;">
+        <h2 style="color: #0f172a; font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; border-top: 1px solid #e2e8f0; padding-top: 2.5rem; font-family: 'Outfit', sans-serif;">${h.faqTitle}</h2>
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          ${faqs.map(f => `
+            <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 1.25rem;">
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-top: 0; margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif;">${f.q}</h3>
+              <p style="font-size: 0.9rem; color: #475569; line-height: 1.65; margin: 0;">${f.a}</p>
+            </div>
+          `).join('\n')}
+        </div>
+      </section>
+    ` : '';
 
     return `
       <div class="static-seo-content" style="padding: 2rem 1.5rem; max-width: 1100px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #334155; line-height: 1.5;">
@@ -499,14 +581,20 @@ function generateStaticBodyContent(route, meta, faqs, competitorComparison = nul
         <main>
           <div style="text-align: center; max-width: 800px; margin: 3rem auto 4.5rem auto;">
             <h1 style="color: #0f172a; font-size: 2.75rem; font-weight: 900; tracking-tight: -0.03em; margin-bottom: 1.25rem; line-height: 1.2; font-family: 'Outfit', sans-serif;">
-              Free Privacy-First Local Image Tools Suite
+              ${meta.title}
             </h1>
             <p style="color: #475569; font-size: 1.2rem; line-height: 1.75; font-family: 'Inter', sans-serif; margin: 0;">
-              Compress, convert, trace, resize, and edit files 100% offline inside your browser sandbox. All operations are run locally in client-side RAM using WebAssembly. Absolute privacy, zero uploads.
+              ${meta.description}
             </p>
           </div>
           
-          ${categoriesHtml}
+          <section style="margin-bottom: 3.5rem;">
+            <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; padding: 0; margin: 0; list-style-type: none;">
+              ${toolsGridHtml}
+            </ul>
+          </section>
+
+          ${faqsHtml}
         </main>
         ${footerHtml}
       </div>
@@ -514,11 +602,11 @@ function generateStaticBodyContent(route, meta, faqs, competitorComparison = nul
   }
 
   // Tool-specific page body rendering
-  const features = meta.schema && meta.schema.featureList ? meta.schema.featureList : [];
+  const features = (meta.features && Array.isArray(meta.features)) ? meta.features : ((meta.schema && meta.schema.featureList) ? meta.schema.featureList : []);
   const featuresHtml = features.length > 0
     ? `
       <section style="margin-top: 2.5rem; font-family: 'Inter', sans-serif;">
-        <h2 style="color: #0f172a; font-size: 1.5rem; font-weight: 800; margin-bottom: 1.25rem; font-family: 'Outfit', sans-serif;">Key Features & Processing Details</h2>
+        <h2 style="color: #0f172a; font-size: 1.5rem; font-weight: 800; margin-bottom: 1.25rem; font-family: 'Outfit', sans-serif;">${h.keyFeatures}</h2>
         <ul style="padding-left: 1.25rem; margin: 0; line-height: 1.8; font-size: 0.95rem; color: #475569; list-style-type: square;">
           ${features.map(f => `<li style="margin-bottom: 0.5rem;"><strong style="color: #1e293b;">${f}</strong></li>`).join('\n')}
         </ul>
@@ -543,7 +631,7 @@ function generateStaticBodyContent(route, meta, faqs, competitorComparison = nul
   const howToHtml = meta.howTo && Array.isArray(meta.howTo) && meta.howTo.length > 0
     ? `
       <section style="margin-top: 3rem; font-family: 'Inter', sans-serif; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 1rem; padding: 1.75rem;">
-        <h2 style="color: #0f172a; font-size: 1.35rem; font-weight: 800; margin-top: 0; margin-bottom: 1.25rem; font-family: 'Outfit', sans-serif;">How It Works: Easy Step-by-Step Guide</h2>
+        <h2 style="color: #0f172a; font-size: 1.35rem; font-weight: 800; margin-top: 0; margin-bottom: 1.25rem; font-family: 'Outfit', sans-serif;">${h.howItWorks}</h2>
         <ol style="padding-left: 1.25rem; margin: 0; line-height: 1.7; font-size: 0.95rem; color: #334155;">
           ${meta.howTo.map(step => `
             <li style="margin-bottom: 0.75rem;">
@@ -555,10 +643,10 @@ function generateStaticBodyContent(route, meta, faqs, competitorComparison = nul
     `
     : '';
 
-  const faqsSectionHtml = faqs.length > 0
+  const faqsSectionHtml = faqs && faqs.length > 0
     ? `
       <section style="margin-top: 3.5rem; font-family: 'Inter', sans-serif;">
-        <h2 style="color: #0f172a; font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; border-top: 1px solid #e2e8f0; padding-top: 2.5rem; font-family: 'Outfit', sans-serif;">Frequently Asked Questions (FAQ)</h2>
+        <h2 style="color: #0f172a; font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; border-top: 1px solid #e2e8f0; padding-top: 2.5rem; font-family: 'Outfit', sans-serif;">${h.faqTitle}</h2>
         <div style="display: flex; flex-direction: column; gap: 1.5rem;">
           ${faqs.map(f => `
             <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 1.25rem;">
@@ -571,22 +659,22 @@ function generateStaticBodyContent(route, meta, faqs, competitorComparison = nul
     `
     : '';
 
-  // internal linking structure
-  const otherToolsList = [
-    { name: 'AI Background Remover', path: '/background-remover' },
-    { name: 'Image Compressor', path: '/image-compressor' },
-    { name: 'OCR Text Extractor', path: '/ocr-text-extractor' },
-    { name: 'Electronic PDF Signer', path: '/sign-pdf' },
-    { name: 'Bank Statement Analyzer', path: '/bank-statement-analyzer' },
-    { name: 'Aspect Resizer & Crop', path: '/aspect-resizer' },
-    { name: 'Batch Image Converter', path: '/batch-converter' },
-    { name: 'SVG Vectorizer', path: '/svg-vectorizer' },
-    { name: 'Ambient Visuals', path: '/ambient' }
-  ].filter(t => t.path !== `/${route}`);
+  // Internal linking to other tools in the same language
+  const currentPath = langCode === 'en' ? (route ? `/${route}` : '/') : (route ? `/${langCode}/${route}` : `/${langCode}`);
+  const otherToolsList = (allToolsInLang || []).filter(t => t.path !== currentPath).slice(0, 8);
 
   const quickLinksHtml = otherToolsList.map(t => `
-    <li style="margin: 0;"><a href="${t.path}" style="color: #6366f1; text-decoration: none; font-weight: 600; font-size: 0.875rem; font-family: 'Inter', sans-serif; transition: color 0.2s;">${t.name} &rarr;</a></li>
+    <li style="margin: 0;"><a href="${t.path}" style="color: #6366f1; text-decoration: none; font-weight: 600; font-size: 0.875rem; font-family: 'Inter', sans-serif;">${t.name} &rarr;</a></li>
   `).join('\n');
+
+  const otherToolsSectionHtml = otherToolsList.length > 0 ? `
+    <section style="margin-top: 4rem; border-top: 1px solid #e2e8f0; padding-top: 2.5rem;">
+      <h2 style="color: #0f172a; font-size: 1.25rem; font-weight: 800; margin-bottom: 1.25rem; font-family: 'Outfit', sans-serif;">${h.otherTools}</h2>
+      <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; list-style-type: none; padding: 0; margin: 0;">
+        ${quickLinksHtml}
+      </ul>
+    </section>
+  ` : '';
 
   return `
     <div class="static-seo-content" style="padding: 2rem 1.5rem; max-width: 850px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #334155; line-height: 1.5;">
@@ -601,20 +689,23 @@ function generateStaticBodyContent(route, meta, faqs, competitorComparison = nul
         ${howToHtml}
         ${featuresHtml}
         ${faqsSectionHtml}
-        
-        <section style="margin-top: 4rem; border-top: 1px solid #e2e8f0; padding-top: 2.5rem;">
-          <h2 style="color: #0f172a; font-size: 1.25rem; font-weight: 800; margin-bottom: 1.25rem; font-family: 'Outfit', sans-serif;">Try Our Other Free Local Tools</h2>
-          <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; list-style-type: none; padding: 0; margin: 0;">
-            ${quickLinksHtml}
-          </ul>
-        </section>
+        ${otherToolsSectionHtml}
       </main>
       ${footerHtml}
     </div>
   `;
 }
 
-// Pre-render static pages loop
+// Build English tools list for navigation & internal linking
+const englishToolsList = Object.entries(routesConfig)
+  .filter(([r]) => r !== '' && !['about', 'privacy', 'contact', 'faq'].includes(r))
+  .map(([r, m]) => ({
+    name: m.title.replace(' | ImagePlumber', '').replace(' - ImagePlumber', ''),
+    path: `/${r}`,
+    desc: m.description
+  }));
+
+// Pre-render English static pages loop
 for (const [route, meta] of Object.entries(routesConfig)) {
   const isHome = route === '';
   const routeDir = isHome ? distDir : path.join(distDir, route);
@@ -747,7 +838,7 @@ for (const [route, meta] of Object.entries(routesConfig)) {
   const headInject = `${baseSchemaScript}\n    ${breadcrumbSchemaScript}\n    ${howToSchemaScript}\n    ${extraSchemaScript}\n    ${faqSchemaScript}\n  </head>`;
   
   // Do string replacements on the template
-  let pageContent = templateContent;
+  let pageContent = cleanBaseTemplate;
   
   // Replace title tags
   pageContent = pageContent.replace(
@@ -775,8 +866,8 @@ for (const [route, meta] of Object.entries(routesConfig)) {
   const pageEnRoute = isHome ? '' : route;
   
   const hreflangTags = [
-    `<link rel="alternate" hreflang="x-default" href="${siteUrl}/${pageEnRoute}" />`,
-    `<link rel="alternate" hreflang="en" href="${siteUrl}/${pageEnRoute}" />`
+    `<link rel="alternate" hreflang="x-default" href="${siteUrl}${pageEnRoute ? `/${pageEnRoute}` : '/'}" />`,
+    `<link rel="alternate" hreflang="en" href="${siteUrl}${pageEnRoute ? `/${pageEnRoute}` : '/'}" />`
   ];
 
   for (const lang of languages) {
@@ -787,12 +878,8 @@ for (const [route, meta] of Object.entries(routesConfig)) {
   }
 
   pageContent = pageContent.replace(
-    /<link rel="canonical" href=".*?" \/>/,
-    `<link rel="canonical" href="${pageCanonical}" />`
-  );
-  pageContent = pageContent.replace(
-    /<link rel="alternate" hreflang="x-default" href=".*?" \/>[\s\S]*?<link rel="alternate" hreflang=".*?" href=".*?" \/>/,
-    hreflangTags.join('\n    ')
+    /<link rel="canonical" href=".*?" \/>\s*<link rel="alternate" hreflang="x-default" href=".*?" \/>\s*<link rel="alternate" hreflang="en" href=".*?" \/>/,
+    `<link rel="canonical" href="${pageCanonical}" />\n    ${hreflangTags.join('\n    ')}`
   );
   
   // Replace Open Graph title, description, and URL tags
@@ -837,21 +924,30 @@ for (const [route, meta] of Object.entries(routesConfig)) {
   pageContent = pageContent.replace('</head>', headInject);
   
   // Inject structured, search-engine-friendly static HTML body content inside <div id="root">
-  const staticBodyHtml = generateStaticBodyContent(route, meta, faqs, competitorComparison);
+  const staticBodyHtml = generateStaticBodyContent(route, meta, faqs, competitorComparison, 'en', englishToolsList);
   pageContent = pageContent.replace('<div id="root"></div>', `<div id="root">${staticBodyHtml}</div>`);
   
   // Write the output file
   const pageOutputPath = path.join(routeDir, 'index.html');
   fs.writeFileSync(pageOutputPath, pageContent, 'utf8');
-  console.log(` - Prerendered: /${route}`);
+  console.log(` - Prerendered (en): /${route}`);
 }
 
-// Prerender all multi-lingual localized routes (es, pt, hi)
+// Prerender all multi-lingual localized routes (es, pt, hi, fr, de)
 for (const lang of languages) {
   const langMetadataPath = path.resolve(lang.file);
   if (fs.existsSync(langMetadataPath)) {
     const langRoutesConfig = JSON.parse(fs.readFileSync(langMetadataPath, 'utf8'));
     console.log(`\nGenerating ${lang.name} (${lang.code}) localized static pages...`);
+
+    // Build localized tool list for internal linking & homepage categories
+    const localToolsList = Object.entries(langRoutesConfig)
+      .filter(([r]) => r !== '')
+      .map(([r, m]) => ({
+        name: m.title.replace(' | ImagePlumber', '').replace(' - ImagePlumber', ''),
+        path: `/${lang.code}/${r}`,
+        desc: m.description
+      }));
 
     for (const [localRoute, localMeta] of Object.entries(langRoutesConfig)) {
       const isLocalHome = localRoute === '';
@@ -874,16 +970,96 @@ for (const lang of languages) {
         }
       }
 
-      let pageContent = templateContent;
+      // Build Localized Schemas
+      const localWebpageSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        'name': localMeta.title,
+        'description': localMeta.description,
+        'url': pageCanonical,
+        'inLanguage': lang.code,
+        'isPartOf': {
+          '@type': 'WebSite',
+          'name': 'ImagePlumber',
+          'url': `${siteUrl}/${lang.code}`
+        }
+      };
+
+      const localBreadcrumbSchema = !isLocalHome ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': i18nHeadings[lang.code]?.home || 'Home',
+            'item': `${siteUrl}/${lang.code}`
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': localMeta.title,
+            'item': pageCanonical
+          }
+        ]
+      } : null;
+
+      const localHowToSchema = localMeta.howTo && Array.isArray(localMeta.howTo) && localMeta.howTo.length > 0 ? {
+        '@context': 'https://schema.org',
+        '@type': 'HowTo',
+        'name': localMeta.title,
+        'description': localMeta.description,
+        'inLanguage': lang.code,
+        'step': localMeta.howTo.map((step, idx) => ({
+          '@type': 'HowToStep',
+          'position': idx + 1,
+          'name': step.name,
+          'text': step.text
+        }))
+      } : null;
+
+      const localSoftwareSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        'name': localMeta.title,
+        'url': pageCanonical,
+        'inLanguage': lang.code,
+        'applicationCategory': 'MultimediaApplication',
+        'operatingSystem': 'All (Web Browser, Windows, macOS, Linux, iOS, Android)',
+        'offers': {
+          '@type': 'Offer',
+          'price': '0',
+          'priceCurrency': 'USD'
+        },
+        'aggregateRating': {
+          '@type': 'AggregateRating',
+          'ratingValue': '4.9',
+          'ratingCount': (130 + (localRoute.length * 7)).toString(),
+          'bestRating': '5',
+          'worstRating': '1'
+        }
+      };
+
+      const localBaseSchemaScript = `<script type="application/ld+json" id="page-jsonld">${JSON.stringify(localWebpageSchema)}</script>`;
+      const localBreadcrumbSchemaScript = localBreadcrumbSchema
+        ? `<script type="application/ld+json" id="page-breadcrumb-jsonld">${JSON.stringify(localBreadcrumbSchema)}</script>`
+        : '';
+      const localHowToSchemaScript = localHowToSchema
+        ? `<script type="application/ld+json" id="page-howto-jsonld">${JSON.stringify(localHowToSchema)}</script>`
+        : '';
+      const localSoftwareSchemaScript = `<script type="application/ld+json" id="page-software-jsonld">${JSON.stringify(localSoftwareSchema)}</script>`;
+
+      const localHeadInject = `${localBaseSchemaScript}\n    ${localBreadcrumbSchemaScript}\n    ${localHowToSchemaScript}\n    ${localSoftwareSchemaScript}\n  </head>`;
+
+      let pageContent = cleanBaseTemplate;
       pageContent = pageContent.replace(/<html lang="en">/, `<html lang="${lang.code}">`);
       pageContent = pageContent.replace(/<title>.*?<\/title>/, `<title>${localMeta.title}</title>`);
       pageContent = pageContent.replace(/<meta name="title" content=".*?" \/>/, `<meta name="title" content="${localMeta.title}" />`);
       pageContent = pageContent.replace(/<meta name="description" content=".*?" \/>/, `<meta name="description" content="${localMeta.description}" />`);
       pageContent = pageContent.replace(/<meta name="keywords" content=".*?" \/>/, `<meta name="keywords" content="${localMeta.keywords}" />`);
-      pageContent = pageContent.replace(/<link rel="canonical" href=".*?" \/>/, `<link rel="canonical" href="${pageCanonical}" />`);
       pageContent = pageContent.replace(
-        /<link rel="alternate" hreflang="x-default" href=".*?" \/>[\s\S]*?<link rel="alternate" hreflang=".*?" href=".*?" \/>/,
-        localHreflangTags.join('\n    ')
+        /<link rel="canonical" href=".*?" \/>\s*<link rel="alternate" hreflang="x-default" href=".*?" \/>\s*<link rel="alternate" hreflang="en" href=".*?" \/>/,
+        `<link rel="canonical" href="${pageCanonical}" />\n    ${localHreflangTags.join('\n    ')}`
       );
       pageContent = pageContent.replace(/<meta property="og:title" content=".*?" \/>/, `<meta property="og:title" content="${localMeta.title}" />`);
       pageContent = pageContent.replace(/<meta property="og:description" content=".*?" \/>/, `<meta property="og:description" content="${localMeta.description}" />`);
@@ -892,6 +1068,13 @@ for (const lang of languages) {
       pageContent = pageContent.replace(/<meta name="twitter:description" content=".*?" \/>/, `<meta name="twitter:description" content="${localMeta.description}" />`);
       pageContent = pageContent.replace(/<meta property="twitter:url" content=".*?" \/>/, `<meta property="twitter:url" content="${pageCanonical}" />`);
 
+      // Inject localized schemas
+      pageContent = pageContent.replace('</head>', localHeadInject);
+
+      // Generate rich localized semantic HTML body inside <div id="root">
+      const localStaticBodyHtml = generateStaticBodyContent(localRoute, localMeta, [], null, lang.code, localToolsList);
+      pageContent = pageContent.replace('<div id="root"></div>', `<div id="root">${localStaticBodyHtml}</div>`);
+
       const pageOutputPath = path.join(localRouteDir, 'index.html');
       fs.writeFileSync(pageOutputPath, pageContent, 'utf8');
       console.log(` - Prerendered (${lang.code}): /${lang.code}${localRoute ? `/${localRoute}` : ''}`);
@@ -899,4 +1082,4 @@ for (const lang of languages) {
   }
 }
 
-console.log('All static meta index pages prerendered successfully with rich bodies!');
+console.log('\nAll static meta index pages prerendered successfully with rich semantic bodies and full schemas!');

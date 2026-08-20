@@ -21,6 +21,12 @@
         "name": "Komprimiertes Bild Herunterladen",
         "text": "Speichern Sie das optimierte Bild ohne Server-Wartezeiten."
       }
+    ],
+    "features": [
+      "Bis zu 90% Dateigrößenreduktion",
+      "JPEG, PNG und WebP Unterstützung",
+      "Verlustfreier & visueller Modus",
+      "100% lokales RAM-Processing"
     ]
   },
   "hintergrund-entfernen": {
@@ -40,6 +46,12 @@
         "name": "Transparentes PNG Speichern",
         "text": "Laden Sie das freigestellte Bild in voller Auflösung herunter."
       }
+    ],
+    "features": [
+      "Lokales KI-Neuronales-Netz",
+      "Präzise Freistellung von Personen & Objekten",
+      "Transparentes PNG in Originalauflösung",
+      "Keine Cloud-Uploads"
     ]
   },
   "stapel-konverter": {
@@ -59,6 +71,12 @@
         "name": "Paket Herunterladen",
         "text": "Laden Sie das ZIP-Paket oder das PDF-Dokument herunter."
       }
+    ],
+    "features": [
+      "Stapelkonvertierung von dutzenden Bildern",
+      "Konvertierung in WebP, PNG, JPG & PDF",
+      "Mehrere Fotos zu 1 PDF zusammenfügen",
+      "1-Klick ZIP-Download"
     ]
   },
   "pdf-unterschreiben": {
@@ -78,6 +96,12 @@
         "name": "Signiertes PDF Speichern",
         "text": "Platzieren Sie die Unterschrift auf der Seite und laden Sie das PDF herunter."
       }
+    ],
+    "features": [
+      "PDFs lokal unterschreiben & ausfüllen",
+      "Unterschrift zeichnen, tippen oder hochladen",
+      "Mehrseitige PDF-Unterstützung",
+      "100% vertraulich für Verträge"
     ]
   },
   "png-in-jpg": {
@@ -97,6 +121,12 @@
         "name": "JPG Herunterladen",
         "text": "Speichern Sie die konvertierten JPG-Dateien einzeln oder als ZIP."
       }
+    ],
+    "features": [
+      "Verlustarme Konvertierung von PNG in JPG",
+      "Wählbare Kompressionsqualität",
+      "Stapelverarbeitung & ZIP-Export",
+      "Keine Dateigrößenbeschränkung"
     ]
   },
   "jpg-in-png": {
@@ -116,91 +146,437 @@
         "name": "PNG-Dateien Speichern",
         "text": "Laden Sie die fertigen PNG-Bilder in voller Auflösung herunter."
       }
+    ],
+    "features": [
+      "Verlustfreie Konvertierung von JPG in PNG",
+      "Transparenzkanal-Vorbereitung",
+      "Stapelkonvertierung im Arbeitsspeicher",
+      "Volle Auflösung"
     ]
   },
   "bild-zuschneiden": {
     "title": "Bilder Online Kostenlos Zuschneiden (Quadrat, 16:9, Passfoto) | ImagePlumber",
     "description": "Schneiden Sie Fotos kostenlos online zu mit Seitenverhältnis-Vorlagen (1:1, 4:5, 16:9, Passfoto 2x2 in). Drittel-Regel-Raster und null Uploads.",
-    "keywords": "bild zuschneiden online, foto zuschneiden kostenlos, bild quadratisch schneiden, passfoto zuschneiden, instagram bildformat zuschneiden"
+    "keywords": "bild zuschneiden online, foto zuschneiden kostenlos, bild quadratisch schneiden, passfoto zuschneiden, instagram bildformat zuschneiden",
+    "howTo": [
+      {
+        "name": "Bild Öffnen",
+        "text": "Wählen Sie ein Foto aus oder ziehen Sie es per Drag & Drop in den Editor."
+      },
+      {
+        "name": "Zuschnitt Auswählen",
+        "text": "Wählen Sie Seitenverhältnisse wie 1:1, 16:9, 4:5 oder Passfoto und passen Sie den Rahmen an."
+      },
+      {
+        "name": "Zugeschnittenes Bild Speichern",
+        "text": "Laden Sie das zugeschnittene Bild in voller Qualität ohne Qualitätsverlust herunter."
+      }
+    ],
+    "features": [
+      "Seitenverhältnis-Vorlagen für Social Media",
+      "Passfoto-Standard (2x2 Zoll)",
+      "Drittel-Regel-Raster für beste Bildkomposition",
+      "100% private lokale Verarbeitung"
+    ]
   },
   "bild-drehen": {
     "title": "Bilder Online Drehen und Spiegeln (90°, Spiegelung) | ImagePlumber",
     "description": "Drehen Sie Bilder um 90 oder 180 Grad online kostenlos. Begradigen Sie schiefe Horizonte und spiegeln Sie Fotos horizontal oder vertikal.",
-    "keywords": "bild drehen online, foto spiegeln horizontal, horizont begradigen foto, bild um 90 grad drehen, foto spiegeln kostenlos"
+    "keywords": "bild drehen online, foto spiegeln horizontal, horizont begradigen foto, bild um 90 grad drehen, foto spiegeln kostenlos",
+    "howTo": [
+      {
+        "name": "Bild Laden",
+        "text": "Öffnen Sie Ihr Foto im Dreh-Werkzeug."
+      },
+      {
+        "name": "Drehwinkel Wählen",
+        "text": "Drehen Sie um 90°, 180° oder spiegeln Sie horizontal und vertikal."
+      },
+      {
+        "name": "Gedrehtes Bild Speichern",
+        "text": "Laden Sie das ausgerichtete Bild herunter."
+      }
+    ],
+    "features": [
+      "90°, 180° und 270° Drehung",
+      "Horizontales & vertikales Spiegeln",
+      "Horizont-Begradigung",
+      "Keine Qualitätsverluste"
+    ]
   },
   "rahmen-hinzufuegen": {
     "title": "Rahmen zu Bild Hinzufügen Online Kostenlos (Farbe, Unschärfe) | ImagePlumber",
     "description": "Fügen Sie farbige Rahmen, weichgezeichnete Hintergründe und abgerundete Ecken zu Fotos 100% lokal im Browser hinzu.",
-    "keywords": "rahmen zu bild hinzufuegen, fotorahmen online, weisser rahmen foto, unscharfer hintergrund instagram, bild einrahmen kostenlos"
+    "keywords": "rahmen zu bild hinzufuegen, fotorahmen online, weisser rahmen foto, unscharfer hintergrund instagram, bild einrahmen kostenlos",
+    "howTo": [
+      {
+        "name": "Foto Öffnen",
+        "text": "Wählen Sie das Bild aus, dem Sie einen Rahmen hinzufügen möchten."
+      },
+      {
+        "name": "Rahmenstil Konfigurieren",
+        "text": "Wählen Sie Rahmenbreite, Farbpalette, Unschärfe-Hintergrund oder abgerundete Ecken."
+      },
+      {
+        "name": "Gerahmtes Bild Herunterladen",
+        "text": "Speichern Sie das fertige Bild für Instagram oder Druck."
+      }
+    ],
+    "features": [
+      "Volltonfarben & Unschärfe-Hintergrund",
+      "Abgerundete Ecken mit Schatten",
+      "Perfekt für Instagram & Social Media",
+      "100% privat"
+    ]
   },
   "fotofilter": {
     "title": "Fotofilter & Duotone-Effekte Online Kostenlos | ImagePlumber",
     "description": "Wenden Sie Vintage-1977-, Cyberpunk- und Duotone-Filter auf Ihre Fotos 100% lokal im Browser ohne Cloud-Uploads an.",
-    "keywords": "fotofilter online kostenlos, vintage filter foto, duotone effekt online, cyberpunk filter, retro fotobearbeitung"
+    "keywords": "fotofilter online kostenlos, vintage filter foto, duotone effekt online, cyberpunk filter, retro fotobearbeitung",
+    "howTo": [
+      {
+        "name": "Bild Importieren",
+        "text": "Laden Sie Ihr Foto in das Filter-Studio."
+      },
+      {
+        "name": "Filterstil Auswählen",
+        "text": "Wählen Sie aus Vintage, Duotone, Cyberpunk, Schwarz-Weiß oder Film-Looks."
+      },
+      {
+        "name": "Gefiltertes Foto Speichern",
+        "text": "Laden Sie das künstlerisch veredelte Foto herunter."
+      }
+    ],
+    "features": [
+      "Vintage-, Duotone- & Cyberpunk-Filter",
+      "Echtzeit-Vorschau im Browser",
+      "Keine Qualitätsreduktion",
+      "100% werbefrei & lokal"
+    ]
   },
   "farben-invertieren": {
     "title": "Farben Invertieren & Schwarz-Weiß Konverter | ImagePlumber",
     "description": "Konvertieren Sie Fotos in Fotonegative oder kontrastreiches Schwarz-Weiß mit Otsu-Schwellenwert lokal im Browser.",
-    "keywords": "farben invertieren online, foto negativ kostenlos, bild in schwarz weiss umwandeln, otsu binarisierung, solarisation bild"
+    "keywords": "farben invertieren online, foto negativ kostenlos, bild in schwarz weiss umwandeln, otsu binarisierung, solarisation bild",
+    "howTo": [
+      {
+        "name": "Bild Auswählen",
+        "text": "Laden Sie das Foto in den Inverter."
+      },
+      {
+        "name": "Effekt Wählen",
+        "text": "Invertieren Sie RGB-Farben, erzeugen Sie Negativfilme oder binarisiertes Schwarz-Weiß."
+      },
+      {
+        "name": "Ergebnis Herunterladen",
+        "text": "Speichern Sie das invertierte Bild."
+      }
+    ],
+    "features": [
+      "RGB Farbumkehrung",
+      "Fotonegativ-Modus",
+      "Otsu Schwarz-Weiß Binarisierung",
+      "Kein Serverzugriff"
+    ]
   },
   "bild-anpassen": {
     "title": "Helligkeit, Kontrast & Farben Online Anpassen | ImagePlumber",
     "description": "Optimieren Sie Belichtung, Sättigung, Wärme und Schärfe mit Vorher-Nachher-Vergleich und 1-Klick-Auto-Verbesserung.",
-    "keywords": "bild helligkeit anpassen, foto kontrast erhoehen, farbsaettigung bild online, foto auto verbessern, bild schaerfen kostenlos"
+    "keywords": "bild helligkeit anpassen, foto kontrast erhoehen, farbsaettigung bild online, foto auto verbessern, bild schaerfen kostenlos",
+    "howTo": [
+      {
+        "name": "Foto Hochladen",
+        "text": "Öffnen Sie Ihr Bild im Belichtungs- und Farb-Editor."
+      },
+      {
+        "name": "Regler Einstellen",
+        "text": "Optimieren Sie Helligkeit, Kontrast, Sättigung, Wärme und Schärfe mit Vorher/Nachher-Ansicht."
+      },
+      {
+        "name": "Optimiertes Bild Speichern",
+        "text": "Laden Sie das perfekt abgestimmte Foto herunter."
+      }
+    ],
+    "features": [
+      "Helligkeit, Kontrast & Sättigung",
+      "1-Klick Auto-Verbesserung",
+      "Schärfe- und Wärme-Regler",
+      "Echtzeit Vorher/Nachher Split-Ansicht"
+    ]
   },
   "meme-generator": {
     "title": "Meme Generator & Text auf Bild Online Kostenlos | ImagePlumber",
     "description": "Erstellen Sie individuelle Memes und fügen Sie Texte mit Konturen und Schriftarten ohne Wasserzeichen hinzu.",
-    "keywords": "meme generator kostenlos, text auf bild schreiben, meme erstellen online, meme maker deutsch"
+    "keywords": "meme generator kostenlos, text auf bild schreiben, meme erstellen online, meme maker deutsch",
+    "howTo": [
+      {
+        "name": "Meme-Vorlage Laden",
+        "text": "Wählen Sie ein eigenes Foto oder eine Vorlage."
+      },
+      {
+        "name": "Texte & Effekte Hinzufügen",
+        "text": "Schreiben Sie Text für oben und unten mit klassischer Impact-Schrift und Kontur."
+      },
+      {
+        "name": "Meme Herunterladen",
+        "text": "Speichern Sie das fertige Meme ohne Wasserzeichen."
+      }
+    ],
+    "features": [
+      "Klassische Impact-Meme-Schrift mit Kontur",
+      "Eigene Bilder oder Vorlagen",
+      "Keine fremden Wasserzeichen",
+      "Schneller 1-Klick-Export"
+    ]
   },
   "wasserzeichen-hinzufuegen": {
     "title": "Wasserzeichen zu Bildern Hinzufügen (Stapel & ZIP) | ImagePlumber",
     "description": "Fügen Sie Text- oder Logo-Wasserzeichen zu mehreren Fotos im Stapel mit 1-Klick-ZIP-Download hinzu.",
-    "keywords": "wasserzeichen bild kostenlos, foto mit logo schuetzen, stapel wasserzeichen, bild wasserzeichen online"
+    "keywords": "wasserzeichen bild kostenlos, foto mit logo schuetzen, stapel wasserzeichen, bild wasserzeichen online",
+    "howTo": [
+      {
+        "name": "Bilder Hochladen",
+        "text": "Wählen Sie einzelne oder mehrere Fotos im Stapel aus."
+      },
+      {
+        "name": "Wasserzeichen Gestalten",
+        "text": "Fügen Sie Text oder ein Logo-Bild mit Deckkraft, Rotation und Position hinzu."
+      },
+      {
+        "name": "Geschützte Bilder Herunterladen",
+        "text": "Laden Sie die geschützten Fotos einzeln oder als ZIP herunter."
+      }
+    ],
+    "features": [
+      "Text- und Bild-Logo-Wasserzeichen",
+      "Stapelverarbeitung für hunderte Fotos",
+      "Deckkraft-, Rotations- und Kachel-Modus",
+      "1-Klick ZIP-Download"
+    ]
   },
   "metadaten-entfernen": {
     "title": "EXIF-Daten Anzeigen & Löschen Online Kostenlos | ImagePlumber",
     "description": "Lesen Sie GPS-Standortdaten und Kameraeinstellungen aus und entfernen Sie alle privaten Metadaten lokal.",
-    "keywords": "exif daten loeschen, gps daten aus foto entfernen, exif viewer online kostenlos, bild metadaten bereinigen"
+    "keywords": "exif daten loeschen, gps daten aus foto entfernen, exif viewer online kostenlos, bild metadaten bereinigen",
+    "howTo": [
+      {
+        "name": "Fotos Auswählen",
+        "text": "Laden Sie Ihre Bilder in den Metadaten-Bereiniger."
+      },
+      {
+        "name": "EXIF- & GPS-Daten Prüfen",
+        "text": "Sehen Sie Kameraeinstellungen, Aufnahmeort und Aufnahmedatum ein."
+      },
+      {
+        "name": "Bereinigte Fotos Herunterladen",
+        "text": "Entfernen Sie alle sensiblen Metadaten mit 1 Klick für sicheres Teilen."
+      }
+    ],
+    "features": [
+      "GPS-Standort & Kameramodell entfernen",
+      "EXIF-, IPTC- und XMP-Datenlöschung",
+      "Stapelbereinigung für mehrere Fotos",
+      "100% offline & privatsphärefreundlich"
+    ]
   },
   "pixel-art-generator": {
     "title": "Pixel Art Generator & 8-Bit Bildkonverter Online | ImagePlumber",
     "description": "Verwandeln Sie Fotos in 8-Bit Retro Pixel-Art mit Game Boy Farbpaletten und Floyd-Steinberg-Dithering.",
-    "keywords": "pixel art generator, 8 bit foto konverter, gameboy filter online, bild verpixeln kostenlos, retro 8 bit kunst"
+    "keywords": "pixel art generator, 8 bit foto konverter, gameboy filter online, bild verpixeln kostenlos, retro 8 bit kunst",
+    "howTo": [
+      {
+        "name": "Bild Hochladen",
+        "text": "Wählen Sie ein beliebiges Porträt oder Landschaftsfoto."
+      },
+      {
+        "name": "Pixelgröße & Palette Einstellen",
+        "text": "Wählen Sie Pixelblockgröße und Retro-Paletten wie Game Boy, NES oder PICO-8."
+      },
+      {
+        "name": "Pixel Art Speichern",
+        "text": "Laden Sie das 8-Bit Retro-Kunstwerk herunter."
+      }
+    ],
+    "features": [
+      "Klassische 8-Bit Retro-Farbpaletten (Game Boy, NES)",
+      "Floyd-Steinberg Dithering-Algorithmus",
+      "Einstellbare Pixelgröße",
+      "Verlustfreier PNG-Export"
+    ]
   },
   "ascii-art-generator": {
     "title": "ASCII Art Generator & Textkunst aus Bildern | ImagePlumber",
     "description": "Konvertieren Sie Fotos in ASCII-Textkunst mit Matrix-Grün-Themes, ANSI-Farben und PNG-Export.",
-    "keywords": "ascii art generator kostenlos, bild in text umwandeln, foto zu ascii buchstaben, ascii kunst kopieren"
+    "keywords": "ascii art generator kostenlos, bild in text umwandeln, foto zu ascii buchstaben, ascii kunst kopieren",
+    "howTo": [
+      {
+        "name": "Foto Öffnen",
+        "text": "Wählen Sie ein kontrastreiches Bild aus."
+      },
+      {
+        "name": "Zeichensatz & Theme Wählen",
+        "text": "Passen Sie Zeichendichte, Matrix-Grün, ANSI-Farben oder Monochrom an."
+      },
+      {
+        "name": "ASCII Art Kopieren / Herunterladen",
+        "text": "Kopieren Sie den Text oder laden Sie ihn als hochauflösendes Bild herunter."
+      }
+    ],
+    "features": [
+      "Matrix-Grün, ANSI-Farben & Monochrom-Themen",
+      "Detaillierte Zeichendichte-Steuerung",
+      "Text kopieren oder als PNG exportieren",
+      "100% Client-Side Engine"
+    ]
   },
   "glitch-effekt": {
     "title": "Glitch Art & CRT Scanline Generator Online | ImagePlumber",
     "description": "Erzeugen Sie RGB Farbverschiebung, Datamoshing und VHS Retro-Verzerrung direkt in Ihrem Browser.",
-    "keywords": "glitch generator online, glitch art kostenlos, vhs retro filter, crt scanlines fernseher, bild verzerrung"
+    "keywords": "glitch generator online, glitch art kostenlos, vhs retro filter, crt scanlines fernseher, bild verzerrung",
+    "howTo": [
+      {
+        "name": "Bild Importieren",
+        "text": "Laden Sie das gewünschte Foto in das Glitch-Studio."
+      },
+      {
+        "name": "Effekte Mixen",
+        "text": "Aktivieren Sie RGB-Farbverschiebung, CRT-Scanlines, VHS-Artefakte und Datamoshing."
+      },
+      {
+        "name": "Glitch Art Speichern",
+        "text": "Laden Sie das verzerrte Cyberpunk-Bild herunter."
+      }
+    ],
+    "features": [
+      "RGB Chromatic Aberration",
+      "CRT TV Scanlines & Phosphor-Glow",
+      "VHS Tape Distortion & Noise",
+      "Echtzeit-Canvas-Rendering"
+    ]
   },
   "bilder-vergleichen": {
     "title": "Bilder Nebeneinander Vergleichen & Vorher/Nachher | ImagePlumber",
     "description": "Fügen Sie zwei Bilder nebeneinander oder übereinander mit Vorher/Nachher-Badges und Trennrahmen zusammen.",
-    "keywords": "bilder nebeneinander vergleichen, vorher nachher bild erstellen, zwei bilder zusammenfuegen kostenlos, bilder nebeneinander setzen"
+    "keywords": "bilder nebeneinander vergleichen, vorher nachher bild erstellen, zwei bilder zusammenfuegen kostenlos, bilder nebeneinander setzen",
+    "howTo": [
+      {
+        "name": "Zwei Bilder Auswählen",
+        "text": "Laden Sie das Vorher- und Nachher-Foto hoch."
+      },
+      {
+        "name": "Layout & Beschriftung Anpassen",
+        "text": "Wählen Sie Nebeneinander- oder Übereinander-Modus und beschriften Sie die Badges."
+      },
+      {
+        "name": "Vergleichsbild Speichern",
+        "text": "Laden Sie die fertige Fotocollage in voller Schärfe herunter."
+      }
+    ],
+    "features": [
+      "Horizontale & vertikale Ausrichtung",
+      "Einstellbare Trennlinien & Rahmen",
+      "Individuelle Vorher/Nachher-Labels",
+      "Keine Kompressionsverluste"
+    ]
   },
   "instagram-panorama-teiler": {
     "title": "Panorama für Instagram Karussell & TikTok Teilen | ImagePlumber",
     "description": "Teilen Sie Panoramabilder in nahtlose Wisch-Karussells im 4:5 Porträt- und Quadratformat mit ZIP-Download.",
-    "keywords": "instagram panorama teilen, nahtloses karussell instagram, panorama wischen instagram, swipe karussell erstellen"
+    "keywords": "instagram panorama teilen, nahtloses karussell instagram, panorama wischen instagram, swipe karussell erstellen",
+    "howTo": [
+      {
+        "name": "Panoramabild Laden",
+        "text": "Wählen Sie Ihr Weitwinkel- oder Panoramabild aus."
+      },
+      {
+        "name": "Kachelanzahl & Format Wählen",
+        "text": "Wählen Sie 2 bis 10 Kacheln im Instagram 4:5 Porträt- oder 1:1 Quadratformat."
+      },
+      {
+        "name": "Karussell-ZIP Herunterladen",
+        "text": "Laden Sie alle nahtlosen Teilbilder fertig nummeriert im ZIP-Archiv herunter."
+      }
+    ],
+    "features": [
+      "Nahtlose Wisch-Karussells für Instagram & TikTok",
+      "Optimiert für 4:5 Porträt- & 1:1 Quadratformate",
+      "Automatische Nummerierung (1, 2, 3...)",
+      "1-Klick ZIP-Download"
+    ]
   },
   "fotogitter-erstellen": {
     "title": "Fotogitter & Collage Erstellen Online Kostenlos | ImagePlumber",
     "description": "Kombinieren Sie mehrere Fotos in individuelle Raster und Collagen direkt im Browser ohne Wasserzeichen.",
-    "keywords": "fotogitter erstellen kostenlos, fotocollage online erstellen, bilder raster zusammenfuegen, mehrere fotos zusammenfuegen"
+    "keywords": "fotogitter erstellen kostenlos, fotocollage online erstellen, bilder raster zusammenfuegen, mehrere fotos zusammenfuegen",
+    "howTo": [
+      {
+        "name": "Fotos Hinzufügen",
+        "text": "Wählen Sie mehrere Fotos von Ihrem Gerät aus."
+      },
+      {
+        "name": "Raster-Layout Wählen",
+        "text": "Wählen Sie Vorlagen für 2 bis 9 Fotos, Rahmenabstände und Hintergrundfarben."
+      },
+      {
+        "name": "Collage Speichern",
+        "text": "Laden Sie die fertige Fotocollage in hoher Auflösung herunter."
+      }
+    ],
+    "features": [
+      "Grid-Vorlagen für 2 bis 9 Fotos",
+      "Einstellbare Rahmen, Abstände & Ecken",
+      "Hintergrundfarben & Farbverläufe",
+      "Keine Wasserzeichen"
+    ]
   },
   "bild-zensieren": {
     "title": "Bilder Zensieren & Gesichter Verpixeln Online Kostenlos | ImagePlumber",
     "description": "Schwärzen Sie vertrauliche Daten, verpixeln Sie Gesichter und zensieren Sie sensible Dokumente direkt im Browser.",
-    "keywords": "bild zensieren online, gesichter verpixeln kostenlos, sensible daten schwaerzen bild, schwarzer balken zensur"
+    "keywords": "bild zensieren online, gesichter verpixeln kostenlos, sensible daten schwaerzen bild, schwarzer balken zensur",
+    "howTo": [
+      {
+        "name": "Dokument oder Foto Hochladen",
+        "text": "Wählen Sie das Bild mit sensiblen Daten oder Gesichtern."
+      },
+      {
+        "name": "Zensurbereiche Markieren",
+        "text": "Zeichnen Sie schwarze Balken, Verpixelung oder Unschärfe über vertrauliche Informationen."
+      },
+      {
+        "name": "Zensiertes Bild Speichern",
+        "text": "Laden Sie das geschützte Dokument herunter. Alle Daten bleiben 100% lokal."
+      }
+    ],
+    "features": [
+      "Gesichter verpixeln & unkenntlich machen",
+      "Schwarze Zensurbalken für Text & Ausweise",
+      "Unschärfe & Verpixelungs-Pinsel",
+      "100% offline & sicher für Ausweise & Rechnungen"
+    ]
   },
   "bild-steganographie": {
     "title": "Geheime Texte in Bildern Verstecken (Steganographie) | ImagePlumber",
     "description": "Verstecken Sie geheime Nachrichten und Passwörter unsichtbar in Bilddateien mit lokaler Entschlüsselung.",
-    "keywords": "steganographie online, text in bild verstecken, geheime nachricht in foto, steganographie decoder kostenlos"
+    "keywords": "steganographie online, text in bild verstecken, geheime nachricht in foto, steganographie decoder kostenlos",
+    "howTo": [
+      {
+        "name": "Trägerbild Laden",
+        "text": "Wählen Sie ein unauffälliges Bild auf Ihrem Gerät."
+      },
+      {
+        "name": "Geheime Nachricht Eingeben",
+        "text": "Geben Sie Ihren geheimen Text und optional ein Passwort ein und betten Sie ihn ein."
+      },
+      {
+        "name": "Steganographie-Bild Speichern",
+        "text": "Laden Sie das Bild herunter, das die Botschaft unsichtbar in den Pixeln trägt."
+      }
+    ],
+    "features": [
+      "Unsichtbare LSB-Pixel-Verschlüsselung",
+      "Passwortgeschützte AES-Verschlüsselung",
+      "Integrierter Text-Decoder",
+      "100% lokale Ausführung"
+    ]
   }
 }

@@ -21,6 +21,12 @@
         "name": "Baixe a Imagem Comprimida",
         "text": "Salve a foto otimizada instantaneamente sem filas de upload."
       }
+    ],
+    "features": [
+      "Redução de até 90% no tamanho",
+      "Compatível com JPG, PNG e WebP",
+      "Modo visual sem perdas perceptíveis",
+      "Processamento 100% no navegador"
     ]
   },
   "remover-fundo": {
@@ -40,6 +46,12 @@
         "name": "Baixe o PNG Transparente",
         "text": "Baixe a imagem recortada em alta resolução com fundo transparente."
       }
+    ],
+    "features": [
+      "Rede neural de IA executada localmente",
+      "Recorte automático e preciso",
+      "PNG transparente em resolução máxima",
+      "Sem envio para a nuvem"
     ]
   },
   "conversor-em-lote": {
@@ -59,6 +71,12 @@
         "name": "Baixe o Pacote",
         "text": "Baixe o arquivo ZIP compactado ou o PDF final instantaneamente."
       }
+    ],
+    "features": [
+      "Conversão em lote ultra rápida",
+      "Formatos WebP, PNG, JPG e PDF",
+      "Juntar várias fotos em um único PDF",
+      "Download do pacote em ZIP"
     ]
   },
   "assinar-pdf": {
@@ -78,6 +96,12 @@
         "name": "Salve o PDF Assinado",
         "text": "Posicione a assinatura em qualquer página e faça o download seguro."
       }
+    ],
+    "features": [
+      "Assinatura digital direta no navegador",
+      "Desenhar, digitar ou enviar assinatura",
+      "Suporte a PDFs com múltiplas páginas",
+      "Totalmente confidencial para contratos"
     ]
   },
   "png-para-jpg": {
@@ -97,6 +121,12 @@
         "name": "Baixe os JPGs",
         "text": "Baixe os arquivos JPG individuais ou em pacote ZIP."
       }
+    ],
+    "features": [
+      "Conversão rápida de PNG para JPG",
+      "Ajuste de compressão personalizado",
+      "Processamento em lote e download ZIP",
+      "Sem limites de arquivos"
     ]
   },
   "jpg-para-png": {
@@ -116,91 +146,437 @@
         "name": "Baixe os PNGs",
         "text": "Salve as fotos em formato PNG de alta fidelidade."
       }
+    ],
+    "features": [
+      "Conversão sem perda de JPG para PNG",
+      "Preservação da qualidade original",
+      "Processamento de várias imagens simultâneas",
+      "100% no navegador"
     ]
   },
   "cortar-imagem": {
     "title": "Cortar Imagens Online Grátis (Quadrado, 16:9, Passaporte) | ImagePlumber",
     "description": "Corte fotos online grátis com proporções para redes sociais (1:1, 4:5, 16:9, passaporte 2x2 in). Grade da regra dos terços e zero uploads.",
-    "keywords": "cortar imagem online, recortar foto gratis, cortar foto quadrado, cortar foto instagram, corte de imagem online"
+    "keywords": "cortar imagem online, recortar foto gratis, cortar foto quadrado, cortar foto instagram, corte de imagem online",
+    "howTo": [
+      {
+        "name": "Selecionar Imagem",
+        "text": "Carregue a foto ou arraste-a para a área de edição."
+      },
+      {
+        "name": "Ajustar Corte",
+        "text": "Escolha proporções como 1:1, 16:9, 4:5 ou formato passaporte e enquadre a foto."
+      },
+      {
+        "name": "Baixar Imagem Cortada",
+        "text": "Salve a foto cortada com qualidade total instantaneamente."
+      }
+    ],
+    "features": [
+      "Proporções predefinidas para redes sociais",
+      "Tamanho padrão para documentos e passaporte",
+      "Grade de composição profissional",
+      "100% local e seguro"
+    ]
   },
   "girar-imagem": {
     "title": "Girar e Espelhar Fotos Online Grátis (90°, Espelho) | ImagePlumber",
     "description": "Gire fotos 90 ou 180 graus online grátis. Endireite horizontes inclinados e espelhe fotos horizontalmente ou verticalmente sem enviar arquivos.",
-    "keywords": "girar imagem online, espelhar foto horizontal, endireitar foto, rodar foto 90 graus, inverter imagem online"
+    "keywords": "girar imagem online, espelhar foto horizontal, endireitar foto, rodar foto 90 graus, inverter imagem online",
+    "howTo": [
+      {
+        "name": "Carregar Foto",
+        "text": "Selecione a imagem que deseja girar."
+      },
+      {
+        "name": "Girar ou Espelhar",
+        "text": "Aplique rotação de 90°, 180° ou espelhamento horizontal e vertical."
+      },
+      {
+        "name": "Baixar Resultado",
+        "text": "Salve a imagem corrigida em alta qualidade."
+      }
+    ],
+    "features": [
+      "Giro rápido de 90° e 180°",
+      "Espelhamento horizontal e vertical",
+      "Alinhamento de horizonte",
+      "Sem envio para a nuvem"
+    ]
   },
   "adicionar-borda-imagem": {
     "title": "Adicionar Borda a Fotos Online Grátis (Cor, Desfoque) | ImagePlumber",
     "description": "Adicione molduras coloridas, fundos desfocados e cantos arredondados a fotos de forma 100% privada no navegador.",
-    "keywords": "adicionar borda na foto, moldura de foto online, borda branca foto, fundo desfocado instagram, colocar moldura em imagem"
+    "keywords": "adicionar borda na foto, moldura de foto online, borda branca foto, fundo desfocado instagram, colocar moldura em imagem",
+    "howTo": [
+      {
+        "name": "Carregar Foto",
+        "text": "Escolha a foto que receberá a moldura."
+      },
+      {
+        "name": "Definir Borda",
+        "text": "Ajuste espessura, cor sólida, fundo desfocado e cantos arredondados."
+      },
+      {
+        "name": "Baixar Foto",
+        "text": "Salve a imagem emoldurada em alta resolução."
+      }
+    ],
+    "features": [
+      "Cores personalizadas e desfoque de fundo",
+      "Cantos arredondados modernos",
+      "Ideal para feed do Instagram",
+      "Processamento no navegador"
+    ]
   },
   "filtros-fotos": {
     "title": "Filtros de Fotos e Efeito Duotone Online Grátis | ImagePlumber",
     "description": "Aplique filtros vintage, cyberpunk e duotone nas suas fotos 100% no navegador sem enviar arquivos para a nuvem.",
-    "keywords": "filtros de fotos online, filtros vintage gratis, efeito duotone foto, filtro cyberpunk, editor de fotos retro"
+    "keywords": "filtros de fotos online, filtros vintage gratis, efeito duotone foto, filtro cyberpunk, editor de fotos retro",
+    "howTo": [
+      {
+        "name": "Importar Foto",
+        "text": "Carregue a imagem para aplicar os efeitos."
+      },
+      {
+        "name": "Escolher Filtro",
+        "text": "Experimente filtros vintage, duotone, retrô ou preto e branco."
+      },
+      {
+        "name": "Salvar Imagem",
+        "text": "Baixe a foto tratada com visual profissional."
+      }
+    ],
+    "features": [
+      "Filtros vintage, duotone e cinematográficos",
+      "Pré-visualização em tempo real",
+      "Sem redução de resolução",
+      "Segurança e privacidade"
+    ]
   },
   "inverter-cores": {
     "title": "Inverter Cores e Converter em Preto e Branco | ImagePlumber",
     "description": "Converta fotos em negativo fotográfico ou preto e branco de alto contraste com limiar Otsu localmente.",
-    "keywords": "inverter cores online, foto negativo gratis, converter para preto e branco, binarizar imagem, efeito solarizacao"
+    "keywords": "inverter cores online, foto negativo gratis, converter para preto e branco, binarizar imagem, efeito solarizacao",
+    "howTo": [
+      {
+        "name": "Carregar Imagem",
+        "text": "Selecione o arquivo desejado."
+      },
+      {
+        "name": "Inverter Cores",
+        "text": "Transforme a foto em negativo ou preto e branco de alto contraste."
+      },
+      {
+        "name": "Baixar Resultado",
+        "text": "Salve a imagem com cores invertidas."
+      }
+    ],
+    "features": [
+      "Inversão de cores RGB",
+      "Efeito negativo analógico",
+      "Binarização preto e branco",
+      "Zero upload"
+    ]
   },
   "ajustar-imagem": {
     "title": "Ajustar Brilho, Contraste e Cores Online | ImagePlumber",
     "description": "Ajuste iluminação, saturação, temperatura e nitidez com visualização comparativa e auto-realce em 1 clique.",
-    "keywords": "ajustar brilho imagem, aumentar contraste foto, saturacao imagem online, auto realce foto, nitidez de foto online"
+    "keywords": "ajustar brilho imagem, aumentar contraste foto, saturacao imagem online, auto realce foto, nitidez de foto online",
+    "howTo": [
+      {
+        "name": "Carregar Foto",
+        "text": "Abra a imagem no editor de ajuste."
+      },
+      {
+        "name": "Ajustar Sliders",
+        "text": "Regule brilho, contraste, saturação e nitidez com visualização lado a lado."
+      },
+      {
+        "name": "Baixar Foto",
+        "text": "Salve o arquivo otimizado com fidelidade máxima."
+      }
+    ],
+    "features": [
+      "Ajuste de brilho, contraste e saturação",
+      "Auto-melhoria em 1 clique",
+      "Nitidez e temperatura de cor",
+      "Comparação antes e depois"
+    ]
   },
   "gerador-memes": {
     "title": "Gerador de Memes e Texto na Foto Online | ImagePlumber",
     "description": "Crie memes e adicione legendas personalizadas às fotos sem marcas d'água 100% no navegador.",
-    "keywords": "gerador de memes online, colocar texto na foto gratis, escrever em fotos online, criar meme sem marca dagua"
+    "keywords": "gerador de memes online, colocar texto na foto gratis, escrever em fotos online, criar meme sem marca dagua",
+    "howTo": [
+      {
+        "name": "Escolher Imagem",
+        "text": "Carregue sua foto ou template favorito."
+      },
+      {
+        "name": "Adicionar Legendas",
+        "text": "Escreva o texto superior e inferior com estilo clássico e contorno preto."
+      },
+      {
+        "name": "Baixar Meme",
+        "text": "Salve seu meme pronto sem marcas d'água."
+      }
+    ],
+    "features": [
+      "Fonte Impact com contorno clássico",
+      "Total liberdade de edição",
+      "Sem marcas d'água externas",
+      "Download instantâneo"
+    ]
   },
   "marca-dagua": {
     "title": "Colocar Marca d'Água em Fotos Online (Lote e ZIP) | ImagePlumber",
     "description": "Adicione texto ou logotipo em lote nas suas fotos com download em ZIP e máxima privacidade.",
-    "keywords": "marca dagua em fotos online, colocar logo na foto gratis, marca dagua em lote, proteger fotos online"
+    "keywords": "marca dagua em fotos online, colocar logo na foto gratis, marca dagua em lote, proteger fotos online",
+    "howTo": [
+      {
+        "name": "Carregar Fotos",
+        "text": "Selecione uma ou várias imagens em lote."
+      },
+      {
+        "name": "Criar Marca d'Água",
+        "text": "Insira texto ou logotipo e ajuste opacidade, escala e ângulo."
+      },
+      {
+        "name": "Baixar Arquivos",
+        "text": "Salve todas as fotos protegidas em um arquivo ZIP."
+      }
+    ],
+    "features": [
+      "Marca d'água de texto ou imagem de logotipo",
+      "Aplicação em lote instantânea",
+      "Opacidade e rotação personalizadas",
+      "Download ZIP com 1 clique"
+    ]
   },
   "remover-metadados": {
     "title": "Ver e Remover Metadados EXIF de Fotos | ImagePlumber",
     "description": "Visualize localização GPS e dados da câmera e limpe todas as informações confidenciais localmente.",
-    "keywords": "remover metadados foto, apagar gps da foto, visualizador exif online, limpar dados exif gratis"
+    "keywords": "remover metadados foto, apagar gps da foto, visualizador exif online, limpar dados exif gratis",
+    "howTo": [
+      {
+        "name": "Carregar Fotos",
+        "text": "Envie as fotos que deseja auditar e limpar."
+      },
+      {
+        "name": "Inspecionar Dados EXIF",
+        "text": "Veja localização GPS, câmera, lente e data do disparo."
+      },
+      {
+        "name": "Baixar Fotos Seguras",
+        "text": "Remova todas as informações confidenciais em 1 clique."
+      }
+    ],
+    "features": [
+      "Remoção de GPS e dados da câmera",
+      "Exclusão de metadados EXIF e IPTC",
+      "Suporte a múltiplos arquivos",
+      "Totalmente seguro e offline"
+    ]
   },
   "arte-pixel": {
     "title": "Gerador de Pixel Art e Conversor 8-Bits Online | ImagePlumber",
     "description": "Transforme fotos em pixel art retrô com paletas Game Boy, NES e dithering Floyd-Steinberg.",
-    "keywords": "gerador de pixel art, converter foto em 8 bits, filtro game boy, pixelar foto gratis, arte retro 8 bit"
+    "keywords": "gerador de pixel art, converter foto em 8 bits, filtro game boy, pixelar foto gratis, arte retro 8 bit",
+    "howTo": [
+      {
+        "name": "Carregar Imagem",
+        "text": "Envie a foto que deseja converter em arte retrô."
+      },
+      {
+        "name": "Configurar Resolução 8-Bit",
+        "text": "Escolha paletas retrô como Game Boy ou NES e tamanho do pixel."
+      },
+      {
+        "name": "Baixar Pixel Art",
+        "text": "Salve a imagem estilizada em PNG nítido."
+      }
+    ],
+    "features": [
+      "Paletas clássicas estilo Game Boy e NES",
+      "Pontilhado Floyd-Steinberg avançado",
+      "Controle de tamanho de pixel",
+      "Exportação PNG nítida"
+    ]
   },
   "arte-ascii": {
     "title": "Gerador de Arte ASCII e Texto a Partir de Fotos | ImagePlumber",
     "description": "Converta fotos em texto ASCII com temas Matrix, cores ANSI e exportação PNG.",
-    "keywords": "gerador de arte ascii, foto em texto letras, converter imagem em ascii gratis, copiar arte ascii"
+    "keywords": "gerador de arte ascii, foto em texto letras, converter imagem em ascii gratis, copiar arte ascii",
+    "howTo": [
+      {
+        "name": "Carregar Foto",
+        "text": "Selecione a imagem que deseja transformar em texto."
+      },
+      {
+        "name": "Ajustar Efeito ASCII",
+        "text": "Escolha tema Matrix, cores ANSI e densidade de caracteres."
+      },
+      {
+        "name": "Copiar ou Baixar",
+        "text": "Copie o texto ASCII ou salve a imagem em PNG."
+      }
+    ],
+    "features": [
+      "Modos Matrix, cores ANSI e monocromático",
+      "Densidade de caracteres ajustável",
+      "Cópia direta e exportação em imagem",
+      "Processamento 100% no navegador"
+    ]
   },
   "efeito-glitch": {
     "title": "Gerador de Efeito Glitch e Linhas CRT Online | ImagePlumber",
     "description": "Crie aberração cromática RGB, datamoshing e distorção retrô VHS 100% no seu navegador.",
-    "keywords": "gerador de efeito glitch, arte glitch gratis, filtro vhs retro, linhas crt televisao, distorcao foto"
+    "keywords": "gerador de efeito glitch, arte glitch gratis, filtro vhs retro, linhas crt televisao, distorcao foto",
+    "howTo": [
+      {
+        "name": "Carregar Imagem",
+        "text": "Selecione a foto para aplicar os efeitos glitch."
+      },
+      {
+        "name": "Personalizar Efeitos",
+        "text": "Ative aberração RGB, linhas CRT retrô e ruído de fita VHS."
+      },
+      {
+        "name": "Baixar Arte Glitch",
+        "text": "Salve a imagem com visual cyberpunk em alta resolução."
+      }
+    ],
+    "features": [
+      "Aberração cromática RGB",
+      "Linhas de TV CRT vintage",
+      "Ruído analógico de fita VHS",
+      "Execução instantânea"
+    ]
   },
   "comparar-fotos": {
     "title": "Comparar Fotos Lado a Lado e Antes/Depois Online | ImagePlumber",
     "description": "Junte duas fotos lado a lado ou na vertical com tags personalizáveis de Antes e Depois e molduras divisorias.",
-    "keywords": "comparar fotos lado a lado, juntar fotos antes e depois, unir duas fotos online gratis, combinar imagens lado a lado"
+    "keywords": "comparar fotos lado a lado, juntar fotos antes e depois, unir duas fotos online gratis, combinar imagens lado a lado",
+    "howTo": [
+      {
+        "name": "Carregar Duas Imagens",
+        "text": "Selecione as fotos de antes e depois."
+      },
+      {
+        "name": "Ajustar Visualização",
+        "text": "Escolha exibição lado a lado ou sobreposta e edite as legendas."
+      },
+      {
+        "name": "Baixar Comparação",
+        "text": "Salve a imagem composta em alta resolução."
+      }
+    ],
+    "features": [
+      "Visualização horizontal ou vertical",
+      "Bordas e divisores ajustáveis",
+      "Badges personalizadas de Antes/Depois",
+      "Sem perda de resolução"
+    ]
   },
   "panoramica-instagram": {
     "title": "Dividir Panorâmica para Carrossel do Instagram e TikTok | ImagePlumber",
     "description": "Divida fotos panorâmicas em carrosséis contínuos sem linhas de corte no formato retrato 4:5 e quadrado com download ZIP.",
-    "keywords": "dividir panoramica instagram, carrossel continuo instagram, cortar fotos para arrastar instagram, carrossel sem corte"
+    "keywords": "dividir panoramica instagram, carrossel continuo instagram, cortar fotos para arrastar instagram, carrossel sem corte",
+    "howTo": [
+      {
+        "name": "Carregar Panorâmica",
+        "text": "Envie sua imagem panorâmica ou grande angular."
+      },
+      {
+        "name": "Definir Divisões",
+        "text": "Escolha de 2 a 10 painéis no formato 4:5 vertical ou 1:1 quadrado."
+      },
+      {
+        "name": "Baixar ZIP do Carrossel",
+        "text": "Salve todas as fatias numeradas em um arquivo ZIP pronto para o Instagram."
+      }
+    ],
+    "features": [
+      "Carrossel contínuo sem cortes para Instagram e TikTok",
+      "Formatos ideais 4:5 retrato e 1:1 quadrado",
+      "Fatias numeradas em ordem de postagem",
+      "Download rápido em ZIP"
+    ]
   },
   "grade-fotos": {
     "title": "Criar Grade e Colagem de Fotos Online Grátis | ImagePlumber",
     "description": "Combine múltiplas fotos em grades e colagens personalizadas diretamente no seu navegador sem marcas d'água.",
-    "keywords": "criar grade de fotos, colagem de fotos online gratis, juntar fotos em grade, unir varias fotos em uma"
+    "keywords": "criar grade de fotos, colagem de fotos online gratis, juntar fotos em grade, unir varias fotos em uma",
+    "howTo": [
+      {
+        "name": "Adicionar Imagens",
+        "text": "Selecione as fotos que deseja juntar."
+      },
+      {
+        "name": "Escolher Layout",
+        "text": "Defina a grade para 2 a 9 fotos e ajuste bordas e espaçamento."
+      },
+      {
+        "name": "Baixar Colagem",
+        "text": "Salve a montagem final em alta definição."
+      }
+    ],
+    "features": [
+      "Modelos de grade para 2 a 9 fotos",
+      "Controle de espaçamento e cantos arredondados",
+      "Fundos coloridos e degradês",
+      "Sem marcas d'água"
+    ]
   },
   "censurar-foto": {
     "title": "Censurar Fotos e Desfocar Rostos Online Grátis | ImagePlumber",
     "description": "Oculte dados confidenciais, desfoque rostos e aplique tarjas pretas em documentos diretamente no navegador.",
-    "keywords": "censurar foto online, desfocar rostos gratis, ocultar dados sensiveis foto, tarja preta censura foto"
+    "keywords": "censurar foto online, desfocar rostos gratis, ocultar dados sensiveis foto, tarja preta censura foto",
+    "howTo": [
+      {
+        "name": "Carregar Foto ou Documento",
+        "text": "Envie a imagem que contém dados pessoais."
+      },
+      {
+        "name": "Marcar Área a Censurar",
+        "text": "Desenhe barras pretas, desfoque ou pixelização sobre dados confidenciais."
+      },
+      {
+        "name": "Baixar Imagem Protegida",
+        "text": "Salve o arquivo seguro sem que nada passe pela internet."
+      }
+    ],
+    "features": [
+      "Desfoque e pixelização de rostos",
+      "Tarjas pretas para CPF, RG e documentos bancários",
+      "Pincel de censura personalizado",
+      "100% confidencial e offline"
+    ]
   },
   "esteganografia-imagem": {
     "title": "Ocultar Texto Secreto em Fotos (Esteganografia) | ImagePlumber",
     "description": "Esconda mensagens secretas e senhas dentro de imagens de forma invisível com chave de proteção 100% no navegador.",
-    "keywords": "esteganografia de imagens, esconder texto em foto, mensagem secreta em imagem, decodificador esteganografia gratis"
+    "keywords": "esteganografia de imagens, esconder texto em foto, mensagem secreta em imagem, decodificador esteganografia gratis",
+    "howTo": [
+      {
+        "name": "Carregar Imagem Base",
+        "text": "Selecione a foto que esconderá a mensagem secreta."
+      },
+      {
+        "name": "Digitar Texto Oculto",
+        "text": "Escreva a mensagem confidencial e senha para codificação nos pixels."
+      },
+      {
+        "name": "Baixar Imagem Codificada",
+        "text": "Salve a foto que contém o texto oculto de forma invisível."
+      }
+    ],
+    "features": [
+      "Ocultação invisível por técnica LSB",
+      "Proteção por senha segura",
+      "Decodificador instantâneo embutido",
+      "Execução 100% no navegador"
+    ]
   }
 }

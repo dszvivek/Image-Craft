@@ -21,6 +21,12 @@
         "name": "कंप्रेस फोटो डाउनलोड करें",
         "text": "बिना किसी सर्वर अपलोड के तुरंत कंप्रेस की गई फोटो डाउनलोड करें।"
       }
+    ],
+    "features": [
+      "90% तक फोटो साइज कम करें",
+      "JPG, PNG और WebP सपोर्ट",
+      "सरकारी फॉर्म और जॉब पोर्टल रेडी",
+      "100% प्राइवेट व ऑफलाइन"
     ]
   },
   "background-hataye": {
@@ -40,6 +46,12 @@
         "name": "ट्रांसपेरेंट PNG डाउनलोड करें",
         "text": "फुल रेजोल्यूशन में पारदर्शी PNG फाइल सेव करें।"
       }
+    ],
+    "features": [
+      "लोकल AI न्यूरल नेटवर्क कटआउट",
+      "ऑटोमैटिक ट्रांसपेरेंट PNG",
+      "फुल एचडी क्वालिटी डाउनलोड",
+      "बिना किसी सर्वर अपलोड के"
     ]
   },
   "batch-converter": {
@@ -59,6 +71,12 @@
         "name": "पैकेज डाउनलोड करें",
         "text": "ZIP फाइल या सिंगल PDF डॉक्यूमेंट तुरंत डाउनलोड करें।"
       }
+    ],
+    "features": [
+      "एक साथ कई फोटो कन्वर्ट करें",
+      "JPG, PNG, WebP और PDF सपोर्ट",
+      "मल्टीपल फोटो को 1 PDF बनाएं",
+      "ZIP पैकेज डाउनलोड"
     ]
   },
   "pdf-sign-kare": {
@@ -78,6 +96,12 @@
         "name": "साइंड PDF सेव करें",
         "text": "सिग्नेचर को सही जगह सेट करें और साइंड PDF डाउनलोड करें।"
       }
+    ],
+    "features": [
+      "PDF डॉक्यूमेंट्स पर डिजिटल सिग्नेचर",
+      "सिग्नेचर ड्रा करें, टाइप करें या अपलोड करें",
+      "मल्टी-पेज PDF सपोर्ट",
+      "कानूनी व प्राइवेट कॉन्ट्रैक्ट्स के लिए सुरक्षित"
     ]
   },
   "png-se-jpg": {
@@ -97,6 +121,12 @@
         "name": "JPG डाउनलोड करें",
         "text": "कन्वर्ट हुई JPG फाइल्स को सिंगल या ZIP में डाउनलोड करें।"
       }
+    ],
+    "features": [
+      "PNG से JPG फास्ट कन्वर्जन",
+      "क्वालिटी स्लाइडर कंट्रोल",
+      "बैच कन्वर्जन व ZIP डाउनलोड",
+      "अनलिमिटेड फ्री यूसेज"
     ]
   },
   "jpg-se-png": {
@@ -116,91 +146,437 @@
         "name": "PNG सेव करें",
         "text": "हाई रेजोल्यूशन PNG फाइल अपने डिवाइस में सेव करें।"
       }
+    ],
+    "features": [
+      "JPG से PNG लॉसलेस कन्वर्जन",
+      "फुल रेजोल्यूशन आउटपुट",
+      "बैच कन्वर्जन सपोर्ट",
+      "100% लोकल इन-ब्राउज़र"
     ]
   },
   "photo-crop-kare": {
     "title": "Photo Crop Kare Online Free (Passport, 16:9, Square) | ImagePlumber",
     "description": "फोटो को पासपोर्ट साइज (2x2 in), इंस्टाग्राम 1:1, या 16:9 में फ्री में क्रॉप करें बिना सर्वर पर अपलोड किए।",
-    "keywords": "photo crop kare, online photo cropper free, passport size photo crop, image crop tool hindi"
+    "keywords": "photo crop kare, online photo cropper free, passport size photo crop, image crop tool hindi",
+    "howTo": [
+      {
+        "name": "फोटो अपलोड करें",
+        "text": "अपनी फोटो सेलेक्ट करें या ड्रैग करके एडिटर में लाएं।"
+      },
+      {
+        "name": "क्रॉप एरिया चुनें",
+        "text": "इंस्टाग्राम 1:1, 4:5, यूट्यूब 16:9 या पासपोर्ट साइज फ्रेम सेट करें।"
+      },
+      {
+        "name": "क्रॉप फोटो डाउनलोड करें",
+        "text": "बिना किसी सर्वर अपलोड के फुल क्वालिटी में सेव करें।"
+      }
+    ],
+    "features": [
+      "सोशल मीडिया और पासपोर्ट फोटो साइज प्रीसेट",
+      "रूल ऑफ थर्ड्स ग्रिड गाइड",
+      "फुल रेजोल्यूशन एक्सपोर्ट",
+      "100% लोकल इन-ब्राउज़र प्रोसेसिंग"
+    ]
   },
   "photo-rotate-kare": {
     "title": "Photo Rotate & Mirror Kare Online Free (90°, Flip) | ImagePlumber",
     "description": "फोटो को 90 डिग्री घुमाएं, हॉरिजॉन्टल मिरर फ्लिप करें और टेढ़ी फोटो को सीधा करें बिना डेटा अपलोड किए।",
-    "keywords": "photo rotate kare, photo ko mirror kare, image rotator online free hindi, photo sidha kare"
+    "keywords": "photo rotate kare, photo ko mirror kare, image rotator online free hindi, photo sidha kare",
+    "howTo": [
+      {
+        "name": "फोटो चुनें",
+        "text": "जिस फोटो को घुमाना या सीधा करना है उसे सेलेक्ट करें।"
+      },
+      {
+        "name": "रोटेशन व फ्लिप सेट करें",
+        "text": "90°, 180° रोटेट करें या हॉरिजॉन्टल/वर्टिकल मिरर करें।"
+      },
+      {
+        "name": "सेव करें",
+        "text": "सीधी की गई फोटो तुरंत डाउनलोड करें।"
+      }
+    ],
+    "features": [
+      "90° और 180° रोटेशन",
+      "हॉरिजॉन्टल और वर्टिकल फ्लिप",
+      "बिना क्वालिटी कम किए फास्ट एक्सपोर्ट",
+      "100% सुरक्षित"
+    ]
   },
   "border-lagaye": {
     "title": "Photo Me Border & Frame Lagaye Online Free | ImagePlumber",
     "description": "फोटो में सुंदर वाइट बॉर्डर, ब्लर बैकग्राउंड और राउंडेड कॉर्नर्स लगाएं 100% प्राइवेट तरीके से।",
-    "keywords": "photo me border lagaye, photo frame banaye, white border photo, instagram border tool"
+    "keywords": "photo me border lagaye, photo frame banaye, white border photo, instagram border tool",
+    "howTo": [
+      {
+        "name": "फोटो चुनें",
+        "text": "जिस फोटो में बॉर्डर लगाना है उसे अपलोड करें।"
+      },
+      {
+        "name": "बॉर्डर स्टाइल कस्टमाइज करें",
+        "text": "कलर, बॉर्डर चौड़ाई, ब्लर बैकग्राउंड या राउंडेड कॉर्नर सेट करें।"
+      },
+      {
+        "name": "डाउनलोड करें",
+        "text": "सोशल मीडिया रेडी फ्रेम वाली फोटो सेव करें।"
+      }
+    ],
+    "features": [
+      "कलर और ब्लर बैकग्राउंड बॉर्डर",
+      "राउंडेड कॉर्नर और शैडो इफेक्ट्स",
+      "इंस्टाग्राम नो-क्रॉप बॉर्डर",
+      "फास्ट और फ्री"
+    ]
   },
   "photo-filters": {
     "title": "Photo Filters & Duotone Effects Online Free | ImagePlumber",
     "description": "फोटो में विंटेज, रेट्रो 1977, साइबरपंक और डुओटोन फिल्टर्स लगाएं 100% फ्री और सुरक्षित।",
-    "keywords": "photo filters online free, vintage photo filter hindi, duotone effect online, retro photo effects"
+    "keywords": "photo filters online free, vintage photo filter hindi, duotone effect online, retro photo effects",
+    "howTo": [
+      {
+        "name": "फोटो अपलोड करें",
+        "text": "फोटो को फिल्टर स्टूडियो में लाएं।"
+      },
+      {
+        "name": "फिल्टर इफेक्ट चुनें",
+        "text": "विंटेज, डुओटोन, रेट्रो या ब्लैक एंड व्हाइट फिल्टर अप्लाई करें।"
+      },
+      {
+        "name": "डाउनलोड करें",
+        "text": "नया लुक तुरंत सेव करें।"
+      }
+    ],
+    "features": [
+      "विंटेज, डुओटोन और सिनेमैटिक फिल्टर्स",
+      "लाइव प्रीव्यू",
+      "फुल एचडी क्वालिटी",
+      "100% फ्री"
+    ]
   },
   "color-invert-kare": {
     "title": "Photo Color Invert & B&W Converter Online | ImagePlumber",
     "description": "फोटो को नेगेटिव में बदलें या Otsu ऑटो थ्रेशोल्ड के साथ हाई-कॉन्ट्रास्ट ब्लैक एंड व्हाइट बनाएं।",
-    "keywords": "photo color invert kare, image negative converter, photo ko black and white banaye, otsu thresholding hindi"
+    "keywords": "photo color invert kare, image negative converter, photo ko black and white banaye, otsu thresholding hindi",
+    "howTo": [
+      {
+        "name": "फोटो सेलेक्ट करें",
+        "text": "फोटो अपलोड करें।"
+      },
+      {
+        "name": "कलर इन्वर्ट करें",
+        "text": "RGB कलर नेगेटिव या हाई-कंट्रास्ट ब्लैक एंड व्हाइट इफेक्ट चुनें।"
+      },
+      {
+        "name": "डाउनलोड करें",
+        "text": "कलर इन्वर्टेड फोटो तुरंत सेव करें।"
+      }
+    ],
+    "features": [
+      "RGB कलर इनवर्शन",
+      "फोटो नेगेटिव इफ़ेक्ट",
+      "हाई-कंट्रास्ट ब्लैक एंड व्हाइट",
+      "100% ऑफलाइन"
+    ]
   },
   "photo-brightness-contrast": {
     "title": "Photo Brightness & Contrast Adjust Kare Online | ImagePlumber",
     "description": "फोटो की ब्राइटनेस, कॉन्ट्रास्ट, एक्सपोजर और शार्पनेस को 1-क्लिक ऑटो एन्हांस के साथ ठीक करें।",
-    "keywords": "photo brightness adjust kare, photo contrast badhaye, image color adjustment online, auto enhance photo hindi"
+    "keywords": "photo brightness adjust kare, photo contrast badhaye, image color adjustment online, auto enhance photo hindi",
+    "howTo": [
+      {
+        "name": "फोटो सेलेक्ट करें",
+        "text": "एडिटर में फोटो लाएं।"
+      },
+      {
+        "name": "ब्राइटनेस और कंट्रास्ट सेट करें",
+        "text": "ब्राइटनेस, कंट्रास्ट, सैचुरेशन और शार्पनेस स्लाइडर से एडजस्ट करें।"
+      },
+      {
+        "name": "डाउनलोड करें",
+        "text": "सुधारी गई फोटो तुरंत सेव करें।"
+      }
+    ],
+    "features": [
+      "ब्राइटनेस, कंट्रास्ट और सैचुरेशन कंट्रोल",
+      "1-क्लिक ऑटो एन्हांस",
+      "शार्पनेस और वार्मथ एडजस्टमेंट",
+      "लाइव तुलना मोड"
+    ]
   },
   "meme-generator": {
     "title": "Meme Generator & Photo Par Text Likhe Online | ImagePlumber",
     "description": "फोटो पर टेक्स्ट, मीम्स और आउटलाइन स्ट्रोक लगाएं बिना वाटरमार्क 100% फ्री में।",
-    "keywords": "meme generator hindi, photo par text likhe, photo me caption dale, meme maker online free"
+    "keywords": "meme generator hindi, photo par text likhe, photo me caption dale, meme maker online free",
+    "howTo": [
+      {
+        "name": "फोटो चुनें",
+        "text": "मीम बनाने के लिए फोटो या टेम्पलेट सेलेक्ट करें।"
+      },
+      {
+        "name": "टेक्स्ट जोड़ें",
+        "text": "ऊपर और नीचे इम्पैक्ट फॉन्ट में मजेदार कैप्शन लिखें।"
+      },
+      {
+        "name": "मीम डाउनलोड करें",
+        "text": "बिना किसी वॉटरमार्क के मीम सेव करें।"
+      }
+    ],
+    "features": [
+      "क्लासिक इम्पैक्ट फॉन्ट और आउटलाइन",
+      "कस्टम फोटो अपलोड सपोर्ट",
+      "ज़ीरो वॉटरमार्क",
+      "तुरंत शेयर करने योग्य"
+    ]
   },
   "watermark-lagaye": {
     "title": "Photo Me Watermark Lagaye Online (Batch & ZIP) | ImagePlumber",
     "description": "कई फोटो में एक साथ टेक्स्ट या लोगो वाटरमार्क लगाएं और ZIP फाइल डाउनलोड करें।",
-    "keywords": "photo me watermark lagaye, bulk watermark photo hindi, logo stamp on photo, watermark remover hindi"
+    "keywords": "photo me watermark lagaye, bulk watermark photo hindi, logo stamp on photo, watermark remover hindi",
+    "howTo": [
+      {
+        "name": "फोटो चुनें",
+        "text": "एक या कई फोटो एक साथ सेलेक्ट करें।"
+      },
+      {
+        "name": "वॉटरमार्क सेट करें",
+        "text": "टेक्स्ट या लोगो इमेज जोड़ें और ओपेसिटी/पोजीशन सेट करें।"
+      },
+      {
+        "name": "डाउनलोड करें",
+        "text": "सभी फोटो को एक साथ या ZIP में सेव करें।"
+      }
+    ],
+    "features": [
+      "टेक्स्ट और लोगो वॉटरमार्क सपोर्ट",
+      "एक साथ मल्टीपल फोटो पर वॉटरमार्क",
+      "ओपेसिटी और टाइल इफेक्ट",
+      "ZIP पैकेज एक्सपोर्ट"
+    ]
   },
   "exif-metadata-hataye": {
     "title": "Photo Se EXIF Metadata & GPS Location Hataye | ImagePlumber",
     "description": "फोटो की कैमरा सेटिंग्स और लोकेशन देखें और प्राइवेसी के लिए पूरी तरह रिमूव करें।",
-    "keywords": "photo se location hataye, remove exif metadata hindi, photo privacy tool, exif viewer hindi"
+    "keywords": "photo se location hataye, remove exif metadata hindi, photo privacy tool, exif viewer hindi",
+    "howTo": [
+      {
+        "name": "फोटो चुनें",
+        "text": "फोटो अपलोड करें जिनकी EXIF डिटेल्स देखनी या हटानी हैं।"
+      },
+      {
+        "name": "GPS और कैमरा डेटा देखें",
+        "text": "लोकेशन, कैमरा मॉडल और समय की जानकारी चेक करें।"
+      },
+      {
+        "name": "क्लीन फोटो डाउनलोड करें",
+        "text": "1-क्लिक में सभी प्राइवेट मेटाडेटा हटाकर फोटो सुरक्षित करें।"
+      }
+    ],
+    "features": [
+      "GPS लोकेशन व कैमरा डेटा रिमूवल",
+      "EXIF व IPTC मेटाडेटा क्लीनर",
+      "मल्टीपल फोटो बैच सपोर्ट",
+      "सोशल मीडिया शेयरिंग के लिए सेफ"
+    ]
   },
   "pixel-art-generator": {
     "title": "Pixel Art & 8-Bit Photo Converter Online Free | ImagePlumber",
     "description": "फोटो को 8-बिट पिक्सेल आर्ट और रेट्रो गेम बॉय स्टाइल में बदलें Floyd-Steinberg dithering के साथ।",
-    "keywords": "pixel art generator hindi, photo ko 8 bit banaye, gameboy filter photo, pixelate image free, retro 8 bit art"
+    "keywords": "pixel art generator hindi, photo ko 8 bit banaye, gameboy filter photo, pixelate image free, retro 8 bit art",
+    "howTo": [
+      {
+        "name": "फोटो चुनें",
+        "text": "फोटो अपलोड करें जिसे 8-बिट पिक्सेल आर्ट में बदलना है।"
+      },
+      {
+        "name": "पिक्सेल साइज व पैलेट चुनें",
+        "text": "गेमबॉय, NES या रेट्रो कलर पैलेट और पिक्सेल साइज सेट करें।"
+      },
+      {
+        "name": "पिक्सेल आर्ट डाउनलोड करें",
+        "text": "8-बिट विंटेज फोटो तुरंत सेव करें।"
+      }
+    ],
+    "features": [
+      "गेमबॉय व रेट्रो 8-बिट पैलेट्स",
+      "फ्लॉइड-स्टाइनबर्ग डिथरिंग",
+      "कस्टमाइजेबल पिक्सेल ब्लॉक साइज",
+      "फुल एचडी PNG एक्सपोर्ट"
+    ]
   },
   "ascii-art-generator": {
     "title": "ASCII Art & Image to Text Art Generator Online | ImagePlumber",
     "description": "फोटो को ASCII कैरेक्टर आर्ट में बदलें और मैट्रिक्स ग्रीन व फुल-कलर ANSI में PNG सेव करें।",
-    "keywords": "ascii art generator hindi, photo ko text me convert kare, image to ascii online, ascii text copy portapapeles"
+    "keywords": "ascii art generator hindi, photo ko text me convert kare, image to ascii online, ascii text copy portapapeles",
+    "howTo": [
+      {
+        "name": "फोटो चुनें",
+        "text": "फोटो एडिटर में अपलोड करें।"
+      },
+      {
+        "name": "ASCII थीम व डेंसिटी चुनें",
+        "text": "मैट्रिक्स ग्रीन, कलर या क्लासिक मोनोक्रोम कैरेक्टर सेट करें।"
+      },
+      {
+        "name": "टेक्स्ट कॉपी करें या इमेज सेव करें",
+        "text": "ASCII टेक्स्ट कॉपी करें या हाई-रेजोल्यूशन PNG डाउनलोड करें।"
+      }
+    ],
+    "features": [
+      "मैट्रिक्स ग्रीन और कलर ANSI मोड्स",
+      "एडजस्टेबल कैरेक्टर डेंसिटी",
+      "1-क्लिक टेक्स्ट कॉपी व PNG डाउनलोड",
+      "फास्ट WASM पावर्ड"
+    ]
   },
   "glitch-art-studio": {
     "title": "Glitch Art & CRT TV Effect Generator Online | ImagePlumber",
     "description": "फोटो में RGB क्रोमैटिक एबरेशन, स्कैनलाइन्स और रेट्रो VHS ग्लिच इफेक्ट लगाएं।",
-    "keywords": "glitch art generator hindi, photo glitch effect online, retro vhs filter, crt scanlines effect, photo distortion tool"
+    "keywords": "glitch art generator hindi, photo glitch effect online, retro vhs filter, crt scanlines effect, photo distortion tool",
+    "howTo": [
+      {
+        "name": "फोटो अपलोड करें",
+        "text": "फोटो को ग्लिच स्टूडियो में लाएं।"
+      },
+      {
+        "name": "ग्लिच इफेक्ट्स अप्लाई करें",
+        "text": "RGB कलर शिफ्ट, VHS डिस्टॉर्शन और CRT टीवी लाइन्स जोड़ें।"
+      },
+      {
+        "name": "ग्लिच आर्ट डाउनलोड करें",
+        "text": "साइबरपंक स्टाइल फोटो तुरंत सेव करें।"
+      }
+    ],
+    "features": [
+      "RGB क्रोमैटिक एबर्रेशन",
+      "CRT टीवी स्कैनलाइन्स",
+      "VHS नॉइज़ व डिस्टॉर्शन",
+      "फुल रेजोल्यूशन एक्सपोर्ट"
+    ]
   },
   "photo-compare-kare": {
     "title": "Photo Compare Kare & Before After Combiner Free | ImagePlumber",
     "description": "दो फोटो को साइड-बाय-साइड जोड़ें बिफोर और आफ्टर बैज और कस्टम डिवाइडर बॉर्डर के साथ।",
-    "keywords": "photo compare kare, before after photo jode, do photo ko ek sath jode, photo comparison tool hindi"
+    "keywords": "photo compare kare, before after photo jode, do photo ko ek sath jode, photo comparison tool hindi",
+    "howTo": [
+      {
+        "name": "दो फोटो सेलेक्ट करें",
+        "text": "बिफोर और आफ्टर दोनों फोटो अपलोड करें।"
+      },
+      {
+        "name": "लेआउट सेट करें",
+        "text": "साइड-बाय-साइड या ऊपर-नीचे लेआउट और टेक्स्ट लेबल सेट करें।"
+      },
+      {
+        "name": "कंपैरिजन फोटो डाउनलोड करें",
+        "text": "दोनों फोटो को जोड़कर बनी कंबाइंड इमेज सेव करें।"
+      }
+    ],
+    "features": [
+      "साइड-बाय-साइड और वर्टिकल लेआउट",
+      "कस्टमाइजेबल बिफोर/आफ्टर बैज",
+      "बॉर्डर व स्पेसिंग कंट्रोल",
+      "100% फ्री"
+    ]
   },
   "instagram-panorama-splitter": {
     "title": "Instagram Panorama Splitter & Swipe Carousel Hindi | ImagePlumber",
     "description": "पैनोरमा फोटो को इंस्टाग्राम स्वाइप कैरोसेल (4:5 पोर्ट्रेट और स्क्वायर) में काटें और ZIP डाउनलोड करें।",
-    "keywords": "instagram panorama splitter hindi, swipe carousel maker, panorama photo ko kate, seamless carousel creator"
+    "keywords": "instagram panorama splitter hindi, swipe carousel maker, panorama photo ko kate, seamless carousel creator",
+    "howTo": [
+      {
+        "name": "पैनोरमा फोटो चुनें",
+        "text": "अपनी वाइड या पैनोरमा फोटो अपलोड करें।"
+      },
+      {
+        "name": "स्प्लिट संख्या सेट करें",
+        "text": "2 से 10 टाइल्स और 4:5 पोर्ट्रेट या 1:1 स्क्वायर फॉर्मेट चुनें।"
+      },
+      {
+        "name": "ZIP फाइल डाउनलोड करें",
+        "text": "स्वाइप कैरोसेल के लिए नंबरिंग के साथ सभी टुकड़े ZIP में सेव करें।"
+      }
+    ],
+    "features": [
+      "इंस्टाग्राम सीमलेस स्वाइप कैरोसेल",
+      "4:5 पोर्ट्रेट व 1:1 स्क्वायर सपोर्ट",
+      "ऑटोमैटिक फोटो नंबरिंग",
+      "1-क्लिक ZIP पैकेज डाउनलोड"
+    ]
   },
   "photo-grid-maker": {
     "title": "Photo Grid & Collage Maker Online Free Hindi | ImagePlumber",
     "description": "कई फोटो को एक साथ सुंदर ग्रिड और कोलाज में जोड़ें बिना वॉटरमार्क के अपने ब्राउज़र में।",
-    "keywords": "photo grid maker hindi, photo collage banaye, kayi photo ek sath jode, photo joiner online"
+    "keywords": "photo grid maker hindi, photo collage banaye, kayi photo ek sath jode, photo joiner online",
+    "howTo": [
+      {
+        "name": "मल्टीपल फोटो जोड़ें",
+        "text": "कोलाज बनाने के लिए अपनी फोटो सेलेक्ट करें।"
+      },
+      {
+        "name": "ग्रिड लेआउट चुनें",
+        "text": "2 से 9 फोटो के लिए ग्रिड, बॉर्डर स्पेसिंग और बैकग्राउंड सेट करें।"
+      },
+      {
+        "name": "कोलाज डाउनलोड करें",
+        "text": "हाई क्वालिटी में फोटो कोलाज तुरंत सेव करें।"
+      }
+    ],
+    "features": [
+      "2 से 9 फोटो के लिए ग्रिड टेम्पलेट्स",
+      "कस्टमाइजेबल बॉर्डर और कॉर्नर रेडियस",
+      "कलर और ग्रेडिएंट बैकग्राउंड्स",
+      "ज़ीरो वॉटरमार्क"
+    ]
   },
   "photo-censor-kare": {
     "title": "Photo Censor & Face Blur Kare Online Free | ImagePlumber",
     "description": "फोटो में प्राइवेट डेटा, आधार नंबर और चेहरों को ब्लैकआउट या ब्लर करें बिना किसी सर्वर अपलोड के।",
-    "keywords": "photo censor kare, face blur photo online hindi, photo me chehra chupaye, black bar censor image"
+    "keywords": "photo censor kare, face blur photo online hindi, photo me chehra chupaye, black bar censor image",
+    "howTo": [
+      {
+        "name": "फोटो या डॉक्यूमेंट चुनें",
+        "text": "जिस फोटो में प्राइवेट जानकारी छुपानी है उसे लाएं।"
+      },
+      {
+        "name": "सेंसर एरिया मार्क करें",
+        "text": "ब्लैक बार, फेस ब्लर या पिक्सेलेट टूल से सेंसिटिव हिस्से को कवर करें।"
+      },
+      {
+        "name": "सुरक्षित फोटो डाउनलोड करें",
+        "text": "बिना सर्वर पर भेजे एडिटेड फोटो सुरक्षित सेव करें।"
+      }
+    ],
+    "features": [
+      "आधार, पैन कार्ड व बैंक स्टेटमेंट ब्लर",
+      "चेहरों को आसानी से ब्लर व पिक्सेलेट करें",
+      "ब्लैक ज़ोन व ब्रश टूल्स",
+      "100% प्राइवेट व सिक्योर"
+    ]
   },
   "image-steganography": {
     "title": "Photo Me Secret Text Chupaye (Steganography) | ImagePlumber",
     "description": "फोटो के अंदर सीक्रेट मैसेज, पासवर्ड और प्राइवेट नोट्स छुपाएं और पासवर्ड से डिकोड करें फ्री में।",
-    "keywords": "photo me text chupaye, image steganography hindi, secret message in photo, steganography decode online"
+    "keywords": "photo me text chupaye, image steganography hindi, secret message in photo, steganography decode online",
+    "howTo": [
+      {
+        "name": "फोटो सेलेक्ट करें",
+        "text": "कवर फोटो चुनें जिसमें सीक्रेट मैसेज छिपाना है।"
+      },
+      {
+        "name": "सीक्रेट मैसेज लिखें",
+        "text": "अपना मैसेज व पासवर्ड डालें और इमेज में हाइड करें।"
+      },
+      {
+        "name": "फोटो डाउनलोड करें",
+        "text": "पिक्सेल्स में छिपा गुप्त मैसेज वाला फोटो सेव करें।"
+      }
+    ],
+    "features": [
+      "LSB पिक्सेल हाइडिंग टेक्नोलॉजी",
+      "पासवर्ड एन्क्रिप्शन सपोर्ट",
+      "इन-ब्राउज़र सीक्रेट मैसेज डिकोडर",
+      "100% प्राइवेट"
+    ]
   }
 }
