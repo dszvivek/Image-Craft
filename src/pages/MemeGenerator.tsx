@@ -414,8 +414,7 @@ export const MemeGenerator: React.FC<MemeGeneratorProps> = ({
       <SEO
         title={pageTitle || "Free Online Meme Generator & Add Text to Photo | ImagePlumber"}
         description={pageSubtitle || "Create custom memes and add captions to photos online for free. Multi-layer draggable text, outline strokes, Google Fonts, and zero cloud uploads."}
-        canonicalUrl="https://imageplumber.com/meme-generator"
-        schema={memeSchema}
+schema={memeSchema}
       />
 
       {/* Header */}

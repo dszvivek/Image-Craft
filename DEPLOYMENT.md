@@ -41,12 +41,24 @@ This compiles TypeScript definitions and runs Vite's roll-up packager, outputtin
 
 Since ImagePlumber uses React Router's `createBrowserRouter` (HTML5 History API), static servers must serve `index.html` for any sub-routes (e.g. `/background-remover` or `/ocr-text-extractor`) to prevent `404 Not Found` errors on page refresh.
 
-### For Cloudflare Pages
-Create a `public/_redirects` file (Vite will copy this to `dist/_redirects` during build) with the following rule:
+### For Cloudflare Pages & Custom Domains
+The `public/_redirects` file automatically configures edge redirects and SPA fallbacks:
 
 ```text
+# Force apex domain and HTTPS (Canonical Consolidation)
+https://www.imageplumber.com/* https://imageplumber.com/:splat 301!
+http://www.imageplumber.com/* https://imageplumber.com/:splat 301!
+http://imageplumber.com/* https://imageplumber.com/:splat 301!
+
+# Legacy Localized Aliases
+/fr/shape-art-generator /fr/art-formes 301
+
+# SPA Fallback
 /*    /index.html   200
 ```
+
+> [!TIP]
+> In Cloudflare Dashboard, go to **Rules** > **Redirect Rules** or **DNS** to ensure `www.imageplumber.com` has a Proxied CNAME / Redirect to the apex domain `imageplumber.com` for instant edge 301 redirection.
 
 ---
 

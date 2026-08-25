@@ -230,8 +230,7 @@ export const MetadataStripper: React.FC<MetadataStripperProps> = ({
       <SEO
         title={pageTitle || "EXIF Viewer & Remove Image Metadata Online Free | ImagePlumber"}
         description={pageSubtitle || "View camera settings, lens details, GPS location tags, and strip all sensitive EXIF metadata online for free. 100% private with zero cloud uploads."}
-        canonicalUrl="https://imageplumber.com/metadata-stripper"
-        schema={stripperSchema}
+schema={stripperSchema}
       />
 
       {/* Header */}

@@ -363,8 +363,7 @@ export const SideBySideCompare: React.FC<SideBySideCompareProps> = ({
       <SEO
         title={pageTitle || "Side by Side Image & Before/After Photo Combiner Free | ImagePlumber"}
         description={pageSubtitle || "Combine two photos side by side or vertically with customizable Before/After badges and divider borders online for free."}
-        canonicalUrl="https://imageplumber.com/side-by-side-image"
-        schema={compareSchema}
+schema={compareSchema}
       />
 
       {/* Header */}

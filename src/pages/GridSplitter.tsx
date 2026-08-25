@@ -232,8 +232,7 @@ export const GridSplitter: React.FC = () => {
         title="Free Instagram Grid Splitter - 9Cut Grid Maker Alternative" 
         description="Split photos into 3x3, 4x4, or 5x5 grid tiles for Instagram feed posts. An offline, free alternative to 9Cut, Grids for Instagram, and paid image splitters." 
         keywords="Instagram grid splitter, split image for Instagram, Instagram grid maker, photo grid splitter, Instagram puzzle feed, grid layout maker, image splitter, Instagram post splitter, 3x3 grid, free Instagram tools, no watermark grid splitter, 9Cut alternative, Grids for Instagram alternative, Preview app alternative, split image offline"
-        canonicalUrl="https://imageplumber.com/instagram-grid-splitter"
-        schema={gridSchema}
+schema={gridSchema}
       />
 
       <div className="max-w-4xl mx-auto">

@@ -403,8 +403,7 @@ export const OcrExtractor: React.FC = () => {
         title="Free OCR Text Extractor - Online OCR Alternative" 
         description="Extract text from images, screenshots, and scanned documents locally in your browser. A private alternative to OnlineOCR, Adobe Acrobat, and cloud text scanners." 
         keywords="OCR, image to text, extract text from image, scan text, optical character recognition, text extractor, screenshot to text, photo to text, document scanner, free OCR tool, online OCR, multi-language OCR, Tesseract OCR, offline OCR, browser OCR, PDF text extractor, OnlineOCR alternative, FreeOCR alternative, Adobe Acrobat OCR alternative, scan text offline"
-        canonicalUrl="https://imageplumber.com/ocr-text-extractor"
-        schema={ocrSchema}
+schema={ocrSchema}
       />
 
       <div className="max-w-4xl mx-auto">

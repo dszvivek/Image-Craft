@@ -181,8 +181,7 @@ export const PaletteExtractor: React.FC = () => {
         title="Free Color Palette Extractor - Coolors Alternative" 
         description="Extract dominant color schemes and HEX/RGB codes from images locally in your browser. A free, offline alternative to Coolors and Adobe Color." 
         keywords="color palette extractor, extract colors from image, color scheme generator, HEX code finder, image color picker, RGB values, color swatches, design asset colors, online palette maker, free color extraction, offline palette generator, Coolors alternative, Adobe Color alternative, extract colors offline"
-        canonicalUrl="https://imageplumber.com/color-palette-extractor"
-        schema={paletteSchema}
+schema={paletteSchema}
       />
 
       <div className="max-w-4xl mx-auto">

@@ -317,8 +317,7 @@ export const ImageSteganography: React.FC<ImageSteganographyProps> = ({
       <SEO
         title={pageTitle || "Image Steganography - Hide Text in Image Online Free | ImagePlumber"}
         description={pageSubtitle || "Hide secret text messages inside images using LSB steganography with optional password encryption. 100% private in-browser encoder and decoder."}
-        canonicalUrl="https://imageplumber.com/image-steganography"
-        schema={stegoSchema}
+schema={stegoSchema}
       />
 
       {/* Header */}

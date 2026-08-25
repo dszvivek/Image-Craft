@@ -410,8 +410,7 @@ export const PixelArtGenerator: React.FC<PixelArtGeneratorProps> = ({
       <SEO
         title={pageTitle || "Pixel Art Generator & 8-Bit Photo Converter Free | ImagePlumber"}
         description={pageSubtitle || "Turn photos into 8-bit retro pixel art with Game Boy, NES, and PICO-8 palettes and Floyd-Steinberg dithering. 100% private in-browser tool."}
-        canonicalUrl="https://imageplumber.com/pixel-art-generator"
-        schema={pixelSchema}
+schema={pixelSchema}
       />
 
       {/* Header */}

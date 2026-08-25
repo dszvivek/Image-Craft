@@ -200,8 +200,7 @@ export const Compressor: React.FC<CompressorProps> = ({
         title="Free Online Image Compressor - TinyPNG Alternative" 
         description="Compress JPEG, PNG, and WebP images locally in your browser. Reduce image file sizes by up to 90% without losing quality. A 100% private alternative to TinyPNG and Optimizilla." 
         keywords="image compressor, compress image online, reduce image size, JPEG compressor, PNG compressor, WebP compressor, image optimizer, reduce photo size, free image compression, offline image compressor, browser image compressor, lossless compression, lossy compression, file size reducer, TinyPNG alternative, Optimizilla alternative, Compressjpeg replacement, free offline tinypng, compress image without upload"
-        canonicalUrl="https://imageplumber.com/image-compressor"
-        schema={compressorSchema}
+schema={compressorSchema}
       />
 
       <div className="max-w-4xl mx-auto">

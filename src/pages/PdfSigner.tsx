@@ -638,8 +638,7 @@ export const PdfSigner: React.FC = () => {
         title="Free PDF Signer - Sign PDF Documents Online Offline"
         description="Sign PDF documents locally in your browser. Draw, type, or upload your signature. 100% private and offline client-side signing."
         keywords="pdf signer, sign pdf, digital signature pdf, online pdf signature, electronic signature free, draw signature pdf, type signature on pdf, offline pdf sign, no upload pdf signer"
-        canonicalUrl="https://imageplumber.com/sign-pdf"
-      />
+/>
 
       <div className="max-w-6xl mx-auto">
         {/* Header */}

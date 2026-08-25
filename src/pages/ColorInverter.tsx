@@ -230,8 +230,7 @@ export const ColorInverter: React.FC<ColorInverterProps> = ({
       <SEO
         title={pageTitle || "Invert Colors & Black and White Converter Online Free | ImagePlumber"}
         description={pageSubtitle || "Invert image colors to negative or convert photos to high-contrast black and white online for free in your browser. 100% private with zero cloud uploads."}
-        canonicalUrl="https://imageplumber.com/invert-colors"
-        schema={inverterSchema}
+schema={inverterSchema}
       />
 
       {/* Header */}

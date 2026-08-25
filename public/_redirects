@@ -1,4 +1,18 @@
+# Force apex domain and HTTPS (Canonical Consolidation)
+https://www.imageplumber.com/* https://imageplumber.com/:splat 301!
+http://www.imageplumber.com/* https://imageplumber.com/:splat 301!
+http://imageplumber.com/* https://imageplumber.com/:splat 301!
+
+# Legacy Domains
 https://image-craft.pages.dev/* https://imageplumber.com/:splat 301
 https://imagegiri.com/* https://imageplumber.com/:splat 301
 https://www.imagegiri.com/* https://imageplumber.com/:splat 301
+
+# Legacy Localized Aliases / Soft 404 Remediation
+/fr/shape-art-generator /fr/art-formes 301
+/es/shape-art-generator /es/arte-formas 301
+/pt/shape-art-generator /pt/arte-formas 301
+/de/shape-art-generator /de/formen-kunst 301
+
+# SPA HTML5 History API Fallback
 /*    /index.html   200

@@ -9,8 +9,7 @@ export const About: React.FC = () => {
         title="About ImagePlumber - Privacy-First Image Tools" 
         description="Learn how ImagePlumber processes all images directly in your browser with zero uploads. Discover our offline-first technology stack, Web Worker processing, and privacy-by-design security structure." 
         keywords="about ImagePlumber, privacy image tools, offline image processing, browser image editor, client-side image tools, no upload image editor"
-        canonicalUrl="https://imageplumber.com/about"
-      />
+/>
 
       <div className="text-center mb-12">
         <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/30 rounded-full text-xs font-semibold text-indigo-650 dark:text-indigo-400 mb-4 tracking-wide shadow-sm">

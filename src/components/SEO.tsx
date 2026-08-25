@@ -41,24 +41,15 @@ export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonica
     }
   }, [fullTitle, finalDescription]);
 
-  const getCleanCanonical = (urlStr: string) => {
-    try {
-      const url = new URL(urlStr, 'https://imageplumber.com');
-      let path = url.pathname;
-      if (path !== '/' && path.endsWith('/')) {
-        path = path.slice(0, -1);
-      }
-      return `https://imageplumber.com${path}`;
-    } catch {
-      let path = urlStr;
-      if (path !== '/' && path.endsWith('/')) {
-        path = path.slice(0, -1);
-      }
-      return `https://imageplumber.com${path}`;
+  const getCleanCanonical = () => {
+    let path = window.location.pathname;
+    if (path !== '/' && path.endsWith('/')) {
+      path = path.slice(0, -1);
     }
+    return `https://imageplumber.com${path === '' ? '/' : path}`;
   };
 
-  const defaultCanonical = getCleanCanonical(canonicalUrl || window.location.pathname);
+  const defaultCanonical = canonicalUrl || getCleanCanonical();
   const schemaString = finalSchema ? JSON.stringify(finalSchema) : '';
 
   useEffect(() => {
@@ -117,9 +108,8 @@ export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonica
     updateMetaTag('name', 'twitter:card', 'summary_large_image');
     updateMetaTag('property', 'twitter:url', defaultCanonical);
 
-    // 6. Update Canonical URL & Hreflang
+    // 6. Update Canonical URL (without corrupting hreflang alternates)
     updateLinkTag('canonical', defaultCanonical);
-    updateLinkTag('alternate', defaultCanonical);
 
     // 7. Inject per-page JSON-LD WebPage schema
     const ldJsonId = 'page-jsonld';

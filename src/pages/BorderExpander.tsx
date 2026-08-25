@@ -210,8 +210,7 @@ export const BorderExpander: React.FC = () => {
         title="Add Border to Image Online Free (Color, Blur, Padding) | ImagePlumber"
         description="Add colored borders, frame padding, blurred background letterboxing, and rounded corners to photos online. 100% private in-browser canvas processing."
         keywords="add border to image, photo frame online, add white border to photo, instagram photo padding, blur background padding, add shadow to image, rounded corners image"
-        canonicalUrl="https://imageplumber.com/add-border-to-image"
-        schema={borderSchema}
+schema={borderSchema}
       />
 
       <div className="max-w-5xl mx-auto">

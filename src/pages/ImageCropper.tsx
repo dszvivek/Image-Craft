@@ -349,8 +349,7 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
         title="Free Online Image Cropper (Square, 16:9, Passport) | ImagePlumber"
         description="Crop photos online for free with aspect ratio presets (1:1, 4:5, 16:9, 9:16, Passport 2x2 in). Interactive Rule of Thirds grid and zero cloud uploads."
         keywords="crop image online, photo cropper free, square image crop, instagram crop 4:5, youtube thumbnail crop, passport photo cropper, crop picture without upload, free image crop tool"
-        canonicalUrl="https://imageplumber.com/crop-image"
-        schema={cropSchema}
+schema={cropSchema}
       />
 
       <div className="max-w-5xl mx-auto">

@@ -371,8 +371,7 @@ export const WatermarkOverlay: React.FC<WatermarkOverlayProps> = ({
       <SEO
         title={pageTitle || "Watermark Photos Online Free (Batch & Tiled Grid) | ImagePlumber"}
         description={pageSubtitle || "Add text, logos, or tiled copyright watermarks to photos in batch online for free. 100% private in-browser canvas processing with zero uploads."}
-        canonicalUrl="https://imageplumber.com/watermark-overlay"
-        schema={watermarkSchema}
+schema={watermarkSchema}
       />
 
       {/* Header */}

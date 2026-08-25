@@ -349,6 +349,8 @@ export function getLocalizedToolPath(enPath: string, locale: SupportedLocale): s
     'meme-generator': { es: 'generador-memes', pt: 'gerador-memes', hi: 'meme-generator', fr: 'generateur-memes', de: 'meme-generator' },
     'metadata-stripper': { es: 'eliminar-metadatos', pt: 'remover-metadados', hi: 'exif-metadata-hataye', fr: 'supprimer-metadonnees', de: 'metadaten-entfernen' },
     'sign-pdf': { es: 'firmar-pdf', pt: 'assinar-pdf', hi: 'pdf-sign-kare', fr: 'signer-pdf', de: 'pdf-unterschreiben' },
+    'bank-statement-analyzer': { es: 'analizador-extractos-bancarios', pt: 'analisador-extrato-bancario', hi: 'bank-statement-analyzer', fr: 'analyseur-releve-bancaire', de: 'kontoauszug-analysieren' },
+    'ocr-text-extractor': { es: 'extractor-texto-ocr', pt: 'extrator-texto-ocr', hi: 'ocr-text-extractor', fr: 'extracteur-texte-ocr', de: 'ocr-texterkennung' },
     'crop-image': { es: 'recortar-imagen', pt: 'cortar-imagem', hi: 'photo-crop-kare', fr: 'recadrer-image', de: 'bild-zuschneiden' },
     'rotate-image': { es: 'rotar-imagen', pt: 'girar-imagem', hi: 'photo-rotate-kare', fr: 'pivoter-image', de: 'bild-drehen' },
     'add-border-to-image': { es: 'agregar-borde-imagen', pt: 'adicionar-borda-imagem', hi: 'border-lagaye', fr: 'ajouter-bordure-image', de: 'rahmen-hinzufuegen' },
@@ -359,6 +361,9 @@ export function getLocalizedToolPath(enPath: string, locale: SupportedLocale): s
     'pixel-art-generator': { es: 'arte-pixel', pt: 'arte-pixel', hi: 'pixel-art-generator', fr: 'pixel-art', de: 'pixel-art-generator' },
     'ascii-art-generator': { es: 'arte-ascii', pt: 'arte-ascii', hi: 'ascii-art-generator', fr: 'art-ascii', de: 'ascii-art-generator' },
     'glitch-image-generator': { es: 'efecto-glitch', pt: 'efeito-glitch', hi: 'glitch-art-studio', fr: 'effet-glitch', de: 'glitch-effekt' },
+    'svg-vectorizer': { es: 'vectorizador-svg', pt: 'vetorizador-svg', hi: 'svg-vectorizer', fr: 'vectoriseur-svg', de: 'svg-vektorisierer' },
+    'shape-art-generator': { es: 'arte-formas', pt: 'arte-formas', hi: 'shape-art-generator', fr: 'art-formes', de: 'formen-kunst' },
+    'ambient': { es: 'visuales-ambientales', pt: 'visuais-ambientais', hi: 'ambient-visuals', fr: 'visuels-ambiance', de: 'ambient-visuals' },
     'side-by-side-image': { es: 'comparar-fotos', pt: 'comparar-fotos', hi: 'photo-compare-kare', fr: 'comparer-photos', de: 'bilder-vergleichen' },
     'instagram-panorama-splitter': { es: 'panoramica-instagram', pt: 'panoramica-instagram', hi: 'instagram-panorama-splitter', fr: 'panorama-instagram', de: 'instagram-panorama-teiler' },
     'redact-image': { es: 'censurar-foto', pt: 'censurar-foto', hi: 'photo-censor-kare', fr: 'censurer-photo', de: 'bild-zensieren' },
@@ -369,7 +374,7 @@ export function getLocalizedToolPath(enPath: string, locale: SupportedLocale): s
   if (localizedSlug) {
     return `/${locale}/${localizedSlug}`;
   }
-  return `/${locale}${enPath}`;
+  return `/${locale}`;
 }
 
 export const SHORT_TOOL_NAMES: Record<string, Record<SupportedLocale, { name: string; desc: string }>> = {

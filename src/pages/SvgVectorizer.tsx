@@ -598,8 +598,7 @@ export const SvgVectorizer: React.FC = () => {
         title="Free Image to SVG Vectorizer - Vectorizer.ai Alternative" 
         description="Convert raster JPG/PNG images into scalable vector graphics (SVG) offline in your browser. A free alternative to Vectorizer.ai and Vector Magic." 
         keywords="SVG vectorizer, image to SVG, convert PNG to SVG, convert JPG to SVG, vectorize image, raster to vector, vector converter, image tracer, SVG converter online, free SVG converter, image to vector art, auto tracer, Vectorizer.ai alternative, Vector Magic alternative, vectorize photo offline"
-        canonicalUrl="https://imageplumber.com/svg-vectorizer"
-        schema={vectorSchema}
+schema={vectorSchema}
       />
 
       <div className="max-w-5xl mx-auto">

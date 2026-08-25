@@ -314,8 +314,7 @@ export const ImageAdjuster: React.FC<ImageAdjusterProps> = ({
       <SEO
         title={pageTitle || "Adjust Image Brightness, Contrast & Colors Online Free | ImagePlumber"}
         description={pageSubtitle || "Fine-tune brightness, contrast, saturation, temperature, and sharpness online for free. 100% private in-browser GPU-accelerated canvas processing."}
-        canonicalUrl="https://imageplumber.com/adjust-image"
-        schema={adjusterSchema}
+schema={adjusterSchema}
       />
 
       {/* Header */}

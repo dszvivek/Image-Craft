@@ -20,8 +20,7 @@ export const Contact: React.FC = () => {
         title="Contact Us - Support Team" 
         description="Reach out to the ImagePlumber support team. Ask questions about browser image processing, report bugs, or suggest new image tool features. We respond quickly to all inquiries." 
         keywords="ImagePlumber contact, image tool support, report bug, feature request, contact support"
-        canonicalUrl="https://imageplumber.com/contact"
-      />
+/>
 
       <div className="text-center mb-12">
         <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-55 border border-indigo-100 rounded-full text-xs font-semibold text-indigo-650 mb-4 tracking-wide shadow-sm">

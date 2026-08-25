@@ -360,8 +360,7 @@ export const ImageRedactor: React.FC<ImageRedactorProps> = ({
       <SEO
         title={pageTitle || "Redact Image Online Free - Blur Faces & Censor Photos | ImagePlumber"}
         description={pageSubtitle || "Censor sensitive information, blur faces, and black-out ID numbers on photos online for free. 100% private client-side canvas sanitization."}
-        canonicalUrl="https://imageplumber.com/redact-image"
-        schema={redactorSchema}
+schema={redactorSchema}
       />
 
       {/* Header */}

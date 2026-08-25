@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://imageplumber.com/</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -13,1664 +13,2242 @@
   </url>
   <url>
     <loc>https://imageplumber.com/background-remover</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Free AI Background Remover Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/image-compressor</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Compress Image Files Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/sign-pdf</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Free Electronic PDF Signer Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/ocr-text-extractor</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>OCR Text Extractor Scan Image to Text - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/bank-statement-analyzer</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Bank Statement Analyzer Parse PDF to CSV Excel - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/svg-vectorizer</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>SVG Vectorizer Convert PNG to SVG - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/batch-converter</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Batch Image Converter - ImagePlumber</image:title>
+      <image:title>Free AI Background Remover Online | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/aspect-resizer</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Aspect Resizer Smart Crop - ImagePlumber</image:title>
+      <image:title>Free Image Aspect Resizer &amp; Smart Crop | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/batch-converter</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Batch Image Converter (PNG, JPG, WebP, PDF) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/collage-maker</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Photo Collage Maker Grid Layouts - ImagePlumber</image:title>
+      <image:title>Free Photo Collage Maker &amp; Grid Layouts | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/image-compressor</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Compress Image Files Online (JPG, PNG, WebP) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/instagram-grid-splitter</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Instagram Grid Splitter - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/color-palette-extractor</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Color Palette Extractor - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/metadata-stripper</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>EXIF Metadata Stripper - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/watermark-overlay</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Watermark Overlay - ImagePlumber</image:title>
+      <image:title>Instagram Grid Splitter &amp; Tile Cutter | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/meme-generator</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Meme Generator Online - ImagePlumber</image:title>
+      <image:title>Free Meme Generator - Create Custom Memes | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/metadata-stripper</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>EXIF Metadata Stripper - Wipe Photo GPS Data | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/photo-mosaic-generator</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Photo Mosaic Generator - ImagePlumber</image:title>
+      <image:title>Photo Mosaic Generator - Make Picture Mosaics | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/shape-art-generator</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>AI Shape Art Generator - ImagePlumber</image:title>
+      <image:title>AI Shape Art Generator - Turn Photos to Art | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/ocr-text-extractor</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Free OCR Text Extractor - Scan Image to Text | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/color-palette-extractor</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Color Palette Extractor - Extract Image Hex | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/svg-vectorizer</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>SVG Vectorizer - Convert PNG &amp; JPG to SVG | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/watermark-overlay</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Watermark Overlay - Add Watermark to Photos | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/bank-statement-analyzer</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Bank Statement Analyzer - PDF to CSV &amp; Excel | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/sign-pdf</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Free PDF Signer - Sign PDF Documents Online | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/ambient</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Ambient Visuals Calming Focus Backgrounds - ImagePlumber</image:title>
+      <image:title>Ambient Visuals &amp; Calming Focus Backgrounds | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/png-to-jpg</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convert PNG to JPG Online Free - ImagePlumber</image:title>
+      <image:title>Convert PNG to JPG Online Free (100% Private, Bulk) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/jpg-to-png</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convert JPG to PNG Online Free - ImagePlumber</image:title>
+      <image:title>Convert JPG to PNG Online Free (High Quality) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/webp-to-jpg</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convert WebP to JPG Online Free - ImagePlumber</image:title>
+      <image:title>Convert WebP to JPG Online Free (Fast &amp; Private) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/webp-to-png</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convert WebP to PNG Online Free - ImagePlumber</image:title>
+      <image:title>Convert WebP to PNG Online Free (Lossless Alpha) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/heic-to-jpg</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convert HEIC to JPG Online Free - ImagePlumber</image:title>
+      <image:title>Convert HEIC to JPG Online Free (iPhone Photos) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/svg-to-png</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convert SVG to PNG Online Free - ImagePlumber</image:title>
+      <image:title>Convert SVG to PNG Online Free (High Resolution) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/png-to-svg</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convert PNG to SVG Online Free - ImagePlumber</image:title>
+      <image:title>Convert PNG to SVG Online Free (Vectorize Image) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/compress-png</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.94</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Compress PNG Online Free - ImagePlumber</image:title>
+      <image:title>Compress PNG Online Free (Preserve Transparency) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/compress-jpeg</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.94</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Compress JPEG Online Free - ImagePlumber</image:title>
+      <image:title>Compress JPEG Online Free (Lossy &amp; Lossless) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/compress-webp</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Compress WebP Online Free - ImagePlumber</image:title>
+      <image:title>Compress WebP Online Free (Next-Gen Optimizer) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/compress-image-to-100kb</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.93</priority>
+    <priority>0.85</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Compress Image to 100KB Online Free - ImagePlumber</image:title>
+      <image:title>Compress Image to 100KB Online Free | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/compress-image-to-50kb</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.93</priority>
+    <priority>0.85</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Compress Image to 50KB Online Free - ImagePlumber</image:title>
+      <image:title>Compress Image to 50KB Online Free | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/compress-image-to-20kb</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.93</priority>
+    <priority>0.85</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Compress Image to 20KB Online Free - ImagePlumber</image:title>
+      <image:title>Compress Image to 20KB Online Free (Signatures &amp; Photos) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/remove-white-background</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Remove White Background Online Free - ImagePlumber</image:title>
+      <image:title>Remove White Background Online Free | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/transparent-background-maker</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Transparent Background Maker Online Free - ImagePlumber</image:title>
+      <image:title>Transparent Background Maker Free | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/bank-statement-to-excel</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.93</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convert Bank Statement PDF to Excel CSV Free - ImagePlumber</image:title>
+      <image:title>Convert Bank Statement to Excel Free | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/sign-pdf-online</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.94</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Sign PDF Online Free - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/es</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>ImagePlumber en Español - Suite de Herramientas</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/es/comprimir-imagen</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Comprimir Imagenes Online Gratis - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/es/quitar-fondo</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Quitar Fondo con IA - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/es/convertidor-por-lotes</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convertidor por Lotes - ImagePlumber</image:title>
+      <image:title>Sign PDF Online Free (100% Private) | ImagePlumber</image:title>
     </image:image>
   </url>
-  <url>
-    <loc>https://imageplumber.com/es/firmar-pdf</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Firmar PDF Online Gratis - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/es/png-a-jpg</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convertir PNG a JPG - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/es/jpg-a-png</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convertir JPG a PNG - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>ImagePlumber em Portugues - Ferramentas de Imagem</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/comprimir-imagem</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Comprimir Imagem Online Gratis - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/remover-fundo</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Remover Fundo com IA - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/conversor-em-lote</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Conversor em Lote - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/assinar-pdf</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Assinar PDF Online Gratis - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/png-para-jpg</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Converter PNG para JPG - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/jpg-para-png</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Converter JPG para PNG - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>ImagePlumber Hindi - Free Image Tools</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/photo-compress-kare</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.94</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Photo Size Kam Kare Online Free - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/background-hataye</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Photo Ka Background Hataye Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/batch-converter</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Batch Photo to PDF Converter Hindi - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/pdf-sign-kare</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>PDF Par Sign Kare Online Free - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/png-se-jpg</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>PNG Ko JPG Me Convert Kare - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/jpg-se-png</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>JPG Ko PNG Me Convert Kare - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>ImagePlumber en Francais - Outils Image Gratuits</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/compresser-image</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Compresser Image en Ligne Gratuit - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/supprimer-arriere-plan</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Supprimer Arriere Plan avec IA - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/convertisseur-par-lots</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convertisseur par Lots - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/signer-pdf</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Signer PDF en Ligne Gratuit - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/png-en-jpg</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convertir PNG en JPG - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/jpg-en-png</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Convertir JPG en PNG - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>ImagePlumber auf Deutsch - Kostenlose Bildtools</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/bild-komprimieren</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Bilder Online Kostenlos Komprimieren - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/hintergrund-entfernen</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Hintergrund Entfernen mit KI - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/stapel-konverter</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Stapel-Bildkonverter - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/pdf-unterschreiben</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>PDF Online Unterschreiben - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/png-in-jpg</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>PNG in JPG Umwandeln - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/jpg-in-png</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>JPG in PNG Umwandeln - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <!-- Phase 1: Core Geometry & Transformation Suite -->
   <url>
     <loc>https://imageplumber.com/crop-image</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Crop Image Online Free - ImagePlumber</image:title>
+      <image:title>Crop Image Online Free (Square, 16:9, Passport) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/passport-photo-cropper</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Passport &amp; Visa Photo Cropper - ImagePlumber</image:title>
+      <image:title>Passport Photo Cropper Online (2x2 in, 51x51 mm) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/rotate-image</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Rotate &amp; Flip Image Online - ImagePlumber</image:title>
+      <image:title>Rotate &amp; Flip Image Online Free (90°, 180°, Mirror) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/add-border-to-image</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Add Border &amp; Padding to Image - ImagePlumber</image:title>
+      <image:title>Add Border to Image Online Free (Color, Blur, Padding) | ImagePlumber</image:title>
     </image:image>
   </url>
-  <url>
-    <loc>https://imageplumber.com/es/recortar-imagen</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Recortar Imagenes Online Gratis - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/es/rotar-imagen</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Rotar Imagenes Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/es/agregar-borde-imagen</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Agregar Borde a Imagen - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/cortar-imagem</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Cortar Imagens Online Gratis - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/girar-imagem</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Girar Imagens Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/adicionar-borda-imagem</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Adicionar Borda a Imagem - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/photo-crop-kare</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Photo Crop Kare Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/photo-rotate-kare</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Photo Rotate Kare Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/border-lagaye</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Photo Me Border Lagaye - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/recadrer-image</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Recadrer une Image en Ligne - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/pivoter-image</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Pivoter une Image en Ligne - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/ajouter-bordure-image</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Ajouter une Bordure a une Image - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/bild-zuschneiden</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Bilder Online Zuschneiden - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/bild-drehen</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Bilder Online Drehen - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/rahmen-hinzufuegen</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Rahmen zu Bild Hinzufuegen - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <!-- Phase 2: Color, Tone & Filtering Suite -->
   <url>
     <loc>https://imageplumber.com/photo-filters</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Photo Filters &amp; Duotone Studio - ImagePlumber</image:title>
+      <image:title>Photo Filters Online Free (Vintage, Cyberpunk, HDR) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/vintage-photo-filter</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Vintage Photo Filter - ImagePlumber</image:title>
+      <image:title>Vintage Photo Filter Online Free (Retro 1970s Film) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/duotone-generator</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Duotone Generator - ImagePlumber</image:title>
+      <image:title>Duotone Effect Generator Online Free (Two-Tone Filter) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/invert-colors</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Invert Image Colors - ImagePlumber</image:title>
+      <image:title>Invert Image Colors Online Free (Negative Effect) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/black-and-white-converter</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Black and White Image Converter - ImagePlumber</image:title>
+      <image:title>Black and White Image Converter Online Free (B&amp;W &amp; Otsu) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/adjust-image</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Image Adjuster &amp; Color Tuner - ImagePlumber</image:title>
+      <image:title>Adjust Image Brightness, Contrast &amp; Colors Online | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/brightness-contrast</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Adjust Brightness &amp; Contrast - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/es/filtros-fotos</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Filtros de Fotos Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/es/invertir-colores</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Invertir Colores de Imagen - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/es/ajustar-imagen</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Ajustar Imagen Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/filtros-fotos</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Filtros de Fotos Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/inverter-cores</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Inverter Cores de Imagem - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/ajustar-imagem</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Ajustar Imagem Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/photo-filters</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Photo Filters Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/color-invert-kare</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Photo Color Invert Kare - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/photo-brightness-contrast</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Photo Brightness Contrast Adjust - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/filtres-photos</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Filtres Photos en Ligne - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/inverser-couleurs</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Inverser les Couleurs Photo - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/ajuster-image</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Ajuster Image en Ligne - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/fotofilter</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Fotofilter Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/farben-invertieren</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Farben Invertieren Online - ImagePlumber</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/bild-anpassen</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Bild Anpassen Online - ImagePlumber</image:title>
+      <image:title>Adjust Image Brightness &amp; Contrast Online Free | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/add-text-to-image</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Add Text to Photo Online Free - ImagePlumber</image:title>
+      <image:title>Add Text to Photo Online Free (Fonts &amp; Outlines) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/caption-generator</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Photo Caption Subtitle Generator - ImagePlumber</image:title>
+      <image:title>Photo Caption &amp; Subtitle Generator Online Free | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/batch-watermark</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Batch Watermark Photos Online - ImagePlumber</image:title>
+      <image:title>Batch Watermark Photos Online Free (1-Click ZIP) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/add-logo-to-photo</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Add Logo to Photo Online - ImagePlumber</image:title>
+      <image:title>Add Logo to Photo Online Free (Transparent PNG) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/exif-viewer</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>EXIF Viewer Online Free - ImagePlumber</image:title>
+      <image:title>EXIF Metadata Viewer Online Free (Camera &amp; GPS) | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/remove-exif-data</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://imageplumber.com/og-image.png</image:loc>
-      <image:title>Remove EXIF Data and GPS - ImagePlumber</image:title>
+      <image:title>Remove EXIF Data &amp; GPS from Photos Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pixel-art-generator</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Pixel Art Generator &amp; 8-Bit Photo Converter Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/8-bit-photo-converter</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>8-Bit Photo Converter Online Free (Retro Gaming Sprites) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pixelate-image</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Pixelate Image Online Free (Blur &amp; Block Effect) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/ascii-art-generator</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>ASCII Art Generator &amp; Image to Text Art Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/image-to-text-art</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Image to Text Art Converter Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/ansi-art</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>ANSI Art &amp; Full-Color ASCII Generator Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/glitch-image-generator</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Glitch Image Generator &amp; CRT VHS Distortion Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/crt-tv-filter</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>CRT TV Filter &amp; Scanlines Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/vhs-effect</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>VHS Effect &amp; Retro Tape Glitch Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/side-by-side-image</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Side by Side Image &amp; Before/After Photo Combiner Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/before-after-image</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Before and After Image Combiner Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/compare-images</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Compare Two Images Side by Side Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/instagram-panorama-splitter</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Instagram Panorama Splitter &amp; Seamless Swipe Carousel Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/swipe-carousel-maker</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Swipe Carousel Maker for Instagram &amp; TikTok (4:5 Portrait) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/seamless-carousel</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Seamless Panorama Carousel Splitter Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/photo-grid-maker</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Grid Maker Online Free (Custom Layouts) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/photo-joiner</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Joiner &amp; Image Combiner Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/redact-image</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Redact Image Online Free - Blur Faces &amp; Censor Photos | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/blur-faces</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Blur Faces in Photos Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pixelate-face</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Pixelate Faces &amp; Censor Photos Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/censor-photo</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Censor Photos &amp; Black Out Information Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/image-steganography</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Image Steganography - Hide Text in Image Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hide-text-in-image</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Hide Text in Image Online Free (Steganography) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/decode-hidden-message</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Extract &amp; Decode Hidden Message from Image Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/about</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>About Our Offline Privacy Tools | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/privacy</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Privacy Policy &amp; Zero-Upload Guarantee | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/faq</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Frequently Asked Questions (FAQ) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/contact</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Contact Support &amp; Feedback | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>ImagePlumber - Suite de Herramientas de Imagen Locales y Gratuitas</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/comprimir-imagen</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Comprimir Imágenes Online Gratis (100% Privado) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/quitar-fondo</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Quitar Fondo de Imágenes Online Gratis con IA | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/convertidor-por-lotes</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Convertidor de Imágenes y PDF por Lotes Gratis | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/firmar-pdf</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Firmar PDF Online Gratis (100% Privado) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/png-a-jpg</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Convertir PNG a JPG Online Gratis (100% Privado) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/jpg-a-png</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Convertir JPG a PNG Online Gratis (Alta Calidad) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/recortar-imagen</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Recortar Imágenes Online Gratis (Cuadrado, 16:9, Pasaporte) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/rotar-imagen</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Rotar y Voltear Fotos Online Gratis (90°, Espejo) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/agregar-borde-imagen</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Añadir Borde a Fotos Online Gratis (Color, Desenfoque) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/filtros-fotos</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Filtros de Fotos y Efecto Duotono Online Gratis | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/invertir-colores</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Invertir Colores y Convertir a Blanco y Negro | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/ajustar-imagen</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Ajustar Brillo, Contraste y Colores Online | ImagePlumber</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/es/generador-memes</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Generador de Memes y Añadir Texto a Fotos | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/es/marca-de-agua</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Poner Marca de Agua a Fotos Online (Lotes y ZIP) | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/es/eliminar-metadatos</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Ver y Eliminar Metadatos EXIF de Fotos Online | ImagePlumber</image:title>
+    </image:image>
   </url>
-  <url>
-    <loc>https://imageplumber.com/pt/gerador-memes</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/marca-dagua</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/remover-metadados</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/meme-generator</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/watermark-lagaye</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/exif-metadata-hataye</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/generateur-memes</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/filigrane-image</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/supprimer-metadonnees</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/meme-generator</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/wasserzeichen-hinzufuegen</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/metadaten-entfernen</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <!-- Phase 4 Creative Art & Pixel Manipulation URLs -->
-  <url>
-    <loc>https://imageplumber.com/pixel-art-generator</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/8-bit-photo-converter</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.91</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pixelate-image</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/ascii-art-generator</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/image-to-text-art</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/ansi-art</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.89</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/glitch-image-generator</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/crt-tv-filter</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/vhs-effect</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <!-- Phase 4 Localized URLs -->
   <url>
     <loc>https://imageplumber.com/es/arte-pixel</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Generador de Pixel Art y Convertidor 8-Bits Online | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/es/arte-ascii</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Generador de Arte ASCII y Texto desde Fotos Online | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/es/efecto-glitch</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/arte-pixel</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/arte-ascii</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/efeito-glitch</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/pixel-art-generator</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/ascii-art-generator</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/glitch-art-studio</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/pixel-art</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/art-ascii</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/effet-glitch</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/pixel-art-generator</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/ascii-art-generator</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/glitch-effekt</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/side-by-side-image</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.93</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/before-after-image</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.91</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/compare-images</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/instagram-panorama-splitter</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.93</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/swipe-carousel-maker</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.91</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/seamless-carousel</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/photo-grid-maker</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/photo-joiner</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Generador de Efecto Glitch y Líneas CRT Online | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/es/comparar-fotos</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Comparar Fotos Lado a Lado y Antes/Después Online | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/es/panoramica-instagram</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Dividir Panorámica para Carrusel de Instagram y TikTok | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/es/cuadricula-fotos</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/comparar-fotos</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/panoramica-instagram</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pt/grade-fotos</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/photo-compare-kare</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/instagram-panorama-splitter</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hi/photo-grid-maker</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/comparer-photos</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/panorama-instagram</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/fr/grille-photos</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/bilder-vergleichen</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/instagram-panorama-teiler</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/de/fotogitter-erstellen</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/redact-image</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.94</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/blur-faces</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/pixelate-face</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.91</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/censor-photo</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.91</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/image-steganography</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.93</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/hide-text-in-image</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.91</priority>
-  </url>
-  <url>
-    <loc>https://imageplumber.com/decode-hidden-message</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Crear Cuadrícula y Collage de Fotos Online Gratis | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/es/censurar-foto</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Censurar Fotos y Desenfocar Caras Online Gratis | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/es/esteganografia-imagenes</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Ocultar Texto Secreto en Fotos (Esteganografía) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/analizador-extractos-bancarios</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Analizador de Extractos Bancarios PDF a Excel/CSV | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/extractor-texto-ocr</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Extractor de Texto OCR Online Gratis (Imagen a Texto) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/vectorizador-svg</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Vectorizador SVG Online Gratis (Convertir JPG/PNG a SVG) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/arte-formas</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Generador de Arte con Formas y Partículas AI | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/es/visuales-ambientales</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Visuales Ambientales y Concentración Generativa | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>ImagePlumber - Ferramentas de Imagem Gratuitas e 100% Privadas</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/comprimir-imagem</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Comprimir Imagem Online Grátis (100% Privado) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/remover-fundo</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Remover Fundo de Imagem Grátis com IA | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/conversor-em-lote</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Conversor de Imagens e PDF em Lote Grátis | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/assinar-pdf</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Assinar PDF Online Grátis (100% Seguro) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/png-para-jpg</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Converter PNG para JPG Online Grátis (100% Privado) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/jpg-para-png</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Converter JPG para PNG Online Grátis (Alta Qualidade) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/cortar-imagem</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Cortar Imagens Online Grátis (Quadrado, 16:9, Passaporte) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/girar-imagem</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Girar e Espelhar Fotos Online Grátis (90°, Espelho) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/adicionar-borda-imagem</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Adicionar Borda a Fotos Online Grátis (Cor, Desfoque) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/filtros-fotos</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Filtros de Fotos e Efeito Duotone Online Grátis | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/inverter-cores</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Inverter Cores e Converter em Preto e Branco | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/ajustar-imagem</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Ajustar Brilho, Contraste e Cores Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/gerador-memes</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Gerador de Memes e Texto na Foto Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/marca-dagua</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Colocar Marca d'Água em Fotos Online (Lote e ZIP) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/remover-metadados</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Ver e Remover Metadados EXIF de Fotos | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/arte-pixel</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Gerador de Pixel Art e Conversor 8-Bits Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/arte-ascii</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Gerador de Arte ASCII e Texto a Partir de Fotos | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/efeito-glitch</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Gerador de Efeito Glitch e Linhas CRT Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/comparar-fotos</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Comparar Fotos Lado a Lado e Antes/Depois Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/panoramica-instagram</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Dividir Panorâmica para Carrossel do Instagram e TikTok | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/grade-fotos</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Criar Grade e Colagem de Fotos Online Grátis | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/pt/censurar-foto</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Censurar Fotos e Desfocar Rostos Online Grátis | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/pt/esteganografia-imagem</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Ocultar Texto Secreto em Fotos (Esteganografia) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/analisador-extrato-bancario</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Analisador de Extratos Bancários PDF para Excel/CSV | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/extrator-texto-ocr</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Extrator de Texto OCR Online Grátis (Imagem para Texto) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/vetorizador-svg</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Vetorizador SVG Online Grátis (PNG/JPG para SVG) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/arte-formas</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Gerador de Arte com Formas e Partículas AI | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/pt/visuais-ambientais</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Visuais Ambientais e Foco Generativo | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>ImagePlumber - 100% फ्री और प्राइवेट इमेज टूल्स सुइट</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/photo-compress-kare</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Size Kam Kare Online Free (100% Private) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/background-hataye</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Ka Background Hataye Online Free (AI Cutout) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/batch-converter</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Batch Image Converter &amp; PDF Maker Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/pdf-sign-kare</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>PDF Par Sign Kare Online Free (100% सुरक्षित) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/png-se-jpg</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>PNG Ko JPG Me Convert Kare Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/jpg-se-png</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>JPG Ko PNG Me Convert Kare Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/photo-crop-kare</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Crop Kare Online Free (Passport, 16:9, Square) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/photo-rotate-kare</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Rotate &amp; Mirror Kare Online Free (90°, Flip) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/border-lagaye</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Me Border &amp; Frame Lagaye Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/photo-filters</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Filters &amp; Duotone Effects Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/color-invert-kare</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Color Invert &amp; B&amp;W Converter Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/photo-brightness-contrast</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Brightness &amp; Contrast Adjust Kare Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/meme-generator</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Meme Generator &amp; Photo Par Text Likhe Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/watermark-lagaye</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Me Watermark Lagaye Online (Batch &amp; ZIP) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/exif-metadata-hataye</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Se EXIF Metadata &amp; GPS Location Hataye | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/pixel-art-generator</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Pixel Art &amp; 8-Bit Photo Converter Online Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/ascii-art-generator</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>ASCII Art &amp; Image to Text Art Generator Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/glitch-art-studio</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Glitch Art &amp; CRT TV Effect Generator Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/photo-compare-kare</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Compare Kare &amp; Before After Combiner Free | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/instagram-panorama-splitter</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Instagram Panorama Splitter &amp; Swipe Carousel Hindi | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/photo-grid-maker</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Grid &amp; Collage Maker Online Free Hindi | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/hi/photo-censor-kare</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Censor &amp; Face Blur Kare Online Free | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/hi/image-steganography</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Photo Me Secret Text Chupaye (Steganography) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/bank-statement-analyzer</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Bank Statement Analyzer PDF to Excel/CSV Hindi | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/ocr-text-extractor</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>OCR Text Extractor Photo Se Text Nikale Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/svg-vectorizer</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>SVG Vectorizer PNG/JPG Ko SVG Me Convert Kare | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/shape-art-generator</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Shape Art Generator &amp; Cosmic Particles Photo FX | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/hi/ambient-visuals</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Ambient Visuals &amp; Focus Canvas Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>ImagePlumber - Suite d'Outils d'Image 100% Gratuite et Privée</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/compresser-image</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Compresser une Image en Ligne Gratuitement (100% Privé) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/supprimer-arriere-plan</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Supprimer l'Arrière-Plan d'une Image avec IA | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/convertisseur-par-lots</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Convertisseur d'Images et PDF par Lots Gratuit | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/signer-pdf</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Signer un PDF en Ligne Gratuitement (100% Sécurisé) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/png-en-jpg</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Convertir PNG en JPG en Ligne Gratuit (100% Privé) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/jpg-en-png</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Convertir JPG en PNG en Ligne Gratuit (Sans Perte) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/recadrer-image</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Recadrer une Image en Ligne Gratuit (Carré, 16:9, Passeport) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/pivoter-image</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Faire Pivoter et Retourner une Image en Ligne (90°, Miroir) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/ajouter-bordure-image</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Ajouter une Bordure à une Photo en Ligne (Couleur, Flou) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/filtres-photos</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Filtres Photos et Effet Duotone en Ligne Gratuit | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/inverser-couleurs</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Inverser les Couleurs et Convertir en Noir et Blanc | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/ajuster-image</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Ajuster Luminosité, Contraste et Couleurs Photo | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/generateur-memes</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Générateur de Mèmes et Texte sur Photo en Ligne | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/filigrane-image</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Ajouter un Filigrane sur Photo en Ligne (Lots &amp; ZIP) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/supprimer-metadonnees</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Afficher et Supprimer Métadonnées EXIF Photo | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/pixel-art</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Générateur de Pixel Art et Convertisseur 8-Bits | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/art-ascii</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Générateur d'Art ASCII et Texte depuis Photos | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/effet-glitch</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Générateur d'Effet Glitch et Lignes CRT en Ligne | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/comparer-photos</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Comparer Deux Photos Côte à Côte et Avant/Après | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/panorama-instagram</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Découper Panorama pour Carrousel Instagram &amp; TikTok | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/grille-photos</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Créer une Grille et Collage Photo en Ligne Gratuit | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/fr/censurer-photo</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Censurer des Photos et Flouter des Visages en Ligne | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/fr/steganographie-image</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Cacher Texte Secret dans une Image (Stéganographie) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/analyseur-releve-bancaire</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Analyseur de Relevé Bancaire PDF en Excel/CSV | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/extracteur-texte-ocr</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Extracteur de Texte OCR Gratuit en Ligne (Image en Texte) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/vectoriseur-svg</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Vectoriseur SVG Gratuit en Ligne (Convertir PNG/JPG en SVG) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/art-formes</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Générateur d'Art Géométrique &amp; Particules AI | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/fr/visuels-ambiance</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Visuels d'Ambiance et Concentration Générative | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>ImagePlumber - Kostenlose &amp; 100% Private Bildbearbeitungstools</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/bild-komprimieren</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Bilder Online Kostenlos Komprimieren (100% Privat) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/hintergrund-entfernen</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Hintergrund Kostenlos Entfernen mit KI | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/stapel-konverter</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Stapel-Bildkonverter &amp; PDF-Maker Kostenlos | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/pdf-unterschreiben</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>PDF Online Kostenlos Unterschreiben (100% Privat) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/png-in-jpg</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>PNG in JPG Online Kostenlos Umwandeln (100% Privat) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/jpg-in-png</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>JPG in PNG Online Kostenlos Umwandeln (Verlustfrei) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/bild-zuschneiden</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Bilder Online Kostenlos Zuschneiden (Quadrat, 16:9, Passfoto) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/bild-drehen</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Bilder Online Drehen und Spiegeln (90°, Spiegelung) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/rahmen-hinzufuegen</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Rahmen zu Bild Hinzufügen Online Kostenlos (Farbe, Unschärfe) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/fotofilter</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Fotofilter &amp; Duotone-Effekte Online Kostenlos | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/farben-invertieren</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Farben Invertieren &amp; Schwarz-Weiß Konverter | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/bild-anpassen</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Helligkeit, Kontrast &amp; Farben Online Anpassen | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/meme-generator</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Meme Generator &amp; Text auf Bild Online Kostenlos | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/wasserzeichen-hinzufuegen</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Wasserzeichen zu Bildern Hinzufügen (Stapel &amp; ZIP) | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/metadaten-entfernen</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>EXIF-Daten Anzeigen &amp; Löschen Online Kostenlos | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/pixel-art-generator</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Pixel Art Generator &amp; 8-Bit Bildkonverter Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/ascii-art-generator</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>ASCII Art Generator &amp; Textkunst aus Bildern | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/glitch-effekt</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Glitch Art &amp; CRT Scanline Generator Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/bilder-vergleichen</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Bilder Nebeneinander Vergleichen &amp; Vorher/Nachher | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/instagram-panorama-teiler</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Panorama für Instagram Karussell &amp; TikTok Teilen | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/fotogitter-erstellen</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Fotogitter &amp; Collage Erstellen Online Kostenlos | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/de/bild-zensieren</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Bilder Zensieren &amp; Gesichter Verpixeln Online Kostenlos | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://imageplumber.com/de/bild-steganographie</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Geheime Texte in Bildern Verstecken (Steganographie) | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://imageplumber.com/about</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
+    <loc>https://imageplumber.com/de/kontoauszug-analysieren</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Kontoauszug Analyzer PDF in Excel/CSV Kostenlos | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://imageplumber.com/privacy</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
+    <loc>https://imageplumber.com/de/ocr-texterkennung</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>OCR Texterkennung Online Kostenlos (Bild in Text) | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://imageplumber.com/faq</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
+    <loc>https://imageplumber.com/de/svg-vektorisierer</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>SVG Vektorisierer Online Kostenlos (PNG/JPG in SVG) | ImagePlumber</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://imageplumber.com/contact</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
+    <loc>https://imageplumber.com/de/formen-kunst</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Formen-Kunst &amp; Partikel-Generator Online | ImagePlumber</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://imageplumber.com/de/ambient-visuals</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://imageplumber.com/og-image.png</image:loc>
+      <image:title>Ambient Visuals &amp; Generative Fokus-Leinwand | ImagePlumber</image:title>
+    </image:image>
   </url>
 </urlset>

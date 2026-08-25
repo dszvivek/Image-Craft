@@ -64,7 +64,12 @@ const languages = [
       'panoramica-instagram': 'instagram-panorama-splitter',
       'cuadricula-fotos': 'collage-maker',
       'censurar-foto': 'redact-image',
-      'esteganografia-imagenes': 'image-steganography'
+      'esteganografia-imagenes': 'image-steganography',
+      'analizador-extractos-bancarios': 'bank-statement-analyzer',
+      'extractor-texto-ocr': 'ocr-text-extractor',
+      'vectorizador-svg': 'svg-vectorizer',
+      'arte-formas': 'shape-art-generator',
+      'visuales-ambientales': 'ambient'
     },
     toLocal: {
       '': '',
@@ -90,7 +95,12 @@ const languages = [
       'instagram-panorama-splitter': 'panoramica-instagram',
       'collage-maker': 'cuadricula-fotos',
       'redact-image': 'censurar-foto',
-      'image-steganography': 'esteganografia-imagenes'
+      'image-steganography': 'esteganografia-imagenes',
+      'bank-statement-analyzer': 'analizador-extractos-bancarios',
+      'ocr-text-extractor': 'extractor-texto-ocr',
+      'svg-vectorizer': 'vectorizador-svg',
+      'shape-art-generator': 'arte-formas',
+      'ambient': 'visuales-ambientales'
     }
   },
   {
@@ -121,7 +131,12 @@ const languages = [
       'panoramica-instagram': 'instagram-panorama-splitter',
       'grade-fotos': 'collage-maker',
       'censurar-foto': 'redact-image',
-      'esteganografia-imagem': 'image-steganography'
+      'esteganografia-imagem': 'image-steganography',
+      'analisador-extrato-bancario': 'bank-statement-analyzer',
+      'extrator-texto-ocr': 'ocr-text-extractor',
+      'vetorizador-svg': 'svg-vectorizer',
+      'arte-formas': 'shape-art-generator',
+      'visuais-ambientais': 'ambient'
     },
     toLocal: {
       '': '',
@@ -147,7 +162,12 @@ const languages = [
       'instagram-panorama-splitter': 'panoramica-instagram',
       'collage-maker': 'grade-fotos',
       'redact-image': 'censurar-foto',
-      'image-steganography': 'esteganografia-imagem'
+      'image-steganography': 'esteganografia-imagem',
+      'bank-statement-analyzer': 'analisador-extrato-bancario',
+      'ocr-text-extractor': 'extrator-texto-ocr',
+      'svg-vectorizer': 'vetorizador-svg',
+      'shape-art-generator': 'arte-formas',
+      'ambient': 'visuais-ambientais'
     }
   },
   {
@@ -178,7 +198,12 @@ const languages = [
       'instagram-panorama-splitter': 'instagram-panorama-splitter',
       'photo-grid-maker': 'collage-maker',
       'photo-censor-kare': 'redact-image',
-      'image-steganography': 'image-steganography'
+      'image-steganography': 'image-steganography',
+      'bank-statement-analyzer': 'bank-statement-analyzer',
+      'ocr-text-extractor': 'ocr-text-extractor',
+      'svg-vectorizer': 'svg-vectorizer',
+      'shape-art-generator': 'shape-art-generator',
+      'ambient-visuals': 'ambient'
     },
     toLocal: {
       '': '',
@@ -204,7 +229,12 @@ const languages = [
       'instagram-panorama-splitter': 'instagram-panorama-splitter',
       'collage-maker': 'photo-grid-maker',
       'redact-image': 'photo-censor-kare',
-      'image-steganography': 'image-steganography'
+      'image-steganography': 'image-steganography',
+      'bank-statement-analyzer': 'bank-statement-analyzer',
+      'ocr-text-extractor': 'ocr-text-extractor',
+      'svg-vectorizer': 'svg-vectorizer',
+      'shape-art-generator': 'shape-art-generator',
+      'ambient': 'ambient-visuals'
     }
   },
   {
@@ -235,7 +265,12 @@ const languages = [
       'panorama-instagram': 'instagram-panorama-splitter',
       'grille-photos': 'collage-maker',
       'censurer-photo': 'redact-image',
-      'steganographie-image': 'image-steganography'
+      'steganographie-image': 'image-steganography',
+      'analyseur-releve-bancaire': 'bank-statement-analyzer',
+      'extracteur-texte-ocr': 'ocr-text-extractor',
+      'vectoriseur-svg': 'svg-vectorizer',
+      'art-formes': 'shape-art-generator',
+      'visuels-ambiance': 'ambient'
     },
     toLocal: {
       '': '',
@@ -261,7 +296,12 @@ const languages = [
       'instagram-panorama-splitter': 'panorama-instagram',
       'collage-maker': 'grille-photos',
       'redact-image': 'censurer-photo',
-      'image-steganography': 'steganographie-image'
+      'image-steganography': 'steganographie-image',
+      'bank-statement-analyzer': 'analyseur-releve-bancaire',
+      'ocr-text-extractor': 'extracteur-texte-ocr',
+      'svg-vectorizer': 'vectoriseur-svg',
+      'shape-art-generator': 'art-formes',
+      'ambient': 'visuels-ambiance'
     }
   },
   {
@@ -292,7 +332,12 @@ const languages = [
       'instagram-panorama-teiler': 'instagram-panorama-splitter',
       'fotogitter-erstellen': 'collage-maker',
       'bild-zensieren': 'redact-image',
-      'bild-steganographie': 'image-steganography'
+      'bild-steganographie': 'image-steganography',
+      'kontoauszug-analysieren': 'bank-statement-analyzer',
+      'ocr-texterkennung': 'ocr-text-extractor',
+      'svg-vektorisierer': 'svg-vectorizer',
+      'formen-kunst': 'shape-art-generator',
+      'ambient-visuals': 'ambient'
     },
     toLocal: {
       '': '',
@@ -318,7 +363,12 @@ const languages = [
       'instagram-panorama-splitter': 'instagram-panorama-teiler',
       'collage-maker': 'fotogitter-erstellen',
       'redact-image': 'bild-zensieren',
-      'image-steganography': 'bild-steganographie'
+      'image-steganography': 'bild-steganographie',
+      'bank-statement-analyzer': 'kontoauszug-analysieren',
+      'ocr-text-extractor': 'ocr-texterkennung',
+      'svg-vectorizer': 'svg-vektorisierer',
+      'shape-art-generator': 'formen-kunst',
+      'ambient': 'ambient-visuals'
     }
   }
 ];

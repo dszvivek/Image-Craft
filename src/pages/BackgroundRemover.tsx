@@ -231,8 +231,7 @@ export const BackgroundRemover: React.FC = () => {
         title="Free AI Background Remover - remove.bg Alternative" 
         description="Remove image backgrounds automatically using on-device AI. A 100% offline alternative to remove.bg, Canva, and Adobe Express. Zero uploads." 
         keywords="background remover, remove background from image, AI background removal, background eraser, transparent background, remove image background online, background remover free, cut out background, PNG transparent, photo background remover, no upload background remover, offline background remover, browser AI background, remove.bg alternative, Canva background remover alternative, Adobe Express background remover replacement, free erase background"
-        canonicalUrl="https://imageplumber.com/background-remover"
-        schema={bgSchema}
+schema={bgSchema}
       />
 
       <div className="max-w-4xl mx-auto">

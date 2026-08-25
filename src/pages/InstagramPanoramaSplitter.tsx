@@ -270,8 +270,7 @@ export const InstagramPanoramaSplitter: React.FC<InstagramPanoramaSplitterProps>
       <SEO
         title={pageTitle || "Instagram Panorama Splitter & Seamless Carousel Maker Free | ImagePlumber"}
         description={pageSubtitle || "Split panoramic photos into seamless swipeable carousels for Instagram (4:5 Portrait & 1:1 Square). 100% free with batch ZIP export."}
-        canonicalUrl="https://imageplumber.com/instagram-panorama-splitter"
-        schema={panoramaSchema}
+schema={panoramaSchema}
       />
 
       {/* Header */}

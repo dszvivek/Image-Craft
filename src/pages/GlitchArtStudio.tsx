@@ -255,8 +255,7 @@ export const GlitchArtStudio: React.FC<GlitchArtStudioProps> = ({
       <SEO
         title={pageTitle || "Glitch Image Generator & CRT VHS Distortion Free | ImagePlumber"}
         description={pageSubtitle || "Create surreal glitch art, RGB chromatic aberration, and retro CRT television scanlines online for free. 100% client-side in-browser studio."}
-        canonicalUrl="https://imageplumber.com/glitch-image-generator"
-        schema={glitchSchema}
+schema={glitchSchema}
       />
 
       {/* Header */}

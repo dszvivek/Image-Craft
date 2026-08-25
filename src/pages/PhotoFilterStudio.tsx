@@ -304,8 +304,7 @@ export const PhotoFilterStudio: React.FC<PhotoFilterStudioProps> = ({
       <SEO
         title={pageTitle || "Photo Filters & Duotone Generator Online Free | ImagePlumber"}
         description={pageSubtitle || "Apply vintage, cyberpunk, duotone, and aesthetic photo filters to images for free in your browser. 100% private with zero cloud uploads."}
-        canonicalUrl="https://imageplumber.com/photo-filters"
-        schema={filterSchema}
+schema={filterSchema}
       />
 
       {/* Header */}

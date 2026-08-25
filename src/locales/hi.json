@@ -578,5 +578,130 @@
       "इन-ब्राउज़र सीक्रेट मैसेज डिकोडर",
       "100% प्राइवेट"
     ]
+  },
+  "bank-statement-analyzer": {
+    "title": "Bank Statement Analyzer PDF to Excel/CSV Hindi | ImagePlumber",
+    "description": "बैंक स्टेटमेंट PDF को तुरंत Excel और CSV में बदलें बिना सर्वर अपलोड किए। 100% प्राइवेट और सुरक्षित।",
+    "keywords": "bank statement analyzer hindi, bank statement pdf to excel, passbook pdf to csv, bank ledger audit local",
+    "howTo": [
+      {
+        "name": "PDF स्टेटमेंट अपलोड करें",
+        "text": "अपने बैंक का PDF स्टेटमेंट चुनें या ड्रैग करें।"
+      },
+      {
+        "name": "ऑटोमैटिक टेबल डिटेक्शन",
+        "text": "एनालाइजर डेबिट, क्रेडिट और बैलेंस की एंट्री निकालता है।"
+      },
+      {
+        "name": "Excel / CSV डाउनलोड करें",
+        "text": "अपनी ट्रांजेक्शन शीट को 1-क्लिक में डाउनलोड करें।"
+      }
+    ],
+    "features": [
+      "100% लोकल ब्राउज़र प्रोसेसिंग",
+      "बैंक ट्रांजेक्शन की सटीक पहचान",
+      "Excel और CSV में तुरंत एक्सपोर्ट",
+      "जीरो डेटा लीक रिस्क"
+    ]
+  },
+  "ocr-text-extractor": {
+    "title": "OCR Text Extractor Photo Se Text Nikale Online | ImagePlumber",
+    "description": "फोटो, स्क्रीनशॉट और स्कैन डॉक्यूमेंट से हिंदी और अंग्रेजी टेक्स्ट आसानी से निकालें और कॉपी करें।",
+    "keywords": "ocr text extractor hindi, photo se text copy kare, image to text converter online, receipt text copy",
+    "howTo": [
+      {
+        "name": "फोटो चुनें",
+        "text": "कोई भी फोटो या स्क्रीनशॉट सेलेक्ट करें।"
+      },
+      {
+        "name": "OCR स्कैनिंग",
+        "text": "ब्राउज़र अपने आप फोटो से टेक्स्ट स्कैन कर लेता है।"
+      },
+      {
+        "name": "कॉपी या TXT सेव करें",
+        "text": "टेक्स्ट को कॉपी करें या TXT फाइल में सेव करें।"
+      }
+    ],
+    "features": [
+      "मल्टी-लैंग्वेज टेक्स्ट डिटेक्शन",
+      "1-क्लिक क्लिपबोर्ड कॉपी",
+      "TXT फाइल डाउनलोड",
+      "कोई सर्वर अपलोड नहीं"
+    ]
+  },
+  "svg-vectorizer": {
+    "title": "SVG Vectorizer PNG/JPG Ko SVG Me Convert Kare | ImagePlumber",
+    "description": "PNG और JPG लोगो को स्केलेबल वेक्टर SVG फाइल में बदलें अपने ब्राउज़र में बिना क्वालिटी खोए।",
+    "keywords": "svg vectorizer hindi, png se svg banaye, photo vector trace online, logo to svg converter",
+    "howTo": [
+      {
+        "name": "फोटो अपलोड करें",
+        "text": "लोगो या इमेज फाइल को सेलेक्ट करें।"
+      },
+      {
+        "name": "वेक्टर सेटिंग्स चुनें",
+        "text": "कंटूर और कर्व स्मूथनेस को एडजस्ट करें।"
+      },
+      {
+        "name": "SVG डाउनलोड करें",
+        "text": "हाई क्वालिटी स्केलेबल वेक्टर SVG फाइल सेव करें।"
+      }
+    ],
+    "features": [
+      "सटीक वेक्टर पाथ ट्रेसिंग",
+      "कलर और स्मूथनेस कंट्रोल",
+      "बिना वॉटरमार्क डाउनलोड",
+      "100% फ्री और लोकल"
+    ]
+  },
+  "shape-art-generator": {
+    "title": "Shape Art Generator & Cosmic Particles Photo FX | ImagePlumber",
+    "description": "फोटो को तारों, चमकते पार्टिकल्स और ज्योमेट्रिक आर्ट में बदलें 100% फ्री अपने ब्राउज़र में।",
+    "keywords": "shape art generator hindi, photo particle art online, starry photo effect, generative canvas art",
+    "howTo": [
+      {
+        "name": "फोटो चुनें",
+        "text": "पोर्ट्रेट या कोई भी इमेज अपलोड करें।"
+      },
+      {
+        "name": "आर्ट स्टाइल चुनें",
+        "text": "स्टार्स, पार्टिकल क्लाउड या फ्लोरल स्केच सेलेक्ट करें।"
+      },
+      {
+        "name": "आर्ट डाउनलोड करें",
+        "text": "अपनी खूबसूरत कलाकृति को हाई-रेसोल्यूशन में सेव करें।"
+      }
+    ],
+    "features": [
+      "पार्टिकल्स और स्टार्स इफेक्ट्स",
+      "GPU कैनवास रेंडरिंग",
+      "डेंसिटी व कलर कस्टमाइजेशन",
+      "इंस्टेंट HD डाउनलोड"
+    ]
+  },
+  "ambient-visuals": {
+    "title": "Ambient Visuals & Focus Canvas Online | ImagePlumber",
+    "description": "फोकस, ध्यान और रिलैक्सेशन के लिए सुंदर जनरेटिव विजुअल्स और एनिमेशन चलाएं।",
+    "keywords": "ambient visuals hindi, relaxing generative art, meditation background canvas, fluid flow animation",
+    "howTo": [
+      {
+        "name": "विजुअल मोड चुनें",
+        "text": "ऑरोरा, कॉस्मिक वेव या पार्टिकल फ्लो चुनें।"
+      },
+      {
+        "name": "स्पीड व कलर सेट करें",
+        "text": "फ्लो स्पीड और कलर पैलेट को एडजस्ट करें।"
+      },
+      {
+        "name": "फुलस्क्रीन आनंद लें",
+        "text": "फुलस्क्रीन मोड में चलाएं या HD स्क्रीनशॉट सेव करें।"
+      }
+    ],
+    "features": [
+      "अनंत जनरेटिव एनिमेशन",
+      "फुलस्क्रीन इमर्सिव मोड",
+      "स्पीड व फ्लो कंट्रोल",
+      "पूरी तरह सुरक्षित व विज्ञापन-मुक्त"
+    ]
   }
 }

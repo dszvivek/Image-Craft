@@ -1313,8 +1313,7 @@ export const StatementAnalyzer: React.FC = () => {
         title="Free Bank Statement Analyzer - PDF/CSV/Excel Parser" 
         description="Analyze bank and credit card statements locally inside your browser cache. Calculate debit/credit cashflows, filter date ranges dynamically, and export clean logs securely." 
         keywords="bank statement, credit card statement, statement analyzer, transaction parser, PDF to CSV bank statement, parse excel bank statement, cash flow calculator, finance ledger, free banking tools, privacy finance tool, on-device ledger scanner"
-        canonicalUrl="https://imageplumber.com/bank-statement-analyzer"
-        schema={analyzerSchema}
+schema={analyzerSchema}
       />
 
       <div className="max-w-6xl mx-auto">

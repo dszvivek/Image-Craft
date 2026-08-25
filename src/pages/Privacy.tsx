@@ -9,8 +9,7 @@ export const Privacy: React.FC = () => {
         title="Privacy Policy - No Data Collection" 
         description="Read ImagePlumber's privacy policy. Your images and files are processed strictly in your browser RAM and never uploaded to any server. No cookies, no tracking, no analytics." 
         keywords="privacy policy, no data collection, GDPR compliant, CCPA compliant, no cookie tracking, private image editor, image privacy"
-        canonicalUrl="https://imageplumber.com/privacy"
-      />
+/>
 
       <div className="text-center mb-12">
         <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-100 rounded-full text-xs font-semibold text-emerald-650 mb-4 tracking-wide shadow-sm">

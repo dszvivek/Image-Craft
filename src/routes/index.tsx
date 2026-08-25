@@ -906,6 +906,46 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'es/analizador-extractos-bancarios',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <StatementAnalyzer pageTitle="Analizador de Extractos Bancarios PDF a Excel" pageSubtitle="Analiza extractos bancarios en PDF y convierte transacciones a Excel y CSV sin subir archivos." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/extractor-texto-ocr',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <OcrExtractor pageTitle="Extractor de Texto OCR Online Gratis" pageSubtitle="Escanea y extrae texto de imágenes, fotos y documentos escaneados en local." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/vectorizador-svg',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SvgVectorizer pageTitle="Vectorizador SVG Online Gratis" pageSubtitle="Convierte imágenes PNG y JPG en vectores SVG escalables y limpios en tu navegador." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/arte-formas',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ShapeArtGenerator pageTitle="Generador de Arte con Formas y Partículas AI" pageSubtitle="Transforma fotos en composiciones artísticas con partículas cósmicas y bocetos geométricos." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'es/visuales-ambientales',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AmbientVisuals pageTitle="Visuales Ambientales y Concentración Generativa" pageSubtitle="Crea lienzos de arte generativo y animaciones fluidas para concentración y relajación." />
+          </Suspense>
+        ),
+      },
       // Portuguese Localized Routes (i18n Phase 2)
       {
         path: 'pt',
@@ -1096,6 +1136,46 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <ImageSteganography pageTitle="Ocultar Texto Secreto em Fotos (Esteganografia)" pageSubtitle="Esconda notas secretas e senhas dentro de imagens com criptografia local." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/analisador-extrato-bancario',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <StatementAnalyzer pageTitle="Analisador de Extratos Bancários PDF para Excel" pageSubtitle="Analise extratos bancários em PDF e converta lançamentos para Excel e CSV sem uploads." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/extrator-texto-ocr',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <OcrExtractor pageTitle="Extrator de Texto OCR Online Grátis" pageSubtitle="Extraia texto de fotos, capturas de tela e documentos escaneados no seu navegador." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/vetorizador-svg',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SvgVectorizer pageTitle="Vetorizador SVG Online Grátis" pageSubtitle="Converta imagens rasterizadas PNG e JPG em gráficos vetoriais SVG no navegador." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/arte-formas',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ShapeArtGenerator pageTitle="Gerador de Arte com Formas e Partículas AI" pageSubtitle="Transforme fotos em belas ilustrações com constelações e nuvens de partículas." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pt/visuais-ambientais',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AmbientVisuals pageTitle="Visuais Ambientais e Foco Generativo" pageSubtitle="Crie telas dinâmicas de arte generativa e animações relaxantes para foco e meditação." />
           </Suspense>
         ),
       },
@@ -1292,6 +1372,46 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'hi/bank-statement-analyzer',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <StatementAnalyzer pageTitle="Bank Statement Analyzer PDF to Excel Hindi" pageSubtitle="बैंक स्टेटमेंट PDF को तुरंत Excel और CSV में बदलें बिना सर्वर अपलोड किए।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/ocr-text-extractor',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <OcrExtractor pageTitle="OCR Text Extractor Photo Se Text Nikale" pageSubtitle="फोटो और स्कैन डॉक्यूमेंट से टेक्स्ट आसानी से निकालें और कॉपी करें।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/svg-vectorizer',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SvgVectorizer pageTitle="SVG Vectorizer Photo Ko SVG Me Badle" pageSubtitle="PNG और JPG फोटो को स्केलेबल वेक्टर SVG फाइल में बदलें अपने ब्राउज़र में।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/shape-art-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ShapeArtGenerator pageTitle="Shape Art Generator Photo Particle FX" pageSubtitle="फोटो को तारों और चमकते पार्टिकल्स में बदलें 100% फ्री।" />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'hi/ambient-visuals',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AmbientVisuals pageTitle="Ambient Visuals & Generative Focus Canvas" pageSubtitle="फोकस और रिलैक्सेशन के लिए सुंदर जनरेटिव विजुअल्स चलाएं।" />
+          </Suspense>
+        ),
+      },
       // French Localized Routes (i18n Phase 2)
       {
         path: 'fr',
@@ -1482,6 +1602,54 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <ImageSteganography pageTitle="Cacher Texte Secret dans une Image" pageSubtitle="Dissimulez des messages secrets et mots de passe dans des images en toute sécurité." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/analyseur-releve-bancaire',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <StatementAnalyzer pageTitle="Analyseur de Relevé Bancaire PDF en Excel" pageSubtitle="Analysez vos relevés bancaires PDF et exportez les écritures en Excel et CSV hors ligne." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/extracteur-texte-ocr',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <OcrExtractor pageTitle="Extracteur de Texte OCR Gratuit en Ligne" pageSubtitle="Numérisez et extrayez le texte de vos images et documents sans serveur cloud." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/vectoriseur-svg',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SvgVectorizer pageTitle="Vectoriseur SVG Gratuit en Ligne" pageSubtitle="Convertissez vos images PNG et JPG en tracés vectoriels SVG dans le navigateur." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/art-formes',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ShapeArtGenerator pageTitle="Générateur d'Art Géométrique & Particules AI" pageSubtitle="Transformez vos photos en compositions artistiques avec étoiles et particules." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/shape-art-generator',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ShapeArtGenerator pageTitle="Générateur d'Art Géométrique & Particules AI" pageSubtitle="Transformez vos photos en compositions artistiques avec étoiles et particules." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fr/visuels-ambiance',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AmbientVisuals pageTitle="Visuels d'Ambiance et Concentration Générative" pageSubtitle="Toile d'art génératif dynamique et animations relaxantes pour la concentration." />
           </Suspense>
         ),
       },
@@ -1678,6 +1846,47 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: 'de/kontoauszug-analysieren',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <StatementAnalyzer pageTitle="Kontoauszug Analyzer PDF in Excel Kostenlos" pageSubtitle="Analysieren Sie PDF-Kontoauszüge und exportieren Sie Buchungen sicher in Excel und CSV." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/ocr-texterkennung',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <OcrExtractor pageTitle="OCR Texterkennung Online Kostenlos" pageSubtitle="Scannen und extrahieren Sie Text aus Bildern und Dokumenten ohne Cloud-Uploads." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/svg-vektorisierer',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SvgVectorizer pageTitle="SVG Vektorisierer Online Kostenlos" pageSubtitle="Wandeln Sie PNG- und JPG-Bilder in saubere SVG-Vektoren im Browser um." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/formen-kunst',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ShapeArtGenerator pageTitle="Formen-Kunst & Partikel-Generator Online" pageSubtitle="Verwandeln Sie Fotos in Kunstwerke mit Sternenstaub und geometrischen Skizzen." />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'de/ambient-visuals',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AmbientVisuals pageTitle="Ambient Visuals & Generative Fokus-Leinwand" pageSubtitle="Generative Kunst-Leinwände und fließende Animationen für Konzentration und Entspannung." />
+          </Suspense>
+        ),
+      },
     ],
   },
 ]);
+

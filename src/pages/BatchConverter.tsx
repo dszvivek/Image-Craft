@@ -467,8 +467,7 @@ export const BatchConverter: React.FC<BatchConverterProps> = ({
         title="Free Batch Image to PDF & Format Converter | ImagePlumber" 
         description="Convert JPG, PNG, and WebP images to PDF or other formats in bulk locally. Merge multiple images into a single PDF document with page reordering, completely offline." 
         keywords="batch image converter, images to pdf, convert jpg to pdf, convert png to pdf, merge images to pdf, combine photos to pdf, bulk image to pdf, free offline image to pdf converter, multiple images to one pdf, webp to pdf, convert images in bulk, batch photo converter, reorder pdf pages, image format converter, CloudConvert alternative, EZGIF alternative"
-        canonicalUrl="https://imageplumber.com/batch-converter"
-        schema={batchSchema}
+schema={batchSchema}
       />
 
       <div className="max-w-5xl mx-auto">

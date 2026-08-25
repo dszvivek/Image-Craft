@@ -645,8 +645,7 @@ export const AspectResizer: React.FC = () => {
         title="Free Smart Crop & Aspect Resizer - Canva Resizer Alternative" 
         description="Resize images to social preset aspect ratios. Features local Face/Saliency Smart Crop and perspective document scanning. A free alternative to Canva Resizer and ImageResizer.com." 
         keywords="aspect ratio resizer, image resizer, crop image online, resize photo online, YouTube thumbnail size, Instagram story size, Twitter header size, social media image resizer, smart crop, photo crop tool, image resize tool free, resize image without losing quality, Canva resizer alternative, ImageResizer.com alternative, resize photo offline"
-        canonicalUrl="https://imageplumber.com/aspect-resizer"
-        schema={aspectSchema}
+schema={aspectSchema}
       />
 
       <div className="max-w-5xl mx-auto">

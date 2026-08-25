@@ -948,8 +948,7 @@ export const ShapeArtGenerator: React.FC = () => {
         title="AI Contour Shape Art Generator - Turn Photos into Particle Art"
         description="Turn your photos into creative art portraits composed of stars, flowers, clouds, or hand-drawn pencil strokes. Identifies facial details and pose contours."
         keywords="AI portrait generator, contour sketch generator, shape art converter, photo to particle art, stars canvas portrait, flowers portrait art, local photo art generator"
-        canonicalUrl="https://imageplumber.com/shape-art-generator"
-      />
+/>
 
       <div className="max-w-6xl mx-auto">
         

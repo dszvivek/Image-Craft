@@ -452,8 +452,7 @@ export const MosaicGenerator: React.FC = () => {
         title="Free Photo Mosaic Generator - Easymoza Alternative" 
         description="Reconstruct target images from thousands of small photo tiles locally. A free alternative to Easymoza and online mosaic generators." 
         keywords="photo mosaic generator, mosaic maker, photo mosaic, image mosaic maker, create photo mosaic online, tile mosaic, picture mosaic, mosaic art maker, photomosaic creator, free mosaic generator, image from images, Easymoza alternative, Picture Mosaics alternative, generate mosaic offline"
-        canonicalUrl="https://imageplumber.com/photo-mosaic-generator"
-        schema={mosaicSchema}
+schema={mosaicSchema}
       />
 
       <div className="max-w-6xl mx-auto">

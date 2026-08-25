@@ -578,5 +578,130 @@
       "Integrierter Text-Decoder",
       "100% lokale Ausführung"
     ]
+  },
+  "kontoauszug-analysieren": {
+    "title": "Kontoauszug Analyzer PDF in Excel/CSV Kostenlos | ImagePlumber",
+    "description": "Analysieren Sie PDF-Kontoauszüge und exportieren Sie Buchungen sicher in Excel und CSV. 100% lokal und geschützt.",
+    "keywords": "kontoauszug analysieren, kontoauszug pdf in excel umwandeln, bankauszug csv kostenlos, finanzdaten lokal analysieren",
+    "howTo": [
+      {
+        "name": "PDF-Kontoauszug Hochladen",
+        "text": "Ziehen Sie Ihren Bankauszug als PDF in das Fenster."
+      },
+      {
+        "name": "Automatische Erkennung",
+        "text": "Das System erfasst Buchungsdaten, Beträge und Verwendungszwecke."
+      },
+      {
+        "name": "Als Excel / CSV Herunterladen",
+        "text": "Exportieren Sie die geordneten Buchungen sofort als XLS oder CSV."
+      }
+    ],
+    "features": [
+      "100% lokale Verarbeitung im Browser",
+      "Präzise Tabellenerkennung für Bankauszüge",
+      "Sofortiger Export nach Excel und CSV",
+      "Höchste Datensicherheit ohne Serverübertragung"
+    ]
+  },
+  "ocr-texterkennung": {
+    "title": "OCR Texterkennung Online Kostenlos (Bild in Text) | ImagePlumber",
+    "description": "Scannen und extrahieren Sie gedruckten Text aus Fotos, Screenshots und Dokumenten ohne Cloud-Uploads.",
+    "keywords": "ocr texterkennung kostenlos, bild in text umwandeln, text aus foto kopieren, ocr scanner online",
+    "howTo": [
+      {
+        "name": "Bild Auswählen",
+        "text": "Wählen Sie ein Foto, einen Screenshot oder ein Dokument."
+      },
+      {
+        "name": "OCR-Scan Starten",
+        "text": "Die lokale Texterkennung scannt Buchstaben direkt im Speicher."
+      },
+      {
+        "name": "Text Kopieren oder Speichern",
+        "text": "Kopieren Sie den Text in die Zwischenablage oder speichern Sie als TXT."
+      }
+    ],
+    "features": [
+      "Mehrsprachige optische Zeichenerkennung",
+      "1-Klick-Kopieren in die Zwischenablage",
+      "TXT-Dateiexport",
+      "Unbegrenzt und ohne Registrierung"
+    ]
+  },
+  "svg-vektorisierer": {
+    "title": "SVG Vektorisierer Online Kostenlos (PNG/JPG in SVG) | ImagePlumber",
+    "description": "Wandeln Sie Rastergrafiken wie PNG und JPG in saubere, skalierbare SVG-Vektoren in Ihrem Browser um.",
+    "keywords": "svg vektorisierer, png in svg umwandeln kostenlos, logo vektorisieren online, bild zu svg vektor trace",
+    "howTo": [
+      {
+        "name": "Bild Hochladen",
+        "text": "Wählen Sie ein Logo oder Bild im PNG- oder JPG-Format."
+      },
+      {
+        "name": "Vektorisierung Anpassen",
+        "text": "Passen Sie Kurvenglättung, Detailtiefe und Farben an."
+      },
+      {
+        "name": "SVG-Vektor Herunterladen",
+        "text": "Laden Sie die skalierbare Vektordatei für Druck und Web herunter."
+      }
+    ],
+    "features": [
+      "Präzise Vektorpfad-Generierung",
+      "Anpassbare Kurven und Schwellenwerte",
+      "Direkter Download ohne Wasserzeichen",
+      "Vollständig clientseitige Ausführung"
+    ]
+  },
+  "formen-kunst": {
+    "title": "Formen-Kunst & Partikel-Generator Online | ImagePlumber",
+    "description": "Verwandeln Sie Fotos in Kunstwerke mit Sternenstaub, Partikelwolken und geometrischen Skizzen.",
+    "keywords": "formen kunst generator, foto in partikel kunst verwandeln, sternen foto effekt, generative kunst online",
+    "howTo": [
+      {
+        "name": "Foto Auswählen",
+        "text": "Laden Sie ein Porträt oder Landschaftsbild hoch."
+      },
+      {
+        "name": "Kunststil Wählen",
+        "text": "Wählen Sie Partikelwolken, Sternbilder oder geometrische Skizzen."
+      },
+      {
+        "name": "Kunstwerk Herunterladen",
+        "text": "Speichern Sie das fertige Kunstwerk in hoher Auflösung."
+      }
+    ],
+    "features": [
+      "Partikel- und Sternbilder-Effekte",
+      "GPU-beschleunigtes Canvas-Rendering",
+      "Dichte- und Farbsteuerung",
+      "Sofortiger HD-Download"
+    ]
+  },
+  "ambient-visuals": {
+    "title": "Ambient Visuals & Generative Fokus-Leinwand | ImagePlumber",
+    "description": "Generative Kunst-Leinwände und fließende Animationen für Konzentration, Entspannung und visuelle Ästhetik.",
+    "keywords": "ambient visuals deutsch, generative kunst entspannung, meditations hintergrund animiert, fluid partikel canvas",
+    "howTo": [
+      {
+        "name": "Visuellen Modus Wählen",
+        "text": "Wählen Sie Polarlichter, kosmische Wellen oder Partikelfluss."
+      },
+      {
+        "name": "Parameter Anpassen",
+        "text": "Stellen Sie Geschwindigkeit, Farbpalette und Mausinteraktion ein."
+      },
+      {
+        "name": "Vollbild Genießen",
+        "text": "Nutzen Sie den Vollbildmodus oder speichern Sie HD-Schnappschüsse."
+      }
+    ],
+    "features": [
+      "Unendliche generative Animationen",
+      "Immersiver Vollbildmodus",
+      "Präzise Farb- und Flusskontrolle",
+      "Vollständig werbefrei"
+    ]
   }
 }

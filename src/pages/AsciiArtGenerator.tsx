@@ -320,8 +320,7 @@ export const AsciiArtGenerator: React.FC<AsciiArtGeneratorProps> = ({
       <SEO
         title={pageTitle || "ASCII Art Generator & Image to Text Art Online Free | ImagePlumber"}
         description={pageSubtitle || "Turn photos into ASCII character art online for free. Full-color ANSI, Matrix green phosphor, Unicode blocks, and TXT/PNG export."}
-        canonicalUrl="https://imageplumber.com/ascii-art-generator"
-        schema={asciiSchema}
+schema={asciiSchema}
       />
 
       {/* Header */}

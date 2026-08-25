@@ -157,8 +157,7 @@ export const ImageRotator: React.FC = () => {
         title="Rotate & Flip Image Online Free (90°, 180°, Mirror) | ImagePlumber"
         description="Rotate images 90, 180, or 270 degrees online for free. Straighten crooked photos and mirror flip horizontally or vertically with zero cloud uploads."
         keywords="rotate image online, flip image horizontal, mirror image free, straighten photo online, rotate picture 90 degrees, photo orientation changer, image rotator without upload"
-        canonicalUrl="https://imageplumber.com/rotate-image"
-        schema={rotatorSchema}
+schema={rotatorSchema}
       />
 
       <div className="max-w-5xl mx-auto">

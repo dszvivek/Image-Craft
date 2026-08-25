@@ -1030,8 +1030,7 @@ export const Home: React.FC = () => {
         title="Free Privacy-First Image Tools" 
         description="Free browser-based image tools suite: compress images, remove backgrounds with AI, crop, rotate, censor, convert batch images, strip EXIF metadata, add watermarks, and generate pixel art. 100% offline, zero uploads." 
         keywords="free image tools, image compressor, AI background remover, crop image, rotate image, censor photo, EXIF metadata stripper, watermark tool, pixel art generator, ascii art, glitch photo editor"
-        canonicalUrl="https://imageplumber.com/"
-        schema={homeFaqSchema}
+schema={homeFaqSchema}
       />
 
       {/* Decorative Blur Backdrops */}

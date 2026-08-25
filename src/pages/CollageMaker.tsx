@@ -279,8 +279,7 @@ export const CollageMaker: React.FC<CollageMakerProps> = ({
         title={pageTitle || "Free Online Photo Collage Maker & Photo Grid Joiner | ImagePlumber"} 
         description={pageSubtitle || "Assemble images into custom collage grids locally in your browser. A free private alternative to Canva collages with zero uploads."} 
         keywords="photo collage maker, collage maker online, free collage maker, image collage, picture collage, photo grid maker, photo layout maker, online collage creator, make collage online free, picture collage maker, no watermark collage maker, Canva collage alternative, photo collage offline"
-        canonicalUrl="https://imageplumber.com/collage-maker"
-        schema={collageSchema}
+schema={collageSchema}
       />
 
       <div className="max-w-6xl mx-auto">

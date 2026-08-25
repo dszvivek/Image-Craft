@@ -578,5 +578,130 @@
       "Decodificador integrado",
       "Procesamiento totalmente local"
     ]
+  },
+  "analizador-extractos-bancarios": {
+    "title": "Analizador de Extractos Bancarios PDF a Excel/CSV | ImagePlumber",
+    "description": "Analiza extractos bancarios en PDF y convierte transacciones a Excel y CSV sin subir archivos. 100% privado y seguro.",
+    "keywords": "analizador de extractos bancarios, convertir extracto bancario pdf a excel, pasar pdf banco a csv gratis, auditoria extractos bancarios",
+    "howTo": [
+      {
+        "name": "Cargar Extracto PDF",
+        "text": "Arrastra tu archivo PDF de estado de cuenta bancario."
+      },
+      {
+        "name": "Extracción de Transacciones",
+        "text": "El analizador detecta automáticamente fechas, descripciones, débitos y créditos."
+      },
+      {
+        "name": "Exportar a Excel o CSV",
+        "text": "Descarga tus transacciones estructuradas en archivo XLS o CSV al instante."
+      }
+    ],
+    "features": [
+      "Procesamiento 100% en el navegador",
+      "Detección automática de tablas bancarias",
+      "Exportación instantánea a Excel y CSV",
+      "Sin riesgo de fuga de datos financieros"
+    ]
+  },
+  "extractor-texto-ocr": {
+    "title": "Extractor de Texto OCR Online Gratis (Imagen a Texto) | ImagePlumber",
+    "description": "Escanea y extrae texto de imágenes, fotos y documentos escaneados en español e inglés sin subir datos a la nube.",
+    "keywords": "extractor de texto ocr, imagen a texto gratis, convertir foto en texto online, copiar texto de imagen ocr",
+    "howTo": [
+      {
+        "name": "Subir Imagen",
+        "text": "Selecciona una foto, captura de pantalla o documento escaneado."
+      },
+      {
+        "name": "Reconocimiento OCR",
+        "text": "El motor local de OCR procesa los caracteres en tu navegador."
+      },
+      {
+        "name": "Copiar o Guardar Texto",
+        "text": "Copia el texto extraído al portapapeles o descárgalo como archivo TXT."
+      }
+    ],
+    "features": [
+      "Reconocimiento óptico multilingüe",
+      "Copia rápida al portapapeles",
+      "Exportación a archivo TXT",
+      "Sin límite de archivos"
+    ]
+  },
+  "vectorizador-svg": {
+    "title": "Vectorizador SVG Online Gratis (Convertir JPG/PNG a SVG) | ImagePlumber",
+    "description": "Convierte imágenes rasterizadas PNG y JPG en vectores SVG escalables y limpios en tu navegador.",
+    "keywords": "vectorizador svg, convertir png a svg gratis, vectorizar logo online, trazar imagen a svg",
+    "howTo": [
+      {
+        "name": "Cargar Imagen",
+        "text": "Selecciona un logo o ilustración en formato PNG o JPG."
+      },
+      {
+        "name": "Ajustar Trazado Vectorial",
+        "text": "Configura el umbral de detalle, colores y suavizado de curvas."
+      },
+      {
+        "name": "Descargar Vector SVG",
+        "text": "Exporta tu gráfico vectorial escalable SVG listo para diseño y web."
+      }
+    ],
+    "features": [
+      "Trazado vectorial de alta precisión",
+      "Controles de contraste y suavizado",
+      "Descarga directa de archivo SVG",
+      "Procesamiento 100% en cliente"
+    ]
+  },
+  "arte-formas": {
+    "title": "Generador de Arte con Formas y Partículas AI | ImagePlumber",
+    "description": "Transforma fotos en composiciones artísticas con partículas cósmicas, estrellas y bocetos geométricos.",
+    "keywords": "generador de arte con formas, convertir foto en arte de particulas, efecto estrellas y boceto, arte generativo online",
+    "howTo": [
+      {
+        "name": "Subir Foto",
+        "text": "Elige un retrato o paisaje para transformar."
+      },
+      {
+        "name": "Elegir Estilo de Formas",
+        "text": "Selecciona constelaciones, nubes de partículas o boceto floral."
+      },
+      {
+        "name": "Exportar Ilustración",
+        "text": "Descarga tu obra de arte en alta resolución."
+      }
+    ],
+    "features": [
+      "Efectos de constelación y partículas",
+      "Renderizado acelerado por GPU Canvas",
+      "Personalización de densidad y color",
+      "Descarga instantánea sin marcas de agua"
+    ]
+  },
+  "visuales-ambientales": {
+    "title": "Visuales Ambientales y Concentración Generativa | ImagePlumber",
+    "description": "Crea lienzos de arte generativo y animaciones fluidas para concentración, relajación y fondos visuales.",
+    "keywords": "visuales ambientales, arte generativo relajante, fondos animados meditacion, lienzo de particulas fluidas",
+    "howTo": [
+      {
+        "name": "Elegir Modo Visual",
+        "text": "Selecciona modos de flujo cósmico, ondas o auroras boreales."
+      },
+      {
+        "name": "Ajustar Parámetros",
+        "text": "Modifica velocidad, paleta cromática e interactividad del ratón."
+      },
+      {
+        "name": "Disfrutar y Capturar",
+        "text": "Usa a pantalla completa o captura instantáneas en alta resolución."
+      }
+    ],
+    "features": [
+      "Animaciones generativas infinitas",
+      "Modo pantalla completa inmersivo",
+      "Control de velocidad y flujo",
+      "100% libre de anuncios invasivos"
+    ]
   }
 }
