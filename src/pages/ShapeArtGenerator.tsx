@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { RefreshCw, Sparkles, Download, Play, Pause, Image as ImageIcon, Check, ShieldCheck, Info } from 'lucide-react';
+import { RefreshCw, Sparkles, Download, Play, Pause, Image as ImageIcon, Check, Info, Eye, Lock, Minus, Plus } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -57,6 +57,8 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
   const [keyBackground, setKeyBackground] = useState<boolean>(true); // autokey studio backgrounds
   const [keyTolerance, setKeyTolerance] = useState<number>(45);      // chroma matching tolerance
   const [exportScale, setExportScale] = useState<number>(2);
+  const [qualityPreset, setQualityPreset] = useState<'draft' | 'balanced' | 'masterpiece' | 'custom'>('balanced');
+  const [isComparing, setIsComparing] = useState<boolean>(false);
 
   // Processing state
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
@@ -66,6 +68,7 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
   // References
   const sourceImageRef = useRef<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const previewContainerRef = useRef<HTMLDivElement | null>(null);
   const pointsRef = useRef<Point[]>([]);
   const animationFrameRef = useRef<number | null>(null);
   const currentIndexRef = useRef<number>(0);
@@ -962,9 +965,15 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
         
         {/* Header */}
         <div className="text-center mb-8 px-2">
-          <span className="text-xs font-bold text-indigo-655 dark:text-indigo-400 uppercase tracking-widest px-2.5 py-1 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900 rounded-full shadow-xs">
-            Creative Canvas
-          </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900 rounded-full shadow-xs">
+            <span className="text-[10px] font-extrabold text-indigo-655 dark:text-indigo-400 uppercase tracking-widest">
+              Creative Canvas
+            </span>
+            <span className="w-1 h-1 rounded-full bg-indigo-400" />
+            <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+              <Lock className="w-3 h-3" /> 100% Client-Side
+            </span>
+          </div>
           <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-100 mt-3 mb-2">{pageTitle || "AI Shape Art Generator"}</h1>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">{pageSubtitle || "Scan facial patterns and pose outlines to reconstruct portraits out of beautiful organic shapes."}</p>
         </div>
@@ -1001,45 +1010,106 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
             {/* Left Control Column */}
             <div className="lg:col-span-5 space-y-6 order-2 lg:order-1">
               
-              {/* Theme Selector */}
-              <div className="glass-card p-4 sm:p-5 rounded-3xl space-y-4">
-                <h2 className="font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-3 flex items-center gap-2 text-sm">
-                  <Sparkles className="w-4.5 h-4.5 text-indigo-500" />
-                  Choose Shape Style
-                </h2>
+              {/* Theme Selector - Horizontal Swipeable Carousel */}
+              <div className="glass-card p-4 sm:p-5 rounded-3xl space-y-3">
+                <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2.5">
+                  <h2 className="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 text-sm">
+                    <Sparkles className="w-4.5 h-4.5 text-indigo-500" />
+                    Choose Shape Style
+                  </h2>
+                  <span className="text-[10px] font-extrabold text-indigo-650 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-2.5 py-0.5 rounded-full border border-indigo-100 dark:border-indigo-900/60">
+                    {THEMES.find(t => t.id === theme)?.name}
+                  </span>
+                </div>
                 
-                <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
-                  {THEMES.map((t) => (
-                    <button
-                      key={t.id}
-                      onClick={() => handleThemeChange(t.id)}
-                      className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all duration-200 cursor-pointer min-w-0 ${
-                        theme === t.id
-                          ? 'border-indigo-550 bg-indigo-50/50 dark:bg-indigo-950/50 shadow-xs ring-1 ring-indigo-500/30'
-                          : 'border-slate-200/60 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/60 hover:border-slate-350 dark:hover:border-slate-600 hover:bg-slate-50/50'
-                      }`}
-                    >
-                      <div className="text-xl mb-1">{t.icon}</div>
-                      <div className="text-[11px] font-black text-slate-900 dark:text-slate-100 leading-tight truncate">{t.name}</div>
-                      <div className="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug font-medium line-clamp-2">{t.description}</div>
-                    </button>
-                  ))}
+                {/* Horizontal Snap Scroll Track */}
+                <div className="flex items-stretch gap-2.5 overflow-x-auto pb-2 scrollbar-none snap-x -mx-1 px-1">
+                  {THEMES.map((t) => {
+                    const isSelected = theme === t.id;
+                    return (
+                      <button
+                        key={t.id}
+                        onClick={() => handleThemeChange(t.id)}
+                        className={`flex-shrink-0 w-36 sm:w-40 snap-start p-3 rounded-2xl border text-left transition-all duration-200 cursor-pointer flex flex-col justify-between relative group ${
+                          isSelected
+                            ? 'border-indigo-600 bg-gradient-to-b from-indigo-500/10 to-indigo-500/5 dark:from-indigo-500/20 dark:to-indigo-500/10 shadow-md ring-2 ring-indigo-500/30'
+                            : 'border-slate-200/70 dark:border-slate-800 bg-white/70 dark:bg-slate-800/80 hover:border-slate-350 dark:hover:border-slate-700 hover:bg-slate-50/50'
+                        }`}
+                      >
+                        {isSelected && (
+                          <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-indigo-600 animate-ping" />
+                        )}
+                        <div className="text-2xl mb-1.5 transform group-hover:scale-110 transition-transform">{t.icon}</div>
+                        <div>
+                          <div className="text-xs font-black text-slate-900 dark:text-slate-100 leading-tight">{t.name}</div>
+                          <div className="text-[9.5px] text-slate-500 dark:text-slate-400 mt-1 leading-tight line-clamp-2 font-medium">{t.description}</div>
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
-              {/* Sliders Control Panel */}
+              {/* Sliders Control Panel with Presets and Steppers */}
               <div className="glass-card p-4 sm:p-5 rounded-3xl space-y-4">
-                <h2 className="font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-3 text-sm flex items-center justify-between">
-                  <span>Rendering Parameters</span>
-                  {isProcessing && <span className="text-[10px] text-indigo-500 animate-pulse">Scanning contours...</span>}
-                </h2>
+                <div className="border-b border-slate-100 dark:border-slate-800 pb-3 flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <h2 className="font-bold text-slate-800 dark:text-slate-200 text-sm flex items-center gap-1.5">
+                      <span>Rendering Parameters</span>
+                    </h2>
+                    {isProcessing && <span className="text-[10px] text-indigo-500 animate-pulse font-bold">Scanning...</span>}
+                  </div>
+
+                  {/* Quality Presets Chips */}
+                  <div className="flex items-center gap-1.5 pt-1">
+                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider shrink-0 mr-0.5">Preset:</span>
+                    {[
+                      { id: 'draft', label: '⚡ Draft', density: 1500, size: 14, edge: 25 },
+                      { id: 'balanced', label: '✨ Balanced', density: 4500, size: 10, edge: 35 },
+                      { id: 'masterpiece', label: '🎨 Ultra', density: 7500, size: 6, edge: 50 },
+                    ].map((p) => (
+                      <button
+                        key={p.id}
+                        onClick={() => {
+                          setDensity(p.density);
+                          setBaseSize(p.size);
+                          setEdgeSensitivity(p.edge);
+                          setQualityPreset(p.id as any);
+                        }}
+                        className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all cursor-pointer ${
+                          qualityPreset === p.id
+                            ? 'bg-indigo-600 text-white shadow-xs'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                        }`}
+                      >
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
                 <div className="space-y-4">
-                  {/* Density */}
+                  {/* Density (with touch steppers) */}
                   <div className="space-y-1.5">
-                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-455 dark:text-slate-400 uppercase tracking-widest">
+                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
                       <span>Density (Shape Count)</span>
-                      <span className="font-mono text-slate-800 dark:text-slate-200">{density} shapes</span>
+                      <div className="flex items-center gap-1.5 font-mono text-slate-800 dark:text-slate-200">
+                        <button 
+                          onClick={() => { setDensity(Math.max(1000, density - 500)); setQualityPreset('custom'); }}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                          title="Decrease density"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="min-w-[48px] text-center font-bold">{density}</span>
+                        <button 
+                          onClick={() => { setDensity(Math.min(8000, density + 500)); setQualityPreset('custom'); }}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                          title="Increase density"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
@@ -1047,16 +1117,32 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
                       max="8000"
                       step="500"
                       value={density}
-                      onChange={(e) => setDensity(Number(e.target.value))}
+                      onChange={(e) => { setDensity(Number(e.target.value)); setQualityPreset('custom'); }}
                       className="w-full accent-indigo-650 cursor-pointer"
                     />
                   </div>
 
-                  {/* Base Size */}
+                  {/* Base Size (with touch steppers) */}
                   <div className="space-y-1.5">
-                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-455 dark:text-slate-400 uppercase tracking-widest">
+                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
                       <span>Base Shape Size</span>
-                      <span className="font-mono text-slate-800 dark:text-slate-200">{baseSize}px</span>
+                      <div className="flex items-center gap-1.5 font-mono text-slate-800 dark:text-slate-200">
+                        <button 
+                          onClick={() => { setBaseSize(Math.max(4, baseSize - 1)); setQualityPreset('custom'); }}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                          title="Decrease size"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="min-w-[40px] text-center font-bold">{baseSize}px</span>
+                        <button 
+                          onClick={() => { setBaseSize(Math.min(24, baseSize + 1)); setQualityPreset('custom'); }}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                          title="Increase size"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
@@ -1064,16 +1150,32 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
                       max="24"
                       step="1"
                       value={baseSize}
-                      onChange={(e) => setBaseSize(Number(e.target.value))}
+                      onChange={(e) => { setBaseSize(Number(e.target.value)); setQualityPreset('custom'); }}
                       className="w-full accent-indigo-650 cursor-pointer"
                     />
                   </div>
 
-                  {/* Contour Sensitivity */}
+                  {/* Contour Sensitivity (with touch steppers) */}
                   <div className="space-y-1.5">
-                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-455 dark:text-slate-400 uppercase tracking-widest">
+                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
                       <span>Contour Sensitivity</span>
-                      <span className="font-mono text-slate-800 dark:text-slate-200">{edgeSensitivity}</span>
+                      <div className="flex items-center gap-1.5 font-mono text-slate-800 dark:text-slate-200">
+                        <button 
+                          onClick={() => { setEdgeSensitivity(Math.max(20, edgeSensitivity - 5)); setQualityPreset('custom'); }}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                          title="Decrease sensitivity"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="min-w-[40px] text-center font-bold">{edgeSensitivity}</span>
+                        <button 
+                          onClick={() => { setEdgeSensitivity(Math.min(80, edgeSensitivity + 5)); setQualityPreset('custom'); }}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                          title="Increase sensitivity"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
@@ -1081,16 +1183,30 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
                       max="80"
                       step="5"
                       value={edgeSensitivity}
-                      onChange={(e) => setEdgeSensitivity(Number(e.target.value))}
+                      onChange={(e) => { setEdgeSensitivity(Number(e.target.value)); setQualityPreset('custom'); }}
                       className="w-full accent-indigo-650 cursor-pointer"
                     />
                   </div>
 
                   {/* Underlay Photo Overlay Opacity */}
                   <div className="space-y-1.5">
-                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-455 dark:text-slate-400 uppercase tracking-widest">
+                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
                       <span>Original Photo Overlay</span>
-                      <span className="font-mono text-slate-800 dark:text-slate-200">{photoOverlay}%</span>
+                      <div className="flex items-center gap-1.5 font-mono text-slate-800 dark:text-slate-200">
+                        <button 
+                          onClick={() => setPhotoOverlay(Math.max(0, photoOverlay - 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="min-w-[40px] text-center font-bold">{photoOverlay}%</span>
+                        <button 
+                          onClick={() => setPhotoOverlay(Math.min(80, photoOverlay + 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
@@ -1171,7 +1287,7 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
                     </div>
                   </div>
 
-                  {/* Background Color Picker */}
+                  {/* Background Color Picker with Rainbow Custom Dot */}
                   <div className="space-y-1.5 pt-1">
                     <span className="text-[10px] font-bold text-slate-455 dark:text-slate-400 uppercase tracking-widest block">Canvas Background Color</span>
                     <div className="flex flex-wrap items-center gap-2">
@@ -1179,7 +1295,9 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
                         <button
                           key={color}
                           onClick={() => setBgColor(color)}
-                          className="w-6 h-6 rounded-full border border-slate-300 dark:border-slate-600 cursor-pointer relative shadow-inner shrink-0"
+                          className={`w-6 h-6 rounded-full border border-slate-300 dark:border-slate-600 cursor-pointer relative shadow-inner shrink-0 transition-transform hover:scale-110 active:scale-95 ${
+                            bgColor === color ? 'ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-slate-900' : ''
+                          }`}
                           style={{ backgroundColor: color }}
                         >
                           {bgColor === color && (
@@ -1191,12 +1309,21 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
                           )}
                         </button>
                       ))}
-                      <input
-                        type="color"
-                        value={bgColor}
-                        onChange={(e) => setBgColor(e.target.value)}
-                        className="w-7 h-6 cursor-pointer bg-transparent border-0 shrink-0"
-                      />
+                      {/* Rainbow Custom Swatch */}
+                      <label 
+                        className="w-6 h-6 rounded-full border border-slate-300 dark:border-slate-600 bg-gradient-to-tr from-pink-500 via-amber-400 via-emerald-400 to-indigo-500 p-[1.5px] cursor-pointer relative shadow-inner shrink-0 transition-transform hover:scale-110 active:scale-95 flex items-center justify-center" 
+                        title="Custom Color"
+                      >
+                        <input
+                          type="color"
+                          value={bgColor}
+                          onChange={(e) => setBgColor(e.target.value)}
+                          className="sr-only"
+                        />
+                        <div className="w-full h-full rounded-full bg-white dark:bg-slate-900 flex items-center justify-center">
+                          <Plus className="w-3 h-3 text-indigo-600 dark:text-indigo-400" />
+                        </div>
+                      </label>
                     </div>
                   </div>
 
@@ -1206,22 +1333,38 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
             </div>
 
             {/* Right Preview Column */}
-            <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
+            <div ref={previewContainerRef} className="lg:col-span-7 space-y-6 order-1 lg:order-2">
               
               {/* Canvas Box */}
               <div className="glass-card p-4 sm:p-5 rounded-3xl space-y-4">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center gap-2">
                   <span className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
                     <ImageIcon className="w-4 h-4 text-indigo-500" />
                     Interactive Art Preview
+                    {progress < 100 && (
+                      <span className="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100/50 dark:border-indigo-900/50 px-2 py-0.5 rounded shadow-xs ml-1">
+                        {progress}%
+                      </span>
+                    )}
                   </span>
                   
-                  {/* Progress bar */}
-                  {progress < 100 && (
-                    <span className="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100/50 dark:border-indigo-900/50 px-2 py-0.5 rounded shadow-xs">
-                      Drawing... {progress}%
-                    </span>
-                  )}
+                  {/* Hold to Compare Live Button */}
+                  <button
+                    onMouseDown={() => setIsComparing(true)}
+                    onMouseUp={() => setIsComparing(false)}
+                    onMouseLeave={() => setIsComparing(false)}
+                    onTouchStart={() => setIsComparing(true)}
+                    onTouchEnd={() => setIsComparing(false)}
+                    className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border transition flex items-center gap-1 cursor-pointer select-none ${
+                      isComparing 
+                        ? 'bg-amber-500 text-white border-amber-600 shadow-sm ring-2 ring-amber-400/40' 
+                        : 'bg-white/90 dark:bg-slate-800/90 border-slate-200/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-750'
+                    }`}
+                    title="Press and hold to view original photo"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>{isComparing ? 'Showing Original' : 'Hold to Compare'}</span>
+                  </button>
                 </div>
 
                 <div 
@@ -1236,14 +1379,27 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
                     onLoad={processImage}
                   />
 
-                  {/* Render Canvas */}
-                  <canvas
-                    ref={canvasRef}
-                    className="max-w-full max-h-[460px] object-contain rounded-lg shadow-2xl transition-all duration-300"
-                  />
+                  {/* Render Canvas or Compare Overlay */}
+                  {isComparing ? (
+                    <div className="relative flex items-center justify-center animate-fade-in">
+                      <img
+                        src={imageUrl}
+                        alt="Original"
+                        className="max-w-full max-h-[460px] object-contain rounded-lg shadow-2xl"
+                      />
+                      <span className="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                        Original Photo
+                      </span>
+                    </div>
+                  ) : (
+                    <canvas
+                      ref={canvasRef}
+                      className="max-w-full max-h-[460px] object-contain rounded-lg shadow-2xl transition-all duration-300"
+                    />
+                  )}
                 </div>
 
-                {/* Animation controls & Action Toolbar (Fully Mobile-Responsive) */}
+                {/* Animation controls & Action Toolbar */}
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
                   <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
                     <button
@@ -1294,17 +1450,44 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
                     </button>
                   </div>
                 </div>
-
-                <div className="p-3 bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100/60 dark:border-indigo-900/40 rounded-xl flex items-start gap-2 text-[10px] text-slate-550 dark:text-slate-400 leading-normal font-medium mt-2">
-                  <ShieldCheck className="w-4.5 h-4.5 text-indigo-650 dark:text-indigo-400 shrink-0 mt-0.5 animate-pulse" />
-                  <span>
-                    No images are sent to any cloud server! Edge scanning and pixel drawings are handled entirely in your browser window using Canvas 2D.
-                  </span>
-                </div>
               </div>
 
             </div>
 
+          </div>
+        )}
+
+        {/* Floating Mobile Bottom Action Dock (Appears when file is active on mobile) */}
+        {file && (
+          <div className="fixed bottom-4 left-4 right-4 sm:hidden z-30 flex items-center justify-between p-2.5 bg-slate-900/90 dark:bg-slate-850/95 text-white rounded-2xl backdrop-blur-xl shadow-2xl border border-white/10 animate-fade-in">
+            <button
+              onClick={() => {
+                previewContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="py-2 px-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+            >
+              <Eye className="w-4 h-4 text-indigo-400" />
+              <span>Canvas</span>
+            </button>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={togglePlayback}
+                className="p-2 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-xs font-bold flex items-center justify-center cursor-pointer active:scale-95 transition"
+                title={isPlaying ? 'Pause Drawing' : 'Redraw'}
+              >
+                {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+              </button>
+
+              <button
+                onClick={handleExport}
+                disabled={progress < 1}
+                className="py-2 px-3.5 bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer active:scale-95 transition disabled:opacity-40 disabled:pointer-events-none"
+              >
+                <Download className="w-4 h-4" />
+                <span>Export {exportScale}x</span>
+              </button>
+            </div>
           </div>
         )}
 

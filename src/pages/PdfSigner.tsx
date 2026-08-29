@@ -711,22 +711,22 @@ export const PdfSigner: React.FC = () => {
               
               <div className="glass-card p-5 rounded-3xl space-y-5">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                  <h2 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
                     <span className="w-1.5 h-3.5 bg-indigo-650 rounded-full" />
                     1. Create Signature
                   </h2>
                 </div>
 
                 {/* Mode Selectors */}
-                <div className="grid grid-cols-3 gap-1 p-1 bg-slate-50 border border-slate-200/60 rounded-xl">
+                <div className="grid grid-cols-3 gap-1 p-1 bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700 rounded-xl">
                   {(['draw', 'type', 'upload'] as const).map(mode => (
                     <button
                       key={mode}
                       onClick={() => setSignatureMode(mode)}
-                      className={`py-2 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all capitalize flex items-center justify-center gap-1 cursor-pointer ${
+                      className={`py-2 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all capitalize flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
                         signatureMode === mode 
-                          ? 'bg-white text-slate-900 shadow-sm border border-slate-200/50' 
-                          : 'text-slate-450 hover:text-slate-700'
+                          ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm border border-slate-200/50 dark:border-slate-700' 
+                          : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                       }`}
                     >
                       {mode === 'draw' && <PenTool className="w-3.5 h-3.5" />}
@@ -740,14 +740,14 @@ export const PdfSigner: React.FC = () => {
                 {/* Controls: Color swatch */}
                 {signatureMode !== 'upload' && (
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-slate-450 block">Stroke Color</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-slate-450 dark:text-slate-400 block">Stroke Color</label>
                     <div className="flex gap-2">
                       {['#000000', '#0f172a', '#1e3a8a', '#b91c1c'].map(col => (
                         <button
                           key={col}
                           onClick={() => setDrawColor(col)}
-                          className={`w-6 h-6 rounded-full border transition cursor-pointer flex items-center justify-center ${
-                            drawColor === col ? 'border-indigo-600 scale-110 shadow-sm' : 'border-slate-200'
+                          className={`w-6 h-6 rounded-full border transition cursor-pointer flex items-center justify-center active:scale-95 ${
+                            drawColor === col ? 'border-indigo-600 scale-110 shadow-sm ring-2 ring-indigo-500/30' : 'border-slate-300 dark:border-slate-600'
                           }`}
                           style={{ backgroundColor: col }}
                         >
@@ -761,7 +761,7 @@ export const PdfSigner: React.FC = () => {
                 {/* DRAW Mode Canvas */}
                 {signatureMode === 'draw' && (
                   <div className="space-y-3">
-                    <div className="border border-slate-200 rounded-2xl overflow-hidden bg-slate-50/50 relative shadow-inner">
+                    <div className="border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden bg-slate-50/50 dark:bg-slate-900/50 relative shadow-inner">
                       <canvas
                         ref={drawCanvasRef}
                         width={320}
@@ -774,11 +774,11 @@ export const PdfSigner: React.FC = () => {
                         onTouchMove={draw}
                         onTouchEnd={stopDrawing}
                         onTouchCancel={stopDrawing}
-                        className="w-full touch-none cursor-crosshair"
+                        className="w-full touch-none cursor-crosshair bg-white dark:bg-slate-900"
                       />
                       <button
                         onClick={clearDrawing}
-                        className="absolute bottom-2.5 right-2.5 px-3 py-1.5 bg-white/90 hover:bg-white border border-slate-200 hover:border-slate-350 text-[10px] font-bold uppercase text-slate-655 hover:text-slate-800 rounded-lg shadow-sm transition cursor-pointer"
+                        className="absolute bottom-2.5 right-2.5 px-3 py-1.5 bg-white/90 dark:bg-slate-800/90 hover:bg-white dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-bold uppercase text-slate-655 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100 rounded-lg shadow-sm transition cursor-pointer active:scale-95"
                       >
                         Clear
                       </button>
@@ -790,18 +790,18 @@ export const PdfSigner: React.FC = () => {
                 {signatureMode === 'type' && (
                   <div className="space-y-3">
                     <div className="space-y-1.5">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-450 block">Your Name</label>
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-450 dark:text-slate-400 block">Your Name</label>
                       <input
                         type="text"
                         placeholder="Type signature..."
                         value={typedName}
                         onChange={(e) => setTypedName(e.target.value)}
-                        className="w-full px-3 py-2 border border-slate-200 focus:outline-indigo-600 focus:border-indigo-600 rounded-xl text-xs font-semibold"
+                        className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-indigo-600 focus:border-indigo-600 rounded-xl text-xs font-semibold"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-450 block">Select Script Font</label>
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-450 dark:text-slate-400 block">Select Script Font</label>
                       <div className="grid grid-cols-2 gap-2">
                         {[
                           { id: 'font-handwritten-1', name: 'Signature 1', style: { fontFamily: 'Cedarville Cursive' } },
@@ -812,8 +812,8 @@ export const PdfSigner: React.FC = () => {
                           <button
                             key={font.id}
                             onClick={() => setTypedFont(font.id)}
-                            className={`p-3 rounded-xl border text-center transition cursor-pointer flex flex-col justify-center items-center shadow-xs ${
-                              typedFont === font.id ? 'border-indigo-600 bg-indigo-50/20' : 'border-slate-200 bg-white hover:bg-slate-50'
+                            className={`p-3 rounded-xl border text-center transition cursor-pointer flex flex-col justify-center items-center shadow-xs active:scale-95 ${
+                              typedFont === font.id ? 'border-indigo-600 bg-indigo-50/20 dark:bg-indigo-950/40' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-750'
                             }`}
                           >
                             <span className="text-[11px] font-bold text-slate-400 block mb-1">{font.name}</span>
@@ -830,7 +830,7 @@ export const PdfSigner: React.FC = () => {
                 {/* UPLOAD Mode Dropzone */}
                 {signatureMode === 'upload' && (
                   <div className="space-y-3">
-                    <div className="border-2 border-dashed border-slate-200 hover:border-indigo-400 rounded-2xl p-6 text-center cursor-pointer relative bg-slate-50/30 transition-all flex flex-col items-center justify-center">
+                    <div className="border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-indigo-400 rounded-2xl p-6 text-center cursor-pointer relative bg-slate-50/30 dark:bg-slate-900/30 transition-all flex flex-col items-center justify-center">
                       <input
                         type="file"
                         accept="image/png, image/jpeg, image/jpg, image/webp"
@@ -838,12 +838,12 @@ export const PdfSigner: React.FC = () => {
                         className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
                       />
                       <Upload className="w-7.5 h-7.5 text-slate-400 mb-2" />
-                      <span className="text-xs font-bold text-slate-700 block">Choose Signature Image</span>
-                      <span className="text-[10px] text-slate-450 mt-1 font-medium">Supports PNG, JPEG, or WebP formats</span>
+                      <span className="text-xs font-bold text-slate-700 dark:text-slate-300 block">Choose Signature Image</span>
+                      <span className="text-[10px] text-slate-450 dark:text-slate-400 mt-1 font-medium">Supports PNG, JPEG, or WebP formats</span>
                     </div>
 
                     {uploadedImageSrc && (
-                      <div className="p-3 border border-slate-200 rounded-2xl flex items-center justify-center bg-slate-50/50">
+                      <div className="p-3 border border-slate-200 dark:border-slate-700 rounded-2xl flex items-center justify-center bg-slate-50/50 dark:bg-slate-900/50">
                         <img src={uploadedImageSrc} alt="Uploaded signature" className="max-h-16 object-contain" />
                       </div>
                     )}
@@ -857,7 +857,7 @@ export const PdfSigner: React.FC = () => {
                   className={`w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white shadow-md transition flex items-center justify-center gap-2 cursor-pointer ${
                     activeSignature 
                       ? 'bg-indigo-600 hover:bg-indigo-550 shadow-indigo-500/20 active:scale-98' 
-                      : 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
+                      : 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed shadow-none'
                   }`}
                 >
                   <Plus className="w-4 h-4" /> Place Signature
