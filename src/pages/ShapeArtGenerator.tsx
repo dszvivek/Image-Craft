@@ -34,7 +34,15 @@ const THEMES: Theme[] = [
   { id: 'bubbles', name: 'Floating Soap Bubbles', description: 'Iridescent bubbles forming a glassy portrait.', defaultBg: '#040712', defaultColorMode: 'original', icon: '🫧' }
 ];
 
-export const ShapeArtGenerator: React.FC = () => {
+interface ShapeArtGeneratorProps {
+  pageTitle?: string;
+  pageSubtitle?: string;
+}
+
+export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
+  pageTitle,
+  pageSubtitle
+}) => {
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string>('');
   const [theme, setTheme] = useState<'stars' | 'flowers' | 'clouds' | 'pencil' | 'ink' | 'bubbles'>('clouds');
@@ -945,24 +953,24 @@ export const ShapeArtGenerator: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="AI Contour Shape Art Generator - Turn Photos into Particle Art"
-        description="Turn your photos into creative art portraits composed of stars, flowers, clouds, or hand-drawn pencil strokes. Identifies facial details and pose contours."
+        title={pageTitle || "AI Contour Shape Art Generator - Turn Photos into Particle Art | ImagePlumber"}
+        description={pageSubtitle || "Turn your photos into creative art portraits composed of stars, flowers, clouds, or hand-drawn pencil strokes. Identifies facial details and pose contours."}
         keywords="AI portrait generator, contour sketch generator, shape art converter, photo to particle art, stars canvas portrait, flowers portrait art, local photo art generator"
-/>
+      />
 
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}
-        <div className="text-center mb-8">
-          <span className="text-xs font-bold text-indigo-655 uppercase tracking-widest px-2.5 py-1 bg-indigo-50 border border-indigo-100 rounded-full shadow-sm">
+        <div className="text-center mb-8 px-2">
+          <span className="text-xs font-bold text-indigo-655 dark:text-indigo-400 uppercase tracking-widest px-2.5 py-1 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900 rounded-full shadow-xs">
             Creative Canvas
           </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">AI Shape Art Generator</h1>
-          <p className="text-sm text-slate-500">Scan facial patterns and pose outlines to reconstruct portraits out of beautiful organic shapes.</p>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-100 mt-3 mb-2">{pageTitle || "AI Shape Art Generator"}</h1>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">{pageSubtitle || "Scan facial patterns and pose outlines to reconstruct portraits out of beautiful organic shapes."}</p>
         </div>
 
         {!file ? (
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-stretch max-w-5xl mx-auto">
             <div className="md:col-span-7 flex flex-col justify-center">
               <DropZone 
                 onFilesSelected={handleFilesSelected}
@@ -972,15 +980,15 @@ export const ShapeArtGenerator: React.FC = () => {
               />
             </div>
             <div className="md:col-span-5 flex">
-              <div className="premium-bento rounded-3xl p-6 flex flex-col justify-between w-full shadow-sm hover:border-indigo-350 transition-all duration-300">
+              <div className="premium-bento rounded-3xl p-5 sm:p-6 flex flex-col justify-between w-full shadow-sm hover:border-indigo-350 transition-all duration-300">
                 <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-indigo-655 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Computational Art</div>
-                  <h2 className="text-base font-extrabold text-slate-900">How Shape Art Works</h2>
-                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                  <div className="text-[10px] font-bold text-indigo-655 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Computational Art</div>
+                  <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">How Shape Art Works</h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
                     Our local Sobel edge-filter traces the detailed contours of your face (eyes, lips) and pose outline. The engine then draws tiny, high-density shapes along these lines and larger shapes in background areas to create an artistic, recognizable portrait.
                   </p>
                 </div>
-                <div className="w-full h-32 bg-indigo-50/50 border border-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 gap-1.5 font-bold text-xs select-none">
+                <div className="w-full h-28 sm:h-32 bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50 rounded-2xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 gap-1.5 font-bold text-xs select-none mt-4">
                   <Sparkles className="w-5 h-5 animate-pulse" />
                   Offline Canvas Processing
                 </div>
@@ -988,40 +996,40 @@ export const ShapeArtGenerator: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start animate-fade-in">
             
             {/* Left Control Column */}
             <div className="lg:col-span-5 space-y-6 order-2 lg:order-1">
               
               {/* Theme Selector */}
-              <div className="glass-card p-5 rounded-3xl space-y-4">
-                <h2 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2 text-sm">
+              <div className="glass-card p-4 sm:p-5 rounded-3xl space-y-4">
+                <h2 className="font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-3 flex items-center gap-2 text-sm">
                   <Sparkles className="w-4.5 h-4.5 text-indigo-500" />
                   Choose Shape Style
                 </h2>
                 
-                <div className="grid grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
                   {THEMES.map((t) => (
                     <button
                       key={t.id}
                       onClick={() => handleThemeChange(t.id)}
-                      className={`p-3 rounded-xl border text-left transition-all duration-200 cursor-pointer ${
+                      className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all duration-200 cursor-pointer min-w-0 ${
                         theme === t.id
-                          ? 'border-indigo-550 bg-indigo-50/40 shadow-sm ring-1 ring-indigo-500/30'
-                          : 'border-slate-200/60 bg-white/70 hover:border-slate-350 hover:bg-slate-50/50'
+                          ? 'border-indigo-550 bg-indigo-50/50 dark:bg-indigo-950/50 shadow-xs ring-1 ring-indigo-500/30'
+                          : 'border-slate-200/60 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/60 hover:border-slate-350 dark:hover:border-slate-600 hover:bg-slate-50/50'
                       }`}
                     >
                       <div className="text-xl mb-1">{t.icon}</div>
-                      <div className="text-[11px] font-black text-slate-900 leading-tight">{t.name}</div>
-                      <div className="text-[9px] text-slate-455 mt-0.5 leading-snug font-medium">{t.description}</div>
+                      <div className="text-[11px] font-black text-slate-900 dark:text-slate-100 leading-tight truncate">{t.name}</div>
+                      <div className="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug font-medium line-clamp-2">{t.description}</div>
                     </button>
                   ))}
                 </div>
               </div>
 
               {/* Sliders Control Panel */}
-              <div className="glass-card p-5 rounded-3xl space-y-4">
-                <h2 className="font-bold text-slate-800 border-b border-slate-100 pb-3 text-sm flex items-center justify-between">
+              <div className="glass-card p-4 sm:p-5 rounded-3xl space-y-4">
+                <h2 className="font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-3 text-sm flex items-center justify-between">
                   <span>Rendering Parameters</span>
                   {isProcessing && <span className="text-[10px] text-indigo-500 animate-pulse">Scanning contours...</span>}
                 </h2>
@@ -1029,9 +1037,9 @@ export const ShapeArtGenerator: React.FC = () => {
                 <div className="space-y-4">
                   {/* Density */}
                   <div className="space-y-1.5">
-                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-455 uppercase tracking-widest">
+                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-455 dark:text-slate-400 uppercase tracking-widest">
                       <span>Density (Shape Count)</span>
-                      <span className="font-mono text-slate-800">{density} shapes</span>
+                      <span className="font-mono text-slate-800 dark:text-slate-200">{density} shapes</span>
                     </div>
                     <input
                       type="range"
@@ -1046,9 +1054,9 @@ export const ShapeArtGenerator: React.FC = () => {
 
                   {/* Base Size */}
                   <div className="space-y-1.5">
-                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-455 uppercase tracking-widest">
+                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-455 dark:text-slate-400 uppercase tracking-widest">
                       <span>Base Shape Size</span>
-                      <span className="font-mono text-slate-800">{baseSize}px</span>
+                      <span className="font-mono text-slate-800 dark:text-slate-200">{baseSize}px</span>
                     </div>
                     <input
                       type="range"
@@ -1063,9 +1071,9 @@ export const ShapeArtGenerator: React.FC = () => {
 
                   {/* Contour Sensitivity */}
                   <div className="space-y-1.5">
-                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-455 uppercase tracking-widest">
+                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-455 dark:text-slate-400 uppercase tracking-widest">
                       <span>Contour Sensitivity</span>
-                      <span className="font-mono text-slate-800">{edgeSensitivity}</span>
+                      <span className="font-mono text-slate-800 dark:text-slate-200">{edgeSensitivity}</span>
                     </div>
                     <input
                       type="range"
@@ -1080,9 +1088,9 @@ export const ShapeArtGenerator: React.FC = () => {
 
                   {/* Underlay Photo Overlay Opacity */}
                   <div className="space-y-1.5">
-                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-455 uppercase tracking-widest">
+                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-455 dark:text-slate-400 uppercase tracking-widest">
                       <span>Original Photo Overlay</span>
-                      <span className="font-mono text-slate-800">{photoOverlay}%</span>
+                      <span className="font-mono text-slate-800 dark:text-slate-200">{photoOverlay}%</span>
                     </div>
                     <input
                       type="range"
@@ -1096,10 +1104,10 @@ export const ShapeArtGenerator: React.FC = () => {
                   </div>
 
                   {/* Studio Background Removal Keying */}
-                  <div className="p-3.5 bg-slate-50 border border-slate-200/80 rounded-2xl space-y-3">
+                  <div className="p-3.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 rounded-2xl space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[10px] font-bold text-slate-655 uppercase tracking-wider">Key Out Studio Background</span>
+                        <span className="text-[10px] font-bold text-slate-655 dark:text-slate-300 uppercase tracking-wider">Key Out Studio Background</span>
                         <span title="Automatically ignores solid studio background colors using the averaged corner pixels.">
                           <Info className="w-3.5 h-3.5 text-slate-400 cursor-help" />
                         </span>
@@ -1111,15 +1119,15 @@ export const ShapeArtGenerator: React.FC = () => {
                           onChange={(e) => setKeyBackground(e.target.checked)}
                           className="sr-only peer"
                         />
-                        <div className="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+                        <div className="w-9 h-5 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
                       </label>
                     </div>
 
                     {keyBackground && (
                       <div className="space-y-1.5 animate-fade-in">
-                        <div className="flex justify-between items-center text-[9px] font-bold text-slate-450 uppercase tracking-widest">
+                        <div className="flex justify-between items-center text-[9px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest">
                           <span>Chroma Tolerance</span>
-                          <span className="font-mono text-slate-700">{keyTolerance}</span>
+                          <span className="font-mono text-slate-700 dark:text-slate-300">{keyTolerance}</span>
                         </div>
                         <input
                           type="range"
@@ -1133,15 +1141,15 @@ export const ShapeArtGenerator: React.FC = () => {
                       </div>
                     )}
 
-                    <p className="text-[9px] text-slate-450 leading-relaxed font-medium">
-                      Tip: For busy backgrounds, use our <Link to="/background-remover" className="text-indigo-600 hover:text-indigo-500 font-bold underline">AI Background Remover</Link> first to get a transparent cutout!
+                    <p className="text-[9px] text-slate-450 dark:text-slate-400 leading-relaxed font-medium">
+                      Tip: For busy backgrounds, use our <Link to="/background-remover" className="text-indigo-600 dark:text-indigo-400 hover:underline font-bold">AI Background Remover</Link> first to get a transparent cutout!
                     </p>
                   </div>
 
                   {/* Color Mode */}
                   <div className="space-y-1.5 pt-1">
-                    <span className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">Color Mode</span>
-                    <div className="grid grid-cols-4 gap-1.5">
+                    <span className="text-[10px] font-bold text-slate-455 dark:text-slate-400 uppercase tracking-widest block">Color Mode</span>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                       {[
                         { id: 'original', name: 'Full Color' },
                         { id: 'duotone', name: 'Art Palette' },
@@ -1151,10 +1159,10 @@ export const ShapeArtGenerator: React.FC = () => {
                         <button
                           key={mode.id}
                           onClick={() => setColorMode(mode.id as any)}
-                          className={`py-2 text-[9px] font-bold border rounded-xl transition cursor-pointer text-center ${
+                          className={`py-2 px-1 text-[9px] font-bold border rounded-xl transition cursor-pointer text-center ${
                             colorMode === mode.id
-                              ? 'bg-indigo-600 border-indigo-550 text-white shadow-sm'
-                              : 'bg-white/80 border-slate-200 text-slate-655 hover:bg-slate-50'
+                              ? 'bg-indigo-600 border-indigo-550 text-white shadow-xs'
+                              : 'bg-white/80 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-655 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'
                           }`}
                         >
                           {mode.name}
@@ -1165,13 +1173,13 @@ export const ShapeArtGenerator: React.FC = () => {
 
                   {/* Background Color Picker */}
                   <div className="space-y-1.5 pt-1">
-                    <span className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">Canvas Background Color</span>
-                    <div className="flex gap-2">
+                    <span className="text-[10px] font-bold text-slate-455 dark:text-slate-400 uppercase tracking-widest block">Canvas Background Color</span>
+                    <div className="flex flex-wrap items-center gap-2">
                       {['#0284c7', '#05070f', '#022c22', '#f5f4ee', '#FAF9F3', '#040712', '#ffffff'].map((color) => (
                         <button
                           key={color}
                           onClick={() => setBgColor(color)}
-                          className="w-6 h-6 rounded-full border border-slate-300 cursor-pointer relative shadow-inner"
+                          className="w-6 h-6 rounded-full border border-slate-300 dark:border-slate-600 cursor-pointer relative shadow-inner shrink-0"
                           style={{ backgroundColor: color }}
                         >
                           {bgColor === color && (
@@ -1187,7 +1195,7 @@ export const ShapeArtGenerator: React.FC = () => {
                         type="color"
                         value={bgColor}
                         onChange={(e) => setBgColor(e.target.value)}
-                        className="w-7 h-6 cursor-pointer bg-transparent border-0"
+                        className="w-7 h-6 cursor-pointer bg-transparent border-0 shrink-0"
                       />
                     </div>
                   </div>
@@ -1201,24 +1209,23 @@ export const ShapeArtGenerator: React.FC = () => {
             <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
               
               {/* Canvas Box */}
-              <div className="glass-card p-5 rounded-3xl space-y-4">
+              <div className="glass-card p-4 sm:p-5 rounded-3xl space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
                     <ImageIcon className="w-4 h-4 text-indigo-500" />
                     Interactive Art Preview
                   </span>
                   
                   {/* Progress bar */}
                   {progress < 100 && (
-                    <span className="text-[10px] font-semibold text-indigo-600 bg-indigo-50 border border-indigo-100/50 px-2 py-0.5 rounded shadow-xs">
+                    <span className="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100/50 dark:border-indigo-900/50 px-2 py-0.5 rounded shadow-xs">
                       Drawing... {progress}%
                     </span>
                   )}
                 </div>
 
                 <div 
-                  className="w-full bg-[#05070f] border border-slate-955 rounded-2xl flex items-center justify-center p-2 relative shadow-inner overflow-hidden"
-                  style={{ minHeight: '380px', maxHeight: '500px' }}
+                  className="w-full bg-[#05070f] border border-slate-900 dark:border-slate-800 rounded-2xl flex items-center justify-center p-2 relative shadow-inner overflow-hidden min-h-[280px] sm:min-h-[380px] max-h-[500px]"
                 >
                   {/* Hidden Image for source parsing */}
                   <img
@@ -1232,60 +1239,64 @@ export const ShapeArtGenerator: React.FC = () => {
                   {/* Render Canvas */}
                   <canvas
                     ref={canvasRef}
-                    className="max-w-full max-h-[480px] object-contain rounded-lg shadow-2xl transition-all duration-300"
+                    className="max-w-full max-h-[460px] object-contain rounded-lg shadow-2xl transition-all duration-300"
                   />
                 </div>
 
-                {/* Animation controls */}
-                <div className="flex justify-between items-center pt-2">
-                  <div className="flex items-center gap-3">
+                {/* Animation controls & Action Toolbar (Fully Mobile-Responsive) */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+                  <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
                     <button
                       onClick={togglePlayback}
-                      className="py-2.5 px-5 bg-indigo-600 hover:bg-indigo-550 text-white rounded-xl shadow-md hover:shadow-lg transition-all text-xs font-bold flex items-center gap-1.5 cursor-pointer active:scale-98"
+                      className="flex-1 sm:flex-initial py-2.5 px-4 sm:px-5 bg-indigo-600 hover:bg-indigo-550 text-white rounded-xl shadow-md hover:shadow-lg transition-all text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer active:scale-98 whitespace-nowrap"
                     >
                       {isPlaying ? (
                         <>
-                          <Pause className="w-4 h-4" /> Pause
+                          <Pause className="w-4 h-4 shrink-0" /> Pause
                         </>
                       ) : (
                         <>
-                          <Play className="w-4 h-4" /> {progress >= 100 ? 'Redraw' : 'Resume'}
+                          <Play className="w-4 h-4 shrink-0" /> {progress >= 100 ? 'Redraw' : 'Resume'}
                         </>
                       )}
                     </button>
                     <button
                       onClick={handleReset}
-                      className="py-2.5 px-4 bg-white border border-slate-200 hover:bg-slate-50 text-slate-655 hover:text-slate-800 rounded-xl transition text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                      className="flex-1 sm:flex-initial py-2.5 px-3 sm:px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl transition text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
                     >
-                      <RefreshCw className="w-3.5 h-3.5" /> Upload Different Image
+                      <RefreshCw className="w-3.5 h-3.5 shrink-0" />
+                      <span>Change Photo</span>
                     </button>
                   </div>
 
-                  {/* Export Resolution Picker */}
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-bold text-slate-455 uppercase tracking-widest">Resolution:</span>
-                    <select
-                      value={exportScale}
-                      onChange={(e) => setExportScale(Number(e.target.value))}
-                      className="p-1.5 text-xs border border-slate-200 bg-white/90 rounded-lg font-bold text-slate-700 outline-none cursor-pointer"
-                    >
-                      <option value={1}>1x (Screen)</option>
-                      <option value={2}>2x (HD Quality)</option>
-                      <option value={4}>4x (Print Quality)</option>
-                    </select>
+                  {/* Export Resolution Picker & Download */}
+                  <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto bg-slate-50/80 dark:bg-slate-800/60 sm:bg-transparent p-1.5 sm:p-0 rounded-xl sm:rounded-none border sm:border-0 border-slate-200/60 dark:border-slate-700/60">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider shrink-0">Scale:</span>
+                      <select
+                        value={exportScale}
+                        onChange={(e) => setExportScale(Number(e.target.value))}
+                        className="py-1.5 px-2 text-xs border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg font-bold text-slate-700 dark:text-slate-200 outline-none cursor-pointer"
+                      >
+                        <option value={1}>1x (Screen)</option>
+                        <option value={2}>2x (HD Quality)</option>
+                        <option value={4}>4x (Print Quality)</option>
+                      </select>
+                    </div>
                     <button
                       onClick={handleExport}
                       disabled={progress < 1}
-                      className="p-2.5 bg-zinc-900 hover:bg-zinc-800 disabled:opacity-40 disabled:pointer-events-none text-white rounded-xl shadow transition cursor-pointer"
+                      className="flex-1 sm:flex-initial py-2 px-3.5 bg-zinc-900 hover:bg-zinc-800 dark:bg-indigo-600 dark:hover:bg-indigo-500 disabled:opacity-40 disabled:pointer-events-none text-white rounded-xl shadow transition cursor-pointer flex items-center justify-center gap-1.5 text-xs font-bold"
                       title="Download Image"
                     >
-                      <Download className="w-4.5 h-4.5" />
+                      <Download className="w-4 h-4 shrink-0" />
+                      <span>Download</span>
                     </button>
                   </div>
                 </div>
 
-                <div className="p-3 bg-indigo-50/50 border border-indigo-100/60 rounded-xl flex items-start gap-2 text-[10px] text-slate-550 leading-normal font-medium mt-2">
-                  <ShieldCheck className="w-4.5 h-4.5 text-indigo-650 shrink-0 mt-0.5 animate-pulse" />
+                <div className="p-3 bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100/60 dark:border-indigo-900/40 rounded-xl flex items-start gap-2 text-[10px] text-slate-550 dark:text-slate-400 leading-normal font-medium mt-2">
+                  <ShieldCheck className="w-4.5 h-4.5 text-indigo-650 dark:text-indigo-400 shrink-0 mt-0.5 animate-pulse" />
                   <span>
                     No images are sent to any cloud server! Edge scanning and pixel drawings are handled entirely in your browser window using Canvas 2D.
                   </span>

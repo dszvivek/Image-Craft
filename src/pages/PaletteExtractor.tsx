@@ -254,12 +254,12 @@ schema={paletteSchema}
             {/* Right Color Swatches Result */}
             <div className="lg:col-span-7 space-y-5 order-1 lg:order-2">
               
-              <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-3 shadow-xs">
-                <span className="text-xs font-bold text-slate-800">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 glass-card rounded-2xl px-4 py-3 shadow-xs">
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
                   Extracted Swatches
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Secure local analysis
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> Secure local analysis
                 </span>
               </div>
 

@@ -149,7 +149,15 @@ const sliceImage = (file: File, numSlices: number = 3): Promise<Blob[]> => {
   });
 };
 
-export const OcrExtractor: React.FC = () => {
+interface OcrExtractorProps {
+  pageTitle?: string;
+  pageSubtitle?: string;
+}
+
+export const OcrExtractor: React.FC<OcrExtractorProps> = ({
+  pageTitle,
+  pageSubtitle
+}) => {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
   const [originalUrl, setOriginalUrl] = useState<string>('');
   const [ocrText, setOcrText] = useState<string>('');
@@ -400,21 +408,21 @@ export const OcrExtractor: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Free OCR Text Extractor - Online OCR Alternative" 
-        description="Extract text from images, screenshots, and scanned documents locally in your browser. A private alternative to OnlineOCR, Adobe Acrobat, and cloud text scanners." 
+        title={pageTitle || "Free OCR Text Extractor - Online OCR Alternative | ImagePlumber"} 
+        description={pageSubtitle || "Extract text from images, screenshots, and scanned documents locally in your browser. A private alternative to OnlineOCR, Adobe Acrobat, and cloud text scanners."} 
         keywords="OCR, image to text, extract text from image, scan text, optical character recognition, text extractor, screenshot to text, photo to text, document scanner, free OCR tool, online OCR, multi-language OCR, Tesseract OCR, offline OCR, browser OCR, PDF text extractor, OnlineOCR alternative, FreeOCR alternative, Adobe Acrobat OCR alternative, scan text offline"
-schema={ocrSchema}
+        schema={ocrSchema}
       />
 
       <div className="max-w-4xl mx-auto">
         
         {/* Header */}
-        <div className="text-center mb-8">
-          <span className="text-xs font-bold text-emerald-650 uppercase tracking-widest px-2.5 py-1 bg-emerald-50 border border-emerald-100 rounded-full shadow-sm">
+        <div className="text-center mb-8 px-2">
+          <span className="text-xs font-bold text-emerald-650 dark:text-emerald-400 uppercase tracking-widest px-2.5 py-1 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-900 rounded-full shadow-xs">
             Utility Tool
           </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">OCR Text Extractor</h1>
-          <p className="text-sm text-slate-500 font-medium">Perform optical character recognition directly inside your browser cache. Secure & offline.</p>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-100 mt-3 mb-2">{pageTitle || "OCR Text Extractor"}</h1>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto">{pageSubtitle || "Perform optical character recognition directly inside your browser cache. Secure & offline."}</p>
         </div>
 
         {/* Setup configuration language selector (Always visible to guide user) */}

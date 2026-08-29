@@ -358,11 +358,11 @@ schema={gridSchema}
                 </div>
               )}
 
-              <div className="flex justify-between items-center glass-card rounded-2xl px-4 py-3 shadow-xs">
-                <span className="text-xs font-bold text-slate-800">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 glass-card rounded-2xl px-4 py-3 shadow-xs">
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
                   Cropped Grid Layout Preview
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                   Center-square crop matches feed dimensions
                 </span>
               </div>

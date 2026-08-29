@@ -308,7 +308,15 @@ const parseCSVLine = (line: string): string[] => {
 
 
 
-export const StatementAnalyzer: React.FC = () => {
+interface StatementAnalyzerProps {
+  pageTitle?: string;
+  pageSubtitle?: string;
+}
+
+export const StatementAnalyzer: React.FC<StatementAnalyzerProps> = ({
+  pageTitle,
+  pageSubtitle
+}) => {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [isScannedPdf, setIsScannedPdf] = useState<boolean>(false);
   const [scannedPdfFile, setScannedPdfFile] = useState<File | null>(null);
@@ -1310,24 +1318,24 @@ export const StatementAnalyzer: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Free Bank Statement Analyzer - PDF/CSV/Excel Parser" 
-        description="Analyze bank and credit card statements locally inside your browser cache. Calculate debit/credit cashflows, filter date ranges dynamically, and export clean logs securely." 
+        title={pageTitle || "Free Bank Statement Analyzer - PDF/CSV/Excel Parser | ImagePlumber"} 
+        description={pageSubtitle || "Analyze bank and credit card statements locally inside your browser cache. Calculate debit/credit cashflows, filter date ranges dynamically, and export clean logs securely."} 
         keywords="bank statement, credit card statement, statement analyzer, transaction parser, PDF to CSV bank statement, parse excel bank statement, cash flow calculator, finance ledger, free banking tools, privacy finance tool, on-device ledger scanner"
-schema={analyzerSchema}
+        schema={analyzerSchema}
       />
 
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}
-        <div className="text-center mb-8 print:hidden">
-          <span className="text-xs font-bold text-teal-650 uppercase tracking-widest px-2.5 py-1 bg-teal-50 border border-teal-100 rounded-full shadow-sm">
+        <div className="text-center mb-8 px-2 print:hidden">
+          <span className="text-xs font-bold text-teal-650 dark:text-teal-400 uppercase tracking-widest px-2.5 py-1 bg-teal-50 dark:bg-teal-950/40 border border-teal-100 dark:border-teal-900 rounded-full shadow-xs">
             Finance & Ledger Tool
           </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">
-            Bank Statement Analyzer
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-100 mt-3 mb-2">
+            {pageTitle || "Bank Statement Analyzer"}
           </h1>
-          <p className="text-sm text-slate-500 font-medium">
-            Analyze credit card or bank statements locally on-device. Identify categories, cashflows, and dates securely.
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto">
+            {pageSubtitle || "Analyze credit card or bank statements locally on-device. Identify categories, cashflows, and dates securely."}
           </p>
         </div>
 
@@ -1456,28 +1464,28 @@ schema={analyzerSchema}
               </div>
 
               {/* Action Triggers */}
-              <div className="flex items-center gap-3 w-full md:w-auto justify-end print:hidden">
+              <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 w-full md:w-auto justify-stretch sm:justify-end print:hidden">
                 <button
                   onClick={handleExportCSV}
                   disabled={filteredTransactions.length === 0}
-                  className="px-4.5 py-2.5 bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-350 text-xs font-bold text-slate-700 hover:text-slate-900 rounded-xl transition flex items-center gap-2 cursor-pointer shadow-xs disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 sm:flex-initial px-3.5 sm:px-4.5 py-2.5 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700 hover:border-slate-350 text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-slate-900 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Download className="w-4 h-4" />
-                  Export CSV
+                  <span>Export CSV</span>
                 </button>
                 <button
                   onClick={() => window.print()}
-                  className="px-4.5 py-2.5 bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-350 text-xs font-bold text-slate-700 hover:text-slate-900 rounded-xl transition flex items-center gap-2 cursor-pointer shadow-xs"
+                  className="flex-1 sm:flex-initial px-3.5 sm:px-4.5 py-2.5 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700 hover:border-slate-350 text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-slate-900 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                 >
                   <FileText className="w-4 h-4" />
-                  Print Report
+                  <span>Print Report</span>
                 </button>
                 <button
                   onClick={handleReset}
-                  className="px-4.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 rounded-xl transition flex items-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto px-3.5 sm:px-4.5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <RefreshCw className="w-4 h-4" />
-                  Clear File
+                  <span>Clear File</span>
                 </button>
               </div>
 

@@ -20,7 +20,15 @@ import { saveFavorite, loadFavorites } from '../features/ambient/storage/ambient
 import type { FavoriteScene } from '../features/ambient/storage/ambientStorage';
 import { PALETTES } from '../features/ambient/engine/PaletteManager';
 
-export const AmbientVisuals: React.FC = () => {
+interface AmbientVisualsProps {
+  pageTitle?: string;
+  pageSubtitle?: string;
+}
+
+export const AmbientVisuals: React.FC<AmbientVisualsProps> = ({
+  pageTitle,
+  pageSubtitle
+}) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const urlMode = searchParams.get('mode') || 'calm';
@@ -295,16 +303,16 @@ export const AmbientVisuals: React.FC = () => {
       {!isImmersive && (
         <div className="relative z-20 flex-1 max-w-5xl mx-auto px-6 py-12 flex flex-col justify-between">
           {/* Header Tagline */}
-          <div className="text-center space-y-4 max-w-2xl mx-auto">
+          <div className="text-center space-y-4 max-w-2xl mx-auto px-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-extrabold uppercase tracking-widest text-indigo-300">
               <Sparkles className="w-3.5 h-3.5" />
               A Quiet Place on the Internet
             </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-tight text-white">
-              Slow down for a few minutes.
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-white">
+              {pageTitle || "Slow down for a few minutes."}
             </h1>
-            <p className="text-sm md:text-base text-slate-300 font-medium leading-relaxed">
-              Continuously evolving generative visuals for calming down, focusing, visual breaks, sleep, or ambient digital art.
+            <p className="text-xs sm:text-sm md:text-base text-slate-300 font-medium leading-relaxed">
+              {pageSubtitle || "Continuously evolving generative visuals for calming down, focusing, visual breaks, sleep, or ambient digital art."}
             </p>
           </div>
 

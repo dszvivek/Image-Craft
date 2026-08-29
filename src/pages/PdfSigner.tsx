@@ -903,33 +903,33 @@ export const PdfSigner: React.FC = () => {
               <div className="glass-card p-4 sm:p-6 rounded-3xl flex flex-col items-center">
                 
                 {/* Page Navigation header */}
-                <div className="w-full flex items-center justify-between border-b border-slate-200/60 pb-4 mb-5">
-                  <div className="space-y-0.5">
-                    <span className="text-[10px] font-bold text-indigo-655 uppercase tracking-widest block">PDF document preview</span>
-                    <p className="font-extrabold text-sm text-slate-900 truncate max-w-[200px] sm:max-w-xs">{pdfFile?.name}</p>
+                <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-200/60 dark:border-slate-800 pb-4 mb-5 gap-3">
+                  <div className="space-y-0.5 min-w-0 max-w-full">
+                    <span className="text-[10px] font-bold text-indigo-655 dark:text-indigo-400 uppercase tracking-widest block">PDF document preview</span>
+                    <p className="font-extrabold text-sm text-slate-900 dark:text-slate-100 truncate">{pdfFile?.name}</p>
                   </div>
 
-                  <div className="flex items-center gap-3 font-semibold">
+                  <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3 w-full sm:w-auto font-semibold">
                     {/* Zoom Control Group */}
-                    <div className="flex items-center gap-1 border border-slate-200/80 rounded-xl p-1 bg-slate-50 mr-2">
+                    <div className="flex items-center gap-1 border border-slate-200/80 dark:border-slate-700 rounded-xl p-1 bg-slate-50 dark:bg-slate-800/80">
                       <button
                         onClick={() => setZoomScale(Math.max(0.6, zoomScale - 0.2))}
                         disabled={zoomScale <= 0.6}
                         className={`p-1.5 rounded-lg transition cursor-pointer ${
-                          zoomScale <= 0.6 ? 'text-slate-350 cursor-not-allowed' : 'text-slate-655 hover:bg-white hover:shadow-xs'
+                          zoomScale <= 0.6 ? 'text-slate-300 dark:text-slate-600 cursor-not-allowed' : 'text-slate-655 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 hover:shadow-xs'
                         }`}
                         title="Zoom Out"
                       >
                         <ZoomOut className="w-4 h-4" />
                       </button>
-                      <span className="text-[10px] font-extrabold px-1 text-slate-700 min-w-[34px] text-center">
+                      <span className="text-[10px] font-extrabold px-1 text-slate-700 dark:text-slate-300 min-w-[34px] text-center">
                         {Math.round(zoomScale * 100)}%
                       </span>
                       <button
                         onClick={() => setZoomScale(Math.min(3.0, zoomScale + 0.2))}
                         disabled={zoomScale >= 3.0}
                         className={`p-1.5 rounded-lg transition cursor-pointer ${
-                          zoomScale >= 3.0 ? 'text-slate-350 cursor-not-allowed' : 'text-slate-655 hover:bg-white hover:shadow-xs'
+                          zoomScale >= 3.0 ? 'text-slate-300 dark:text-slate-600 cursor-not-allowed' : 'text-slate-655 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 hover:shadow-xs'
                         }`}
                         title="Zoom In"
                       >
@@ -938,24 +938,24 @@ export const PdfSigner: React.FC = () => {
                     </div>
 
                     {/* Page Control Group */}
-                    <div className="flex items-center gap-1 border border-slate-200/80 rounded-xl p-1 bg-slate-50">
+                    <div className="flex items-center gap-1 border border-slate-200/80 dark:border-slate-700 rounded-xl p-1 bg-slate-50 dark:bg-slate-800/80">
                       <button
                         onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                         disabled={currentPage === 1}
                         className={`p-1.5 rounded-lg transition cursor-pointer ${
-                          currentPage === 1 ? 'text-slate-300 cursor-not-allowed' : 'text-slate-600 hover:bg-white hover:shadow-xs'
+                          currentPage === 1 ? 'text-slate-300 dark:text-slate-600 cursor-not-allowed' : 'text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 hover:shadow-xs'
                         }`}
                       >
                         <ChevronLeft className="w-4 h-4" />
                       </button>
-                      <span className="text-xs font-bold px-2 text-slate-750">
+                      <span className="text-xs font-bold px-2 text-slate-750 dark:text-slate-200">
                         {currentPage} / {numPages}
                       </span>
                       <button
                         onClick={() => setCurrentPage(Math.min(numPages, currentPage + 1))}
                         disabled={currentPage === numPages}
                         className={`p-1.5 rounded-lg transition cursor-pointer ${
-                          currentPage === numPages ? 'text-slate-300 cursor-not-allowed' : 'text-slate-600 hover:bg-white hover:shadow-xs'
+                          currentPage === numPages ? 'text-slate-300 dark:text-slate-600 cursor-not-allowed' : 'text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 hover:shadow-xs'
                         }`}
                       >
                         <ChevronRight className="w-4 h-4" />

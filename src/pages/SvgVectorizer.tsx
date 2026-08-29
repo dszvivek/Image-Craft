@@ -169,7 +169,15 @@ function traceContour(
   return contour;
 }
 
-export const SvgVectorizer: React.FC = () => {
+interface SvgVectorizerProps {
+  pageTitle?: string;
+  pageSubtitle?: string;
+}
+
+export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
+  pageTitle,
+  pageSubtitle
+}) => {
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string>('');
   
@@ -595,20 +603,20 @@ export const SvgVectorizer: React.FC = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Free Image to SVG Vectorizer - Vectorizer.ai Alternative" 
-        description="Convert raster JPG/PNG images into scalable vector graphics (SVG) offline in your browser. A free alternative to Vectorizer.ai and Vector Magic." 
+        title={pageTitle || "Free Image to SVG Vectorizer - Vectorizer.ai Alternative | ImagePlumber"} 
+        description={pageSubtitle || "Convert raster JPG/PNG images into scalable vector graphics (SVG) offline in your browser. A free alternative to Vectorizer.ai and Vector Magic."} 
         keywords="SVG vectorizer, image to SVG, convert PNG to SVG, convert JPG to SVG, vectorize image, raster to vector, vector converter, image tracer, SVG converter online, free SVG converter, image to vector art, auto tracer, Vectorizer.ai alternative, Vector Magic alternative, vectorize photo offline"
-schema={vectorSchema}
+        schema={vectorSchema}
       />
 
       <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <span className="text-xs font-bold text-indigo-650 uppercase tracking-widest px-2.5 py-1 bg-indigo-50 border border-indigo-100 rounded-full shadow-sm">
+        <div className="text-center mb-8 px-2">
+          <span className="text-xs font-bold text-indigo-650 dark:text-indigo-400 uppercase tracking-widest px-2.5 py-1 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900 rounded-full shadow-xs">
             Vector Studio
           </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">SVG Vectorizer</h1>
-          <p className="text-sm text-slate-500">Trace outlines and group color layers of logo sketches, illustrations, or portraits into clean vectors locally.</p>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-100 mt-3 mb-2">{pageTitle || "SVG Vectorizer"}</h1>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">{pageSubtitle || "Trace outlines and group color layers of logo sketches, illustrations, or portraits into clean vectors locally."}</p>
         </div>
 
         {!file ? (

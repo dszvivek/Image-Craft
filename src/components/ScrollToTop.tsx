@@ -30,9 +30,9 @@ export const ScrollToTop: React.FC = () => {
     <button
       onClick={scrollToTop}
       aria-label="Scroll back to top"
-      className="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-800 shadow-xl backdrop-blur-md hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-300 dark:hover:border-indigo-800 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer animate-fade-in group"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 p-2.5 sm:p-3 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-800 shadow-xl backdrop-blur-md hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-300 dark:hover:border-indigo-800 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer animate-fade-in group"
     >
-      <ChevronUp className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
+      <ChevronUp className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-translate-y-0.5 transition-transform" />
     </button>
   );
 };

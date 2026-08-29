@@ -34,9 +34,9 @@ export const ToolGuide: React.FC<ToolGuideProps> = ({
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   return (
-    <div className="mt-16 border-t border-slate-200/60 dark:border-slate-800 pt-12 max-w-4xl mx-auto space-y-12 text-left">
+    <div className="mt-12 sm:mt-16 border-t border-slate-200/60 dark:border-slate-800 pt-8 sm:pt-12 max-w-4xl mx-auto space-y-8 sm:space-y-12 text-left">
       {/* Intro Header */}
-      <div className="text-center space-y-3">
+      <div className="text-center space-y-3 px-2">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100/80 dark:border-indigo-900/30 rounded-full text-[10px] font-bold text-indigo-650 dark:text-indigo-400 uppercase tracking-widest">
           <BookOpen className="w-3.5 h-3.5" />
           <span>User Guide & FAQs</span>
@@ -50,8 +50,8 @@ export const ToolGuide: React.FC<ToolGuideProps> = ({
       </div>
 
       {/* Alternative Competitor Banner */}
-      <div className="premium-bento p-5 rounded-2xl bg-gradient-to-r from-indigo-50/30 to-purple-50/30 dark:from-indigo-950/20 dark:to-purple-950/20 border border-indigo-100/50 dark:border-indigo-900/30 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-        <div className="space-y-1">
+      <div className="premium-bento p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-indigo-50/30 to-purple-50/30 dark:from-indigo-950/20 dark:to-purple-950/20 border border-indigo-100/50 dark:border-indigo-900/30 flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center justify-between">
+        <div className="space-y-1 min-w-0">
           <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-purple-650 bg-purple-50 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30 px-2 py-0.5 rounded border border-purple-100">
             <Shuffle className="w-3 h-3" /> Alternatives Comparison
           </span>
@@ -62,41 +62,43 @@ export const ToolGuide: React.FC<ToolGuideProps> = ({
             {competitorComparison.benefit}
           </p>
         </div>
-        <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30 border border-emerald-100 rounded-full px-2.5 py-1 shrink-0">
+        <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30 border border-emerald-100 rounded-full px-2.5 py-1 shrink-0 self-start sm:self-auto">
           100% On-Device & Free
         </div>
       </div>
 
       {/* Steps & Features Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
         {/* Step-by-Step */}
-        <div className="glass-card p-6 rounded-2xl space-y-4">
+        <div className="glass-card p-4 sm:p-6 rounded-2xl space-y-4">
           <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
             <span className="w-1.5 h-3.5 bg-indigo-600 rounded-full" />
             Quick Instructions
           </h3>
-          <ol className="relative border-l border-indigo-100/60 dark:border-indigo-900/40 ml-3.5 pl-6 space-y-5">
+          <div className="space-y-3.5">
             {steps.map((step, idx) => (
-              <li key={idx} className="relative">
-                <span className="absolute -left-10 top-0.5 flex items-center justify-center w-6.5 h-6.5 bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-full text-[10px] font-bold font-mono">
+              <div key={idx} className="flex items-start gap-3">
+                <span className="flex items-center justify-center w-6 h-6 shrink-0 bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900/60 text-indigo-600 dark:text-indigo-400 rounded-full text-[10px] font-bold font-mono mt-0.5">
                   {idx + 1}
                 </span>
-                <h4 className="text-xs font-bold text-slate-850 dark:text-slate-200">{step.title}</h4>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-medium mt-0.5">
-                  {step.description}
-                </p>
-              </li>
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-xs font-bold text-slate-850 dark:text-slate-200 leading-snug">{step.title}</h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-medium mt-0.5">
+                    {step.description}
+                  </p>
+                </div>
+              </div>
             ))}
-          </ol>
+          </div>
         </div>
 
         {/* Core Capabilities */}
-        <div className="glass-card p-6 rounded-2xl space-y-4">
+        <div className="glass-card p-4 sm:p-6 rounded-2xl space-y-4">
           <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
             <span className="w-1.5 h-3.5 bg-indigo-600 rounded-full" />
             Core Features & Advantages
           </h3>
-          <ul className="space-y-3.5">
+          <ul className="space-y-3">
             {features.map((feature, idx) => (
               <li key={idx} className="flex items-start gap-2.5">
                 <CheckCircle className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600 dark:text-emerald-500" />
@@ -111,7 +113,7 @@ export const ToolGuide: React.FC<ToolGuideProps> = ({
 
       {/* Accordion FAQs */}
       {faq.length > 0 && (
-        <div className="glass-card p-6 rounded-2xl space-y-4">
+        <div className="glass-card p-4 sm:p-6 rounded-2xl space-y-4">
           <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2 mb-2">
             <HelpCircle className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             Frequently Asked Questions
@@ -121,7 +123,7 @@ export const ToolGuide: React.FC<ToolGuideProps> = ({
               <div key={index} className="py-3.5 first:pt-0 last:pb-0">
                 <button
                   onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
-                  className="w-full flex items-center justify-between text-left text-xs font-bold text-slate-750 dark:text-slate-200 hover:text-indigo-650 dark:hover:text-indigo-400 cursor-pointer transition-colors duration-150 py-1"
+                  className="w-full flex items-center justify-between text-left text-xs font-bold text-slate-750 dark:text-slate-200 hover:text-indigo-655 dark:hover:text-indigo-400 cursor-pointer transition-colors duration-150 py-1"
                 >
                   <span className="pr-4">{item.q}</span>
                   {openFaqIndex === index ? (
