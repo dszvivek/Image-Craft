@@ -81,7 +81,11 @@ export const GridSplitter: React.FC = () => {
         }
 
         Promise.all(promises).then((urls) => {
-          setTiles(urls.filter((url) => url !== ''));
+          const validUrls = urls.filter((url) => url !== '');
+          setTiles((prev) => {
+            prev.forEach((t) => URL.revokeObjectURL(t));
+            return validUrls;
+          });
           setIsProcessing(false);
         });
       };

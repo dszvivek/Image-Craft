@@ -75,6 +75,7 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
 
   const handleFilesSelected = (files: File[]) => {
     if (files.length > 0) {
+      if (imageUrl) URL.revokeObjectURL(imageUrl);
       const f = files[0];
       setFile(f);
       const url = URL.createObjectURL(f);

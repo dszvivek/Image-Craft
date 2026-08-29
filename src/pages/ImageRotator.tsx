@@ -131,6 +131,12 @@ export const ImageRotator: React.FC = () => {
     setFlipV(false);
   };
 
+  useEffect(() => {
+    return () => {
+      if (imageSrc) URL.revokeObjectURL(imageSrc);
+    };
+  }, [imageSrc]);
+
   const rotatorSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',

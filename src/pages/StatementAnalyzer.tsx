@@ -23,11 +23,25 @@ import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
 import { DemoPreview } from '../components/DemoPreview';
 
-// Dynamic script loading helpers
+// Dynamic script loading helpers with singleton promise cache
+let pdfjsPromise: Promise<any> | null = null;
 const loadPdfJS = (): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    if ((window as any).pdfjsLib) {
-      resolve((window as any).pdfjsLib);
+  if ((window as any).pdfjsLib) {
+    return Promise.resolve((window as any).pdfjsLib);
+  }
+  if (pdfjsPromise) return pdfjsPromise;
+
+  pdfjsPromise = new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[src*="pdf.min.js"]') as HTMLScriptElement;
+    if (existing) {
+      existing.addEventListener('load', () => {
+        const pdfjsLib = (window as any).pdfjsLib;
+        if (pdfjsLib) {
+          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+        resolve(pdfjsLib);
+      });
+      existing.addEventListener('error', reject);
       return;
     }
     const script = document.createElement('script');
@@ -37,25 +51,39 @@ const loadPdfJS = (): Promise<any> => {
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
       resolve(pdfjsLib);
     };
-    script.onerror = (err) => reject(err);
+    script.onerror = (err) => {
+      pdfjsPromise = null;
+      reject(err);
+    };
     document.body.appendChild(script);
   });
+  return pdfjsPromise;
 };
 
+let sheetjsPromise: Promise<any> | null = null;
 const loadSheetJS = (): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    if ((window as any).XLSX) {
-      resolve((window as any).XLSX);
+  if ((window as any).XLSX) {
+    return Promise.resolve((window as any).XLSX);
+  }
+  if (sheetjsPromise) return sheetjsPromise;
+
+  sheetjsPromise = new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[src*="xlsx.full.min.js"]') as HTMLScriptElement;
+    if (existing) {
+      existing.addEventListener('load', () => resolve((window as any).XLSX));
+      existing.addEventListener('error', reject);
       return;
     }
     const script = document.createElement('script');
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
-    script.onload = () => {
-      resolve((window as any).XLSX);
+    script.onload = () => resolve((window as any).XLSX);
+    script.onerror = (err) => {
+      sheetjsPromise = null;
+      reject(err);
     };
-    script.onerror = (err) => reject(err);
     document.body.appendChild(script);
   });
+  return sheetjsPromise;
 };
 
 interface Transaction {

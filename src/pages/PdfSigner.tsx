@@ -21,11 +21,25 @@ import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
 import { DemoPreview } from '../components/DemoPreview';
 
-// Script loaders
+// Script loaders with singleton promise cache
+let pdfjsPromise: Promise<any> | null = null;
 const loadPdfJS = (): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    if ((window as any).pdfjsLib) {
-      resolve((window as any).pdfjsLib);
+  if ((window as any).pdfjsLib) {
+    return Promise.resolve((window as any).pdfjsLib);
+  }
+  if (pdfjsPromise) return pdfjsPromise;
+
+  pdfjsPromise = new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[src*="pdf.min.js"]') as HTMLScriptElement;
+    if (existing) {
+      existing.addEventListener('load', () => {
+        const pdfjsLib = (window as any).pdfjsLib;
+        if (pdfjsLib) {
+          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+        resolve(pdfjsLib);
+      });
+      existing.addEventListener('error', reject);
       return;
     }
     const script = document.createElement('script');
@@ -35,25 +49,39 @@ const loadPdfJS = (): Promise<any> => {
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
       resolve(pdfjsLib);
     };
-    script.onerror = (err) => reject(err);
+    script.onerror = (err) => {
+      pdfjsPromise = null;
+      reject(err);
+    };
     document.body.appendChild(script);
   });
+  return pdfjsPromise;
 };
 
+let pdfLibPromise: Promise<any> | null = null;
 const loadPdfLib = (): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    if ((window as any).PDFLib) {
-      resolve((window as any).PDFLib);
+  if ((window as any).PDFLib) {
+    return Promise.resolve((window as any).PDFLib);
+  }
+  if (pdfLibPromise) return pdfLibPromise;
+
+  pdfLibPromise = new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[src*="pdf-lib.min.js"]') as HTMLScriptElement;
+    if (existing) {
+      existing.addEventListener('load', () => resolve((window as any).PDFLib));
+      existing.addEventListener('error', reject);
       return;
     }
     const script = document.createElement('script');
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js';
-    script.onload = () => {
-      resolve((window as any).PDFLib);
+    script.onload = () => resolve((window as any).PDFLib);
+    script.onerror = (err) => {
+      pdfLibPromise = null;
+      reject(err);
     };
-    script.onerror = (err) => reject(err);
     document.body.appendChild(script);
   });
+  return pdfLibPromise;
 };
 
 interface SignaturePlacement {

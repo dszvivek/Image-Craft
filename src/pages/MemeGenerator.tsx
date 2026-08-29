@@ -389,6 +389,12 @@ export const MemeGenerator: React.FC<MemeGeneratorProps> = ({
     setSelectedLayerId(null);
   };
 
+  React.useEffect(() => {
+    return () => {
+      if (imageSrc) URL.revokeObjectURL(imageSrc);
+    };
+  }, [imageSrc]);
+
   const memeSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',

@@ -99,13 +99,14 @@ export const CollageMaker: React.FC<CollageMakerProps> = ({
 
   const drawCollage = useCallback(() => {
     if (images.length === 0) {
-      if (canvasUrl) URL.revokeObjectURL(canvasUrl);
-      setCanvasUrl('');
+      setCanvasUrl((prev) => {
+        if (prev) URL.revokeObjectURL(prev);
+        return '';
+      });
       return;
     }
 
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const canvas = canvasRef.current || document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -156,22 +157,6 @@ export const CollageMaker: React.FC<CollageMakerProps> = ({
       return slots;
     };
 
-    const slots = calculateSlots();
-    const loadedImages: HTMLImageElement[] = [];
-    let loadedCount = 0;
-
-    images.slice(0, slots.length).forEach((imgObj, idx) => {
-      const img = new Image();
-      img.src = imgObj.url;
-      img.onload = () => {
-        loadedImages[idx] = img;
-        loadedCount++;
-        if (loadedCount === Math.min(images.length, slots.length)) {
-          renderSlots(ctx, slots, loadedImages);
-        }
-      };
-    });
-
     const renderSlots = (context: CanvasRenderingContext2D, targetSlots: SlotRect[], imgs: HTMLImageElement[]) => {
       targetSlots.forEach((slot, index) => {
         const img = imgs[index];
@@ -202,15 +187,34 @@ export const CollageMaker: React.FC<CollageMakerProps> = ({
       canvas.toBlob((blob) => {
         if (!blob) return;
         const url = URL.createObjectURL(blob);
-        setCanvasUrl(url);
+        setCanvasUrl((prev) => {
+          if (prev) URL.revokeObjectURL(prev);
+          return url;
+        });
         setIsAssembling(false);
       }, 'image/png');
     };
+
+    const slots = calculateSlots();
+    const loadedImages: HTMLImageElement[] = [];
+    let loadedCount = 0;
+
+    images.slice(0, slots.length).forEach((imgObj, idx) => {
+      const img = new Image();
+      img.src = imgObj.url;
+      img.onload = () => {
+        loadedImages[idx] = img;
+        loadedCount++;
+        if (loadedCount === Math.min(images.length, slots.length)) {
+          renderSlots(ctx, slots, loadedImages);
+        }
+      };
+    });
   }, [images, layoutId, aspectRatio, spacing, borderWidth, borderColor, borderRadius]);
 
   useEffect(() => {
     drawCollage();
-  }, [images, layoutId, aspectRatio, spacing, borderWidth, borderColor, borderRadius, drawCollage]);
+  }, [drawCollage]);
 
   const handleDownload = () => {
     if (!canvasUrl) return;
@@ -224,9 +228,11 @@ export const CollageMaker: React.FC<CollageMakerProps> = ({
 
   const handleReset = () => {
     images.forEach((img) => URL.revokeObjectURL(img.url));
-    if (canvasUrl) URL.revokeObjectURL(canvasUrl);
+    setCanvasUrl((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return '';
+    });
     setImages([]);
-    setCanvasUrl('');
     setLayoutId('2-cols');
     setAspectRatio(1);
     setSpacing(10);
@@ -279,7 +285,7 @@ export const CollageMaker: React.FC<CollageMakerProps> = ({
         title={pageTitle || "Free Online Photo Collage Maker & Photo Grid Joiner | ImagePlumber"} 
         description={pageSubtitle || "Assemble images into custom collage grids locally in your browser. A free private alternative to Canva collages with zero uploads."} 
         keywords="photo collage maker, collage maker online, free collage maker, image collage, picture collage, photo grid maker, photo layout maker, online collage creator, make collage online free, picture collage maker, no watermark collage maker, Canva collage alternative, photo collage offline"
-schema={collageSchema}
+        schema={collageSchema}
       />
 
       <div className="max-w-6xl mx-auto">
@@ -330,11 +336,11 @@ schema={collageSchema}
             <div className="lg:col-span-4 flex flex-col gap-6 order-2 lg:order-1">
               
               {/* Photo list */}
-              <div className="premium-bento p-5 rounded-3xl bg-white space-y-4 shadow-xs">
-                <p className="text-xs font-bold text-slate-455 uppercase tracking-widest flex justify-between items-center">
+              <div className="premium-bento p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 space-y-4 shadow-xs">
+                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest flex justify-between items-center">
                   <span>Selected Photos ({images.length}/4)</span>
                   {images.length < 4 && (
-                    <label className="text-[10px] text-indigo-650 hover:text-indigo-755 font-bold flex items-center gap-1 cursor-pointer">
+                    <label className="text-[10px] text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 font-bold flex items-center gap-1 cursor-pointer">
                       <Plus className="w-3.5 h-3.5" /> Add
                       <input
                         type="file"
@@ -351,11 +357,11 @@ schema={collageSchema}
 
                 <div className="grid grid-cols-4 gap-2.5">
                   {images.map((img) => (
-                    <div key={img.id} className="relative aspect-square bg-white/80 border border-slate-200/60 rounded-xl overflow-hidden group shadow-xs">
+                    <div key={img.id} className="relative aspect-square bg-white/80 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700 rounded-xl overflow-hidden group shadow-xs">
                       <img src={img.url} alt="Thumbnail" className="w-full h-full object-cover" />
                       <button
                         onClick={() => removeImage(img.id)}
-                        className="absolute inset-0 bg-red-50/90 opacity-0 group-hover:opacity-100 flex items-center justify-center text-red-650 transition duration-200 cursor-pointer"
+                        className="absolute inset-0 bg-red-500/80 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition duration-200 cursor-pointer"
                         title="Remove photo"
                       >
                         <Trash2 className="w-4.5 h-4.5" />
@@ -366,16 +372,16 @@ schema={collageSchema}
               </div>
 
               {/* Layout controls */}
-              <div className="premium-bento p-6 rounded-3xl bg-white space-y-6 shadow-xs">
+              <div className="premium-bento p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 space-y-6 shadow-xs">
                 
-                <h2 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2 text-sm">
+                <h2 className="font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-3 flex items-center gap-2 text-sm">
                   <Sliders className="w-4.5 h-4.5 text-indigo-500" />
                   Collage Styles
                 </h2>
 
                 {/* Templates */}
                 <div className="space-y-2.5">
-                  <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
                     Grid Template
                   </label>
                   <div className="grid grid-cols-2 gap-2">
@@ -386,7 +392,7 @@ schema={collageSchema}
                         className={`py-2.5 px-3 rounded-xl text-[11px] font-bold border transition-all text-center cursor-pointer active:scale-95 ${
                           layoutId === lay.id
                             ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
-                            : 'bg-white/80 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
+                            : 'bg-white/80 dark:bg-slate-800 border-slate-200/70 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-50/50'
                         }`}
                       >
                         {lay.name}
@@ -397,8 +403,8 @@ schema={collageSchema}
 
                 {/* Aspect Ratio */}
                 <div className="space-y-2.5">
-                  <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest flex items-center gap-1.5">
-                    <Crop className="w-3.5 h-3.5 text-slate-450" /> Aspect Ratio
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+                    <Crop className="w-3.5 h-3.5 text-slate-400" /> Aspect Ratio
                   </label>
                   <div className="grid grid-cols-3 gap-2">
                     {aspectRatios.map((ratio) => (
@@ -408,7 +414,7 @@ schema={collageSchema}
                         className={`py-2 px-2.5 rounded-xl text-[11px] font-bold border transition-all text-center cursor-pointer active:scale-95 ${
                           aspectRatio === ratio.value
                             ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
-                            : 'bg-white/80 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
+                            : 'bg-white/80 dark:bg-slate-800 border-slate-200/70 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-50/50'
                         }`}
                       >
                         {ratio.label.split(' ')[0]}
@@ -423,8 +429,8 @@ schema={collageSchema}
                   {/* Spacing */}
                   <div className="space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span className="text-slate-455">Grid Spacing</span>
-                      <span className="font-mono text-indigo-650 font-bold bg-indigo-50 px-1.5 py-0.5 rounded shadow-xs">{spacing}px</span>
+                      <span className="text-slate-500 dark:text-slate-400">Grid Spacing</span>
+                      <span className="font-mono text-indigo-600 dark:text-indigo-400 font-bold bg-indigo-50 dark:bg-indigo-950/60 px-1.5 py-0.5 rounded shadow-xs">{spacing}px</span>
                     </div>
                     <input
                       type="range"
@@ -439,8 +445,8 @@ schema={collageSchema}
                   {/* Border Width */}
                   <div className="space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span className="text-slate-455">Border Thickness</span>
-                      <span className="font-mono text-indigo-650 font-bold bg-indigo-50 px-1.5 py-0.5 rounded shadow-xs">{borderWidth}px</span>
+                      <span className="text-slate-500 dark:text-slate-400">Border Thickness</span>
+                      <span className="font-mono text-indigo-600 dark:text-indigo-400 font-bold bg-indigo-50 dark:bg-indigo-950/60 px-1.5 py-0.5 rounded shadow-xs">{borderWidth}px</span>
                     </div>
                     <input
                       type="range"
@@ -455,8 +461,8 @@ schema={collageSchema}
                   {/* Corner Radius */}
                   <div className="space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span className="text-slate-455">Corner Roundness</span>
-                      <span className="font-mono text-indigo-650 font-bold bg-indigo-50 px-1.5 py-0.5 rounded shadow-xs">{borderRadius}px</span>
+                      <span className="text-slate-500 dark:text-slate-400">Corner Roundness</span>
+                      <span className="font-mono text-indigo-600 dark:text-indigo-400 font-bold bg-indigo-50 dark:bg-indigo-950/60 px-1.5 py-0.5 rounded shadow-xs">{borderRadius}px</span>
                     </div>
                     <input
                       type="range"
@@ -470,16 +476,16 @@ schema={collageSchema}
 
                   {/* Border Color */}
                   {borderWidth > 0 && (
-                    <div className="flex justify-between items-center text-xs font-semibold border-t border-slate-100 pt-3">
-                      <span className="text-slate-455">Border Color</span>
+                    <div className="flex justify-between items-center text-xs font-semibold border-t border-slate-100 dark:border-slate-800 pt-3">
+                      <span className="text-slate-500 dark:text-slate-400">Border Color</span>
                       <div className="flex items-center gap-2">
                         <input
                           type="color"
                           value={borderColor}
                           onChange={(e) => setBorderColor(e.target.value)}
-                          className="w-7 h-7 rounded-lg border border-slate-200/80 bg-transparent cursor-pointer"
+                          className="w-7 h-7 rounded-lg border border-slate-200/80 dark:border-slate-700 bg-transparent cursor-pointer"
                         />
-                        <span className="font-mono text-slate-700 text-[11px] font-bold">{borderColor.toUpperCase()}</span>
+                        <span className="font-mono text-slate-700 dark:text-slate-300 text-[11px] font-bold">{borderColor.toUpperCase()}</span>
                       </div>
                     </div>
                   )}
@@ -491,7 +497,7 @@ schema={collageSchema}
                   <button
                     onClick={handleDownload}
                     disabled={isAssembling || !canvasUrl}
-                    className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-655 hover:from-indigo-550 hover:to-purple-550 disabled:opacity-50 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:opacity-50 text-xs font-bold text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Download className="w-4 h-4" />
                     Download Collage
@@ -499,9 +505,9 @@ schema={collageSchema}
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-3 bg-white/80 hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 hover:border-slate-350 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="w-full py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <RefreshCw className="w-4 h-4" />
+                    <RefreshCw className="w-3.5 h-3.5" />
                     Reset Collage
                   </button>
                 </div>
@@ -521,19 +527,19 @@ schema={collageSchema}
                 </span>
               </div>
 
-              <div className="w-full border border-slate-200/60 rounded-3xl bg-slate-50/30 flex items-center justify-center min-h-[400px] shadow-inner p-4 relative overflow-hidden">
-                <div className="absolute inset-0 bg-dot-grid opacity-30" />
+              <div className="w-full border border-slate-200/60 dark:border-slate-800 rounded-3xl bg-slate-50/30 dark:bg-slate-900/40 flex items-center justify-center min-h-[400px] shadow-inner p-4 relative overflow-hidden">
+                <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none" />
                 {isAssembling ? (
                   <div className="flex flex-col items-center gap-2.5 relative z-10">
-                    <RefreshCw className="w-8 h-8 text-indigo-650 animate-spin" />
-                    <span className="text-xs font-bold text-slate-600 animate-pulse">Assembling collage...</span>
+                    <RefreshCw className="w-8 h-8 text-indigo-600 dark:text-indigo-400 animate-spin" />
+                    <span className="text-xs font-bold text-slate-600 dark:text-slate-400 animate-pulse">Assembling collage...</span>
                   </div>
                 ) : (
                   canvasUrl && (
                     <img
                       src={canvasUrl}
                       alt="Collage Preview"
-                      className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-2xl border border-slate-200/50 relative z-10 animate-float"
+                      className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-2xl border border-slate-200/50 dark:border-slate-800 relative z-10"
                     />
                   )
                 )}
@@ -544,53 +550,55 @@ schema={collageSchema}
           </div>
         )}
 
-        <ToolGuide
-          toolName="Photo Collage Maker"
-          introText="Create custom photo grids and collages on-device. Control styling parameters including spacing, border colors, and border radius in real time."
-          competitorComparison={{
-            alternatives: ['Canva Collage Maker', 'BeFunky', 'PicMonkey'],
-            benefit: 'Unlike paid online cloud tools that force subscription sign-ups, watermark collage exports, or upload personal photos to the cloud, ImagePlumber arranges your collages locally in RAM. Your original photos are processed offline and exported in high quality with zero fees.'
-          }}
-          steps={[
-            {
-              title: 'Select Layout Grid',
-              description: 'Pick your preferred collage template configuration (e.g. 2-image vertical, 3-image grid, 4-image quad) and aspect ratio.'
-            },
-            {
-              title: 'Upload Photos',
-              description: 'Click each slot layout to upload an image from your device. You can swap or adjust individual images.'
-            },
-            {
-              title: 'Customize Borders',
-              description: 'Use the range sliders to adjust borders spacing and border corner radius. Change the canvas border background color.'
-            },
-            {
-              title: 'Export Collage',
-              description: 'Preview the final grid alignment, then click "Download Collage" to save it as a high-resolution PNG file.'
-            }
-          ]}
-          features={[
-            'Multiple collage grid templates accommodating 2, 3, or 4 images.',
-            'Precision border size sliders, border color swatches, and rounded corner radius.',
-            'Dynamic crop controls: lets you adjust crop centering inside individual slots.',
-            'High-definition rendering using browser-native 2D canvas context.',
-            'Runs completely client-side in sandboxed browser memory.'
-          ]}
-          faq={[
-            {
-              q: 'Can I swap photos after uploading?',
-              a: 'Yes, just click on any photo slot or the delete/add buttons to replace the photo for that specific grid segment.'
-            },
-            {
-              q: 'Are my images downscaled during collage creation?',
-              a: 'No. The canvas compiles the collage based on your uploaded images’ dimensions, retaining sharp, high-quality results.'
-            },
-            {
-              q: 'Can I save and resume editing later?',
-              a: 'Currently, collages are processed in temporary browser memory (RAM) and reset if you refresh the page. Download your results to save them.'
-            }
-          ]}
-        />
+        <div className="mt-16 border-t border-slate-200/60 dark:border-slate-800 pt-12">
+          <ToolGuide
+            toolName="Photo Collage Maker"
+            introText="Create custom photo grids and collages on-device. Control styling parameters including spacing, border colors, and border radius in real time."
+            competitorComparison={{
+              alternatives: ['Canva Collage Maker', 'BeFunky', 'PicMonkey'],
+              benefit: 'Unlike paid online cloud tools that force subscription sign-ups, watermark collage exports, or upload personal photos to the cloud, ImagePlumber arranges your collages locally in RAM. Your original photos are processed offline and exported in high quality with zero fees.'
+            }}
+            steps={[
+              {
+                title: 'Select Layout Grid',
+                description: 'Pick your preferred collage template configuration (e.g. 2-image vertical, 3-image grid, 4-image quad) and aspect ratio.'
+              },
+              {
+                title: 'Upload Photos',
+                description: 'Click each slot layout to upload an image from your device. You can swap or adjust individual images.'
+              },
+              {
+                title: 'Customize Borders',
+                description: 'Use the range sliders to adjust borders spacing and border corner radius. Change the canvas border background color.'
+              },
+              {
+                title: 'Export Collage',
+                description: 'Preview the final grid alignment, then click "Download Collage" to save it as a high-resolution PNG file.'
+              }
+            ]}
+            features={[
+              'Multiple collage grid templates accommodating 2, 3, or 4 images.',
+              'Precision border size sliders, border color swatches, and rounded corner radius.',
+              'Dynamic crop controls: lets you adjust crop centering inside individual slots.',
+              'High-definition rendering using browser-native 2D canvas context.',
+              'Runs completely client-side in sandboxed browser memory.'
+            ]}
+            faq={[
+              {
+                q: 'Can I swap photos after uploading?',
+                a: 'Yes, just click on any photo slot or the delete/add buttons to replace the photo for that specific grid segment.'
+              },
+              {
+                q: 'Are my images downscaled during collage creation?',
+                a: 'No. The canvas compiles the collage based on your uploaded images’ dimensions, retaining sharp, high-quality results.'
+              },
+              {
+                q: 'Can I save and resume editing later?',
+                a: 'Currently, collages are processed in temporary browser memory (RAM) and reset if you refresh the page. Download your results to save them.'
+              }
+            ]}
+          />
+        </div>
 
       </div>
     </div>

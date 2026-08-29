@@ -323,6 +323,12 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
     setCropBox({ x: 0.1, y: 0.1, w: 0.8, h: 0.8 });
   };
 
+  useEffect(() => {
+    return () => {
+      if (imageSrc) URL.revokeObjectURL(imageSrc);
+    };
+  }, [imageSrc]);
+
   const cropSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',

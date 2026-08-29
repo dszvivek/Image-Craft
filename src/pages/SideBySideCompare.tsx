@@ -338,6 +338,13 @@ export const SideBySideCompare: React.FC<SideBySideCompareProps> = ({
     setSize2({ width: 0, height: 0 });
   };
 
+  useEffect(() => {
+    return () => {
+      if (image1Src) URL.revokeObjectURL(image1Src);
+      if (image2Src) URL.revokeObjectURL(image2Src);
+    };
+  }, [image1Src, image2Src]);
+
   const compareSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',

@@ -292,6 +292,14 @@ export const ImageSteganography: React.FC<ImageSteganographyProps> = ({
     setDecodeError(null);
   };
 
+  React.useEffect(() => {
+    return () => {
+      if (encodeImageUrl) URL.revokeObjectURL(encodeImageUrl);
+      if (encodedResultUrl) URL.revokeObjectURL(encodedResultUrl);
+      if (decodeImageUrl) URL.revokeObjectURL(decodeImageUrl);
+    };
+  }, [encodeImageUrl, encodedResultUrl, decodeImageUrl]);
+
   const stegoSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',

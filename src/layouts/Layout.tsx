@@ -43,6 +43,7 @@ import { AdPlacement } from '../components/AdPlacement';
 import { CommandPalette } from '../components/CommandPalette';
 import { ScrollToTop } from '../components/ScrollToTop';
 import { LanguageSelector } from '../components/LanguageSelector';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 import { 
   getLocaleFromPath, 
   getLocalizedToolPath, 
@@ -916,7 +917,9 @@ export const Layout = () => {
           )}
 
           <div key={location.pathname} className="animate-fade-in">
-            <Outlet />
+            <ErrorBoundary fallbackTitle="Image Tool Error">
+              <Outlet />
+            </ErrorBoundary>
           </div>
         </div>
 

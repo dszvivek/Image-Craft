@@ -1886,6 +1886,14 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: '*',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <Home />
+          </Suspense>
+        ),
+      },
     ],
   },
 ]);

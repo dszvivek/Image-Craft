@@ -245,6 +245,12 @@ export const InstagramPanoramaSplitter: React.FC<InstagramPanoramaSplitterProps>
     setSlideCount(3);
   };
 
+  useEffect(() => {
+    return () => {
+      if (imageUrl) URL.revokeObjectURL(imageUrl);
+    };
+  }, [imageUrl]);
+
   const panoramaSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
