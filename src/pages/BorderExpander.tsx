@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, RefreshCw, Square, Check } from 'lucide-react';
+import { Download, RefreshCw, Square, Check, Eye, Minus, Plus } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -33,8 +33,10 @@ export const BorderExpander: React.FC = () => {
   const [exportFormat, setExportFormat] = useState<'image/png' | 'image/jpeg' | 'image/webp'>('image/png');
   const [jpegQuality, setJpegQuality] = useState<number>(92);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [isComparing, setIsComparing] = useState<boolean>(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const previewContainerRef = useRef<HTMLDivElement>(null);
 
   const handleFilesSelected = (files: File[]) => {
     if (files.length > 0) {
@@ -357,52 +359,111 @@ schema={borderSchema}
                   </div>
                 )}
 
-                {/* Padding / Border Thickness Slider */}
+                {/* 1-Tap Framing Style Presets */}
+                <div className="space-y-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+                  <span className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
+                    Border Presets
+                  </span>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {[
+                      { label: '⚡ Sleek White', bg: 'solid', color: '#FFFFFF', pad: 25, rad: 16, sh: true },
+                      { label: '✨ Frosted Blur', bg: 'blur', color: '#FFFFFF', pad: 40, rad: 20, sh: true },
+                      { label: '🎨 Dark Indigo', bg: 'gradient', color: '#1E1B4B', end: '#4F46E5', pad: 30, rad: 14, sh: true },
+                    ].map((preset, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => {
+                          setBgStyle(preset.bg as any);
+                          setBorderColor(preset.color);
+                          if (preset.end) setGradientEndColor(preset.end);
+                          setUniformPadding(preset.pad);
+                          setBorderRadius(preset.rad);
+                          setHasShadow(preset.sh);
+                        }}
+                        className="py-2 px-1 rounded-xl text-[10px] font-bold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 text-slate-700 dark:text-slate-300 hover:text-indigo-600 border border-slate-200/60 dark:border-slate-700/60 transition cursor-pointer active:scale-95 text-center truncate"
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Padding / Border Thickness Slider with Steppers */}
                 <div className="space-y-2">
                   <div className="flex justify-between items-center text-xs font-bold">
-                    <span className="text-[10px] text-slate-400 uppercase tracking-widest">Border Thickness</span>
-                    <span className="font-mono text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded">
-                      {uniformPadding} px
-                    </span>
+                    <span className="text-[10px] text-slate-450 dark:text-slate-400 uppercase tracking-widest">Border Thickness</span>
+                    <div className="flex items-center gap-1.5 font-mono">
+                      <button 
+                        onClick={() => setUniformPadding(Math.max(0, uniformPadding - 5))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-indigo-600"
+                      >
+                        <Minus className="w-3 h-3" />
+                      </button>
+                      <span className="font-mono text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded border border-indigo-100 dark:border-indigo-900/50 min-w-[36px] text-center text-[10px] font-bold">
+                        {uniformPadding} px
+                      </span>
+                      <button 
+                        onClick={() => setUniformPadding(Math.min(150, uniformPadding + 5))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-indigo-600"
+                      >
+                        <Plus className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                   <input
                     type="range"
                     min="0"
                     max="150"
+                    step="5"
                     value={uniformPadding}
                     onChange={(e) => setUniformPadding(Number(e.target.value))}
-                    className="range-styled w-full"
+                    className="range-styled w-full accent-indigo-600"
                   />
                 </div>
 
-                {/* Corner Radius Slider */}
+                {/* Corner Radius Slider with Steppers */}
                 <div className="space-y-2">
                   <div className="flex justify-between items-center text-xs font-bold">
-                    <span className="text-[10px] text-slate-400 uppercase tracking-widest">Rounded Corners</span>
-                    <span className="font-mono text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded">
-                      {borderRadius} px
-                    </span>
+                    <span className="text-[10px] text-slate-450 dark:text-slate-400 uppercase tracking-widest">Rounded Corners</span>
+                    <div className="flex items-center gap-1.5 font-mono">
+                      <button 
+                        onClick={() => setBorderRadius(Math.max(0, borderRadius - 2))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-indigo-600"
+                      >
+                        <Minus className="w-3 h-3" />
+                      </button>
+                      <span className="font-mono text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded border border-indigo-100 dark:border-indigo-900/50 min-w-[36px] text-center text-[10px] font-bold">
+                        {borderRadius} px
+                      </span>
+                      <button 
+                        onClick={() => setBorderRadius(Math.min(80, borderRadius + 2))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-indigo-600"
+                      >
+                        <Plus className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                   <input
                     type="range"
                     min="0"
                     max="80"
+                    step="2"
                     value={borderRadius}
                     onChange={(e) => setBorderRadius(Number(e.target.value))}
-                    className="range-styled w-full"
+                    className="range-styled w-full accent-indigo-600"
                   />
                 </div>
 
                 {/* Drop Shadow Toggle & Blur */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest">
                       Soft Drop Shadow
                     </label>
                     <button
                       onClick={() => setHasShadow((prev) => !prev)}
-                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold transition-all cursor-pointer ${
-                        hasShadow ? 'bg-indigo-600 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-600'
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold transition-all cursor-pointer active:scale-95 ${
+                        hasShadow ? 'bg-indigo-600 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400'
                       }`}
                     >
                       {hasShadow ? 'Enabled' : 'Disabled'}
@@ -415,14 +476,14 @@ schema={borderSchema}
                       max="60"
                       value={shadowBlur}
                       onChange={(e) => setShadowBlur(Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-indigo-600"
                     />
                   )}
                 </div>
 
                 {/* Export Format */}
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
+                  <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
                     Export Format
                   </label>
                   <div className="grid grid-cols-3 gap-1.5">
@@ -434,10 +495,10 @@ schema={borderSchema}
                       <button
                         key={fmt.id}
                         onClick={() => setExportFormat(fmt.id as any)}
-                        className={`py-2 px-1 rounded-xl text-[11px] font-bold border transition-all cursor-pointer text-center ${
+                        className={`py-2 px-1 rounded-xl text-[11px] font-bold border transition-all cursor-pointer text-center active:scale-95 ${
                           exportFormat === fmt.id
                             ? 'bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-500/10'
-                            : 'bg-slate-50 dark:bg-slate-800/80 border-slate-200/60 dark:border-slate-700/60 text-slate-600 dark:text-slate-300 hover:bg-slate-100'
+                            : 'bg-slate-50 dark:bg-slate-800/80 border-slate-200/60 dark:border-slate-700/60 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-750'
                         }`}
                       >
                         {fmt.label}
@@ -459,7 +520,7 @@ schema={borderSchema}
                       max="100"
                       value={jpegQuality}
                       onChange={(e) => setJpegQuality(Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-indigo-600"
                     />
                   </div>
                 )}
@@ -469,7 +530,7 @@ schema={borderSchema}
                   <button
                     onClick={handleDownload}
                     disabled={isProcessing}
-                    className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-2xl shadow-lg shadow-indigo-600/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 disabled:opacity-50"
+                    className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-2xl shadow-lg shadow-indigo-600/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95 disabled:opacity-50"
                   >
                     <Download className="w-4 h-4" />
                     <span>{isProcessing ? 'Rendering...' : 'Download Framed Image'}</span>
@@ -477,7 +538,7 @@ schema={borderSchema}
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="w-full py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-600 dark:text-slate-300 font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
                     <span>Upload New Image</span>
@@ -488,12 +549,42 @@ schema={borderSchema}
             </div>
 
             {/* Right Canvas Stage */}
-            <div className="lg:col-span-8 order-1 lg:order-2 flex flex-col gap-4">
+            <div ref={previewContainerRef} className="lg:col-span-8 order-1 lg:order-2 flex flex-col gap-4">
               <div className="relative rounded-3xl bg-slate-900/90 dark:bg-black/90 p-8 min-h-[460px] flex items-center justify-center overflow-hidden select-none border border-slate-800 shadow-2xl">
-                <canvas
-                  ref={canvasRef}
-                  className="max-h-[520px] max-w-full object-contain rounded-lg shadow-2xl"
-                />
+                {isComparing ? (
+                  <div className="relative flex items-center justify-center animate-fade-in">
+                    <img
+                      src={imageSrc}
+                      alt="Original"
+                      className="max-h-[520px] max-w-full object-contain rounded-lg shadow-2xl"
+                    />
+                    <span className="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                      Original Photo
+                    </span>
+                  </div>
+                ) : (
+                  <canvas
+                    ref={canvasRef}
+                    className="max-h-[520px] max-w-full object-contain rounded-lg shadow-2xl"
+                  />
+                )}
+
+                {/* Hold to Compare Live Button */}
+                <button
+                  onMouseDown={() => setIsComparing(true)}
+                  onMouseUp={() => setIsComparing(false)}
+                  onMouseLeave={() => setIsComparing(false)}
+                  onTouchStart={() => setIsComparing(true)}
+                  onTouchEnd={() => setIsComparing(false)}
+                  className={`absolute top-4 right-4 px-2.5 py-1 rounded-xl text-[10px] font-bold border transition flex items-center gap-1 cursor-pointer select-none backdrop-blur-md shadow-sm active:scale-95 ${
+                    isComparing 
+                      ? 'bg-amber-500 text-white border-amber-600 ring-2 ring-amber-400/40' 
+                      : 'bg-white/90 dark:bg-slate-900/90 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+                  }`}
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  <span>{isComparing ? 'Original' : 'Hold to Compare'}</span>
+                </button>
               </div>
 
               {/* Stage Bottom Bar */}
@@ -503,6 +594,30 @@ schema={borderSchema}
               </div>
             </div>
 
+          </div>
+        )}
+
+        {/* Floating Mobile Bottom Action Dock */}
+        {imageSrc && (
+          <div className="fixed bottom-4 left-4 right-4 sm:hidden z-30 flex items-center justify-between p-2.5 bg-slate-900/90 dark:bg-slate-850/95 text-white rounded-2xl backdrop-blur-xl shadow-2xl border border-white/10 animate-fade-in">
+            <button
+              onClick={() => {
+                previewContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="py-2 px-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+            >
+              <Eye className="w-4 h-4 text-indigo-400" />
+              <span>Canvas</span>
+            </button>
+
+            <button
+              onClick={handleDownload}
+              disabled={isProcessing}
+              className="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+            >
+              <Download className="w-4 h-4" />
+              <span>Save Framed</span>
+            </button>
           </div>
         )}
 

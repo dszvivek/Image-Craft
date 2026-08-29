@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, RefreshCw, Sliders, Sparkles, Layers, Eye, Settings, Info, Copy, Check } from 'lucide-react';
+import { Download, RefreshCw, Sliders, Sparkles, Layers, Eye, Settings, Info, Copy, Check, Minus, Plus } from 'lucide-react';
 import { DemoPreview } from '../components/DemoPreview';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
@@ -564,6 +564,7 @@ export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
 
   const imageUrlRef = useRef(imageUrl);
   const vectorUrlRef = useRef(vectorUrl);
+  const previewContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     imageUrlRef.current = imageUrl;
@@ -650,32 +651,63 @@ export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
             {/* Left Controls column */}
             <div className="lg:col-span-4 flex flex-col gap-6 order-2 lg:order-1">
               
-              {/* Core Vector Settings */}              <div className="glass-card p-5 rounded-3xl space-y-5">
-                <h2 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2 text-sm">
+              {/* Core Vector Settings */}
+              <div className="glass-card p-5 rounded-3xl space-y-5">
+                <h2 className="font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-3 flex items-center gap-2 text-sm">
                   <Sliders className="w-4.5 h-4.5 text-indigo-500" />
                   Tracing Configuration
                 </h2>
 
+                {/* 1-Tap Vector Presets */}
+                <div className="space-y-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+                  <span className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
+                    Vector Style Presets
+                  </span>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {[
+                      { label: '⚡ Flat Logo', mode: 'color', colors: 4, epsilon: 1.5, minArea: 10 },
+                      { label: '✨ Vector Art', mode: 'color', colors: 8, epsilon: 0.8, minArea: 5 },
+                      { label: '🎨 Ultra Detail', mode: 'color', colors: 16, epsilon: 0.3, minArea: 2 },
+                    ].map((preset, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => {
+                          setSettings(prev => ({
+                            ...prev,
+                            mode: preset.mode as any,
+                            colors: preset.colors,
+                            epsilon: preset.epsilon,
+                            minArea: preset.minArea,
+                          }));
+                        }}
+                        className="py-2 px-1 rounded-xl text-[10px] font-bold bg-white/80 dark:bg-slate-800/80 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 text-slate-700 dark:text-slate-300 hover:text-indigo-600 border border-slate-200 dark:border-slate-700 transition cursor-pointer active:scale-95 text-center truncate"
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Mode Selector */}
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-450 uppercase tracking-wider block">Tracing Mode</label>
+                  <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider block">Tracing Mode</label>
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={() => updateSetting('mode', 'color')}
-                      className={`py-2 px-3 rounded-xl text-xs font-bold border transition cursor-pointer ${
+                      className={`py-2 px-3 rounded-xl text-xs font-bold border transition cursor-pointer active:scale-95 ${
                         settings.mode === 'color'
                           ? 'bg-indigo-650 border-indigo-500 text-white shadow-sm'
-                          : 'bg-white/80 border-slate-200 text-slate-655 hover:bg-slate-50/50'
+                          : 'bg-white/80 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-655 dark:text-slate-300 hover:bg-slate-50/50 dark:hover:bg-slate-750'
                       }`}
                     >
                       Color Palette
                     </button>
                     <button
                       onClick={() => updateSetting('mode', 'monochrome')}
-                      className={`py-2 px-3 rounded-xl text-xs font-bold border transition cursor-pointer ${
+                      className={`py-2 px-3 rounded-xl text-xs font-bold border transition cursor-pointer active:scale-95 ${
                         settings.mode === 'monochrome'
                           ? 'bg-indigo-650 border-indigo-500 text-white shadow-sm'
-                          : 'bg-white/80 border-slate-200 text-slate-655 hover:bg-slate-50/50'
+                          : 'bg-white/80 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-655 dark:text-slate-300 hover:bg-slate-50/50 dark:hover:bg-slate-750'
                       }`}
                     >
                       B&W Outline
@@ -687,18 +719,33 @@ export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
                 {settings.mode === 'color' ? (
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
-                      <label className="text-[10px] font-bold text-slate-450 uppercase tracking-wider">Color Layers</label>
-                      <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">
-                        {settings.colors} colors
-                      </span>
+                      <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider">Color Layers</label>
+                      <div className="flex items-center gap-1.5 font-mono">
+                        <button 
+                          onClick={() => updateSetting('colors', Math.max(2, settings.colors - 2))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="text-[10px] font-bold text-indigo-650 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-2 py-0.5 rounded border border-indigo-100 dark:border-indigo-900 min-w-[36px] text-center">
+                          {settings.colors}
+                        </span>
+                        <button 
+                          onClick={() => updateSetting('colors', Math.min(16, settings.colors + 2))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
                       min="2"
                       max="16"
+                      step="2"
                       value={settings.colors}
                       onChange={(e) => updateSetting('colors', Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-indigo-600"
                     />
                     
                     {/* Remove Background Option */}
@@ -709,35 +756,64 @@ export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
                         onChange={(e) => updateSetting('removeBackground', e.target.checked)}
                         className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
                       />
-                      <span className="text-xs font-semibold text-slate-600">Remove Dominant Color (Background)</span>
+                      <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">Remove Dominant Color (Background)</span>
                     </label>
                   </div>
                 ) : (
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
-                      <label className="text-[10px] font-bold text-slate-450 uppercase tracking-wider">Brightness Threshold</label>
-                      <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">
-                        {settings.threshold} / 255
-                      </span>
+                      <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider">Brightness Threshold</label>
+                      <div className="flex items-center gap-1.5 font-mono">
+                        <button 
+                          onClick={() => updateSetting('threshold', Math.max(10, settings.threshold - 10))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="text-[10px] font-bold text-indigo-650 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-2 py-0.5 rounded border border-indigo-100 dark:border-indigo-900 min-w-[36px] text-center">
+                          {settings.threshold}
+                        </span>
+                        <button 
+                          onClick={() => updateSetting('threshold', Math.min(240, settings.threshold + 10))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
                       min="10"
                       max="240"
+                      step="5"
                       value={settings.threshold}
                       onChange={(e) => updateSetting('threshold', Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-indigo-600"
                     />
                   </div>
                 )}
 
                 {/* Path Smoothing Slider */}
-                <div className="space-y-3 border-t border-slate-100 pt-3">
+                <div className="space-y-3 border-t border-slate-100 dark:border-slate-800 pt-3">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] font-bold text-slate-450 uppercase tracking-wider">Path Smoothing (Epsilon)</label>
-                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">
-                      {settings.epsilon.toFixed(1)}px
-                    </span>
+                    <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider">Path Smoothing</label>
+                    <div className="flex items-center gap-1.5 font-mono">
+                      <button 
+                        onClick={() => updateSetting('epsilon', Math.max(0.1, Number((settings.epsilon - 0.2).toFixed(1))))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                      >
+                        <Minus className="w-3 h-3" />
+                      </button>
+                      <span className="text-[10px] font-bold text-indigo-650 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-2 py-0.5 rounded border border-indigo-100 dark:border-indigo-900 min-w-[36px] text-center">
+                        {settings.epsilon.toFixed(1)}px
+                      </span>
+                      <button 
+                        onClick={() => updateSetting('epsilon', Math.min(4.0, Number((settings.epsilon + 0.2).toFixed(1))))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                      >
+                        <Plus className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                   <input
                     type="range"
@@ -746,32 +822,47 @@ export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
                     step="0.1"
                     value={settings.epsilon}
                     onChange={(e) => updateSetting('epsilon', Number(e.target.value))}
-                    className="range-styled w-full"
+                    className="range-styled w-full accent-indigo-600"
                   />
                 </div>
 
                 {/* Minimum Speckle Area Noise Filter */}
-                <div className="space-y-3 border-t border-slate-100 pt-3">
+                <div className="space-y-3 border-t border-slate-100 dark:border-slate-800 pt-3">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] font-bold text-slate-450 uppercase tracking-wider">Speckle Noise Filter</label>
-                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">
-                      Ignore &lt; {settings.minArea} px²
-                    </span>
+                    <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider">Speckle Noise Filter</label>
+                    <div className="flex items-center gap-1.5 font-mono">
+                      <button 
+                        onClick={() => updateSetting('minArea', Math.max(0, settings.minArea - 5))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                      >
+                        <Minus className="w-3 h-3" />
+                      </button>
+                      <span className="text-[10px] font-bold text-indigo-650 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-2 py-0.5 rounded border border-indigo-100 dark:border-indigo-900 min-w-[36px] text-center">
+                        {settings.minArea}px²
+                      </span>
+                      <button 
+                        onClick={() => updateSetting('minArea', Math.min(50, settings.minArea + 5))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                      >
+                        <Plus className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                   <input
                     type="range"
                     min="0"
                     max="50"
+                    step="5"
                     value={settings.minArea}
                     onChange={(e) => updateSetting('minArea', Number(e.target.value))}
-                    className="range-styled w-full"
+                    className="range-styled w-full accent-indigo-600"
                   />
                 </div>
               </div>
 
               {/* Advanced Settings Panel */}
               <div className="glass-card p-5 rounded-3xl space-y-4">
-                <h2 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2 text-sm">
+                <h2 className="font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-3 flex items-center gap-2 text-sm">
                   <Settings className="w-4.5 h-4.5 text-indigo-500" />
                   Advanced Tracing Specs
                 </h2>
@@ -779,11 +870,11 @@ export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
                 <div className="grid grid-cols-2 gap-3">
                   {/* Processing resolution */}
                   <div className="space-y-1">
-                    <label className="text-[9px] font-bold text-slate-450 uppercase tracking-wider block">Trace Grid Size</label>
+                    <label className="text-[9px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider block">Trace Grid Size</label>
                     <select
                       value={settings.resolution}
                       onChange={(e) => updateSetting('resolution', Number(e.target.value))}
-                      className="w-full bg-white/90 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer shadow-xs"
+                      className="w-full bg-white/90 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-indigo-500 cursor-pointer shadow-xs"
                     >
                       <option value="150">Low Detail (150px)</option>
                       <option value="300">Medium Detail (300px)</option>
@@ -793,11 +884,11 @@ export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
 
                   {/* Output Scaler */}
                   <div className="space-y-1">
-                    <label className="text-[9px] font-bold text-slate-450 uppercase tracking-wider block">Download Scale</label>
+                    <label className="text-[9px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider block">Download Scale</label>
                     <select
                       value={settings.scale}
                       onChange={(e) => updateSetting('scale', Number(e.target.value))}
-                      className="w-full bg-white/90 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer shadow-xs"
+                      className="w-full bg-white/90 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-indigo-500 cursor-pointer shadow-xs"
                     >
                       <option value="1">Original (1x)</option>
                       <option value="2">Retina (2x)</option>
@@ -821,7 +912,7 @@ export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
 
                 <button
                   onClick={handleReset}
-                  className="w-full py-3 bg-white hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                  className="w-full py-3 bg-white dark:bg-slate-800 hover:bg-slate-50/50 dark:hover:bg-slate-750 text-[11px] font-bold uppercase tracking-wider text-slate-655 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 border border-slate-200/60 dark:border-slate-700 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-98"
                 >
                   <RefreshCw className="w-4 h-4" />
                   Reset Image
@@ -873,13 +964,13 @@ export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
               </div>
 
               {/* Viewport container */}
-              <div className="w-full border border-slate-200/80 rounded-3xl bg-slate-50/30 flex items-center justify-center min-h-[420px] shadow-inner p-4 relative overflow-hidden">
+              <div ref={previewContainerRef} className="w-full border border-slate-200/80 dark:border-slate-800 rounded-3xl bg-slate-50/30 dark:bg-slate-950/40 flex items-center justify-center min-h-[420px] shadow-inner p-4 relative overflow-hidden">
                 <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none" />
 
                 {isProcessing ? (
                   <div className="flex flex-col items-center gap-2.5 relative z-10 pointer-events-none">
-                    <RefreshCw className="w-8 h-8 text-indigo-650 animate-spin" />
-                    <span className="text-xs font-bold text-slate-600 animate-pulse">Running contour tracing algorithms...</span>
+                    <RefreshCw className="w-8 h-8 text-indigo-650 dark:text-indigo-400 animate-spin" />
+                    <span className="text-xs font-bold text-slate-600 dark:text-slate-300 animate-pulse">Running contour tracing algorithms...</span>
                   </div>
                 ) : (
                   <>
@@ -888,9 +979,9 @@ export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
                         <img
                           src={vectorUrl}
                           alt="Vectorized SVG"
-                          className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-2xl border border-slate-200/50 bg-white relative z-10 animate-float-subtle"
+                          className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-2xl border border-slate-200/50 dark:border-slate-800 bg-white relative z-10 animate-float-subtle"
                         />
-                        <span className="mt-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white border border-slate-150 px-2 py-0.5 rounded shadow-xs relative z-15">
+                        <span className="mt-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-700 px-2 py-0.5 rounded shadow-xs relative z-15">
                           SVG Vector (Scale Independent)
                         </span>
                       </div>
@@ -901,9 +992,9 @@ export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
                         <img
                           src={imageUrl}
                           alt="Original Source"
-                          className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-2xl border border-slate-200/50 bg-white relative z-10"
+                          className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-2xl border border-slate-200/50 dark:border-slate-800 bg-white relative z-10"
                         />
-                        <span className="mt-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white border border-slate-150 px-2 py-0.5 rounded shadow-xs relative z-15">
+                        <span className="mt-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-700 px-2 py-0.5 rounded shadow-xs relative z-15">
                           Source Raster Image
                         </span>
                       </div>
@@ -914,7 +1005,7 @@ export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
                         <div className="absolute top-3 right-3 flex gap-2">
                           <button
                             onClick={handleCopyCode}
-                            className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-350 hover:text-white rounded-lg transition-all border border-slate-700 cursor-pointer flex items-center gap-1 shadow-xs"
+                            className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-350 hover:text-white rounded-lg transition-all border border-slate-700 cursor-pointer flex items-center gap-1 shadow-xs active:scale-95"
                             title="Copy Code"
                           >
                             {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -929,23 +1020,46 @@ export const SvgVectorizer: React.FC<SvgVectorizerProps> = ({
               </div>
 
               {/* Information / Guideline Card */}
-              <div className="p-3.5 bg-indigo-50/50 border border-indigo-100/60 rounded-2xl flex items-start gap-2.5 text-[10px] text-slate-555 leading-normal font-medium animate-fade-in">
-                <Info className="w-4 h-4 text-indigo-650 shrink-0 mt-0.5" />
+              <div className="p-3.5 bg-indigo-50/50 dark:bg-indigo-950/40 border border-indigo-100/60 dark:border-indigo-900/50 rounded-2xl flex items-start gap-2.5 text-[10px] text-slate-555 dark:text-slate-400 leading-normal font-medium animate-fade-in">
+                <Info className="w-4 h-4 text-indigo-650 dark:text-indigo-400 shrink-0 mt-0.5" />
                 <div className="space-y-1">
-                  <span>
-                    **Understanding Vector Tracing Controls**:
+                  <span className="font-bold text-slate-700 dark:text-slate-300">
+                    Understanding Vector Tracing Controls:
                   </span>
-                  <ul className="list-disc pl-3.5 space-y-0.5 text-slate-500">
+                  <ul className="list-disc pl-3.5 space-y-0.5 text-slate-500 dark:text-slate-400">
                     <li>**Tracing Mode**: Choose *Color Palette* for continuous color designs, or *B&W Outline* for logos and line sketches.</li>
                     <li>**Path Smoothing (Epsilon)**: Higher values reduce vector file size and yield smoother edges. Lower values retain pixel accuracy.</li>
                     <li>**Speckle Noise Filter**: Removes small stray pixel contours. Increase this if you see random dots or specs in your output.</li>
-                    <li>**Trace Grid Size**: Defines the pixel grid resolution used for calculations. Higher settings capture finer details but take longer to process.</li>
                   </ul>
                 </div>
               </div>
 
             </div>
 
+          </div>
+        )}
+
+        {/* Floating Mobile Bottom Action Dock */}
+        {vectorUrl && (
+          <div className="fixed bottom-4 left-4 right-4 sm:hidden z-30 flex items-center justify-between p-2.5 bg-slate-900/90 dark:bg-slate-850/95 text-white rounded-2xl backdrop-blur-xl shadow-2xl border border-white/10 animate-fade-in">
+            <button
+              onClick={() => {
+                previewContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="py-2 px-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+            >
+              <Eye className="w-4 h-4 text-indigo-400" />
+              <span>Canvas</span>
+            </button>
+
+            <button
+              onClick={handleDownload}
+              disabled={isProcessing}
+              className="py-2 px-4 bg-gradient-to-r from-indigo-600 to-purple-655 hover:from-indigo-555 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer active:scale-95 transition disabled:opacity-40"
+            >
+              <Download className="w-4 h-4" />
+              <span>Export SVG</span>
+            </button>
           </div>
         )}
 

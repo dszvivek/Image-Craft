@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Download, RefreshCw, Sparkles, AlertTriangle, CheckCircle, ArrowRight } from 'lucide-react';
+import { Download, RefreshCw, Sparkles, AlertTriangle, CheckCircle, ArrowRight, Eye, Minus, Plus } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -266,15 +266,42 @@ schema={compressorSchema}
             {/* Left controls column — sticky on desktop */}
             <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start order-2 lg:order-1">
               <div className="glass-card p-6 rounded-3xl space-y-6">
-                
-                <h2 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
+                                <h2 className="font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-3 flex items-center gap-2">
                   <Sparkles className="w-4.5 h-4.5 text-indigo-500" />
                   Compression Options
                 </h2>
 
+                {/* 1-Tap Compression Quality Presets */}
+                {format !== 'image/png' && (
+                  <div className="space-y-2 pb-2">
+                    <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
+                      Target Quality Preset
+                    </label>
+                    <div className="grid grid-cols-3 gap-1.5">
+                      {[
+                        { label: '⚡ Max Size Saver', q: 50 },
+                        { label: '✨ Web Balanced', q: 80 },
+                        { label: '💎 HD Lossless', q: 95 },
+                      ].map((preset, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setQuality(preset.q)}
+                          className={`py-2 px-1.5 rounded-xl text-[10px] font-bold border transition cursor-pointer active:scale-95 text-center truncate ${
+                            quality === preset.q
+                              ? 'bg-indigo-600 border-indigo-500 text-white shadow-xs'
+                              : 'bg-white/80 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'
+                          }`}
+                        >
+                          {preset.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Output Format */}
                 <div className="space-y-2.5">
-                  <label className="text-[10px] font-bold text-slate-450 uppercase tracking-widest block">
+                  <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
                     Output Format
                   </label>
                   <div className="grid grid-cols-3 gap-2">
@@ -285,7 +312,7 @@ schema={compressorSchema}
                         className={`py-2.5 px-3 rounded-xl text-[11px] font-bold border transition-all cursor-pointer active:scale-95 ${
                           format === f
                             ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/10'
-                            : 'bg-white/80 border-slate-200/70 text-slate-655 hover:text-slate-900 hover:bg-slate-50/50'
+                            : 'bg-white/80 dark:bg-slate-800/80 border-slate-200/70 dark:border-slate-700 text-slate-655 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50/50 dark:hover:bg-slate-750'
                         }`}
                       >
                         {formatLabels[f]}
@@ -294,24 +321,39 @@ schema={compressorSchema}
                   </div>
                 </div>
 
-                {/* Quality Slider (only useful for JPEG/WebP) */}
+                {/* Quality Slider with Touch Steppers (only useful for JPEG/WebP) */}
                 {format !== 'image/png' ? (
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
-                      <label className="text-[10px] font-bold text-slate-450 uppercase tracking-widest">
+                      <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest">
                         Quality
                       </label>
-                      <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded shadow-xs">
-                        {quality}%
-                      </span>
+                      <div className="flex items-center gap-1.5 font-mono">
+                        <button 
+                          onClick={() => setQuality(Math.max(5, quality - 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="text-[10px] font-bold text-indigo-650 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 px-2 py-0.5 rounded shadow-xs min-w-[36px] text-center">
+                          {quality}%
+                        </span>
+                        <button 
+                          onClick={() => setQuality(Math.min(100, quality + 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
                       min="5"
                       max="100"
+                      step="5"
                       value={quality}
                       onChange={(e) => setQuality(Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-indigo-600"
                       style={{ '--slider-pct': `${((quality - 5) / 95) * 100}%` } as React.CSSProperties}
                     />
                     <div className="flex justify-between text-[9px] font-bold uppercase tracking-wider text-slate-400">
@@ -320,43 +362,43 @@ schema={compressorSchema}
                     </div>
                   </div>
                 ) : (
-                  <div className="p-3 bg-indigo-50/50 border border-indigo-100/60 rounded-2xl flex items-start gap-2.5">
-                    <AlertTriangle className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
-                    <p className="text-[11px] text-slate-600 leading-normal font-medium">
-                      PNG compression uses lossless packing. To reduce PNG file size substantially, consider converting output format to <span className="font-semibold text-slate-900">WebP</span>.
+                  <div className="p-3 bg-indigo-50/50 dark:bg-indigo-950/40 border border-indigo-100/60 dark:border-indigo-900/50 rounded-2xl flex items-start gap-2.5">
+                    <AlertTriangle className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
+                    <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-normal font-medium">
+                      PNG compression uses lossless packing. To reduce PNG file size substantially, consider converting output format to <span className="font-semibold text-slate-900 dark:text-slate-100">WebP</span>.
                     </p>
                   </div>
                 )}
 
                 {/* Stats */}
-                <div className="bg-white/70 border border-slate-200/50 rounded-2xl p-4.5 space-y-3.5 shadow-sm">
+                <div className="bg-white/70 dark:bg-slate-800/60 border border-slate-200/50 dark:border-slate-700 rounded-2xl p-4.5 space-y-3.5 shadow-sm">
                   <div className="flex justify-between items-center text-xs font-semibold">
-                    <span className="text-slate-450">Original Size:</span>
-                    <span className="font-mono text-slate-700">{formatSize(originalFile.size)}</span>
+                    <span className="text-slate-450 dark:text-slate-400">Original Size:</span>
+                    <span className="font-mono text-slate-700 dark:text-slate-200">{formatSize(originalFile.size)}</span>
                   </div>
                   
                   {compressedSize && (
                     <div className="flex justify-between items-center text-xs font-semibold">
-                      <span className="text-slate-450">Compressed:</span>
-                      <span className="font-mono text-indigo-600 font-bold">{formatSize(compressedSize)}</span>
+                      <span className="text-slate-450 dark:text-slate-400">Compressed:</span>
+                      <span className="font-mono text-indigo-600 dark:text-indigo-400 font-bold">{formatSize(compressedSize)}</span>
                     </div>
                   )}
 
                   {dimensions.width > 0 && (
                     <div className="flex justify-between items-center text-xs font-semibold">
-                      <span className="text-slate-450">Dimensions:</span>
-                      <span className="font-mono text-slate-600">
+                      <span className="text-slate-450 dark:text-slate-400">Dimensions:</span>
+                      <span className="font-mono text-slate-600 dark:text-slate-300">
                         {dimensions.width} × {dimensions.height}
                       </span>
                     </div>
                   )}
 
                   {compressionSavings > 0 && (
-                    <div className="border-t border-slate-200/60 pt-3 flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-750 flex items-center gap-1.5">
-                        <CheckCircle className="w-4 h-4 text-emerald-600" /> Saved:
+                    <div className="border-t border-slate-200/60 dark:border-slate-700 pt-3 flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-750 dark:text-slate-200 flex items-center gap-1.5">
+                        <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> Saved:
                       </span>
-                      <span className="text-sm font-black text-emerald-600">
+                      <span className="text-sm font-black text-emerald-600 dark:text-emerald-400">
                         -{compressionSavings}%
                       </span>
                     </div>
@@ -380,7 +422,7 @@ schema={compressorSchema}
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-3 bg-white hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-650 hover:text-slate-900 border border-slate-200/60 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="w-full py-3 bg-white dark:bg-slate-800 hover:bg-slate-50/50 dark:hover:bg-slate-750 text-[11px] font-bold uppercase tracking-wider text-slate-650 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 border border-slate-200/60 dark:border-slate-700 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-98"
                   >
                     <RefreshCw className="w-4 h-4" />
                     Upload New Image
@@ -408,14 +450,14 @@ schema={compressorSchema}
                 ref={containerRef}
                 onMouseMove={handleSliderMove}
                 onTouchMove={handleSliderMove}
-                className="compare-container w-full h-[400px] md:h-[500px] border border-slate-200 rounded-2xl bg-slate-50/30 flex items-center justify-center relative cursor-ew-resize select-none overflow-hidden"
+                className="compare-container w-full h-[320px] sm:h-[400px] md:h-[500px] border border-slate-200 dark:border-slate-800 rounded-2xl bg-slate-50/30 dark:bg-slate-950/40 flex items-center justify-center relative cursor-ew-resize select-none overflow-hidden"
               >
                 {/* Loader status */}
                 {isProcessing && (
-                  <div className="absolute inset-0 bg-white/60 backdrop-blur-xs flex items-center justify-center z-20">
+                  <div className="absolute inset-0 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-20">
                     <div className="flex flex-col items-center gap-2.5">
-                      <RefreshCw className="w-8 h-8 text-indigo-650 animate-spin" />
-                      <span className="text-xs font-bold text-slate-750">Compressing...</span>
+                      <RefreshCw className="w-8 h-8 text-indigo-650 dark:text-indigo-400 animate-spin" />
+                      <span className="text-xs font-bold text-slate-750 dark:text-slate-200">Compressing...</span>
                     </div>
                   </div>
                 )}
@@ -429,7 +471,7 @@ schema={compressorSchema}
                       alt="Before compression" 
                       className="absolute inset-0 w-full h-full object-contain pointer-events-none" 
                     />
-                    <div className="absolute top-4 left-4 bg-white/95 border border-slate-200 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded text-slate-600 shadow-md">
+                    <div className="absolute top-4 left-4 bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded text-slate-600 dark:text-slate-300 shadow-md">
                       Original
                     </div>
 
@@ -444,7 +486,7 @@ schema={compressorSchema}
                           alt="After compression" 
                           className="absolute inset-0 w-full h-full object-contain pointer-events-none" 
                         />
-                        <div className="absolute top-4 right-4 bg-indigo-50/95 border border-indigo-200 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded text-indigo-700 shadow-md">
+                        <div className="absolute top-4 right-4 bg-indigo-50/95 dark:bg-indigo-950/95 border border-indigo-200 dark:border-indigo-800 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded text-indigo-700 dark:text-indigo-300 shadow-md">
                           Compressed
                         </div>
                       </div>
@@ -465,13 +507,37 @@ schema={compressorSchema}
               </div>
 
               <div className="text-center">
-                <span className="text-[11px] text-slate-500">
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">
                   Double check quality: Left of divider is the original. Right of divider is compressed.
                 </span>
               </div>
 
             </div>
 
+          </div>
+        )}
+
+        {/* Floating Mobile Bottom Action Dock */}
+        {compressedUrl && (
+          <div className="fixed bottom-4 left-4 right-4 sm:hidden z-30 flex items-center justify-between p-2.5 bg-slate-900/90 dark:bg-slate-850/95 text-white rounded-2xl backdrop-blur-xl shadow-2xl border border-white/10 animate-fade-in">
+            <button
+              onClick={() => {
+                containerRef.current?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="py-2 px-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+            >
+              <Eye className="w-4 h-4 text-indigo-400" />
+              <span>Preview</span>
+            </button>
+
+            <button
+              onClick={handleDownload}
+              disabled={isProcessing || !compressedUrl}
+              className="py-2 px-4 bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer active:scale-95 transition disabled:opacity-40"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download {compressionSavings > 0 ? `(-${compressionSavings}%)` : ''}</span>
+            </button>
           </div>
         )}
 

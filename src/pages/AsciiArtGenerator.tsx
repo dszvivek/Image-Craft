@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { RefreshCw, Terminal, Copy, Check, FileText, Code, Image as ImageIcon } from 'lucide-react';
+import { RefreshCw, Terminal, Copy, Check, FileText, Code, Image as ImageIcon, Eye, Minus, Plus, Download } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -71,9 +71,11 @@ export const AsciiArtGenerator: React.FC<AsciiArtGeneratorProps> = ({
   const [coloredHtml, setColoredHtml] = useState<string>('');
   const [copied, setCopied] = useState<boolean>(false);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [isComparing, setIsComparing] = useState<boolean>(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const preRef = useRef<HTMLPreElement>(null);
+  const previewContainerRef = useRef<HTMLDivElement>(null);
 
   const handleFilesSelected = (files: File[]) => {
     if (files.length > 0) {
@@ -366,22 +368,63 @@ schema={asciiSchema}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Control Sidebar (5 cols) */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="premium-bento p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-5 shadow-xl shadow-slate-200/20 dark:shadow-none">
+            <div className="lg:col-span-5 space-y-6 order-2 lg:order-1">
+              <div className="premium-bento p-5 sm:p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-5 shadow-xl shadow-slate-200/20 dark:shadow-none">
                 
-                {/* Character Density / Columns */}
+                {/* 1-Tap Quick Style Presets */}
+                <div className="space-y-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+                  <span className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
+                    ASCII Art Presets
+                  </span>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {[
+                      { label: '⚡ Matrix Stream', cols: 80, theme: 'matrix', set: 'binary' },
+                      { label: '✨ Classic Terminal', cols: 100, theme: 'amber', set: 'standard' },
+                      { label: '🎨 Color Portrait', cols: 130, theme: 'colored-html', set: 'dense' },
+                    ].map((preset, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => {
+                          setColumns(preset.cols);
+                          setColorTheme(preset.theme as any);
+                          setCharSetId(preset.set);
+                        }}
+                        className="py-2 px-1 rounded-xl text-[10px] font-bold bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-slate-700 dark:text-slate-300 hover:text-emerald-600 border border-slate-200/60 dark:border-slate-700/60 transition cursor-pointer active:scale-95 text-center truncate"
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Character Density / Columns with Steppers */}
                 <div className="space-y-2">
-                  <div className="flex justify-between text-xs font-bold text-slate-600 dark:text-slate-400">
+                  <div className="flex justify-between items-center text-xs font-bold text-slate-600 dark:text-slate-400">
                     <span>Resolution (Columns)</span>
-                    <span className="font-mono text-emerald-600">{columns} chars</span>
+                    <div className="flex items-center gap-1.5 font-mono text-emerald-600">
+                      <button 
+                        onClick={() => setColumns(Math.max(40, columns - 10))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                      >
+                        <Minus className="w-3 h-3" />
+                      </button>
+                      <span className="min-w-[48px] text-center font-bold">{columns} chars</span>
+                      <button 
+                        onClick={() => setColumns(Math.min(180, columns + 10))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                      >
+                        <Plus className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                   <input
                     type="range"
                     min="40"
                     max="180"
+                    step="5"
                     value={columns}
                     onChange={(e) => setColumns(Number(e.target.value))}
-                    className="range-styled w-full"
+                    className="range-styled w-full accent-emerald-600"
                   />
                   <div className="flex justify-between text-[10px] text-slate-400 font-medium">
                     <span>Compact (40)</span>
@@ -391,7 +434,7 @@ schema={asciiSchema}
 
                 {/* Character Set Selector */}
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
+                  <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
                     Character Set
                   </label>
                   <div className="space-y-1.5">
@@ -399,10 +442,10 @@ schema={asciiSchema}
                       <button
                         key={cs.id}
                         onClick={() => setCharSetId(cs.id)}
-                        className={`w-full p-2.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between gap-3 ${
+                        className={`w-full p-2.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between gap-3 active:scale-98 ${
                           charSetId === cs.id
-                            ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-700 shadow-sm'
-                            : 'bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 hover:bg-slate-100'
+                            ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-400 dark:border-emerald-600 shadow-sm ring-1 ring-emerald-500/20'
+                            : 'bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'
                         }`}
                       >
                         <div className="space-y-0.5">
@@ -413,7 +456,7 @@ schema={asciiSchema}
                             {cs.description}
                           </span>
                         </div>
-                        <span className="font-mono text-xs text-emerald-600 bg-white dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
+                        <span className="font-mono text-xs text-emerald-600 bg-white dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 shrink-0">
                           {cs.chars.slice(0, 4)}...
                         </span>
                       </button>
@@ -423,7 +466,7 @@ schema={asciiSchema}
 
                 {/* Color Theme Selector */}
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
+                  <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
                     Display & Color Theme
                   </label>
                   <div className="grid grid-cols-2 gap-2">
@@ -439,10 +482,10 @@ schema={asciiSchema}
                       <button
                         key={t.id}
                         onClick={() => setColorTheme(t.id)}
-                        className={`py-2 px-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer text-center ${
+                        className={`py-2 px-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer text-center active:scale-95 ${
                           colorTheme === t.id
                             ? 'bg-emerald-600 text-white shadow-sm'
-                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
                         }`}
                       >
                         {t.label}
@@ -454,17 +497,32 @@ schema={asciiSchema}
                 {/* Contrast & Invert Toggles */}
                 <div className="space-y-3 pt-2 border-t border-slate-100 dark:border-slate-800">
                   <div className="space-y-1">
-                    <div className="flex justify-between text-xs font-bold text-slate-600 dark:text-slate-400">
+                    <div className="flex justify-between items-center text-xs font-bold text-slate-600 dark:text-slate-400">
                       <span>Contrast Adjustment</span>
-                      <span className="font-mono text-emerald-600">{contrast > 0 ? `+${contrast}` : contrast}</span>
+                      <div className="flex items-center gap-1.5 font-mono text-emerald-600">
+                        <button 
+                          onClick={() => setContrast(Math.max(-30, contrast - 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="min-w-[32px] text-center font-bold">{contrast > 0 ? `+${contrast}` : contrast}</span>
+                        <button 
+                          onClick={() => setContrast(Math.min(40, contrast + 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
                       min="-30"
                       max="40"
+                      step="5"
                       value={contrast}
                       onChange={(e) => setContrast(Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-emerald-600"
                     />
                   </div>
 
@@ -474,10 +532,10 @@ schema={asciiSchema}
                     </span>
                     <button
                       onClick={() => setIsInverted(!isInverted)}
-                      className={`px-2.5 py-1 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                      className={`px-3 py-1 rounded-xl text-xs font-bold border transition-all cursor-pointer active:scale-95 ${
                         isInverted
-                          ? 'bg-emerald-50 dark:bg-emerald-950/50 border-emerald-300 text-emerald-700'
-                          : 'bg-slate-50 dark:bg-slate-800 border-slate-200 text-slate-400'
+                          ? 'bg-emerald-50 dark:bg-emerald-950/50 border-emerald-400 text-emerald-600 dark:text-emerald-400 shadow-xs'
+                          : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400'
                       }`}
                     >
                       {isInverted ? 'Inverted' : 'Standard'}
@@ -490,7 +548,7 @@ schema={asciiSchema}
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={handleCopyText}
-                      className="py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-800 dark:text-slate-200 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                      className="py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-800 dark:text-slate-200 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
                     >
                       {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copied ? 'Copied!' : 'Copy Text'}</span>
@@ -498,7 +556,7 @@ schema={asciiSchema}
 
                     <button
                       onClick={handleDownloadTxt}
-                      className="py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-800 dark:text-slate-200 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                      className="py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-800 dark:text-slate-200 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
                     >
                       <FileText className="w-3.5 h-3.5" />
                       <span>Save .TXT</span>
@@ -508,7 +566,7 @@ schema={asciiSchema}
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={handleDownloadHtml}
-                      className="py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-800 dark:text-slate-200 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                      className="py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-800 dark:text-slate-200 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
                     >
                       <Code className="w-3.5 h-3.5" />
                       <span>Save .HTML</span>
@@ -517,7 +575,7 @@ schema={asciiSchema}
                     <button
                       onClick={handleDownloadPng}
                       disabled={isProcessing}
-                      className="py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
+                      className="py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50 active:scale-95"
                     >
                       <ImageIcon className="w-3.5 h-3.5" />
                       <span>Save as PNG</span>
@@ -526,7 +584,7 @@ schema={asciiSchema}
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-2.5 px-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 text-slate-500 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                    className="w-full py-2.5 px-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-750 text-slate-500 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
                     <span>Reset Image</span>
@@ -537,10 +595,12 @@ schema={asciiSchema}
             </div>
 
             {/* Stage Preview (7 cols) */}
-            <div className="lg:col-span-7 space-y-4">
+            <div ref={previewContainerRef} className="lg:col-span-7 space-y-4 order-1 lg:order-2">
               <div
                 className={`relative rounded-3xl border border-slate-200/80 dark:border-slate-800 p-4 min-h-[420px] max-h-[650px] overflow-auto select-all shadow-inner font-mono text-[6px] sm:text-[7px] md:text-[8px] leading-[6px] sm:leading-[7px] md:leading-[8px] whitespace-pre transition-all ${
-                  colorTheme === 'light'
+                  isComparing
+                    ? 'bg-black text-white flex items-center justify-center'
+                    : colorTheme === 'light'
                     ? 'bg-white text-slate-900'
                     : colorTheme === 'amber'
                     ? 'bg-[#100C02] text-[#FFB000]'
@@ -549,17 +609,49 @@ schema={asciiSchema}
                     : 'bg-[#0B0F19] text-slate-100'
                 }`}
               >
-                {colorTheme === 'colored-html' ? (
-                  <pre
-                    ref={preRef}
-                    dangerouslySetInnerHTML={{ __html: coloredHtml }}
-                    className="m-0 p-0 font-mono"
-                  />
+                {isComparing ? (
+                  <div className="relative flex flex-col items-center justify-center animate-fade-in py-6">
+                    <img
+                      src={imageUrl}
+                      alt="Original"
+                      className="max-w-full max-h-[500px] object-contain rounded-2xl shadow-xl"
+                    />
+                    <span className="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                      Original Photo
+                    </span>
+                  </div>
                 ) : (
-                  <pre ref={preRef} className="m-0 p-0 font-mono">
-                    {plainAscii}
-                  </pre>
+                  <>
+                    {colorTheme === 'colored-html' ? (
+                      <pre
+                        ref={preRef}
+                        dangerouslySetInnerHTML={{ __html: coloredHtml }}
+                        className="m-0 p-0 font-mono"
+                      />
+                    ) : (
+                      <pre ref={preRef} className="m-0 p-0 font-mono">
+                        {plainAscii}
+                      </pre>
+                    )}
+                  </>
                 )}
+
+                {/* Hold to Compare Button */}
+                <button
+                  onMouseDown={() => setIsComparing(true)}
+                  onMouseUp={() => setIsComparing(false)}
+                  onMouseLeave={() => setIsComparing(false)}
+                  onTouchStart={() => setIsComparing(true)}
+                  onTouchEnd={() => setIsComparing(false)}
+                  className={`absolute top-4 right-4 px-2.5 py-1 rounded-xl text-[10px] font-bold border transition flex items-center gap-1 cursor-pointer select-none backdrop-blur-md shadow-sm active:scale-95 ${
+                    isComparing 
+                      ? 'bg-amber-500 text-white border-amber-600 ring-2 ring-amber-400/40' 
+                      : 'bg-white/90 dark:bg-slate-900/90 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+                  }`}
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  <span>{isComparing ? 'Original' : 'Hold to Compare'}</span>
+                </button>
               </div>
 
               {/* Hidden canvas for PNG export */}
@@ -571,6 +663,28 @@ schema={asciiSchema}
               </div>
             </div>
 
+          </div>
+        )}
+
+        {/* Floating Mobile Bottom Action Dock */}
+        {imageUrl && (
+          <div className="fixed bottom-4 left-4 right-4 sm:hidden z-30 flex items-center justify-between p-2.5 bg-slate-900/90 dark:bg-slate-850/95 text-white rounded-2xl backdrop-blur-xl shadow-2xl border border-white/10 animate-fade-in">
+            <button
+              onClick={handleCopyText}
+              className="py-2 px-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+            >
+              <Copy className="w-4 h-4 text-emerald-400" />
+              <span>{copied ? 'Copied' : 'Copy'}</span>
+            </button>
+
+            <button
+              onClick={handleDownloadPng}
+              disabled={isProcessing}
+              className="py-2 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+            >
+              <Download className="w-4 h-4" />
+              <span>Save PNG</span>
+            </button>
           </div>
         )}
 

@@ -231,18 +231,23 @@ export const BackgroundRemover: React.FC = () => {
         title="Free AI Background Remover - remove.bg Alternative" 
         description="Remove image backgrounds automatically using on-device AI. A 100% offline alternative to remove.bg, Canva, and Adobe Express. Zero uploads." 
         keywords="background remover, remove background from image, AI background removal, background eraser, transparent background, remove image background online, background remover free, cut out background, PNG transparent, photo background remover, no upload background remover, offline background remover, browser AI background, remove.bg alternative, Canva background remover alternative, Adobe Express background remover replacement, free erase background"
-schema={bgSchema}
+        schema={bgSchema}
       />
 
       <div className="max-w-4xl mx-auto">
         
         {/* Header */}
         <div className="text-center mb-8">
-          <span className="text-xs font-bold text-purple-655 uppercase tracking-widest px-2.5 py-1 bg-purple-50 border border-purple-100 rounded-full shadow-sm">
-            AI Tool
-          </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">AI Background Remover</h1>
-          <p className="text-sm text-slate-500">Isolate portraits and objects using standard on-device neural networks. No server uploads.</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 dark:bg-purple-950/60 border border-purple-200/80 dark:border-purple-800 text-purple-700 dark:text-purple-300 text-xs font-bold shadow-xs">
+            <Cpu className="w-3.5 h-3.5" />
+            <span>AI Neural Engine • 🔒 100% Client-Side Private</span>
+          </div>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-3 mb-2 tracking-tight">
+            AI Background Remover
+          </h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+            Isolate portraits and objects using standard on-device neural networks. No server uploads.
+          </p>
         </div>
 
         {loadingState === 'idle' && (
@@ -256,11 +261,15 @@ schema={bgSchema}
               />
             </div>
             <div className="md:col-span-5 flex">
-              <div className="premium-bento rounded-3xl p-6 bg-white border border-slate-200/50 flex flex-col justify-between w-full shadow-sm hover:border-purple-300 transition-all duration-300">
+              <div className="premium-bento rounded-3xl p-6 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 flex flex-col justify-between w-full shadow-sm hover:border-purple-300 dark:hover:border-purple-700 transition-all duration-300">
                 <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-purple-655 bg-purple-50/50 border border-purple-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Demo Preview</div>
-                  <h2 className="text-base font-extrabold text-slate-900">How AI Background Remover Works</h2>
-                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                  <div className="text-[10px] font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/50 border border-purple-100 dark:border-purple-900 px-2 py-0.5 rounded uppercase tracking-wider inline-block">
+                    Demo Preview
+                  </div>
+                  <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
+                    How AI Background Remover Works
+                  </h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
                     Our local AI segments your images in seconds directly on your device. Easily extract people, animals, and objects without sending files to any server.
                   </p>
                 </div>
@@ -274,8 +283,8 @@ schema={bgSchema}
         )}
 
         {(loadingState === 'loading-model' || loadingState === 'processing-image') && (
-          <div className="premium-bento p-10 rounded-3xl bg-white flex flex-col items-center justify-center gap-6">
-            <div className="w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-150/80 flex items-center justify-center animate-pulse text-indigo-650 shadow-xs">
+          <div className="premium-bento p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 flex flex-col items-center justify-center gap-6 shadow-xl shadow-slate-200/20 dark:shadow-none">
+            <div className="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-150/80 dark:border-indigo-800 flex items-center justify-center animate-pulse text-indigo-600 dark:text-indigo-400 shadow-xs">
               <Cpu className="w-7 h-7" />
             </div>
             
@@ -286,8 +295,8 @@ schema={bgSchema}
               onCancel={handleCancel}
             />
 
-            <div className="p-3.5 bg-slate-50/30 border border-slate-200/60 rounded-2xl max-w-sm flex items-start gap-2.5 text-[11px] text-slate-500 mt-2 font-medium">
-              <AlertTriangle className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
+            <div className="p-3.5 bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 rounded-2xl max-w-sm flex items-start gap-2.5 text-[11px] text-slate-500 dark:text-slate-400 mt-2 font-medium">
+              <AlertTriangle className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0 mt-0.5" />
               <span>
                 First-time execution downloads a 13MB AI weights file into your local browser storage. Subsequent uses are instantaneous and work fully offline.
               </span>
@@ -296,17 +305,17 @@ schema={bgSchema}
         )}
 
         {loadingState === 'error' && (
-          <div className="premium-bento p-8 rounded-3xl bg-white border border-red-100 text-center flex flex-col items-center gap-4 animate-fade-in">
-            <div className="w-14 h-14 bg-red-50 border border-red-200 text-red-500 rounded-2xl flex items-center justify-center">
+          <div className="premium-bento p-8 rounded-3xl bg-white dark:bg-slate-900 border border-red-200 dark:border-red-900/50 text-center flex flex-col items-center gap-4 animate-fade-in shadow-lg">
+            <div className="w-14 h-14 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-900/50 text-red-500 rounded-2xl flex items-center justify-center">
               <AlertCircle className="w-7 h-7" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-slate-800 mb-1">Something went wrong</h3>
-              <p className="text-xs md:text-sm text-slate-500 max-w-md">{errorMsg}</p>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-1">Something went wrong</h3>
+              <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-md">{errorMsg}</p>
             </div>
             <button
               onClick={handleReset}
-              className="px-6 py-2.5 bg-white hover:bg-red-50 border border-red-200/80 text-xs font-bold text-red-600 rounded-xl transition cursor-pointer shadow-xs flex items-center gap-2"
+              className="px-6 py-2.5 bg-white dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-red-950/40 border border-red-200/80 dark:border-red-900 text-xs font-bold text-red-600 dark:text-red-400 rounded-xl transition cursor-pointer shadow-xs flex items-center gap-2 active:scale-95"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               Try Again
@@ -315,113 +324,136 @@ schema={bgSchema}
         )}
 
         {loadingState === 'completed' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            
-            {/* Visual preview and checks */}
-            <div className="space-y-4">
-              <span className="text-[10px] font-bold text-slate-450 uppercase tracking-widest block">
-                Original Image
-              </span>
-              <div className="w-full h-[320px] bg-slate-50/30 border border-slate-200/60 rounded-2xl overflow-hidden flex items-center justify-center p-2">
-                <img src={originalUrl} alt="Original" className="max-w-full max-h-full object-contain rounded-lg shadow-sm" />
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100 uppercase tracking-widest inline-block">
-                Cutout Preview (Transparent)
-              </span>
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
               
-              {/* Checkerboard transparent background wrapper */}
-              <div 
-                className="w-full h-[320px] border-2 border-indigo-500/20 rounded-2xl overflow-hidden flex items-center justify-center p-2 relative"
-                style={{ 
-                  backgroundImage: 'radial-gradient(#cbd5e1 20%, transparent 20%), radial-gradient(#cbd5e1 20%, transparent 20%)',
-                  backgroundPosition: '0 0, 8px 8px',
-                  backgroundSize: '16px 16px',
-                  backgroundColor: '#F4F1EA'
-                }}
-              >
-                <img src={processedUrl} alt="No background" className="max-w-full max-h-full object-contain rounded-lg drop-shadow-xl animate-float" />
-              </div>
-
-              {/* Action buttons */}
-              <div className="premium-bento p-5 rounded-3xl bg-white shadow-xs">
-                <div className="flex gap-3">
-                  <button
-                    onClick={handleDownload}
-                    className={`flex-1 py-3 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                      downloaded
-                        ? 'bg-emerald-500 shadow-emerald-500/20'
-                        : 'bg-gradient-to-r from-indigo-600 to-purple-650 hover:from-indigo-550 hover:to-purple-550 shadow-indigo-500/20'
-                    }`}
-                  >
-                    {downloaded ? (
-                      <><Check className="w-4 h-4 animate-check-pop" /> Saved!</>
-                    ) : (
-                      <><Download className="w-4 h-4" /> Download PNG</>
-                    )}
-                  </button>
-
-                  <button
-                    onClick={handleReset}
-                    className="py-3 px-4 bg-white/80 hover:bg-slate-50/50 border border-slate-200/60 hover:border-slate-350 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-                    title="Process another image"
-                  >
-                    <RefreshCw className="w-4 h-4" />
-                    Reset
-                  </button>
+              {/* Visual preview and checks */}
+              <div className="space-y-4">
+                <span className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
+                  Original Image
+                </span>
+                <div className="w-full h-[320px] bg-slate-50/30 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800 rounded-2xl overflow-hidden flex items-center justify-center p-2">
+                  <img src={originalUrl} alt="Original" className="max-w-full max-h-full object-contain rounded-lg shadow-sm" />
                 </div>
               </div>
 
+              <div className="space-y-4">
+                <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded border border-indigo-100 dark:border-indigo-900/50 uppercase tracking-widest inline-block">
+                  Cutout Preview (Transparent)
+                </span>
+                
+                {/* Checkerboard transparent background wrapper */}
+                <div 
+                  className="w-full h-[320px] border-2 border-indigo-500/20 dark:border-indigo-500/30 rounded-2xl overflow-hidden flex items-center justify-center p-2 relative"
+                  style={{ 
+                    backgroundImage: 'radial-gradient(#cbd5e1 20%, transparent 20%), radial-gradient(#cbd5e1 20%, transparent 20%)',
+                    backgroundPosition: '0 0, 8px 8px',
+                    backgroundSize: '16px 16px',
+                    backgroundColor: '#0F172A'
+                  }}
+                >
+                  <img src={processedUrl} alt="No background" className="max-w-full max-h-full object-contain rounded-lg drop-shadow-xl animate-float" />
+                </div>
+
+                {/* Action buttons */}
+                <div className="premium-bento p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs">
+                  <div className="flex gap-3">
+                    <button
+                      onClick={handleDownload}
+                      className={`flex-1 py-3 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                        downloaded
+                          ? 'bg-emerald-500 shadow-emerald-500/20'
+                          : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 shadow-indigo-500/20'
+                      }`}
+                    >
+                      {downloaded ? (
+                        <><Check className="w-4 h-4 animate-check-pop" /> Saved!</>
+                      ) : (
+                        <><Download className="w-4 h-4" /> Download PNG</>
+                      )}
+                    </button>
+
+                    <button
+                      onClick={handleReset}
+                      className="py-3 px-4 bg-white/80 dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-750 border border-slate-200/60 dark:border-slate-700 hover:border-slate-350 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-95"
+                      title="Process another image"
+                    >
+                      <RefreshCw className="w-4 h-4" />
+                      Reset
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
 
+            {/* Floating Mobile Bottom Action Dock */}
+            <div className="fixed bottom-4 left-4 right-4 sm:hidden z-30 flex items-center justify-between p-2.5 bg-slate-900/90 dark:bg-slate-850/95 text-white rounded-2xl backdrop-blur-xl shadow-2xl border border-white/10 animate-fade-in">
+              <button
+                onClick={handleReset}
+                className="py-2 px-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+              >
+                <RefreshCw className="w-4 h-4 text-indigo-400" />
+                <span>Reset</span>
+              </button>
+
+              <button
+                onClick={handleDownload}
+                className="py-2 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+              >
+                <Download className="w-4 h-4" />
+                <span>{downloaded ? 'Saved!' : 'Download PNG'}</span>
+              </button>
+            </div>
           </div>
         )}
 
-        <ToolGuide
-          toolName="AI Background Remover"
-          introText="Extract subjects from your images instantly with our offline AI background eraser. Our advanced deep-learning model executes inside your browser, guaranteeing files never leave your device."
-          competitorComparison={{
-            alternatives: ['remove.bg', 'Canva Background Remover', 'Adobe Express'],
-            benefit: 'Traditional background removers upload your images to cloud servers, often charging subscription fees or watermarking low-res files. ImagePlumber runs the RMBG-1.4 neural network completely locally on your hardware. It is 100% free, preserves high-resolution quality, and never uploads a single pixel.'
-          }}
-          steps={[
-            {
-              title: 'Upload Image',
-              description: 'Select a portrait, product photo, or object image by dragging and dropping it into the active zone.'
-            },
-            {
-              title: 'Automatic Processing',
-              description: 'The browser worker automatically downloads the AI weights (on first run) and executes the neural network to segment your subject.'
-            },
-            {
-              title: 'Download PNG',
-              description: 'Once segmenting is complete, check the transparent grid preview and click "Download Image" to save as a high-quality transparent PNG.'
-            }
-          ]}
-          features={[
-            'On-device AI inference powered by the state-of-the-art RMBG-1.4 model.',
-            'Generates crisp, clean transparent background cutouts in seconds.',
-            'Runs in a separate Web Worker thread to keep your browser responsive.',
-            'Caches model weights locally in browser database (IndexedDB) for future offline use.',
-            'Supports major input formats: JPEG, PNG, and WebP.'
-          ]}
-          faq={[
-            {
-              q: 'Why does the first run take longer?',
-              a: 'The tool downloads the 13MB neural network model from Hugging Face CDN directly into your browser memory. Once downloaded, it gets cached locally so future processes launch instantly.'
-            },
-            {
-              q: 'Is there an image resolution limit?',
-              a: 'No hard limit, but larger images (e.g. over 4K) require more browser RAM and processing power, which depends on your device CPU/GPU.'
-            },
-            {
-              q: 'Are my photos secure with ImagePlumber AI?',
-              a: 'Yes. Unlike typical online AI utilities, ImagePlumber runs entirely in client-side WebAssembly and JavaScript sandbox. Your data remains on your physical drive.'
-            }
-          ]}
-        />
+        <div className="mt-16 border-t border-slate-200/60 dark:border-slate-800 pt-12">
+          <ToolGuide
+            toolName="AI Background Remover"
+            introText="Extract subjects from your images instantly with our offline AI background eraser. Our advanced deep-learning model executes inside your browser, guaranteeing files never leave your device."
+            competitorComparison={{
+              alternatives: ['remove.bg', 'Canva Background Remover', 'Adobe Express'],
+              benefit: 'Traditional background removers upload your images to cloud servers, often charging subscription fees or watermarking low-res files. ImagePlumber runs the RMBG-1.4 neural network completely locally on your hardware. It is 100% free, preserves high-resolution quality, and never uploads a single pixel.'
+            }}
+            steps={[
+              {
+                title: 'Upload Image',
+                description: 'Select a portrait, product photo, or object image by dragging and dropping it into the active zone.'
+              },
+              {
+                title: 'Automatic Processing',
+                description: 'The browser worker automatically downloads the AI weights (on first run) and executes the neural network to segment your subject.'
+              },
+              {
+                title: 'Download PNG',
+                description: 'Once segmenting is complete, check the transparent grid preview and click "Download Image" to save as a high-quality transparent PNG.'
+              }
+            ]}
+            features={[
+              'On-device AI inference powered by the state-of-the-art RMBG-1.4 model.',
+              'Generates crisp, clean transparent background cutouts in seconds.',
+              'Runs in a separate Web Worker thread to keep your browser responsive.',
+              'Caches model weights locally in browser database (IndexedDB) for future offline use.',
+              'Supports major input formats: JPEG, PNG, and WebP.'
+            ]}
+            faq={[
+              {
+                q: 'Why does the first run take longer?',
+                a: 'The tool downloads the 13MB neural network model from Hugging Face CDN directly into your browser memory. Once downloaded, it gets cached locally so future processes launch instantly.'
+              },
+              {
+                q: 'Is there an image resolution limit?',
+                a: 'No hard limit, but larger images (e.g. over 4K) require more browser RAM and processing power, which depends on your device CPU/GPU.'
+              },
+              {
+                q: 'Are my photos secure with ImagePlumber AI?',
+                a: 'Yes. Unlike typical online AI utilities, ImagePlumber runs entirely in client-side WebAssembly and JavaScript sandbox. Your data remains on your physical drive.'
+              }
+            ]}
+          />
+        </div>
 
       </div>
     </div>

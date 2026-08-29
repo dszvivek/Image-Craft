@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, RefreshCw, Settings, Info, Play, Trash2, Sparkles } from 'lucide-react';
+import { Download, RefreshCw, Settings, Info, Play, Trash2, Sparkles, Eye, Minus, Plus } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -35,6 +35,7 @@ export const MosaicGenerator: React.FC = () => {
   const [tileLoadingProgress, setTileLoadingProgress] = useState<number>(0);
   const [renderingProgress, setRenderingProgress] = useState<number>(0);
   const [previewUrl, setPreviewUrl] = useState<string>('');
+  const [isComparing, setIsComparing] = useState<boolean>(false);
 
   // Magnifier glass hover state
   const [magnifier, setMagnifier] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false });
@@ -209,7 +210,7 @@ export const MosaicGenerator: React.FC = () => {
     return dummyTiles;
   };
 
-  // Perceptual color matching with variety penalty to prevent ugly repeating tiles
+  // Perceptual color matching with variety penalty
   const findClosestTile = (
     cellColor: { r: number; g: number; b: number },
     pool: TileImage[],
@@ -218,14 +219,12 @@ export const MosaicGenerator: React.FC = () => {
     let minDistance = Infinity;
     let closest = pool[0];
     
-    // Scale variety penalty multiplier
     const penaltyMultiplier = (varietyLevel / 100) * 16000;
 
     for (let i = 0; i < pool.length; i++) {
       const tile = pool[i];
       const usageCount = usageMap[tile.id] || 0;
 
-      // Redmean perceptual color formula (accounts for human eye color sensitivities)
       const rMean = (tile.avgColor.r + cellColor.r) / 2;
       const dr = tile.avgColor.r - cellColor.r;
       const dg = tile.avgColor.g - cellColor.g;
@@ -236,7 +235,6 @@ export const MosaicGenerator: React.FC = () => {
         4 * dg * dg +
         (2 + (255 - rMean) / 256) * db * db;
 
-      // Apply variety penalty
       const distance = colorDistance + usageCount * penaltyMultiplier;
 
       if (distance < minDistance) {
@@ -247,7 +245,6 @@ export const MosaicGenerator: React.FC = () => {
     return closest;
   };
 
-  // Center-crop drawing helper to prevent squashing and stretching of tile pictures
   const drawTileCenterCrop = (
     ctx: CanvasRenderingContext2D,
     img: HTMLImageElement,
@@ -315,7 +312,6 @@ export const MosaicGenerator: React.FC = () => {
       return;
     }
 
-    // Keep track of tile usage during this generation to apply repetition penalties
     const usageMap: Record<string, number> = {};
 
     const rowsPerChunk = 2;
@@ -332,17 +328,13 @@ export const MosaicGenerator: React.FC = () => {
           };
 
           const matchedTile = findClosestTile(cellColor, tilePool, usageMap);
-          
-          // Increment usage map
           usageMap[matchedTile.id] = (usageMap[matchedTile.id] || 0) + 1;
 
           const dx = x * outputTileW;
           const dy = y * outputTileH;
 
-          // Draw tile center cropped (no stretching distortion)
           drawTileCenterCrop(outputCtx, matchedTile.imgElement, dx, dy, outputTileW, outputTileH);
 
-          // Apply average color tinting
           if (tileTint > 0) {
             outputCtx.save();
             outputCtx.fillStyle = `rgb(${cellColor.r}, ${cellColor.g}, ${cellColor.b})`;
@@ -357,7 +349,6 @@ export const MosaicGenerator: React.FC = () => {
       await new Promise((resolve) => requestAnimationFrame(resolve));
     }
 
-    // Overlay original template
     if (overlayOpacity > 0) {
       outputCtx.save();
       outputCtx.globalAlpha = overlayOpacity / 100;
@@ -406,7 +397,6 @@ export const MosaicGenerator: React.FC = () => {
     setIsProcessing(false);
   };
 
-  // Magnifier movement handler
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!previewUrl || !previewContainerRef.current) return;
     const rect = previewContainerRef.current.getBoundingClientRect();
@@ -452,17 +442,22 @@ export const MosaicGenerator: React.FC = () => {
         title="Free Photo Mosaic Generator - Easymoza Alternative" 
         description="Reconstruct target images from thousands of small photo tiles locally. A free alternative to Easymoza and online mosaic generators." 
         keywords="photo mosaic generator, mosaic maker, photo mosaic, image mosaic maker, create photo mosaic online, tile mosaic, picture mosaic, mosaic art maker, photomosaic creator, free mosaic generator, image from images, Easymoza alternative, Picture Mosaics alternative, generate mosaic offline"
-schema={mosaicSchema}
+        schema={mosaicSchema}
       />
 
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <span className="text-xs font-bold text-indigo-650 uppercase tracking-widest px-2.5 py-1 bg-indigo-50 border border-indigo-100 rounded-full shadow-sm">
-            Mosaic Engine
-          </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">Photo Mosaic Generator</h1>
-          <p className="text-sm text-slate-500">Rebuild any image out of hundreds of small photos using rapid downscaling matching math.</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs font-bold shadow-xs">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Photomosaic Engine • 🔒 100% Client-Side Private</span>
+          </div>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-3 mb-2 tracking-tight">
+            Photo Mosaic Generator
+          </h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+            Rebuild any image out of hundreds of small photos using rapid downscaling matching math.
+          </p>
         </div>
 
         {!targetFile ? (
@@ -475,11 +470,15 @@ schema={mosaicSchema}
               />
             </div>
             <div className="md:col-span-5 flex">
-              <div className="premium-bento rounded-3xl p-6 flex flex-col justify-between w-full shadow-sm hover:border-indigo-350 transition-all duration-300">
+              <div className="premium-bento rounded-3xl p-6 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 flex flex-col justify-between w-full shadow-sm hover:border-indigo-350 dark:hover:border-indigo-700 transition-all duration-300">
                 <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-indigo-650 bg-indigo-50/30 border border-indigo-100/60 px-2 py-0.5 rounded uppercase tracking-wider inline-block">Local Processing</div>
-                  <h2 className="text-base font-extrabold text-slate-900">How Photo Mosaics Work</h2>
-                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                  <div className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50/30 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900 px-2 py-0.5 rounded uppercase tracking-wider inline-block">
+                    Local Processing
+                  </div>
+                  <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
+                    How Photo Mosaics Work
+                  </h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
                     Upload a main template image and a batch of source tile photos. The system slices the template into a micro-grid, maps each grid cell to the closest matching tile by color distance, and creates a high-fidelity mosaic image locally.
                   </p>
                 </div>
@@ -489,8 +488,8 @@ schema={mosaicSchema}
                   alt="Photo Mosaic Preview"
                 />
 
-                <div className="bg-white/70 border border-slate-100/70 rounded-2xl p-4 space-y-3 shadow-sm">
-                  <div className="flex items-start gap-2.5 text-[10px] text-slate-500 font-medium">
+                <div className="bg-white/70 dark:bg-slate-800/60 border border-slate-100/70 dark:border-slate-700/60 rounded-2xl p-4 space-y-3 shadow-sm">
+                  <div className="flex items-start gap-2.5 text-[10px] text-slate-500 dark:text-slate-400 font-medium">
                     <Info className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" />
                     <span>
                       Don't have enough images for tiles? We automatically include a 16-color solid fallback palette to build beautiful mock grids right away!
@@ -504,29 +503,71 @@ schema={mosaicSchema}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
             {/* Left Controls Card */}
             <div className="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start order-2 lg:order-1">
-              <div className="glass-card p-6 rounded-3xl space-y-5">
-                <h2 className="font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
-                  <Settings className="w-4.5 h-4.5 text-indigo-500" />
+              <div className="glass-card p-5 sm:p-6 rounded-3xl space-y-5 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xl shadow-slate-200/20 dark:shadow-none">
+                <h2 className="font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-3 flex items-center gap-2 text-sm">
+                  <Settings className="w-4 h-4 text-indigo-500" />
                   Generator Settings
                 </h2>
 
-                {/* Grid Density */}
+                {/* 1-Tap Quick Style Presets */}
+                <div className="space-y-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+                  <span className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
+                    Mosaic Presets
+                  </span>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {[
+                      { label: '⚡ Fast Preview', cols: 35, overlay: 30, tint: 25, variety: 40 },
+                      { label: '✨ Balanced Art', cols: 50, overlay: 25, tint: 35, variety: 50 },
+                      { label: '🎨 High Detail', cols: 80, overlay: 15, tint: 45, variety: 65 },
+                    ].map((preset, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => {
+                          setGridCols(preset.cols);
+                          setOverlayOpacity(preset.overlay);
+                          setTileTint(preset.tint);
+                          setVarietyLevel(preset.variety);
+                        }}
+                        className="py-2 px-1 rounded-xl text-[10px] font-bold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 text-slate-700 dark:text-slate-300 hover:text-indigo-600 border border-slate-200/60 dark:border-slate-700/60 transition cursor-pointer active:scale-95 text-center truncate"
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Grid Density with Steppers */}
                 <div className="space-y-1.5">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
+                    <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
                       Grid Density (Cols)
                     </label>
-                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded">
-                      {gridCols} columns
-                    </span>
+                    <div className="flex items-center gap-1.5 font-mono">
+                      <button 
+                        onClick={() => setGridCols(Math.max(15, gridCols - 5))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-indigo-600"
+                      >
+                        <Minus className="w-3 h-3" />
+                      </button>
+                      <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/50 px-2 py-0.5 rounded min-w-[50px] text-center">
+                        {gridCols} cols
+                      </span>
+                      <button 
+                        onClick={() => setGridCols(Math.min(100, gridCols + 5))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-indigo-600"
+                      >
+                        <Plus className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                   <input
                     type="range"
                     min="15"
                     max="100"
+                    step="5"
                     value={gridCols}
                     onChange={(e) => setGridCols(Number(e.target.value))}
-                    className="w-full accent-indigo-650 cursor-pointer"
+                    className="w-full accent-indigo-600 cursor-pointer"
                   />
                   <span className="text-[9px] text-slate-400 font-medium block">
                     Higher values produce detailed mosaics but require more source tile matches.
@@ -535,36 +576,36 @@ schema={mosaicSchema}
 
                 {/* Aspect Ratio */}
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
+                  <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
                     Tile Shape (Aspect Ratio)
                   </label>
                   <div className="grid grid-cols-3 gap-1.5">
                     <button
                       onClick={() => setCellRatio(1)}
-                      className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
+                      className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer active:scale-95 ${
                         cellRatio === 1
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md'
-                          : 'bg-white border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50'
+                          : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750'
                       }`}
                     >
                       Square 1:1
                     </button>
                     <button
                       onClick={() => setCellRatio(1.33)}
-                      className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
+                      className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer active:scale-95 ${
                         cellRatio === 1.33
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md'
-                          : 'bg-white border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50'
+                          : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750'
                       }`}
                     >
                       Landscape 4:3
                     </button>
                     <button
                       onClick={() => setCellRatio(0.75)}
-                      className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer ${
+                      className={`py-2 px-1 text-[10px] font-bold border rounded-xl transition-all cursor-pointer active:scale-95 ${
                         cellRatio === 0.75
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-md'
-                          : 'bg-white border-slate-200 text-slate-655 hover:text-slate-900 hover:bg-slate-50'
+                          : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750'
                       }`}
                     >
                       Portrait 3:4
@@ -572,79 +613,124 @@ schema={mosaicSchema}
                   </div>
                 </div>
 
-                {/* Repetition variety slider */}
+                {/* Repetition variety slider with Steppers */}
                 <div className="space-y-1.5">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
+                    <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
                       Tile Variety (De-duplication)
                     </label>
-                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded">
-                      {varietyLevel}%
-                    </span>
+                    <div className="flex items-center gap-1.5 font-mono">
+                      <button 
+                        onClick={() => setVarietyLevel(Math.max(0, varietyLevel - 5))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-indigo-600"
+                      >
+                        <Minus className="w-3 h-3" />
+                      </button>
+                      <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/50 px-2 py-0.5 rounded min-w-[40px] text-center">
+                        {varietyLevel}%
+                      </span>
+                      <button 
+                        onClick={() => setVarietyLevel(Math.min(100, varietyLevel + 5))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-indigo-600"
+                      >
+                        <Plus className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                   <input
                     type="range"
                     min="0"
                     max="100"
+                    step="5"
                     value={varietyLevel}
                     onChange={(e) => setVarietyLevel(Number(e.target.value))}
-                    className="w-full accent-indigo-650 cursor-pointer"
+                    className="w-full accent-indigo-600 cursor-pointer"
                   />
                   <span className="text-[9px] text-slate-400 font-medium block">
                     Higher values penalize repeating the same photos side-by-side, maximizing tile diversity.
                   </span>
                 </div>
 
-                {/* Color Tinting Slider */}
+                {/* Color Tinting Slider with Steppers */}
                 <div className="space-y-1.5">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
+                    <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
                       Tile Color Tinting
                     </label>
-                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded">
-                      {tileTint}%
-                    </span>
+                    <div className="flex items-center gap-1.5 font-mono">
+                      <button 
+                        onClick={() => setTileTint(Math.max(0, tileTint - 5))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-indigo-600"
+                      >
+                        <Minus className="w-3 h-3" />
+                      </button>
+                      <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/50 px-2 py-0.5 rounded min-w-[40px] text-center">
+                        {tileTint}%
+                      </span>
+                      <button 
+                        onClick={() => setTileTint(Math.min(100, tileTint + 5))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-indigo-600"
+                      >
+                        <Plus className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                   <input
                     type="range"
                     min="0"
                     max="100"
+                    step="5"
                     value={tileTint}
                     onChange={(e) => setTileTint(Number(e.target.value))}
-                    className="w-full accent-indigo-650 cursor-pointer"
+                    className="w-full accent-indigo-600 cursor-pointer"
                   />
                   <span className="text-[9px] text-slate-400 font-medium block">
                     Tint tiles toward the cell's target color to blend the composite smoothly.
                   </span>
                 </div>
 
-                {/* Overlay Blend Slider */}
+                {/* Overlay Blend Slider with Steppers */}
                 <div className="space-y-1.5">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
+                    <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
                       Original Image Overlay
                     </label>
-                    <span className="text-[10px] font-bold text-indigo-650 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded">
-                      {overlayOpacity}%
-                    </span>
+                    <div className="flex items-center gap-1.5 font-mono">
+                      <button 
+                        onClick={() => setOverlayOpacity(Math.max(0, overlayOpacity - 5))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-indigo-600"
+                      >
+                        <Minus className="w-3 h-3" />
+                      </button>
+                      <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/50 px-2 py-0.5 rounded min-w-[40px] text-center">
+                        {overlayOpacity}%
+                      </span>
+                      <button 
+                        onClick={() => setOverlayOpacity(Math.min(100, overlayOpacity + 5))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-indigo-600"
+                      >
+                        <Plus className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                   <input
                     type="range"
                     min="0"
                     max="100"
+                    step="5"
                     value={overlayOpacity}
                     onChange={(e) => setOverlayOpacity(Number(e.target.value))}
-                    className="w-full accent-indigo-650 cursor-pointer"
+                    className="w-full accent-indigo-600 cursor-pointer"
                   />
                   <span className="text-[9px] text-slate-400 font-medium block">
-                    Superimpose the original image transparently on top to preserve facial details/text.
+                    Superimpose original image transparently to preserve crisp details.
                   </span>
                 </div>
 
                 {/* Tile Settings */}
-                <div className="space-y-3 bg-white/70 border border-slate-200/50 rounded-2xl p-4 shadow-sm">
+                <div className="space-y-3 bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/50 dark:border-slate-700/60 rounded-2xl p-4 shadow-sm">
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                    <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
                       Fallback Solid Colors
                     </span>
                     <label className="relative inline-flex items-center cursor-pointer select-none">
@@ -664,13 +750,13 @@ schema={mosaicSchema}
 
                 {/* Export Quality */}
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">
+                  <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
                     Export Print Quality
                   </label>
                   <select
                     value={tileRenderSize}
                     onChange={(e) => setTileRenderSize(Number(e.target.value))}
-                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500 transition cursor-pointer shadow-xs"
+                    className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-indigo-500 transition cursor-pointer shadow-xs"
                   >
                     <option value={30}>Web Standard (~1500px wide, fast)</option>
                     <option value={60}>High Definition HD (~3000px wide, sharp)</option>
@@ -681,7 +767,7 @@ schema={mosaicSchema}
                 {/* Actions */}
                 <div className="flex flex-col gap-2.5 pt-2">
                   {tilePoolSize < minTilesRequired && (
-                    <div className="p-3 bg-amber-50 border border-amber-100 rounded-xl text-[10px] text-amber-700 leading-normal font-semibold text-center animate-pulse">
+                    <div className="p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 rounded-xl text-[10px] text-amber-700 dark:text-amber-300 leading-normal font-semibold text-center animate-pulse">
                       ⚠️ Please upload at least {minTilesRequired} tile images to construct a recognizable mosaic (or enable Fallback Solid Colors). Currently: {tilePoolSize}
                     </div>
                   )}
@@ -689,39 +775,39 @@ schema={mosaicSchema}
                   <button
                     onClick={generateMosaic}
                     disabled={isGenerateDisabled}
-                    className="w-full py-3 bg-gradient-to-r from-indigo-650 to-indigo-750 hover:from-indigo-600 hover:to-indigo-700 disabled:opacity-50 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer border-0"
+                    className="w-full py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-550 hover:to-indigo-650 disabled:opacity-50 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer border-0"
                   >
                     <Play className="w-4 h-4" />
-                    {isProcessing ? 'Processing Mosaic...' : 'Generate Mosaic'}
+                    <span>{isProcessing ? 'Processing Mosaic...' : 'Generate Mosaic'}</span>
                   </button>
 
                   {previewUrl && (
                     <button
                       onClick={handleDownload}
-                      className="w-full py-3 bg-indigo-50 hover:bg-indigo-100/80 text-[11px] font-bold uppercase tracking-wider text-indigo-650 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border border-indigo-100"
+                      className="w-full py-3 bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100/80 text-[11px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-300 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border border-indigo-100 dark:border-indigo-800"
                     >
                       <Download className="w-4 h-4" />
-                      Download High-Res Mosaic
+                      <span>Download High-Res Mosaic</span>
                     </button>
                   )}
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-3 bg-white hover:bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-655 hover:text-slate-900 border border-slate-200 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="w-full py-3 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-750 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-95"
                   >
                     <RefreshCw className="w-4 h-4" />
-                    Reset Generator
+                    <span>Reset Generator</span>
                   </button>
                 </div>
               </div>
 
               {/* Best Results Tips Card */}
-              <div className="glass-card p-5 rounded-3xl space-y-3.5">
-                <h2 className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                  <Info className="w-4 h-4 text-indigo-655" />
+              <div className="glass-card p-5 rounded-3xl space-y-3.5 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800">
+                <h2 className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                  <Info className="w-4 h-4 text-indigo-500" />
                   Tips for Best Mosaic Results
                 </h2>
-                <ul className="space-y-2.5 text-[10px] text-slate-550 leading-relaxed font-medium">
+                <ul className="space-y-2.5 text-[10px] text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
                   <li className="flex items-start gap-2">
                     <span className="text-indigo-600 shrink-0 font-bold">1.</span>
                     <span><strong>Upload More Tiles:</strong> For best results, upload 30 to 100+ different images. The larger your tile collection, the less repetition and the more accurate the color matches.</span>
@@ -745,35 +831,35 @@ schema={mosaicSchema}
             {/* Right Canvas and Tiles Area */}
             <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
               {/* Target Image preview */}
-              <div className="glass-card p-5 rounded-3xl shadow-xs flex flex-col gap-4">
-                <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+              <div className="glass-card p-5 rounded-3xl shadow-xs flex flex-col gap-4 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800">
+                <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
                   <div>
-                    <p className="text-xs font-bold text-slate-800">Target Template Image</p>
+                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200">Target Template Image</p>
                     <span className="text-[9px] text-slate-400 font-semibold font-mono uppercase">
                       {targetFile.name} ({targetSize ? `${targetSize.width}x${targetSize.height} px` : 'Loading...'})
                     </span>
                   </div>
-                  <span className="text-[10px] font-bold text-slate-455 bg-white border border-slate-150 px-2 py-0.5 rounded">
+                  <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded">
                     Main Photo
                   </span>
                 </div>
 
-                <div className="w-full flex items-center justify-center bg-slate-50/30 border border-dashed border-slate-200 rounded-2xl p-4 max-h-[300px] overflow-hidden">
+                <div className="w-full flex items-center justify-center bg-slate-50/30 dark:bg-slate-950/50 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl p-4 max-h-[300px] overflow-hidden">
                   <img
                     ref={targetImageRef}
                     src={targetUrl}
                     alt="Target Template"
                     onLoad={handleTargetLoad}
-                    className="max-w-full max-h-[268px] object-contain rounded-xl select-none"
+                    className="max-w-full max-h-[268px] object-contain rounded-xl select-none shadow-sm"
                   />
                 </div>
               </div>
 
               {/* Custom Tile Pool Upload */}
-              <div className="glass-card p-5 rounded-3xl flex flex-col gap-4">
-                <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+              <div className="glass-card p-5 rounded-3xl flex flex-col gap-4 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800">
+                <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
                   <div>
-                    <p className="text-xs font-bold text-slate-800">Source Tile Images Pool</p>
+                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200">Source Tile Images Pool</p>
                     <p className="text-[9px] text-slate-400 font-semibold uppercase leading-tight">
                       {tiles.length} custom tiles loaded
                     </p>
@@ -781,10 +867,10 @@ schema={mosaicSchema}
                   {tiles.length > 0 && (
                     <button
                       onClick={clearAllTiles}
-                      className="px-2 py-1 text-[10px] font-bold text-red-650 bg-red-50 hover:bg-red-100/70 border border-red-100 rounded flex items-center gap-1 cursor-pointer transition border-0"
+                      className="px-2 py-1 text-[10px] font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 hover:bg-red-100/70 border border-red-200 dark:border-red-900 rounded flex items-center gap-1 cursor-pointer transition"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
-                      Clear Pool
+                      <span>Clear Pool</span>
                     </button>
                   )}
                 </div>
@@ -799,16 +885,16 @@ schema={mosaicSchema}
                 {/* Loaded tiles list */}
                 {tiles.length > 0 && (
                   <div className="space-y-2 mt-2">
-                    <span className="text-[9px] font-bold text-slate-455 uppercase tracking-widest block">
+                    <span className="text-[9px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
                       Tile Collection (Previews)
                     </span>
-                    <div className="grid grid-cols-6 sm:grid-cols-8 gap-2 max-h-[148px] overflow-y-auto p-2 bg-slate-50/30 border border-slate-200/50 rounded-2xl shadow-inner scrollbar-thin">
+                    <div className="grid grid-cols-6 sm:grid-cols-8 gap-2 max-h-[148px] overflow-y-auto p-2 bg-slate-50/30 dark:bg-slate-950/50 border border-slate-200/50 dark:border-slate-800 rounded-2xl shadow-inner scrollbar-thin">
                       {tiles.map((t, idx) => (
-                        <div key={t.id} className="aspect-square rounded-lg border border-slate-200 relative group overflow-hidden bg-white shadow-xs">
+                        <div key={t.id} className="aspect-square rounded-lg border border-slate-200 dark:border-slate-700 relative group overflow-hidden bg-white dark:bg-slate-800 shadow-xs">
                           <img src={t.url} alt={t.name} className="w-full h-full object-cover" />
                           <button
                             onClick={() => removeTile(idx)}
-                            className="absolute inset-0 bg-red-650/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-[10px] font-bold border-0"
+                            className="absolute inset-0 bg-red-600/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-[10px] font-bold border-0"
                           >
                             Delete
                           </button>
@@ -821,30 +907,30 @@ schema={mosaicSchema}
 
               {/* Progress and Live Mosaic Result Preview */}
               {isProcessing && (
-                <div className="glass-card p-6 rounded-3xl flex flex-col items-center gap-4 text-center">
+                <div className="glass-card p-6 rounded-3xl flex flex-col items-center gap-4 text-center bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800">
                   <RefreshCw className="w-8 h-8 text-indigo-500 animate-spin" />
                   <div className="space-y-1.5 w-full max-w-xs">
                     {tileLoadingProgress > 0 ? (
                       <>
-                        <p className="text-xs font-bold text-slate-800">Processing source tile images...</p>
-                        <div className="w-full bg-slate-100 rounded-full h-2 shadow-inner overflow-hidden border border-slate-200">
+                        <p className="text-xs font-bold text-slate-800 dark:text-slate-200">Processing source tile images...</p>
+                        <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 shadow-inner overflow-hidden border border-slate-200 dark:border-slate-700">
                           <div 
-                            className="bg-indigo-650 h-full transition-all duration-300 rounded-full" 
+                            className="bg-indigo-600 h-full transition-all duration-300 rounded-full" 
                             style={{ width: `${tileLoadingProgress}%` }}
                           />
                         </div>
-                        <span className="text-[10px] font-bold text-indigo-650">{tileLoadingProgress}%</span>
+                        <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400">{tileLoadingProgress}%</span>
                       </>
                     ) : (
                       <>
-                        <p className="text-xs font-bold text-slate-800">Assembling photo mosaic...</p>
-                        <div className="w-full bg-slate-100 rounded-full h-2 shadow-inner overflow-hidden border border-slate-200">
+                        <p className="text-xs font-bold text-slate-800 dark:text-slate-200">Assembling photo mosaic...</p>
+                        <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 shadow-inner overflow-hidden border border-slate-200 dark:border-slate-700">
                           <div 
                             className="bg-gradient-to-r from-indigo-600 to-indigo-700 h-full transition-all duration-300 rounded-full" 
                             style={{ width: `${renderingProgress}%` }}
                           />
                         </div>
-                        <span className="text-[10px] font-bold text-indigo-650">{renderingProgress}%</span>
+                        <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400">{renderingProgress}%</span>
                       </>
                     )}
                   </div>
@@ -852,15 +938,15 @@ schema={mosaicSchema}
               )}
 
               {previewUrl && !isProcessing && (
-                <div className="glass-card p-5 rounded-3xl flex flex-col gap-4">
-                  <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                <div className="glass-card p-5 rounded-3xl flex flex-col gap-4 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xl">
+                  <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
                     <div>
-                      <p className="text-xs font-bold text-slate-800">Mosaic Canvas Frame Output</p>
+                      <p className="text-xs font-bold text-slate-800 dark:text-slate-200">Mosaic Canvas Frame Output</p>
                       <span className="text-[9px] text-slate-400 font-semibold font-mono uppercase">
                         Hover over the image below to zoom and inspect individual tiles!
                       </span>
                     </div>
-                    <span className="text-[10px] font-bold text-emerald-655 bg-emerald-50 border border-emerald-150 px-2 py-0.5 rounded flex items-center gap-1.5">
+                    <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-100 dark:border-emerald-900 px-2 py-0.5 rounded flex items-center gap-1.5">
                       <Sparkles className="w-3.5 h-3.5 animate-pulse" />
                       Completed
                     </span>
@@ -871,17 +957,48 @@ schema={mosaicSchema}
                     ref={previewContainerRef}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
-                    className="w-full flex items-center justify-center bg-slate-50/30 border border-slate-200 rounded-2xl p-4 overflow-hidden relative select-none cursor-zoom-in"
+                    className="w-full flex items-center justify-center bg-slate-50/30 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 overflow-hidden relative select-none cursor-zoom-in"
                   >
                     <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none" />
-                    <img
-                      src={previewUrl}
-                      alt="Mosaic Output Preview"
-                      className="max-w-full max-h-[500px] object-contain rounded-xl shadow-2xl border border-slate-200/60 relative z-10"
-                    />
+                    
+                    {isComparing ? (
+                      <div className="relative flex items-center justify-center animate-fade-in z-10">
+                        <img
+                          src={targetUrl}
+                          alt="Original Target"
+                          className="max-w-full max-h-[500px] object-contain rounded-xl shadow-2xl"
+                        />
+                        <span className="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                          Original Target Photo
+                        </span>
+                      </div>
+                    ) : (
+                      <img
+                        src={previewUrl}
+                        alt="Mosaic Output Preview"
+                        className="max-w-full max-h-[500px] object-contain rounded-xl shadow-2xl border border-slate-200/60 dark:border-slate-800 relative z-10"
+                      />
+                    )}
+
+                    {/* Hold to Compare Live Button */}
+                    <button
+                      onMouseDown={() => setIsComparing(true)}
+                      onMouseUp={() => setIsComparing(false)}
+                      onMouseLeave={() => setIsComparing(false)}
+                      onTouchStart={() => setIsComparing(true)}
+                      onTouchEnd={() => setIsComparing(false)}
+                      className={`absolute top-4 right-4 px-2.5 py-1 rounded-xl text-[10px] font-bold border transition flex items-center gap-1 cursor-pointer select-none backdrop-blur-md shadow-sm active:scale-95 z-20 ${
+                        isComparing 
+                          ? 'bg-amber-500 text-white border-amber-600 ring-2 ring-amber-400/40' 
+                          : 'bg-white/90 dark:bg-slate-900/90 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+                      }`}
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                      <span>{isComparing ? 'Original' : 'Hold to Compare'}</span>
+                    </button>
 
                     {/* Magnifier Lens */}
-                    {magnifier.show && (
+                    {magnifier.show && !isComparing && (
                       <div
                         className="absolute pointer-events-none w-32 h-32 rounded-full border-2 border-white shadow-2xl overflow-hidden z-30"
                         style={{
@@ -913,49 +1030,75 @@ schema={mosaicSchema}
             </div>
           </div>
         )}
-        <ToolGuide
-          toolName="Photo Mosaic Generator"
-          introText="Construct intricate mosaics matching a single master image using thousands of small photography tiles. Upload custom collections or use our solid color fallback pool."
-          competitorComparison={{
-            alternatives: ['Easymoza', 'Picture Mosaics', 'Mosaically'],
-            benefit: 'Traditional mosaic creators require you to upload hundreds of personal photographs to their servers, and limit high-res downloads behind expensive paywalls. ImagePlumber runs image segment averaging locally in JS memory. Save high-resolution mosaics without any cloud uploads.'
-          }}
-          steps={[
-            {
-              title: 'Upload Main Image',
-              description: 'Select the high-contrast target image you want to reconstruct.'
-            },
-            {
-              title: 'Upload Source Tiles',
-              description: 'Select multiple photos to construct the details of your mosaic template.'
-            },
-            {
-              title: 'Adjust Settings & Generate',
-              description: 'Customize grid columns, de-duplication variety, color tinting, and download in print quality.'
-            }
-          ]}
-          features={[
-            'Perceptual color matching using the redmean algorithm for realistic mosaics.',
-            'Tile variety controls (anti-repetition penalty) to prevent identical duplicate grids.',
-            'No-distortion center cropping fits portrait and landscape photos automatically.',
-            'Interactive zoom lens to inspect individual miniature photos in real-time.',
-            'Ultra HD 4K+ print-ready upscaler runs entirely in browser memory.'
-          ]}
-          faq={[
-            {
-              q: 'How many tile photos should I upload?',
-              a: 'We recommend uploading between 30 and 100+ photos. The larger your tile collection, the less repetition and the more realistic your mosaic will look.'
-            },
-            {
-              q: 'Can I print these generated mosaics?',
-              a: 'Absolutely! Choose the Ultra Print-Ready 4K+ setting. This scales each mini tile to 120px wide, resulting in a high-resolution file suitable for physical print shops.'
-            },
-            {
-              q: 'Are my pictures uploaded to any servers?',
-              a: 'No. Both the target template and your source tiles are processed entirely locally in your browser memory. Your privacy is 100% guaranteed.'
-            }
-          ]}
-        />
+
+        {/* Floating Mobile Bottom Action Dock */}
+        {previewUrl && (
+          <div className="fixed bottom-4 left-4 right-4 sm:hidden z-30 flex items-center justify-between p-2.5 bg-slate-900/90 dark:bg-slate-850/95 text-white rounded-2xl backdrop-blur-xl shadow-2xl border border-white/10 animate-fade-in">
+            <button
+              onClick={() => {
+                previewContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="py-2 px-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+            >
+              <Eye className="w-4 h-4 text-indigo-400" />
+              <span>Canvas</span>
+            </button>
+
+            <button
+              onClick={handleDownload}
+              className="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download Mosaic</span>
+            </button>
+          </div>
+        )}
+
+        <div className="mt-16 border-t border-slate-200/60 dark:border-slate-800 pt-12">
+          <ToolGuide
+            toolName="Photo Mosaic Generator"
+            introText="Construct intricate mosaics matching a single master image using thousands of small photography tiles. Upload custom collections or use our solid color fallback pool."
+            competitorComparison={{
+              alternatives: ['Easymoza', 'Picture Mosaics', 'Mosaically'],
+              benefit: 'Traditional mosaic creators require you to upload hundreds of personal photographs to their servers, and limit high-res downloads behind expensive paywalls. ImagePlumber runs image segment averaging locally in JS memory. Save high-resolution mosaics without any cloud uploads.'
+            }}
+            steps={[
+              {
+                title: 'Upload Main Image',
+                description: 'Select the high-contrast target image you want to reconstruct.'
+              },
+              {
+                title: 'Upload Source Tiles',
+                description: 'Select multiple photos to construct the details of your mosaic template.'
+              },
+              {
+                title: 'Adjust Settings & Generate',
+                description: 'Customize grid columns, de-duplication variety, color tinting, and download in print quality.'
+              }
+            ]}
+            features={[
+              'Perceptual color matching using the redmean algorithm for realistic mosaics.',
+              'Tile variety controls (anti-repetition penalty) to prevent identical duplicate grids.',
+              'No-distortion center cropping fits portrait and landscape photos automatically.',
+              'Interactive zoom lens to inspect individual miniature photos in real-time.',
+              'Ultra HD 4K+ print-ready upscaler runs entirely in browser memory.'
+            ]}
+            faq={[
+              {
+                q: 'How many tile photos should I upload?',
+                a: 'We recommend uploading between 30 and 100+ photos. The larger your tile collection, the less repetition and the more realistic your mosaic will look.'
+              },
+              {
+                q: 'Can I print these generated mosaics?',
+                a: 'Absolutely! Choose the Ultra Print-Ready 4K+ setting. This scales each mini tile to 120px wide, resulting in a high-resolution file suitable for physical print shops.'
+              },
+              {
+                q: 'Are my pictures uploaded to any servers?',
+                a: 'No. Both the target template and your source tiles are processed entirely locally in your browser memory. Your privacy is 100% guaranteed.'
+              }
+            ]}
+          />
+        </div>
       </div>
     </div>
   );

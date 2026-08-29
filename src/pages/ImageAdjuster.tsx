@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, Sliders, Eye, RotateCcw, Sparkles } from 'lucide-react';
+import { Download, Sliders, Eye, RotateCcw, Sparkles, Minus, Plus } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -42,6 +42,7 @@ export const ImageAdjuster: React.FC<ImageAdjusterProps> = ({
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const originalCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const previewContainerRef = useRef<HTMLDivElement>(null);
 
   const handleFilesSelected = (files: File[]) => {
     if (files.length > 0) {
@@ -360,130 +361,265 @@ schema={adjusterSchema}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Control Sidebar (5 cols) */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="premium-bento p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-5 shadow-xl shadow-slate-200/20 dark:shadow-none">
+            <div className="lg:col-span-5 space-y-6 order-2 lg:order-1">
+              <div className="premium-bento p-5 sm:p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-5 shadow-xl shadow-slate-200/20 dark:shadow-none">
                 
+                {/* 1-Tap Color Tuning Presets */}
+                <div className="space-y-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+                  <span className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
+                    1-Tap Look Presets
+                  </span>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {[
+                      { label: '⚡ Vibrant Pop', bri: 10, con: 20, sat: 25, exp: 5, warm: 0, sharp: 15, vig: 0 },
+                      { label: '✨ Warm Sunset', bri: 10, con: 10, sat: 15, exp: 0, warm: 35, sharp: 5, vig: 10 },
+                      { label: '🎬 Moody Film', bri: -10, con: 30, sat: -20, exp: -5, warm: -10, sharp: 20, vig: 30 },
+                    ].map((preset, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => {
+                          setBrightness(preset.bri);
+                          setContrast(preset.con);
+                          setSaturation(preset.sat);
+                          setExposure(preset.exp);
+                          setWarmth(preset.warm);
+                          setSharpness(preset.sharp);
+                          setVignette(preset.vig);
+                        }}
+                        className="py-2 px-1 rounded-xl text-[10px] font-bold bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/40 text-slate-700 dark:text-slate-300 hover:text-blue-600 border border-slate-200/60 dark:border-slate-700/60 transition cursor-pointer active:scale-95 text-center truncate"
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Auto-Enhance Button */}
                 <button
                   onClick={handleAutoEnhance}
-                  className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm shadow-md shadow-blue-500/10 transition-all cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs shadow-md shadow-blue-500/10 transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95"
                 >
                   <Sparkles className="w-4 h-4 text-amber-300" />
                   <span>1-Click Auto-Enhance</span>
                 </button>
 
-                {/* Sliders Container */}
-                <div className="space-y-4 max-h-[380px] overflow-y-auto pr-1">
+                {/* Sliders Container with Touch Steppers */}
+                <div className="space-y-3.5 max-h-[380px] overflow-y-auto pr-1">
                   
                   {/* Brightness */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <div className="flex justify-between items-center text-xs font-bold">
                       <span className="text-slate-700 dark:text-slate-300">Brightness</span>
-                      <span className="font-mono text-blue-600 dark:text-blue-400">{brightness > 0 ? `+${brightness}` : brightness}</span>
+                      <div className="flex items-center gap-1.5 font-mono text-blue-600 dark:text-blue-400">
+                        <button 
+                          onClick={() => setBrightness(Math.max(-100, brightness - 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="min-w-[32px] text-center">{brightness > 0 ? `+${brightness}` : brightness}</span>
+                        <button 
+                          onClick={() => setBrightness(Math.min(100, brightness + 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
                       min="-100"
                       max="100"
+                      step="5"
                       value={brightness}
                       onChange={(e) => setBrightness(Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-blue-600"
                     />
                   </div>
 
                   {/* Contrast */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <div className="flex justify-between items-center text-xs font-bold">
                       <span className="text-slate-700 dark:text-slate-300">Contrast</span>
-                      <span className="font-mono text-blue-600 dark:text-blue-400">{contrast > 0 ? `+${contrast}` : contrast}</span>
+                      <div className="flex items-center gap-1.5 font-mono text-blue-600 dark:text-blue-400">
+                        <button 
+                          onClick={() => setContrast(Math.max(-100, contrast - 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="min-w-[32px] text-center">{contrast > 0 ? `+${contrast}` : contrast}</span>
+                        <button 
+                          onClick={() => setContrast(Math.min(100, contrast + 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
                       min="-100"
                       max="100"
+                      step="5"
                       value={contrast}
                       onChange={(e) => setContrast(Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-blue-600"
                     />
                   </div>
 
                   {/* Saturation */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <div className="flex justify-between items-center text-xs font-bold">
                       <span className="text-slate-700 dark:text-slate-300">Saturation</span>
-                      <span className="font-mono text-blue-600 dark:text-blue-400">{saturation > 0 ? `+${saturation}` : saturation}</span>
+                      <div className="flex items-center gap-1.5 font-mono text-blue-600 dark:text-blue-400">
+                        <button 
+                          onClick={() => setSaturation(Math.max(-100, saturation - 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="min-w-[32px] text-center">{saturation > 0 ? `+${saturation}` : saturation}</span>
+                        <button 
+                          onClick={() => setSaturation(Math.min(100, saturation + 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
                       min="-100"
                       max="100"
+                      step="5"
                       value={saturation}
                       onChange={(e) => setSaturation(Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-blue-600"
                     />
                   </div>
 
                   {/* Exposure */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <div className="flex justify-between items-center text-xs font-bold">
                       <span className="text-slate-700 dark:text-slate-300">Exposure</span>
-                      <span className="font-mono text-blue-600 dark:text-blue-400">{exposure > 0 ? `+${exposure}` : exposure}</span>
+                      <div className="flex items-center gap-1.5 font-mono text-blue-600 dark:text-blue-400">
+                        <button 
+                          onClick={() => setExposure(Math.max(-100, exposure - 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="min-w-[32px] text-center">{exposure > 0 ? `+${exposure}` : exposure}</span>
+                        <button 
+                          onClick={() => setExposure(Math.min(100, exposure + 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
                       min="-100"
                       max="100"
+                      step="5"
                       value={exposure}
                       onChange={(e) => setExposure(Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-blue-600"
                     />
                   </div>
 
                   {/* Warmth / Temperature */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <div className="flex justify-between items-center text-xs font-bold">
-                      <span className="text-slate-700 dark:text-slate-300">Warmth (Temperature)</span>
-                      <span className="font-mono text-amber-600 dark:text-amber-400">{warmth > 0 ? `+${warmth}` : warmth}</span>
+                      <span className="text-slate-700 dark:text-slate-300">Warmth</span>
+                      <div className="flex items-center gap-1.5 font-mono text-amber-600 dark:text-amber-400">
+                        <button 
+                          onClick={() => setWarmth(Math.max(-100, warmth - 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="min-w-[32px] text-center">{warmth > 0 ? `+${warmth}` : warmth}</span>
+                        <button 
+                          onClick={() => setWarmth(Math.min(100, warmth + 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
                       min="-100"
                       max="100"
+                      step="5"
                       value={warmth}
                       onChange={(e) => setWarmth(Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-amber-600"
                     />
                   </div>
 
                   {/* Sharpness */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <div className="flex justify-between items-center text-xs font-bold">
                       <span className="text-slate-700 dark:text-slate-300">Sharpness</span>
-                      <span className="font-mono text-emerald-600 dark:text-emerald-400">{sharpness}%</span>
+                      <div className="flex items-center gap-1.5 font-mono text-emerald-600 dark:text-emerald-400">
+                        <button 
+                          onClick={() => setSharpness(Math.max(0, sharpness - 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="min-w-[32px] text-center">{sharpness}%</span>
+                        <button 
+                          onClick={() => setSharpness(Math.min(100, sharpness + 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
                       min="0"
                       max="100"
+                      step="5"
                       value={sharpness}
                       onChange={(e) => setSharpness(Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-emerald-600"
                     />
                   </div>
 
                   {/* Vignette */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <div className="flex justify-between items-center text-xs font-bold">
                       <span className="text-slate-700 dark:text-slate-300">Vignette</span>
-                      <span className="font-mono text-purple-600 dark:text-purple-400">{vignette}%</span>
+                      <div className="flex items-center gap-1.5 font-mono text-purple-600 dark:text-purple-400">
+                        <button 
+                          onClick={() => setVignette(Math.max(0, vignette - 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="min-w-[32px] text-center">{vignette}%</span>
+                        <button 
+                          onClick={() => setVignette(Math.min(100, vignette + 5))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
                       min="0"
                       max="100"
+                      step="5"
                       value={vignette}
                       onChange={(e) => setVignette(Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-purple-600"
                     />
                   </div>
 
@@ -492,7 +628,7 @@ schema={adjusterSchema}
                 {/* Export Format & Quality */}
                 <div className="space-y-3 pt-2 border-t border-slate-100 dark:border-slate-800">
                   <div className="flex items-center justify-between">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest">
                       Output Format
                     </label>
                     <div className="flex gap-1.5">
@@ -500,10 +636,10 @@ schema={adjusterSchema}
                         <button
                           key={fmt}
                           onClick={() => setExportFormat(fmt)}
-                          className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                          className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95 ${
                             exportFormat === fmt
-                              ? 'bg-blue-600 text-white'
-                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                              ? 'bg-blue-600 text-white shadow-xs'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
                           }`}
                         >
                           {fmt === 'image/png' ? 'PNG' : fmt === 'image/jpeg' ? 'JPEG' : 'WebP'}
@@ -524,7 +660,7 @@ schema={adjusterSchema}
                         max="100"
                         value={jpegQuality}
                         onChange={(e) => setJpegQuality(Number(e.target.value))}
-                        className="range-styled w-full"
+                        className="range-styled w-full accent-blue-600"
                       />
                     </div>
                   )}
@@ -534,7 +670,7 @@ schema={adjusterSchema}
                 <div className="flex gap-3 pt-2">
                   <button
                     onClick={handleReset}
-                    className="flex-1 py-3 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2"
+                    className="flex-1 py-3 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-300 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95"
                   >
                     <RotateCcw className="w-4 h-4" />
                     <span>Reset Sliders</span>
@@ -542,7 +678,7 @@ schema={adjusterSchema}
                   <button
                     onClick={handleDownload}
                     disabled={isProcessing}
-                    className="flex-2 py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm shadow-lg shadow-blue-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="flex-2 py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs shadow-lg shadow-blue-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 active:scale-95"
                   >
                     <Download className="w-4 h-4" />
                     <span>{isProcessing ? 'Processing...' : 'Download Image'}</span>
@@ -553,7 +689,7 @@ schema={adjusterSchema}
             </div>
 
             {/* Preview Stage (7 cols) */}
-            <div className="lg:col-span-7 space-y-4">
+            <div ref={previewContainerRef} className="lg:col-span-7 space-y-4 order-1 lg:order-2">
               
               {/* Compare Toolbar */}
               <div className="flex items-center justify-between bg-white dark:bg-slate-900 px-4 py-2.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm">
@@ -564,9 +700,9 @@ schema={adjusterSchema}
                     onMouseLeave={() => setIsComparing(false)}
                     onTouchStart={() => setIsComparing(true)}
                     onTouchEnd={() => setIsComparing(false)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center gap-1.5 select-none ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center gap-1.5 select-none active:scale-95 ${
                       isComparing
-                        ? 'bg-amber-500 border-amber-500 text-white shadow-sm'
+                        ? 'bg-amber-500 border-amber-500 text-white shadow-sm ring-2 ring-amber-400/40'
                         : 'bg-slate-50 dark:bg-slate-800 border-slate-200/80 dark:border-slate-700 text-slate-700 dark:text-slate-300'
                     }`}
                   >
@@ -576,7 +712,7 @@ schema={adjusterSchema}
 
                   <button
                     onClick={() => setShowSplitView(!showSplitView)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center gap-1.5 ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center gap-1.5 active:scale-95 ${
                       showSplitView
                         ? 'bg-blue-600 border-blue-600 text-white shadow-sm'
                         : 'bg-slate-50 dark:bg-slate-800 border-slate-200/80 dark:border-slate-700 text-slate-700 dark:text-slate-300'
@@ -595,7 +731,7 @@ schema={adjusterSchema}
                       max="100"
                       value={compareSplit}
                       onChange={(e) => setCompareSplit(Number(e.target.value))}
-                      className="range-styled w-full"
+                      className="range-styled w-full accent-blue-600"
                     />
                   </div>
                 )}
@@ -614,6 +750,30 @@ schema={adjusterSchema}
               </div>
             </div>
 
+          </div>
+        )}
+
+        {/* Floating Mobile Bottom Action Dock */}
+        {imageSrc && (
+          <div className="fixed bottom-4 left-4 right-4 sm:hidden z-30 flex items-center justify-between p-2.5 bg-slate-900/90 dark:bg-slate-850/95 text-white rounded-2xl backdrop-blur-xl shadow-2xl border border-white/10 animate-fade-in">
+            <button
+              onClick={() => {
+                previewContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="py-2 px-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+            >
+              <Eye className="w-4 h-4 text-blue-400" />
+              <span>Canvas</span>
+            </button>
+
+            <button
+              onClick={handleDownload}
+              disabled={isProcessing}
+              className="py-2 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+            >
+              <Download className="w-4 h-4" />
+              <span>Export Image</span>
+            </button>
           </div>
         )}
 

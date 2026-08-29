@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, RefreshCw, Undo2, Redo2, Trash2, EyeOff, ShieldAlert, Sparkles, Square, Stamp } from 'lucide-react';
+import { Download, RefreshCw, Undo2, Redo2, Trash2, EyeOff, ShieldAlert, Sparkles, Square, Stamp, Eye, Minus, Plus } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -48,11 +48,13 @@ export const ImageRedactor: React.FC<ImageRedactorProps> = ({
   const [currentPos, setCurrentPos] = useState<{ x: number; y: number } | null>(null);
 
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [isComparing, setIsComparing] = useState<boolean>(false);
   const [exportFormat, setExportFormat] = useState<'image/png' | 'image/jpeg' | 'image/webp'>('image/png');
   const [jpegQuality, setJpegQuality] = useState<number>(95);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const baseImageRef = useRef<HTMLImageElement | null>(null);
+  const previewContainerRef = useRef<HTMLDivElement>(null);
 
   const handleFilesSelected = (files: File[]) => {
     if (files.length > 0) {
@@ -407,8 +409,44 @@ schema={redactorSchema}
             
             {/* Control Sidebar (5 cols) */}
             <div className="lg:col-span-5 space-y-6">
-              <div className="premium-bento p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-5 shadow-xl shadow-slate-200/20 dark:shadow-none">
+              <div className="premium-bento p-5 sm:p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-5 shadow-xl shadow-slate-200/20 dark:shadow-none">
                 
+                {/* 1-Tap Quick Censor Presets */}
+                <div className="space-y-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+                  <span className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
+                    Censor Presets
+                  </span>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    <button
+                      onClick={() => {
+                        setRedactionMode('solid');
+                        setSolidColor('#000000');
+                      }}
+                      className="py-2 px-1 rounded-xl text-[10px] font-bold bg-slate-100 dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-red-950/40 text-slate-700 dark:text-slate-300 hover:text-red-600 border border-slate-200/60 dark:border-slate-700/60 transition cursor-pointer active:scale-95 text-center truncate"
+                    >
+                      ⚡ Blackout
+                    </button>
+                    <button
+                      onClick={() => {
+                        setRedactionMode('blur');
+                        setBlurRadius(28);
+                      }}
+                      className="py-2 px-1 rounded-xl text-[10px] font-bold bg-slate-100 dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-red-950/40 text-slate-700 dark:text-slate-300 hover:text-red-600 border border-slate-200/60 dark:border-slate-700/60 transition cursor-pointer active:scale-95 text-center truncate"
+                    >
+                      ✨ Heavy Blur
+                    </button>
+                    <button
+                      onClick={() => {
+                        setRedactionMode('pixelate');
+                        setPixelSize(20);
+                      }}
+                      className="py-2 px-1 rounded-xl text-[10px] font-bold bg-slate-100 dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-red-950/40 text-slate-700 dark:text-slate-300 hover:text-red-600 border border-slate-200/60 dark:border-slate-700/60 transition cursor-pointer active:scale-95 text-center truncate"
+                    >
+                      🧱 Pixelate
+                    </button>
+                  </div>
+                </div>
+
                 {/* Redaction Mode Selection */}
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
@@ -417,7 +455,7 @@ schema={redactorSchema}
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={() => setRedactionMode('solid')}
-                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-2.5 ${
+                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-2.5 active:scale-95 ${
                         redactionMode === 'solid'
                           ? 'bg-red-50 dark:bg-red-950/50 border-red-300 dark:border-red-700 shadow-sm'
                           : 'bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800'
@@ -432,7 +470,7 @@ schema={redactorSchema}
 
                     <button
                       onClick={() => setRedactionMode('pixelate')}
-                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-2.5 ${
+                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-2.5 active:scale-95 ${
                         redactionMode === 'pixelate'
                           ? 'bg-red-50 dark:bg-red-950/50 border-red-300 dark:border-red-700 shadow-sm'
                           : 'bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800'
@@ -447,7 +485,7 @@ schema={redactorSchema}
 
                     <button
                       onClick={() => setRedactionMode('blur')}
-                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-2.5 ${
+                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-2.5 active:scale-95 ${
                         redactionMode === 'blur'
                           ? 'bg-red-50 dark:bg-red-950/50 border-red-300 dark:border-red-700 shadow-sm'
                           : 'bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800'
@@ -462,7 +500,7 @@ schema={redactorSchema}
 
                     <button
                       onClick={() => setRedactionMode('stamp')}
-                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-2.5 ${
+                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-2.5 active:scale-95 ${
                         redactionMode === 'stamp'
                           ? 'bg-red-50 dark:bg-red-950/50 border-red-300 dark:border-red-700 shadow-sm'
                           : 'bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800'
@@ -495,7 +533,7 @@ schema={redactorSchema}
                           <button
                             key={c}
                             onClick={() => setSolidColor(c)}
-                            className="w-6 h-6 rounded-full border border-slate-300 dark:border-slate-600 cursor-pointer shadow-sm"
+                            className="w-6 h-6 rounded-full border border-slate-300 dark:border-slate-600 cursor-pointer shadow-sm active:scale-90 transition"
                             style={{ backgroundColor: c }}
                           />
                         ))}
@@ -506,9 +544,25 @@ schema={redactorSchema}
 
                 {redactionMode === 'pixelate' && (
                   <div className="space-y-1 pt-1 border-t border-slate-100 dark:border-slate-800">
-                    <div className="flex justify-between text-xs font-bold text-slate-600 dark:text-slate-400">
+                    <div className="flex justify-between items-center text-xs font-bold text-slate-600 dark:text-slate-400">
                       <span>Pixel Block Size</span>
-                      <span className="font-mono text-red-600">{pixelSize} px</span>
+                      <div className="flex items-center gap-1 font-mono">
+                        <button 
+                          onClick={() => setPixelSize(Math.max(6, pixelSize - 2))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-red-600"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 border border-red-100 dark:border-red-900/50 px-1.5 py-0.5 rounded text-[10px] min-w-[36px] text-center">
+                          {pixelSize}px
+                        </span>
+                        <button 
+                          onClick={() => setPixelSize(Math.min(40, pixelSize + 2))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-red-600"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
@@ -523,9 +577,25 @@ schema={redactorSchema}
 
                 {redactionMode === 'blur' && (
                   <div className="space-y-1 pt-1 border-t border-slate-100 dark:border-slate-800">
-                    <div className="flex justify-between text-xs font-bold text-slate-600 dark:text-slate-400">
+                    <div className="flex justify-between items-center text-xs font-bold text-slate-600 dark:text-slate-400">
                       <span>Blur Strength</span>
-                      <span className="font-mono text-red-600">{blurRadius} px</span>
+                      <div className="flex items-center gap-1 font-mono">
+                        <button 
+                          onClick={() => setBlurRadius(Math.max(8, blurRadius - 2))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-red-600"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 border border-red-100 dark:border-red-900/50 px-1.5 py-0.5 rounded text-[10px] min-w-[36px] text-center">
+                          {blurRadius}px
+                        </span>
+                        <button 
+                          onClick={() => setBlurRadius(Math.min(50, blurRadius + 2))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-red-600"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                     <input
                       type="range"
@@ -557,7 +627,7 @@ schema={redactorSchema}
                   <button
                     onClick={handleUndo}
                     disabled={history.length === 0}
-                    className="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-40"
+                    className="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-40 active:scale-95"
                   >
                     <Undo2 className="w-3.5 h-3.5" />
                     <span>Undo</span>
@@ -565,7 +635,7 @@ schema={redactorSchema}
                   <button
                     onClick={handleRedo}
                     disabled={redoStack.length === 0}
-                    className="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-40"
+                    className="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-40 active:scale-95"
                   >
                     <Redo2 className="w-3.5 h-3.5" />
                     <span>Redo</span>
@@ -573,7 +643,7 @@ schema={redactorSchema}
                   <button
                     onClick={handleClearAll}
                     disabled={history.length === 0}
-                    className="py-2.5 px-3 rounded-xl bg-red-50 dark:bg-red-950/40 hover:bg-red-100 text-red-600 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-40"
+                    className="py-2.5 px-3 rounded-xl bg-red-50 dark:bg-red-950/40 hover:bg-red-100 dark:hover:bg-red-900/60 text-red-600 dark:text-red-400 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-40 active:scale-95"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                     <span>Clear ({history.length})</span>
@@ -625,7 +695,7 @@ schema={redactorSchema}
                 <div className="flex gap-3 pt-2">
                   <button
                     onClick={handleReset}
-                    className="flex-1 py-3 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2"
+                    className="flex-1 py-3 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95"
                   >
                     <RefreshCw className="w-4 h-4" />
                     <span>Reset</span>
@@ -633,7 +703,7 @@ schema={redactorSchema}
                   <button
                     onClick={handleDownload}
                     disabled={isProcessing}
-                    className="flex-2 py-3 px-4 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-700 hover:to-rose-700 text-white font-bold text-sm shadow-lg shadow-red-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="flex-2 py-3 px-4 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-700 hover:to-rose-700 text-white font-bold text-sm shadow-lg shadow-red-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 active:scale-95"
                   >
                     <Download className="w-4 h-4" />
                     <span>Download Sanitized Photo</span>
@@ -644,33 +714,87 @@ schema={redactorSchema}
             </div>
 
             {/* Stage Preview with Drag-to-Censor (7 cols) */}
-            <div className="lg:col-span-7 space-y-4">
+            <div ref={previewContainerRef} className="lg:col-span-7 space-y-4">
               <div className="relative rounded-3xl bg-slate-950/5 dark:bg-slate-950/50 border border-slate-200/80 dark:border-slate-800 p-4 min-h-[420px] flex flex-col items-center justify-center overflow-hidden">
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                   <span>Click & Drag to Draw Redaction Box on Canvas</span>
                 </div>
 
                 <div className="relative max-w-full max-h-[600px] overflow-hidden rounded-2xl shadow-xl border border-slate-300 dark:border-slate-700 cursor-crosshair">
-                  <canvas
-                    ref={canvasRef}
-                    onMouseDown={handleMouseDown}
-                    onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUp}
-                    onMouseLeave={handleMouseUp}
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleMouseUp}
-                    onTouchCancel={handleMouseUp}
-                    className="max-w-full max-h-[600px] object-contain select-none touch-none"
-                  />
+                  {isComparing ? (
+                    <div className="relative flex items-center justify-center animate-fade-in">
+                      <img
+                        src={imageUrl}
+                        alt="Original Unredacted"
+                        className="max-w-full max-h-[600px] object-contain select-none pointer-events-none"
+                      />
+                      <span className="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                        Original Unredacted Document
+                      </span>
+                    </div>
+                  ) : (
+                    <canvas
+                      ref={canvasRef}
+                      onMouseDown={handleMouseDown}
+                      onMouseMove={handleMouseMove}
+                      onMouseUp={handleMouseUp}
+                      onMouseLeave={handleMouseUp}
+                      onTouchStart={handleTouchStart}
+                      onTouchMove={handleTouchMove}
+                      onTouchEnd={handleMouseUp}
+                      onTouchCancel={handleMouseUp}
+                      className="max-w-full max-h-[600px] object-contain select-none touch-none"
+                    />
+                  )}
+
+                  {/* Hold to Compare Original */}
+                  <button
+                    onMouseDown={() => setIsComparing(true)}
+                    onMouseUp={() => setIsComparing(false)}
+                    onMouseLeave={() => setIsComparing(false)}
+                    onTouchStart={() => setIsComparing(true)}
+                    onTouchEnd={() => setIsComparing(false)}
+                    className={`absolute top-4 right-4 px-2.5 py-1 rounded-xl text-[10px] font-bold border transition flex items-center gap-1 cursor-pointer select-none backdrop-blur-md shadow-sm active:scale-95 z-20 ${
+                      isComparing 
+                        ? 'bg-amber-500 text-white border-amber-600 ring-2 ring-amber-400/40' 
+                        : 'bg-white/90 dark:bg-slate-900/90 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+                    }`}
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>{isComparing ? 'Original' : 'Hold to Compare'}</span>
+                  </button>
                 </div>
               </div>
 
               <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-2 font-medium">
                 <span>{history.length} Redaction Areas Applied</span>
-                <span>Canvas Pixels Mutated in Local RAM</span>
+                <span>🔒 Canvas Pixels Mutated in Local RAM</span>
               </div>
             </div>
+
+            {/* Floating Mobile Bottom Action Dock */}
+            {imageUrl && (
+              <div className="fixed bottom-4 left-4 right-4 sm:hidden z-30 flex items-center justify-between p-2.5 bg-slate-900/90 dark:bg-slate-850/95 text-white rounded-2xl backdrop-blur-xl shadow-2xl border border-white/10 animate-fade-in">
+                <button
+                  onClick={() => {
+                    previewContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="py-2 px-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+                >
+                  <Eye className="w-4 h-4 text-red-400" />
+                  <span>Canvas</span>
+                </button>
+
+                <button
+                  onClick={handleDownload}
+                  disabled={isProcessing}
+                  className="py-2 px-4 bg-gradient-to-r from-red-600 to-rose-600 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer active:scale-95 transition disabled:opacity-50"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Save Sanitized</span>
+                </button>
+              </div>
+            )}
 
           </div>
         )}

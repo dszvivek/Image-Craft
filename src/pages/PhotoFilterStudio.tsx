@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, RefreshCw, Wand2, Palette, Sparkles, Sliders, Check } from 'lucide-react';
+import { Download, RefreshCw, Wand2, Palette, Sparkles, Sliders, Check, Eye, Minus, Plus } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -65,9 +65,11 @@ export const PhotoFilterStudio: React.FC<PhotoFilterStudioProps> = ({
   const [exportFormat, setExportFormat] = useState<'image/png' | 'image/jpeg' | 'image/webp'>('image/png');
   const [jpegQuality, setJpegQuality] = useState<number>(92);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [isComparing, setIsComparing] = useState<boolean>(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const originalDataRef = useRef<ImageData | null>(null);
+  const previewContainerRef = useRef<HTMLDivElement>(null);
 
   const handleFilesSelected = (files: File[]) => {
     if (files.length > 0) {
@@ -465,31 +467,46 @@ schema={filterSchema}
                   </div>
                 )}
 
-                {/* Intensity Slider */}
+                {/* Intensity Slider with Steppers */}
                 <div className="space-y-2">
                   <div className="flex justify-between items-center text-xs font-bold">
-                    <span className="text-[10px] text-slate-400 uppercase tracking-widest flex items-center gap-1">
+                    <span className="text-[10px] text-slate-450 dark:text-slate-400 uppercase tracking-widest flex items-center gap-1">
                       <Sliders className="w-3 h-3 text-purple-500" />
                       Filter Intensity
                     </span>
-                    <span className="font-mono text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/60 px-2 py-0.5 rounded">
-                      {intensity}%
-                    </span>
+                    <div className="flex items-center gap-1.5 font-mono">
+                      <button 
+                        onClick={() => setIntensity(Math.max(0, intensity - 10))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-purple-600"
+                      >
+                        <Minus className="w-3 h-3" />
+                      </button>
+                      <span className="font-mono text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/60 px-2 py-0.5 rounded border border-purple-100 dark:border-purple-900/50 min-w-[36px] text-center text-[10px] font-bold">
+                        {intensity}%
+                      </span>
+                      <button 
+                        onClick={() => setIntensity(Math.min(100, intensity + 10))}
+                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition text-purple-600"
+                      >
+                        <Plus className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                   <input
                     type="range"
                     min="0"
                     max="100"
+                    step="5"
                     value={intensity}
                     onChange={(e) => setIntensity(Number(e.target.value))}
-                    className="range-styled w-full"
+                    className="range-styled w-full accent-purple-600"
                   />
                 </div>
 
                 {/* Export Format & Quality */}
                 <div className="space-y-3 pt-2 border-t border-slate-100 dark:border-slate-800">
                   <div className="flex items-center justify-between">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest">
                       Output Format
                     </label>
                     <div className="flex gap-1.5">
@@ -497,10 +514,10 @@ schema={filterSchema}
                         <button
                           key={fmt}
                           onClick={() => setExportFormat(fmt)}
-                          className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                          className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95 ${
                             exportFormat === fmt
-                              ? 'bg-purple-600 text-white'
-                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                              ? 'bg-purple-600 text-white shadow-xs'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
                           }`}
                         >
                           {fmt === 'image/png' ? 'PNG' : fmt === 'image/jpeg' ? 'JPEG' : 'WebP'}
@@ -521,7 +538,7 @@ schema={filterSchema}
                         max="100"
                         value={jpegQuality}
                         onChange={(e) => setJpegQuality(Number(e.target.value))}
-                        className="range-styled w-full"
+                        className="range-styled w-full accent-purple-600"
                       />
                     </div>
                   )}
@@ -531,7 +548,7 @@ schema={filterSchema}
                 <div className="flex gap-3 pt-2">
                   <button
                     onClick={handleReset}
-                    className="flex-1 py-3 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2"
+                    className="flex-1 py-3 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-300 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95"
                   >
                     <RefreshCw className="w-4 h-4" />
                     <span>Reset</span>
@@ -539,7 +556,7 @@ schema={filterSchema}
                   <button
                     onClick={handleDownload}
                     disabled={isProcessing}
-                    className="flex-2 py-3 px-4 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-sm shadow-lg shadow-purple-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="flex-2 py-3 px-4 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs shadow-lg shadow-purple-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 active:scale-95"
                   >
                     <Download className="w-4 h-4" />
                     <span>{isProcessing ? 'Processing...' : 'Download Image'}</span>
@@ -550,12 +567,42 @@ schema={filterSchema}
             </div>
 
             {/* Preview Stage (7 cols) */}
-            <div className="lg:col-span-7 space-y-4">
+            <div ref={previewContainerRef} className="lg:col-span-7 space-y-4 order-1 lg:order-2">
               <div className="relative rounded-3xl bg-slate-950/5 dark:bg-slate-950/50 border border-slate-200/80 dark:border-slate-800 p-4 min-h-[420px] flex items-center justify-center overflow-hidden">
-                <canvas
-                  ref={canvasRef}
-                  className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-xl transition-all"
-                />
+                {isComparing ? (
+                  <div className="relative flex items-center justify-center animate-fade-in">
+                    <img
+                      src={imageSrc}
+                      alt="Original"
+                      className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-xl"
+                    />
+                    <span className="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                      Original Photo
+                    </span>
+                  </div>
+                ) : (
+                  <canvas
+                    ref={canvasRef}
+                    className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-xl transition-all"
+                  />
+                )}
+
+                {/* Hold to Compare Live Button */}
+                <button
+                  onMouseDown={() => setIsComparing(true)}
+                  onMouseUp={() => setIsComparing(false)}
+                  onMouseLeave={() => setIsComparing(false)}
+                  onTouchStart={() => setIsComparing(true)}
+                  onTouchEnd={() => setIsComparing(false)}
+                  className={`absolute top-4 right-4 px-2.5 py-1 rounded-xl text-[10px] font-bold border transition flex items-center gap-1 cursor-pointer select-none backdrop-blur-md shadow-sm active:scale-95 ${
+                    isComparing 
+                      ? 'bg-amber-500 text-white border-amber-600 ring-2 ring-amber-400/40' 
+                      : 'bg-white/90 dark:bg-slate-900/90 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+                  }`}
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  <span>{isComparing ? 'Original' : 'Hold to Compare'}</span>
+                </button>
               </div>
 
               <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-2 font-medium">
@@ -564,6 +611,30 @@ schema={filterSchema}
               </div>
             </div>
 
+          </div>
+        )}
+
+        {/* Floating Mobile Bottom Action Dock */}
+        {imageSrc && (
+          <div className="fixed bottom-4 left-4 right-4 sm:hidden z-30 flex items-center justify-between p-2.5 bg-slate-900/90 dark:bg-slate-850/95 text-white rounded-2xl backdrop-blur-xl shadow-2xl border border-white/10 animate-fade-in">
+            <button
+              onClick={() => {
+                previewContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="py-2 px-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+            >
+              <Eye className="w-4 h-4 text-purple-400" />
+              <span>Canvas</span>
+            </button>
+
+            <button
+              onClick={handleDownload}
+              disabled={isProcessing}
+              className="py-2 px-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+            >
+              <Download className="w-4 h-4" />
+              <span>Export Image</span>
+            </button>
           </div>
         )}
 
