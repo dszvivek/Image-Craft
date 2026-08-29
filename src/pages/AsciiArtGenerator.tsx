@@ -609,41 +609,45 @@ schema={asciiSchema}
                     : 'bg-[#0B0F19] text-slate-100'
                 }`}
               >
-                {isComparing ? (
-                  <div className="relative flex flex-col items-center justify-center animate-fade-in py-6">
+                {/* ASCII output element is preserved */}
+                <div className={isComparing ? 'opacity-0' : 'opacity-100'}>
+                  {colorTheme === 'colored-html' ? (
+                    <pre
+                      ref={preRef}
+                      dangerouslySetInnerHTML={{ __html: coloredHtml }}
+                      className="m-0 p-0 font-mono"
+                    />
+                  ) : (
+                    <pre ref={preRef} className="m-0 p-0 font-mono">
+                      {plainAscii}
+                    </pre>
+                  )}
+                </div>
+
+                {/* Hold to Compare Overlay */}
+                {isComparing && (
+                  <div className="absolute inset-0 flex items-center justify-center p-4 pointer-events-none animate-fade-in z-10">
                     <img
                       src={imageUrl}
                       alt="Original"
-                      className="max-w-full max-h-[500px] object-contain rounded-2xl shadow-xl"
+                      className="max-w-full max-h-[500px] object-contain rounded-2xl shadow-xl select-none"
                     />
-                    <span className="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                    <span className="absolute top-7 left-7 bg-black/80 backdrop-blur-md text-amber-300 border border-amber-500/40 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
                       Original Photo
                     </span>
                   </div>
-                ) : (
-                  <>
-                    {colorTheme === 'colored-html' ? (
-                      <pre
-                        ref={preRef}
-                        dangerouslySetInnerHTML={{ __html: coloredHtml }}
-                        className="m-0 p-0 font-mono"
-                      />
-                    ) : (
-                      <pre ref={preRef} className="m-0 p-0 font-mono">
-                        {plainAscii}
-                      </pre>
-                    )}
-                  </>
                 )}
 
                 {/* Hold to Compare Button */}
                 <button
-                  onMouseDown={() => setIsComparing(true)}
+                  onMouseDown={(e) => { e.preventDefault(); setIsComparing(true); }}
                   onMouseUp={() => setIsComparing(false)}
                   onMouseLeave={() => setIsComparing(false)}
-                  onTouchStart={() => setIsComparing(true)}
-                  onTouchEnd={() => setIsComparing(false)}
-                  className={`absolute top-4 right-4 px-2.5 py-1 rounded-xl text-[10px] font-bold border transition flex items-center gap-1 cursor-pointer select-none backdrop-blur-md shadow-sm active:scale-95 ${
+                  onTouchStart={(e) => { e.preventDefault(); setIsComparing(true); }}
+                  onTouchEnd={(e) => { e.preventDefault(); setIsComparing(false); }}
+                  onTouchCancel={() => setIsComparing(false)}
+                  onContextMenu={(e) => e.preventDefault()}
+                  className={`absolute top-4 right-4 px-2.5 py-1 rounded-xl text-[10px] font-bold border transition flex items-center gap-1 cursor-pointer select-none backdrop-blur-md shadow-sm active:scale-95 z-20 ${
                     isComparing 
                       ? 'bg-amber-500 text-white border-amber-600 ring-2 ring-amber-400/40' 
                       : 'bg-white/90 dark:bg-slate-900/90 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'

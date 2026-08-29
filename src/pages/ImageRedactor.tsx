@@ -721,39 +721,45 @@ schema={redactorSchema}
                 </div>
 
                 <div className="relative max-w-full max-h-[600px] overflow-hidden rounded-2xl shadow-xl border border-slate-300 dark:border-slate-700 cursor-crosshair">
-                  {isComparing ? (
-                    <div className="relative flex items-center justify-center animate-fade-in">
+                  {/* Canvas is kept mounted at all times to prevent destroying redaction drawing state */}
+                  <canvas
+                    ref={canvasRef}
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseUp}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleMouseUp}
+                    onTouchCancel={handleMouseUp}
+                    className={`max-w-full max-h-[600px] object-contain select-none touch-none ${
+                      isComparing ? 'opacity-0' : 'opacity-100'
+                    }`}
+                  />
+
+                  {/* Hold to Compare Original */}
+                  {isComparing && (
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none animate-fade-in z-10">
                       <img
                         src={imageUrl}
                         alt="Original Unredacted"
                         className="max-w-full max-h-[600px] object-contain select-none pointer-events-none"
                       />
-                      <span className="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                      <span className="absolute top-3 left-3 bg-black/80 backdrop-blur-md text-amber-300 border border-amber-500/40 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
                         Original Unredacted Document
                       </span>
                     </div>
-                  ) : (
-                    <canvas
-                      ref={canvasRef}
-                      onMouseDown={handleMouseDown}
-                      onMouseMove={handleMouseMove}
-                      onMouseUp={handleMouseUp}
-                      onMouseLeave={handleMouseUp}
-                      onTouchStart={handleTouchStart}
-                      onTouchMove={handleTouchMove}
-                      onTouchEnd={handleMouseUp}
-                      onTouchCancel={handleMouseUp}
-                      className="max-w-full max-h-[600px] object-contain select-none touch-none"
-                    />
                   )}
 
-                  {/* Hold to Compare Original */}
+                  {/* Hold to Compare Original Button */}
                   <button
-                    onMouseDown={() => setIsComparing(true)}
+                    onMouseDown={(e) => { e.preventDefault(); setIsComparing(true); }}
                     onMouseUp={() => setIsComparing(false)}
                     onMouseLeave={() => setIsComparing(false)}
-                    onTouchStart={() => setIsComparing(true)}
-                    onTouchEnd={() => setIsComparing(false)}
+                    onTouchStart={(e) => { e.preventDefault(); setIsComparing(true); }}
+                    onTouchEnd={(e) => { e.preventDefault(); setIsComparing(false); }}
+                    onTouchCancel={() => setIsComparing(false)}
+                    onContextMenu={(e) => e.preventDefault()}
                     className={`absolute top-4 right-4 px-2.5 py-1 rounded-xl text-[10px] font-bold border transition flex items-center gap-1 cursor-pointer select-none backdrop-blur-md shadow-sm active:scale-95 z-20 ${
                       isComparing 
                         ? 'bg-amber-500 text-white border-amber-600 ring-2 ring-amber-400/40' 

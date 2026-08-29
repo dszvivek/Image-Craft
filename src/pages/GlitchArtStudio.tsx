@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, RefreshCw, Zap, Eye, Sparkles, Tv, Radio } from 'lucide-react';
+import { Download, RefreshCw, Zap, Eye, Sparkles, Minus, Plus, Shuffle } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { SEO } from '../components/SEO';
 import { ToolGuide } from '../components/ToolGuide';
@@ -31,7 +31,7 @@ export const GlitchArtStudio: React.FC<GlitchArtStudioProps> = ({
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
   const [exportFormat, setExportFormat] = useState<'image/png' | 'image/jpeg' | 'image/webp'>('image/png');
-  const [jpegQuality, setJpegQuality] = useState<number>(92);
+  const [jpegQuality] = useState<number>(92);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -57,17 +57,6 @@ export const GlitchArtStudio: React.FC<GlitchArtStudioProps> = ({
     return x - Math.floor(x);
   };
 
-  // Randomize all parameters
-  const handleRandomGlitch = () => {
-    setRgbShift(Math.floor(Math.random() * 45) + 5);
-    setSliceCount(Math.floor(Math.random() * 20) + 4);
-    setSliceOffset(Math.floor(Math.random() * 60) + 15);
-    setScanlineOpacity(Math.floor(Math.random() * 50) + 10);
-    setNoiseAmount(Math.floor(Math.random() * 30) + 5);
-    setColorInvertBand(Math.random() > 0.4);
-    setSeed(Math.random() * 1000);
-  };
-
   // Render Glitch Canvas
   useEffect(() => {
     if (!imageUrl || imageSize.width === 0 || imageSize.height === 0) return;
@@ -85,12 +74,6 @@ export const GlitchArtStudio: React.FC<GlitchArtStudioProps> = ({
 
       const ctx = canvas.getContext('2d', { willReadFrequently: true });
       if (!ctx) return;
-
-      if (isComparing) {
-        // Draw original clean image
-        ctx.drawImage(img, 0, 0, w, h);
-        return;
-      }
 
       // 1. Offscreen source buffer
       const srcCanvas = document.createElement('canvas');
@@ -192,7 +175,7 @@ export const GlitchArtStudio: React.FC<GlitchArtStudioProps> = ({
         ctx.restore();
       }
     };
-  }, [imageUrl, imageSize, rgbShift, sliceCount, sliceOffset, scanlineOpacity, noiseAmount, colorInvertBand, seed, isComparing]);
+  }, [imageUrl, imageSize, rgbShift, sliceCount, sliceOffset, scanlineOpacity, noiseAmount, colorInvertBand, seed]);
 
   const handleDownload = () => {
     const canvas = canvasRef.current;
@@ -213,8 +196,18 @@ export const GlitchArtStudio: React.FC<GlitchArtStudioProps> = ({
         setIsProcessing(false);
       },
       exportFormat,
-      exportFormat === 'image/jpeg' ? jpegQuality / 100 : undefined
+      jpegQuality / 100
     );
+  };
+
+  const handleRandomGlitch = () => {
+    setRgbShift(Math.floor(Math.random() * 25) + 3);
+    setSliceCount(Math.floor(Math.random() * 8) + 1);
+    setSliceOffset(Math.floor(Math.random() * 35) + 5);
+    setScanlineOpacity(Math.floor(Math.random() * 60) + 10);
+    setNoiseAmount(Math.floor(Math.random() * 40) + 5);
+    setColorInvertBand(Math.random() > 0.5);
+    setSeed(Math.floor(Math.random() * 10000));
   };
 
   const handleReset = () => {
@@ -222,53 +215,50 @@ export const GlitchArtStudio: React.FC<GlitchArtStudioProps> = ({
     setFile(null);
     setImageUrl('');
     setImageSize({ width: 0, height: 0 });
-    setRgbShift(18);
-    setSliceCount(12);
-    setSliceOffset(35);
-    setScanlineOpacity(40);
+    setRgbShift(8);
+    setSliceCount(4);
+    setSliceOffset(15);
+    setScanlineOpacity(25);
     setNoiseAmount(15);
-    setColorInvertBand(true);
+    setColorInvertBand(false);
+    setSeed(42);
+    setIsProcessing(false);
+    setIsComparing(false);
   };
 
   const glitchSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    'name': 'Glitch Art & CRT Distortion Studio - ImagePlumber',
-    'applicationCategory': 'MultimediaApplication',
-    'operatingSystem': 'Web Browser',
-    'offers': {
+    name: 'Glitch Art Studio & CRT Filter - ImagePlumber',
+    applicationCategory: 'MultimediaApplication',
+    operatingSystem: 'Web Browser',
+    offers: {
       '@type': 'Offer',
-      'price': '0',
-      'priceCurrency': 'USD',
+      price: '0',
+      priceCurrency: 'USD',
     },
-    'description': 'Create surreal glitch art, chromatic aberration, and CRT television scanline effects online for free. 100% private in-browser canvas studio.',
-    'featureList': [
-      'RGB channel split and chromatic aberration displacement',
-      'Horizontal digital slice datamoshing engine',
-      'CRT television scanlines and phosphor noise simulation',
-      '1-Click Glitch Me randomizer and lossless PNG/JPEG export'
-    ]
+    description: 'Transform photos into aesthetic retro glitch art, VHS datamoshing, CRT TV scanlines, and RGB chromatic aberration effects online for free.',
   };
 
   return (
     <div className="py-8 md:py-12 max-w-7xl mx-auto px-4 sm:px-6">
       <SEO
-        title={pageTitle || "Glitch Image Generator & CRT VHS Distortion Free | ImagePlumber"}
-        description={pageSubtitle || "Create surreal glitch art, RGB chromatic aberration, and retro CRT television scanlines online for free. 100% client-side in-browser studio."}
-schema={glitchSchema}
+        title={pageTitle || "Glitch Art Generator & VHS CRT Effect Online Free | ImagePlumber"}
+        description={pageSubtitle || "Create aesthetic cyberpunk glitch art, RGB chromatic split, VHS scanlines, and datamosh slice effects online for free. 100% client-side."}
+        schema={glitchSchema}
       />
 
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-50 dark:bg-violet-950/50 border border-violet-200 dark:border-violet-800 text-violet-650 dark:text-violet-300 text-xs font-semibold uppercase tracking-wider mb-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-pink-50 dark:bg-pink-950/50 border border-pink-200 dark:border-pink-800 text-pink-650 dark:text-pink-300 text-xs font-semibold uppercase tracking-wider mb-4">
           <Zap className="w-3.5 h-3.5" />
-          <span>Vaporwave & Glitch Engine</span>
+          <span>Vaporwave & Cyberpunk FX</span>
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight leading-tight mb-4">
-          {pageTitle || "Glitch Art & CRT Distortion Studio"}
+          {pageTitle || "Glitch Art Studio"}
         </h1>
         <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300">
-          {pageSubtitle || "Generate RGB chromatic aberration, datamoshing slice corruption, VHS static noise, and retro CRT television scanlines in real time."}
+          {pageSubtitle || "Transform photos into aesthetic retro glitch art with RGB channel displacement, CRT scanlines, and VHS datamosh slice distortion."}
         </p>
       </div>
 
@@ -278,22 +268,22 @@ schema={glitchSchema}
             <div className="md:col-span-7 flex flex-col justify-center">
               <DropZone
                 onFilesSelected={handleFilesSelected}
-                title="Drop photo to generate surreal glitch art"
+                title="Drop photo for glitch processing"
                 subtitle="Supports JPG, PNG, WebP, HEIC up to 50MB"
               />
             </div>
             <div className="md:col-span-5 flex">
               <div className="premium-bento rounded-3xl p-6 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 flex flex-col justify-between w-full shadow-sm">
                 <div className="space-y-4">
-                  <div className="text-[10px] font-bold text-violet-650 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/50 border border-violet-100 dark:border-violet-900 px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                    Cybernetic Distortion
+                  <div className="text-[10px] font-bold text-pink-650 dark:text-pink-400 bg-pink-50 dark:bg-pink-950/50 border border-pink-100 dark:border-pink-900 px-2 py-0.5 rounded uppercase tracking-wider inline-block">
+                    Realtime GPU/Canvas 2D
                   </div>
-                  <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">RGB Displacement & Scanlines</h2>
+                  <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100">Chromatic Channel Split</h2>
                   <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-                    Separate red, green, and blue color channels and apply digital datamoshing slices for high-impact album covers and aesthetic artwork.
+                    Shift red and blue pixel buffers horizontally to recreate authentic analog CRT television monitor artifacts and retro VHS distortion.
                   </p>
                 </div>
-                <DemoPreview toolId="glitch" alt="Glitch Art Generator Preview" />
+                <DemoPreview toolId="glitch" alt="Glitch Art Studio Preview" />
               </div>
             </div>
           </div>
@@ -304,28 +294,28 @@ schema={glitchSchema}
             <div className="lg:col-span-5 space-y-6 order-2 lg:order-1">
               <div className="premium-bento p-5 sm:p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-5 shadow-xl shadow-slate-200/20 dark:shadow-none">
                 
-                {/* 1-Tap Glitch Presets */}
+                {/* 1-Tap Quick Style Presets */}
                 <div className="space-y-2 pb-2 border-b border-slate-100 dark:border-slate-800">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
-                    1-Tap Glitch Presets
+                  <span className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest block">
+                    Glitch Presets
                   </span>
                   <div className="grid grid-cols-3 gap-1.5">
                     {[
-                      { label: '📼 Subtle VHS', rgb: 8, slices: 3, offset: 15, scan: 25, noise: 10 },
-                      { label: '⚡ Cyberpunk', rgb: 22, slices: 10, offset: 40, scan: 50, noise: 20 },
-                      { label: '💥 Meltdown', rgb: 45, slices: 22, offset: 70, scan: 70, noise: 35 },
+                      { label: '📼 Subtle VHS', shift: 6, slices: 2, offset: 8, scanlines: 30, noise: 10, inv: false },
+                      { label: '⚡ Cyberpunk', shift: 16, slices: 5, offset: 25, scanlines: 45, noise: 20, inv: true },
+                      { label: '💥 Meltdown', shift: 30, slices: 10, offset: 45, scanlines: 70, noise: 35, inv: true },
                     ].map((preset, idx) => (
                       <button
                         key={idx}
                         onClick={() => {
-                          setRgbShift(preset.rgb);
+                          setRgbShift(preset.shift);
                           setSliceCount(preset.slices);
                           setSliceOffset(preset.offset);
-                          setScanlineOpacity(preset.scan);
+                          setScanlineOpacity(preset.scanlines);
                           setNoiseAmount(preset.noise);
-                          setSeed(Math.floor(Math.random() * 10000));
+                          setColorInvertBand(preset.inv);
                         }}
-                        className="py-2 px-1.5 rounded-xl text-[10px] font-bold bg-slate-100 dark:bg-slate-800 hover:bg-violet-50 dark:hover:bg-violet-950/40 text-slate-700 dark:text-slate-300 hover:text-violet-600 border border-slate-200/60 dark:border-slate-700/60 transition cursor-pointer active:scale-95 text-center truncate"
+                        className="py-2 px-1 rounded-xl text-[10px] font-bold bg-slate-100 dark:bg-slate-800 hover:bg-pink-50 dark:hover:bg-pink-950/40 text-slate-700 dark:text-slate-300 hover:text-pink-600 border border-slate-200/60 dark:border-slate-700/60 transition cursor-pointer active:scale-95 text-center truncate"
                       >
                         {preset.label}
                       </button>
@@ -333,199 +323,166 @@ schema={glitchSchema}
                   </div>
                 </div>
 
-                {/* Randomize Glitch Button */}
-                <button
-                  onClick={handleRandomGlitch}
-                  className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 hover:from-violet-700 hover:to-pink-700 text-white font-extrabold text-xs shadow-lg shadow-violet-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95"
-                >
-                  <Sparkles className="w-4 h-4 animate-pulse" />
-                  <span>Surprise Me (Random Glitch)</span>
-                </button>
-
-                {/* RGB Chromatic Aberration with Steppers */}
-                <div className="space-y-1.5 pt-2 border-t border-slate-100 dark:border-slate-800">
-                  <div className="flex justify-between items-center text-xs font-bold text-slate-600 dark:text-slate-400">
-                    <span className="flex items-center gap-1.5">
-                      <Radio className="w-3.5 h-3.5 text-violet-500" />
-                      <span>RGB Channel Split</span>
-                    </span>
-                    <div className="flex items-center gap-1.5 font-mono text-violet-600">
-                      <button 
-                        onClick={() => setRgbShift(Math.max(0, rgbShift - 5))}
-                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
-                      >
-                        -
-                      </button>
-                      <span className="min-w-[32px] text-center font-bold">{rgbShift}px</span>
-                      <button 
-                        onClick={() => setRgbShift(Math.min(50, rgbShift + 5))}
-                        className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="50"
-                    step="2"
-                    value={rgbShift}
-                    onChange={(e) => setRgbShift(Number(e.target.value))}
-                    className="range-styled w-full accent-violet-600"
-                  />
-                </div>
-
-                {/* Slice Datamoshing with Steppers */}
-                <div className="space-y-3">
+                {/* Glitch Intensity Sliders with Steppers */}
+                <div className="space-y-4">
+                  {/* RGB Shift with Steppers */}
                   <div className="space-y-1">
                     <div className="flex justify-between items-center text-xs font-bold text-slate-600 dark:text-slate-400">
-                      <span>Slice Displacement Amount</span>
-                      <div className="flex items-center gap-1.5 font-mono text-violet-600">
+                      <span>RGB Channel Split</span>
+                      <div className="flex items-center gap-1.5 font-mono text-pink-600">
                         <button 
-                          onClick={() => setSliceCount(Math.max(0, sliceCount - 2))}
+                          onClick={() => setRgbShift(Math.max(0, rgbShift - 2))}
                           className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
                         >
-                          -
+                          <Minus className="w-3 h-3" />
                         </button>
-                        <span className="min-w-[32px] text-center font-bold">{sliceCount}</span>
+                        <span className="min-w-[36px] text-center font-bold">{rgbShift}px</span>
                         <button 
-                          onClick={() => setSliceCount(Math.min(25, sliceCount + 2))}
+                          onClick={() => setRgbShift(Math.min(50, rgbShift + 2))}
                           className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
                         >
-                          +
+                          <Plus className="w-3 h-3" />
                         </button>
                       </div>
                     </div>
                     <input
                       type="range"
                       min="0"
-                      max="25"
-                      step="1"
+                      max="50"
+                      value={rgbShift}
+                      onChange={(e) => setRgbShift(Number(e.target.value))}
+                      className="range-styled w-full"
+                    />
+                  </div>
+
+                  {/* Slice Count with Steppers */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between items-center text-xs font-bold text-slate-600 dark:text-slate-400">
+                      <span>Datamosh Slices</span>
+                      <div className="flex items-center gap-1.5 font-mono text-pink-600">
+                        <button 
+                          onClick={() => setSliceCount(Math.max(0, sliceCount - 1))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="min-w-[36px] text-center font-bold">{sliceCount}</span>
+                        <button 
+                          onClick={() => setSliceCount(Math.min(15, sliceCount + 1))}
+                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="15"
                       value={sliceCount}
                       onChange={(e) => setSliceCount(Number(e.target.value))}
-                      className="range-styled w-full accent-violet-600"
+                      className="range-styled w-full"
                     />
                   </div>
 
+                  {/* CRT Scanline Opacity with Steppers */}
                   <div className="space-y-1">
                     <div className="flex justify-between items-center text-xs font-bold text-slate-600 dark:text-slate-400">
-                      <span>Slice Jitter Width</span>
-                      <div className="flex items-center gap-1.5 font-mono text-violet-600">
-                        <button 
-                          onClick={() => setSliceOffset(Math.max(0, sliceOffset - 5))}
-                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
-                        >
-                          -
-                        </button>
-                        <span className="min-w-[32px] text-center font-bold">{sliceOffset}px</span>
-                        <button 
-                          onClick={() => setSliceOffset(Math.min(80, sliceOffset + 5))}
-                          className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    <input
-                      type="range"
-                      min="0"
-                      max="80"
-                      step="5"
-                      value={sliceOffset}
-                      onChange={(e) => setSliceOffset(Number(e.target.value))}
-                      className="range-styled w-full accent-violet-600"
-                    />
-                  </div>
-                </div>
-
-                {/* CRT Scanlines & TV Static with Steppers */}
-                <div className="space-y-3 pt-2 border-t border-slate-100 dark:border-slate-800">
-                  <div className="space-y-1">
-                    <div className="flex justify-between items-center text-xs font-bold text-slate-600 dark:text-slate-400">
-                      <span className="flex items-center gap-1.5">
-                        <Tv className="w-3.5 h-3.5 text-violet-500" />
-                        <span>CRT TV Scanlines</span>
-                      </span>
-                      <div className="flex items-center gap-1.5 font-mono text-violet-600">
+                      <span>CRT Scanlines</span>
+                      <div className="flex items-center gap-1.5 font-mono text-pink-600">
                         <button 
                           onClick={() => setScanlineOpacity(Math.max(0, scanlineOpacity - 5))}
                           className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
                         >
-                          -
+                          <Minus className="w-3 h-3" />
                         </button>
-                        <span className="min-w-[32px] text-center font-bold">{scanlineOpacity}%</span>
+                        <span className="min-w-[36px] text-center font-bold">{scanlineOpacity}%</span>
                         <button 
-                          onClick={() => setScanlineOpacity(Math.min(85, scanlineOpacity + 5))}
+                          onClick={() => setScanlineOpacity(Math.min(100, scanlineOpacity + 5))}
                           className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
                         >
-                          +
+                          <Plus className="w-3 h-3" />
                         </button>
                       </div>
                     </div>
                     <input
                       type="range"
                       min="0"
-                      max="85"
-                      step="5"
+                      max="100"
                       value={scanlineOpacity}
                       onChange={(e) => setScanlineOpacity(Number(e.target.value))}
-                      className="range-styled w-full accent-violet-600"
+                      className="range-styled w-full"
                     />
                   </div>
 
+                  {/* Noise Amount with Steppers */}
                   <div className="space-y-1">
                     <div className="flex justify-between items-center text-xs font-bold text-slate-600 dark:text-slate-400">
-                      <span>Analog VHS Noise</span>
-                      <div className="flex items-center gap-1.5 font-mono text-violet-600">
+                      <span>VHS Grain / Noise</span>
+                      <div className="flex items-center gap-1.5 font-mono text-pink-600">
                         <button 
                           onClick={() => setNoiseAmount(Math.max(0, noiseAmount - 5))}
                           className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
                         >
-                          -
+                          <Minus className="w-3 h-3" />
                         </button>
-                        <span className="min-w-[32px] text-center font-bold">{noiseAmount}%</span>
+                        <span className="min-w-[36px] text-center font-bold">{noiseAmount}%</span>
                         <button 
-                          onClick={() => setNoiseAmount(Math.min(45, noiseAmount + 5))}
+                          onClick={() => setNoiseAmount(Math.min(60, noiseAmount + 5))}
                           className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-black cursor-pointer active:scale-90 transition"
                         >
-                          +
+                          <Plus className="w-3 h-3" />
                         </button>
                       </div>
                     </div>
                     <input
                       type="range"
                       min="0"
-                      max="45"
-                      step="5"
+                      max="60"
                       value={noiseAmount}
                       onChange={(e) => setNoiseAmount(Number(e.target.value))}
-                      className="range-styled w-full accent-violet-600"
+                      className="range-styled w-full"
                     />
+                  </div>
+
+                  {/* Invert band toggle */}
+                  <div className="flex items-center justify-between pt-1">
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Negative Color Band</span>
+                    <button
+                      onClick={() => setColorInvertBand(!colorInvertBand)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                        colorInvertBand
+                          ? 'bg-pink-600 text-white border-pink-600'
+                          : 'bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700'
+                      }`}
+                    >
+                      {colorInvertBand ? 'ON' : 'OFF'}
+                    </button>
                   </div>
                 </div>
 
-                {/* Toggles */}
-                <div className="flex items-center justify-between pt-1">
-                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                    Negative Glitch Band
-                  </span>
+                {/* Randomize & Reset Toolbar */}
+                <div className="flex gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
                   <button
-                    onClick={() => setColorInvertBand(!colorInvertBand)}
-                    className={`px-3 py-1 rounded-xl text-xs font-bold border transition-all cursor-pointer active:scale-95 ${
-                      colorInvertBand
-                        ? 'bg-violet-50 dark:bg-violet-950/50 border-violet-400 text-violet-600 dark:text-violet-400 shadow-xs'
-                        : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400'
-                    }`}
+                    onClick={handleRandomGlitch}
+                    className="flex-1 py-2.5 px-3 rounded-xl bg-pink-50 dark:bg-pink-950/40 hover:bg-pink-100 text-pink-600 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
                   >
-                    {colorInvertBand ? 'Enabled' : 'Disabled'}
+                    <Shuffle className="w-3.5 h-3.5" />
+                    <span>Randomize</span>
+                  </button>
+                  <button
+                    onClick={handleReset}
+                    className="py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" />
+                    <span>Reset</span>
                   </button>
                 </div>
 
                 {/* Export Options */}
-                <div className="space-y-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                <div className="space-y-3 pt-2 border-t border-slate-100 dark:border-slate-800">
                   <div className="flex items-center justify-between">
-                    <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-widest">
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                       Export Format
                     </label>
                     <div className="flex gap-1.5">
@@ -533,10 +490,10 @@ schema={glitchSchema}
                         <button
                           key={fmt}
                           onClick={() => setExportFormat(fmt)}
-                          className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95 ${
+                          className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                             exportFormat === fmt
-                              ? 'bg-violet-600 text-white shadow-xs'
-                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
+                              ? 'bg-pink-600 text-white'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
                           }`}
                         >
                           {fmt === 'image/png' ? 'PNG' : fmt === 'image/jpeg' ? 'JPEG' : 'WebP'}
@@ -544,38 +501,14 @@ schema={glitchSchema}
                       ))}
                     </div>
                   </div>
-
-                  {exportFormat === 'image/jpeg' && (
-                    <div className="space-y-1 pt-1">
-                      <div className="flex justify-between text-xs font-bold text-slate-600 dark:text-slate-400">
-                        <span>Quality</span>
-                        <span className="font-mono text-violet-600">{jpegQuality}%</span>
-                      </div>
-                      <input
-                        type="range"
-                        min="50"
-                        max="100"
-                        value={jpegQuality}
-                        onChange={(e) => setJpegQuality(Number(e.target.value))}
-                        className="range-styled w-full accent-violet-600"
-                      />
-                    </div>
-                  )}
                 </div>
 
-                {/* Actions */}
-                <div className="flex gap-3 pt-2">
-                  <button
-                    onClick={handleReset}
-                    className="flex-1 py-3 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-300 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95"
-                  >
-                    <RefreshCw className="w-4 h-4" />
-                    <span>Reset</span>
-                  </button>
+                {/* Download Button */}
+                <div className="pt-2">
                   <button
                     onClick={handleDownload}
                     disabled={isProcessing}
-                    className="flex-2 py-3 px-4 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold text-xs shadow-lg shadow-violet-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 active:scale-95"
+                    className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-sm shadow-lg shadow-pink-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 active:scale-95"
                   >
                     <Download className="w-4 h-4" />
                     <span>Download Glitch Art</span>
@@ -588,32 +521,38 @@ schema={glitchSchema}
             {/* Stage (7 cols) */}
             <div className="lg:col-span-7 space-y-4 order-1 lg:order-2">
               <div className="relative rounded-3xl bg-slate-950/5 dark:bg-slate-950/50 border border-slate-200/80 dark:border-slate-800 p-4 min-h-[420px] flex items-center justify-center overflow-hidden">
-                {isComparing ? (
-                  <div className="relative flex items-center justify-center animate-fade-in">
+                {/* Canvas is kept mounted at all times to prevent destroying pixel buffer */}
+                <canvas
+                  ref={canvasRef}
+                  className={`max-w-full max-h-[600px] object-contain rounded-2xl shadow-xl transition-all select-none ${
+                    isComparing ? 'opacity-0' : 'opacity-100'
+                  }`}
+                />
+
+                {/* Hold to Compare Overlay */}
+                {isComparing && (
+                  <div className="absolute inset-0 flex items-center justify-center p-4 pointer-events-none animate-fade-in z-10">
                     <img
                       src={imageUrl}
                       alt="Original"
-                      className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-xl"
+                      className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-xl select-none"
                     />
-                    <span className="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                    <span className="absolute top-7 left-7 bg-black/80 backdrop-blur-md text-amber-300 border border-amber-500/40 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
                       Original Photo
                     </span>
                   </div>
-                ) : (
-                  <canvas
-                    ref={canvasRef}
-                    className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-xl transition-all select-none"
-                  />
                 )}
 
                 {/* Hold to Compare Live Button */}
                 <button
-                  onMouseDown={() => setIsComparing(true)}
+                  onMouseDown={(e) => { e.preventDefault(); setIsComparing(true); }}
                   onMouseUp={() => setIsComparing(false)}
                   onMouseLeave={() => setIsComparing(false)}
-                  onTouchStart={() => setIsComparing(true)}
-                  onTouchEnd={() => setIsComparing(false)}
-                  className={`absolute top-4 right-4 px-2.5 py-1 rounded-xl text-[10px] font-bold border transition flex items-center gap-1 cursor-pointer select-none backdrop-blur-md shadow-sm active:scale-95 ${
+                  onTouchStart={(e) => { e.preventDefault(); setIsComparing(true); }}
+                  onTouchEnd={(e) => { e.preventDefault(); setIsComparing(false); }}
+                  onTouchCancel={() => setIsComparing(false)}
+                  onContextMenu={(e) => e.preventDefault()}
+                  className={`absolute top-4 right-4 px-2.5 py-1 rounded-xl text-[10px] font-bold border transition flex items-center gap-1 cursor-pointer select-none backdrop-blur-md shadow-sm active:scale-95 z-20 ${
                     isComparing 
                       ? 'bg-amber-500 text-white border-amber-600 ring-2 ring-amber-400/40' 
                       : 'bg-white/90 dark:bg-slate-900/90 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'

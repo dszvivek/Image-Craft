@@ -120,12 +120,6 @@ export const ImageAdjuster: React.FC<ImageAdjusterProps> = ({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    if (isComparing) {
-      // Draw 100% original when hold-to-compare is active
-      ctx.drawImage(originalCanvasRef.current, 0, 0);
-      return;
-    }
-
     const origCtx = originalCanvasRef.current.getContext('2d');
     if (!origCtx) return;
 
@@ -249,7 +243,6 @@ export const ImageAdjuster: React.FC<ImageAdjusterProps> = ({
     sharpness,
     blur,
     vignette,
-    isComparing,
     showSplitView,
     compareSplit,
   ]);
@@ -695,11 +688,13 @@ schema={adjusterSchema}
               <div className="flex items-center justify-between bg-white dark:bg-slate-900 px-4 py-2.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm">
                 <div className="flex items-center gap-2">
                   <button
-                    onMouseDown={() => setIsComparing(true)}
+                    onMouseDown={(e) => { e.preventDefault(); setIsComparing(true); }}
                     onMouseUp={() => setIsComparing(false)}
                     onMouseLeave={() => setIsComparing(false)}
-                    onTouchStart={() => setIsComparing(true)}
-                    onTouchEnd={() => setIsComparing(false)}
+                    onTouchStart={(e) => { e.preventDefault(); setIsComparing(true); }}
+                    onTouchEnd={(e) => { e.preventDefault(); setIsComparing(false); }}
+                    onTouchCancel={() => setIsComparing(false)}
+                    onContextMenu={(e) => e.preventDefault()}
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center gap-1.5 select-none active:scale-95 ${
                       isComparing
                         ? 'bg-amber-500 border-amber-500 text-white shadow-sm ring-2 ring-amber-400/40'
@@ -707,7 +702,7 @@ schema={adjusterSchema}
                     }`}
                   >
                     <Eye className="w-3.5 h-3.5" />
-                    <span>Hold to Compare</span>
+                    <span>{isComparing ? 'Showing Original' : 'Hold to Compare'}</span>
                   </button>
 
                   <button
@@ -740,8 +735,24 @@ schema={adjusterSchema}
               <div className="relative rounded-3xl bg-slate-950/5 dark:bg-slate-950/50 border border-slate-200/80 dark:border-slate-800 p-4 min-h-[420px] flex items-center justify-center overflow-hidden">
                 <canvas
                   ref={canvasRef}
-                  className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-xl transition-all"
+                  className={`max-w-full max-h-[600px] object-contain rounded-2xl shadow-xl transition-all ${
+                    isComparing ? 'opacity-0' : 'opacity-100'
+                  }`}
                 />
+
+                {/* Hold to Compare Overlay */}
+                {isComparing && (
+                  <div className="absolute inset-0 flex items-center justify-center p-4 pointer-events-none animate-fade-in z-10">
+                    <img
+                      src={imageSrc}
+                      alt="Original"
+                      className="max-w-full max-h-[600px] object-contain rounded-2xl shadow-xl select-none"
+                    />
+                    <span className="absolute top-7 left-7 bg-black/80 backdrop-blur-md text-amber-300 border border-amber-500/40 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                      Original Photo
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-2 font-medium">

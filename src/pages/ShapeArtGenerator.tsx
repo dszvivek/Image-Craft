@@ -1350,12 +1350,14 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
                   
                   {/* Hold to Compare Live Button */}
                   <button
-                    onMouseDown={() => setIsComparing(true)}
+                    onMouseDown={(e) => { e.preventDefault(); setIsComparing(true); }}
                     onMouseUp={() => setIsComparing(false)}
                     onMouseLeave={() => setIsComparing(false)}
-                    onTouchStart={() => setIsComparing(true)}
-                    onTouchEnd={() => setIsComparing(false)}
-                    className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border transition flex items-center gap-1 cursor-pointer select-none ${
+                    onTouchStart={(e) => { e.preventDefault(); setIsComparing(true); }}
+                    onTouchEnd={(e) => { e.preventDefault(); setIsComparing(false); }}
+                    onTouchCancel={() => setIsComparing(false)}
+                    onContextMenu={(e) => e.preventDefault()}
+                    className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border transition flex items-center gap-1 cursor-pointer select-none active:scale-95 ${
                       isComparing 
                         ? 'bg-amber-500 text-white border-amber-600 shadow-sm ring-2 ring-amber-400/40' 
                         : 'bg-white/90 dark:bg-slate-800/90 border-slate-200/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-750'
@@ -1379,23 +1381,26 @@ export const ShapeArtGenerator: React.FC<ShapeArtGeneratorProps> = ({
                     onLoad={processImage}
                   />
 
-                  {/* Render Canvas or Compare Overlay */}
-                  {isComparing ? (
-                    <div className="relative flex items-center justify-center animate-fade-in">
+                  {/* Canvas is kept mounted at all times to prevent destroying GPU pixel buffer */}
+                  <canvas
+                    ref={canvasRef}
+                    className={`max-w-full max-h-[460px] object-contain rounded-lg shadow-2xl transition-all duration-300 ${
+                      isComparing ? 'opacity-0' : 'opacity-100'
+                    }`}
+                  />
+
+                  {/* Compare Overlay */}
+                  {isComparing && (
+                    <div className="absolute inset-0 flex items-center justify-center p-2 pointer-events-none animate-fade-in z-10">
                       <img
                         src={imageUrl}
                         alt="Original"
                         className="max-w-full max-h-[460px] object-contain rounded-lg shadow-2xl"
                       />
-                      <span className="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                      <span className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-amber-300 border border-amber-500/40 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
                         Original Photo
                       </span>
                     </div>
-                  ) : (
-                    <canvas
-                      ref={canvasRef}
-                      className="max-w-full max-h-[460px] object-contain rounded-lg shadow-2xl transition-all duration-300"
-                    />
                   )}
                 </div>
 
