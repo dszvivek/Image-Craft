@@ -15,6 +15,15 @@ interface SEOProps {
   faqs?: Array<{ q: string; a: string }>;
 }
 
+const LOCALE_DICTS: Record<string, Record<string, any>> = {
+  en: metadataEn,
+  es: metadataEs,
+  pt: metadataPt,
+  hi: metadataHi,
+  fr: metadataFr,
+  de: metadataDe,
+};
+
 export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonicalUrl, schema, faqs }) => {
   // Determine current path and active locale to fetch dynamic metadata
   let cleanPath = window.location.pathname;
@@ -28,16 +37,7 @@ export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonica
   const pathParts = cleanPath.split('/');
   const locale = ['es', 'pt', 'hi', 'fr', 'de'].includes(pathParts[0]) ? pathParts[0] : 'en';
 
-  const localeDicts: Record<string, Record<string, any>> = {
-    en: metadataEn,
-    es: metadataEs,
-    pt: metadataPt,
-    hi: metadataHi,
-    fr: metadataFr,
-    de: metadataDe,
-  };
-
-  const activeDict = localeDicts[locale] || metadataEn;
+  const activeDict = LOCALE_DICTS[locale] || metadataEn;
   const lookupKey = locale === 'en' ? cleanPath : (pathParts.slice(1).join('/') || '');
   const meta = activeDict[lookupKey] || (metadataEn as any)[cleanPath];
   const finalTitle = meta?.title || title;
