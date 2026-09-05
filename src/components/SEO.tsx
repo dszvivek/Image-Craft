@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import metadataEn from '../routes/metadata.json';
 import metadataEs from '../locales/es.json';
 import metadataPt from '../locales/pt.json';
@@ -25,8 +26,9 @@ const LOCALE_DICTS: Record<string, Record<string, any>> = {
 };
 
 export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonicalUrl, schema, faqs }) => {
+  const location = useLocation();
   // Determine current path and active locale to fetch dynamic metadata
-  let cleanPath = window.location.pathname;
+  let cleanPath = location.pathname;
   if (cleanPath.endsWith('/')) {
     cleanPath = cleanPath.slice(0, -1);
   }
@@ -52,23 +54,28 @@ export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonica
 
   // Dynamic console checks for SERP limits to prevent regression
   useEffect(() => {
-    if (fullTitle.length >= 60) {
+    if (fullTitle.length > 60) {
       console.warn(`[SEO Warning] Page title is too long (${fullTitle.length} chars). Keep under 60 characters to avoid SERP truncation: "${fullTitle}"`);
     }
-    if (finalDescription.length >= 160) {
+    if (finalDescription.length > 160) {
       console.warn(`[SEO Warning] Meta description is too long (${finalDescription.length} chars). Keep under 160 characters to avoid SERP truncation: "${finalDescription}"`);
     }
   }, [fullTitle, finalDescription]);
 
   const getCleanCanonical = () => {
-    let path = window.location.pathname;
-    if (path !== '/' && path.endsWith('/')) {
+    let path = location.pathname;
+    if (!path.startsWith('/')) {
+      path = '/' + path;
+    }
+    if (path.length > 1 && path.endsWith('/')) {
       path = path.slice(0, -1);
     }
-    return `https://imageplumber.com${path === '' ? '/' : path}`;
+    path = path.replace(/\/+/g, '/');
+    return `https://imageplumber.com${path === '/' ? '/' : path}`;
   };
 
-  const defaultCanonical = canonicalUrl || getCleanCanonical();
+  const rawCanonical = canonicalUrl || getCleanCanonical();
+  const defaultCanonical = rawCanonical.replace(/([^:]\/)\/+/g, '$1');
   const schemaString = finalSchema ? JSON.stringify(finalSchema) : '';
 
   useEffect(() => {
@@ -92,7 +99,7 @@ export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonica
       let element = document.querySelector(`link[rel="${rel}"]`);
       if (!element) {
         element = document.createElement('link');
-        element.setAttribute(rel, rel);
+        element.setAttribute('rel', rel);
         document.head.appendChild(element);
       }
       element.setAttribute('href', hrefValue);
@@ -118,7 +125,15 @@ export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonica
     updateMetaTag('property', 'og:image:alt', imageAlt);
     updateMetaTag('property', 'og:type', 'website');
     updateMetaTag('property', 'og:site_name', 'ImagePlumber');
-    const currentLocale = cleanPath.startsWith('es') ? 'es_ES' : cleanPath.startsWith('pt') ? 'pt_BR' : cleanPath.startsWith('hi') ? 'hi_IN' : cleanPath.startsWith('fr') ? 'fr_FR' : cleanPath.startsWith('de') ? 'de_DE' : 'en_US';
+    const localeMap: Record<string, string> = {
+      es: 'es_ES',
+      pt: 'pt_BR',
+      hi: 'hi_IN',
+      fr: 'fr_FR',
+      de: 'de_DE',
+      en: 'en_US',
+    };
+    const currentLocale = localeMap[locale] || 'en_US';
     updateMetaTag('property', 'og:locale', currentLocale);
 
     // 5. Update Twitter Card Meta Tags

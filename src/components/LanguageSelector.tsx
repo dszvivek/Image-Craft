@@ -237,7 +237,6 @@ const TOOL_ALIASES: Record<string, string> = {
   'remove-exif-data': 'metadata-stripper',
   'batch-watermark': 'watermark-overlay',
   'add-logo-to-photo': 'watermark-overlay',
-  'aspect-resizer': 'crop-image',
   'add-text-to-image': 'meme-generator',
   'caption-generator': 'meme-generator',
   'photo-mosaic-generator': 'collage-maker',

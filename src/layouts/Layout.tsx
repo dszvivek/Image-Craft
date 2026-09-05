@@ -1,11 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import metadataEn from '../routes/metadata.json';
-import metadataEs from '../locales/es.json';
-import metadataPt from '../locales/pt.json';
-import metadataHi from '../locales/hi.json';
-import metadataFr from '../locales/fr.json';
-import metadataDe from '../locales/de.json';
 import { 
   Menu, 
   X, 
@@ -146,141 +140,45 @@ export const Layout = () => {
     setOpenMobileCategory(openMobileCategory === catId ? null : catId);
   };
 
-  // Scroll to top on navigation (or smooth scroll to #tools-grid if targeted) and dynamically update SEO head tags
+  // Scroll to top on navigation (when not targeting an anchor) & record GA4 pageview
   useEffect(() => {
     if (!location.hash) {
       window.scrollTo(0, 0);
-    } else if (location.hash === '#tools-grid') {
-      const scrollTimer = setTimeout(() => {
-        const el = document.getElementById('tools-grid');
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-      return () => clearTimeout(scrollTimer);
     }
 
-    let cleanPath = location.pathname;
-    if (cleanPath.endsWith('/')) {
-      cleanPath = cleanPath.slice(0, -1);
+    // Google Analytics (GA4) SPA Virtual Pageview
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: location.pathname,
+      });
     }
-    if (cleanPath.startsWith('/')) {
-      cleanPath = cleanPath.substring(1);
-    }
+  }, [location.pathname, location.hash]);
 
-    let meta: any = null;
-    let isHome = false;
+  const SIDEBAR_HIDDEN_PATHS = new Set([
+    '/',
+    '/about',
+    '/privacy',
+    '/contact',
+    '/faq',
+    '/ambient',
+    '/es',
+    '/es/visuales-ambientales',
+    '/pt',
+    '/pt/visuais-ambientais',
+    '/hi',
+    '/hi/ambient-visuals',
+    '/fr',
+    '/fr/visuels-ambiance',
+    '/de',
+    '/de/ambient-visuals',
+  ]);
 
-    if (cleanPath.startsWith('es')) {
-      const subKey = cleanPath === 'es' ? '' : cleanPath.replace(/^es\//, '');
-      meta = (metadataEs as any)[subKey];
-      isHome = cleanPath === 'es';
-    } else if (cleanPath.startsWith('pt')) {
-      const subKey = cleanPath === 'pt' ? '' : cleanPath.replace(/^pt\//, '');
-      meta = (metadataPt as any)[subKey];
-      isHome = cleanPath === 'pt';
-    } else if (cleanPath.startsWith('hi')) {
-      const subKey = cleanPath === 'hi' ? '' : cleanPath.replace(/^hi\//, '');
-      meta = (metadataHi as any)[subKey];
-      isHome = cleanPath === 'hi';
-    } else if (cleanPath.startsWith('fr')) {
-      const subKey = cleanPath === 'fr' ? '' : cleanPath.replace(/^fr\//, '');
-      meta = (metadataFr as any)[subKey];
-      isHome = cleanPath === 'fr';
-    } else if (cleanPath.startsWith('de')) {
-      const subKey = cleanPath === 'de' ? '' : cleanPath.replace(/^de\//, '');
-      meta = (metadataDe as any)[subKey];
-      isHome = cleanPath === 'de';
-    } else {
-      meta = (metadataEn as any)[cleanPath];
-      isHome = cleanPath === '';
-    }
-    if (meta) {
-      const fullTitle = isHome ? meta.title : `${meta.title} | ImagePlumber`;
-      document.title = fullTitle;
-      
-      // Update meta title
-      let titleMeta = document.querySelector('meta[name="title"]');
-      if (!titleMeta) {
-        titleMeta = document.createElement('meta');
-        titleMeta.setAttribute('name', 'title');
-        document.head.appendChild(titleMeta);
-      }
-      titleMeta.setAttribute('content', fullTitle);
-      
-      // Update meta description
-      const descMeta = document.querySelector('meta[name="description"]');
-      if (descMeta) descMeta.setAttribute('content', meta.description);
-      
-      // Update meta keywords
-      const keywordsMeta = document.querySelector('meta[name="keywords"]');
-      if (keywordsMeta) keywordsMeta.setAttribute('content', meta.keywords);
-      
-      // Update canonical link
-      const canonicalLink = document.querySelector('link[rel="canonical"]');
-      if (canonicalLink) {
-        let path = location.pathname;
-        if (path !== '/' && path.endsWith('/')) {
-          path = path.slice(0, -1);
-        }
-        canonicalLink.setAttribute('href', `https://imageplumber.com${path}`);
-      }
-      
-      // Update Open Graph tags
-      const ogTitle = document.querySelector('meta[property="og:title"]');
-      if (ogTitle) ogTitle.setAttribute('content', fullTitle);
-      
-      const ogDesc = document.querySelector('meta[property="og:description"]');
-      if (ogDesc) ogDesc.setAttribute('content', meta.description);
-      
-      const ogUrl = document.querySelector('meta[property="og:url"]');
-      if (ogUrl) ogUrl.setAttribute('content', `https://imageplumber.com${location.pathname}`);
-      
-      const currentLocale = cleanPath.startsWith('es') ? 'es_ES' : cleanPath.startsWith('pt') ? 'pt_BR' : cleanPath.startsWith('hi') ? 'hi_IN' : cleanPath.startsWith('fr') ? 'fr_FR' : cleanPath.startsWith('de') ? 'de_DE' : 'en_US';
-      const ogLocale = document.querySelector('meta[property="og:locale"]');
-      if (ogLocale) {
-        ogLocale.setAttribute('content', currentLocale);
-      }
-
-      const imageAlt = isHome ? "ImagePlumber - Free Privacy-First Local Image Tools" : (meta.title.includes('ImagePlumber') ? meta.title : `${meta.title} - ImagePlumber`);
-      const ogImageAlt = document.querySelector('meta[property="og:image:alt"]');
-      if (ogImageAlt) {
-        ogImageAlt.setAttribute('content', imageAlt);
-      }
-      
-      // Update Twitter tags
-      const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-      if (twitterTitle) twitterTitle.setAttribute('content', fullTitle);
-      
-      const twitterDesc = document.querySelector('meta[name="twitter:description"]');
-      if (twitterDesc) twitterDesc.setAttribute('content', meta.description);
-      
-      const twitterImageAlt = document.querySelector('meta[name="twitter:image:alt"]');
-      if (twitterImageAlt) {
-        twitterImageAlt.setAttribute('content', imageAlt);
-      }
-
-      // Update twitter:url
-      let twitterUrl = document.querySelector('meta[property="twitter:url"]') || document.querySelector('meta[name="twitter:url"]');
-      if (!twitterUrl) {
-        twitterUrl = document.createElement('meta');
-        twitterUrl.setAttribute('property', 'twitter:url');
-        document.head.appendChild(twitterUrl);
-      }
-      twitterUrl.setAttribute('content', `https://imageplumber.com${location.pathname}`);
-
-      // Google Analytics (GA4) SPA Virtual Pageview
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'page_view', {
-          page_title: fullTitle,
-          page_location: `https://imageplumber.com${location.pathname}`,
-          page_path: location.pathname,
-        });
-      }
-    }
-  }, [location.pathname]);
-
-  const showSidebar = !['/', '/about', '/privacy', '/contact', '/faq', '/ambient'].includes(location.pathname);
+  const normalizedPath = location.pathname.length > 1 && location.pathname.endsWith('/')
+    ? location.pathname.slice(0, -1)
+    : location.pathname;
+  const showSidebar = !SIDEBAR_HIDDEN_PATHS.has(normalizedPath);
 
   const categoriesConfig: Record<string, { name: string; description: string; colorClass: string; icon: any }> = {
     'photo-editing': {
@@ -516,7 +414,12 @@ export const Layout = () => {
   ];
 
   // Build breadcrumb from current route
-  const currentTool = tools.find(t => t.path === location.pathname);
+  const currentTool = tools.find(t => 
+    t.path === location.pathname || getLocalizedToolPath(t.path, locale) === location.pathname
+  );
+  const currentToolName = currentTool 
+    ? (locale === 'en' ? currentTool.name : getShortToolMeta(currentTool.path, locale).name || currentTool.name) 
+    : '';
 
   return (
     <div className="min-h-screen flex flex-col bg-transparent text-slate-800 dark:text-slate-200 font-sans selection:bg-indigo-100 dark:selection:bg-indigo-950 selection:text-indigo-900 dark:selection:text-indigo-100">
@@ -918,12 +821,12 @@ export const Layout = () => {
           {/* Breadcrumb — shown on tool pages */}
           {currentTool && (
             <nav className="flex items-center gap-1.5 mb-5 text-[11px] font-semibold text-slate-450 dark:text-slate-400" aria-label="Breadcrumb">
-              <Link to="/" className="flex items-center gap-1 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+              <Link to={locale === 'en' ? '/' : `/${locale}`} className="flex items-center gap-1 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                 <Home className="w-3.5 h-3.5" />
-                <span>Home</span>
+                <span>{locale === 'es' ? 'Inicio' : locale === 'pt' ? 'Início' : locale === 'hi' ? 'होम' : locale === 'fr' ? 'Accueil' : locale === 'de' ? 'Start' : 'Home'}</span>
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-700" />
-              <span className="text-slate-700 dark:text-slate-300">{currentTool.name}</span>
+              <span className="text-slate-700 dark:text-slate-300">{currentToolName}</span>
             </nav>
           )}
 

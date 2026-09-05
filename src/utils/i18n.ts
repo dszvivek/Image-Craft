@@ -341,7 +341,6 @@ export function getLocalizedToolPath(enPath: string, locale: SupportedLocale): s
 
   const localeMap: Record<string, Record<string, string>> = {
     'background-remover': { es: 'quitar-fondo', pt: 'remover-fundo', hi: 'background-hataye', fr: 'supprimer-arriere-plan', de: 'hintergrund-entfernen' },
-    'aspect-resizer': { es: 'recortar-imagen', pt: 'cortar-imagem', hi: 'photo-crop-kare', fr: 'recadrer-image', de: 'bild-zuschneiden' },
     'batch-converter': { es: 'convertidor-por-lotes', pt: 'conversor-em-lote', hi: 'batch-converter', fr: 'convertisseur-par-lots', de: 'stapel-konverter' },
     'collage-maker': { es: 'cuadricula-fotos', pt: 'grade-fotos', hi: 'photo-grid-maker', fr: 'grille-photos', de: 'fotogitter-erstellen' },
     'image-compressor': { es: 'comprimir-imagen', pt: 'comprimir-imagem', hi: 'photo-compress-kare', fr: 'compresser-image', de: 'bild-komprimieren' },

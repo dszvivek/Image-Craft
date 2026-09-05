@@ -12,6 +12,10 @@ interface DropZoneProps {
   icon?: LucideIcon;
 }
 
+// Active DropZone tracking for multi-instance paste disambiguation
+let activeDropZoneId: string | null = null;
+let activeDropZoneCount = 0;
+
 export const DropZone: React.FC<DropZoneProps> = ({
   onFilesSelected,
   accept = 'image/*',
@@ -22,9 +26,21 @@ export const DropZone: React.FC<DropZoneProps> = ({
   icon: CustomIcon,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const instanceIdRef = useRef(`dz-${Math.random().toString(36).slice(2, 9)}`);
   const [isDragActive, setIsDragActive] = useState(false);
   const [justDropped, setJustDropped] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    activeDropZoneCount++;
+    activeDropZoneId = instanceIdRef.current;
+    return () => {
+      activeDropZoneCount--;
+      if (activeDropZoneId === instanceIdRef.current) {
+        activeDropZoneId = null;
+      }
+    };
+  }, []);
 
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
@@ -40,8 +56,26 @@ export const DropZone: React.FC<DropZoneProps> = ({
     const validFiles: File[] = [];
     const maxBytes = maxSizeMB * 1024 * 1024;
 
+    const matchesAccept = (file: File, acceptStr: string): boolean => {
+      if (!acceptStr || acceptStr === '*') return true;
+      const patterns = acceptStr.split(',').map(p => p.trim().toLowerCase());
+      const fileName = file.name.toLowerCase();
+      const fileType = file.type.toLowerCase();
+
+      return patterns.some(pattern => {
+        if (pattern.startsWith('.')) {
+          return fileName.endsWith(pattern);
+        }
+        if (pattern.endsWith('/*')) {
+          const baseType = pattern.slice(0, -2);
+          return fileType.startsWith(baseType + '/');
+        }
+        return fileType === pattern;
+      });
+    };
+
     for (const file of files) {
-      if (accept && !file.type.match(accept.replace('*', '.*'))) {
+      if (accept && !matchesAccept(file, accept)) {
         setError(`Invalid file type: ${file.name}. Only ${accept} files are allowed.`);
         return [];
       }
@@ -85,6 +119,19 @@ export const DropZone: React.FC<DropZoneProps> = ({
   // Clipboard paste listener (Ctrl+V / Cmd+V)
   useEffect(() => {
     const handlePaste = (e: ClipboardEvent) => {
+      // Disambiguate multi-DropZone paste: only active/hovered instance responds
+      if (activeDropZoneCount > 1 && activeDropZoneId !== instanceIdRef.current) {
+        return;
+      }
+
+      // Do not intercept paste if user is typing in an active text input or textarea
+      const activeEl = document.activeElement;
+      if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || (activeEl as HTMLElement).isContentEditable)) {
+        if (activeEl !== fileInputRef.current) {
+          return;
+        }
+      }
+
       if (!e.clipboardData) return;
       const items = Array.from(e.clipboardData.items);
       const pastedFiles: File[] = [];
@@ -128,6 +175,8 @@ export const DropZone: React.FC<DropZoneProps> = ({
         onDragLeave={handleDrag}
         onDrop={handleDrop}
         onClick={onButtonClick}
+        onMouseEnter={() => { activeDropZoneId = instanceIdRef.current; }}
+        onFocus={() => { activeDropZoneId = instanceIdRef.current; }}
         role="button"
         tabIndex={0}
         onKeyDown={(e) => e.key === 'Enter' && onButtonClick()}

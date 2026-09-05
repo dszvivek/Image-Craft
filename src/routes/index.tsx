@@ -3,11 +3,6 @@ import type { ComponentType } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from '../layouts/Layout';
 
-// Clear chunk reload flag on successful script load
-if (typeof window !== 'undefined') {
-  sessionStorage.removeItem('chunk-reload');
-}
-
 // Wrapper for React.lazy to automatically reload the page on ChunkLoadError (triggered by new builds)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function safeLazy<T extends ComponentType<any>>(
@@ -1631,14 +1626,6 @@ export const router = createBrowserRouter([
       },
       {
         path: 'fr/art-formes',
-        element: (
-          <Suspense fallback={<PageLoader />}>
-            <ShapeArtGenerator pageTitle="Générateur d'Art Géométrique & Particules AI" pageSubtitle="Transformez vos photos en compositions artistiques avec étoiles et particules." />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'fr/shape-art-generator',
         element: (
           <Suspense fallback={<PageLoader />}>
             <ShapeArtGenerator pageTitle="Générateur d'Art Géométrique & Particules AI" pageSubtitle="Transformez vos photos en compositions artistiques avec étoiles et particules." />
