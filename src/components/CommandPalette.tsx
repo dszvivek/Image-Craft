@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { getLocaleFromPath, getLocalizedToolPath } from '../utils/i18n';
 import { 
   Search, 
   X, 
@@ -66,6 +67,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const locale = getLocaleFromPath(location.pathname);
 
   const allItems: SearchItem[] = [
     // Image & AI Tools
@@ -462,7 +465,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     if (item.action) {
       item.action();
     } else if (item.path) {
-      navigate(item.path);
+      const destination = getLocalizedToolPath(item.path, locale);
+      navigate(destination);
     }
   };
 

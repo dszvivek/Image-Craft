@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react';
-import metadata from '../routes/metadata.json';
+import metadataEn from '../routes/metadata.json';
+import metadataEs from '../locales/es.json';
+import metadataPt from '../locales/pt.json';
+import metadataHi from '../locales/hi.json';
+import metadataFr from '../locales/fr.json';
+import metadataDe from '../locales/de.json';
 
 interface SEOProps {
   title: string;
@@ -11,7 +16,7 @@ interface SEOProps {
 }
 
 export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonicalUrl, schema, faqs }) => {
-  // Determine current path to fetch dynamic metadata
+  // Determine current path and active locale to fetch dynamic metadata
   let cleanPath = window.location.pathname;
   if (cleanPath.endsWith('/')) {
     cleanPath = cleanPath.slice(0, -1);
@@ -20,7 +25,21 @@ export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonica
     cleanPath = cleanPath.substring(1);
   }
 
-  const meta = (metadata as any)[cleanPath];
+  const pathParts = cleanPath.split('/');
+  const locale = ['es', 'pt', 'hi', 'fr', 'de'].includes(pathParts[0]) ? pathParts[0] : 'en';
+
+  const localeDicts: Record<string, Record<string, any>> = {
+    en: metadataEn,
+    es: metadataEs,
+    pt: metadataPt,
+    hi: metadataHi,
+    fr: metadataFr,
+    de: metadataDe,
+  };
+
+  const activeDict = localeDicts[locale] || metadataEn;
+  const lookupKey = locale === 'en' ? cleanPath : (pathParts.slice(1).join('/') || '');
+  const meta = activeDict[lookupKey] || (metadataEn as any)[cleanPath];
   const finalTitle = meta?.title || title;
   const finalDescription = meta?.description || description;
   const finalKeywords = meta?.keywords || keywords;
@@ -28,7 +47,7 @@ export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonica
   const howToSteps = meta?.howTo || null;
 
   // Build the full document title matching the routing suffix convention
-  const isHome = cleanPath === '';
+  const isHome = cleanPath === '' || ['es', 'pt', 'hi', 'fr', 'de'].includes(cleanPath);
   const fullTitle = isHome || finalTitle.includes('ImagePlumber') ? finalTitle : `${finalTitle} | ImagePlumber`;
 
   // Dynamic console checks for SERP limits to prevent regression
@@ -53,8 +72,9 @@ export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonica
   const schemaString = finalSchema ? JSON.stringify(finalSchema) : '';
 
   useEffect(() => {
-    // 1. Update Document Title
+    // 1. Update Document Title and HTML Lang
     document.title = fullTitle;
+    document.documentElement.lang = locale;
 
     // Helper to set or create meta tags
     const updateMetaTag = (attributeName: string, attributeValue: string, contentValue: string) => {

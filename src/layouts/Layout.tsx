@@ -99,6 +99,11 @@ export const Layout = () => {
     }
   };
 
+  // Synchronize document lang attribute with active locale for screen readers and accessibility
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
+
   // Smooth scroll listener when navigating to #tools-grid from another page
   useEffect(() => {
     if (location.hash === '#tools-grid') {

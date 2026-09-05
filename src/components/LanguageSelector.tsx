@@ -181,6 +181,91 @@ const TOOL_EQUIVALENTS: Record<string, Record<string, string>> = {
     fr: 'steganographie-image',
     de: 'bild-steganographie',
   },
+  'bank-statement-analyzer': {
+    es: 'analizador-extractos-bancarios',
+    pt: 'analisador-extrato-bancario',
+    hi: 'bank-statement-analyzer',
+    fr: 'analyseur-releve-bancaire',
+    de: 'kontoauszug-analysieren',
+  },
+  'ocr-text-extractor': {
+    es: 'extractor-texto-ocr',
+    pt: 'extrator-texto-ocr',
+    hi: 'ocr-text-extractor',
+    fr: 'extracteur-texte-ocr',
+    de: 'ocr-texterkennung',
+  },
+  'svg-vectorizer': {
+    es: 'vectorizador-svg',
+    pt: 'vetorizador-svg',
+    hi: 'svg-vectorizer',
+    fr: 'vectoriseur-svg',
+    de: 'svg-vektorisierer',
+  },
+  'shape-art-generator': {
+    es: 'arte-formas',
+    pt: 'arte-formas',
+    hi: 'shape-art-generator',
+    fr: 'art-formes',
+    de: 'formen-kunst',
+  },
+  'ambient': {
+    es: 'visuales-ambientales',
+    pt: 'visuais-ambientais',
+    hi: 'ambient-visuals',
+    fr: 'visuels-ambiance',
+    de: 'ambient-visuals',
+  },
+};
+
+// Aliases and secondary landing pages mapped to primary tool keys
+const TOOL_ALIASES: Record<string, string> = {
+  'compress-png': 'image-compressor',
+  'compress-jpeg': 'image-compressor',
+  'compress-webp': 'image-compressor',
+  'compress-image-to-100kb': 'image-compressor',
+  'compress-image-to-50kb': 'image-compressor',
+  'compress-image-to-20kb': 'image-compressor',
+  'remove-white-background': 'background-remover',
+  'transparent-background-maker': 'background-remover',
+  'webp-to-jpg': 'batch-converter',
+  'webp-to-png': 'batch-converter',
+  'heic-to-jpg': 'batch-converter',
+  'svg-to-png': 'batch-converter',
+  'png-to-svg': 'svg-vectorizer',
+  'exif-viewer': 'metadata-stripper',
+  'remove-exif-data': 'metadata-stripper',
+  'batch-watermark': 'watermark-overlay',
+  'add-logo-to-photo': 'watermark-overlay',
+  'aspect-resizer': 'crop-image',
+  'add-text-to-image': 'meme-generator',
+  'caption-generator': 'meme-generator',
+  'photo-mosaic-generator': 'collage-maker',
+  'bank-statement-to-excel': 'bank-statement-analyzer',
+  'sign-pdf-online': 'sign-pdf',
+  'passport-photo-cropper': 'crop-image',
+  'vintage-photo-filter': 'photo-filters',
+  'duotone-generator': 'photo-filters',
+  'black-and-white-converter': 'invert-colors',
+  'brightness-contrast': 'adjust-image',
+  '8-bit-photo-converter': 'pixel-art-generator',
+  'pixelate-image': 'pixel-art-generator',
+  'image-to-text-art': 'ascii-art-generator',
+  'ansi-art': 'ascii-art-generator',
+  'crt-tv-filter': 'glitch-image-generator',
+  'vhs-effect': 'glitch-image-generator',
+  'before-after-image': 'side-by-side-image',
+  'compare-images': 'side-by-side-image',
+  'swipe-carousel-maker': 'instagram-panorama-splitter',
+  'seamless-carousel': 'instagram-panorama-splitter',
+  'photo-grid-maker': 'collage-maker',
+  'photo-joiner': 'collage-maker',
+  'instagram-grid-splitter': 'collage-maker',
+  'blur-faces': 'redact-image',
+  'pixelate-face': 'redact-image',
+  'censor-photo': 'redact-image',
+  'hide-text-in-image': 'image-steganography',
+  'decode-hidden-message': 'image-steganography',
 };
 
 // Reverse map to find standard English route from localized path
@@ -208,6 +293,11 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'es/cuadricula-fotos': 'collage-maker',
   'es/censurar-foto': 'redact-image',
   'es/esteganografia-imagenes': 'image-steganography',
+  'es/analizador-extractos-bancarios': 'bank-statement-analyzer',
+  'es/extractor-texto-ocr': 'ocr-text-extractor',
+  'es/vectorizador-svg': 'svg-vectorizer',
+  'es/arte-formas': 'shape-art-generator',
+  'es/visuales-ambientales': 'ambient',
   'pt/comprimir-imagem': 'image-compressor',
   'pt/remover-fundo': 'background-remover',
   'pt/conversor-em-lote': 'batch-converter',
@@ -231,6 +321,11 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'pt/grade-fotos': 'collage-maker',
   'pt/censurar-foto': 'redact-image',
   'pt/esteganografia-imagem': 'image-steganography',
+  'pt/analisador-extrato-bancario': 'bank-statement-analyzer',
+  'pt/extrator-texto-ocr': 'ocr-text-extractor',
+  'pt/vetorizador-svg': 'svg-vectorizer',
+  'pt/arte-formas': 'shape-art-generator',
+  'pt/visuais-ambientais': 'ambient',
   'hi/photo-compress-kare': 'image-compressor',
   'hi/background-hataye': 'background-remover',
   'hi/batch-converter': 'batch-converter',
@@ -254,6 +349,11 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'hi/photo-grid-maker': 'collage-maker',
   'hi/photo-censor-kare': 'redact-image',
   'hi/image-steganography': 'image-steganography',
+  'hi/bank-statement-analyzer': 'bank-statement-analyzer',
+  'hi/ocr-text-extractor': 'ocr-text-extractor',
+  'hi/svg-vectorizer': 'svg-vectorizer',
+  'hi/shape-art-generator': 'shape-art-generator',
+  'hi/ambient-visuals': 'ambient',
   'fr/compresser-image': 'image-compressor',
   'fr/supprimer-arriere-plan': 'background-remover',
   'fr/convertisseur-par-lots': 'batch-converter',
@@ -277,6 +377,11 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'fr/grille-photos': 'collage-maker',
   'fr/censurer-photo': 'redact-image',
   'fr/steganographie-image': 'image-steganography',
+  'fr/analyseur-releve-bancaire': 'bank-statement-analyzer',
+  'fr/extracteur-texte-ocr': 'ocr-text-extractor',
+  'fr/vectoriseur-svg': 'svg-vectorizer',
+  'fr/art-formes': 'shape-art-generator',
+  'fr/visuels-ambiance': 'ambient',
   'de/bild-komprimieren': 'image-compressor',
   'de/hintergrund-entfernen': 'background-remover',
   'de/stapel-konverter': 'batch-converter',
@@ -300,6 +405,11 @@ const LOCAL_TO_EN_MAP: Record<string, string> = {
   'de/fotogitter-erstellen': 'collage-maker',
   'de/bild-zensieren': 'redact-image',
   'de/bild-steganographie': 'image-steganography',
+  'de/kontoauszug-analysieren': 'bank-statement-analyzer',
+  'de/ocr-texterkennung': 'ocr-text-extractor',
+  'de/svg-vektorisierer': 'svg-vectorizer',
+  'de/formen-kunst': 'shape-art-generator',
+  'de/ambient-visuals': 'ambient',
 };
 
 interface LanguageSelectorProps {
@@ -337,10 +447,10 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
     setIsOpen(false);
     if (targetLang.code === currentLangCode) return;
 
-    // Resolve base English tool key
+    // Resolve base English tool key, checking aliases first
     let enToolKey = '';
     if (currentLangCode === 'en') {
-      enToolKey = currentPath;
+      enToolKey = TOOL_ALIASES[currentPath] || currentPath;
     } else {
       enToolKey = LOCAL_TO_EN_MAP[currentPath] || '';
     }
