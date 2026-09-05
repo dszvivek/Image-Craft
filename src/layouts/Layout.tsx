@@ -231,6 +231,12 @@ export const Layout = () => {
       const ogUrl = document.querySelector('meta[property="og:url"]');
       if (ogUrl) ogUrl.setAttribute('content', `https://imageplumber.com${location.pathname}`);
       
+      const currentLocale = cleanPath.startsWith('es') ? 'es_ES' : cleanPath.startsWith('pt') ? 'pt_BR' : cleanPath.startsWith('hi') ? 'hi_IN' : cleanPath.startsWith('fr') ? 'fr_FR' : cleanPath.startsWith('de') ? 'de_DE' : 'en_US';
+      const ogLocale = document.querySelector('meta[property="og:locale"]');
+      if (ogLocale) {
+        ogLocale.setAttribute('content', currentLocale);
+      }
+
       const imageAlt = isHome ? "ImagePlumber - Free Privacy-First Local Image Tools" : (meta.title.includes('ImagePlumber') ? meta.title : `${meta.title} - ImagePlumber`);
       const ogImageAlt = document.querySelector('meta[property="og:image:alt"]');
       if (ogImageAlt) {

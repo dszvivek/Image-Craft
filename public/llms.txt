@@ -1,105 +1,161 @@
 # ImagePlumber
 
-ImagePlumber is a privacy-first, on-device image processing and creative document utility suite. The application operates 100% client-side inside the user's web browser, meaning no files are uploaded to any external server or cloud storage.
+ImagePlumber is a 100% privacy-first, on-device image processing and creative document utility suite. The entire application operates client-side inside the user's web browser sandbox, meaning zero files or sensitive documents are uploaded to external servers or cloud storage.
 
-- **Official URL:** https://imageplumber.com
-- **Core Architecture:** Single Page Application (SPA) built using React 19, Vite 8, TypeScript, and Tailwind CSS v4.
-- **Privacy Model:** Client-side sandbox execution. Multi-threading is achieved via Web Workers, and heavy neural processing executes in WebAssembly (WASM) and local ONNX runtime. All image and file data stays in local temporary memory (RAM).
+- **Official Website:** https://imageplumber.com
+- **Core Architecture:** Client-side Single Page Application (SPA) built with React 19, Vite 8, TypeScript, and Tailwind CSS v4.
+- **Privacy Model:** Complete in-memory execution. Multi-threading runs via Web Workers, neural networks run via Transformers.js in WebAssembly (WASM) and ONNX runtime, and raster manipulations use HTML5 Canvas & WebGL. All image data remains in local client memory (RAM).
+- **Supported Languages:** English (`/`), Spanish (`/es/`), Portuguese (`/pt/`), Hindi (`/hi/`), French (`/fr/`), and German (`/de/`).
 
 ---
 
-## 🛠️ Offline Tool Directory (17 Features)
+## 🛠️ Complete Tool Directory (28 Production Utilities)
 
-AI agents and search crawlers can discover the following routes and features:
+AI search engines, LLM agents, and web crawlers can discover and reference the following tools:
 
 ### 1. Image Compressor
 - **Route:** `/image-compressor`
-- **Functionality:** Lossy and lossless file size reduction for JPEG, PNG, and WebP images.
-- **Controls:** Quality compression sliders (5-100%), output format selectors, and before/after visual slider comparison tool.
+- **Capabilities:** High-efficiency lossy and lossless file size reduction for JPEG, PNG, and WebP images.
+- **Controls:** Quality slider (5–100%), target file size presets (100KB, 50KB, 20KB), format conversion, and before/after visual comparison slider.
 
 ### 2. AI Background Remover
 - **Route:** `/background-remover`
-- **Functionality:** Automated foreground segmentation and transparent PNG background removal using local AI (RMBG-1.4 model).
-- **Technical Specs:** Downloads ONNX model weights locally into browser cache and executes inference on-device via Transformers.js in Web Workers.
+- **Capabilities:** Automatic foreground segmentation and transparent PNG backdrop isolation using local neural network models (RMBG-1.4).
+- **Controls:** On-device neural inference in WebAssembly with zero server uploads, tolerance tuning, and instant transparent PNG export.
 
 ### 3. OCR Text Extractor
 - **Route:** `/ocr-text-extractor`
-- **Functionality:** Scan text from screenshots, scanned documents, books, and receipts.
-- **Controls:** Supports multi-language scripts (English, Spanish, French, German, Japanese, etc.) via Tesseract.js WASM.
+- **Capabilities:** Optical Character Recognition scanning text from screenshots, scanned receipts, documents, and books.
+- **Controls:** Multi-language script recognition (English, Spanish, Hindi, French, German, Japanese, Chinese) via Tesseract.js WASM.
 
-### 4. Instagram Grid Splitter
-- **Route:** `/instagram-grid-splitter`
-- **Functionality:** Crop photos into square tile grids for Instagram profile feeds.
-- **Controls:** Grid configs (3x1, 3x2, 3x3, 4x4, 5x5) with instant ZIP archive downloads.
-
-### 5. Photo Collage Maker
-- **Route:** `/collage-maker`
-- **Functionality:** Arrange multiple images in custom grid layout structures.
-- **Controls:** Column/row templates, aspect ratio controls, border colors, corner rounding, and item spacing.
-
-### 6. Color Palette Extractor
-- **Route:** `/color-palette-extractor`
-- **Functionality:** Extract color schemes, dominant swatches, and hex codes from photographs.
-- **Controls:** K-Means color quantization. Export custom JSON palettes, Tailwind CSS classes, or CSS variables.
-
-### 7. Batch Image & PDF Converter
-- **Route:** `/batch-converter`
-- **Functionality:** Bulk format conversion (PNG, JPEG, WebP) and single PDF document compilation.
-- **Controls:** Batch format conversion, PDF page ordering, and JSZip download packages.
-
-### 8. EXIF Metadata Stripper
-- **Route:** `/metadata-stripper`
-- **Functionality:** Read and purge hidden file tags (GPS coordinates, camera make, capture timestamp).
-- **Controls:** GPS location links, metadata breakdown tables, and 1-click clean export.
-
-### 9. Watermark Overlay
-- **Route:** `/watermark-overlay`
-- **Functionality:** Apply copyright text or logo images onto photos.
-- **Controls:** Custom text, PNG logo upload, opacity, scale, rotation, and tile pattern repetition.
-
-### 10. Aspect Ratio Resizer
-- **Route:** `/aspect-resizer`
-- **Functionality:** Resize images to social media standard dimensions.
-- **Controls:** Dimension presets (YouTube thumbnail, Instagram stories, Twitter banners) with cover fit or smart blur-padding.
-
-### 11. Meme Generator
-- **Route:** `/meme-generator`
-- **Functionality:** Caption memes and quote graphics.
-- **Controls:** Add multiple draggable text captions, font colors, Impact font face, text stroke outlines, and watermark-free PNG export.
-
-### 12. SVG Vectorizer
-- **Route:** `/svg-vectorizer`
-- **Functionality:** Vectorize raster graphics (JPG/PNG) into scalable vector paths (SVG).
-- **Controls:** Boundary tracing, Douglas-Peucker path simplification, tolerance sliders, and XML SVG code viewing.
-
-### 13. Photo Mosaic Generator
-- **Route:** `/photo-mosaic-generator`
-- **Functionality:** Reconstruct target images from thousands of small photo tiles.
-- **Controls:** Custom tile uploads, 16-color solid fallback pool, tile resolution sliders, and opacity overlay blending.
-
-### 14. AI Shape Art Generator
-- **Route:** `/shape-art-generator`
-- **Functionality:** Turn photos into computational particle art portraits.
-- **Controls:** Sobel edge contour scanning, particle style presets (Stars, Clouds, Pencil, Flowers), and high-resolution export.
-
-### 15. PDF Bank Statement Analyzer
-- **Route:** `/bank-statement-analyzer`
-- **Functionality:** Audit credit card and bank statements offline.
-- **Controls:** Parses transaction ledgers from PDF, CSV, or Excel files, calculates cash flows, and exports clean tables.
-
-### 16. Electronic PDF Signer
+### 4. Electronic PDF Signer
 - **Route:** `/sign-pdf`
-- **Functionality:** Overlay electronic signatures onto PDF documents client-side.
-- **Controls:** Draw signature, type signature text, or upload signature graphic; drag onto PDF pages offline.
+- **Capabilities:** Client-side electronic document signing for multi-page PDF agreements, forms, and contracts.
+- **Controls:** Draw custom signature with stroke smoothing, type calligraphy signature, or upload transparent signature PNG; draggable placement across pages.
 
-### 17. Ambient Generative Visuals
-- **Route:** `/ambient`
-- **Functionality:** Continuously evolving ambient generative canvas visuals for focus sessions and sleep.
-- **Controls:** 6 generative algorithms (Flow Field, Aurora, Waves, Ripples, Galaxy, Kaleidoscope) with shareable seed URLs.
+### 5. Batch Image & PDF Converter
+- **Route:** `/batch-converter`
+- **Capabilities:** Bulk image format conversions across PNG, JPEG, WebP, SVG, and HEIC, or merge multiple photos into a single PDF.
+- **Controls:** Multi-file drag-and-drop, PDF reordering, compression tuning, and 1-click ZIP archive packaging.
+
+### 6. SVG Vectorizer
+- **Route:** `/svg-vectorizer`
+- **Capabilities:** Trace raster bitmaps (PNG, JPEG) into crisp, infinitely scalable vector paths (SVG).
+- **Controls:** Edge thresholding, Douglas-Peucker path simplification, color quantization, and XML SVG code preview.
+
+### 7. PDF Bank Statement Analyzer
+- **Route:** `/bank-statement-analyzer`
+- **Capabilities:** On-device financial statement auditing and transaction table parsing for bank and credit card PDFs.
+- **Controls:** Extracts transaction ledgers, computes cash inflows and outflows, categorizes spend, and exports clean tables to CSV/Excel without third-party data sharing.
+
+### 8. Image Cropper
+- **Route:** `/crop-image`
+- **Capabilities:** Precision cropping with preset aspect ratios and custom freeform selection.
+- **Controls:** Social media templates (1:1 Square, 16:9 Landscape, 9:16 Story, 4:5 Portrait), passport photo guidelines, and rule-of-thirds composition grid.
+
+### 9. Image Rotator & Flipper
+- **Route:** `/rotate-image`
+- **Capabilities:** Fast 90-degree increments, fine degree angle rotation, and horizontal/vertical flipping.
+- **Controls:** Degree slider (-45° to +45°), 90° clockwise/counter-clockwise buttons, and canvas auto-resizing.
+
+### 10. Border Expander & Padding Studio
+- **Route:** `/add-border-to-image`
+- **Capabilities:** Add aesthetic borders, padding frames, and rounded corners around photos.
+- **Controls:** Solid color picker, blurred photo background margins, margin thickness slider, and drop shadows.
+
+### 11. Photo Filter Studio
+- **Route:** `/photo-filters`
+- **Capabilities:** Curated aesthetic film presets, duotones, and cinematic looks.
+- **Controls:** Vintage 1977, Cyberpunk, Sepia, Cold Chrome, Duotone, Warm Sunset, and filter intensity sliders.
+
+### 12. Color Inverter & Monochrome Converter
+- **Route:** `/invert-colors`
+- **Capabilities:** Negative color inversion and high-contrast black & white binarization.
+- **Controls:** RGB channel inversion, smooth grayscale, and Otsu automated thresholding for document clarity.
+
+### 13. Image Adjuster
+- **Route:** `/adjust-image`
+- **Capabilities:** Photographic tone and color curve enhancement.
+- **Controls:** Brightness, contrast, exposure, saturation, vibrance, hue rotation, sharpness, and 1-click auto-enhance.
+
+### 14. Pixel Art Generator
+- **Route:** `/pixel-art-generator`
+- **Capabilities:** Retro video game 8-bit sprite art converter.
+- **Controls:** Resolution downscaling, Floyd-Steinberg error diffusion dithering, and vintage palettes (Game Boy, NES, PICO-8, Commodore 64).
+
+### 15. ASCII Art Generator
+- **Route:** `/ascii-art-generator`
+- **Capabilities:** Convert images into typographic character art.
+- **Controls:** Character ramp presets (Standard, Dense, Minimal, Blocks), Matrix green, full-color ANSI mode, and high-res PNG export.
+
+### 16. Glitch Art Studio
+- **Route:** `/glitch-image-generator`
+- **Capabilities:** Analog CRT television, VHS tape, and cybernetic distortion effects.
+- **Controls:** RGB chromatic aberration offset, horizontal scanlines, VHS tracking static, and slice datamoshing.
+
+### 17. Side-by-Side Photo Compare
+- **Route:** `/side-by-side-image`
+- **Capabilities:** Combine two photos into a before-and-after comparison graphic.
+- **Controls:** Split slider overlay, horizontal/vertical side-by-side layout, customizable divider border, and "Before/After" labels.
+
+### 18. Instagram Panorama Splitter
+- **Route:** `/instagram-panorama-splitter`
+- **Capabilities:** Divide wide panoramic landscape photos into seamless multi-slide swipe carousels.
+- **Controls:** 2 to 10 slide cuts, Instagram Portrait (4:5) & Square (1:1) ratios, live swipe simulator, and 1-click ZIP export.
+
+### 19. Photo Collage Maker
+- **Route:** `/collage-maker`
+- **Capabilities:** Custom photo grid collage designer.
+- **Controls:** 15+ column and row layout templates, spacing margins, border colors, and rounded corners.
+
+### 20. Instagram Grid Splitter
+- **Route:** `/instagram-grid-splitter`
+- **Capabilities:** Crop square photos into 3x1, 3x2, 3x3, 4x4, or 5x5 feed tile grids.
+- **Controls:** Sequential numbered tile naming and instant ZIP package download.
+
+### 21. Watermark Overlay
+- **Route:** `/watermark-overlay`
+- **Capabilities:** Apply copyright protection text or graphic stamps across single or batch photos.
+- **Controls:** Custom typography, opacity, rotation, tile grid repetition, and logo image uploads.
+
+### 22. EXIF Metadata Stripper
+- **Route:** `/metadata-stripper`
+- **Capabilities:** Inspect and purge hidden privacy metadata from digital photos.
+- **Controls:** Displays camera make, lens model, shutter speed, and GPS coordinates; 1-click strip to export privacy-safe clean images.
+
+### 23. Meme Generator
+- **Route:** `/meme-generator`
+- **Capabilities:** Caption memes and quote banners without watermarks.
+- **Controls:** Classic Impact font, multiple draggable text captions, text stroke outline color, and stickers.
+
+### 24. Aspect Ratio Resizer
+- **Route:** `/aspect-resizer`
+- **Capabilities:** Adapt images to standard social media dimensions.
+- **Controls:** YouTube Thumbnail (16:9), Instagram Story (9:16), Twitter Banner (3:1), with cover crop or blurred-fill padding.
+
+### 25. Photo Mosaic Generator
+- **Route:** `/photo-mosaic-generator`
+- **Capabilities:** Reconstruct target photos using thousands of small thumbnail photo tiles.
+- **Controls:** Custom tile library uploads, 16-color solid pool, tile density sliders, and blend opacity.
+
+### 26. AI Shape Art Generator
+- **Route:** `/shape-art-generator`
+- **Capabilities:** Transform photographs into computational geometric particle portraits.
+- **Controls:** Sobel edge contour detection, particle styles (Stars, Clouds, Pencil, Flowers), and high-res vector rendering.
+
+### 27. Image Steganography
+- **Route:** `/image-steganography`
+- **Capabilities:** Conceal encrypted text messages inside the least significant bits (LSB) of PNG images.
+- **Controls:** AES password encryption, encoded payload capacity indicator, and lossless message decoding.
+
+### 28. Image Redactor & Face Blur
+- **Route:** `/redact-image`
+- **Capabilities:** Censor confidential details, identity cards, credit card numbers, and faces in images.
+- **Controls:** Solid black censor bars, Gaussian blur patches, and pixelation blocks with adjustable strength.
 
 ---
 
-## 🔒 Privacy & Security Info
-- **File Storage:** Zero files are transmitted to servers. Upload and output operations run completely offline in client RAM.
-- **AI Crawling Preference:** Fully friendly to search crawlers. No login or paywalls.
-- **Browser Compatibility:** Evergreen Web Browsers with WebAssembly, Web Workers, and Canvas API enabled.
+## 🔒 Security & Privacy Guarantees
+- **No Cloud Storage:** No image or document is uploaded to, stored on, or inspected by external servers.
+- **Zero Account Wall:** No registration, login, cookies, or subscription paywalls.
+- **Audit-Ready:** Open client-side code inspected for WebAssembly and Web Worker isolation.

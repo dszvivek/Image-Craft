@@ -131,7 +131,7 @@
   },
   "jpg-a-png": {
     "title": "Convertir JPG a PNG Online Gratis (Alta Calidad) | ImagePlumber",
-    "description": "Convierte fotos JPG y JPEG a formato PNG sin pérdidas de forma 100% local en tu navegador.",
+    "description": "Convierte fotos JPG y JPEG a formato PNG sin pérdidas de forma 100% local en tu navegador. Preserva la máxima resolución sin subir archivos a la nube.",
     "keywords": "jpg a png, convertir jpg a png, convertidor jpeg a png, pasar foto a png",
     "howTo": [
       {
@@ -155,7 +155,7 @@
     ]
   },
   "recortar-imagen": {
-    "title": "Recortar Imágenes Online Gratis (Cuadrado, 16:9, Pasaporte) | ImagePlumber",
+    "title": "Recortar Imágenes Online Gratis (Cuadrado, 16:9) | ImagePlumber",
     "description": "Recorta fotos online gratis con proporciones predefinidas (1:1, 4:5, 16:9, pasaporte 2x2 in). Regla de los tercios y cero subidas al servidor.",
     "keywords": "recortar imagen online, recortar foto gratis, recortar imagen cuadrado, recortar foto pasaporte, recortar foto instagram",
     "howTo": [
@@ -306,7 +306,7 @@
   },
   "generador-memes": {
     "title": "Generador de Memes y Añadir Texto a Fotos | ImagePlumber",
-    "description": "Crea memes online gratis con textos arrastrables, bordes y fuentes sin marcas de agua.",
+    "description": "Crea memes online gratis con textos arrastrables, bordes y fuentes sin marcas de agua. Diseña imágenes divertidas al instante en tu navegador.",
     "keywords": "generador de memes online, añadir texto a foto, poner letras en fotos gratis, crear memes sin marca de agua",
     "howTo": [
       {
@@ -331,7 +331,7 @@
   },
   "marca-de-agua": {
     "title": "Poner Marca de Agua a Fotos Online (Lotes y ZIP) | ImagePlumber",
-    "description": "Añade texto o logotipo a múltiples imágenes a la vez y descarga un archivo ZIP 100% privado.",
+    "description": "Añade texto o logotipo a múltiples imágenes a la vez y descarga un archivo ZIP 100% privado. Protege tus fotos y creaciones sin subir archivos.",
     "keywords": "poner marca de agua gratis, marca de agua en fotos por lotes, proteger fotos con logo, marca de agua online",
     "howTo": [
       {
@@ -356,7 +356,7 @@
   },
   "eliminar-metadatos": {
     "title": "Ver y Eliminar Metadatos EXIF de Fotos Online | ImagePlumber",
-    "description": "Inspecciona ubicación GPS, datos de la cámara y borra todos los metadatos privados en el navegador.",
+    "description": "Inspecciona ubicación GPS, datos de la cámara y borra todos los metadatos EXIF privados en el navegador. Protege tu privacidad antes de compartir fotos.",
     "keywords": "eliminar metadatos foto online, borrar gps de foto, visor exif online, quitar datos exif gratis",
     "howTo": [
       {
@@ -381,7 +381,7 @@
   },
   "arte-pixel": {
     "title": "Generador de Pixel Art y Convertidor 8-Bits Online | ImagePlumber",
-    "description": "Convierte fotos en arte pixel retro con paletas de Game Boy, NES y dithering Floyd-Steinberg.",
+    "description": "Convierte fotos en arte pixel retro con paletas de Game Boy, NES y dithering Floyd-Steinberg. Transforma retratos en gráficos de 8 bits al instante.",
     "keywords": "generador pixel art, convertir foto a 8 bits, filtro gameboy online, pixelar imagen gratis, arte retro 8 bit",
     "howTo": [
       {
@@ -406,7 +406,7 @@
   },
   "arte-ascii": {
     "title": "Generador de Arte ASCII y Texto desde Fotos Online | ImagePlumber",
-    "description": "Convierte fotos en arte de texto ASCII con temas verde Matrix, color ANSI y exportación PNG.",
+    "description": "Convierte fotos en arte de texto ASCII con temas verde Matrix, colores ANSI y exportación en PNG. Genera arte tipográfico único 100% en tu navegador.",
     "keywords": "generador de arte ascii, foto a texto letras, convertir imagen a ascii gratis, arte ascii copiar portapapeles",
     "howTo": [
       {
@@ -431,7 +431,7 @@
   },
   "efecto-glitch": {
     "title": "Generador de Efecto Glitch y Líneas CRT Online | ImagePlumber",
-    "description": "Crea aberración cromática RGB, datamoshing y distorsión retro VHS 100% en tu navegador.",
+    "description": "Crea aberración cromática RGB, datamoshing y distorsión retro VHS 100% en tu navegador. Añade efectos futuristas y ciberpunk a tus fotos gratis.",
     "keywords": "generador efecto glitch, arte glitch online gratis, filtro vhs retro, lineas crt television, distorsion foto",
     "howTo": [
       {
@@ -630,8 +630,8 @@
     ]
   },
   "vectorizador-svg": {
-    "title": "Vectorizador SVG Online Gratis (Convertir JPG/PNG a SVG) | ImagePlumber",
-    "description": "Convierte imágenes rasterizadas PNG y JPG en vectores SVG escalables y limpios en tu navegador.",
+    "title": "Vectorizador SVG Online Gratis (JPG/PNG a SVG) | ImagePlumber",
+    "description": "Convierte imágenes rasterizadas PNG y JPG en vectores SVG escalables y limpios en tu navegador. Vectorización precisa sin pérdida de calidad ni subidas.",
     "keywords": "vectorizador svg, convertir png a svg gratis, vectorizar logo online, trazar imagen a svg",
     "howTo": [
       {

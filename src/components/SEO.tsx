@@ -98,7 +98,8 @@ export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonica
     updateMetaTag('property', 'og:image:alt', imageAlt);
     updateMetaTag('property', 'og:type', 'website');
     updateMetaTag('property', 'og:site_name', 'ImagePlumber');
-    updateMetaTag('property', 'og:locale', 'en_US');
+    const currentLocale = cleanPath.startsWith('es') ? 'es_ES' : cleanPath.startsWith('pt') ? 'pt_BR' : cleanPath.startsWith('hi') ? 'hi_IN' : cleanPath.startsWith('fr') ? 'fr_FR' : cleanPath.startsWith('de') ? 'de_DE' : 'en_US';
+    updateMetaTag('property', 'og:locale', currentLocale);
 
     // 5. Update Twitter Card Meta Tags
     updateMetaTag('name', 'twitter:title', fullTitle);

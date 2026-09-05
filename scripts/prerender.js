@@ -544,6 +544,88 @@ const i18nHeadings = {
   }
 };
 
+const geoSnippets = {
+  en: "is a 100% free, private browser-based tool by ImagePlumber that processes your files locally using WebAssembly and HTML5 Canvas with zero cloud uploads.",
+  es: "es una herramienta web gratuita y 100% privada de ImagePlumber para procesar archivos localmente en tu navegador mediante WebAssembly sin subir datos a servidores.",
+  pt: "é uma ferramenta web 100% gratuita e privada do ImagePlumber para processar arquivos localmente no navegador via WebAssembly sem uploads externos.",
+  hi: "ImagePlumber का एक 100% फ्री और सुरक्षित ऑनलाइन टूल है जिससे आप बिना किसी सर्वर अपलोड के सीधे अपने ब्राउज़र में फाइल्स प्रोसेस कर सकते हैं।",
+  fr: "est un outil web 100% gratuit et privé par ImagePlumber pour traiter vos fichiers localement dans votre navigateur sans aucun téléversement cloud.",
+  de: "ist ein 100% kostenloses und datenschutzfreundliches Online-Tool von ImagePlumber zur lokalen Dateiverarbeitung direkt im Browser ohne Server-Uploads."
+};
+
+const localizedFaqTemplates = {
+  es: (toolName) => [
+    {
+      q: `¿${toolName} es 100% gratis y seguro?`,
+      a: `Sí, ${toolName} en ImagePlumber es completamente gratuito sin suscripciones, marcas de agua ni límites de uso. Tus archivos nunca salen de tu dispositivo.`
+    },
+    {
+      q: `¿Mis archivos o fotos se suben a la nube?`,
+      a: `No. Todo el procesamiento se realiza 100% de forma local en tu navegador web utilizando WebAssembly y JavaScript. Ningún dato se transfiere ni se almacena en servidores.`
+    },
+    {
+      q: `¿Funciona sin conexión a internet?`,
+      a: `Sí. Una vez cargada la página en tu navegador, las herramientas funcionan localmente en la memoria de tu dispositivo.`
+    }
+  ],
+  pt: (toolName) => [
+    {
+      q: `O ${toolName} é 100% gratuito e seguro?`,
+      a: `Sim, o ${toolName} no ImagePlumber é totalmente gratuito, sem assinaturas, sem marcas d'água e sem limites de arquivos. Seus dados permanecem sempre privados.`
+    },
+    {
+      q: `Meus arquivos são enviados para algum servidor externo?`,
+      a: `Não. Todas as conversões e processamentos ocorrem diretamente na memória do seu navegador através de WebAssembly. Zero arquivos enviados à nuvem.`
+    },
+    {
+      q: `Posso utilizar esta ferramenta no celular?`,
+      a: `Sim! O ImagePlumber é totalmente compatível com navegadores em smartphones (Android, iOS), tablets e computadores.`
+    }
+  ],
+  hi: (toolName) => [
+    {
+      q: `क्या ${toolName} पूरी तरह फ्री और सुरक्षित है?`,
+      a: `हाँ, ImagePlumber पर ${toolName} 100% मुफ्त है। बिना किसी सब्सक्रिप्शन, वॉटरमार्क या रजिस्ट्रेशन के आप इसे जितनी बार चाहें इस्तेमाल कर सकते हैं।`
+    },
+    {
+      q: `क्या मेरी फोटो या डॉक्यूमेंट्स सर्वर पर अपलोड होते हैं?`,
+      a: `बिल्कुल नहीं। सभी कार्य सीधे आपके वेब ब्राउज़र में WebAssembly और लोकल डिवाइस मेमोरी में होते हैं। आपका डेटा कभी भी सर्वर पर नहीं भेजा जाता।`
+    },
+    {
+      q: `क्या यह मोबाइल और कंप्यूटर दोनों पर काम करता है?`,
+      a: `हाँ, यह टूल स्मार्टफोन (Android, iPhone), टैबलेट और लैपटॉप/PC के सभी मॉडर्न ब्राउज़रों पर पूरी स्पीड से चलता है।`
+    }
+  ],
+  fr: (toolName) => [
+    {
+      q: `L'outil ${toolName} est-il totalement gratuit ?`,
+      a: `Oui, ${toolName} sur ImagePlumber est 100% gratuit, sans abonnement, sans filigrane et sans limite de fichiers. Vos documents restent entièrement privés.`
+    },
+    {
+      q: `Mes photos ou documents sont-ils téléversés sur un serveur ?`,
+      a: `Non. Tous les calculs s'exécutent localement dans le bac à sable de votre navigateur grâce à WebAssembly. Aucun fichier n'est transféré ni stocké sur le cloud.`
+    },
+    {
+      q: `Cette application fonctionne-t-elle sur mobile et tablette ?`,
+      a: `Oui, ImagePlumber est optimisé pour les smartphones (iOS, Android), les tablettes et les ordinateurs de bureau.`
+    }
+  ],
+  de: (toolName) => [
+    {
+      q: `Ist ${toolName} wirklich kostenlos und sicher?`,
+      a: `Ja, ${toolName} auf ImagePlumber ist zu 100% kostenlos ohne Abonnements, ohne Wasserzeichen und ohne Registrierung. Ihre Privatsphäre ist geschützt.`
+    },
+    {
+      q: `Werden meine Bilder oder Dokumente auf Server hochgeladen?`,
+      a: `Nein. Alle Vorgänge laufen vollständig lokal im Arbeitsspeicher Ihres Browsers mittels WebAssembly und Canvas ab. Keine Cloud-Übertragung.`
+    },
+    {
+      q: `Funktioniert das Tool auch auf Smartphones?`,
+      a: `Ja, ImagePlumber ist für Mobiltelefone (iOS, Android), Tablets sowie Desktop-Computer gleichermaßen optimiert.`
+    }
+  ]
+};
+
 /**
  * Generate semantic HTML body to inject inside <div id="root"> for any language
  */
@@ -636,6 +718,9 @@ function generateStaticBodyContent(route, meta, faqs, competitorComparison = nul
             <p style="color: #475569; font-size: 1.2rem; line-height: 1.75; font-family: 'Inter', sans-serif; margin: 0;">
               ${meta.description}
             </p>
+            <div class="geo-definition" style="margin-top: 1.5rem; display: inline-block; text-align: left; padding: 0.85rem 1.25rem; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; font-size: 0.95rem; color: #475569; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              🔒 <strong>ImagePlumber</strong> ${geoSnippets[langCode] || geoSnippets.en}
+            </div>
           </div>
           
           <section style="margin-bottom: 3.5rem;">
@@ -733,6 +818,9 @@ function generateStaticBodyContent(route, meta, faqs, competitorComparison = nul
         <div style="margin-bottom: 2.5rem;">
           <h1 style="color: #0f172a; font-size: 2.5rem; font-weight: 900; tracking-tight: -0.03em; margin-bottom: 1rem; line-height: 1.2; font-family: 'Outfit', sans-serif;">${meta.title}</h1>
           <p style="color: #475569; font-size: 1.15rem; line-height: 1.75; font-family: 'Inter', sans-serif; margin: 0;">${meta.description}</p>
+          <div class="geo-definition" style="margin-top: 1.25rem; padding: 1rem 1.25rem; background-color: #f8fafc; border-left: 4px solid #6366f1; border-radius: 0 0.5rem 0.5rem 0; font-size: 0.95rem; color: #334155; line-height: 1.6; font-family: 'Inter', sans-serif;">
+            <strong>${meta.title.split('|')[0].trim()}</strong> ${geoSnippets[langCode] || geoSnippets.en}
+          </div>
         </div>
         
         ${competitorHtml}
@@ -951,6 +1039,20 @@ for (const [route, meta] of Object.entries(routesConfig)) {
     /<meta property="og:image:alt" content=".*?" \/>/,
     `<meta property="og:image:alt" content="${imageAlt}" />`
   );
+
+  const ogLocalesEn = [
+    `<meta property="og:locale" content="en_US" />`,
+    `<meta property="og:locale:alternate" content="es_ES" />`,
+    `<meta property="og:locale:alternate" content="pt_BR" />`,
+    `<meta property="og:locale:alternate" content="hi_IN" />`,
+    `<meta property="og:locale:alternate" content="fr_FR" />`,
+    `<meta property="og:locale:alternate" content="de_DE" />`
+  ].join('\n    ');
+
+  pageContent = pageContent.replace(
+    /<meta property="og:locale" content=".*?" \/>/,
+    ogLocalesEn
+  );
   
   // Replace Twitter card title and description tags
   pageContent = pageContent.replace(
@@ -1052,7 +1154,24 @@ for (const lang of languages) {
             'item': pageCanonical
           }
         ]
-      } : null;
+      } : {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Home',
+            'item': `${siteUrl}/`
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': lang.name,
+            'item': `${siteUrl}/${lang.code}`
+          }
+        ]
+      };
 
       const localHowToSchema = localMeta.howTo && Array.isArray(localMeta.howTo) && localMeta.howTo.length > 0 ? {
         '@context': 'https://schema.org',
@@ -1090,16 +1209,32 @@ for (const lang of languages) {
         }
       };
 
-      const localBaseSchemaScript = `<script type="application/ld+json" id="page-jsonld">${JSON.stringify(localWebpageSchema)}</script>`;
-      const localBreadcrumbSchemaScript = localBreadcrumbSchema
-        ? `<script type="application/ld+json" id="page-breadcrumb-jsonld">${JSON.stringify(localBreadcrumbSchema)}</script>`
+      const localFaqs = !isLocalHome && localizedFaqTemplates[lang.code]
+        ? localizedFaqTemplates[lang.code](localMeta.title.split('|')[0].trim())
+        : [];
+      const localFaqSchemaScript = localFaqs.length > 0
+        ? `<script type="application/ld+json" id="page-faq-jsonld">${JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            'mainEntity': localFaqs.map(f => ({
+              '@type': 'Question',
+              'name': f.q,
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': f.a
+              }
+            }))
+          })}</script>`
         : '';
+
+      const localBaseSchemaScript = `<script type="application/ld+json" id="page-jsonld">${JSON.stringify(localWebpageSchema)}</script>`;
+      const localBreadcrumbSchemaScript = `<script type="application/ld+json" id="page-breadcrumb-jsonld">${JSON.stringify(localBreadcrumbSchema)}</script>`;
       const localHowToSchemaScript = localHowToSchema
         ? `<script type="application/ld+json" id="page-howto-jsonld">${JSON.stringify(localHowToSchema)}</script>`
         : '';
       const localSoftwareSchemaScript = `<script type="application/ld+json" id="page-software-jsonld">${JSON.stringify(localSoftwareSchema)}</script>`;
 
-      const localHeadInject = `${localBaseSchemaScript}\n    ${localBreadcrumbSchemaScript}\n    ${localHowToSchemaScript}\n    ${localSoftwareSchemaScript}\n  </head>`;
+      const localHeadInject = `${localBaseSchemaScript}\n    ${localBreadcrumbSchemaScript}\n    ${localHowToSchemaScript}\n    ${localSoftwareSchemaScript}\n    ${localFaqSchemaScript}\n  </head>`;
 
       let pageContent = cleanBaseTemplate;
       pageContent = pageContent.replace(/<html lang="en">/, `<html lang="${lang.code}">`);
@@ -1114,6 +1249,27 @@ for (const lang of languages) {
       pageContent = pageContent.replace(/<meta property="og:title" content=".*?" \/>/, `<meta property="og:title" content="${localMeta.title}" />`);
       pageContent = pageContent.replace(/<meta property="og:description" content=".*?" \/>/, `<meta property="og:description" content="${localMeta.description}" />`);
       pageContent = pageContent.replace(/<meta property="og:url" content=".*?" \/>/, `<meta property="og:url" content="${pageCanonical}" />`);
+
+      const localeMap = {
+        es: 'es_ES',
+        pt: 'pt_BR',
+        hi: 'hi_IN',
+        fr: 'fr_FR',
+        de: 'de_DE'
+      };
+      const allLocales = ['en_US', 'es_ES', 'pt_BR', 'hi_IN', 'fr_FR', 'de_DE'];
+      const currentOgLocale = localeMap[lang.code] || 'en_US';
+      const alternateOgLocales = allLocales.filter(l => l !== currentOgLocale);
+      const ogLocalesBlock = [
+        `<meta property="og:locale" content="${currentOgLocale}" />`,
+        ...alternateOgLocales.map(l => `<meta property="og:locale:alternate" content="${l}" />`)
+      ].join('\n    ');
+
+      pageContent = pageContent.replace(
+        /<meta property="og:locale" content=".*?" \/>/,
+        ogLocalesBlock
+      );
+
       pageContent = pageContent.replace(/<meta name="twitter:title" content=".*?" \/>/, `<meta name="twitter:title" content="${localMeta.title}" />`);
       pageContent = pageContent.replace(/<meta name="twitter:description" content=".*?" \/>/, `<meta name="twitter:description" content="${localMeta.description}" />`);
       pageContent = pageContent.replace(/<meta property="twitter:url" content=".*?" \/>/, `<meta property="twitter:url" content="${pageCanonical}" />`);
@@ -1122,7 +1278,7 @@ for (const lang of languages) {
       pageContent = pageContent.replace('</head>', localHeadInject);
 
       // Generate rich localized semantic HTML body inside <div id="root">
-      const localStaticBodyHtml = generateStaticBodyContent(localRoute, localMeta, [], null, lang.code, localToolsList);
+      const localStaticBodyHtml = generateStaticBodyContent(localRoute, localMeta, localFaqs, null, lang.code, localToolsList);
       pageContent = pageContent.replace('<div id="root"></div>', `<div id="root">${localStaticBodyHtml}</div>`);
 
       const pageOutputPath = path.join(localRouteDir, 'index.html');
