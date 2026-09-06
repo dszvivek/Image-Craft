@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Upload, Image as ImageIcon } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { popPendingTransferFile } from '../utils/sharedImageTransfer';
 
 interface DropZoneProps {
   onFilesSelected: (files: File[]) => void;
@@ -88,6 +89,19 @@ export const DropZone: React.FC<DropZoneProps> = ({
     setError(null);
     return validFiles;
   }, [accept, maxSizeMB]);
+
+  // Automatically pick up pending file passed from hero dropzone
+  useEffect(() => {
+    const pending = popPendingTransferFile();
+    if (pending) {
+      const valid = validateFiles([pending]);
+      if (valid.length > 0) {
+        setJustDropped(true);
+        setTimeout(() => setJustDropped(false), 400);
+        onFilesSelected(valid);
+      }
+    }
+  }, [validateFiles, onFilesSelected]);
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();

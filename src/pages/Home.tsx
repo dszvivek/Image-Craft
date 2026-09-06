@@ -33,9 +33,13 @@ import {
   Layout,
   Table,
   Search,
-  ChevronRight
+  ChevronRight,
+  Flame,
+  Clock
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { HeroDropZone } from '../components/HeroDropZone';
+import { HeroInteractiveShowcase } from '../components/HeroInteractiveShowcase';
 import { 
   getLocaleFromPath, 
   getLocalizedToolPath, 
@@ -888,6 +892,34 @@ export const Home: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [viewMode, setViewMode] = useState<'grid' | 'compact'>('grid');
   const [openHomeFaq, setOpenHomeFaq] = useState<number | null>(null);
+  const [recentTools, setRecentTools] = useState<string[]>([]);
+
+  // Load recently visited tools from localStorage
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('imagecraft_recent_tools');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          setRecentTools(parsed);
+        }
+      }
+    } catch {
+      // Ignore localStorage errors
+    }
+  }, []);
+
+  const trackToolVisit = (path: string) => {
+    try {
+      const stored = localStorage.getItem('imagecraft_recent_tools');
+      const list: string[] = stored ? JSON.parse(stored) : [];
+      const updated = [path, ...list.filter((p) => p !== path)].slice(0, 5);
+      localStorage.setItem('imagecraft_recent_tools', JSON.stringify(updated));
+      setRecentTools(updated);
+    } catch {
+      // Ignore localStorage errors
+    }
+  };
 
   // Auto-scroll to tools directory when navigated with #tools-grid
   useEffect(() => {
@@ -917,6 +949,26 @@ export const Home: React.FC = () => {
     }))
   };
 
+  const spotlightTools = toolDirectory.filter(tool => [
+    '/background-remover',
+    '/image-compressor',
+    '/crop-image',
+    '/redact-image',
+    '/batch-converter',
+    '/aspect-resizer'
+  ].includes(tool.path));
+
+  const quickSearchTags = [
+    'AI Background',
+    'Compress',
+    'Passport',
+    'Censor Face',
+    'WebP',
+    'Duotone',
+    'PDF',
+    'OCR'
+  ];
+
   const filteredTools = toolDirectory.filter(tool => {
     const shortMeta = getShortToolMeta(tool.path, locale);
     const matchesCategory = activeCategory === 'all' || tool.category === activeCategory;
@@ -928,7 +980,7 @@ export const Home: React.FC = () => {
     return matchesCategory && matchesSearch;
   });
 
-  const renderToolCard = (tool: ToolItem) => {
+  const renderToolCard = (tool: ToolItem, isSpotlight = false) => {
     const Icon = tool.icon;
     const shortMeta = getShortToolMeta(tool.path, locale);
     const toolUrl = getLocalizedToolPath(tool.path, locale);
@@ -943,10 +995,15 @@ export const Home: React.FC = () => {
       <Link
         key={tool.path}
         to={toolUrl}
-        className="premium-bento group flex flex-col justify-between p-4.5 rounded-3xl bg-white dark:bg-slate-900/70 border border-slate-200/70 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-600/80 relative overflow-hidden transition-all duration-300 shadow-xs hover:shadow-xl hover:shadow-indigo-500/10 cursor-pointer text-left"
+        onClick={() => trackToolVisit(tool.path)}
+        className={`premium-bento group flex flex-col justify-between p-4.5 rounded-3xl bg-white dark:bg-slate-900/70 border ${
+          isSpotlight 
+            ? 'border-indigo-200 dark:border-indigo-800/80 shadow-md shadow-indigo-500/5 hover:border-indigo-500' 
+            : 'border-slate-200/70 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-600/80'
+        } relative overflow-hidden transition-all duration-300 shadow-xs hover:shadow-xl hover:shadow-indigo-500/10 cursor-pointer text-left`}
       >
         {/* Ambient Top Glow */}
-        <div className="absolute -right-12 -top-12 w-28 h-28 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/15 transition-all pointer-events-none" />
+        <div className={`absolute -right-12 -top-12 w-28 h-28 ${isSpotlight ? 'bg-indigo-500/15' : 'bg-indigo-500/5'} rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all pointer-events-none`} />
 
         <div>
           {/* Animated Interactive Visual Preview */}
@@ -957,9 +1014,17 @@ export const Home: React.FC = () => {
             <div className={`w-8 h-8 rounded-xl flex items-center justify-center border shrink-0 ${tool.colorClass} group-hover:scale-105 transition-transform`}>
               <Icon className="w-4 h-4" />
             </div>
-            <span className="text-[9px] font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 bg-indigo-50/80 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 px-2 py-0.5 rounded-md shadow-2xs">
-              {tool.tag}
-            </span>
+            <div className="flex items-center gap-1.5">
+              {isSpotlight && (
+                <span className="text-[8.5px] font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 border border-amber-200/60 dark:border-amber-800 px-1.5 py-0.5 rounded-md flex items-center gap-1">
+                  <Flame className="w-2.5 h-2.5" />
+                  Popular
+                </span>
+              )}
+              <span className="text-[9px] font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 bg-indigo-50/80 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 px-2 py-0.5 rounded-md shadow-2xs">
+                {tool.tag}
+              </span>
+            </div>
           </div>
           
           <h3 className="font-extrabold text-[13.5px] text-slate-900 dark:text-slate-100 tracking-tight mb-1 group-hover:text-indigo-650 dark:group-hover:text-indigo-400 transition-colors">
@@ -987,6 +1052,7 @@ export const Home: React.FC = () => {
       <Link
         key={tool.path}
         to={toolUrl}
+        onClick={() => trackToolVisit(tool.path)}
         className="flex items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-700/60 hover:bg-indigo-50/30 dark:hover:bg-slate-800/50 transition-all text-left group"
       >
         <div className="flex items-center gap-3 min-w-0">
@@ -1030,24 +1096,24 @@ export const Home: React.FC = () => {
         title="Free Privacy-First Image Tools" 
         description="Free browser-based image tools suite: compress images, remove backgrounds with AI, crop, rotate, censor, convert batch images, strip EXIF metadata, add watermarks, and generate pixel art. 100% offline, zero uploads." 
         keywords="free image tools, image compressor, AI background remover, crop image, rotate image, censor photo, EXIF metadata stripper, watermark tool, pixel art generator, ascii art, glitch photo editor"
-schema={homeFaqSchema}
+        schema={homeFaqSchema}
       />
 
       {/* Decorative Blur Backdrops */}
       <div className="absolute top-0 inset-x-0 h-[500px] bg-dot-grid opacity-50 pointer-events-none -z-10" />
       <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[70%] h-[300px] bg-gradient-to-tr from-sky-400/10 via-indigo-500/8 to-teal-500/5 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow" />
 
-      {/* Hero Section */}
-      <section className="text-center pt-14 pb-8 md:pt-20 md:pb-12 flex flex-col items-center justify-center relative overflow-hidden">
+      {/* HERO SECTION */}
+      <section className="text-center pt-10 pb-6 md:pt-16 md:pb-8 flex flex-col items-center justify-center relative overflow-hidden">
         
         {/* Anti-Cloud Tag */}
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700 rounded-full text-[10px] font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-6 shadow-xs">
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700 rounded-full text-[10px] font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-4 shadow-xs">
           <ShieldCheck className="w-3.5 h-3.5 text-indigo-500" />
           <span>{t.heroBadge}</span>
         </div>
 
         {/* Heading */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-5 max-w-4xl leading-[1.1]">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-3 max-w-4xl leading-[1.15]">
           {t.heroTitle1} <br />
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-650 via-purple-500 to-pink-500 font-black">
             {t.heroTitle2}
@@ -1055,34 +1121,12 @@ schema={homeFaqSchema}
         </h1>
 
         {/* Subtitle */}
-        <p className="text-xs sm:text-sm md:text-base text-slate-500 dark:text-slate-400 max-w-2xl mb-8 leading-relaxed font-medium px-4">
+        <p className="text-xs sm:text-sm md:text-base text-slate-500 dark:text-slate-400 max-w-2xl mb-4 leading-relaxed font-medium px-4">
           {t.heroSubtitle}
         </p>
 
-        {/* Quick Search & Launch Action */}
-        <div className="w-full max-w-xl mx-auto px-4 mb-4">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder={t.searchPlaceholder}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-10 py-3.5 bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all shadow-md shadow-slate-200/10 dark:shadow-none text-sm text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400 dark:placeholder-slate-500"
-            />
-            <Search className="w-5 h-5 text-slate-400 dark:text-slate-500 absolute left-4 top-1/2 -translate-y-1/2" />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer transition-all"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-        </div>
-
         {/* Core Value Props Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mt-4 text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-2 text-[10.5px] font-semibold text-slate-500 dark:text-slate-400">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-900/60">
             <Check className="w-3 h-3" /> 100% In-Browser RAM
           </span>
@@ -1094,10 +1138,136 @@ schema={homeFaqSchema}
           </span>
         </div>
 
+        {/* UNIVERSAL HERO DROPZONE & QUICK LAUNCHER */}
+        <HeroDropZone />
+
+        {/* INTERACTIVE BEFORE/AFTER DEMO SHOWCASE */}
+        <HeroInteractiveShowcase />
+
       </section>
 
-      {/* Tools Directory Section: Bento Grid Dashboard */}
-      <section id="tools-grid" className="py-10 border-t border-slate-200/60 dark:border-slate-800 max-w-7xl mx-auto scroll-mt-20 px-4 sm:px-6 lg:px-8">
+      {/* RECENTLY USED RIBBON (Quick Jump) */}
+      {recentTools.length > 0 && (
+        <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-left animate-fade-in">
+          <div className="p-3.5 rounded-2xl bg-white dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 shadow-xs">
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-indigo-500" />
+              <span className="text-xs font-bold text-slate-800 dark:text-slate-200">Recently Used:</span>
+            </div>
+            <div className="flex flex-wrap gap-2 items-center">
+              {recentTools.map(path => {
+                const tool = toolDirectory.find(t => t.path === path);
+                if (!tool) return null;
+                const Icon = tool.icon;
+                const shortMeta = getShortToolMeta(tool.path, locale);
+                return (
+                  <Link
+                    key={tool.path}
+                    to={getLocalizedToolPath(tool.path, locale)}
+                    onClick={() => trackToolVisit(tool.path)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 hover:border-indigo-400 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shadow-2xs cursor-pointer"
+                  >
+                    <Icon className="w-3.5 h-3.5 text-indigo-500" />
+                    <span>{shortMeta.name}</span>
+                  </Link>
+                );
+              })}
+              <button
+                type="button"
+                onClick={() => {
+                  localStorage.removeItem('imagecraft_recent_tools');
+                  setRecentTools([]);
+                }}
+                className="text-[10px] font-bold text-slate-400 hover:text-rose-500 px-2 py-1 transition-colors cursor-pointer"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CURATED FLAGSHIP SPOTLIGHT (Top 6 Workflows) */}
+      {!searchQuery && activeCategory === 'all' && (
+        <section className="py-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-left">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-900/60 text-[10px] font-extrabold uppercase tracking-wider mb-1.5">
+                <Flame className="w-3.5 h-3.5" />
+                <span>Curated Essentials</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+                Most Popular Workflows
+              </h2>
+            </div>
+            <a
+              href="#tools-grid"
+              className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 flex items-center gap-1 cursor-pointer"
+            >
+              <span>View All 28 Tools</span>
+              <ChevronRight className="w-4 h-4" />
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {spotlightTools.map((tool) => renderToolCard(tool, true))}
+          </div>
+        </section>
+      )}
+
+      {/* TOOLS DIRECTORY SECTION (Search, Category Tabs, Grid/List) */}
+      <section id="tools-grid" className="py-10 border-t border-slate-200/60 dark:border-slate-800 max-w-7xl mx-auto scroll-mt-20 px-4 sm:px-6 lg:px-8 text-left">
+        
+        <div className="text-center mb-8">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mb-2">
+            Complete Tools Directory
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto">
+            Browse all 28 client-side image and document processing utilities.
+          </p>
+        </div>
+
+        {/* Search Bar & Quick Search Chips */}
+        <div className="w-full max-w-2xl mx-auto mb-6">
+          <div className="relative mb-3">
+            <input
+              type="text"
+              placeholder={t.searchPlaceholder}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-10 py-3.5 bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all shadow-md shadow-slate-200/10 dark:shadow-none text-sm text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400 dark:placeholder-slate-500"
+            />
+            <Search className="w-5 h-5 text-slate-400 dark:text-slate-500 absolute left-4 top-1/2 -translate-y-1/2" />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer transition-all"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          {/* Quick Search Tag Chips */}
+          <div className="flex flex-wrap items-center justify-center gap-1.5 text-center">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-1">Popular:</span>
+            {quickSearchTags.map(tag => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => setSearchQuery(tag)}
+                className={`text-[11px] font-semibold px-2.5 py-0.8 rounded-lg border transition-all cursor-pointer ${
+                  searchQuery.toLowerCase() === tag.toLowerCase()
+                    ? 'bg-indigo-600 text-white border-indigo-600'
+                    : 'bg-slate-50 dark:bg-slate-800/80 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-slate-600 dark:text-slate-300 border-slate-200/70 dark:border-slate-700'
+                }`}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
         
         {/* Category Controls & View Switcher Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 bg-slate-50/70 dark:bg-slate-900/50 p-3 rounded-2xl border border-slate-200/70 dark:border-slate-800">
@@ -1115,6 +1285,7 @@ schema={homeFaqSchema}
               return (
                 <button
                   key={cat.id}
+                  type="button"
                   onClick={() => setActiveCategory(cat.id)}
                   className={`px-3.5 py-1.5 rounded-xl text-[11px] font-bold tracking-tight transition-all cursor-pointer border flex items-center gap-1.5 ${
                     activeCategory === cat.id
@@ -1135,6 +1306,7 @@ schema={homeFaqSchema}
           {/* View Mode Toggle Button */}
           <div className="flex items-center gap-1 bg-white dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 shrink-0">
             <button
+              type="button"
               onClick={() => setViewMode('grid')}
               className={`p-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                 viewMode === 'grid'
@@ -1147,6 +1319,7 @@ schema={homeFaqSchema}
               <span className="text-[10px]">Cards</span>
             </button>
             <button
+              type="button"
               onClick={() => setViewMode('compact')}
               className={`p-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                 viewMode === 'compact'
@@ -1163,8 +1336,15 @@ schema={homeFaqSchema}
 
         {/* Results Info Bar when filtered */}
         {searchQuery && (
-          <div className="mb-4 text-xs font-semibold text-slate-500 dark:text-slate-400 text-left">
-            Showing {filteredTools.length} tools matching "{searchQuery}"
+          <div className="mb-4 text-xs font-semibold text-slate-500 dark:text-slate-400 text-left flex items-center justify-between">
+            <span>Showing {filteredTools.length} tools matching "{searchQuery}"</span>
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              className="text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
+            >
+              Clear filter
+            </button>
           </div>
         )}
 
@@ -1183,8 +1363,8 @@ schema={homeFaqSchema}
 
       </section>
 
-      {/* Popular Formats & Quick Conversion Matrix Section */}
-      <section className="py-12 border-t border-slate-200/60 dark:border-slate-800 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* POPULAR FORMATS & QUICK CONVERSION MATRIX SECTION */}
+      <section className="py-12 border-t border-slate-200/60 dark:border-slate-800 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
         <div className="text-center mb-8">
           <span className="text-[10px] font-bold text-indigo-655 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-900 uppercase tracking-widest">
             High-Speed Matrix
@@ -1287,27 +1467,103 @@ schema={homeFaqSchema}
         </div>
       </section>
 
-      {/* Trust & Zero-Upload Privacy Guarantee Section */}
-      <section className="py-12 border-t border-slate-200/60 dark:border-slate-800 max-w-5xl mx-auto px-4 text-center">
-        <div className="bg-gradient-to-br from-indigo-950 via-slate-900 to-zinc-950 p-8 sm:p-12 rounded-3xl border border-indigo-900/50 shadow-2xl text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none" />
-          <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center text-indigo-300 mx-auto mb-4 shadow-lg shadow-indigo-500/20">
-            <ShieldCheck className="w-6 h-6" />
-          </div>
-          <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-3">
-            Why 100% Client-Side Matters
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed font-medium mb-6">
-            Unlike cloud image editors that upload your private photos, passport scans, and sensitive bank records to remote servers, ImagePlumber runs completely inside your browser's WebAssembly memory. Your files never leave your device.
+      {/* PRIVACY ARCHITECTURE & CLOUD COMPARISON SECTION */}
+      <section className="py-14 border-t border-slate-200/60 dark:border-slate-800 max-w-5xl mx-auto px-4 text-center">
+        <div className="mb-10 text-center">
+          <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-3 py-1 rounded-full border border-emerald-200/60 dark:border-emerald-900/60">
+            Privacy & Architecture
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 mt-2.5 mb-2">
+            Why 100% On-Device Processing Matters
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto font-medium leading-relaxed">
+            Unlike cloud converters that transmit your private photos, contracts, and IDs to remote servers, ImagePlumber runs entirely inside your browser sandbox.
           </p>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-400/30 rounded-full text-emerald-400 text-xs font-bold">
+        </div>
+
+        {/* Architectural Comparison Matrix */}
+        <div className="overflow-x-auto rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl shadow-slate-200/20 dark:shadow-none mb-8">
+          <table className="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50">
+                <th className="p-4 font-bold text-slate-700 dark:text-slate-300">Feature & Architecture</th>
+                <th className="p-4 font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50/50 dark:bg-indigo-950/30">
+                  ImagePlumber (Local WASM)
+                </th>
+                <th className="p-4 font-bold text-slate-500 dark:text-slate-400">
+                  Cloud Editors (TinyPNG, Remove.bg, etc.)
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80 font-medium">
+              <tr>
+                <td className="p-4 font-semibold text-slate-800 dark:text-slate-200">Where Your Files Are Processed</td>
+                <td className="p-4 text-emerald-600 dark:text-emerald-400 font-bold bg-indigo-50/20 dark:bg-indigo-950/10 flex items-center gap-1.5">
+                  <Check className="w-4 h-4 shrink-0" /> 100% On-Device Browser RAM
+                </td>
+                <td className="p-4 text-slate-500 flex items-center gap-1.5">
+                  <X className="w-4 h-4 text-rose-500 shrink-0" /> Uploaded to remote cloud servers
+                </td>
+              </tr>
+              <tr>
+                <td className="p-4 font-semibold text-slate-800 dark:text-slate-200">Processing Latency & Queue</td>
+                <td className="p-4 text-emerald-600 dark:text-emerald-400 font-bold bg-indigo-50/20 dark:bg-indigo-950/10 flex items-center gap-1.5">
+                  <Check className="w-4 h-4 shrink-0" /> Instant 0ms latency (Hardware accelerated)
+                </td>
+                <td className="p-4 text-slate-500 flex items-center gap-1.5">
+                  <X className="w-4 h-4 text-rose-500 shrink-0" /> Network upload lag + server queue delays
+                </td>
+              </tr>
+              <tr>
+                <td className="p-4 font-semibold text-slate-800 dark:text-slate-200">File Size & Daily Limits</td>
+                <td className="p-4 text-emerald-600 dark:text-emerald-400 font-bold bg-indigo-50/20 dark:bg-indigo-950/10 flex items-center gap-1.5">
+                  <Check className="w-4 h-4 shrink-0" /> Unlimited & Free up to 100MB+
+                </td>
+                <td className="p-4 text-slate-500 flex items-center gap-1.5">
+                  <X className="w-4 h-4 text-rose-500 shrink-0" /> 5MB paywall or daily file caps
+                </td>
+              </tr>
+              <tr>
+                <td className="p-4 font-semibold text-slate-800 dark:text-slate-200">Safe for Passports, IDs & Statements</td>
+                <td className="p-4 text-emerald-600 dark:text-emerald-400 font-bold bg-indigo-50/20 dark:bg-indigo-950/10 flex items-center gap-1.5">
+                  <Check className="w-4 h-4 shrink-0" /> Absolute Zero Leak Guarantee
+                </td>
+                <td className="p-4 text-slate-500 flex items-center gap-1.5">
+                  <X className="w-4 h-4 text-rose-500 shrink-0" /> Stored in cloud logs & training datasets
+                </td>
+              </tr>
+              <tr>
+                <td className="p-4 font-semibold text-slate-800 dark:text-slate-200">Offline Usability</td>
+                <td className="p-4 text-emerald-600 dark:text-emerald-400 font-bold bg-indigo-50/20 dark:bg-indigo-950/10 flex items-center gap-1.5">
+                  <Check className="w-4 h-4 shrink-0" /> Fully functional offline (Air-gapped)
+                </td>
+                <td className="p-4 text-slate-500 flex items-center gap-1.5">
+                  <X className="w-4 h-4 text-rose-500 shrink-0" /> Fails completely without active internet
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* Security Banner */}
+        <div className="bg-gradient-to-br from-indigo-950 via-slate-900 to-zinc-950 p-6 sm:p-8 rounded-3xl border border-indigo-900/50 text-white relative overflow-hidden">
+          <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center text-indigo-300 mx-auto mb-3">
+            <ShieldCheck className="w-5 h-5" />
+          </div>
+          <h3 className="text-xl font-extrabold tracking-tight mb-2">
+            Air-Gapped Local Execution
+          </h3>
+          <p className="text-xs text-slate-300 max-w-xl mx-auto leading-relaxed mb-4">
+            ImagePlumber runs 100% inside your browser's WebAssembly sandbox. You can disconnect your Wi-Fi and the tools will still process your images.
+          </p>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 border border-emerald-400/30 rounded-full text-emerald-400 text-[11px] font-bold">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span>0 Bytes Transferred • No Server Tracking • Offline Ready</span>
           </div>
         </div>
       </section>
 
-      {/* FAQ Accordion Section */}
+      {/* FAQ ACCORDION SECTION */}
       <section className="py-12 border-t border-slate-200/60 dark:border-slate-800 max-w-4xl mx-auto px-4 text-left">
         <div className="text-center mb-8">
           <span className="text-[10px] font-bold text-indigo-655 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-900 uppercase tracking-widest">
@@ -1330,6 +1586,7 @@ schema={homeFaqSchema}
                 className="border border-slate-200/80 dark:border-slate-800 rounded-2xl overflow-hidden bg-white dark:bg-slate-900/60 shadow-2xs transition-all"
               >
                 <button
+                  type="button"
                   onClick={() => setOpenHomeFaq(isOpen ? null : index)}
                   className="w-full flex items-center justify-between p-4 text-left text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 hover:text-indigo-650 dark:hover:text-indigo-400 transition-colors cursor-pointer"
                 >
@@ -1350,3 +1607,4 @@ schema={homeFaqSchema}
     </div>
   );
 };
+

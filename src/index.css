@@ -3,6 +3,66 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+:root {
+  /* Surface & Canvas System Tokens */
+  --bg-canvas: #f8fafc;
+  --bg-canvas-subtle: #f1f5f9;
+  --bg-canvas-warm: #fafaf9;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-surface-hover: #f8fafc;
+  --bg-surface-active: #f1f5f9;
+  --bg-surface-glass: rgba(255, 255, 255, 0.85);
+  --bg-overlay: rgba(15, 23, 42, 0.45);
+
+  /* Typography & Contrast Tokens */
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+  --text-inverse: #ffffff;
+
+  /* Borders & Specular Micro-Highlights */
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-medium: rgba(15, 23, 42, 0.14);
+  --border-strong: rgba(15, 23, 42, 0.22);
+  --border-specular: rgba(255, 255, 255, 0.9);
+
+  /* Elevation Shadows */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 14px -2px rgba(15, 23, 42, 0.08), 0 2px 5px -1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 32px -4px rgba(15, 23, 42, 0.1), 0 4px 12px -2px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 24px 52px -10px rgba(15, 23, 42, 0.14), 0 8px 22px -4px rgba(15, 23, 42, 0.07);
+
+  /* Touch & Safe-Area Ergonomics */
+  --touch-target-min: 48px;
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.dark {
+  --bg-canvas: #090b10;
+  --bg-canvas-subtle: #11141c;
+  --bg-canvas-warm: #0e1118;
+  --bg-surface: #141824;
+  --bg-surface-elevated: #1a2030;
+  --bg-surface-hover: #1f273b;
+  --bg-surface-active: #262f47;
+  --bg-surface-glass: rgba(20, 24, 36, 0.82);
+  --bg-overlay: rgba(0, 0, 0, 0.72);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+  --text-inverse: #0f172a;
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
+  --border-strong: rgba(255, 255, 255, 0.28);
+  --border-specular: rgba(255, 255, 255, 0.18);
+}
+
 @theme {
   /* Curated Premium Cobalt-Indigo Palette */
   --color-primary-50: #f5f7ff;
@@ -424,7 +484,7 @@ input[type="range"].range-styled::-moz-range-thumb {
 }
 .compare-handle {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 38px; height: 38px; background: white; border-radius: 50%;
+  width: 48px; height: 48px; background: white; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12); color: #0f172a;
   border: 2.5px solid #6366f1; transition: border-color 0.2s;
@@ -433,9 +493,13 @@ input[type="range"].range-styled::-moz-range-thumb {
 
 /* Date Presets Buttons */
 .preset-btn {
-  padding: 6px 14px;
-  border-radius: 8px;
-  font-size: 10px;
+  padding: 8px 16px;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;

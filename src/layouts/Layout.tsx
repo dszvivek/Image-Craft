@@ -421,6 +421,20 @@ export const Layout = () => {
     ? (locale === 'en' ? currentTool.name : getShortToolMeta(currentTool.path, locale).name || currentTool.name) 
     : '';
 
+  // Track visited tool in localStorage for Jump Back In ribbon
+  useEffect(() => {
+    if (currentTool) {
+      try {
+        const stored = localStorage.getItem('imagecraft_recent_tools');
+        const list: string[] = stored ? JSON.parse(stored) : [];
+        const updated = [currentTool.path, ...list.filter(p => p !== currentTool.path)].slice(0, 5);
+        localStorage.setItem('imagecraft_recent_tools', JSON.stringify(updated));
+      } catch {
+        // ignore
+      }
+    }
+  }, [currentTool]);
+
   return (
     <div className="min-h-screen flex flex-col bg-transparent text-slate-800 dark:text-slate-200 font-sans selection:bg-indigo-100 dark:selection:bg-indigo-950 selection:text-indigo-900 dark:selection:text-indigo-100">
       
@@ -618,7 +632,7 @@ export const Layout = () => {
           <div className="flex items-center gap-1.5 md:hidden">
             <button
               onClick={() => setIsCommandPaletteOpen(true)}
-              className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              className="p-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer min-w-[48px] min-h-[48px] flex items-center justify-center"
               aria-label="Search tools"
               title="Search tools"
             >
@@ -626,7 +640,7 @@ export const Layout = () => {
             </button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              className="p-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer min-w-[48px] min-h-[48px] flex items-center justify-center"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -649,7 +663,7 @@ export const Layout = () => {
         <div className="fixed inset-x-4 top-20 z-50 md:hidden premium-bento rounded-2xl p-5 flex flex-col shadow-2xl shadow-slate-300/20 dark:shadow-none border border-slate-200/80 dark:border-slate-800 animate-fade-in max-h-[calc(100vh-6rem)] overflow-y-auto scrollbar-thin">
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="absolute top-4 right-4 p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+            className="absolute top-3 right-3 p-3 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer min-w-[48px] min-h-[48px] flex items-center justify-center"
             aria-label="Close menu"
           >
             <X className="w-5 h-5" />
@@ -851,7 +865,10 @@ export const Layout = () => {
       <AdPlacement type="mobile" className="lg:hidden" />
 
       {/* Footer */}
-      <footer className="w-full bg-slate-50 dark:bg-slate-900 border-t border-slate-200/80 dark:border-slate-800 mt-auto py-12 px-4 sm:px-6 lg:px-8">
+      <footer 
+        className="w-full bg-slate-50 dark:bg-slate-900 border-t border-slate-200/80 dark:border-slate-800 mt-auto py-12 px-4 sm:px-6 lg:px-8"
+        style={{ paddingBottom: 'max(3rem, calc(2rem + env(safe-area-inset-bottom, 0px)))' }}
+      >
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-10 text-left">
           
           {/* Brand & Privacy Statement */}
