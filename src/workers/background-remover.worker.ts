@@ -98,7 +98,21 @@ self.addEventListener('message', async (event: MessageEvent) => {
       // image-segmentation pipeline returns array with mask
       const result = await pipe(inputImage);
       const mask = Array.isArray(result) && result[0] ? result[0].mask : result;
-      const maskData = mask.data;
+      const maskData = new Uint8Array(mask.width * mask.height);
+      const srcData = mask.data;
+      if (mask.channels === 4) {
+        for (let i = 0; i < maskData.length; i++) {
+          maskData[i] = srcData[i * 4 + 3];
+        }
+      } else if (mask.channels === 3) {
+        for (let i = 0; i < maskData.length; i++) {
+          maskData[i] = srcData[i * 3];
+        }
+      } else {
+        for (let i = 0; i < maskData.length; i++) {
+          maskData[i] = srcData[i] ?? 0;
+        }
+      }
       (self as any).postMessage({
         status: 'complete',
         mask: {

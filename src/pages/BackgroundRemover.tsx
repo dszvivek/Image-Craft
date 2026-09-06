@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { 
   Cpu, Download, RefreshCw, AlertTriangle, AlertCircle, Check, Scissors, 
-  Copy, ArrowLeftRight, Columns, Palette, Sparkles, SlidersHorizontal, 
+  Copy, ArrowLeftRight, Columns, Palette, SlidersHorizontal, 
   ChevronDown, ChevronUp, Zap, Wand2 
 } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
@@ -178,8 +178,9 @@ export const BackgroundRemover: React.FC = () => {
       const mPixels = maskImgData.data;
       const mData = mask.data;
 
-      for (let i = 0; i < mData.length; i++) {
-        const val = mData[i];
+      const pixelCount = mask.width * mask.height;
+      for (let i = 0; i < pixelCount; i++) {
+        const val = mData[i] !== undefined ? mData[i] : 0;
         const pIdx = i * 4;
         mPixels[pIdx] = 255;
         mPixels[pIdx + 1] = 255;
@@ -305,126 +306,6 @@ export const BackgroundRemover: React.FC = () => {
     if (originalFile) {
       processImage(originalFile, newEngine);
     }
-  };
-
-  // Sample image generator for zero-friction testing
-  const handleLoadSample = (sampleType: 'portrait' | 'product' | 'pet') => {
-    const canvas = document.createElement('canvas');
-    canvas.width = 800;
-    canvas.height = 800;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    if (sampleType === 'portrait') {
-      const grad = ctx.createLinearGradient(0, 0, 800, 800);
-      grad.addColorStop(0, '#fde047');
-      grad.addColorStop(0.5, '#60a5fa');
-      grad.addColorStop(1, '#3b82f6');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 800, 800);
-
-      ctx.fillStyle = '#1e293b';
-      ctx.beginPath();
-      ctx.ellipse(400, 680, 240, 160, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.fillStyle = '#fbcfe8';
-      ctx.fillRect(365, 460, 70, 90);
-
-      ctx.fillStyle = '#f472b6';
-      ctx.beginPath();
-      ctx.ellipse(400, 410, 110, 135, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.fillStyle = '#451a03';
-      ctx.beginPath();
-      ctx.ellipse(400, 340, 130, 90, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillRect(270, 340, 45, 140);
-      ctx.fillRect(485, 340, 45, 140);
-
-      ctx.fillStyle = '#0f172a';
-      ctx.fillRect(320, 395, 60, 14);
-      ctx.fillRect(420, 395, 60, 14);
-      ctx.fillRect(375, 400, 50, 4);
-
-      ctx.beginPath();
-      ctx.arc(400, 460, 35, 0.1 * Math.PI, 0.9 * Math.PI, false);
-      ctx.lineWidth = 6;
-      ctx.strokeStyle = '#be185d';
-      ctx.stroke();
-    } else if (sampleType === 'product') {
-      const grad = ctx.createLinearGradient(0, 0, 0, 800);
-      grad.addColorStop(0, '#94a3b8');
-      grad.addColorStop(0.7, '#cbd5e1');
-      grad.addColorStop(1, '#e2e8f0');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 800, 800);
-
-      ctx.save();
-      ctx.translate(400, 420);
-      ctx.rotate(-0.1);
-
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath();
-      ctx.roundRect(-220, 80, 440, 45, 15);
-      ctx.fill();
-
-      ctx.fillStyle = '#ec4899';
-      ctx.beginPath();
-      ctx.moveTo(-200, 80);
-      ctx.lineTo(-190, 20);
-      ctx.lineTo(-70, -30);
-      ctx.lineTo(80, -70);
-      ctx.lineTo(130, 20);
-      ctx.lineTo(210, 80);
-      ctx.closePath();
-      ctx.fill();
-
-      ctx.fillStyle = '#38bdf8';
-      ctx.beginPath();
-      ctx.ellipse(-10, 20, 80, 22, -0.2, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    } else {
-      const grad = ctx.createLinearGradient(0, 0, 800, 800);
-      grad.addColorStop(0, '#86efac');
-      grad.addColorStop(1, '#22c55e');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 800, 800);
-
-      ctx.fillStyle = '#1e1b4b';
-      ctx.beginPath();
-      ctx.ellipse(400, 520, 140, 190, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(400, 330, 100, 90, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(320, 290);
-      ctx.lineTo(340, 190);
-      ctx.lineTo(390, 260);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(480, 290);
-      ctx.lineTo(460, 190);
-      ctx.lineTo(410, 260);
-      ctx.closePath();
-      ctx.fill();
-      ctx.fillStyle = '#facc15';
-      ctx.beginPath();
-      ctx.ellipse(360, 330, 16, 24, 0, 0, Math.PI * 2);
-      ctx.ellipse(440, 330, 16, 24, 0, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    canvas.toBlob((blob) => {
-      if (blob) {
-        const file = new File([blob], `sample_${sampleType}.png`, { type: 'image/png' });
-        handleFilesSelected([file]);
-      }
-    }, 'image/png');
   };
 
   // Interactive split-slider drag handling
@@ -633,34 +514,6 @@ export const BackgroundRemover: React.FC = () => {
                   subtitle={`Running on ${aiEngine === 'fast' ? '⚡ Turbo Fast Engine (6.6MB)' : '🪄 Studio HD Engine (44MB)'} • Native resolution retained`}
                   icon={Scissors}
                 />
-
-                {/* Instant Sample Presets */}
-                <div className="mt-4 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
-                    <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-                    <span>No image handy? Try a live test sample:</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => handleLoadSample('portrait')}
-                      className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 hover:text-indigo-600 dark:hover:text-indigo-400 text-xs font-bold text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition cursor-pointer active:scale-95"
-                    >
-                      👤 Portrait
-                    </button>
-                    <button
-                      onClick={() => handleLoadSample('product')}
-                      className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 hover:text-indigo-600 dark:hover:text-indigo-400 text-xs font-bold text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition cursor-pointer active:scale-95"
-                    >
-                      👟 Product
-                    </button>
-                    <button
-                      onClick={() => handleLoadSample('pet')}
-                      className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 hover:text-indigo-600 dark:hover:text-indigo-400 text-xs font-bold text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition cursor-pointer active:scale-95"
-                    >
-                      🐱 Pet
-                    </button>
-                  </div>
-                </div>
               </div>
 
               <div className="md:col-span-5 flex">
