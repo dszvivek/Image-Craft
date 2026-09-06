@@ -1,10 +1,9 @@
-import { pipeline, env, AutoConfig } from '@huggingface/transformers';
+import { pipeline, env, AutoConfig, RawImage } from '@huggingface/transformers';
 
 // Disable loading local models since they are served over CDN
 env.allowLocalModels = false;
 
 // Set WASM paths if needed, or rely on Hugging Face CDN defaults
-// By default, Transformers.js resolves WASM paths from CDN
 if (env.backends?.onnx?.wasm) {
   env.backends.onnx.wasm.numThreads = 1;
 }
@@ -29,28 +28,40 @@ const getSegmenter = async (onProgress: (data: any) => void) => {
 };
 
 self.addEventListener('message', async (event: MessageEvent) => {
-  const { image } = event.data;
-  if (!image) return;
+  const { image, buffer, mimeType } = event.data;
+  if (!image && !buffer) return;
 
   try {
     const pipe = await getSegmenter((progressData) => {
+      // Avoid progress bar jumping to 100% on small config files and resetting to 0% for model.onnx
+      const file = progressData.file || '';
+      const isWeights = file.endsWith('.onnx') || file.includes('model');
+      
       self.postMessage({
         status: 'progress',
-        progress: progressData.progress,
-        file: progressData.file
+        progress: isWeights ? progressData.progress : Math.min(progressData.progress || 0, 5),
+        file: progressData.file,
+        loaded: progressData.loaded,
+        total: progressData.total
       });
     });
 
     self.postMessage({ status: 'processing' });
 
-    // The image sent is a string (Data URL or Object URL)
-    const result = await pipe(image);
+    // Prepare input: prefer zero-copy Blob from ArrayBuffer, fallback to URL/DataURL
+    let inputImage: any = image;
+    if (buffer) {
+      const blob = new Blob([buffer], { type: mimeType || 'image/png' });
+      inputImage = await RawImage.fromBlob(blob);
+    }
 
-    // RMBG-1.4 output of 'image-segmentation' task is an array containing the foreground segment
-    // We extract the mask channel (alpha channel of the output image) from result[0].mask
+    // Run inference through pipeline
+    const result = await pipe(inputImage);
+
+    // RMBG-1.4 output is an array containing the foreground segment mask
     const mask = Array.isArray(result) && result[0] ? result[0].mask : result;
 
-    // Transfer the TypedArray buffer directly to main thread without copying memory
+    // Transfer typed array buffer directly to main thread with zero memory copy
     const maskData = mask.data;
     (self as any).postMessage({
       status: 'complete',
@@ -67,3 +78,4 @@ self.addEventListener('message', async (event: MessageEvent) => {
     });
   }
 });
+
