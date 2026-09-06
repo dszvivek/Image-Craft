@@ -9,14 +9,12 @@ import {
   LayoutGrid, 
   FileText, 
   Lock, 
-  ArrowRight, 
   Files, 
   Fingerprint, 
   Copyright, 
   Crop, 
   Smile, 
   Feather, 
-  Check, 
   X, 
   CreditCard, 
   PenTool, 
@@ -35,11 +33,11 @@ import {
   Search,
   ChevronRight,
   Flame,
-  Clock
+  Clock,
+  ArrowUpRight
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { HeroDropZone } from '../components/HeroDropZone';
-import { HeroInteractiveShowcase } from '../components/HeroInteractiveShowcase';
 import { 
   getLocaleFromPath, 
   getLocalizedToolPath, 
@@ -56,6 +54,7 @@ interface ToolItem {
   badge: string;
   colorClass: string;
   tag: string;
+  formatTag: string;
 }
 
 const toolDirectory: ToolItem[] = [
@@ -66,9 +65,10 @@ const toolDirectory: ToolItem[] = [
     icon: Cpu,
     category: 'photo-editing',
     description: 'Isolate subjects and erase backgrounds automatically with local on-device neural AI cutout.',
-    badge: 'Local Neural AI',
+    badge: 'On-Device AI',
     tag: 'WASM AI',
-    colorClass: 'text-purple-650 bg-purple-50 border-purple-100/60 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30'
+    formatTag: 'PNG · WEBGPU',
+    colorClass: 'text-purple-600 bg-purple-50 border-purple-200/80 dark:text-purple-400 dark:bg-purple-950/40 dark:border-purple-800/60'
   },
   {
     name: 'Interactive Image Cropper',
@@ -78,7 +78,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Crop images with 8-handle touch canvas, 1:1, 4:5, 16:9, and official passport 2x2 in aspect ratios.',
     badge: 'Social & Passport',
     tag: 'Touch Crop',
-    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    formatTag: '1:1 · 4:5 · 16:9',
+    colorClass: 'text-blue-600 bg-blue-50 border-blue-200/80 dark:text-blue-400 dark:bg-blue-950/40 dark:border-blue-800/60'
   },
   {
     name: 'Image Rotator & Straightener',
@@ -86,9 +87,10 @@ const toolDirectory: ToolItem[] = [
     icon: RotateCw,
     category: 'photo-editing',
     description: 'Rotate 90°/180°, mirror flip horizontally/vertically, and level crooked horizon angles with grid overlay.',
-    badge: 'Precision Geometry',
+    badge: 'Precision Angle',
     tag: 'Angle Level',
-    colorClass: 'text-blue-600 bg-blue-50 border-blue-100/60 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
+    formatTag: '90° · 180° · FLIP',
+    colorClass: 'text-blue-600 bg-blue-50 border-blue-200/80 dark:text-blue-400 dark:bg-blue-950/40 dark:border-blue-800/60'
   },
   {
     name: 'Image Adjuster & Color Tuner',
@@ -98,7 +100,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Fine-tune exposure, contrast, saturation, temperature, tint, and sharpness with live split comparison.',
     badge: 'Pro Grading',
     tag: 'Live Split',
-    colorClass: 'text-blue-600 bg-blue-50 border-blue-100/60 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
+    formatTag: 'EXPOSURE · HSL',
+    colorClass: 'text-blue-600 bg-blue-50 border-blue-200/80 dark:text-blue-400 dark:bg-blue-950/40 dark:border-blue-800/60'
   },
   {
     name: 'Photo Filter & Duotone Studio',
@@ -108,7 +111,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Apply 12 aesthetic presets or create custom dual-gradient duotone maps entirely in client memory.',
     badge: '12 Aesthetics',
     tag: 'Duotone Map',
-    colorClass: 'text-purple-650 bg-purple-50 border-purple-100/60 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30'
+    formatTag: 'DUOTONE · LUT',
+    colorClass: 'text-purple-600 bg-purple-50 border-purple-200/80 dark:text-purple-400 dark:bg-purple-950/40 dark:border-purple-800/60'
   },
   {
     name: 'Color Inverter & B&W Converter',
@@ -116,9 +120,10 @@ const toolDirectory: ToolItem[] = [
     icon: Moon,
     category: 'photo-editing',
     description: 'Invert RGB channels to film negatives, solarize, or convert to 1-bit high-contrast Otsu black & white.',
-    badge: 'Photo Negative',
+    badge: 'Film Negative',
     tag: 'Otsu B&W',
-    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    formatTag: 'NEGATIVE · B&W',
+    colorClass: 'text-indigo-600 bg-indigo-50 border-indigo-200/80 dark:text-indigo-400 dark:bg-indigo-950/40 dark:border-indigo-800/60'
   },
   {
     name: 'Smart Aspect Resizer',
@@ -126,9 +131,10 @@ const toolDirectory: ToolItem[] = [
     icon: Crop,
     category: 'photo-editing',
     description: 'Resize and crop images to social media templates with canvas blur-padding presets and zero distortion.',
-    badge: 'Social Media',
+    badge: 'Social Presets',
     tag: 'Blur Padding',
-    colorClass: 'text-amber-600 bg-amber-50 border-amber-100/60 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30'
+    formatTag: 'INSTA · YT · STORY',
+    colorClass: 'text-amber-600 bg-amber-50 border-amber-200/80 dark:text-amber-400 dark:bg-amber-950/40 dark:border-amber-800/60'
   },
 
   // 🛡️ Category 2: Privacy, Security & Docs (7 tools)
@@ -138,9 +144,10 @@ const toolDirectory: ToolItem[] = [
     icon: ShieldAlert,
     category: 'privacy-security',
     description: 'Permanently censor private data, blur faces, and blackout ID numbers with irreversible pixel obliteration.',
-    badge: 'Zero Leak',
+    badge: 'Privacy Redact',
     tag: 'Face Blur',
-    colorClass: 'text-red-650 bg-red-50 border-red-100/60 dark:text-red-400 dark:bg-red-950/30 dark:border-red-900/30'
+    formatTag: 'BLACKOUT · BLUR',
+    colorClass: 'text-rose-600 bg-rose-50 border-rose-200/80 dark:text-rose-400 dark:bg-rose-950/40 dark:border-rose-800/60'
   },
   {
     name: 'Image Steganography & Secret Text',
@@ -148,9 +155,10 @@ const toolDirectory: ToolItem[] = [
     icon: Lock,
     category: 'privacy-security',
     description: 'Invisibly hide encrypted secret messages and recovery seed phrases inside photos with LSB encoding.',
-    badge: 'Cryptographic',
+    badge: 'Encrypted LSB',
     tag: 'AES-256',
-    colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/60 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
+    formatTag: 'AES · STEGO',
+    colorClass: 'text-emerald-600 bg-emerald-50 border-emerald-200/80 dark:text-emerald-400 dark:bg-emerald-950/40 dark:border-emerald-800/60'
   },
   {
     name: 'EXIF Metadata Stripper',
@@ -158,9 +166,10 @@ const toolDirectory: ToolItem[] = [
     icon: Fingerprint,
     category: 'privacy-security',
     description: 'Inspect and purge GPS coordinates, camera serials, and privacy headers before sharing photos online.',
-    badge: 'GPS Purge',
+    badge: 'Purge GPS',
     tag: 'EXIF Clean',
-    colorClass: 'text-red-600 bg-red-50 border-red-100/60 dark:text-red-400 dark:bg-red-950/30 dark:border-red-900/30'
+    formatTag: 'GPS · CAMERA · DATE',
+    colorClass: 'text-rose-600 bg-rose-50 border-rose-200/80 dark:text-rose-400 dark:bg-rose-950/40 dark:border-rose-800/60'
   },
   {
     name: 'Batch Watermark Overlay',
@@ -170,7 +179,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Stamp custom logos, tiled copyright text, and security marks across single or multiple images in bulk.',
     badge: 'Copyright Stamp',
     tag: 'Batch Stamp',
-    colorClass: 'text-rose-600 bg-rose-50 border-rose-100/60 dark:text-rose-450 dark:bg-rose-950/30 dark:border-rose-900/30'
+    formatTag: 'LOGO · TEXT · TILED',
+    colorClass: 'text-teal-600 bg-teal-50 border-teal-200/80 dark:text-teal-400 dark:bg-teal-950/40 dark:border-teal-800/60'
   },
   {
     name: 'Electronic PDF Signer',
@@ -180,7 +190,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Draw, type, or upload electronic signatures to sign PDF contracts and documents 100% offline.',
     badge: 'Offline Sign',
     tag: 'Vector Sign',
-    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    formatTag: 'PDF · DRAW · TYPE',
+    colorClass: 'text-indigo-600 bg-indigo-50 border-indigo-200/80 dark:text-indigo-400 dark:bg-indigo-950/40 dark:border-indigo-800/60'
   },
   {
     name: 'Bank Statement Analyzer',
@@ -190,7 +201,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Audit and convert PDF bank statements to Excel and CSV spreadsheets without third-party server exposure.',
     badge: 'Financial Audit',
     tag: 'PDF to CSV',
-    colorClass: 'text-teal-650 bg-teal-50 border-teal-100/60 dark:text-teal-450 dark:bg-teal-950/30 dark:border-teal-900/30'
+    formatTag: 'CSV · EXCEL · PDF',
+    colorClass: 'text-emerald-600 bg-emerald-50 border-emerald-200/80 dark:text-emerald-400 dark:bg-emerald-950/40 dark:border-emerald-800/60'
   },
   {
     name: 'OCR Text Extractor',
@@ -198,9 +210,10 @@ const toolDirectory: ToolItem[] = [
     icon: FileText,
     category: 'privacy-security',
     description: 'Extract multi-lingual text from receipts, documents, and screenshots using local Tesseract OCR.',
-    badge: 'Multi-Lingual',
-    tag: 'Local OCR',
-    colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/60 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
+    badge: 'Local OCR',
+    tag: 'Multi-Lingual',
+    formatTag: 'TXT · TESSERACT',
+    colorClass: 'text-emerald-600 bg-emerald-50 border-emerald-200/80 dark:text-emerald-400 dark:bg-emerald-950/40 dark:border-emerald-800/60'
   },
 
   // 🎨 Category 3: Creative Art & Pixel FX (7 tools)
@@ -212,7 +225,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Convert photos to 8-bit retro pixel art with Game Boy, NES, and PICO-8 Floyd-Steinberg dithering palettes.',
     badge: '8-Bit Retro',
     tag: 'Dithering',
-    colorClass: 'text-fuchsia-650 bg-fuchsia-50 border-fuchsia-100/60 dark:text-fuchsia-400 dark:bg-fuchsia-950/30 dark:border-fuchsia-900/30'
+    formatTag: 'GAME BOY · NES · PICO',
+    colorClass: 'text-fuchsia-600 bg-fuchsia-50 border-fuchsia-200/80 dark:text-fuchsia-400 dark:bg-fuchsia-950/40 dark:border-fuchsia-800/60'
   },
   {
     name: 'ASCII & Text Art Studio',
@@ -220,9 +234,10 @@ const toolDirectory: ToolItem[] = [
     icon: Terminal,
     category: 'creative-art',
     description: 'Convert photos into terminal ASCII character artwork with Matrix phosphor green and ANSI colors.',
-    badge: 'Matrix Green',
+    badge: 'Matrix ASCII',
     tag: 'ASCII Copy',
-    colorClass: 'text-emerald-650 bg-emerald-50 border-emerald-100/60 dark:text-emerald-400 dark:bg-emerald-950/30 dark:border-emerald-900/30'
+    formatTag: 'ANSI · MONOSPACE',
+    colorClass: 'text-emerald-600 bg-emerald-50 border-emerald-200/80 dark:text-emerald-400 dark:bg-emerald-950/40 dark:border-emerald-800/60'
   },
   {
     name: 'Glitch Art & CRT Distortion',
@@ -232,7 +247,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Generate RGB chromatic aberration, datamoshing slice corruption, and retro CRT television scanlines.',
     badge: 'Cyberpunk FX',
     tag: 'RGB Split',
-    colorClass: 'text-violet-650 bg-violet-50 border-violet-100/60 dark:text-violet-400 dark:bg-violet-950/30 dark:border-violet-900/30'
+    formatTag: 'RGB ABERRATION',
+    colorClass: 'text-purple-600 bg-purple-50 border-purple-200/80 dark:text-purple-400 dark:bg-purple-950/40 dark:border-purple-800/60'
   },
   {
     name: 'SVG Vectorizer',
@@ -242,7 +258,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Trace and digitize raster files (JPG/PNG) into scalable vector coordinates (SVG) with bezier handles.',
     badge: 'Vector Paths',
     tag: 'Raster2SVG',
-    colorClass: 'text-teal-600 bg-teal-50 border-teal-100/60 dark:text-teal-400 dark:bg-teal-950/30 dark:border-teal-900/30'
+    formatTag: 'AUTOTRACE · SVG',
+    colorClass: 'text-amber-600 bg-amber-50 border-amber-200/80 dark:text-amber-400 dark:bg-amber-950/40 dark:border-amber-800/60'
   },
   {
     name: 'Instant Meme Generator',
@@ -252,7 +269,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Design custom memes with bold Impact font captions, multi-layer draggable text, and custom font size.',
     badge: 'Meme Studio',
     tag: 'Impact Font',
-    colorClass: 'text-green-600 bg-green-50 border-green-100/60 dark:text-green-400 dark:bg-green-950/30 dark:border-green-900/30'
+    formatTag: 'MEME · IMPACT',
+    colorClass: 'text-teal-600 bg-teal-50 border-teal-200/80 dark:text-teal-400 dark:bg-teal-950/40 dark:border-teal-800/60'
   },
   {
     name: 'AI Shape Art Generator',
@@ -262,7 +280,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Transform photos into creative computational art composed of cosmic stars, blossoms, or particle sketches.',
     badge: 'Cosmic Sketch',
     tag: 'Particle Art',
-    colorClass: 'text-indigo-605 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    formatTag: 'PARTICLES · MESH',
+    colorClass: 'text-indigo-600 bg-indigo-50 border-indigo-200/80 dark:text-indigo-400 dark:bg-indigo-950/40 dark:border-indigo-800/60'
   },
   {
     name: 'Ambient Generative Visuals',
@@ -272,7 +291,8 @@ const toolDirectory: ToolItem[] = [
     description: 'A quiet place on the internet. Continuously evolving generative liquid artwork for focus and calm.',
     badge: 'Calm & Focus',
     tag: 'Organic Flow',
-    colorClass: 'text-indigo-600 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    formatTag: 'GENERATIVE FLOW',
+    colorClass: 'text-indigo-600 bg-indigo-50 border-indigo-200/80 dark:text-indigo-400 dark:bg-indigo-950/40 dark:border-indigo-800/60'
   },
 
   // 📐 Category 4: Layout, Social & Formats (7 tools)
@@ -284,7 +304,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Split wide panoramic landscape photos into seamless 4:5 portrait and 1:1 square swipe carousels.',
     badge: 'Seamless Swipe',
     tag: '4:5 Slices',
-    colorClass: 'text-pink-650 bg-pink-50 border-pink-100/60 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
+    formatTag: 'CAROUSEL · 4:5',
+    colorClass: 'text-blue-600 bg-blue-50 border-blue-200/80 dark:text-blue-400 dark:bg-blue-950/40 dark:border-blue-800/60'
   },
   {
     name: 'Side-by-Side Combiner',
@@ -294,7 +315,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Combine two photos horizontally or vertically with customizable Before/After badges and divider borders.',
     badge: 'Before / After',
     tag: 'Dual Stitch',
-    colorClass: 'text-blue-650 bg-blue-50 border-blue-100/60 dark:text-blue-400 dark:bg-blue-950/30 dark:border-blue-900/30'
+    formatTag: 'BEFORE · AFTER',
+    colorClass: 'text-blue-600 bg-blue-50 border-blue-200/80 dark:text-blue-400 dark:bg-blue-950/40 dark:border-blue-800/60'
   },
   {
     name: 'Photo Collage Maker',
@@ -304,7 +326,8 @@ const toolDirectory: ToolItem[] = [
     description: 'Assemble multiple photos into dynamic grid layouts with custom gap spacing and border rounding.',
     badge: 'Grid Templates',
     tag: 'Snap Layout',
-    colorClass: 'text-pink-655 bg-pink-50 border-pink-100/60 dark:text-pink-400 dark:bg-pink-950/30 dark:border-pink-900/30'
+    formatTag: 'GRIDS · COLLAGE',
+    colorClass: 'text-teal-600 bg-teal-50 border-teal-200/80 dark:text-teal-400 dark:bg-teal-950/40 dark:border-teal-800/60'
   },
   {
     name: 'Instagram Grid Splitter',
@@ -312,9 +335,10 @@ const toolDirectory: ToolItem[] = [
     icon: Maximize2,
     category: 'layout-formats',
     description: 'Slice high-resolution photos into 3x3, 3x2, or 3x1 square grid tiles for creative profile feed layouts.',
-    badge: '3x3 Profile Grid',
+    badge: '3x3 Grid',
     tag: '9-Tile Slice',
-    colorClass: 'text-orange-600 bg-orange-50 border-orange-100/60 dark:text-orange-400 dark:bg-orange-950/30 dark:border-orange-900/30'
+    formatTag: '3X3 · PROFILE',
+    colorClass: 'text-amber-600 bg-amber-50 border-amber-200/80 dark:text-amber-400 dark:bg-amber-950/40 dark:border-amber-800/60'
   },
   {
     name: 'Canvas Border Expander',
@@ -322,9 +346,10 @@ const toolDirectory: ToolItem[] = [
     icon: Square,
     category: 'layout-formats',
     description: 'Add colored frames, frosted glass blurred padding, and soft drop shadows for social media feeds.',
-    badge: 'Framing & Halo',
+    badge: 'Frames & Shadows',
     tag: 'Drop Shadow',
-    colorClass: 'text-amber-600 bg-amber-50 border-amber-100/60 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30'
+    formatTag: 'FRAMING · PADDING',
+    colorClass: 'text-amber-600 bg-amber-50 border-amber-200/80 dark:text-amber-400 dark:bg-amber-950/40 dark:border-amber-800/60'
   },
   {
     name: 'Smart Image Compressor',
@@ -332,9 +357,10 @@ const toolDirectory: ToolItem[] = [
     icon: ImageIcon,
     category: 'layout-formats',
     description: 'Reduce JPEG, PNG, and WebP file sizes up to 90% locally with intelligent chroma subsampling.',
-    badge: 'Up to -90% Size',
+    badge: 'Popular',
     tag: 'Lossless WebP',
-    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    formatTag: 'JPG · PNG · WEBP',
+    colorClass: 'text-emerald-600 bg-emerald-50 border-emerald-200/80 dark:text-emerald-400 dark:bg-emerald-950/40 dark:border-emerald-800/60'
   },
   {
     name: 'Batch Format & PDF Converter',
@@ -342,546 +368,20 @@ const toolDirectory: ToolItem[] = [
     icon: Files,
     category: 'layout-formats',
     description: 'Convert and merge single or multiple images into PDF, WebP, PNG, or JPEG formats in bulk.',
-    badge: 'Bulk Conversion',
+    badge: 'Batch Ready',
     tag: 'Batch PDF',
-    colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30'
+    formatTag: 'WEBP · AVIF · PDF',
+    colorClass: 'text-amber-600 bg-amber-50 border-amber-200/80 dark:text-amber-400 dark:bg-amber-950/40 dark:border-amber-800/60'
   },
 ];
 
 const categories = [
-  { id: 'all', label: 'All Tools', count: 28, icon: ImageIcon, colorClass: 'text-indigo-650 bg-indigo-50 border-indigo-100/60 dark:text-indigo-400 dark:bg-indigo-950/30 dark:border-indigo-900/30' },
-  { id: 'photo-editing', label: 'Photo & Image Studio', count: 7, icon: Wand2, colorClass: 'text-purple-650 bg-purple-50 border-purple-100/60 dark:text-purple-400 dark:bg-purple-950/30 dark:border-purple-900/30' },
-  { id: 'privacy-security', label: 'Privacy, Security & Docs', count: 7, icon: ShieldAlert, colorClass: 'text-rose-650 bg-rose-50 border-rose-100/60 dark:text-rose-400 dark:bg-rose-950/30 dark:border-rose-900/30' },
-  { id: 'creative-art', label: 'Creative Art & Pixel FX', count: 7, icon: Sparkles, colorClass: 'text-fuchsia-650 bg-fuchsia-50 border-fuchsia-100/60 dark:text-fuchsia-400 dark:bg-fuchsia-950/30 dark:border-fuchsia-900/30' },
-  { id: 'layout-formats', label: 'Layout, Social & Formats', count: 7, icon: LayoutGrid, colorClass: 'text-amber-650 bg-amber-50 border-amber-100/60 dark:text-amber-400 dark:bg-amber-950/30 dark:border-amber-900/30' }
+  { id: 'all', label: 'All Tools', count: 28, icon: ImageIcon },
+  { id: 'photo-editing', label: 'Photo & Image Studio', count: 7, icon: Wand2 },
+  { id: 'privacy-security', label: 'Privacy, Security & Docs', count: 7, icon: ShieldAlert },
+  { id: 'creative-art', label: 'Creative Art & Pixel FX', count: 7, icon: Sparkles },
+  { id: 'layout-formats', label: 'Layout, Social & Formats', count: 7, icon: LayoutGrid }
 ];
-
-const renderToolPreview = (path: string) => {
-  switch (path) {
-    // 1. AI Background Remover
-    case '/background-remover':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-purple-500/50 transition-colors">
-          <div 
-            className="absolute inset-0"
-            style={{
-              backgroundImage: 'linear-gradient(45deg, #1c1c20 25%, transparent 25%), linear-gradient(-45deg, #1c1c20 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #1c1c20 75%), linear-gradient(-45deg, transparent 75%, #1c1c20 75%)',
-              backgroundSize: '12px 12px',
-              backgroundPosition: '0 0, 0 6px, 6px -6px, -6px 0px'
-            }}
-          />
-          <div className="absolute inset-y-0 left-0 w-1/2 bg-emerald-950/70 border-r border-emerald-500/30 flex items-center justify-center">
-            <span className="text-[7.5px] font-black text-emerald-400/90 uppercase tracking-widest absolute top-1.5 left-2">Original</span>
-          </div>
-          <span className="text-[7.5px] font-black text-purple-400 uppercase tracking-widest absolute top-1.5 right-2">Cutout</span>
-          <div className="relative z-10 flex flex-col items-center">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-b from-purple-400 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 border-2 border-white/20">
-              <Cpu className="w-4.5 h-4.5" />
-            </div>
-            <div className="w-14 h-4 rounded-t-xl bg-purple-500/40 mt-1 border-t border-purple-400/40" />
-          </div>
-          <div className="absolute inset-y-0 w-1 bg-gradient-to-b from-purple-400 via-white to-purple-400 shadow-[0_0_12px_#a855f7] animate-wipe-x z-20" />
-        </div>
-      );
-
-    // 2. Interactive Image Cropper
-    case '/crop-image':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-indigo-500/50 transition-colors">
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-950 via-slate-900 to-zinc-900 opacity-60" />
-          <div className="w-24 h-20 border border-slate-800 grid grid-cols-3 grid-rows-3 opacity-30">
-            {Array.from({ length: 9 }).map((_, i) => <div key={i} className="border border-slate-800" />)}
-          </div>
-          <div className="absolute border-2 border-indigo-400 bg-indigo-500/15 shadow-[0_0_15px_rgba(99,102,241,0.3)] animate-crop-box flex items-center justify-center">
-            <div className="w-full h-full grid grid-cols-3 grid-rows-3 opacity-40">
-              {Array.from({ length: 9 }).map((_, i) => <div key={i} className="border border-indigo-300/40" />)}
-            </div>
-            <div className="absolute -top-1 -left-1 w-2 h-2 bg-white border border-indigo-600 rounded-xs" />
-            <div className="absolute -top-1 -right-1 w-2 h-2 bg-white border border-indigo-600 rounded-xs" />
-            <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white border border-indigo-600 rounded-xs" />
-            <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-white border border-indigo-600 rounded-xs" />
-          </div>
-          <div className="absolute bottom-1.5 right-2 bg-slate-900/90 border border-slate-800 px-2 py-0.5 rounded text-[7.5px] font-black text-indigo-400 uppercase tracking-widest z-20">
-            1:1 • 4:5 • 16:9 • ID
-          </div>
-        </div>
-      );
-
-    // 3. Image Rotator & Straightener
-    case '/rotate-image':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-blue-500/50 transition-colors">
-          <div className="w-20 h-20 rounded-full border border-dashed border-blue-500/30 flex items-center justify-center relative">
-            <span className="absolute -top-2 text-[7px] font-bold text-blue-400">0°</span>
-            <span className="absolute -right-3 text-[7px] font-bold text-blue-400">90°</span>
-            <span className="absolute -bottom-2 text-[7px] font-bold text-blue-400">180°</span>
-            <span className="absolute -left-3 text-[7px] font-bold text-blue-400">270°</span>
-            <div className="w-11 h-8 rounded-md bg-gradient-to-br from-blue-500 to-indigo-600 border border-white/40 shadow-lg shadow-blue-500/20 flex items-center justify-center text-white animate-rotate-dial">
-              <RotateCw className="w-4 h-4 text-white" />
-            </div>
-          </div>
-          <div className="absolute bottom-1.5 left-2 bg-slate-900/90 border border-slate-800 px-2 py-0.5 rounded text-[7px] font-bold text-blue-400">
-            Level Tilt: 0.0°
-          </div>
-        </div>
-      );
-
-    // 4. Canvas Border Expander
-    case '/add-border-to-image':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center p-3 select-none group-hover:border-amber-500/50 transition-colors">
-          <div className="w-28 h-18 rounded-xl bg-gradient-to-tr from-amber-500/20 via-rose-500/20 to-indigo-500/20 p-2 border border-amber-500/40 flex items-center justify-center shadow-lg shadow-amber-500/10">
-            <div className="w-full h-full rounded-lg bg-zinc-900 border border-zinc-700 flex items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-500/20 to-transparent" />
-              <Square className="w-4 h-4 text-amber-400" />
-              <span className="text-[7.5px] font-bold text-amber-300 ml-1.5">Border Frame</span>
-            </div>
-          </div>
-        </div>
-      );
-
-    // 5. Photo Filter & Duotone Studio
-    case '/photo-filters':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-purple-500/50 transition-colors">
-          <div className="w-full h-full grid grid-cols-3">
-            <div className="bg-gradient-to-b from-amber-800/60 to-amber-950/80 border-r border-zinc-800 flex flex-col items-center justify-center">
-              <span className="text-[7px] font-black text-amber-300 uppercase tracking-wider">Sepia</span>
-            </div>
-            <div className="bg-gradient-to-b from-fuchsia-600/70 to-cyan-700/80 border-r border-zinc-800 flex flex-col items-center justify-center">
-              <span className="text-[7px] font-black text-white uppercase tracking-wider">Duotone</span>
-            </div>
-            <div className="bg-gradient-to-b from-zinc-700 to-zinc-950 flex flex-col items-center justify-center">
-              <span className="text-[7px] font-black text-zinc-300 uppercase tracking-wider">Noir</span>
-            </div>
-          </div>
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-8 h-8 rounded-full bg-purple-600/80 border border-white/40 flex items-center justify-center text-white shadow-xl shadow-purple-500/30">
-              <Wand2 className="w-4 h-4" />
-            </div>
-          </div>
-        </div>
-      );
-
-    // 6. Color Inverter & B&W Converter
-    case '/invert-colors':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-indigo-500/50 transition-colors">
-          <div className="w-full h-full flex">
-            <div className="w-1/2 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-[8px] font-black">
-              RGB Color
-            </div>
-            <div className="w-1/2 bg-zinc-950 flex items-center justify-center text-zinc-100 text-[8px] font-mono font-black border-l-2 border-white/60">
-              Negative
-            </div>
-          </div>
-          <div className="absolute inset-y-0 w-1 bg-white shadow-[0_0_10px_white] animate-wipe-x" />
-        </div>
-      );
-
-    // 7. Smart Aspect Resizer
-    case '/aspect-resizer':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center gap-2 select-none group-hover:border-amber-500/50 transition-colors p-2">
-          {/* 1:1 Box with Blur Margin */}
-          <div className="w-16 h-16 rounded-xl bg-amber-500/10 border border-amber-500/30 p-1 flex flex-col items-center justify-center relative shadow-md">
-            <div className="absolute inset-0 bg-amber-400/10 blur-sm rounded-xl" />
-            <span className="text-[7.5px] font-black text-amber-400 z-10">1:1 Square</span>
-            <span className="text-[6.5px] font-mono text-zinc-400 z-10 mt-0.5">Blur Pad</span>
-          </div>
-          {/* 16:9 Box */}
-          <div className="w-20 h-12 rounded-lg bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center shadow-xs">
-            <span className="text-[7px] font-black text-indigo-300">16:9 Feed</span>
-          </div>
-        </div>
-      );
-
-    // 8. Image Adjuster & Color Tuner
-    case '/adjust-image':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-blue-500/50 transition-colors">
-          <div className="w-full h-full flex">
-            <div className="w-1/2 bg-slate-900/90 flex flex-col items-center justify-center opacity-40">
-              <span className="text-[7.5px] font-bold text-slate-400">Dim</span>
-            </div>
-            <div className="w-1/2 bg-gradient-to-tr from-blue-600 via-indigo-500 to-sky-400 flex flex-col items-center justify-center">
-              <span className="text-[7.5px] font-black text-white">HDR Enhance</span>
-            </div>
-          </div>
-          <div className="absolute inset-y-0 w-1 bg-blue-400 shadow-[0_0_12px_#60a5fa] animate-wipe-x z-10" />
-          <div className="absolute bottom-1.5 right-2 bg-slate-900/90 border border-slate-800 px-2 py-0.5 rounded text-[7px] font-black text-blue-400 uppercase tracking-wider z-20">
-            Auto Contrast
-          </div>
-        </div>
-      );
-
-    // 8. Photo Redactor & Censor Tool
-    case '/redact-image':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-3 overflow-hidden relative flex flex-col justify-between select-none group-hover:border-red-500/50 transition-colors">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-zinc-800 border border-zinc-700 blur-[2px] flex items-center justify-center" />
-            <div className="flex-1 space-y-1">
-              <div className="w-full h-2 bg-zinc-950 rounded border border-zinc-900 relative">
-                <div className="absolute inset-y-0 left-0 w-3/4 bg-black border border-red-500/40 rounded" />
-              </div>
-              <div className="w-2/3 h-2 bg-zinc-950 rounded border border-zinc-900 relative">
-                <div className="absolute inset-y-0 left-0 w-1/2 bg-black border border-red-500/40 rounded" />
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center justify-between border-t border-zinc-900 pt-1.5">
-            <span className="text-[7px] font-bold text-zinc-500">Document Redaction</span>
-            <span className="text-[7px] font-black text-red-400 bg-red-950/60 border border-red-900/60 px-1.5 py-0.5 rounded">
-              CENSORED
-            </span>
-          </div>
-        </div>
-      );
-
-    // 9. Image Steganography & Secret Text
-    case '/image-steganography':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-[#080d14] border border-zinc-800/80 mb-3.5 p-2.5 overflow-hidden relative flex flex-col justify-between select-none group-hover:border-emerald-500/50 transition-colors">
-          <div className="font-mono text-[7px] text-emerald-500/60 leading-tight tracking-wider truncate">
-            01010011 01000101 01000011 01010010 01000101 01010100
-          </div>
-          <div className="flex items-center justify-center gap-2 my-auto">
-            <div className="w-7 h-7 rounded-lg bg-emerald-950/60 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-md shadow-emerald-500/10 animate-float-subtle">
-              <Lock className="w-3.5 h-3.5" />
-            </div>
-            <span className="text-[8.5px] font-mono font-bold text-emerald-400">Secret Embedded</span>
-          </div>
-          <div className="flex items-center justify-between text-[7px] font-mono text-zinc-500 border-t border-zinc-900 pt-1">
-            <span>LSB Encoding</span>
-            <span className="text-emerald-400 font-bold">AES-256</span>
-          </div>
-        </div>
-      );
-
-    // 10. EXIF Metadata Stripper
-    case '/metadata-stripper':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-2.5 overflow-hidden relative flex flex-col justify-between select-none group-hover:border-red-500/50 transition-colors">
-          <div className="space-y-0.5">
-            <div className="flex items-center justify-between text-[7px] font-mono text-zinc-500">
-              <span>GPS: 37.7749° N, 122.4194° W</span>
-              <span className="text-red-400 font-black">PURGED</span>
-            </div>
-            <div className="text-[7.5px] font-mono text-zinc-400">Sony A7R IV • 85mm f/1.4</div>
-          </div>
-          <div className="w-full h-0.5 bg-red-500/20 relative overflow-hidden rounded">
-            <div className="absolute inset-y-0 w-1/3 bg-red-500 animate-wipe-x" />
-          </div>
-          <div className="flex items-center justify-between border-t border-zinc-900 pt-1">
-            <span className="text-[7px] font-bold text-zinc-500">Privacy Status</span>
-            <span className="text-[7.5px] font-black text-emerald-400 flex items-center gap-1">
-              <ShieldCheck className="w-3 h-3" /> CLEAN
-            </span>
-          </div>
-        </div>
-      );
-
-    // 11. Pixel Art & 8-Bit Converter
-    case '/pixel-art-generator':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-fuchsia-500/50 transition-colors">
-          <div className="w-24 h-16 bg-[#8bac0f] border-2 border-[#0f380f] rounded-lg grid grid-cols-8 grid-rows-6 gap-0.5 p-1 shadow-md shadow-fuchsia-500/10">
-            {Array.from({ length: 48 }).map((_, i) => {
-              const dither = (i % 2 === 0 && (i % 7 < 3)) ? 'bg-[#0f380f]' : (i % 3 === 0) ? 'bg-[#306230]' : 'bg-[#9bbc0f]';
-              return <div key={i} className={`rounded-none ${dither}`} />;
-            })}
-          </div>
-          <div className="absolute bottom-1.5 right-2 bg-black/90 border border-fuchsia-500/40 px-2 py-0.5 rounded text-[7px] font-black text-fuchsia-400 uppercase tracking-widest font-mono">
-            8-BIT GAMEBOY
-          </div>
-        </div>
-      );
-
-    // 12. ASCII & Text Art Generator
-    case '/ascii-art-generator':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-black border border-emerald-900/60 mb-3.5 p-2 overflow-hidden relative flex flex-col justify-center select-none group-hover:border-emerald-500/50 transition-colors font-mono">
-          <div className="text-[6.5px] text-emerald-450 leading-[7px] tracking-tighter opacity-80 select-none">
-            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@<br/>
-            @@@@@@@@@@%##**+===*#%@@@@@@@@@@<br/>
-            @@@@@@@#*+=--:.....:-=+*#@@@@@@@<br/>
-            @@@@@#+=:..  Image  ..:-=+%@@@@@<br/>
-            @@@@*=:..   Plumber   ..:=*@@@@@<br/>
-            @@@@@#+=:..  ASCII  ..:-=+%@@@@@<br/>
-            @@@@@@@#*+=--:.....:-=+*#@@@@@@@<br/>
-            @@@@@@@@@@%##**+===*#%@@@@@@@@@@
-          </div>
-          <div className="absolute bottom-1.5 right-2 bg-emerald-950/90 border border-emerald-500/40 px-1.5 py-0.5 rounded text-[6.5px] font-black text-emerald-400 uppercase tracking-wider">
-            ANSI MATRIX
-          </div>
-        </div>
-      );
-
-    // 13. Glitch Art & CRT Distortion
-    case '/glitch-image-generator':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-violet-500/50 transition-colors">
-          <div 
-            className="absolute inset-0 z-20 pointer-events-none opacity-40"
-            style={{
-              backgroundImage: 'repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0px, rgba(0, 0, 0, 0.4) 1px, transparent 1px, transparent 2px)',
-            }}
-          />
-          <div className="relative font-black text-xl tracking-wider animate-glitch-fx z-10 select-none text-white">
-            <span className="text-cyan-400">GL</span>
-            <span className="text-fuchsia-500">IT</span>
-            <span className="text-amber-400">CH</span>
-          </div>
-          <div className="absolute bottom-1.5 left-2 bg-violet-950/80 border border-violet-700/60 px-2 py-0.5 rounded text-[7px] font-black text-violet-300 uppercase tracking-widest z-30">
-            CRT & RGB Split
-          </div>
-        </div>
-      );
-
-    // 14. Side-by-Side Combiner
-    case '/side-by-side-image':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-blue-500/50 transition-colors p-2">
-          <div className="w-full h-full rounded-xl overflow-hidden flex border border-zinc-700 shadow-md">
-            <div className="w-1/2 bg-gradient-to-br from-slate-800 to-slate-900 relative flex items-center justify-center">
-              <span className="text-[7.5px] font-black text-white bg-black/70 px-1.5 py-0.5 rounded absolute top-1.5 left-1.5">BEFORE</span>
-              <ImageIcon className="w-5 h-5 text-slate-500" />
-            </div>
-            <div className="w-0.5 bg-blue-500 shadow-[0_0_8px_#3b82f6] z-10" />
-            <div className="w-1/2 bg-gradient-to-br from-blue-600 to-indigo-600 relative flex items-center justify-center">
-              <span className="text-[7.5px] font-black text-white bg-blue-900/80 px-1.5 py-0.5 rounded absolute top-1.5 right-1.5">AFTER</span>
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
-          </div>
-        </div>
-      );
-
-    // 15. Instagram Panorama Splitter
-    case '/instagram-panorama-splitter':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-pink-500/50 transition-colors p-2">
-          <div className="flex gap-1.5 items-center">
-            <div className="w-14 h-20 rounded-lg bg-zinc-900 border border-pink-500/40 p-1 flex flex-col justify-between relative overflow-hidden shadow-md">
-              <div className="text-[6.5px] font-bold text-pink-400">Slide 1 (4:5)</div>
-              <div className="w-full h-10 bg-gradient-to-r from-pink-500/30 to-purple-500/30 rounded" />
-              <div className="text-[6px] text-zinc-500">1 of 2</div>
-            </div>
-            <div className="text-pink-500 font-black text-xs">→</div>
-            <div className="w-14 h-20 rounded-lg bg-zinc-900 border border-pink-500/40 p-1 flex flex-col justify-between relative overflow-hidden shadow-md">
-              <div className="text-[6.5px] font-bold text-pink-400">Slide 2 (4:5)</div>
-              <div className="w-full h-10 bg-gradient-to-r from-purple-500/30 to-indigo-500/30 rounded" />
-              <div className="text-[6px] text-zinc-500">2 of 2</div>
-            </div>
-          </div>
-          <div className="absolute bottom-1.5 right-2 bg-pink-950/90 border border-pink-500/40 px-1.5 py-0.5 rounded text-[6.5px] font-black text-pink-300 uppercase tracking-wider">
-            Seamless Swipe
-          </div>
-        </div>
-      );
-
-    // 16. Photo Collage Maker
-    case '/collage-maker':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-2 overflow-hidden relative grid grid-cols-3 gap-1 select-none group-hover:border-pink-500/50 transition-colors">
-          <div className="bg-indigo-500/20 border border-indigo-500/30 rounded-lg flex items-center justify-center text-[9px] text-indigo-400 font-bold">1</div>
-          <div className="col-span-2 grid grid-rows-2 gap-1">
-            <div className="bg-pink-500/20 border border-pink-500/30 rounded-lg flex items-center justify-center text-[8px] text-pink-400 font-bold">2</div>
-            <div className="bg-teal-500/20 border border-teal-500/30 rounded-lg flex items-center justify-center text-[8px] text-teal-400 font-bold">3</div>
-          </div>
-        </div>
-      );
-
-    // 17. Instagram Grid Splitter
-    case '/instagram-grid-splitter':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-2 overflow-hidden relative flex items-center justify-center select-none group-hover:border-orange-500/50 transition-colors">
-          <div className="w-20 h-20 bg-zinc-900 border border-zinc-800 grid grid-cols-3 grid-rows-3 gap-0.5 p-0.5 shadow-sm rounded-lg">
-            {Array.from({ length: 9 }).map((_, i) => (
-              <div key={i} className="bg-orange-500/15 border border-orange-500/20 rounded-xs flex items-center justify-center text-[6.5px] text-orange-400 font-black">
-                {i + 1}
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-
-    // 18. Smart Image Compressor
-    case '/image-compressor':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center gap-2 select-none group-hover:border-indigo-500/50 transition-colors px-2">
-          <div className="px-2 py-1 bg-zinc-900 border border-zinc-800 rounded-lg text-center flex flex-col">
-            <span className="text-[6.5px] text-zinc-500 font-bold uppercase">Original</span>
-            <span className="text-[9px] text-zinc-300 font-extrabold">4.8 MB</span>
-          </div>
-          <div className="text-indigo-400">
-            <ArrowRight className="w-3.5 h-3.5" />
-          </div>
-          <div className="px-2 py-1 bg-indigo-950/60 border border-indigo-500/40 rounded-lg text-center flex flex-col shadow-md shadow-indigo-500/10">
-            <span className="text-[6.5px] text-emerald-400 font-bold uppercase">-91% Saved</span>
-            <span className="text-[9px] text-indigo-300 font-extrabold">420 KB</span>
-          </div>
-        </div>
-      );
-
-    // 19. Batch Format & PDF Converter
-    case '/batch-converter':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-indigo-500/50 transition-colors">
-          <div className="flex -space-x-2 relative">
-            <div className="w-8 h-11 rounded bg-zinc-900 border border-zinc-700 shadow-xs flex items-center justify-center text-[7px] font-bold text-rose-400 rotate-[-6deg]">PNG</div>
-            <div className="w-8 h-11 rounded bg-zinc-900 border border-zinc-700 shadow-sm flex items-center justify-center text-[7px] font-bold text-sky-400 rotate-[4deg] z-10">WEBP</div>
-            <div className="w-8 h-11 rounded bg-indigo-600 text-white shadow-md flex flex-col items-center justify-center text-[8px] font-black rotate-[12deg] z-20">
-              <span>PDF</span>
-            </div>
-          </div>
-        </div>
-      );
-
-    // 20. Batch Watermark Overlay
-    case '/watermark-overlay':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-rose-500/50 transition-colors">
-          <div className="absolute inset-0 flex flex-col justify-center gap-2.5 rotate-[-15deg] scale-110 opacity-20">
-            <div className="text-[7px] text-white font-bold tracking-widest whitespace-nowrap">COPYRIGHT © CONFIDENTIAL</div>
-            <div className="text-[7px] text-white font-bold tracking-widest whitespace-nowrap translate-x-3">COPYRIGHT © CONFIDENTIAL</div>
-          </div>
-          <div className="px-2.5 py-0.5 rounded-lg bg-rose-950/80 border border-rose-500/40 text-[8px] font-black text-rose-300 uppercase tracking-widest z-10 shadow-md">
-            Watermark Stamp
-          </div>
-        </div>
-      );
-
-    // 21. Electronic PDF Signer
-    case '/sign-pdf':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-2.5 overflow-hidden relative flex flex-col justify-between select-none group-hover:border-indigo-500/50 transition-colors">
-          <div className="flex items-center gap-2 border-b border-zinc-800 pb-1.5">
-            <FileText className="w-3.5 h-3.5 text-indigo-400" />
-            <span className="text-[7.5px] font-bold text-zinc-400">contract_agreement.pdf</span>
-          </div>
-          <div className="flex-1 flex items-center justify-end pr-3 relative">
-            <div className="flex flex-col items-center">
-              <span className="font-serif italic text-indigo-300 text-[11px] translate-y-1">Verified Signature</span>
-              <div className="w-20 h-0.5 bg-indigo-500/40" />
-            </div>
-            <div className="absolute top-1 right-1 text-indigo-400 animate-pulse">
-              <PenTool className="w-3.5 h-3.5 rotate-45" />
-            </div>
-          </div>
-        </div>
-      );
-
-    // 22. Bank Statement Analyzer
-    case '/bank-statement-analyzer':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-2.5 overflow-hidden relative flex flex-col justify-between select-none group-hover:border-teal-500/50 transition-colors">
-          <div className="grid grid-cols-4 gap-1 text-[7px] font-bold text-zinc-500 border-b border-zinc-800 pb-1">
-            <span>Date</span>
-            <span>Desc</span>
-            <span className="text-right">Credit</span>
-            <span className="text-right">Debit</span>
-          </div>
-          <div className="space-y-0.5">
-            <div className="grid grid-cols-4 gap-1 text-[7px] font-bold text-zinc-300">
-              <span>24 Jun</span>
-              <span className="truncate">Stripe Payout</span>
-              <span className="text-right text-emerald-400">+$2.4k</span>
-              <span className="text-right text-zinc-600">-</span>
-            </div>
-            <div className="grid grid-cols-4 gap-1 text-[7px] font-bold text-zinc-300">
-              <span>25 Jun</span>
-              <span className="truncate">Server Cloud</span>
-              <span className="text-right text-zinc-600">-</span>
-              <span className="text-right text-rose-400">-$85</span>
-            </div>
-          </div>
-          <div className="h-2 w-full flex items-end">
-            <svg className="w-full h-2 stroke-teal-400 fill-teal-500/10" viewBox="0 0 100 10" preserveAspectRatio="none">
-              <path d="M0,8 Q20,2 40,6 T80,1 T100,5 L100,10 L0,10 Z" strokeWidth="1" />
-            </svg>
-          </div>
-        </div>
-      );
-
-    // 23. OCR Text Extractor
-    case '/ocr-text-extractor':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 p-3 overflow-hidden relative flex flex-col gap-1.5 justify-center select-none group-hover:border-emerald-500/50 transition-colors">
-          <div className="w-full h-2 bg-emerald-500/20 rounded" />
-          <div className="w-3/4 h-2 bg-emerald-500/30 rounded relative overflow-hidden">
-            <div className="absolute inset-y-0 left-0 w-1/3 bg-emerald-400 animate-wipe-x" />
-          </div>
-          <div className="w-5/6 h-2 bg-zinc-800 rounded" />
-          <div className="w-1/2 h-2 bg-zinc-800 rounded" />
-          <div className="absolute bottom-1.5 right-2 bg-emerald-950/90 border border-emerald-500/40 px-2 py-0.5 rounded text-[7px] font-black text-emerald-400 uppercase tracking-wider">
-            Tesseract OCR
-          </div>
-        </div>
-      );
-
-    // 24. SVG Vectorizer
-    case '/svg-vectorizer':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-teal-500/50 transition-colors">
-          <div className="flex items-center gap-4 z-10">
-            <div className="text-2xl font-black text-zinc-700 blur-[0.8px] select-none">A</div>
-            <div className="text-sm text-zinc-600">→</div>
-            <div className="relative">
-              <div className="text-2xl font-black text-teal-400 select-none font-sans">A</div>
-              <div className="absolute -top-1 -left-1 w-1.5 h-1.5 bg-teal-400 border border-white rounded-full" />
-              <div className="absolute -bottom-1 -right-1 w-1.5 h-1.5 bg-teal-400 border border-white rounded-full" />
-            </div>
-          </div>
-        </div>
-      );
-
-    // 25. Instant Meme Generator
-    case '/meme-generator':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-green-500/50 transition-colors p-1.5">
-          <div className="w-full h-full rounded-xl overflow-hidden relative bg-gradient-to-tr from-green-950/50 to-slate-900 border border-zinc-800 flex flex-col justify-between p-2 text-center">
-            <span className="text-[7.5px] font-black text-white uppercase tracking-wider drop-shadow-md">TOP CAPTION</span>
-            <span className="text-[7.5px] font-black text-white uppercase tracking-wider drop-shadow-md">BOTTOM TEXT</span>
-          </div>
-        </div>
-      );
-
-    // 26. AI Shape Art Generator
-    case '/shape-art-generator':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-[#090d16] border border-zinc-800/80 mb-3.5 overflow-hidden relative flex items-center justify-center gap-1.5 select-none group-hover:border-indigo-500/50 transition-colors">
-          <div className="flex -space-x-1.5 relative">
-            <div className="w-8 h-8 rounded-full bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-[10px] text-indigo-400 font-bold rotate-[-12deg] shadow-lg">✨</div>
-            <div className="w-8 h-8 rounded-full bg-purple-500/25 border border-purple-500/40 flex items-center justify-center text-[10px] text-purple-400 font-bold z-10 shadow-lg">🌸</div>
-            <div className="w-8 h-8 rounded-full bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-[10px] text-sky-400 font-bold rotate-[12deg] z-20 shadow-lg">☁️</div>
-          </div>
-          <div className="absolute bottom-1.5 right-2 bg-slate-900/90 border border-slate-800 px-2 py-0.5 rounded text-[7px] font-black text-indigo-400 uppercase tracking-wider">
-            Shape Art
-          </div>
-        </div>
-      );
-
-    // 27. Ambient Generative Visuals
-    case '/ambient':
-      return (
-        <div className="w-full h-28 rounded-2xl bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 border border-indigo-800/40 mb-3.5 overflow-hidden relative flex items-center justify-center select-none group-hover:border-indigo-500/50 transition-colors">
-          <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-500/30 via-purple-500/20 to-transparent animate-pulse" />
-          <div className="w-8 h-8 rounded-full bg-indigo-500/20 border border-indigo-400/50 flex items-center justify-center text-indigo-300 z-10 shadow-lg shadow-indigo-500/30">
-            <Sparkles className="w-4 h-4" />
-          </div>
-        </div>
-      );
-
-    // Default fallback
-    default:
-      return (
-        <div className="w-full h-28 rounded-2xl bg-zinc-950 border border-zinc-800 mb-3.5 flex items-center justify-center text-indigo-400">
-          <ImageIcon className="w-6 h-6" />
-        </div>
-      );
-  }
-};
 
 export const Home: React.FC = () => {
   const location = useLocation();
@@ -890,7 +390,10 @@ export const Home: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
-  const [viewMode, setViewMode] = useState<'grid' | 'compact'>('grid');
+  // Auto-detect mobile screen width to default to ergonomic list mode on phones
+  const [viewMode, setViewMode] = useState<'grid' | 'compact'>(() => {
+    return typeof window !== 'undefined' && window.innerWidth < 768 ? 'compact' : 'grid';
+  });
   const [openHomeFaq, setOpenHomeFaq] = useState<number | null>(null);
   const [recentTools, setRecentTools] = useState<string[]>([]);
 
@@ -950,8 +453,8 @@ export const Home: React.FC = () => {
   };
 
   const spotlightTools = toolDirectory.filter(tool => [
-    '/background-remover',
     '/image-compressor',
+    '/background-remover',
     '/crop-image',
     '/redact-image',
     '/batch-converter',
@@ -959,14 +462,14 @@ export const Home: React.FC = () => {
   ].includes(tool.path));
 
   const quickSearchTags = [
-    'AI Background',
     'Compress',
+    'AI Background',
     'Passport',
-    'Censor Face',
+    'Redact',
     'WebP',
-    'Duotone',
     'PDF',
-    'OCR'
+    'Watermark',
+    'EXIF'
   ];
 
   const filteredTools = toolDirectory.filter(tool => {
@@ -976,73 +479,65 @@ export const Home: React.FC = () => {
                           shortMeta.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           tool.badge.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          tool.tag.toLowerCase().includes(searchQuery.toLowerCase());
+                          tool.tag.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          tool.formatTag.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
-  const renderToolCard = (tool: ToolItem, isSpotlight = false) => {
+  // Desktop 4-Column Crisp Tool Card
+  const renderToolCard = (tool: ToolItem) => {
     const Icon = tool.icon;
     const shortMeta = getShortToolMeta(tool.path, locale);
     const toolUrl = getLocalizedToolPath(tool.path, locale);
-
-    const ctaText = locale === 'es' ? 'Abrir Herramienta' : 
-                    locale === 'pt' ? 'Abrir Ferramenta' : 
-                    locale === 'hi' ? 'टूल खोलें' : 
-                    locale === 'fr' ? 'Ouvrir l\'Outil' : 
-                    locale === 'de' ? 'Tool Öffnen' : 'Launch Tool';
 
     return (
       <Link
         key={tool.path}
         to={toolUrl}
         onClick={() => trackToolVisit(tool.path)}
-        className={`premium-bento group flex flex-col justify-between p-4.5 rounded-3xl bg-white dark:bg-slate-900/70 border ${
-          isSpotlight 
-            ? 'border-indigo-200 dark:border-indigo-800/80 shadow-md shadow-indigo-500/5 hover:border-indigo-500' 
-            : 'border-slate-200/70 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-600/80'
-        } relative overflow-hidden transition-all duration-300 shadow-xs hover:shadow-xl hover:shadow-indigo-500/10 cursor-pointer text-left`}
+        className="crisp-tool-card group flex flex-col justify-between p-5 text-left cursor-pointer transition-all duration-200"
       >
-        {/* Ambient Top Glow */}
-        <div className={`absolute -right-12 -top-12 w-28 h-28 ${isSpotlight ? 'bg-indigo-500/15' : 'bg-indigo-500/5'} rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all pointer-events-none`} />
-
         <div>
-          {/* Animated Interactive Visual Preview */}
-          {renderToolPreview(tool.path)}
-
-          {/* Header Row */}
-          <div className="flex items-center justify-between mb-2">
-            <div className={`w-8 h-8 rounded-xl flex items-center justify-center border shrink-0 ${tool.colorClass} group-hover:scale-105 transition-transform`}>
-              <Icon className="w-4 h-4" />
+          {/* Card Top: Icon Box + Badge + Arrow */}
+          <div className="flex items-start justify-between mb-3.5">
+            <div className={`w-11 h-11 rounded-xl flex items-center justify-center border shrink-0 ${tool.colorClass} group-hover:scale-105 transition-transform duration-200`}>
+              <Icon className="w-5 h-5" />
             </div>
             <div className="flex items-center gap-1.5">
-              {isSpotlight && (
-                <span className="text-[8.5px] font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 border border-amber-200/60 dark:border-amber-800 px-1.5 py-0.5 rounded-md flex items-center gap-1">
-                  <Flame className="w-2.5 h-2.5" />
-                  Popular
+              {tool.badge && (
+                <span className="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700">
+                  {tool.badge}
                 </span>
               )}
-              <span className="text-[9px] font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 bg-indigo-50/80 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 px-2 py-0.5 rounded-md shadow-2xs">
-                {tool.tag}
-              </span>
+              <div className="w-6 h-6 rounded-lg flex items-center justify-center text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all">
+                <ArrowUpRight className="w-4 h-4" />
+              </div>
             </div>
           </div>
-          
-          <h3 className="font-extrabold text-[13.5px] text-slate-900 dark:text-slate-100 tracking-tight mb-1 group-hover:text-indigo-650 dark:group-hover:text-indigo-400 transition-colors">
+
+          {/* Card Body */}
+          <h3 className="font-extrabold text-[15px] text-slate-900 dark:text-slate-100 tracking-tight mb-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
             {shortMeta.name}
           </h3>
-          <p className="text-[11.5px] text-slate-500 dark:text-slate-400 leading-relaxed font-medium line-clamp-2">
+          <p className="text-[12.5px] text-slate-500 dark:text-slate-400 leading-relaxed font-medium line-clamp-2">
             {shortMeta.desc}
           </p>
         </div>
 
-        <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[11px] font-bold text-indigo-600 dark:text-indigo-400 group-hover:translate-x-0.5 transition-all">
-          <span>{ctaText}</span>
-          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+        {/* Card Footer: Format tags & CTA */}
+        <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[11px]">
+          <span className="font-mono font-semibold text-slate-500 dark:text-slate-400">
+            {tool.formatTag}
+          </span>
+          <span className="font-bold text-slate-600 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex items-center gap-0.5 transition-colors">
+            Launch <ChevronRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+          </span>
         </div>
       </Link>
     );
   };
 
+  // Mobile Ergonomic List Mode Card (Single Row, High Touch Target)
   const renderCompactToolRow = (tool: ToolItem) => {
     const Icon = tool.icon;
     const shortMeta = getShortToolMeta(tool.path, locale);
@@ -1053,27 +548,35 @@ export const Home: React.FC = () => {
         key={tool.path}
         to={toolUrl}
         onClick={() => trackToolVisit(tool.path)}
-        className="flex items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-700/60 hover:bg-indigo-50/30 dark:hover:bg-slate-800/50 transition-all text-left group"
+        className="crisp-tool-card flex items-center justify-between p-3.5 sm:p-4 text-left group transition-all duration-150 min-h-[64px]"
       >
-        <div className="flex items-center gap-3 min-w-0">
-          <div className={`w-8 h-8 rounded-xl flex items-center justify-center border shrink-0 ${tool.colorClass} group-hover:scale-105 transition-transform`}>
-            <Icon className="w-4 h-4" />
+        <div className="flex items-center gap-3.5 min-w-0 flex-1">
+          <div className={`w-11 h-11 rounded-xl flex items-center justify-center border shrink-0 ${tool.colorClass} group-hover:scale-105 transition-transform`}>
+            <Icon className="w-5 h-5" />
           </div>
-          <div className="min-w-0">
-            <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">
-              {shortMeta.name}
-            </h4>
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium truncate mt-0.5">
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2">
+              <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">
+                {shortMeta.name}
+              </h4>
+              {tool.badge && (
+                <span className="hidden sm:inline-block text-[9px] font-extrabold uppercase tracking-wider px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                  {tool.badge}
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium line-clamp-1 mt-0.5">
               {shortMeta.desc}
             </p>
           </div>
         </div>
+
         <div className="flex items-center gap-3 shrink-0 ml-3">
-          <span className="hidden sm:inline-block text-[9px] font-mono font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
-            {tool.tag}
+          <span className="hidden md:inline-block text-[10px] font-mono font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
+            {tool.formatTag}
           </span>
-          <div className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-            <ArrowRight className="w-3.5 h-3.5" />
+          <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+            <ChevronRight className="w-4 h-4" />
           </div>
         </div>
       </Link>
@@ -1099,54 +602,57 @@ export const Home: React.FC = () => {
         schema={homeFaqSchema}
       />
 
-      {/* Decorative Blur Backdrops */}
+      {/* Background Dot Texture */}
       <div className="absolute top-0 inset-x-0 h-[500px] bg-dot-grid opacity-50 pointer-events-none -z-10" />
-      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[70%] h-[300px] bg-gradient-to-tr from-sky-400/10 via-indigo-500/8 to-teal-500/5 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow" />
 
       {/* HERO SECTION */}
-      <section className="text-center pt-10 pb-6 md:pt-16 md:pb-8 flex flex-col items-center justify-center relative overflow-hidden">
+      <section className="text-center pt-8 pb-4 md:pt-14 md:pb-6 flex flex-col items-center justify-center relative overflow-hidden">
         
         {/* Anti-Cloud Tag */}
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700 rounded-full text-[10px] font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-4 shadow-xs">
-          <ShieldCheck className="w-3.5 h-3.5 text-indigo-500" />
-          <span>{t.heroBadge}</span>
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 rounded-full text-[10px] font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-3.5 shadow-xs">
+          <span className="px-1.5 py-0.2 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-bold text-[9px] mr-1">NEW</span>
+          <span>Next-Gen Multi-Threaded WASM 2.0</span>
         </div>
 
         {/* Heading */}
         <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-3 max-w-4xl leading-[1.15]">
-          {t.heroTitle1} <br />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-650 via-purple-500 to-pink-500 font-black">
-            {t.heroTitle2}
+          Every image tool you need.<br />
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-indigo-600 to-indigo-500 dark:from-white dark:via-indigo-300 dark:to-indigo-400 font-black">
+            Built with precision. 100% in your browser.
           </span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-xs sm:text-sm md:text-base text-slate-500 dark:text-slate-400 max-w-2xl mb-4 leading-relaxed font-medium px-4">
-          {t.heroSubtitle}
+        <p className="text-xs sm:text-sm md:text-base text-slate-500 dark:text-slate-400 max-w-2xl mb-6 leading-relaxed font-medium px-4">
+          Compress, resize, edit, and convert photos with zero cloud uploads and instant local processing speed.
         </p>
 
-        {/* Core Value Props Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-2 text-[10.5px] font-semibold text-slate-500 dark:text-slate-400">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-900/60">
-            <Check className="w-3 h-3" /> 100% In-Browser RAM
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-900/60">
-            <Zap className="w-3 h-3" /> Hardware Accelerated WASM
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 border border-purple-200/60 dark:border-purple-900/60">
-            <ShieldCheck className="w-3 h-3" /> Zero Server Uploads
-          </span>
-        </div>
-
-        {/* UNIVERSAL HERO DROPZONE & QUICK LAUNCHER */}
+        {/* SLEEK TACTILE CRAFT DOCK */}
         <HeroDropZone />
 
-        {/* INTERACTIVE BEFORE/AFTER DEMO SHOWCASE */}
-        <HeroInteractiveShowcase />
+        {/* Trust Strip */}
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-7 mt-3 mb-6 text-xs font-semibold text-slate-600 dark:text-slate-400">
+          <div className="flex items-center gap-2">
+            <span className="w-5 h-5 rounded-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-indigo-600 text-xs shadow-xs">⚡</span>
+            <span>0.0s Upload Latency</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-5 h-5 rounded-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-indigo-600 text-xs shadow-xs">🔒</span>
+            <span>100% Local RAM Privacy</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-5 h-5 rounded-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-indigo-600 text-xs shadow-xs">📦</span>
+            <span>Batch Multi-Threading</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-5 h-5 rounded-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-indigo-600 text-xs shadow-xs">🌐</span>
+            <span>WebP · AVIF · SVG · PNG · JPG</span>
+          </div>
+        </div>
 
       </section>
 
-      {/* RECENTLY USED RIBBON (Quick Jump) */}
+      {/* RECENTLY USED RIBBON */}
       {recentTools.length > 0 && (
         <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-left animate-fade-in">
           <div className="p-3.5 rounded-2xl bg-white dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 shadow-xs">
@@ -1187,10 +693,10 @@ export const Home: React.FC = () => {
         </section>
       )}
 
-      {/* CURATED FLAGSHIP SPOTLIGHT (Top 6 Workflows) */}
+      {/* CURATED FLAGSHIP SPOTLIGHT */}
       {!searchQuery && activeCategory === 'all' && (
-        <section className="py-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-left">
-          <div className="flex items-center justify-between mb-6">
+        <section className="py-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-left">
+          <div className="flex items-center justify-between mb-5">
             <div>
               <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-900/60 text-[10px] font-extrabold uppercase tracking-wider mb-1.5">
                 <Flame className="w-3.5 h-3.5" />
@@ -1209,8 +715,8 @@ export const Home: React.FC = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {spotlightTools.map((tool) => renderToolCard(tool, true))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {spotlightTools.map((tool) => renderToolCard(tool))}
           </div>
         </section>
       )}
@@ -1218,7 +724,7 @@ export const Home: React.FC = () => {
       {/* TOOLS DIRECTORY SECTION (Search, Category Tabs, Grid/List) */}
       <section id="tools-grid" className="py-10 border-t border-slate-200/60 dark:border-slate-800 max-w-7xl mx-auto scroll-mt-20 px-4 sm:px-6 lg:px-8 text-left">
         
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mb-2">
             Complete Tools Directory
           </h2>
@@ -1235,7 +741,7 @@ export const Home: React.FC = () => {
               placeholder={t.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-10 py-3.5 bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all shadow-md shadow-slate-200/10 dark:shadow-none text-sm text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400 dark:placeholder-slate-500"
+              className="w-full pl-12 pr-10 py-3 bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all shadow-xs text-sm text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400 dark:placeholder-slate-500"
             />
             <Search className="w-5 h-5 text-slate-400 dark:text-slate-500 absolute left-4 top-1/2 -translate-y-1/2" />
             {searchQuery && (
@@ -1251,7 +757,7 @@ export const Home: React.FC = () => {
 
           {/* Quick Search Tag Chips */}
           <div className="flex flex-wrap items-center justify-center gap-1.5 text-center">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-1">Popular:</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-1">Quick:</span>
             {quickSearchTags.map(tag => (
               <button
                 key={tag}
@@ -1270,10 +776,10 @@ export const Home: React.FC = () => {
         </div>
         
         {/* Category Controls & View Switcher Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 bg-slate-50/70 dark:bg-slate-900/50 p-3 rounded-2xl border border-slate-200/70 dark:border-slate-800">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 bg-slate-100/70 dark:bg-slate-900/50 p-2 sm:p-2.5 rounded-2xl border border-slate-200/80 dark:border-slate-800">
           
-          {/* Category Tabs */}
-          <div className="flex flex-wrap gap-1.5 justify-center">
+          {/* Horizontal Scrollable Category Tabs */}
+          <div className="w-full md:w-auto overflow-x-auto no-scrollbar flex items-center gap-1.5 pb-1 md:pb-0">
             {categories.map((cat) => {
               const CatIcon = cat.icon;
               const catLabel = cat.id === 'all' ? t.allTools :
@@ -1287,15 +793,15 @@ export const Home: React.FC = () => {
                   key={cat.id}
                   type="button"
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-3.5 py-1.5 rounded-xl text-[11px] font-bold tracking-tight transition-all cursor-pointer border flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold tracking-tight transition-all cursor-pointer border flex items-center gap-1.5 shrink-0 ${
                     activeCategory === cat.id
-                      ? 'bg-indigo-650 border-indigo-655 text-white shadow-sm shadow-indigo-500/20'
-                      : 'bg-white dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-650 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600 shadow-2xs'
+                      ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white border-slate-300 dark:border-slate-700 shadow-xs'
+                      : 'bg-transparent border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-white/60'
                   }`}
                 >
                   <CatIcon className="w-3.5 h-3.5 shrink-0" />
                   <span>{catLabel}</span>
-                  <span className={`text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-md ${activeCategory === cat.id ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400'}`}>
+                  <span className={`text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-md ${activeCategory === cat.id ? 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300' : 'text-slate-400 dark:text-slate-500'}`}>
                     {cat.count}
                   </span>
                 </button>
@@ -1303,33 +809,33 @@ export const Home: React.FC = () => {
             })}
           </div>
 
-          {/* View Mode Toggle Button */}
-          <div className="flex items-center gap-1 bg-white dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 shrink-0">
+          {/* View Mode Toggle (Cards vs Ergonomic List) */}
+          <div className="flex items-center gap-1 bg-white dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 shrink-0 self-end md:self-auto">
             <button
               type="button"
               onClick={() => setViewMode('grid')}
-              className={`p-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                 viewMode === 'grid'
                   ? 'bg-indigo-600 text-white shadow-xs'
                   : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
               }`}
-              title="Visual Cards View"
+              title="4-Column Visual Cards"
             >
               <Layout className="w-3.5 h-3.5" />
-              <span className="text-[10px]">Cards</span>
+              <span className="text-[11px]">Cards</span>
             </button>
             <button
               type="button"
               onClick={() => setViewMode('compact')}
-              className={`p-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                 viewMode === 'compact'
                   ? 'bg-indigo-600 text-white shadow-xs'
                   : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
               }`}
-              title="Compact Quick Finder View"
+              title="Ergonomic Mobile List Mode"
             >
               <Table className="w-3.5 h-3.5" />
-              <span className="text-[10px]">List</span>
+              <span className="text-[11px]">List</span>
             </button>
           </div>
         </div>
@@ -1348,38 +854,123 @@ export const Home: React.FC = () => {
           </div>
         )}
 
-        {/* Directory Presentation (Grid vs Compact) */}
+        {/* Directory Presentation (Grid vs Ergonomic List Mode) */}
         {filteredTools.length === 0 ? (
           renderEmptyState()
         ) : viewMode === 'grid' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {filteredTools.map((tool) => renderToolCard(tool))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="flex flex-col gap-2.5 max-w-4xl mx-auto">
             {filteredTools.map((tool) => renderCompactToolRow(tool))}
           </div>
         )}
 
       </section>
 
-      {/* POPULAR FORMATS & QUICK CONVERSION MATRIX SECTION */}
-      <section className="py-12 border-t border-slate-200/60 dark:border-slate-800 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
-        <div className="text-center mb-8">
-          <span className="text-[10px] font-bold text-indigo-655 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-900 uppercase tracking-widest">
-            High-Speed Matrix
+      {/* THE CLIENT-SIDE ADVANTAGE BENTO ARCHITECTURE SHOWCASE */}
+      <section className="py-14 border-t border-slate-200/60 dark:border-slate-800 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <span className="text-[10px] font-extrabold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-200/60 dark:border-indigo-900/60">
+            The Client-Side Advantage
           </span>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-slate-50 tracking-normal mt-2.5 mb-2">
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 mt-2.5 mb-2">
+            Engineered for speed. Built for private eyes.
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+            Traditional image sites upload your photos to remote cloud servers. Image Craft executes every byte directly in your local hardware memory.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {/* Bento Card 1: Zero Server Footprint */}
+          <div className="p-6 rounded-2xl bg-gradient-to-br from-slate-900 to-indigo-950 text-white border border-indigo-900/50 shadow-lg flex flex-col justify-between">
+            <div>
+              <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-sky-400 mb-4">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <h3 className="text-lg font-bold text-white tracking-tight mb-1.5">
+                Zero Server Storage
+              </h3>
+              <p className="text-xs text-slate-300 leading-relaxed mb-6">
+                When you drag an image onto Image Craft, it decodes into WebAssembly canvas buffers in your device RAM. It is physically impossible for our servers to store or inspect your files.
+              </p>
+            </div>
+
+            <div className="bg-white/5 border border-white/10 rounded-xl p-3.5 space-y-2 text-xs font-medium">
+              <div className="flex items-center justify-between">
+                <span className="text-slate-400 flex items-center gap-1.5">⚡ Image Craft Latency</span>
+                <span className="text-emerald-400 font-mono font-bold">0.02s (Local RAM)</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-slate-400 flex items-center gap-1.5">☁️ Cloud Photo Sites</span>
+                <span className="text-rose-400 font-mono">8.4s (Upload lag)</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-slate-400 flex items-center gap-1.5">🛡️ Data Privacy</span>
+                <span className="text-emerald-400 font-bold">100% On-Device</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bento Card 2: Parallel Web Workers */}
+          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+            <div>
+              <div className="w-11 h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800/80 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4">
+                <Cpu className="w-5 h-5" />
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight mb-1.5">
+                Parallel Web Workers
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                Our engine distributes compression and conversions across all available CPU threads. Process 100 images in parallel without freezing your browser tab.
+              </p>
+            </div>
+            <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1">
+              <span>Multi-Core CPU Acceleration</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
+
+          {/* Bento Card 3: Next-Gen Codecs */}
+          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+            <div>
+              <div className="w-11 h-11 rounded-xl bg-teal-50 dark:bg-teal-950/60 border border-teal-200/80 dark:border-teal-800/80 flex items-center justify-center text-teal-600 dark:text-teal-400 mb-4">
+                <Zap className="w-5 h-5" />
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight mb-1.5">
+                Next-Gen Codecs
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                Native LibWebP and LibAVIF binary builds compiled directly into browser bytecode. Achieve 30-50% higher compression efficiency than standard JPEG encoders.
+              </p>
+            </div>
+            <div className="text-xs font-bold text-teal-600 dark:text-teal-400 flex items-center gap-1">
+              <span>AVIF, WebP, SVG, PNG & JPG</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* POPULAR FORMATS & QUICK CONVERSION MATRIX SECTION */}
+      <section className="py-10 border-t border-slate-200/60 dark:border-slate-800 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        <div className="text-center mb-8">
+          <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-900 uppercase tracking-widest">
+            Preset Matrix
+          </span>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight mt-2 mb-2">
             Popular Formats & Target Sizes
           </h2>
-          <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto">
+          <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto font-medium">
             Direct 1-click access to preset conversion and compression workflows.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left">
           {/* Column 1: Format Converters */}
-          <div className="premium-bento p-5 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800 space-y-3">
+          <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 space-y-3 shadow-xs">
             <div className="flex items-center gap-2 font-bold text-xs text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">
               <Files className="w-4 h-4 text-indigo-500" />
               <span>Format Converters</span>
@@ -1406,7 +997,7 @@ export const Home: React.FC = () => {
           </div>
 
           {/* Column 2: Target Size Compression */}
-          <div className="premium-bento p-5 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800 space-y-3">
+          <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 space-y-3 shadow-xs">
             <div className="flex items-center gap-2 font-bold text-xs text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">
               <ImageIcon className="w-4 h-4 text-indigo-500" />
               <span>Compression & Target Sizes</span>
@@ -1432,7 +1023,7 @@ export const Home: React.FC = () => {
           </div>
 
           {/* Column 3: Specialized Tasks */}
-          <div className="premium-bento p-5 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800 space-y-3">
+          <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 space-y-3 shadow-xs">
             <div className="flex items-center gap-2 font-bold text-xs text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">
               <Sparkles className="w-4 h-4 text-purple-500" />
               <span>Specialized Tasks</span>
@@ -1440,18 +1031,12 @@ export const Home: React.FC = () => {
             <div className="flex flex-wrap gap-1.5">
               {[
                 { label: 'Photo Filters', path: '/photo-filters' },
-                { label: 'Vintage 1977 Filter', path: '/vintage-photo-filter' },
                 { label: 'Duotone Generator', path: '/duotone-generator' },
                 { label: 'Invert Colors', path: '/invert-colors' },
-                { label: 'Black & White Converter', path: '/black-and-white-converter' },
-                { label: 'Adjust Brightness & Contrast', path: '/brightness-contrast' },
-                { label: 'Crop Image (1:1, 16:9)', path: '/crop-image' },
-                { label: 'Passport Photo (2x2 in)', path: '/passport-photo-cropper' },
-                { label: 'Rotate & Flip Image', path: '/rotate-image' },
-                { label: 'Add Border & Frame', path: '/add-border-to-image' },
-                { label: 'Remove White BG', path: '/remove-white-background' },
-                { label: 'Transparent BG Maker', path: '/transparent-background-maker' },
-                { label: 'Bank Statement to Excel', path: '/bank-statement-to-excel' },
+                { label: 'Crop Image', path: '/crop-image' },
+                { label: 'Passport Photo', path: '/passport-photo-cropper' },
+                { label: 'Rotate & Flip', path: '/rotate-image' },
+                { label: 'Add Border', path: '/add-border-to-image' },
                 { label: 'Sign PDF Online', path: '/sign-pdf-online' },
               ].map((link) => (
                 <Link
@@ -1467,112 +1052,16 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* PRIVACY ARCHITECTURE & CLOUD COMPARISON SECTION */}
-      <section className="py-14 border-t border-slate-200/60 dark:border-slate-800 max-w-5xl mx-auto px-4 text-center">
-        <div className="mb-10 text-center">
-          <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-3 py-1 rounded-full border border-emerald-200/60 dark:border-emerald-900/60">
-            Privacy & Architecture
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 mt-2.5 mb-2">
-            Why 100% On-Device Processing Matters
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto font-medium leading-relaxed">
-            Unlike cloud converters that transmit your private photos, contracts, and IDs to remote servers, ImagePlumber runs entirely inside your browser sandbox.
-          </p>
-        </div>
-
-        {/* Architectural Comparison Matrix */}
-        <div className="overflow-x-auto rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl shadow-slate-200/20 dark:shadow-none mb-8">
-          <table className="w-full text-left border-collapse text-xs">
-            <thead>
-              <tr className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50">
-                <th className="p-4 font-bold text-slate-700 dark:text-slate-300">Feature & Architecture</th>
-                <th className="p-4 font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50/50 dark:bg-indigo-950/30">
-                  ImagePlumber (Local WASM)
-                </th>
-                <th className="p-4 font-bold text-slate-500 dark:text-slate-400">
-                  Cloud Editors (TinyPNG, Remove.bg, etc.)
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80 font-medium">
-              <tr>
-                <td className="p-4 font-semibold text-slate-800 dark:text-slate-200">Where Your Files Are Processed</td>
-                <td className="p-4 text-emerald-600 dark:text-emerald-400 font-bold bg-indigo-50/20 dark:bg-indigo-950/10 flex items-center gap-1.5">
-                  <Check className="w-4 h-4 shrink-0" /> 100% On-Device Browser RAM
-                </td>
-                <td className="p-4 text-slate-500 flex items-center gap-1.5">
-                  <X className="w-4 h-4 text-rose-500 shrink-0" /> Uploaded to remote cloud servers
-                </td>
-              </tr>
-              <tr>
-                <td className="p-4 font-semibold text-slate-800 dark:text-slate-200">Processing Latency & Queue</td>
-                <td className="p-4 text-emerald-600 dark:text-emerald-400 font-bold bg-indigo-50/20 dark:bg-indigo-950/10 flex items-center gap-1.5">
-                  <Check className="w-4 h-4 shrink-0" /> Instant 0ms latency (Hardware accelerated)
-                </td>
-                <td className="p-4 text-slate-500 flex items-center gap-1.5">
-                  <X className="w-4 h-4 text-rose-500 shrink-0" /> Network upload lag + server queue delays
-                </td>
-              </tr>
-              <tr>
-                <td className="p-4 font-semibold text-slate-800 dark:text-slate-200">File Size & Daily Limits</td>
-                <td className="p-4 text-emerald-600 dark:text-emerald-400 font-bold bg-indigo-50/20 dark:bg-indigo-950/10 flex items-center gap-1.5">
-                  <Check className="w-4 h-4 shrink-0" /> Unlimited & Free up to 100MB+
-                </td>
-                <td className="p-4 text-slate-500 flex items-center gap-1.5">
-                  <X className="w-4 h-4 text-rose-500 shrink-0" /> 5MB paywall or daily file caps
-                </td>
-              </tr>
-              <tr>
-                <td className="p-4 font-semibold text-slate-800 dark:text-slate-200">Safe for Passports, IDs & Statements</td>
-                <td className="p-4 text-emerald-600 dark:text-emerald-400 font-bold bg-indigo-50/20 dark:bg-indigo-950/10 flex items-center gap-1.5">
-                  <Check className="w-4 h-4 shrink-0" /> Absolute Zero Leak Guarantee
-                </td>
-                <td className="p-4 text-slate-500 flex items-center gap-1.5">
-                  <X className="w-4 h-4 text-rose-500 shrink-0" /> Stored in cloud logs & training datasets
-                </td>
-              </tr>
-              <tr>
-                <td className="p-4 font-semibold text-slate-800 dark:text-slate-200">Offline Usability</td>
-                <td className="p-4 text-emerald-600 dark:text-emerald-400 font-bold bg-indigo-50/20 dark:bg-indigo-950/10 flex items-center gap-1.5">
-                  <Check className="w-4 h-4 shrink-0" /> Fully functional offline (Air-gapped)
-                </td>
-                <td className="p-4 text-slate-500 flex items-center gap-1.5">
-                  <X className="w-4 h-4 text-rose-500 shrink-0" /> Fails completely without active internet
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        {/* Security Banner */}
-        <div className="bg-gradient-to-br from-indigo-950 via-slate-900 to-zinc-950 p-6 sm:p-8 rounded-3xl border border-indigo-900/50 text-white relative overflow-hidden">
-          <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center text-indigo-300 mx-auto mb-3">
-            <ShieldCheck className="w-5 h-5" />
-          </div>
-          <h3 className="text-xl font-extrabold tracking-tight mb-2">
-            Air-Gapped Local Execution
-          </h3>
-          <p className="text-xs text-slate-300 max-w-xl mx-auto leading-relaxed mb-4">
-            ImagePlumber runs 100% inside your browser's WebAssembly sandbox. You can disconnect your Wi-Fi and the tools will still process your images.
-          </p>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 border border-emerald-400/30 rounded-full text-emerald-400 text-[11px] font-bold">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>0 Bytes Transferred • No Server Tracking • Offline Ready</span>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ ACCORDION SECTION */}
       <section className="py-12 border-t border-slate-200/60 dark:border-slate-800 max-w-4xl mx-auto px-4 text-left">
         <div className="text-center mb-8">
-          <span className="text-[10px] font-bold text-indigo-655 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-900 uppercase tracking-widest">
+          <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-900 uppercase tracking-widest">
             FAQ
           </span>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-slate-50 tracking-normal mt-2 mb-2">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight mt-2 mb-2">
             {t.faqTitle}
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
             {t.faqSubtitle}
           </p>
         </div>
@@ -1588,7 +1077,7 @@ export const Home: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setOpenHomeFaq(isOpen ? null : index)}
-                  className="w-full flex items-center justify-between p-4 text-left text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 hover:text-indigo-650 dark:hover:text-indigo-400 transition-colors cursor-pointer"
+                  className="w-full flex items-center justify-between p-4 text-left text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
                 >
                   <span>{faq.q}</span>
                   <ChevronRight className={`w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0 ml-2 ${isOpen ? 'rotate-90 text-indigo-600' : ''}`} />
@@ -1607,4 +1096,3 @@ export const Home: React.FC = () => {
     </div>
   );
 };
-

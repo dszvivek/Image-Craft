@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ImageCraft — Clean, Crisp & Connected Theme</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      /* iLoveIMG-Inspired Clean Airy Canvas */
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-hover: #ffffff;
+      
+      /* Typography */
+      --text-heading: #1e293b;
+      --text-title: #0f172a;
+      --text-desc: #64748b;
+      --text-subtle: #94a3b8;
+      
+      /* Crisp Borders & Elevation */
+      --border-card: rgba(15, 23, 42, 0.08);
+      --border-card-hover: rgba(59, 130, 246, 0.35);
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
+      --shadow-hover: 0 10px 25px -4px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+      
+      /* Vibrant Tool Identity Colors */
+      --c-green: #10b981;
+      --c-blue: #0284c7;
+      --c-cyan: #06b6d4;
+      --c-amber: #f59e0b;
+      --c-purple: #8b5cf6;
+      --c-indigo: #4f46e5;
+      --c-rose: #f43f5e;
+      --c-teal: #0d9488;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-heading);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+    }
+
+    /* TOP GLOBAL NAVBAR (iLoveIMG Style, modernized) */
+    .navbar {
+      background: #ffffff;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+      height: 68px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.02);
+    }
+
+    .nav-container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-heart-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+    }
+
+    .brand-name {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #0f172a;
+    }
+
+    .brand-name span {
+      color: #2563eb;
+    }
+
+    .nav-quick-tools {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .nav-quick-link {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #475569;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-quick-link:hover {
+      color: #2563eb;
+    }
+
+    .nav-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-privacy {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: #ecfdf5;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 9999px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #059669;
+    }
+
+    .btn-login {
+      font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+      text-decoration: none;
+      padding: 8px 14px;
+    }
+
+    .btn-primary-blue {
+      background: #2563eb;
+      color: #ffffff;
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s;
+    }
+
+    .btn-primary-blue:hover {
+      background: #1d4ed8;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    /* HERO SECTION: DIRECT, CRISP & WELCOMING */
+    .hero-wrap {
+      text-align: center;
+      padding: 56px 20px 36px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .main-hero-title {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: #0f172a;
+      line-height: 1.18;
+      margin-bottom: 12px;
+    }
+
+    .main-hero-subtitle {
+      font-size: 17px;
+      color: #64748b;
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+
+    /* COMPACT HERO DROPZONE BAR (Crisp & Non-Intrusive) */
+    .compact-drop-bar {
+      max-width: 680px;
+      margin: 0 auto 36px;
+      background: #ffffff;
+      border: 2px dashed rgba(59, 130, 246, 0.3);
+      border-radius: 18px;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+      transition: all 0.2s;
+    }
+
+    .compact-drop-bar:hover {
+      border-color: #2563eb;
+      background: #f8faff;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08);
+    }
+
+    .drop-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .drop-bar-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: #eff6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2563eb;
+    }
+
+    .drop-bar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .drop-bar-subtitle {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .btn-select-images {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+    }
+
+    /* FILTER TABS (Exact iLoveIMG style) */
+    .filter-pills-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .filter-pill {
+      background: #ffffff;
+      border: 1px solid rgba(15, 23, 42, 0.09);
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-pill:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    .filter-pill.active {
+      background: #0f172a;
+      border-color: #0f172a;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.2);
+    }
+
+    /* THE ICONIC 5-COLUMN TOOL CARDS GRID */
+    .main-grid-wrap {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px 72px;
+    }
+
+    .tools-grid-5cols {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 1200px) {
+      .tools-grid-5cols {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (max-width: 992px) {
+      .tools-grid-5cols {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .tools-grid-5cols {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tools-grid-5cols {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tool-item-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      padding: 24px 20px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: 190px;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tool-item-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--border-card-hover);
+    }
+
+    .card-top-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .tool-glyph {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    /* Color variations matching tool categories */
+    .glyph-green  { background: #ecfdf5; color: #10b981; }
+    .glyph-blue   { background: #eff6ff; color: #0284c7; }
+    .glyph-cyan   { background: #ecfeff; color: #0891b2; }
+    .glyph-amber  { background: #fffbeb; color: #f59e0b; }
+    .glyph-purple { background: #faf5ff; color: #8b5cf6; }
+    .glyph-indigo { background: #eef2ff; color: #4f46e5; }
+    .glyph-rose   { background: #fff1f2; color: #f43f5e; }
+    .glyph-teal   { background: #f0fdfa; color: #0d9488; }
+
+    .tag-new {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 7px;
+      background: #e0f2fe;
+      color: #0369a1;
+      border-radius: 6px;
+    }
+
+    .tag-ai {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 7px;
+      background: #fdf4ff;
+      color: #a21caf;
+      border-radius: 6px;
+    }
+
+    .tool-card-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-title);
+      margin-bottom: 8px;
+    }
+
+    .tool-card-desc {
+      font-size: 12.5px;
+      color: var(--text-desc);
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* SECTION 2: "WORK YOUR WAY" (iLoveIMG 3-Feature Cards) */
+    .work-your-way-section {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px 72px;
+    }
+
+    .section-headline {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #0f172a;
+      margin-bottom: 36px;
+    }
+
+    .features-triad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .features-triad {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature-banner-card {
+      background: #ffffff;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feature-banner-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .feature-top-illustration {
+      height: 160px;
+      background: linear-gradient(135deg, #e0f2fe 0%, #eff6ff 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+    }
+
+    .feature-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.55;
+    }
+
+    .feature-arrow {
+      align-self: flex-end;
+      margin-top: 16px;
+      color: #2563eb;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    /* SECTION 3: WARM HIGHLIGHT BANNER ("100% In-Browser Privacy") */
+    .warm-callout-wrap {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px 72px;
+    }
+
+    .warm-callout-card {
+      background: #fffbeb;
+      border: 1px solid #fef3c7;
+      border-radius: 24px;
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 36px;
+    }
+
+    @media (max-width: 768px) {
+      .warm-callout-card {
+        flex-direction: column;
+        padding: 32px 24px;
+      }
+    }
+
+    .callout-content {
+      max-width: 580px;
+    }
+
+    .callout-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #0f172a;
+      margin-bottom: 12px;
+    }
+
+    .callout-desc {
+      font-size: 15px;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .btn-gold {
+      background: #d97706;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);
+      transition: background 0.2s;
+    }
+
+    .btn-gold:hover {
+      background: #b45309;
+    }
+
+    .callout-badges-right {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .privacy-stamp {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      min-width: 140px;
+    }
+
+    .privacy-stamp span {
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f172a;
+      text-align: center;
+    }
+
+    /* TRUST BADGES SECTION */
+    .trust-footer-section {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 64px;
+      padding: 0 20px;
+    }
+
+    .trust-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    .trust-sub {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+
+    .trust-seals {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      opacity: 0.8;
+    }
+
+    .seal-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    /* MODERN DARK SLATE FOOTER */
+    .site-footer {
+      background: #111827;
+      color: #94a3b8;
+      padding: 64px 24px 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr) 1.5fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 900px) {
+      .footer-inner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover {
+      color: #ffffff;
+    }
+
+    .footer-bottom-bar {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. TOP GLOBAL NAVBAR -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <div class="brand-heart-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/>
+            <path d="M12 8v8"/>
+            <path d="M8 12h8"/>
+          </svg>
+        </div>
+        <div class="brand-name">Image<span>Craft</span></div>
+      </a>
+
+      <nav class="nav-quick-tools">
+        <a href="#" class="nav-quick-link">Compress</a>
+        <a href="#" class="nav-quick-link">Resize</a>
+        <a href="#" class="nav-quick-link">Crop</a>
+        <a href="#" class="nav-quick-link">Convert</a>
+        <a href="#" class="nav-quick-link">Redact</a>
+        <a href="#" class="nav-quick-link" style="color:#2563eb;">All Tools ▾</a>
+      </nav>
+
+      <div class="nav-right-actions">
+        <span class="badge-privacy">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          100% In-Browser Private
+        </span>
+        <a href="#" class="btn-login">English ▾</a>
+        <a href="#" class="btn-primary-blue">Try AI Cutout</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. HERO SECTION: CLEAN, CRISP & WELCOMING -->
+  <section class="hero-wrap">
+    <h1 class="main-hero-title">Every tool you could want to edit images in bulk</h1>
+    <p class="main-hero-subtitle">Your private on-device photo editor is here and forever free!</p>
+
+    <!-- COMPACT HERO DROPZONE (Crisp & non-intrusive) -->
+    <div class="compact-drop-bar">
+      <div class="drop-bar-left">
+        <div class="drop-bar-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <div>
+          <div class="drop-bar-title">Drop your images here for instant auto-routing</div>
+          <div class="drop-bar-subtitle">JPEG, PNG, WEBP, SVG, PDF up to 100MB — zero server uploads</div>
+        </div>
+      </div>
+      <button class="btn-select-images" type="button">Select Images</button>
+    </div>
+
+    <!-- FILTER PILLS -->
+    <div class="filter-pills-row">
+      <button class="filter-pill active">All 28 Tools</button>
+      <button class="filter-pill">Optimize</button>
+      <button class="filter-pill">Photo Studio</button>
+      <button class="filter-pill">Privacy & Docs</button>
+      <button class="filter-pill">Convert</button>
+      <button class="filter-pill">Creative FX</button>
+    </div>
+  </section>
+
+  <!-- 3. THE 5-COLUMN ICONIC TOOLS GRID (iLoveIMG Style) -->
+  <main class="main-grid-wrap">
+    <div class="tools-grid-5cols">
+
+      <!-- TOOL 1: Compress IMAGE -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-green">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/>
+              <line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="tool-card-title">Compress IMAGE</h2>
+        <p class="tool-card-desc">Compress JPEG, PNG, or WebP while keeping visual quality. Reduce size up to 90% in seconds.</p>
+      </a>
+
+      <!-- TOOL 2: Resize IMAGE -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>
+              <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="tool-card-title">Resize IMAGE</h2>
+        <p class="tool-card-desc">Define dimensions by pixels or percentage. Resize JPEG, PNG, and WebP images in bulk.</p>
+      </a>
+
+      <!-- TOOL 3: Crop IMAGE -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-cyan">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="tool-card-title">Crop IMAGE</h2>
+        <p class="tool-card-desc">Crop JPEG, PNG, or GIF with visual touch handles. 1:1, 4:5, 16:9, and official passport 2x2".</p>
+      </a>
+
+      <!-- TOOL 4: Convert to JPG -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-amber">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="tool-card-title">Convert to JPG</h2>
+        <p class="tool-card-desc">Turn PNG, GIF, TIF, PSD, SVG, or RAW formats to universal JPG images in seconds.</p>
+      </a>
+
+      <!-- TOOL 5: Convert to WebP / PNG -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-amber">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="tool-card-title">Convert from JPG</h2>
+        <p class="tool-card-desc">Turn JPG images into PNG with transparency or WebP for optimal Google PageSpeed load times.</p>
+      </a>
+
+      <!-- TOOL 6: Photo Redactor & Censor -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-rose">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <span class="tag-new">Privacy</span>
+        </div>
+        <h2 class="tool-card-title">Blur face & IDs</h2>
+        <p class="tool-card-desc">Permanently blur faces, blackout ID numbers, and censor confidential license plates locally.</p>
+      </a>
+
+      <!-- TOOL 7: AI Background Remover -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-purple">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <span class="tag-ai">WASM AI</span>
+        </div>
+        <h2 class="tool-card-title">Remove background</h2>
+        <p class="tool-card-desc">Quickly isolate portrait and product subjects with on-device neural edge segmentation.</p>
+      </a>
+
+      <!-- TOOL 8: Watermark IMAGE -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="10"/><path d="M14.5 9.5a3.5 3.5 0 1 0 0 5"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="tool-card-title">Watermark IMAGE</h2>
+        <p class="tool-card-desc">Stamp images with custom copyright logos or text. Choose typography, opacity, and angle.</p>
+      </a>
+
+      <!-- TOOL 9: Meme generator -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-indigo">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="tool-card-title">Meme generator</h2>
+        <p class="tool-card-desc">Create viral funny memes with classic impact captions or upload your custom layout photo.</p>
+      </a>
+
+      <!-- TOOL 10: Rotate IMAGE -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-cyan">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="tool-card-title">Rotate IMAGE</h2>
+        <p class="tool-card-desc">Rotate bulk images 90° clockwise, flip horizontally, or level tilted horizon angles.</p>
+      </a>
+
+      <!-- TOOL 11: Photo Filter Studio -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-purple">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="tool-card-title">Photo Filters & Duotone</h2>
+        <p class="tool-card-desc">Apply 12 aesthetic color grading presets, duotone maps, sepia, or vintage film looks.</p>
+      </a>
+
+      <!-- TOOL 12: EXIF Metadata Stripper -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-rose">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/>
+            </svg>
+          </div>
+          <span class="tag-new">Clean</span>
+        </div>
+        <h2 class="tool-card-title">Strip EXIF Data</h2>
+        <p class="tool-card-desc">Purge GPS location tags, camera serial numbers, and sensitive metadata before sharing.</p>
+      </a>
+
+      <!-- TOOL 13: Electronic PDF Signer -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-teal">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="tool-card-title">Sign PDF Document</h2>
+        <p class="tool-card-desc">Draw, type, or stamp electronic signatures onto contracts and agreements client-side.</p>
+      </a>
+
+      <!-- TOOL 14: OCR Text Extractor -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-indigo">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="tool-card-title">OCR Text Extractor</h2>
+        <p class="tool-card-desc">Extract selectable, searchable text from scanned receipts and screenshots instantly.</p>
+      </a>
+
+      <!-- TOOL 15: SVG Vectorizer -->
+      <a href="#" class="tool-item-card">
+        <div class="card-top-bar">
+          <div class="tool-glyph glyph-blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polygon points="12 2 2 22 22 22 12 2"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="tool-card-title">SVG Vectorizer</h2>
+        <p class="tool-card-desc">Trace raster bitmaps into infinite-resolution vector lines and shapes with zero pixilation.</p>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- 4. "WORK YOUR WAY" FEATURE BANNER (Exact iLoveIMG style) -->
+  <section class="work-your-way-section">
+    <h2 class="section-headline">Work your way</h2>
+    
+    <div class="features-triad">
+      
+      <!-- Feature 1 -->
+      <div class="feature-banner-card">
+        <div class="feature-top-illustration">
+          <div style="background:#ffffff; border:1px solid rgba(15,23,42,0.1); border-radius:12px; padding:16px 20px; box-shadow:0 4px 14px rgba(0,0,0,0.06); width:75%;">
+            <div style="height:8px; width:40%; background:#2563eb; border-radius:4px; margin-bottom:8px;"></div>
+            <div style="height:6px; width:80%; background:#e2e8f0; border-radius:3px; margin-bottom:6px;"></div>
+            <div style="height:6px; width:60%; background:#e2e8f0; border-radius:3px;"></div>
+          </div>
+        </div>
+        <div class="feature-body">
+          <div>
+            <h3 class="feature-title">100% Client-Side Privacy</h3>
+            <p class="feature-desc">All image editing, AI background cutouts, and PDF processing run completely inside your device RAM. Zero cloud storage.</p>
+          </div>
+          <div class="feature-arrow">↗</div>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-banner-card">
+        <div class="feature-top-illustration" style="background: linear-gradient(135deg, #dcfce7 0%, #ecfdf5 100%);">
+          <div style="background:#ffffff; border:1px solid rgba(15,23,42,0.1); border-radius:12px; padding:16px 20px; box-shadow:0 4px 14px rgba(0,0,0,0.06); width:75%; text-align:center;">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:18px; font-weight:800; color:#059669;">-91% WebP</span>
+            <div style="font-size:10px; color:#64748b; margin-top:4px;">Lossless Compression</div>
+          </div>
+        </div>
+        <div class="feature-body">
+          <div>
+            <h3 class="feature-title">Hardware-Accelerated WASM</h3>
+            <p class="feature-desc">Powered by native WebAssembly compiling C++ and Rust engines for blazing multi-core processing speeds on desktop and mobile.</p>
+          </div>
+          <div class="feature-arrow">↗</div>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-banner-card">
+        <div class="feature-top-illustration" style="background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);">
+          <div style="background:#ffffff; border:1px solid rgba(15,23,42,0.1); border-radius:12px; padding:16px 20px; box-shadow:0 4px 14px rgba(0,0,0,0.06); width:75%;">
+            <div style="display:flex; gap:6px; margin-bottom:8px;">
+              <div style="width:8px; height:8px; border-radius:50%; background:#ef4444;"></div>
+              <div style="width:8px; height:8px; border-radius:50%; background:#f59e0b;"></div>
+              <div style="width:8px; height:8px; border-radius:50%; background:#10b981;"></div>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#334155;">Batch: 42 images processed</div>
+          </div>
+        </div>
+        <div class="feature-body">
+          <div>
+            <h3 class="feature-title">Batch Processing at Scale</h3>
+            <p class="feature-desc">Convert, resize, watermark, and compress dozens of photos simultaneously without queue throttling or file count restrictions.</p>
+          </div>
+          <div class="feature-arrow">↗</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 5. WARM CALLOUT BANNER ("Get more with ImageCraft") -->
+  <section class="warm-callout-wrap">
+    <div class="warm-callout-card">
+      <div class="callout-content">
+        <h3 class="callout-title">Zero Server Uploads. Zero Data Leakage.</h3>
+        <p class="callout-desc">Work faster and smarter with private on-device image utilities. Built for individuals, legal professionals, and privacy-first teams who cannot risk cloud exposure.</p>
+        <a href="#" class="btn-gold">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Learn About Our Zero-Leak Engine
+        </a>
+      </div>
+
+      <div class="callout-badges-right">
+        <div class="privacy-stamp">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>100% In-Browser</span>
+        </div>
+        <div class="privacy-stamp">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Offline Ready</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. TRUST & SECURITY -->
+  <div class="trust-footer-section">
+    <h3 class="trust-title">Your trusted on-device image editor, loved worldwide</h3>
+    <p class="trust-sub">ImageCraft is your simple, fast solution for editing images online. Access all tools with zero tracking and total privacy.</p>
+    
+    <div class="trust-seals">
+      <div class="seal-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>GDPR & CCPA Compliant</span>
+      </div>
+      <div class="seal-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Client-Side WebAssembly</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. MODERN DARK SLATE FOOTER (iLoveIMG Style) -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-col-title">Product</div>
+        <ul class="footer-links">
+          <li><a href="#">Compress Image</a></li>
+          <li><a href="#">Resize Image</a></li>
+          <li><a href="#">Crop Image</a></li>
+          <li><a href="#">Convert to JPG</a></li>
+          <li><a href="#">Photo Redactor</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Privacy Tools</div>
+        <ul class="footer-links">
+          <li><a href="#">Blur Face & IDs</a></li>
+          <li><a href="#">EXIF Metadata Stripper</a></li>
+          <li><a href="#">Steganography</a></li>
+          <li><a href="#">PDF Electronic Signer</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Resources</div>
+        <ul class="footer-links">
+          <li><a href="#">WASM Documentation</a></li>
+          <li><a href="#">Privacy Manifesto</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Release Notes</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Open Source GitHub</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">ImageCraft Studio</div>
+        <p style="font-size:12.5px; line-height:1.6; color:#94a3b8; margin-bottom:16px;">
+          Next-generation on-device image manipulation. Every operation runs in client RAM with zero server communication.
+        </p>
+        <div style="display:flex; gap:8px;">
+          <span style="font-size:11px; font-weight:700; background:#1e293b; color:#cbd5e1; padding:4px 8px; border-radius:6px;">WASM Core</span>
+          <span style="font-size:11px; font-weight:700; background:#1e293b; color:#cbd5e1; padding:4px 8px; border-radius:6px;">100% Private</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <div>© 2026 ImageCraft. All rights reserved. 100% on-device local execution.</div>
+      <div style="display:flex; gap:16px;">
+        <a href="#" style="color:#94a3b8; text-decoration:none;">Privacy Policy</a>
+        <a href="#" style="color:#94a3b8; text-decoration:none;">Terms of Service</a>
+        <a href="#" style="color:#94a3b8; text-decoration:none;">Security</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

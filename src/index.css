@@ -664,3 +664,111 @@ input[type="range"].range-styled::-moz-range-thumb {
   animation: signature-draw 4s ease-in-out infinite;
 }
 
+/* ==========================================================================
+   Bespoke Theme: Clean, Crisp & Connected (Universal Desktop & Mobile System)
+   ========================================================================== */
+
+/* Crisp Craft Dock */
+.craft-dock {
+  background: #ffffff;
+  border: 2px dashed var(--color-slate-300);
+  border-radius: 18px;
+  box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.05), 0 1px 3px -1px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .craft-dock {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: none;
+}
+
+.craft-dock:hover, .craft-dock.is-dragover {
+  border-color: #4f46e5;
+  box-shadow: 0 12px 28px -6px rgba(79, 70, 229, 0.12);
+  background: #fdfcff;
+}
+
+.dark .craft-dock:hover, .dark .craft-dock.is-dragover {
+  border-color: #818cf8;
+  background: rgba(30, 27, 75, 0.3);
+}
+
+/* Crisp Tool Card */
+.crisp-tool-card {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.04), 0 1px 3px -1px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.dark .crisp-tool-card {
+  background: rgba(20, 24, 36, 0.7);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.3);
+}
+
+.crisp-tool-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px -6px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+  border-color: var(--color-slate-300);
+}
+
+.dark .crisp-tool-card:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 14px 28px -6px rgba(0, 0, 0, 0.5);
+}
+
+/* Horizontal pill scrollbar suppression */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Mobile Ergonomic List Mode Transformation */
+.layout-list-mode {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.75rem !important;
+}
+
+.layout-list-mode .crisp-tool-card {
+  min-height: auto !important;
+  padding: 1rem 1.15rem !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  border-radius: 14px !important;
+}
+
+.layout-list-mode .card-body-content {
+  margin-bottom: 0 !important;
+  flex-grow: 1 !important;
+  text-align: left !important;
+}
+
+.layout-list-mode .card-desc-clamp {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+
+.layout-list-mode .card-footer-strip {
+  border-top: none !important;
+  padding-top: 0 !important;
+}
+
+.layout-list-mode .chevron-arrow {
+  display: block !important;
+}
+
+

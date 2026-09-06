@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Image Craft — Clean, Crisp & Connected (Responsive Mobile & Desktop)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Crisp Brand Palette */
+      --bg-page: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+
+      --brand-primary: #4F46E5;
+      --brand-primary-hover: #4338CA;
+      --brand-light: #EEF2FF;
+      --brand-border: #C7D2FE;
+
+      --border-subtle: #E2E8F0;
+      --border-strong: #CBD5E1;
+
+      /* Color-coded tool accents */
+      --accent-emerald: #059669;
+      --accent-emerald-bg: #ECFDF5;
+      --accent-emerald-border: #A7F3D0;
+
+      --accent-blue: #0284C7;
+      --accent-blue-bg: #F0F9FF;
+      --accent-blue-border: #BAE6FD;
+
+      --accent-purple: #7C3AED;
+      --accent-purple-bg: #F5F3FF;
+      --accent-purple-border: #DDD6FE;
+
+      --accent-rose: #E11D48;
+      --accent-rose-bg: #FFF1F2;
+      --accent-rose-border: #FECDD3;
+
+      --accent-amber: #D97706;
+      --accent-amber-bg: #FFFBEB;
+      --accent-amber-border: #FDE68A;
+
+      --accent-teal: #0D9488;
+      --accent-teal-bg: #F0FDFA;
+      --accent-teal-border: #99F6E4;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+      --shadow-card: 0 2px 5px -1px rgba(0, 0, 0, 0.05), 0 1px 3px -1px rgba(0, 0, 0, 0.03);
+      --shadow-hover: 0 14px 28px -6px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.5;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Subtle background dot pattern */
+    .bg-grid-pattern {
+      background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+      background-size: 24px 24px;
+      background-position: center center;
+    }
+
+    /* Floating Viewport Simulator Bar (for testing on desktop) */
+    .device-switcher-bar {
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 0.8rem;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      border-bottom: 1px solid #1E293B;
+    }
+
+    .device-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.15s ease;
+    }
+
+    .device-btn.active, .device-btn:hover {
+      background: var(--brand-primary);
+      border-color: var(--brand-primary);
+    }
+
+    /* Simulated Mobile Frame Container */
+    .viewport-wrapper {
+      width: 100%;
+      transition: max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1), margin 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .viewport-wrapper.mode-mobile {
+      max-width: 420px;
+      margin: 1.5rem auto 3rem auto;
+      background: var(--bg-page);
+      border-radius: 40px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.25), 0 0 0 10px #1E293B, 0 0 0 12px #334155;
+      overflow: hidden;
+      min-height: 840px;
+      position: relative;
+    }
+
+    /* Top Navigation Bar */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .header-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      cursor: pointer;
+      padding: 0.35rem;
+      border-radius: 8px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .brand-icon-box {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+    }
+
+    .brand-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+    }
+
+    .brand-name span {
+      color: var(--brand-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--brand-primary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .privacy-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      color: #166534;
+      padding: 0.3rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.725rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .privacy-dot {
+      width: 6px;
+      height: 6px;
+      background: #22C55E;
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
+    }
+
+    /* Hero Section */
+    .hero-container {
+      position: relative;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 2.75rem 1.25rem 1.75rem 1.25rem;
+      text-align: center;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      padding: 0.3rem 0.8rem;
+      border-radius: 9999px;
+      font-size: 0.775rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-pill-tag {
+      background: var(--brand-light);
+      color: var(--brand-primary);
+      padding: 0.15rem 0.45rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+
+    .hero-title {
+      font-size: clamp(1.75rem, 4vw, 3.15rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.18;
+      color: #0F172A;
+      max-width: 840px;
+      margin: 0 auto 0.85rem auto;
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, #1E293B 20%, #4F46E5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: var(--text-secondary);
+      max-width: 640px;
+      margin: 0 auto 1.75rem auto;
+      line-height: 1.55;
+    }
+
+    /* Interactive "Craft Dock" Action Bar */
+    .craft-dock-container {
+      max-width: 820px;
+      margin: 0 auto 2.25rem auto;
+      background: #FFFFFF;
+      border: 2px dashed #CBD5E1;
+      border-radius: 16px;
+      padding: 1.15rem 1.5rem;
+      box-shadow: var(--shadow-card);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .dock-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-align: left;
+    }
+
+    .dock-icon-ring {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--brand-light);
+      border: 1px solid var(--brand-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brand-primary);
+      flex-shrink: 0;
+    }
+
+    .dock-instruction-title {
+      font-size: 0.925rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .dock-instruction-desc {
+      font-size: 0.775rem;
+      color: var(--text-muted);
+    }
+
+    .btn-select-files {
+      background: var(--brand-primary);
+      color: white;
+      border: none;
+      padding: 0.65rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+      transition: all 0.15s ease;
+    }
+
+    .btn-select-files:hover {
+      background: var(--brand-primary-hover);
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.75rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .trust-item-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brand-primary);
+      font-size: 0.7rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Filter & View Toolbar */
+    .filter-bar-wrapper {
+      max-width: 1360px;
+      margin: 0 auto 1.5rem auto;
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Horizontal scrollable pills on mobile */
+    .category-pills-scroll-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      max-width: 100%;
+      padding-bottom: 4px;
+    }
+
+    .category-pills-scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-pills {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: #F1F5F9;
+      padding: 0.3rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      width: max-content;
+    }
+
+    .category-pill {
+      background: transparent;
+      border: none;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .category-pill.active {
+      background: #FFFFFF;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-card);
+      font-weight: 700;
+    }
+
+    .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Mobile View Toggle: List vs Grid */
+    .view-mode-toggle {
+      display: flex;
+      background: #F1F5F9;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 2px;
+    }
+
+    .view-mode-btn {
+      background: none;
+      border: none;
+      padding: 0.35rem 0.55rem;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .view-mode-btn.active {
+      background: #FFFFFF;
+      color: var(--brand-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-box {
+      position: relative;
+      min-width: 220px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      padding: 0.48rem 0.85rem 0.48rem 2.15rem;
+      border-radius: 8px;
+      font-size: 0.825rem;
+      color: var(--text-primary);
+      outline: none;
+      transition: all 0.15s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--brand-primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.7rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    /* Tools Section & Grid / List Layouts */
+    .tools-section {
+      max-width: 1360px;
+      margin: 0 auto 4.5rem auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Desktop default grid: 4 columns */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.15rem;
+      transition: all 0.2s ease;
+    }
+
+    /* Individual Tool Card (Default Card Mode) */
+    .tool-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 185px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      position: relative;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      border-color: #CBD5E1;
+    }
+
+    .tool-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 0.85rem;
+    }
+
+    .tool-icon-wrapper {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .tool-card:hover .tool-icon-wrapper {
+      transform: scale(1.05);
+    }
+
+    /* Themes */
+    .theme-emerald .tool-icon-wrapper { background: var(--accent-emerald-bg); border: 1px solid var(--accent-emerald-border); color: var(--accent-emerald); }
+    .theme-blue .tool-icon-wrapper { background: var(--accent-blue-bg); border: 1px solid var(--accent-blue-border); color: var(--accent-blue); }
+    .theme-purple .tool-icon-wrapper { background: var(--accent-purple-bg); border: 1px solid var(--accent-purple-border); color: var(--accent-purple); }
+    .theme-rose .tool-icon-wrapper { background: var(--accent-rose-bg); border: 1px solid var(--accent-rose-border); color: var(--accent-rose); }
+    .theme-amber .tool-icon-wrapper { background: var(--accent-amber-bg); border: 1px solid var(--accent-amber-border); color: var(--accent-amber); }
+    .theme-teal .tool-icon-wrapper { background: var(--accent-teal-bg); border: 1px solid var(--accent-teal-border); color: var(--accent-teal); }
+
+    .card-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .tool-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 6px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .badge-popular { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+    .badge-ai { background: #F3E8FF; color: #6B21A8; border: 1px solid #E9D5FF; }
+    .badge-new { background: #E0E7FF; color: #3730A3; border: 1px solid #C7D2FE; }
+
+    .card-action-arrow {
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+
+    .tool-card:hover .card-action-arrow {
+      color: var(--brand-primary);
+      transform: translate(2px, -2px);
+    }
+
+    .tool-card-body {
+      margin-bottom: 0.85rem;
+    }
+
+    .tool-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.015em;
+    }
+
+    .tool-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .tool-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #F1F5F9;
+      padding-top: 0.6rem;
+      font-size: 0.725rem;
+      color: var(--text-muted);
+    }
+
+    .format-tag {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: #64748B;
+    }
+
+    /* ==========================================================================
+       MOBILE ERGONOMIC LIST MODE (Inspired by user screenshot ergonomics)
+       ========================================================================== */
+    .tools-grid.layout-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .tools-grid.layout-list .tool-card {
+      min-height: auto;
+      padding: 1rem 1.15rem;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      border-radius: 14px;
+    }
+
+    .tools-grid.layout-list .tool-card-top {
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+
+    .tools-grid.layout-list .tool-card-top .card-badges,
+    .tools-grid.layout-list .tool-card-top .card-action-arrow {
+      display: none;
+    }
+
+    .tools-grid.layout-list .tool-card-body {
+      margin-bottom: 0;
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .tools-grid.layout-list .tool-title {
+      font-size: 0.95rem;
+      margin-bottom: 0.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tools-grid.layout-list .tool-desc {
+      font-size: 0.775rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .tools-grid.layout-list .tool-card-footer {
+      border-top: none;
+      padding-top: 0;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .tools-grid.layout-list .list-chevron {
+      display: block;
+      color: #CBD5E1;
+      transition: color 0.15s ease, transform 0.15s ease;
+    }
+
+    .tools-grid.layout-list .tool-card:hover .list-chevron {
+      color: var(--brand-primary);
+      transform: translateX(3px);
+    }
+
+    .list-chevron {
+      display: none;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE MEDIA QUERIES (Real Device Adaptations)
+       ========================================================================== */
+    @media (max-width: 1100px) {
+      .tools-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: block; }
+      .nav-links { display: none; }
+      .privacy-badge span:nth-child(2) { display: none; } /* Show only dot on tight mobile */
+      .privacy-badge::after { content: "100% Local"; }
+
+      .hero-container { padding: 1.75rem 1rem 1.25rem 1rem; }
+      .craft-dock-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.25rem 1rem;
+        gap: 0.85rem;
+      }
+      .dock-left {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+      }
+      .btn-select-files {
+        width: 100%;
+        justify-content: center;
+      }
+      .trust-strip {
+        gap: 0.85rem 1.25rem;
+        font-size: 0.75rem;
+      }
+
+      .filter-bar-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+      }
+      .toolbar-right {
+        justify-content: space-between;
+      }
+      .search-box {
+        flex-grow: 1;
+      }
+
+      /* Mobile layout defaults to single-column ergonomic list */
+      .tools-grid:not(.layout-grid-forced) {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .tools-grid:not(.layout-grid-forced) .tool-card {
+        min-height: auto;
+        padding: 0.9rem 1rem;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.85rem;
+        border-radius: 12px;
+      }
+      .tools-grid:not(.layout-grid-forced) .tool-card-top {
+        margin-bottom: 0;
+      }
+      .tools-grid:not(.layout-grid-forced) .tool-card-top .card-badges,
+      .tools-grid:not(.layout-grid-forced) .tool-card-top .card-action-arrow {
+        display: none;
+      }
+      .tools-grid:not(.layout-grid-forced) .tool-card-body {
+        margin-bottom: 0;
+        flex-grow: 1;
+        text-align: left;
+      }
+      .tools-grid:not(.layout-grid-forced) .tool-title {
+        font-size: 0.925rem;
+        margin-bottom: 0.15rem;
+      }
+      .tools-grid:not(.layout-grid-forced) .tool-desc {
+        font-size: 0.75rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .tools-grid:not(.layout-grid-forced) .tool-card-footer {
+        border-top: none;
+        padding-top: 0;
+      }
+      .tools-grid:not(.layout-grid-forced) .format-tag {
+        display: none;
+      }
+      .tools-grid:not(.layout-grid-forced) .list-chevron {
+        display: block;
+      }
+    }
+
+    /* Distinctive Bento Architecture Showcase (Mobile-responsive) */
+    .bento-showcase {
+      max-width: 1360px;
+      margin: 0 auto 5rem auto;
+      padding: 0 1.25rem;
+    }
+
+    .showcase-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 2.5rem auto;
+    }
+
+    .showcase-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.725rem;
+      font-weight: 700;
+      color: var(--brand-primary);
+      background: var(--brand-light);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      margin-bottom: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .showcase-title {
+      font-size: clamp(1.5rem, 3.5vw, 2.15rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: 0.6rem;
+    }
+
+    .showcase-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 960px) {
+      .bento-grid { grid-template-columns: 1fr; }
+    }
+
+    .bento-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 1.65rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .bento-card-primary {
+      background: linear-gradient(145deg, #1E1B4B 0%, #0F172A 100%);
+      color: white;
+      border-color: #312E81;
+    }
+
+    .bento-card-primary .bento-title { color: #FFFFFF; }
+    .bento-card-primary .bento-desc { color: #CBD5E1; }
+
+    .bento-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      color: #38BDF8;
+    }
+
+    .bento-icon-light {
+      background: var(--brand-light);
+      color: var(--brand-primary);
+    }
+
+    .bento-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-bottom: 0.4rem;
+      color: var(--text-primary);
+    }
+
+    .bento-desc {
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .comparison-strip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .comp-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.775rem;
+    }
+
+    .comp-label { color: #94A3B8; }
+    .comp-val-fast { color: #4ADE80; font-weight: 700; font-family: var(--font-mono); }
+    .comp-val-slow { color: #F87171; font-family: var(--font-mono); }
+
+    /* Footer */
+    footer.site-footer {
+      background: #0F172A;
+      color: #94A3B8;
+      padding: 3.5rem 1.25rem 2rem 1.25rem;
+      border-top: 1px solid #1E293B;
+    }
+
+    .footer-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 860px) {
+      .footer-inner { grid-template-columns: 1fr; gap: 1.75rem; }
+    }
+
+    .footer-brand h4 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.825rem;
+      line-height: 1.55;
+      color: #64748B;
+      max-width: 320px;
+      margin-bottom: 1rem;
+    }
+
+    .footer-col h5 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #F8FAFC;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.85rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .footer-col a {
+      color: #94A3B8;
+      text-decoration: none;
+      font-size: 0.825rem;
+      transition: color 0.15s ease;
+    }
+
+    .footer-col a:hover { color: #FFFFFF; }
+
+    .footer-bottom {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid #1E293B;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.775rem;
+      color: #64748B;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+  </style>
+</head>
+<body class="bg-grid-pattern">
+
+  <!-- Interactive Device View Switcher (Desktop Preview Bar) -->
+  <div class="device-switcher-bar">
+    <span>Live Preview Device:</span>
+    <button class="device-btn active" onclick="setDeviceMode('desktop', this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Desktop (Wide)
+    </button>
+    <button class="device-btn" onclick="setDeviceMode('mobile', this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      Mobile Phone (390px)
+    </button>
+  </div>
+
+  <div class="viewport-wrapper" id="viewportWrapper">
+
+    <!-- Header -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="header-left">
+          <button class="mobile-menu-btn" aria-label="Open menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <a href="#" class="brand-logo">
+            <div class="brand-icon-box">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+              </svg>
+            </div>
+            <div class="brand-name">Image<span>Craft</span></div>
+          </a>
+        </div>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#tools" class="nav-link">All 28 Tools</a></li>
+            <li><a href="#privacy" class="nav-link">WASM Engine</a></li>
+            <li><a href="#features" class="nav-link">Batch Mode</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="privacy-badge">
+            <span class="privacy-dot"></span>
+            <span>Zero Cloud Uploads · 100% Local</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-container">
+      <div class="hero-pill">
+        <span class="hero-pill-tag">NEW</span>
+        <span>Next-Gen Multi-Threaded WASM 2.0</span>
+      </div>
+
+      <h1 class="hero-title">
+        Every image tool you need.<br />
+        <span class="gradient-text">Built with precision. 100% in your browser.</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Compress, resize, edit, and convert photos with zero cloud uploads and instant local processing speed.
+      </p>
+
+      <!-- Craft Dock Dropzone & Quick Action Bar -->
+      <div class="craft-dock-container" id="dropDock">
+        <div class="dock-left">
+          <div class="dock-icon-ring">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          </div>
+          <div>
+            <div class="dock-instruction-title">Select or drop photos anywhere</div>
+            <div class="dock-instruction-desc">Auto-format routing · Batch up to 100 images</div>
+          </div>
+        </div>
+
+        <button class="btn-select-files">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Select Images
+        </button>
+      </div>
+
+      <!-- Trust Strip -->
+      <div class="trust-strip">
+        <div class="trust-item">
+          <span class="trust-item-icon">⚡</span>
+          <span>0.0s Upload Latency</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-item-icon">🔒</span>
+          <span>100% Local RAM Privacy</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-item-icon">📦</span>
+          <span>Batch Multi-Threading</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter & Search Toolbar -->
+    <div class="filter-bar-wrapper" id="tools">
+      <div class="category-pills-scroll-container">
+        <div class="category-pills">
+          <button class="category-pill active" onclick="filterCategory('all', this)">
+            <span>All 28 Tools</span>
+          </button>
+          <button class="category-pill" onclick="filterCategory('optimize', this)">
+            <span>⚡ Compress & Size</span>
+          </button>
+          <button class="category-pill" onclick="filterCategory('ai', this)">
+            <span>🪄 AI & Studio FX</span>
+          </button>
+          <button class="category-pill" onclick="filterCategory('privacy', this)">
+            <span>🔒 Privacy & Redact</span>
+          </button>
+          <button class="category-pill" onclick="filterCategory('convert', this)">
+            <span>🔄 Format Converter</span>
+          </button>
+          <button class="category-pill" onclick="filterCategory('creative', this)">
+            <span>📐 Transform & Creative</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="toolbar-right">
+        <!-- List vs Grid Layout View Toggle (Ergonomic feature) -->
+        <div class="view-mode-toggle" title="Toggle Layout">
+          <button class="view-mode-btn active" id="btnModeList" onclick="setLayoutMode('list', this)" title="Comfortable List View">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </button>
+          <button class="view-mode-btn" id="btnModeGrid" onclick="setLayoutMode('grid', this)" title="Compact Grid View">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </button>
+        </div>
+
+        <div class="search-box">
+          <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" class="search-input" placeholder="Search any tool..." onkeyup="searchTools(this.value)" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Tools Directory -->
+    <section class="tools-section">
+      <div class="tools-grid layout-list" id="toolsGrid">
+
+        <!-- Tool 1: Compress -->
+        <a href="#" class="tool-card theme-emerald" data-category="optimize">
+          <div class="tool-card-top">
+            <div class="tool-icon-wrapper">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="4 14 10 14 10 20"></polyline>
+                <polyline points="20 10 14 10 14 4"></polyline>
+                <line x1="14" y1="10" x2="21" y2="3"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
+              </svg>
+            </div>
+            <div class="card-badges">
+              <span class="tool-badge badge-popular">Popular</span>
+              <svg class="card-action-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-title">
+              Compress Image
+              <span class="tool-badge badge-popular" style="font-size:0.65rem; padding:1px 5px; display:none;">Popular</span>
+            </h3>
+            <p class="tool-desc">Reduce file size up to 90% while maintaining crystal-clear visual quality.</p>
+          </div>
+          <div class="tool-card-footer">
+            <span class="format-tag">JPG · PNG · WEBP</span>
+            <svg class="list-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+
+        <!-- Tool 2: Resize -->
+        <a href="#" class="tool-card theme-blue" data-category="optimize">
+          <div class="tool-card-top">
+            <div class="tool-icon-wrapper">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <polyline points="9 21 3 21 3 15"></polyline>
+                <line x1="21" y1="3" x2="14" y2="10"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
+              </svg>
+            </div>
+            <div class="card-badges">
+              <svg class="card-action-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-title">Resize Dimensions</h3>
+            <p class="tool-desc">Scale pixel width, height, or target exact percentages with aspect lock.</p>
+          </div>
+          <div class="tool-card-footer">
+            <span class="format-tag">PX · % · DPI</span>
+            <svg class="list-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+
+        <!-- Tool 3: Background Remover -->
+        <a href="#" class="tool-card theme-purple" data-category="ai">
+          <div class="tool-card-top">
+            <div class="tool-icon-wrapper">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+            </div>
+            <div class="card-badges">
+              <span class="tool-badge badge-ai">On-Device AI</span>
+              <svg class="card-action-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-title">Remove Background</h3>
+            <p class="tool-desc">Isolate subjects with 1-click neural edge cutouts. Export transparent PNGs.</p>
+          </div>
+          <div class="tool-card-footer">
+            <span class="format-tag">ON-DEVICE AI</span>
+            <svg class="list-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+
+        <!-- Tool 4: Crop -->
+        <a href="#" class="tool-card theme-blue" data-category="creative">
+          <div class="tool-card-top">
+            <div class="tool-icon-wrapper">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 2v14a2 2 0 0 0 2 2h14"></path>
+                <path d="M18 22V8a2 2 0 0 0-2-2H2"></path>
+              </svg>
+            </div>
+            <div class="card-badges">
+              <svg class="card-action-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-title">Precision Crop</h3>
+            <p class="tool-desc">Crop with social aspect presets (16:9, 1:1, 4:5, 9:16) or freeform bounds.</p>
+          </div>
+          <div class="tool-card-footer">
+            <span class="format-tag">INSTA · YT · 16:9</span>
+            <svg class="list-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+
+        <!-- Tool 5: Redact & Privacy -->
+        <a href="#" class="tool-card theme-rose" data-category="privacy">
+          <div class="tool-card-top">
+            <div class="tool-icon-wrapper">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <div class="card-badges">
+              <span class="tool-badge badge-new">Privacy</span>
+              <svg class="card-action-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-title">Redact & Blur</h3>
+            <p class="tool-desc">Black out sensitive text, blur faces, or pixelate credit card and license info.</p>
+          </div>
+          <div class="tool-card-footer">
+            <span class="format-tag">BLACKOUT · BLUR</span>
+            <svg class="list-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+
+        <!-- Tool 6: Convert to WebP -->
+        <a href="#" class="tool-card theme-amber" data-category="convert">
+          <div class="tool-card-top">
+            <div class="tool-icon-wrapper">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg>
+            </div>
+            <div class="card-badges">
+              <svg class="card-action-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-title">Modern Converter</h3>
+            <p class="tool-desc">Batch transform old JPG/PNG formats into modern next-gen WebP & AVIF.</p>
+          </div>
+          <div class="tool-card-footer">
+            <span class="format-tag">WEBP · AVIF · PNG</span>
+            <svg class="list-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+
+        <!-- Tool 7: AI Super Resolution -->
+        <a href="#" class="tool-card theme-purple" data-category="ai">
+          <div class="tool-card-top">
+            <div class="tool-icon-wrapper">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <div class="card-badges">
+              <span class="tool-badge badge-ai">Neural 4X</span>
+              <svg class="card-action-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-title">AI Super Resolution</h3>
+            <p class="tool-desc">Enlarge low-res photos up to 400% without pixelation or loss of details.</p>
+          </div>
+          <div class="tool-card-footer">
+            <span class="format-tag">2X · 4X UPSCALE</span>
+            <svg class="list-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+
+        <!-- Tool 8: Watermark Studio -->
+        <a href="#" class="tool-card theme-teal" data-category="creative">
+          <div class="tool-card-top">
+            <div class="tool-icon-wrapper">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <div class="card-badges">
+              <svg class="card-action-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-title">Watermark Stamper</h3>
+            <p class="tool-desc">Stamp copyright text or logo images across hundreds of photos in 1 second.</p>
+          </div>
+          <div class="tool-card-footer">
+            <span class="format-tag">LOGO · TEXT · TILED</span>
+            <svg class="list-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+
+        <!-- Tool 9: Strip EXIF Data -->
+        <a href="#" class="tool-card theme-rose" data-category="privacy">
+          <div class="tool-card-top">
+            <div class="tool-icon-wrapper">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-2h2zm0-4h-2V7h2z"></path>
+              </svg>
+            </div>
+            <div class="card-badges">
+              <svg class="card-action-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-title">Strip EXIF Metadata</h3>
+            <p class="tool-desc">Erase GPS coordinates, camera models, and timestamp metadata before sharing.</p>
+          </div>
+          <div class="tool-card-footer">
+            <span class="format-tag">GPS · CAMERA · CLEAN</span>
+            <svg class="list-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Bento Architecture Showcase -->
+    <section class="bento-showcase" id="privacy">
+      <div class="showcase-header">
+        <div class="showcase-badge">The Client-Side Advantage</div>
+        <h2 class="showcase-title">Engineered for speed. Built for private eyes.</h2>
+        <p class="showcase-desc">
+          Confidential images never upload to remote cloud servers. Everything processes in your device RAM.
+        </p>
+      </div>
+
+      <div class="bento-grid">
+        <div class="bento-card bento-card-primary">
+          <div class="bento-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+              <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+              <line x1="6" y1="6" x2="6.01" y2="6"></line>
+              <line x1="6" y1="18" x2="6.01" y2="18"></line>
+            </svg>
+          </div>
+          <h3 class="bento-title">Zero Server Storage</h3>
+          <p class="bento-desc">
+            Images process inside WebAssembly memory buffers. Your data never touches an external server.
+          </p>
+          <div class="comparison-strip">
+            <div class="comp-row">
+              <span class="comp-label">⚡ Local RAM Latency</span>
+              <span class="comp-val-fast">0.02s</span>
+            </div>
+            <div class="comp-row">
+              <span class="comp-label">☁️ Cloud Uploads</span>
+              <span class="comp-val-slow">8.4s</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bento-card" id="features">
+          <div class="bento-icon bento-icon-light">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </div>
+          <h3 class="bento-title">Parallel Web Workers</h3>
+          <p class="bento-desc">
+            Multi-threaded processing distributes workload across your device's CPU cores for instant batch outputs.
+          </p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-icon bento-icon-light">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <circle cx="8.5" cy="8.5" r="1.5"></circle>
+              <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+          </div>
+          <h3 class="bento-title">Next-Gen Codecs</h3>
+          <p class="bento-desc">
+            Compiled C++ LibWebP and LibAVIF encoders yield 30-50% smaller sizes than standard browser export APIs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h4>ImageCraft</h4>
+          <p>The private, high-performance web utility suite. Zero telemetry, 100% on-device processing.</p>
+          <div style="display:flex; gap:0.5rem; align-items:center;">
+            <span style="display:inline-block; width:8px; height:8px; background:#22C55E; border-radius:50%;"></span>
+            <span style="font-size:0.75rem; color:#94A3B8; font-weight:600;">100% In-Browser Engine</span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Popular Utilities</h5>
+          <ul>
+            <li><a href="#">Compress Image</a></li>
+            <li><a href="#">Resize Dimensions</a></li>
+            <li><a href="#">Remove Background</a></li>
+            <li><a href="#">Convert to WebP</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Security & Privacy</h5>
+          <ul>
+            <li><a href="#">Privacy Guarantee</a></li>
+            <li><a href="#">Architecture Whitepaper</a></li>
+            <li><a href="#">Offline PWA Mode</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 ImageCraft. All rights reserved.</div>
+        <div>Zero cloud uploads · 100% private</div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Device Mode Switcher (for interactive desktop testing)
+    function setDeviceMode(mode, btn) {
+      document.querySelectorAll('.device-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const wrapper = document.getElementById('viewportWrapper');
+      const grid = document.getElementById('toolsGrid');
+      const btnList = document.getElementById('btnModeList');
+      const btnGrid = document.getElementById('btnModeGrid');
+
+      if (mode === 'mobile') {
+        wrapper.classList.add('mode-mobile');
+        // On mobile, default to ergonomic list mode
+        setLayoutMode('list', btnList);
+      } else {
+        wrapper.classList.remove('mode-mobile');
+        // On desktop, default to 4-column card grid
+        setLayoutMode('grid', btnGrid);
+      }
+    }
+
+    // View Mode Toggle (List vs Grid)
+    function setLayoutMode(mode, btn) {
+      document.querySelectorAll('.view-mode-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const grid = document.getElementById('toolsGrid');
+      if (mode === 'list') {
+        grid.classList.add('layout-list');
+        grid.classList.remove('layout-grid-forced');
+      } else {
+        grid.classList.remove('layout-list');
+        grid.classList.add('layout-grid-forced');
+      }
+    }
+
+    // Category Filter
+    function filterCategory(cat, btn) {
+      document.querySelectorAll('.category-pill').forEach(el => el.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.tool-card');
+      cards.forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-category') === cat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Search Tools
+    function searchTools(query) {
+      const term = query.toLowerCase().trim();
+      const cards = document.querySelectorAll('.tool-card');
+      cards.forEach(card => {
+        const title = card.querySelector('.tool-title').innerText.toLowerCase();
+        const desc = card.querySelector('.tool-desc').innerText.toLowerCase();
+        if (title.includes(term) || desc.includes(term)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -472,9 +472,15 @@ export const Layout = () => {
               </svg>
             </div>
             <span className="text-lg font-black tracking-tight text-slate-900 dark:text-slate-100 group-hover:text-indigo-650 transition-colors">
-              Image<span className="text-indigo-600">Plumber</span>
+              Image<span className="text-indigo-600">Craft</span>
             </span>
           </Link>
+
+          {/* Live In-RAM Status Badge */}
+          <div className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800/60 text-[10px] font-extrabold text-emerald-700 dark:text-emerald-300 shadow-2xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Zero Server Uploads · 100% Local</span>
+          </div>
  
           {/* Desktop Menu */}
           <nav className="hidden md:flex items-center gap-6">
