@@ -207,11 +207,16 @@ schema={compressorSchema}
         
         {/* Header */}
         <div className="text-center mb-8">
-          <span className="text-xs font-bold text-indigo-650 uppercase tracking-widest px-2.5 py-1 bg-indigo-50 border border-indigo-100 rounded-full shadow-sm">
-            Compression Tool
-          </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-2">{pageTitle || 'Image Compressor'}</h1>
-          <p className="text-sm text-slate-500 mb-4">{pageSubtitle || 'Reduce file size using modern browser compression algorithms. No files leave your device.'}</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/80 dark:border-emerald-800 rounded-full text-xs font-bold text-emerald-700 dark:text-emerald-300 shadow-xs mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>100% In-RAM Local • Zero Cloud Uploads</span>
+          </div>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-50 mt-1 mb-2 tracking-tight">
+            {pageTitle || 'Smart Image Compressor'}
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium max-w-xl mx-auto mb-4 leading-relaxed">
+            {pageSubtitle || 'Reduce file size up to 90% in local memory using multi-threaded WebAssembly. Your photos never leave your device.'}
+          </p>
           
           {/* Quick Target Size & Format Presets Bar */}
           <div className="flex flex-wrap items-center justify-center gap-1.5 max-w-2xl mx-auto">
@@ -227,7 +232,7 @@ schema={compressorSchema}
               <Link
                 key={p.path}
                 to={p.path}
-                className="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-slate-100/80 hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 border border-slate-200/60 hover:border-indigo-200 transition-all cursor-pointer shadow-2xs"
+                className="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-slate-100/80 dark:bg-slate-800/80 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 border border-slate-200/60 dark:border-slate-700 transition-all cursor-pointer shadow-2xs"
               >
                 {p.label}
               </Link>
@@ -265,8 +270,8 @@ schema={compressorSchema}
             
             {/* Left controls column — sticky on desktop */}
             <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start order-2 lg:order-1">
-              <div className="glass-card p-6 rounded-3xl space-y-6">
-                                <h2 className="font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-3 flex items-center gap-2">
+              <div className="crisp-tool-card p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm space-y-6">
+                <h2 className="font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-3 flex items-center gap-2">
                   <Sparkles className="w-4.5 h-4.5 text-indigo-500" />
                   Compression Options
                 </h2>
@@ -410,7 +415,7 @@ schema={compressorSchema}
                   <button
                     onClick={handleDownload}
                     disabled={isProcessing || !compressedUrl}
-                    className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-650 hover:from-indigo-550 hover:to-purple-550 disabled:opacity-50 text-[11px] font-bold uppercase tracking-wider text-white rounded-xl shadow-md active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-[12px] font-bold uppercase tracking-wider text-white rounded-xl shadow-sm hover:shadow-md active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
                     {isProcessing ? (
                       <RefreshCw className="w-4 h-4 animate-spin" />
@@ -422,7 +427,7 @@ schema={compressorSchema}
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-3 bg-white dark:bg-slate-800 hover:bg-slate-50/50 dark:hover:bg-slate-750 text-[11px] font-bold uppercase tracking-wider text-slate-650 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 border border-slate-200/60 dark:border-slate-700 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-98"
+                    className="w-full py-3 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-2xs active:scale-98"
                   >
                     <RefreshCw className="w-4 h-4" />
                     Upload New Image
@@ -436,7 +441,7 @@ schema={compressorSchema}
             <div className="lg:col-span-8 space-y-4 order-1 lg:order-2">
               
               {/* Header inside preview */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 glass-card rounded-2xl px-4 py-3 shadow-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 crisp-tool-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3 shadow-2xs">
                 <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
                   Interactive Preview Slider (Before / After)
                 </span>

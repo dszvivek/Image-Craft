@@ -461,23 +461,23 @@ export const BackgroundRemover: React.FC = () => {
       <div className="max-w-5xl mx-auto">
         
         {/* Header */}
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 dark:bg-purple-950/60 border border-purple-200/80 dark:border-purple-800 text-purple-700 dark:text-purple-300 text-xs font-bold shadow-xs">
-            <Cpu className="w-3.5 h-3.5" />
-            <span>AI Neural Engine • 🔒 100% Client-Side Private</span>
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-violet-50 dark:bg-violet-950/60 border border-violet-200/80 dark:border-violet-800 rounded-full text-xs font-bold text-violet-700 dark:text-violet-300 shadow-xs mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
+            <span>100% In-RAM Local • On-Device Neural Vision</span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-3 mb-2 tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-50 mt-1 mb-2 tracking-tight">
             AI Background Remover & Studio
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium max-w-xl mx-auto mb-4 leading-relaxed">
             Extract portraits and products with deep neural edge segmentation. Replace with studio colors, portrait blur, or transparent PNG.
           </p>
 
           {/* AI Engine Model Mode Selector */}
-          <div className="mt-4 inline-flex items-center p-1 rounded-2xl bg-slate-100 dark:bg-slate-850 border border-slate-200/80 dark:border-slate-800 shadow-xs">
+          <div className="inline-flex items-center p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xs">
             <button
               onClick={() => handleSelectEngine('fast')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
                 aiEngine === 'fast'
                   ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs ring-1 ring-slate-200/80 dark:ring-slate-600'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -491,7 +491,7 @@ export const BackgroundRemover: React.FC = () => {
             </button>
             <button
               onClick={() => handleSelectEngine('studio')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
                 aiEngine === 'studio'
                   ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs ring-1 ring-slate-200/80 dark:ring-slate-600'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -517,7 +517,7 @@ export const BackgroundRemover: React.FC = () => {
               </div>
 
               <div className="md:col-span-5 flex">
-                <div className="premium-bento rounded-3xl p-6 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 flex flex-col justify-between w-full shadow-sm hover:border-purple-300 dark:hover:border-purple-700 transition-all duration-300">
+                <div className="crisp-tool-card rounded-2xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col justify-between w-full shadow-sm hover:border-violet-300 dark:hover:border-violet-700 transition-all duration-300">
                   <div className="space-y-4">
                     <div className="text-[10px] font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/50 border border-purple-100 dark:border-purple-900 px-2 py-0.5 rounded uppercase tracking-wider inline-block">
                       Demo Preview
@@ -541,7 +541,7 @@ export const BackgroundRemover: React.FC = () => {
 
         {/* State: Loading / Processing */}
         {(loadingState === 'loading-model' || loadingState === 'processing-image') && (
-          <div className="premium-bento p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 flex flex-col items-center justify-center gap-6 shadow-xl shadow-slate-200/20 dark:shadow-none">
+          <div className="crisp-tool-card p-10 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center gap-6 shadow-md">
             <div className="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-150/80 dark:border-indigo-800 flex items-center justify-center animate-pulse text-indigo-600 dark:text-indigo-400 shadow-xs">
               {aiEngine === 'fast' ? <Zap className="w-7 h-7 text-amber-500" /> : <Cpu className="w-7 h-7" />}
             </div>
@@ -566,7 +566,7 @@ export const BackgroundRemover: React.FC = () => {
 
         {/* State: Error */}
         {loadingState === 'error' && (
-          <div className="premium-bento p-8 rounded-3xl bg-white dark:bg-slate-900 border border-red-200 dark:border-red-900/50 text-center flex flex-col items-center gap-4 animate-fade-in shadow-lg">
+          <div className="crisp-tool-card p-8 rounded-2xl bg-white dark:bg-slate-900 border border-red-200 dark:border-red-900/50 text-center flex flex-col items-center gap-4 animate-fade-in shadow-md">
             <div className="w-14 h-14 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-900/50 text-red-500 rounded-2xl flex items-center justify-center">
               <AlertCircle className="w-7 h-7" />
             </div>
@@ -753,7 +753,7 @@ export const BackgroundRemover: React.FC = () => {
             )}
 
             {/* Studio Background Replacement Suite */}
-            <div className="premium-bento p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-5">
+            <div className="crisp-tool-card p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <div className="flex items-center gap-2">
                   <Palette className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
@@ -888,7 +888,7 @@ export const BackgroundRemover: React.FC = () => {
             </div>
 
             {/* Bottom Actions Bar */}
-            <div className="premium-bento p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="crisp-tool-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
               
               {/* Format Selection */}
               <div className="flex items-center gap-2 w-full sm:w-auto">
@@ -938,7 +938,7 @@ export const BackgroundRemover: React.FC = () => {
                 {/* 1-Click Copy to Clipboard */}
                 <button
                   onClick={handleCopyToClipboard}
-                  className="py-3 px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700 rounded-2xl text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-95 min-h-[48px]"
+                  className="py-3 px-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer shadow-2xs active:scale-95 min-h-[48px]"
                   title="Copy cutout image directly to clipboard"
                 >
                   {copied ? (
@@ -951,10 +951,10 @@ export const BackgroundRemover: React.FC = () => {
                 {/* Download Button */}
                 <button
                   onClick={handleDownload}
-                  className={`flex-1 sm:flex-initial px-6 py-3 text-xs font-bold uppercase tracking-wider text-white rounded-2xl shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[48px] ${
+                  className={`flex-1 sm:flex-initial px-6 py-3 text-xs font-bold uppercase tracking-wider text-white rounded-xl shadow-sm hover:shadow-md active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[48px] ${
                     downloaded
-                      ? 'bg-emerald-500 shadow-emerald-500/20'
-                      : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 shadow-indigo-500/25'
+                      ? 'bg-emerald-600 shadow-emerald-600/20'
+                      : 'bg-indigo-600 hover:bg-indigo-700'
                   }`}
                 >
                   {downloaded ? (
