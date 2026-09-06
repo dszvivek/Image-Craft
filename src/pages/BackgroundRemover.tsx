@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { 
   Cpu, Download, RefreshCw, AlertTriangle, AlertCircle, Check, Scissors, 
   Copy, ArrowLeftRight, Columns, Palette, Sparkles, SlidersHorizontal, 
-  ChevronDown, ChevronUp 
+  ChevronDown, ChevronUp, Zap, Wand2 
 } from 'lucide-react';
 import { DropZone } from '../components/DropZone';
 import { ProgressBar } from '../components/ProgressBar';
@@ -16,6 +16,7 @@ interface WorkerProgress {
   file?: string;
   loaded?: number;
   total?: number;
+  engine?: string;
   mask?: {
     width: number;
     height: number;
@@ -24,6 +25,7 @@ interface WorkerProgress {
   error?: string;
 }
 
+type AIEngine = 'fast' | 'studio';
 type BgMode = 'transparent' | 'color' | 'blur';
 type ViewMode = 'split' | 'side-by-side';
 type ExportFormat = 'png' | 'jpeg' | 'webp';
@@ -49,6 +51,12 @@ export const BackgroundRemover: React.FC = () => {
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [downloaded, setDownloaded] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  // Engine selection: 'fast' (MODNet ~6.6MB, 1-2s instant start) vs 'studio' (RMBG-1.4 quantized ~44MB)
+  const [aiEngine, setAiEngine] = useState<AIEngine>(() => {
+    const saved = localStorage.getItem('imageplumber_bg_engine');
+    return saved === 'studio' ? 'studio' : 'fast';
+  });
 
   // Studio customization states
   const [bgMode, setBgMode] = useState<BgMode>('transparent');
@@ -77,14 +85,20 @@ export const BackgroundRemover: React.FC = () => {
       const url = URL.createObjectURL(file);
       setOriginalUrl(url);
       setProcessedUrl('');
-      processImage(file);
+      processImage(file, aiEngine);
     }
   };
 
-  const processImage = async (file: File) => {
+  const handleSelectEngine = (engine: AIEngine) => {
+    setAiEngine(engine);
+    localStorage.setItem('imageplumber_bg_engine', engine);
+  };
+
+  const processImage = async (file: File, engineToUse: AIEngine) => {
     setLoadingState('loading-model');
     setProgress(0);
-    setStatusMessage('Initializing Local AI model...');
+    const engineLabel = engineToUse === 'fast' ? 'Turbo Engine (6.6MB)' : 'Studio HD Engine (44MB)';
+    setStatusMessage(`Connecting to ${engineLabel}...`);
 
     if (workerRef.current) {
       workerRef.current.terminate();
@@ -102,16 +116,23 @@ export const BackgroundRemover: React.FC = () => {
         const percent = data.progress ? Math.round(data.progress) : 0;
         setProgress(percent);
         setLoadingState('loading-model');
-        const fileDesc = data.file || '';
-        if (fileDesc.includes('.onnx') || fileDesc.includes('model')) {
-          setStatusMessage(`Downloading AI weights: ${percent}%`);
+
+        if (data.loaded && data.total) {
+          const mbLoaded = (data.loaded / (1024 * 1024)).toFixed(1);
+          const mbTotal = (data.total / (1024 * 1024)).toFixed(1);
+          setStatusMessage(`Downloading AI weights: ${mbLoaded}MB / ${mbTotal}MB (${percent}%)`);
         } else {
-          setStatusMessage('Accessing local neural network cache...');
+          const fileDesc = data.file || '';
+          if (fileDesc.includes('.onnx') || fileDesc.includes('model')) {
+            setStatusMessage(`Downloading AI weights: ${percent}%`);
+          } else {
+            setStatusMessage('Accessing local neural network cache...');
+          }
         }
       } else if (data.status === 'processing') {
         setLoadingState('processing-image');
-        setProgress(50);
-        setStatusMessage('AI neural network is segmenting foreground pixels...');
+        setProgress(65);
+        setStatusMessage('Segmenting foreground pixels on your device...');
       } else if (data.status === 'complete' && data.mask) {
         setStatusMessage('Compositing studio cutout...');
         setProgress(95);
@@ -126,7 +147,7 @@ export const BackgroundRemover: React.FC = () => {
     try {
       // Transfer binary ArrayBuffer to worker for zero-copy memory performance
       const buffer = await file.arrayBuffer();
-      workerRef.current.postMessage({ buffer, mimeType: file.type }, [buffer]);
+      workerRef.current.postMessage({ buffer, mimeType: file.type, engine: engineToUse }, [buffer]);
     } catch (err: any) {
       setLoadingState('error');
       setErrorMsg('Failed to read image file into memory.');
@@ -278,6 +299,14 @@ export const BackgroundRemover: React.FC = () => {
     handleSettingsChange(bgMode, bgColor, edgeFeather, format);
   };
 
+  // Re-run with the other engine on the same image
+  const handleSwitchEngineAndReprocess = (newEngine: AIEngine) => {
+    handleSelectEngine(newEngine);
+    if (originalFile) {
+      processImage(originalFile, newEngine);
+    }
+  };
+
   // Sample image generator for zero-friction testing
   const handleLoadSample = (sampleType: 'portrait' | 'product' | 'pet') => {
     const canvas = document.createElement('canvas');
@@ -287,7 +316,6 @@ export const BackgroundRemover: React.FC = () => {
     if (!ctx) return;
 
     if (sampleType === 'portrait') {
-      // Warm outdoor background
       const grad = ctx.createLinearGradient(0, 0, 800, 800);
       grad.addColorStop(0, '#fde047');
       grad.addColorStop(0.5, '#60a5fa');
@@ -295,7 +323,6 @@ export const BackgroundRemover: React.FC = () => {
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 800, 800);
 
-      // Stylized silhouette subject
       ctx.fillStyle = '#1e293b';
       ctx.beginPath();
       ctx.ellipse(400, 680, 240, 160, 0, 0, Math.PI * 2);
@@ -309,7 +336,6 @@ export const BackgroundRemover: React.FC = () => {
       ctx.ellipse(400, 410, 110, 135, 0, 0, Math.PI * 2);
       ctx.fill();
 
-      // Hair
       ctx.fillStyle = '#451a03';
       ctx.beginPath();
       ctx.ellipse(400, 340, 130, 90, 0, 0, Math.PI * 2);
@@ -317,20 +343,17 @@ export const BackgroundRemover: React.FC = () => {
       ctx.fillRect(270, 340, 45, 140);
       ctx.fillRect(485, 340, 45, 140);
 
-      // Eyewear
       ctx.fillStyle = '#0f172a';
       ctx.fillRect(320, 395, 60, 14);
       ctx.fillRect(420, 395, 60, 14);
       ctx.fillRect(375, 400, 50, 4);
 
-      // Smile
       ctx.beginPath();
       ctx.arc(400, 460, 35, 0.1 * Math.PI, 0.9 * Math.PI, false);
       ctx.lineWidth = 6;
       ctx.strokeStyle = '#be185d';
       ctx.stroke();
     } else if (sampleType === 'product') {
-      // Clean studio floor background
       const grad = ctx.createLinearGradient(0, 0, 0, 800);
       grad.addColorStop(0, '#94a3b8');
       grad.addColorStop(0.7, '#cbd5e1');
@@ -338,18 +361,15 @@ export const BackgroundRemover: React.FC = () => {
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 800, 800);
 
-      // Modern sneaker subject
       ctx.save();
       ctx.translate(400, 420);
       ctx.rotate(-0.1);
 
-      // Sole
       ctx.fillStyle = '#ffffff';
       ctx.beginPath();
       ctx.roundRect(-220, 80, 440, 45, 15);
       ctx.fill();
 
-      // Upper
       ctx.fillStyle = '#ec4899';
       ctx.beginPath();
       ctx.moveTo(-200, 80);
@@ -361,14 +381,12 @@ export const BackgroundRemover: React.FC = () => {
       ctx.closePath();
       ctx.fill();
 
-      // Swoosh accent
       ctx.fillStyle = '#38bdf8';
       ctx.beginPath();
       ctx.ellipse(-10, 20, 80, 22, -0.2, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     } else {
-      // Pet silhouette on garden background
       const grad = ctx.createLinearGradient(0, 0, 800, 800);
       grad.addColorStop(0, '#86efac');
       grad.addColorStop(1, '#22c55e');
@@ -376,29 +394,24 @@ export const BackgroundRemover: React.FC = () => {
       ctx.fillRect(0, 0, 800, 800);
 
       ctx.fillStyle = '#1e1b4b';
-      // Body
       ctx.beginPath();
       ctx.ellipse(400, 520, 140, 190, 0, 0, Math.PI * 2);
       ctx.fill();
-      // Head
       ctx.beginPath();
       ctx.ellipse(400, 330, 100, 90, 0, 0, Math.PI * 2);
       ctx.fill();
-      // Left ear
       ctx.beginPath();
       ctx.moveTo(320, 290);
       ctx.lineTo(340, 190);
       ctx.lineTo(390, 260);
       ctx.closePath();
       ctx.fill();
-      // Right ear
       ctx.beginPath();
       ctx.moveTo(480, 290);
       ctx.lineTo(460, 190);
       ctx.lineTo(410, 260);
       ctx.closePath();
       ctx.fill();
-      // Eyes
       ctx.fillStyle = '#facc15';
       ctx.beginPath();
       ctx.ellipse(360, 330, 16, 24, 0, 0, Math.PI * 2);
@@ -525,7 +538,6 @@ export const BackgroundRemover: React.FC = () => {
     setProgress(0);
   };
 
-  // Cleanup Object URLs on unmount
   useEffect(() => {
     return () => {
       if (workerRef.current) workerRef.current.terminate();
@@ -537,7 +549,7 @@ export const BackgroundRemover: React.FC = () => {
   const bgSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    'name': 'AI Background Remover - ImagePlumber',
+    'name': 'AI Background Remover & Studio - ImagePlumber',
     'applicationCategory': 'MultimediaApplication',
     'operatingSystem': 'Web Browser',
     'offers': {
@@ -545,12 +557,13 @@ export const BackgroundRemover: React.FC = () => {
       'price': '0',
       'priceCurrency': 'USD'
     },
-    'description': 'Remove image backgrounds automatically using on-device AI. 100% offline — no files are uploaded to any server. Powered by the RMBG-1.4 neural network running entirely in your browser.',
+    'description': 'Remove and replace image backgrounds instantly using lightweight on-device AI. 100% offline — zero server uploads. Powered by MODNet & RMBG neural networks directly in client WebAssembly.',
     'featureList': [
-      'Automatic edge segmentation',
-      'Local neural network inference (RMBG-1.4)',
-      'High-quality transparent PNG download',
+      'Turbo Fast Engine (6.6MB, instant 1-2s start)',
+      'Studio HD Engine (44MB quantized)',
+      'Automatic edge segmentation & hair matting',
       'Studio background replacement (White, Passport Colors, Blur)',
+      'High-resolution transparent PNG & clipboard copy',
       'Zero-copy GPU canvas compositing'
     ]
   };
@@ -567,7 +580,7 @@ export const BackgroundRemover: React.FC = () => {
       <div className="max-w-5xl mx-auto">
         
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 dark:bg-purple-950/60 border border-purple-200/80 dark:border-purple-800 text-purple-700 dark:text-purple-300 text-xs font-bold shadow-xs">
             <Cpu className="w-3.5 h-3.5" />
             <span>AI Neural Engine • 🔒 100% Client-Side Private</span>
@@ -575,9 +588,38 @@ export const BackgroundRemover: React.FC = () => {
           <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-3 mb-2 tracking-tight">
             AI Background Remover & Studio
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
-            Extract portraits and products with deep neural edge segmentation. Replace with studio colors, blur, or transparent PNG.
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium max-w-xl mx-auto">
+            Extract portraits and products with deep neural edge segmentation. Replace with studio colors, portrait blur, or transparent PNG.
           </p>
+
+          {/* AI Engine Model Mode Selector */}
+          <div className="mt-4 inline-flex items-center p-1 rounded-2xl bg-slate-100 dark:bg-slate-850 border border-slate-200/80 dark:border-slate-800 shadow-xs">
+            <button
+              onClick={() => handleSelectEngine('fast')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                aiEngine === 'fast'
+                  ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs ring-1 ring-slate-200/80 dark:ring-slate-600'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <Zap className="w-3.5 h-3.5 text-amber-500" />
+              <span>Turbo Fast (6.6MB • 1-2s Start)</span>
+              <span className="text-[10px] px-1.5 py-0.2 bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 rounded-md font-extrabold">
+                Recommended
+              </span>
+            </button>
+            <button
+              onClick={() => handleSelectEngine('studio')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                aiEngine === 'studio'
+                  ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs ring-1 ring-slate-200/80 dark:ring-slate-600'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <Wand2 className="w-3.5 h-3.5 text-purple-500" />
+              <span>Studio HD (44MB • Fine Hair)</span>
+            </button>
+          </div>
         </div>
 
         {/* State: Idle / DropZone */}
@@ -588,7 +630,7 @@ export const BackgroundRemover: React.FC = () => {
                 <DropZone 
                   onFilesSelected={handleFilesSelected}
                   title="Drop image to remove background"
-                  subtitle="Supports JPG, PNG, WebP up to 25MB • Full native resolution retained"
+                  subtitle={`Running on ${aiEngine === 'fast' ? '⚡ Turbo Fast Engine (6.6MB)' : '🪄 Studio HD Engine (44MB)'} • Native resolution retained`}
                   icon={Scissors}
                 />
 
@@ -631,7 +673,7 @@ export const BackgroundRemover: React.FC = () => {
                       How AI Background Remover Works
                     </h2>
                     <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-                      Our local AI segments your images directly in your browser's hardware. Extract people, products, and pets with fine edge retention and zero uploads.
+                      Our on-device AI segments your images directly in your browser's hardware using client-side WebAssembly. No server uploads.
                     </p>
                   </div>
                   <DemoPreview
@@ -648,12 +690,12 @@ export const BackgroundRemover: React.FC = () => {
         {(loadingState === 'loading-model' || loadingState === 'processing-image') && (
           <div className="premium-bento p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 flex flex-col items-center justify-center gap-6 shadow-xl shadow-slate-200/20 dark:shadow-none">
             <div className="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-150/80 dark:border-indigo-800 flex items-center justify-center animate-pulse text-indigo-600 dark:text-indigo-400 shadow-xs">
-              <Cpu className="w-7 h-7" />
+              {aiEngine === 'fast' ? <Zap className="w-7 h-7 text-amber-500" /> : <Cpu className="w-7 h-7" />}
             </div>
             
             <ProgressBar 
               progress={progress}
-              label={loadingState === 'loading-model' ? 'AI Neural Engine' : 'Segmentation in Progress'}
+              label={loadingState === 'loading-model' ? (aiEngine === 'fast' ? 'Loading Turbo AI Engine (6.6MB)' : 'Loading Studio HD AI Engine (44MB)') : 'Segmenting Foreground Pixels'}
               subLabel={statusMessage}
               onCancel={handleCancel}
             />
@@ -661,7 +703,9 @@ export const BackgroundRemover: React.FC = () => {
             <div className="p-4 bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 rounded-2xl max-w-md flex items-start gap-3 text-[11px] text-slate-500 dark:text-slate-400 mt-2 font-medium">
               <AlertTriangle className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0 mt-0.5" />
               <span>
-                Studio-grade neural network weights (~170MB RMBG-1.4) are cached directly in your browser's IndexedDB. After first initialization, all subsequent processing works 100% offline.
+                {aiEngine === 'fast' 
+                  ? '⚡ Turbo Fast Engine uses a lightweight 6.6MB model that downloads in 1–2 seconds and caches locally in your browser for offline use.'
+                  : '🪄 Studio HD Engine uses a quantized 44MB RMBG-1.4 model for fine hair strands and complex semitransparent boundaries.'}
               </span>
             </div>
           </div>
@@ -677,13 +721,24 @@ export const BackgroundRemover: React.FC = () => {
               <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-1">Processing Encountered an Issue</h3>
               <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-md">{errorMsg}</p>
             </div>
-            <button
-              onClick={handleReset}
-              className="px-6 py-2.5 bg-white dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-red-950/40 border border-red-200/80 dark:border-red-900 text-xs font-bold text-red-600 dark:text-red-400 rounded-xl transition cursor-pointer shadow-xs flex items-center gap-2 active:scale-95"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-              Try Again
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleReset}
+                className="px-5 py-2.5 bg-white dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-red-950/40 border border-red-200/80 dark:border-red-900 text-xs font-bold text-red-600 dark:text-red-400 rounded-xl transition cursor-pointer shadow-xs flex items-center gap-2 active:scale-95"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                Try Again
+              </button>
+              {aiEngine === 'studio' && (
+                <button
+                  onClick={() => handleSwitchEngineAndReprocess('fast')}
+                  className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white rounded-xl transition cursor-pointer shadow-xs flex items-center gap-2 active:scale-95"
+                >
+                  <Zap className="w-3.5 h-3.5" />
+                  Try Turbo Engine (6.6MB)
+                </button>
+              )}
+            </div>
           </div>
         )}
 
@@ -691,34 +746,59 @@ export const BackgroundRemover: React.FC = () => {
         {loadingState === 'completed' && (
           <div className="space-y-6 animate-fade-in">
             
-            {/* Top Toolbar: View Mode Toggle & Quick Reset */}
+            {/* Top Toolbar: View Mode Toggle, Engine Switcher, & Quick Reset */}
             <div className="flex items-center justify-between flex-wrap gap-3 pb-2 border-b border-slate-200/60 dark:border-slate-800">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                  Inspection View:
-                </span>
-                <div className="inline-flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1 border border-slate-200/60 dark:border-slate-700">
+              <div className="flex items-center gap-3 flex-wrap">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    View:
+                  </span>
+                  <div className="inline-flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1 border border-slate-200/60 dark:border-slate-700">
+                    <button
+                      onClick={() => setViewMode('split')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                        viewMode === 'split'
+                          ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs'
+                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                      }`}
+                    >
+                      <ArrowLeftRight className="w-3.5 h-3.5" />
+                      Split Compare
+                    </button>
+                    <button
+                      onClick={() => setViewMode('side-by-side')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                        viewMode === 'side-by-side'
+                          ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs'
+                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                      }`}
+                    >
+                      <Columns className="w-3.5 h-3.5" />
+                      Side-by-Side
+                    </button>
+                  </div>
+                </div>
+
+                {/* Switch Engine Pill on Result Screen */}
+                <div className="flex items-center gap-1 text-xs">
+                  <span className="text-slate-400 dark:text-slate-500">•</span>
+                  <span className="text-slate-500 dark:text-slate-400 font-medium">Engine:</span>
                   <button
-                    onClick={() => setViewMode('split')}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
-                      viewMode === 'split'
-                        ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs'
-                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                    }`}
+                    onClick={() => handleSwitchEngineAndReprocess(aiEngine === 'fast' ? 'studio' : 'fast')}
+                    className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 hover:text-indigo-600 dark:hover:text-indigo-400 font-bold text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 flex items-center gap-1 cursor-pointer transition"
+                    title="Re-run cutout using the alternative AI model"
                   >
-                    <ArrowLeftRight className="w-3.5 h-3.5" />
-                    Split Compare
-                  </button>
-                  <button
-                    onClick={() => setViewMode('side-by-side')}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
-                      viewMode === 'side-by-side'
-                        ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs'
-                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                    }`}
-                  >
-                    <Columns className="w-3.5 h-3.5" />
-                    Side-by-Side
+                    {aiEngine === 'fast' ? (
+                      <>
+                        <Zap className="w-3 h-3 text-amber-500" />
+                        <span>Turbo (6.6MB) → Switch to Studio HD</span>
+                      </>
+                    ) : (
+                      <>
+                        <Wand2 className="w-3 h-3 text-purple-500" />
+                        <span>Studio HD → Switch to Turbo (6.6MB)</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
@@ -957,7 +1037,7 @@ export const BackgroundRemover: React.FC = () => {
             {/* Bottom Actions Bar */}
             <div className="premium-bento p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
               
-              {/* Format Selection (Enabled for non-transparent backgrounds) */}
+              {/* Format Selection */}
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
                   Export:
@@ -1072,16 +1152,16 @@ export const BackgroundRemover: React.FC = () => {
             introText="Extract subjects from your images instantly with our offline AI background eraser. Our advanced deep-learning model executes inside your browser, guaranteeing files never leave your device."
             competitorComparison={{
               alternatives: ['remove.bg', 'Canva Background Remover', 'Adobe Express'],
-              benefit: 'Traditional background removers upload your images to cloud servers, often charging subscription fees or watermarking low-res files. ImagePlumber runs the RMBG-1.4 neural network completely locally on your hardware. It is 100% free, preserves high-resolution quality, and never uploads a single pixel.'
+              benefit: 'Traditional background removers upload your images to cloud servers, often charging subscription fees or watermarking low-res files. ImagePlumber runs local neural networks completely locally on your hardware. It is 100% free, preserves high-resolution quality, and never uploads a single pixel.'
             }}
             steps={[
               {
-                title: 'Upload Image or Sample',
-                description: 'Select a portrait, product photo, or animal by dropping it in or clicking one of our instant sample presets.'
+                title: 'Select Engine & Upload Image',
+                description: 'Pick Turbo Fast (6.6MB, recommended for instant 1-2s start) or Studio HD (44MB for fine hair), then upload your photo or click a test preset.'
               },
               {
                 title: 'Automatic AI Segmentation',
-                description: 'The browser worker executes the neural network directly on your hardware to segment your subject with fine hair and edge isolation.'
+                description: 'The browser worker executes the neural network directly on your hardware to segment your subject with clean edge isolation.'
               },
               {
                 title: 'Studio Customization & Download',
@@ -1089,7 +1169,8 @@ export const BackgroundRemover: React.FC = () => {
               }
             ]}
             features={[
-              'On-device AI inference powered by the state-of-the-art RMBG-1.4 model.',
+              'Turbo Fast Engine (6.6MB, instant 1-2s start on any connection).',
+              'Studio HD Engine (44MB quantized RMBG-1.4 for ultra-fine hair).',
               'Studio Background Suite: Transparent PNG, solid colors (Amazon White, Passport Blue), or Portrait Depth Blur.',
               'Interactive Before/After split inspection slider to examine edge accuracy.',
               'Zero-copy memory pipeline with WebAssembly and GPU canvas compositing.',
@@ -1098,8 +1179,8 @@ export const BackgroundRemover: React.FC = () => {
             ]}
             faq={[
               {
-                q: 'Why does the first run take longer?',
-                a: 'The tool downloads the neural network weights (~170MB RMBG-1.4) from Hugging Face CDN directly into your browser IndexedDB cache. Once downloaded, all subsequent runs launch instantly and operate 100% offline.'
+                q: 'Which engine should I use: Turbo Fast vs Studio HD?',
+                a: 'Turbo Fast (MODNet) is 26x smaller (~6.6MB) and starts in 1–2 seconds, making it ideal for portraits, selfies, products, pets, and everyday photos. Studio HD (RMBG-1.4 ~44MB) is optimized for ultra-fine flyaway hair and semitransparent fabrics.'
               },
               {
                 q: 'Can I replace the background with Amazon White or Passport Blue?',
