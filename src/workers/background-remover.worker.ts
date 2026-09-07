@@ -4,8 +4,16 @@ import { pipeline, env, AutoConfig, RawImage } from '@huggingface/transformers';
 env.allowLocalModels = false;
 
 // Set WASM paths if needed, or rely on Hugging Face CDN defaults
+// Safe multi-threading detection: enable multi-threading if crossOriginIsolated & SharedArrayBuffer are available
 if (env.backends?.onnx?.wasm) {
-  env.backends.onnx.wasm.numThreads = 1;
+  const isIsolated = typeof crossOriginIsolated !== 'undefined' && crossOriginIsolated;
+  const hasSharedArrayBuffer = typeof SharedArrayBuffer !== 'undefined';
+  if (isIsolated && hasSharedArrayBuffer) {
+    const cores = navigator.hardwareConcurrency || 2;
+    env.backends.onnx.wasm.numThreads = Math.min(4, Math.max(1, cores - 1));
+  } else {
+    env.backends.onnx.wasm.numThreads = 1;
+  }
 }
 
 let currentEngine: 'fast' | 'studio' | null = null;
